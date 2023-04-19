@@ -1,0 +1,26 @@
+<header>
+  <div class="right-item-header">
+    <div class="menu-panel">
+      <img class="btn-sidebar" src="assets/img/menu.png" width="24" alt="">
+    </div>
+    <a class="link-view-web" href="/panel/profile">
+     {{ session.getAgencyName() ? 'آژانس' + " " + session.getAgencyName() : '' }}
+    </a>
+  </div>
+  <div class="left-item-header">
+    <div class="account-user">
+      <img src="assets/img/avatar.jpg" alt="" class="img-user">
+      <div class="info-user-account">
+        <small class="welcome-text">خوش آمدید</small>
+        <a class="name-user" routerLink="/panel">
+          {{session.getPhone()}}
+<!--          <i class="icon-down-open"></i>-->
+        </a>
+      </div>
+    </div>
+    <a class="link-exit" (click)="logOut()">
+      <img src="assets/img/Off.svg" width="18" alt="">
+      خروج
+    </a>
+  </div>
+</header>

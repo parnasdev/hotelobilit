@@ -1,0 +1,375 @@
+<div class="parent-sidebar parent-sidebar-desktop">
+  <div class="sidebar">
+    <div class="parnas-title">
+      <div class="w-100 d-flex justify-content-evenly align-items-center">
+        <a href="https://www.snapptrip.com/" class="logo-parnas">
+          <img src="assets/img/snapptrip-logo.svg" width="55" alt="">
+        </a>
+        <a href="https://bilitja.com/" class="logo-parnas">
+          <img src="assets/img/bilitja.webp" width="55" alt="">
+        </a>
+      </div>
+
+      <div class="space-item-sidebar d-flex justify-content-center align-items-center">
+        <img src="assets/img/space-item.png" width="50" alt="">
+      </div>
+      <ul class="ul-parent-list-sidebar">
+        <!-- <li class="li-list">
+          <a class="menu-main" href="/panel">
+            <img src="assets/img/Home.svg" width="20" alt="">
+            داشبورد
+          </a>
+        </li> -->
+        <li class="li-list" *ngIf="session.getRole() !== 'Admin'">
+          <a class="menu-main" href="/panel/profile">
+            <img src="assets/img/Home.svg" width="20" alt="">
+            پروفایل
+          </a>
+        </li>
+        <li class="li-list" *ngIf="checkPermission('Agency')">
+          <a class="menu-main" href="panel/agency">
+            <img src="assets/img/Home.svg" width="20" alt="">
+            اژانس ها
+          </a>
+        </li>
+
+        <li class="li-list" *ngIf="checkPermission('Tour')">
+          <a class="menu-main menu-main-1" data-toggle="collapse" href="#collapseExample1" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/master-tour.svg" width="20" alt="">
+            تور ها
+            <i class="icon-down-open icon-1"></i>
+          </a>
+          <div class="collapse" id="collapseExample1">
+            <ul class="under-menu-ul">
+              <li *ngIf="checkItemPermission('Tour.create')"><a routerLink="/panel/tour/add">اضافه کردن تور</a></li>
+              <li *ngIf="checkItemPermission('Tour.read')"><a routerLink="/panel/tour">لیست تورها</a></li>
+              <!-- <li *ngIf="checkItemPermission('Tour.read')"><a (click)="showMessage()">تورهای ویژه</a></li> -->
+            </ul>
+          </div>
+        </li>
+        <li class="li-list">
+          <a class="menu-main menu-main-5" routerLink="/panel/agencies/reserves">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            رزروها
+          </a>
+
+        </li>
+        <li class="li-list" *ngIf="checkItemPermission('Setting.change')">
+          <a class="menu-main menu-main-7" data-toggle="collapse"  routerLink="/panel/requestReserves" href="#collapseExample14"
+             role="button"
+             aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            درخواست های رزرو
+          </a>
+        </li>
+        <li class="li-list" *ngIf="(checkPermission('Hotel') || checkPermission('City')) && userId !== 106">
+          <a class="menu-main menu-main-2" data-toggle="collapse" href="#collapseExample2" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/Dish.svg" width="20" alt="">
+            هتل و شهر ها
+            <i class="icon-down-open icon-2"></i>
+          </a>
+          <div class="collapse" id="collapseExample2">
+            <ul class="under-menu-ul">
+              <li *ngIf="checkItemPermission('Hotel.create')"><a routerLink="/panel/hotel/add">اضافه کردن هتل</a></li>
+              <li *ngIf="checkItemPermission('Hotel.read')"><a routerLink="/panel/hotel/list">لیست هتل ها</a></li>
+              <!--            <li *ngIf="checkItemPermission('Hotel.read')"><a (click)="showMessage()">هتل های ویژه</a></li>-->
+              <li *ngIf="checkItemPermission('City.read')"><a routerLink="/panel/cities">لیست شهر ها</a></li>
+              <li *ngIf="checkItemPermission('City.create')"><a routerLink="/panel/cities/set">اضافه کردن شهر</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="li-list" *ngIf="checkPermission('RoomType')">
+          <a class="menu-main menu-main-3" data-toggle="collapse" href="#collapseExample12" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/Ticket.svg" width="20" alt="">
+            اتاق ها
+            <i class="icon-down-open icon-3"></i>
+          </a>
+          <div class="collapse" id="collapseExample12">
+            <ul class="under-menu-ul">
+              <li *ngIf="checkItemPermission('RoomType.read')"><a routerLink="/panel/roomType">لیست اتاق ها</a></li>
+              <li *ngIf="checkItemPermission('RoomType.create')"><a routerLink="/panel/roomType/add">اضافه کردن</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="li-list" *ngIf="checkPermission('Transfer') && userId !== 106">
+          <a class="menu-main menu-main-3" data-toggle="collapse" href="#collapseExample3" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/Ticket.svg" width="20" alt="">
+            پرواز ها
+            <i class="icon-down-open icon-3"></i>
+          </a>
+          <div class="collapse" id="collapseExample3">
+            <ul class="under-menu-ul">
+              <li *ngIf="checkItemPermission('Transfer.read')"><a routerLink="/panel/transferRate">لیست مسیر پرواز ها</a></li>
+              <li *ngIf="checkItemPermission('Transfer.create')"><a routerLink="/panel/transferRate/add">اضافه کردن مسیر پرواز</a></li>
+              <li *ngIf="checkItemPermission('Transfer.read')"><a routerLink="/panel/transfer">لیست ایرلاین ها</a></li>
+              <li *ngIf="checkItemPermission('Transfer.create')"><a routerLink="/panel/transfer/add">اضافه کردن ایرلاین</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="li-list" *ngIf="checkPermission('User')">
+          <a class="menu-main menu-main-4" href="/panel/agencies" role="button">
+            <img src="assets/img/Pen.svg" width="20" alt="">
+            آژانس ها
+            <!-- <i class="icon-down-open icon-4"></i> -->
+          </a>
+
+        </li>
+        <li class="li-list" *ngIf="checkPermission('User')">
+          <a class="menu-main menu-main-5" data-toggle="collapse" href="#collapseExample5" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            کاربران
+            <i class="icon-down-open icon-5"></i>
+          </a>
+          <div class="collapse" id="collapseExample5">
+            <ul class="under-menu-ul">
+              <li *ngIf="checkItemPermission('User.read')"><a routerLink="/panel/user/list">لیست کاربران</a></li>
+              <li *ngIf="checkItemPermission('User.create')"><a routerLink="/panel/user/add">اضافه کردن کاربر جدید</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="li-list">
+          <a class="menu-main menu-main-5" role="button" routerLink="/panel/financial">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            مالی
+          </a>
+        </li>
+
+        <li class="li-list" *ngIf="session.getIsManager() && session.getRole() !== 'Admin'">
+          <a class="menu-main menu-main-5" data-toggle="collapse" href="#collapseExample10" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            کارمندان
+            <i class="icon-down-open icon-5"></i>
+          </a>
+          <div class="collapse" id="collapseExample10">
+            <ul class="under-menu-ul">
+              <li><a routerLink="/panel/user-agency/list">لیست کارمندان</a></li>
+              <li><a routerLink="/panel/user-agency/add">اضافه کردن کارمند جدید</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="li-list" *ngIf="checkItemPermission('Setting.change')">
+          <a class="menu-main menu-main-6" data-toggle="collapse" href="#collapseExample6" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            تیکت های کاربران
+            <i class="icon-down-open icon-6"></i>
+          </a>
+          <div class="collapse" id="collapseExample6">
+            <ul class="under-menu-ul">
+              <li><a (click)="showMessage()">لیست تیکت ها</a></li>
+            </ul>
+          </div>
+        </li>
+        <!-- <li class="li-list" *ngIf="checkItemPermission('Setting.change')">
+          <a class="menu-main menu-main-7" data-toggle="collapse"  routerLink="/panel/gallery" href="#collapseExample6"
+             role="button"
+             aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            گالری
+          </a>
+        </li> -->
+        <li class="li-list" *ngIf="checkItemPermission('Setting.change')">
+          <a class="menu-main menu-main-7" data-toggle="collapse" routerLink="/panel/redirector"
+            href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            آدرس ها
+          </a>
+        </li>
+        <li class="li-list" *ngIf="checkItemPermission('Setting.change')">
+          <a class="menu-main menu-main-7" data-toggle="collapse" routerLink="/panel/setting" href="#collapseExample8"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+            تنظیمات
+          </a>
+        </li>
+        <li class="li-list">
+          <a class="menu-main menu-main-7" data-toggle="collapse" (click)="logOut()" href="#collapseExample9"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+            <img src="assets/img/Off.svg" width="20" alt="">
+            خروج
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <!--mobile$tablet-->
+  <section id="mobile-sidebar">
+    <div class="nav-fade d-none"></div>
+    <div class="wrapper">
+      <nav>
+        <!--      <div class="img-header-mobile w-100 d-flex justify-content-center" >-->
+        <!--        <img src="assets/img/snapptour-logo.png" routerLink="/" width="170" alt="">-->
+        <!--      </div>-->
+        <div class="parnas-title">
+          <div class="logo-parnas"><img src="assets/img/logo-parnas.agencyFinail%20(1).png" width="55" alt=""></div>
+          <div class="info-title-sidebar">
+            <h3>سیستم هوشمند تور و گردشگری</h3>
+            <!-- <div class="info-bottom-sidebar">
+              <span>طراحی و توسعه آژانس خلاقیت پارناس</span>
+            </div> -->
+          </div>
+        </div>
+        <ul class="ul-parent-list-sidebar parent-menu-mobile-static">
+          <li class="li-list">
+            <a class="menu-main" href="">
+              <img src="assets/img/Home.svg" width="20" alt="">
+              داشبورد
+            </a>
+          </li>
+          <li class="li-list">
+            <a class="menu-main menu-main-1" data-toggle="collapse" href="#collapseExample1-mobi" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <img src="assets/img/master-tour.svg" width="20" alt="">
+              مدیریت تور ها
+              <i class="icon-down-open icon-1"></i>
+            </a>
+            <div class="collapse" id="collapseExample1-mobi">
+              <ul class="under-menu-ul">
+                <li><a routerLink="/tour/add">اضافه کردن تور</a></li>
+                <li><a routerLink="/tour">لیست تورها</a></li>
+                <li><a (click)="showMessage()">تورهای ویژه</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="li-list">
+            <a class="menu-main menu-main-2" data-toggle="collapse" href="#collapseExample2-mobi" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <img src="assets/img/Dish.svg" width="20" alt="">
+              مدیریت هتل و شهر ها
+              <i class="icon-down-open icon-2"></i>
+            </a>
+            <div class="collapse" id="collapseExample2-mobi">
+              <ul class="under-menu-ul">
+                <li><a routerLink="/hotel/add">اضافه کردن هتل</a></li>
+                <li><a routerLink="/hotel/list">لیست هتل ها</a></li>
+                <li><a (click)="showMessage()">هتل های ویژه</a></li>
+                <li><a routerLink="/cities">لیست شهر ها</a></li>
+                <li><a routerLink="/cities/set">اضافه کردن شهر</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="li-list">
+            <a class="menu-main menu-main-3" data-toggle="collapse" href="#collapseExample3-mobi" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <img src="assets/img/Ticket.svg" width="20" alt="">
+              مدیریت ایرلاین ها
+              <i class="icon-down-open icon-3"></i>
+            </a>
+            <div class="collapse" id="collapseExample3-mobi">
+              <ul class="under-menu-ul">
+                <li><a routerLink="/transfer">لیست ایرلاین ها</a></li>
+                <li><a routerLink="/transfer/add">اضافه کردن</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="li-list">
+            <a class="menu-main menu-main-4" data-toggle="collapse" href="#collapseExample4-mobi" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <img src="assets/img/Pen.svg" width="20" alt="">
+              نوشته ها و نظرات
+              <i class="icon-down-open icon-4"></i>
+            </a>
+            <div class="collapse" id="collapseExample4-mobi">
+              <ul class="under-menu-ul">
+                <li><a (click)="showMessage()">لیست مطالب</a></li>
+                <li><a (click)="showMessage()">اضافه کردن مطلب </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="li-list" *ngIf="session.getAgencyVerified">
+            <a class="menu-main menu-main-5" data-toggle="collapse" href="#collapseExample5-mobi" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+              مدیریت کاربران
+              <i class="icon-down-open icon-5"></i>
+            </a>
+            <div class="collapse" id="collapseExample5-mobi">
+              <ul class="under-menu-ul">
+                <li><a routerLink="user/list">لیست کاربران</a></li>
+                <li><a routerLink="user/add">اضافه کردن کاربر جدید</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="li-list">
+            <a routerLink="/panel/agencies/reserves" class="menu-main menu-main-5" role="button">
+              <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+              رزرو ها
+            </a>
+
+          </li>
+          <li class="li-list">
+            <a class="menu-main menu-main-6" data-toggle="collapse" href="#collapseExample6-mobi" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              <img src="assets/img/User%20Accepted.svg" width="20" alt="">
+              تیکت های کاربران
+              <i class="icon-down-open icon-6"></i>
+            </a>
+            <div class="collapse" id="collapseExample6-mobi">
+              <ul class="under-menu-ul">
+                <li><a (click)="showMessage()">لیست تیکت ها</a></li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+        <div class="Support">
+          <a target="_blank" class="Support-link" href="">
+            <img src="assets/img/need.svg" width="24" alt="">
+            نیاز به پشتیبانی دارید ؟!
+          </a>
+        </div>
+      </nav>
+      <div class="parent-mobi-top">
+        <div class="mobile-nav">
+          <span></span>
+        </div>
+        <div class="logo-header">
+          <img src="assets/img/snapptour-logo.png" width="140" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div *ngIf="isTablet" class="tablet-sidebar">
+  <div [ngClass]="isMenu?'under-menu':'show-menu'" class="animated  fadeInRight">
+    <div  class="p-exit-menu w-100 d-flex align-items-center justify-content-start p-3">
+      <button (click)="menuClose()" class="btn-exit-menu text-danger">
+        <svg viewBox="0 0 24 24" width="19" height="19" focusable="false" class="chakra-icon css-onkibi"
+             aria-hidden="true">
+          <path fill="currentColor"
+                d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <img width="105" height="70" alt="اسنپ تریپ"
+         src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg" class="chakra-image my-3">
+    <div class="menu">
+      <a class="link-header"  routerLink="/panel/tour">لیست تورها</a>
+      <a class="link-header" routerLink="/panel/tour">اضافه کردن تور</a>
+      <a class="link-header" routerLink="/panel/agencies/reserves">رزروها</a>
+    </div>
+  </div>
+  <button (click)="menuOpen()" class="btn-menu-mobi text-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 32 32" fill="currentColor"
+         focusable="false" class="chakra-icon css-13otjrl">
+      <path
+        d="M28 22.667a1.333 1.333 0 010 2.666H4a1.333 1.333 0 010-2.666h24zm0-8a1.333 1.333 0 010 2.666H4a1.333 1.333 0 010-2.666h24zm0-8a1.333 1.333 0 010 2.666H4a1.333 1.333 0 010-2.666h24z">
+      </path>
+    </svg>
+  </button>
+  <a href="/" class="logo-website"><img width="55" height="40" alt="اسنپ تریپ"
+                                        src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg"
+                                        class="chakra-image css-1ryhtp0"></a>
+</div>

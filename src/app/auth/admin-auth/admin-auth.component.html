@@ -1,0 +1,33 @@
+<section class="form-auth">
+    <div class="prs-responsive">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-11 m-auto parent-form">
+                    <form class="box-form" (ngSubmit)="submit()">
+              
+                        <div class="box-form">
+                            <h2>ورود به ادمین</h2>
+                            <div class="form">
+                                <div class="item">
+                                    <div class="input-password w-100">
+                                        <input class="inp-pass" [formControl]="phoneFC" type="text"
+                                            placeholder="نام کاربری ...">
+                                    </div>
+                                    <div class="input-password w-100 mt-3">
+                                        <input class="inp-pass" [formControl]="passwordFC" id="togglePassword"
+                                            type="password" placeholder="رمز عبور ...">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-form-auth">ورود
+                                    <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

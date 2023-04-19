@@ -1,0 +1,42 @@
+<section class="form-auth">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto parent-form">
+          <form class="box-form" (ngSubmit)="validate()">
+            <a routerLink="/">
+              <img class="logo-website" src="assets/img/logo-header.png" width="200" alt="">
+            </a>
+            <div class="box-form">
+              <h2 *ngIf="!isForgetPassword">ورود / ثبت نام در اسنپ تریپ</h2>
+              <h2 *ngIf="isForgetPassword">فراموشی رمز عبور</h2>
+              <div class="form">
+                <div class="item">
+                  <label for="">شماره موبایل خود را وارد کنید:</label>
+                  <input [formControl]="phoneNumberFC" type="text">
+                </div>
+                <div class="w-100" *ngIf="phoneNumberFC.touched && phoneNumberFC.invalid">
+                  این فیلد اجباری می باشد
+                </div>
+                <div class="dnager-in-auth-majuls-left-big" *ngIf="errorService.hasError('phone')">
+                  <span>{{errorService.getError('phone')}}</span>
+                </div>
+                <button type="submit" class="btn-form-auth">ورود
+                  <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                </button>
+                <p *ngIf="!isForgetPassword" class="footer-text-form">با ورود و یا ثبت نام در اسنپ تریپ شما شرایط و
+                  قوانین استفاده از سرویس های سایت اسنپ تریپ
+                  و قوانین حریم خصوصی آن را می‌پذیرید.</p>
+                <p *ngIf="isForgetPassword" class="footer-text-form">
+                  جهت تغییر رمز عبور شماره همراه یا ایمیل خود را در کادر بالا وارد نمایید و منتظر ارسال کد تایید باشید.
+                </p>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

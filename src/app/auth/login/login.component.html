@@ -1,0 +1,47 @@
+<section class="form-auth">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto parent-form">
+          <form class="box-form" (ngSubmit)="submit()">
+            <a routerLink="/">
+              <img class="logo-website" src="assets/img/logo-header.png" width="200" alt="">
+            </a>
+            <div class="box-form">
+              <h2>ورود به اسنپ تریپ</h2>
+              <!-- <h2 *ngIf="temp == 1">اعتبارسنجی کد ارسالی</h2> -->
+              <div class="form">
+                <div class="item">
+                  <label *ngIf="temp == 0" for="">رمز عبور خود را وارد کنید:</label>
+                  <label *ngIf="temp == 1" for="">کد ارسالی را وارد کنید:</label>
+                  <div class="input-password">
+                    <i class="icon-eye field-icon" (click)="togglePassword()"></i>
+                    <input class="inp-pass" [formControl]="passwordFC" id="togglePassword" type="password" placeholder="تایپ کنید...">
+                  </div>
+                </div>
+                <div class="dnager-in-auth-majuls-left-big text-danger" *ngIf="errorService.hasError('password')">
+                  <span>{{errorService.getError('password')}}</span>
+                </div>
+                <div class="dnager-in-auth-majuls-left-big text-danger" *ngIf="errorService.hasError('phone')">
+                  <span>{{errorService.getError('phone')}}</span>
+                </div>
+                <div class="w-100" *ngIf="passwordFC.touched && passwordFC.invalid">
+                  این فیلد اجباری می باشد
+                </div>
+                <button type="submit" class="btn-form-auth">ورود
+                  <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                </button>
+                <div class="forget-password" *ngIf="temp == 0">
+                  <a routerLink="/auth/forget/{{ phoneNumber }}">فراموشی رمز عبور</a>
+                </div>
+                <p class="footer-text-form">با ورود و یا ثبت نام در اسنپ تریپ شما شرایط و قوانین استفاده از سرویس های سایت
+                  اسنپ تریپ و قوانین حریم خصوصی آن را می‌پذیرید.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

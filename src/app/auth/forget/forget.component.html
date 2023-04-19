@@ -1,0 +1,117 @@
+<!--<section class="parent-login" *ngIf="isCodeStep">-->
+<!--  <div class="responsive">-->
+<!--    <div class="container-fluid">-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-11 m-auto">-->
+<!--          <form (ngSubmit)="changePassword()">-->
+<!--            <div class="box-form">-->
+<!--              <div class="title-form">-->
+<!--                <img src="assets/img/icon-main-binici-icon.svg" width="30" alt="">-->
+<!--                <h1> فراموشی رمز عبور-->
+<!--                </h1>-->
+<!--              </div>-->
+<!--              <div class="form-label-inp">-->
+<!--                <label for="">کد ارسال شده را وارد کنید</label>-->
+<!--                <div class="input-parent">-->
+<!--                  <input type="password" [formControl]="codeFC" placeholder="تایپ کنید...">-->
+<!--                </div>-->
+<!--                <div class="dnager-in-auth-majuls-left-big" *ngIf="errorService.hasError('code')">-->
+<!--                  <span>{{errorService.getError('code')}}</span>-->
+<!--                </div>-->
+<!--                <div class="w-100" *ngIf="codeFC.touched && codeFC.invalid">-->
+<!--                  این فیلد اجباری می باشد-->
+<!--                </div>-->
+
+<!--                <div class="input-parent">-->
+<!--                  <input type="password" [formControl]="passwordFC" placeholder=" رمزعبور">-->
+<!--                </div>-->
+<!--                <div class="w-100" *ngIf="passwordFC.touched && passwordFC.invalid">-->
+<!--                  این فیلد اجباری می باشد-->
+<!--                </div>-->
+<!--                <div class="input-parent">-->
+<!--                  <input type="password" [formControl]="retypePasswordFC" placeholder="تکرار رمزعبور">-->
+<!--                </div>-->
+<!--                <div class="w-100" *ngIf="retypePasswordFC.touched && retypePasswordFC.invalid">-->
+<!--                  این فیلد اجباری می باشد-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <button type="submit" class="submit">تغییر رمز-->
+<!--                <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>-->
+<!--              </button>-->
+<!--              <prs-resend-code [phone]="phone"></prs-resend-code>-->
+<!--              <p class="footer-text-form">با ورود و یا ثبت نام در بی نی سی شما شرایط و قوانین استفاده از سرویس های سایت-->
+<!--                بی نی سی و قوانین حریم خصوصی آن را می‌پذیرید.</p>-->
+<!--            </div>-->
+<!--          </form>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<prs-validate *ngIf="!isCodeStep" [isForgetPassword]="true"
+              [phone]="phone"
+              (forgetPassword)="getResult($event)"></prs-validate>
+
+<section class="form-auth" *ngIf="isCodeStep">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto parent-form">
+          <form class="box-form" (ngSubmit)="changePassword()">
+            <div class="box-form">
+              <a routerLink="/">
+                <img class="logo-website" src="assets/img/logo-header.png" width="200" alt="">
+              </a>
+              <h2>ورود به اسنپ تریپ</h2>
+              <div class="form">
+                <div class="item">
+                  <label for="">کد SMS شده را وارد کنید:</label>
+                  <input [formControl]="codeFC" type="text" placeholder="تایپ کنید...">
+                </div>
+                <div class="dnager-in-auth-majuls-left-big" *ngIf="errorService.hasError('code')">
+                  <span>{{errorService.getError('code')}}</span>
+                </div>
+                <div class="w-100" *ngIf="passwordFC.touched && passwordFC.invalid">
+                  این فیلد اجباری می باشد
+                </div>
+
+                <div class="item">
+                  <i class="icon-eye field-icon" (click)="togglePassword()"></i>
+
+                  <input [formControl]="passwordFC" id="togglePassword"  type="password" placeholder="رمزعبور">
+                </div>
+                <div class="dnager-in-auth-majuls-left-big" *ngIf="errorService.hasError('password')">
+                  <span>{{errorService.getError('password')}}</span>
+                </div>
+                <div class="w-100" *ngIf="passwordFC.touched && passwordFC.invalid">
+                  این فیلد اجباری می باشد
+                </div>
+
+                <div class="item">
+                  <i class="icon-eye field-icon" (click)="toggleRetypePassword()"></i>
+
+                  <input [formControl]="retypePasswordFC" id="toggleRetypePassword" type="password" placeholder="تکرار رمزعبور">
+                </div>
+                <div class="dnager-in-auth-majuls-left-big" *ngIf="errorService.hasError('password')">
+                  <span>{{errorService.getError('password')}}</span>
+                </div>
+                <div class="w-100" *ngIf="retypePasswordFC.touched && retypePasswordFC.invalid">
+                  این فیلد اجباری می باشد
+                </div>
+                <button type="submit" class="btn-form-auth">تغییر رمز عبور
+                  <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                </button>
+                <p class="footer-text-form">با ورود و یا ثبت نام در اسنپ تریپ شما شرایط و قوانین استفاده از سرویس های سایت
+                  اسنپ تریپ و قوانین حریم خصوصی آن را می‌پذیرید.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

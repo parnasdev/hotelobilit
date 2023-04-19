@@ -1,0 +1,194 @@
+.form-auth {
+  margin: 4rem 0;
+}
+
+.parent-form {
+  background-color: var(--white);
+  border: 1px solid var(--light-color-two);
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  background-image: url("../../../assets/img/pattern-fly.png");
+}
+
+.box-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-form h2 {
+  font-weight: 600 !important;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.form .item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.form .item label {
+  color: var(--title-color);
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.form .item input {
+  height: 40px;
+  border-radius: 3px;
+  width: 100%;
+  border: 2px solid #e4e4e4;
+  padding: 0 8px;
+  color: var(--title-color);
+}
+
+.btn-form-auth {
+  height: 40px;
+  width: 100%;
+  margin-top: 1.5rem;
+  border-radius: 3px;
+  background-color: var(--base-color-second);
+  color: var(--title-color);
+  border: none;
+  outline: none;
+}
+
+.form .text {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 13px;
+  align-items: center;
+}
+
+.form .text span {
+  font-size: 13px !important;
+  color: var(--title-color);
+}
+
+.form .text a {
+  font-size: 13px !important;
+  color: var(--red-color);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.forget-password {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.forget-password a {
+  color: var(--title-color);
+  font-weight: 500;
+}
+
+.footer-text-form {
+  width: 85%;
+  margin: 1rem auto;
+  font-size: 13px !important;
+  text-align: center;
+}
+
+.logo-website {
+  margin-bottom: 3rem;
+}
+
+.p-text {
+  background: white;
+  padding: 1.5rem;
+  height: auto;
+  width: 75%;
+  display: grid;
+  place-items: center;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+
+  span {
+    font-size: 14px;
+    color: var(--gray-color-dark);
+    text-align: justify;
+  }
+
+  .p-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+
+    .accept {
+      margin: 0 12px !important;
+      width: 200px !important;
+    }
+
+    .unAccept {
+      background: var(--red-color) !important;
+      margin: 0 12px !important;
+      border: 2px solid var(--red-color) !important;
+      width: 200px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 868px) {
+  .p-text {
+    flex-wrap: wrap;
+    width: 100% !important;
+    display: flex;
+    span{
+      font-size: 13px !important;
+    }
+    .p-btn{
+      width: 100% !important;
+      button{
+        width: 48% !important;
+        font-size: 14px !important;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .box-form {
+    width: 100%;
+  }
+  .parent-form {
+    width: 95%;
+    height: auto !important;
+    padding: 2rem 1rem;
+  }
+  .form .item label {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (min-width: 381px) and (max-width: 868px) {
+  .box-form {
+    width: 80%;
+  }
+  .parent-form {
+    width: 95%;
+    height: auto !important;
+    padding: 2rem 1rem;
+  }
+  .form .item label {
+    font-size: 13px;
+  }
+}

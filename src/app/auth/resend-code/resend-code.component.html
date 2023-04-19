@@ -1,0 +1,13 @@
+<div class="resend-code mt-10">
+  <a *ngIf="!buttonSelected" (click)="resendValidationMessage()" class="f-13">
+    ارسال مجدد کد
+  </a>
+  <div class="timer" *ngIf="buttonSelected">
+    <span class="f-13">ارسال مجدد کد بعد از : </span>
+    <span class="f-13">{{ formatter(minutes)[0] }}</span>
+    <span class="f-13">{{ formatter(minutes)[1] }}</span>
+    <span class="f-13">:</span>
+    <span class="f-13">{{ formatter(seconds)[0] }}</span>
+    <span class="f-13">{{ formatter(seconds)[1] }}</span>
+  </div>
+</div>
