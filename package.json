@@ -24,7 +24,7 @@
     "jalali-moment": "^3.3.11",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.7.3",
-    "swiper": "^9.2.3",
+    "swiper": "^9.2.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },
