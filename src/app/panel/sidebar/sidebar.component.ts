@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit {
   isTablet=false;
   userId = 0;
   isMenu = false;
+  show = false;
 
   constructor(public session: SessionService,
               public userApi: UserApiService,
