@@ -9,26 +9,28 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-</section> -->
+</section> -->  
 
 <!-- <livewire:admin.section.sidebar-mobile-panel /> -->
-<article class="article-controller">
-    <section class="s-container">
-        <div class="container-fluid">
-            <!-- {{-- parent data --}} -->
-            <div class="p-container d-flex p-0">
-                <!-- {{-- right --}} -->
-                <prs-sidebar></prs-sidebar>
-                <!-- {{-- left --}} -->
-                <div class="left flex-79 m-right-auto m-mb-37">
-                    <!-- {{-- row data --}} -->
-                    <prs-header></prs-header>
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
-        </div>
-    </section>
-</article>
+<main class="admin-panel">
+  <article class="article-controller">
+      <section class="s-container">
+          <div class="container-fluid">
+              <!-- {{-- parent data --}} -->
+              <div class="p-container d-flex p-0">
+                  <!-- {{-- right --}} -->
+                  <prs-sidebar></prs-sidebar>
+                  <!-- {{-- left --}} -->
+                  <div class="left flex-79 m-right-auto m-mb-37">
+                      <!-- {{-- row data --}} -->
+                      <prs-header></prs-header>
+                      <router-outlet></router-outlet>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </article>
+</main>
 <!-- {{-- setting panel --}} -->
 <!-- <livewire:admin.section.setting-panel /> -->
 
