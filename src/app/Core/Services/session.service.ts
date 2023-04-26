@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { AuthApiService } from "../Https/auth-api.service";
 import { UserApiService } from '../Https/user-api.service';
-import { LoginResponseDTO, ProfileDTO } from '../Models/AuthDTO';
+import { LoginResDTO, LoginResponseDTO, ProfileDTO, UserDTO } from '../Models/AuthDTO';
 import { PermissionDTO } from '../Models/UserDTO';
 import { MessageService } from './message.service';
 
@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
 })
 export class SessionService {
 
-  user = {} as LoginResponseDTO;
+  user = {} as LoginResDTO;
   outlineApi = false;
   userPermissions: PermissionDTO[] = [];
 
@@ -22,54 +22,37 @@ export class SessionService {
     public userApi: UserApiService) {
   }
 
-  setUserToSession(obj: LoginResponseDTO): void {
+  setTokenToSession(tokenObj: LoginResDTO): void {
     this.user = {
-      user: {
-        birthDay: obj.user?.birthDay,
-        family: obj.user?.family,
-        city: obj.user?.city,
-        email: obj.user?.email,
-        isManager: obj.user?.isManager,
-        gender: obj.user?.gender,
-        id_code: obj.user?.id_code,
-        agency: {
-          name: obj.user.agency?.name,
-          logo: obj.user.agency?.logo,
-          LicenseFileA: obj.user.agency?.LicenseFileA,
-          id: obj.user.agency?.id,
-          extra: obj.user.agency?.extra,
-          LicenseFileB: obj.user.agency?.LicenseFileB,
-          email: obj.user.agency?.email,
-          address: obj.user.agency?.address,
-          verify: obj?.user?.agency?.verify,
-          tell: obj.user.agency?.tell,
-          site: obj.user.agency?.site,
-          necessaryPhone: obj.user.agency?.necessaryPhone
-        },
-        createdAt: obj.user.createdAt,
-        name: obj.user?.name,
-        username: obj.user?.username,
-        phone: obj.user?.phone,
-        role: obj.user?.role
-      },
-      token: obj.token
+      expire_at: tokenObj.expire_at,
+      token: tokenObj.token,
+      user: null
     }
     localStorage.setItem('hotelobilit-user', JSON.stringify(this.user));
   }
 
-
+  setUserToSession(userObj: UserDTO): void {
+    let token = this.getToken();
+    this.user = {
+      expire_at: token.expire_at,
+      token: token.token,
+      user: userObj
+    }
+    localStorage.setItem('hotelobilit-user', JSON.stringify(this.user));
+  }
 
   getUserPermission(): void {
-    this.userApi.getUserPermission().subscribe((res: any) => {
-      if (res.isDone) {
-        this.userPermissions = res.data;
-      } else {
-        this.message.custom(res.message);
-      }
-    }, (error: any) => {
-      this.message.error();
-    });
-
+    // this.userApi.getUserPermission().subscribe((res: any) => {
+    //   if (res.isDone) {
+    //     this.userPermissions = res.data;
+    //   } else {
+    //     this.message.custom(res.message);
+    //   }
+    // }, (error: any) => {
+    //   this.message.error();
+    // });
+    const user = localStorage.getItem('hotelobilit-user');
+    this.userPermissions = user ? JSON.parse(user).user.permissions : '';
   }
 
   checkPermission(item: string) {
@@ -86,22 +69,22 @@ export class SessionService {
   }
 
   checkUser() {
-    this.authApi.checkUser().subscribe((res: any) => {
-      if (res.isDone) {
-        this.setUserToSession({ token: this.getToken(), user: res.data });
-        this.checkUserSubject.next('true');
-      } else {
-        // this.message.error();
-        if (res.status === 401) {
-          this.removeUser();
-        }
-      }
-    }, (error: any) => {
-      // this.errorService.check(error)
-      if (error.status === 401) {
-        this.removeUser();
-      }
-    });
+    // this.authApi.checkUser().subscribe((res: any) => {
+    //   if (res.isDone) {
+    //     this.setUserToSession({ token: this.getToken(), user: res.data });
+    //     this.checkUserSubject.next('true');
+    //   } else {
+    //     // this.message.error();
+    //     if (res.status === 401) {
+    //       this.removeUser();
+    //     }
+    //   }
+    // }, (error: any) => {
+    //   // this.errorService.check(error)
+    //   if (error.status === 401) {
+    //     this.removeUser();
+    //   }
+    // });
   }
 
   isCompletedAgencyProfile() {
@@ -182,6 +165,7 @@ export class SessionService {
     const user = localStorage.getItem('hotelobilit-user');
     return user ? JSON.parse(user).user.birthDay : '';
   }
+
   getRole(): any {
     const user = localStorage.getItem('hotelobilit-user');
     return user ? JSON.parse(user).user.role : '';

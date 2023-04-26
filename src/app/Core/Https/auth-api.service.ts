@@ -3,7 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {PublicService} from "../Services/public.service";
 import {Result} from "../Models/result";
-import { ChangePasswordReqDTO, ConvertRequestDTO, LoginReqDTO, ProfileDTO, UserDTO, ValidateResDTO } from '../Models/AuthDTO';
+import { ChangePasswordReqDTO, ConvertRequestDTO, LoginReqDTO, LoginResDTO, ProfileDTO, UserDTO, ValidateResDTO } from '../Models/AuthDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,16 @@ export class AuthApiService {
       environment.BACK_END_IP + this.serverControllerName;
   }
 
+  me(): any {
+    const url = this.serverControllerName + `me`;
+    return this.http.get<Result<UserDTO>>(
+      url,
+      this.publicService.getDefaultHeaders());
+  }
+
   login(req: LoginReqDTO): any {
     const url = this.serverControllerName + `login`;
-    return this.http.post<Result<UserDTO>>(
+    return this.http.post<Result<LoginResDTO>>(
       url,
       req,
       this.publicService.getDefaultHeaders());

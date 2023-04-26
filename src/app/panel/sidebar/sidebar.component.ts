@@ -7,6 +7,7 @@ import {CheckErrorService} from "../../Core/Services/check-error.service";
 import {UserApiService} from "../../Core/Https/user-api.service";
 import {PermissionDTO} from "../../Core/Models/UserDTO";
 import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
 
 declare let $: any;
 
@@ -27,8 +28,9 @@ export class SidebarComponent implements OnInit {
               public userApi: UserApiService,
               public api: AuthApiService,
               public router: Router,
-              public message: MessageService,
+              public messageService: MessageService,
               public responsiveService:ResponsiveService,
+              public errorService: ErrorsService,
               public checkError: CheckErrorService) {
     this.isTablet=responsiveService.isTablet();
     $(document).ready(() => {
@@ -55,9 +57,9 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.session.getId();
-    this.toggleMenu()
-    this.session.getUserPermission();
+    // this.userId = this.session.getId();
+    // this.toggleMenu()
+    this.getUserData();
   }
 
   toggleMenu(): void {
@@ -91,7 +93,7 @@ export class SidebarComponent implements OnInit {
   }
 
   showMessage() {
-    this.message.custom('این گزینه در حال بروزرسانی می باشد')
+    this.messageService.custom('این گزینه در حال بروزرسانی می باشد')
   }
 
   menuOpen() {
@@ -110,6 +112,23 @@ export class SidebarComponent implements OnInit {
     return !!this.session.userPermissions.find(x => x.name === item)
   }
 
+  getUserData(): void {
+    this.isLoading = true;
+    this.api.me().subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+        this.session.setUserToSession(res.data);
+        this.session.getUserPermission();
+      } else {  
+        this.messageService.custom(res.message);
+      }
+    }, (error: any) => {
+      this.isLoading = false;
+      this.errorService.recordError(error.error.data);
+      this.errorService.check(error);
+    });
+  }
+
   logOut(): void {
     this.isLoading = true
     this.api.logout().subscribe((res: any) => {
@@ -121,7 +140,7 @@ export class SidebarComponent implements OnInit {
       }
     }, (error: any) => {
       this.isLoading = false;
-      this.message.error();
+      this.messageService.error();
       this.checkError.check(error);
     })
   }

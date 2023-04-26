@@ -42,11 +42,11 @@ export class RegisterComponent implements OnInit {
 
   getCodeValues(): void {
     const inputCode = this.publicService.fixNumbers(this.codeFC.value);
-    this.registerReq = {
-      phone: this.phone,
-      password: inputCode,
-      accountType: this.getAccountTypeLabel()
-    };
+    // this.registerReq = {
+    //   phone: this.phone,
+    //   password: inputCode,
+    //   accountType: this.getAccountTypeLabel()
+    // };
     this.register();
   }
 
@@ -66,17 +66,17 @@ export class RegisterComponent implements OnInit {
   register(): void {
     this.isLoading = true;
     this.api.register(this.registerReq).subscribe((res: any) => {
-      this.isLoading = false;
-      if (res.isDone) {
-        this.session.setUserToSession(res.data);
-        if (this.accountType === '4'){
-          this.router.navigateByUrl('/panel/profile');
-        } else {
-          this.router.navigateByUrl('/dashboard/user/profile');
-        }
-      } else {
-        this.messageService.custom(res.message);
-      }
+      // this.isLoading = false;
+      // if (res.isDone) {
+      //   this.session.setUserToSession(res.data);
+      //   if (this.accountType === '4'){
+      //     this.router.navigateByUrl('/panel/profile');
+      //   } else {
+      //     this.router.navigateByUrl('/dashboard/user/profile');
+      //   }
+      // } else {
+      //   this.messageService.custom(res.message);
+      // }
     }, (error: any) => {
       this.isLoading = false;
       this.checkError.recordError(error.error.data);

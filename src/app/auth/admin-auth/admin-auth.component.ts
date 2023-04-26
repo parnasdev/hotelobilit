@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthApiService } from 'src/app/Core/Https/auth-api.service';
-import { ConvertRequestDTO, LoginReqDTO } from 'src/app/Core/Models/AuthDTO';
+import { ConvertRequestDTO, LoginReqDTO, LoginResDTO } from 'src/app/Core/Models/AuthDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
@@ -16,12 +16,13 @@ export class AdminAuthComponent implements OnInit {
 
   isLoading = false;
   accountType = 3;
-  phoneFC = new FormControl('', Validators.required);
+  usernameFC = new FormControl('', Validators.required);
   loginReq: LoginReqDTO = {
-    phone: '',
+    username: '',
     password: '',
-    accountType: '',
+    temp: 0,
   };
+  
   passwordFC = new FormControl('', Validators.required);
   phoneNumber: string | null = '';
 
@@ -41,10 +42,9 @@ export class AdminAuthComponent implements OnInit {
 
   submit(): void {
     this.loginReq = {
-      phone: this.phoneFC.value,
+      username: this.usernameFC.value,
       password: this.passwordFC.value,
       temp: 0,
-      accountType: 'Admin',
     };
     this.login();
   }
@@ -54,11 +54,11 @@ export class AdminAuthComponent implements OnInit {
     this.api.login(this.loginReq).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
-        this.session.setUserToSession(res.data);
-        if (this.session.getRole() === 'Admin') {
-          this.router.navigateByUrl('/panel');
-        }
-
+        this.session.setTokenToSession(res.data);
+        this.router.navigateByUrl('/panel');
+        // if (this.session.getRole() === 'Admin') {
+        //   this.router.navigateByUrl('/panel');
+        // }
       } else {
         this.messageService.custom(res.message);
       }

@@ -45,11 +45,11 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
-    this.registerReq = {
-      phone: this.phoneNumber,
-      password: this.passwordFC.value,
-      temp: this.temp
-    };
+    // this.registerReq = {
+    //   phone: this.phoneNumber,
+    //   password: this.passwordFC.value,
+    //   temp: this.temp
+    // };
     this.login();
   }
 
@@ -57,19 +57,19 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.api.login(this.registerReq).subscribe((res: any) => {
       this.isLoading = false;
-      if (res.isDone) {
-        this.session.setUserToSession(res.data);
-        if (this.session.getRole() === 'User') {
-          this.router.navigateByUrl('/dashboard');
-        } else if (this.session.getRole() === 'Admin' || this.session.getRole() === 'Staff') {
-          this.router.navigateByUrl('/panel');
-        } else {
-          this.router.navigateByUrl('/');
-        }
+      // if (res.isDone) {
+      //   this.session.setUserToSession(res.data);
+      //   if (this.session.getRole() === 'User') {
+      //     this.router.navigateByUrl('/dashboard');
+      //   } else if (this.session.getRole() === 'Admin' || this.session.getRole() === 'Staff') {
+      //     this.router.navigateByUrl('/panel');
+      //   } else {
+      //     this.router.navigateByUrl('/');
+      //   }
 
-      } else {
-        this.messageService.custom(res.message);
-      }
+      // } else {
+      //   this.messageService.custom(res.message);
+      // }
     }, (error: any) => {
       this.isLoading = false;
       this.errorService.recordError(error.error.data);

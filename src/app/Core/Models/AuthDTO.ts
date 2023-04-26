@@ -41,13 +41,6 @@ export interface ProfileReqDTO {
   birth_day: string;
 }
 
-export interface LoginReqDTO {
-  phone: string | null;
-  password: string | null;
-  temp?: number
-  accountType?: string;
-}
-
 export interface LoginRequestDTO {
   username: string;
   password: string;
@@ -101,4 +94,26 @@ export interface ProfileDTO {
   birthDay?: string;
   createdAt?: string;
   role?: string;
+}
+
+export interface LoginResDTO {
+  token: string;
+  expire_at: string;
+  user: UserDTO | null;
+}
+
+export interface LoginReqDTO {
+  username : string | null
+  password: string | null
+  temp: number
+}
+
+export interface UserDTO {
+  displayTitle: string,
+  role: string,
+  is_access_panel: boolean,
+  is_access_dashboard: boolean,
+  is_custom: boolean,
+  custom_route_name_access: string,
+  permissions: string[]
 }
