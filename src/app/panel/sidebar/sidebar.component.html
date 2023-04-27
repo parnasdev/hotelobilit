@@ -1,255 +1,93 @@
-<div>
-  <!-- {{-- sidebar --}} -->
-  <div class="right flex-20 scroller pt-10 pb-10 scroller-transparent isDesktop">
-      <div class="controller-aside">
-          <!-- {{-- top --}} -->
-          <div class="d-top">
-              <!-- {{-- profile --}} -->
-              <div class="p-profile d-flex flex-wrap align-items-center justify-content-start rtl pb-0">
-                  <!-- {{-- detail profile --}} -->
-                  <div class="d-flex align-items-center flex-direction-column">
-                      <div class="image profile pl-10 pb-8">
-                          <img src="'/img/png/nopicture.jpg'" alt="profile" />
-                          <div class="state bg-success"></div>
-                      </div>
-                  </div>
-                  <div class="text px-2">
-                      <h6 class="text-light">نام</h6>
-                      <div class="text pos-relative">
-                          <h6 class="text-color-parnas">نقش</h6>
-                      </div>
-                  </div>
-              </div>
-              <!-- {{-- local list --}} -->
-              <div class="local-list pl-0 scroller">
-                <!--? controller backend loop data  -->
-                <div class="data-l w-100 mb-7">
-                  <!--? title  -->
-                  <div class="up rtl pt-15 pr-25">
-                              <div class="text pb-7">
-                                  <div class="d-flex justify-content-start m-left-auto pos-relative pr-10 cursor-pointer">
-                                      <div class="w-100 d-flex justify-content-between align-items-start f-14 text-white">
-                                          عنوان منو
-                                          <div class="rx-title title-input pb-10">
-                                              <div class="p-rx">
-                                                  <div class="rx-border-rectangle-after label-input"></div>
-                                              </div>
-                                          </div>
-                                          <div class="image ml-25">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828"
-                                                  viewBox="0 0 8.414 14.828">
-                                                  <path id="Left_Arrow_1" data-name="Left Arrow 1" d="M7,13,1,7,7,1"
-                                                      transform="translate(0 0.414)" fill="none" stroke="#fff"
-                                                      stroke-linecap="round" stroke-linejoin="round"
-                                                      stroke-width="2" />
-                                              </svg>
-                                          </div>
-                                          <div>
-                                              <div class="image pos-absolute left-32"
-                                                  style="transform: rotate(-90deg);top: -3px;">
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="8.414"
-                                                      height="14.828" viewBox="0 0 8.414 14.828">
-                                                      <path id="Left_Arrow_1" data-name="Left Arrow 1"
-                                                          d="M7,13,1,7,7,1" transform="translate(0 0.414)"
-                                                          fill="none" stroke="#fff" stroke-linecap="round"
-                                                          stroke-linejoin="round" stroke-width="2" />
-                                                  </svg>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                  </div>
-                  <!--? items -->
-                  <ul class="ul-list pt-3 pb-15" id="menu">
-                    <!--? item -->
-                    <li class="li-list d-flex align-content-center py-10 pos-relative">
-                      <!-- {{-- !!noftication number --}} -->
-                      <a href="" class="d-flex align-items-center">
-                        <div class="circle-box"></div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+<div class="sidebar">
+  <div class="header-sidebar">
+    <h1 class="name-panel">ParnasWeb</h1>
+    <button class="toggle-sidebar">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828" viewBox="0 0 8.414 14.828">
+          <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
+                fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div class="body-sidebar">
+    <ul class="list-sidebar">
+      <li class="item-menu" *ngFor="let item of [1,2,3,4]"><a href="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
+          <path id="Home"
+                d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
+                transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+        <span>داشبورد</span>
+      </a></li>
+      <li class="item-menu-collapse">
+        <a class="" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
+            <path id="Home"
+                  d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
+                  transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+          <span>زیر مجموعه دار</span>
+
+          <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828"
+               viewBox="0 0 8.414 14.828">
+            <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
+                  fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+
+        </a>
+        <div class="collapse" id="collapseExample">
+          <div class="ps-4 ">
+            <a href="">زیر مجموعه</a>
           </div>
-          <div class="flex-100">
-            <!-- {{-- management site --}} -->
-            <div class="w-100 d-flex justify-content-between flex-direction-row">
-              <div class="d-flex align-items-start justify-content-center flex-direction-row-reverse w-100">
-                <div class="exit tooltip d-flex align-items-center justify-content-center mr-3 ml-5 mb-10">
-                        <a href="" class="d-flex align-items-center justify-content-center cursor-pointer radius-7">
-                          <div class="d-flex align-items-center justify-content-center bg-danger radius-100 px-13 py-13">
-                              <svg id="Off" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
-                                      viewBox="0 0 24 24">
-                                      <rect id="Rectangle_187" data-name="Rectangle 187" width="10" height="2"
-                                          rx="1" transform="translate(13) rotate(90)" fill="#fff" />
-                                      <path id="Path_1070" data-name="Path 1070"
-                                          d="M6,2.8A.892.892,0,0,0,4.628,2C1.654,4.009,0,7.453,0,12c0,7.5,4.5,12,12,12s12-4.5,12-12c0-4.547-1.654-7.991-4.628-10A.892.892,0,0,0,18,2.8V2.94a1.078,1.078,0,0,0,.461.865,7.691,7.691,0,0,1,.937.8C21,6.207,22,8.651,22,12s-1,5.793-2.6,7.4S15.349,22,12,22s-5.793-1-7.4-2.6S2,15.349,2,12,3,6.207,4.6,4.6a7.689,7.689,0,0,1,.937-.8A1.077,1.077,0,0,0,6,2.94Z"
-                                          fill="#fff" fill-rule="evenodd" />
-                              </svg>
-                              <span class="s-tooltip pl-10">
-                                  خروج از پنل
-                              </span>
-                          </div>
-                        </a>
-                </div>
-                <div class="tooltip d-flex align-items-center justify-content-center mr-3 ml-5 mb-10">
-                          <a href="/" target="_blank"
-                              class="d-flex align-items-center justify-content-center cursor-pointer radius-7">
-                              <div
-                                  class="d-flex align-items-center justify-content-center bg-primary radius-100 px-10 py-10">
-                                  <svg width="22" height="22" viewBox="0 0 31 31" fill="none"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                          d="M19.4333 15.6532C19.4333 17.9267 17.5956 19.7655 15.3339 19.7655C13.0721 19.7655 11.2344 17.9267 11.2344 15.6532C11.2344 13.3798 13.0721 11.541 15.3339 11.541C17.5956 11.541 19.4333 13.3798 19.4333 15.6532Z"
-                                          stroke="#fff" stroke-width="1" />
-                                      <path
-                                          d="M26.0082 14.5827C26.3908 15.0629 26.5821 15.3031 26.5821 15.6527C26.5821 16.0024 26.3908 16.2425 26.0082 16.7227C24.3283 18.8313 20.182 23.321 15.3332 23.321C10.4844 23.321 6.33814 18.8313 4.6582 16.7227C4.27562 16.2425 4.08432 16.0024 4.08432 15.6527C4.08432 15.3031 4.27562 15.0629 4.6582 14.5827C6.33814 12.4741 10.4844 7.98438 15.3332 7.98438C20.182 7.98438 24.3283 12.4741 26.0082 14.5827Z"
-                                          stroke="#fff" stroke-width="1" />
-                                  </svg>
-                                  <span class="s-tooltip pl-10">
-                                      مشاهده سایت
-                                  </span>
-                              </div>
-                          </a>
-                </div>
-                <div class="tooltip d-flex align-items-center justify-content-center mr-3 ml-5 mb-10">
-                          <div class="image animation-rotate cursor-pointer">
-                              <div
-                                  class="d-flex align-items-center justify-content-center bg-white radius-100 px-12 py-12">
-                                  <svg id="Settings" xmlns="http://www.w3.org/2000/svg" width="18"
-                                      height="18" viewBox="0 0 22 24">
-                                      <path id="Path_663" data-name="Path 663"
-                                          d="M6.606,3.656a.473.473,0,0,1-.622.362,4.475,4.475,0,0,0-4.395,7.621.478.478,0,0,1,0,.725,4.475,4.475,0,0,0,4.395,7.621.473.473,0,0,1,.622.362,4.468,4.468,0,0,0,8.787,0,.473.473,0,0,1,.622-.362,4.475,4.475,0,0,0,4.395-7.621.478.478,0,0,1,0-.725,4.475,4.475,0,0,0-4.395-7.621.473.473,0,0,1-.622-.362A4.468,4.468,0,0,0,6.606,3.656Zm1.964.366a2.471,2.471,0,0,1,4.859,0A2.471,2.471,0,0,0,16.681,5.9a2.475,2.475,0,0,1,2.429,4.216,2.479,2.479,0,0,0,0,3.762A2.475,2.475,0,0,1,16.681,18.1a2.471,2.471,0,0,0-3.252,1.881,2.471,2.471,0,0,1-4.859,0A2.471,2.471,0,0,0,5.319,18.1a2.475,2.475,0,0,1-2.429-4.216,2.479,2.479,0,0,0,0-3.762A2.475,2.475,0,0,1,5.319,5.9,2.471,2.471,0,0,0,8.571,4.022Z"
-                                          fill="#647A8B" fill-rule="evenodd" />
-                                      <path id="Path_664" data-name="Path 664"
-                                          d="M7,12a4,4,0,1,0,4-4A4,4,0,0,0,7,12Zm2,0a2,2,0,1,0,2-2A2,2,0,0,0,9,12Z"
-                                          fill="#647A8B" fill-rule="evenodd" />
-                                  </svg>
-                              </div>
-                          </div>
-                </div>
+        </div>
+      </li>
+    </ul>
+    <div class="title-sidebar">
+      <div class="line-title"></div>
+      <h3>برنامه ها و صفحه ها</h3>
+    </div>
+    <ul class="list-sidebar">
+          <li class="item-menu" *ngFor="let item of [1,2,3,4]"><a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
+              <path id="Home"
+                    d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
+                    transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2"/>
+            </svg>
+            <span>داشبورد</span>
+          </a></li>
+          <li class="item-menu-collapse">
+            <a class="" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false"
+               aria-controls="collapseExample">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
+                <path id="Home"
+                      d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
+                      transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+              <span>زیر مجموعه دار</span>
+
+              <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828"
+                   viewBox="0 0 8.414 14.828">
+                <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
+                      fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+
+            </a>
+            <div class="collapse" id="collapseExample2">
+              <div class="card card-body">
+                زیر مجموعه
               </div>
             </div>
-          </div>
-      </div>
-  </div>
-  <!-- {{-- sidebar taskbar --}} -->
-  <div class="isDesktop">
-      <!-- {{-- taskbar --}} -->
-      <div class="sidebar-taskbar pos-relative">
-          <div class="flex-100 d-flex align-items-center justify-content-center">
-              <div class="flex-100">
-                  <!-- {{-- local list --}} -->
-                  <div class="pl-0 scroller">
-                      <!-- {{-- controller backend loop data --}} -->
-                      <div class="w-100">
-                          <!-- {{-- items --}} -->
-                          <ul class="ul-list d-flex align-items-center justify-content-center overflow-y-hidden">
-                            <li class="li-list tooltip d-flex align-content-center justify-content-center tooltip py-9">
-                              <div class="data-badge d-flex align-items-center justify-content-center flex-direction-column flex-wrap">
-                                  <template>
-                                      <div class="c-data-badge d-flex justify-content-center align-items-center bg-success radius-5 ml-5 mb-3">
-                                          <span class="text-white f-9 pl-5">اعلان</span>
-                                          <span class="py-2 pl-10 text-white f-9"
-                                              x-text="notify"></span>
-                                      </div>
-                                  </template>
-                              </div>
-                              <a href="" class="d-flex align-items-center justify-content-center">
-                                <div class="s-tooltip" style="left: 35px;top:12px">
-                                  <span class="f-14">
-                                      عنوان
-                                  </span>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-              <div class="toggle-taskbar pos-absolute cursor-pointer" style="top: 17px;left: -13px;">
-                  <div class="image d-flex align-items-center bg-pallete-1 radius-50 border-solid-2 border-light px-8 py-8">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
-                          viewBox="0 0 14.828 8.414">
-                          <path id="Down_Arrow_1" data-name="Down Arrow 1" d="M13,1,7,7,1,1"
-                              transform="translate(0.414 0.414)" fill="none" stroke="#fff"
-                              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                      </svg>
-                  </div>
-              </div>
-              <div class="pos-absolute right-10 bottom-0">
-                  <!-- {{-- parent --}} -->
-                  <div class="d-flex align-items-center">
-                      <!-- {{-- child button --}} -->
-                      <div class="exit tooltip d-flex align-items-center justify-content-center mr-3 ml-5 mb-10">
-                        <a href="" class="d-flex align-items-center justify-content-center cursor-pointer radius-7">
-                          <div class="d-flex align-items-center justify-content-center bg-danger radius-15 px-13 py-13">
-                              <svg id="Off" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
-                                      viewBox="0 0 24 24">
-                                      <rect id="Rectangle_187" data-name="Rectangle 187" width="10" height="2"
-                                          rx="1" transform="translate(13) rotate(90)" fill="#fff" />
-                                      <path id="Path_1070" data-name="Path 1070"
-                                          d="M6,2.8A.892.892,0,0,0,4.628,2C1.654,4.009,0,7.453,0,12c0,7.5,4.5,12,12,12s12-4.5,12-12c0-4.547-1.654-7.991-4.628-10A.892.892,0,0,0,18,2.8V2.94a1.078,1.078,0,0,0,.461.865,7.691,7.691,0,0,1,.937.8C21,6.207,22,8.651,22,12s-1,5.793-2.6,7.4S15.349,22,12,22s-5.793-1-7.4-2.6S2,15.349,2,12,3,6.207,4.6,4.6a7.689,7.689,0,0,1,.937-.8A1.077,1.077,0,0,0,6,2.94Z"
-                                          fill="#fff" fill-rule="evenodd" />
-                              </svg>
-                              <span class="s-tooltip pl-10">
-                                  خروج از پنل
-                              </span>
-                          </div>
-                        </a>
-                      </div>
-                      <!-- {{-- child button --}} -->
-                      <div class="tooltip d-flex align-items-center justify-content-center mr-3 ml-5 mb-10">
-                          <a href="/" target="_blank"
-                              class="d-flex align-items-center justify-content-center cursor-pointer radius-7">
-                              <div class="d-flex align-items-center justify-content-center bg-primary radius-15 px-10 py-10">
-                                  <svg width="22" height="22" viewBox="0 0 31 31" fill="none"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                          d="M19.4333 15.6532C19.4333 17.9267 17.5956 19.7655 15.3339 19.7655C13.0721 19.7655 11.2344 17.9267 11.2344 15.6532C11.2344 13.3798 13.0721 11.541 15.3339 11.541C17.5956 11.541 19.4333 13.3798 19.4333 15.6532Z"
-                                          stroke="#fff" stroke-width="1" />
-                                      <path
-                                          d="M26.0082 14.5827C26.3908 15.0629 26.5821 15.3031 26.5821 15.6527C26.5821 16.0024 26.3908 16.2425 26.0082 16.7227C24.3283 18.8313 20.182 23.321 15.3332 23.321C10.4844 23.321 6.33814 18.8313 4.6582 16.7227C4.27562 16.2425 4.08432 16.0024 4.08432 15.6527C4.08432 15.3031 4.27562 15.0629 4.6582 14.5827C6.33814 12.4741 10.4844 7.98438 15.3332 7.98438C20.182 7.98438 24.3283 12.4741 26.0082 14.5827Z"
-                                          stroke="#fff" stroke-width="1" />
-                                  </svg>
-                                  <span class="s-tooltip pl-10">
-                                      مشاهده سایت
-                                  </span>
-                              </div>
-                          </a>
-                      </div>
-                      <!-- {{-- child button --}} -->
-                      <div class="tooltip d-flex align-items-center justify-content-center mr-3 ml-5 mb-10">
-                          <div class="image cursor-pointer">
-                              <div
-                                  class="d-flex align-items-center justify-content-center bg-warning radius-15 px-12 py-12">
-                                  <svg class="animation-rotate" id="Settings" xmlns="http://www.w3.org/2000/svg" width="18"
-                                      height="18" viewBox="0 0 22 24">
-                                      <path id="Path_663" data-name="Path 663"
-                                          d="M6.606,3.656a.473.473,0,0,1-.622.362,4.475,4.475,0,0,0-4.395,7.621.478.478,0,0,1,0,.725,4.475,4.475,0,0,0,4.395,7.621.473.473,0,0,1,.622.362,4.468,4.468,0,0,0,8.787,0,.473.473,0,0,1,.622-.362,4.475,4.475,0,0,0,4.395-7.621.478.478,0,0,1,0-.725,4.475,4.475,0,0,0-4.395-7.621.473.473,0,0,1-.622-.362A4.468,4.468,0,0,0,6.606,3.656Zm1.964.366a2.471,2.471,0,0,1,4.859,0A2.471,2.471,0,0,0,16.681,5.9a2.475,2.475,0,0,1,2.429,4.216,2.479,2.479,0,0,0,0,3.762A2.475,2.475,0,0,1,16.681,18.1a2.471,2.471,0,0,0-3.252,1.881,2.471,2.471,0,0,1-4.859,0A2.471,2.471,0,0,0,5.319,18.1a2.475,2.475,0,0,1-2.429-4.216,2.479,2.479,0,0,0,0-3.762A2.475,2.475,0,0,1,5.319,5.9,2.471,2.471,0,0,0,8.571,4.022Z"
-                                          fill="#fff" fill-rule="evenodd" />
-                                      <path id="Path_664" data-name="Path 664"
-                                          d="M7,12a4,4,0,1,0,4-4A4,4,0,0,0,7,12Zm2,0a2,2,0,1,0,2-2A2,2,0,0,0,9,12Z"
-                                          fill="#fff" fill-rule="evenodd" />
-                                  </svg>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="show-taskbar pos-absolute left-25 bottom-5 cursor-pointer" style="display: none;z-index: 70">
-          <div class="mini-sidebar image d-flex align-items-center justify-content-center bg-pallete-1 radius-50 px-10 py-9 border-solid-2 border-light">
-              <svg width="14" height="14" viewBox="0 0 34 20" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                      d="M1.7 0C1.36377 0 1.0351 0.0977484 0.755532 0.280884C0.475968 0.46402 0.258075 0.724318 0.129406 1.02886C0.000736579 1.3334 -0.0329291 1.66852 0.0326658 1.99182C0.0982607 2.31512 0.26017 2.61209 0.497919 2.84518C0.735669 3.07826 1.03858 3.237 1.36835 3.30131C1.69812 3.36562 2.03993 3.33261 2.35056 3.20647C2.6612 3.08032 2.9267 2.8667 3.1135 2.59262C3.3003 2.31853 3.4 1.9963 3.4 1.66667C3.4 1.22464 3.22089 0.800716 2.90208 0.488156C2.58327 0.175595 2.15087 0 1.7 0ZM8.5 3.33333H32.3C32.7509 3.33333 33.1833 3.15774 33.5021 2.84518C33.8209 2.53262 34 2.10869 34 1.66667C34 1.22464 33.8209 0.800716 33.5021 0.488156C33.1833 0.175595 32.7509 0 32.3 0H8.5C8.04913 0 7.61673 0.175595 7.29792 0.488156C6.97911 0.800716 6.8 1.22464 6.8 1.66667C6.8 2.10869 6.97911 2.53262 7.29792 2.84518C7.61673 3.15774 8.04913 3.33333 8.5 3.33333ZM8.5 8.33333C8.16377 8.33333 7.8351 8.43108 7.55553 8.61422C7.27597 8.79735 7.05807 9.05765 6.92941 9.36219C6.80074 9.66674 6.76707 10.0018 6.83267 10.3251C6.89826 10.6485 7.06017 10.9454 7.29792 11.1785C7.53567 11.4116 7.83858 11.5703 8.16835 11.6346C8.49812 11.699 8.83993 11.6659 9.15056 11.5398C9.4612 11.4137 9.7267 11.2 9.9135 10.926C10.1003 10.6519 10.2 10.3296 10.2 10C10.2 9.55797 10.0209 9.13405 9.70208 8.82149C9.38327 8.50893 8.95087 8.33333 8.5 8.33333ZM15.3 16.6667C14.9638 16.6667 14.6351 16.7644 14.3555 16.9475C14.076 17.1307 13.8581 17.391 13.7294 17.6955C13.6007 18.0001 13.5671 18.3352 13.6327 18.6585C13.6983 18.9818 13.8602 19.2788 14.0979 19.5118C14.3357 19.7449 14.6386 19.9037 14.9683 19.968C15.2981 20.0323 15.6399 19.9993 15.9506 19.8731C16.2612 19.747 16.5267 19.5334 16.7135 19.2593C16.9003 18.9852 17 18.663 17 18.3333C17 17.8913 16.8209 17.4674 16.5021 17.1548C16.1833 16.8423 15.7509 16.6667 15.3 16.6667ZM32.3 8.33333H15.3C14.8491 8.33333 14.4167 8.50893 14.0979 8.82149C13.7791 9.13405 13.6 9.55797 13.6 10C13.6 10.442 13.7791 10.8659 14.0979 11.1785C14.4167 11.4911 14.8491 11.6667 15.3 11.6667H32.3C32.7509 11.6667 33.1833 11.4911 33.5021 11.1785C33.8209 10.8659 34 10.442 34 10C34 9.55797 33.8209 9.13405 33.5021 8.82149C33.1833 8.50893 32.7509 8.33333 32.3 8.33333ZM32.3 16.6667H22.1C21.6491 16.6667 21.2167 16.8423 20.8979 17.1548C20.5791 17.4674 20.4 17.8913 20.4 18.3333C20.4 18.7754 20.5791 19.1993 20.8979 19.5118C21.2167 19.8244 21.6491 20 22.1 20H32.3C32.7509 20 33.1833 19.8244 33.5021 19.5118C33.8209 19.1993 34 18.7754 34 18.3333C34 17.8913 33.8209 17.4674 33.5021 17.1548C33.1833 16.8423 32.7509 16.6667 32.3 16.6667Z"
-                      fill="#fff" fill-opacity="1"></path>
-              </svg>
-          </div>
-      </div>
+          </li>
+        </ul>
+    <div class="title-sidebar">
+          <div class="line-title"></div>
+          <h3>کامپوننت ها</h3>
+        </div>
   </div>
 </div>

@@ -1,36 +1,53 @@
-<!-- <section class="panel-satrap">
-  <div class="sidebar">
-    <prs-sidebar></prs-sidebar>
-  </div>
+<section style="background: #f2f2f2">
+  <div class="p-panel">
+    <div class="panel">
+      <div class="p-sidebar">
+        <prs-sidebar></prs-sidebar>
+      </div>
+      <main class="main">
+        <header class="header-panel">
+          <div class="search">
+            <svg id="Search..." xmlns="http://www.w3.org/2000/svg" width="24.371" height="24.371"
+                 viewBox="0 0 24.371 24.371">
+              <path id="Path_1136" data-name="Path 1136"
+                    d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
+                    fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              <path id="Path_1137" data-name="Path 1137" d="M22.956,22.956l-2.609-2.609" fill="none" stroke="#646464"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            </svg>
+            <input type="text" placeholder="جستجو کنید....">
+          </div>
+          <div class="option-header">
+            <button class="dark-mode">
+              <svg id="Moon_2" data-name="Moon 2" xmlns="http://www.w3.org/2000/svg" width="24" height="24.998"
+                   viewBox="0 0 24 24.998">
+                <path id="Path_514" data-name="Path 514"
+                      d="M10.8,1.6A1,1,0,0,0,9.789.023,12.72,12.72,0,0,0,0,12.488,12.509,12.509,0,0,0,12.509,25a12.263,12.263,0,0,0,11.413-7.612A1,1,0,0,0,22.558,16.1,8.85,8.85,0,0,1,18.5,17,9.5,9.5,0,0,1,9,7.5,10.13,10.13,0,0,1,10.8,1.6ZM2,12.488A10.876,10.876,0,0,1,7.88,2.8,12.928,12.928,0,0,0,7,7.5,11.5,11.5,0,0,0,18.5,19a11.975,11.975,0,0,0,2.363-.223A10.219,10.219,0,0,1,12.509,23,10.509,10.509,0,0,1,2,12.488Z"
+                      fill="#646464" fill-rule="evenodd"/>
+              </svg>
+            </button>
+            <button class="notification">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="22.011" viewBox="0 0 25 22.011">
+                <g id="Megaphone" transform="translate(0 0.005)">
+                  <path id="Path_1020" data-name="Path 1020"
+                        d="M5.088,13.549a4.078,4.078,0,1,1,0-8.156H6.437M5.088,13.549S6.5,18.44,7,19.934a1.536,1.536,0,0,0,3-.5V13.809m-4.912-.26H6.437m3.563.26c2.848.649,5.487,2.377,8.026,3.644C23.114,19.99,23,11.942,23,9.471s.114-10.52-4.974-7.982c-3.185,1.588-6.526,3.9-10.24,3.9H6.437M10,13.809a9.939,9.939,0,0,0-2.214-.26H6.437m0,0V5.393"
+                        fill="none" stroke="#646464" stroke-width="2"/>
+                  <path id="Path_1021" data-name="Path 1021" d="M24,7v5" fill="none" stroke="#646464"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                </g>
+              </svg>
+              <span class="badge">5</span>
+            </button>
+            <div class="avatar">
+              <img src="../../../assets/img/user.png" alt="">
+              <i class="icon-circle text-warning"></i>
+            </div>
+          </div>
+        </header>
+        <div class="body-panel">
 
-  <div class="main-page">
-    <div class="responsive-right">
-      <prs-header></prs-header>
-      <router-outlet></router-outlet>
+        </div>
+      </main>
     </div>
   </div>
-</section> -->  
-
-<!-- <livewire:admin.section.sidebar-mobile-panel /> -->
-<main class="admin-panel">
-  <article class="article-controller">
-      <section class="s-container">
-          <div class="container-fluid">
-              <!-- {{-- parent data --}} -->
-              <div class="p-container d-flex p-0">
-                  <!-- {{-- right --}} -->
-                  <prs-sidebar></prs-sidebar>
-                  <!-- {{-- left --}} -->
-                  <div class="left flex-79 m-right-auto m-mb-37">
-                      <!-- {{-- row data --}} -->
-                      <prs-header></prs-header>
-                      <router-outlet></router-outlet>
-                  </div>
-              </div>
-          </div>
-      </section>
-  </article>
-</main>
-<!-- {{-- setting panel --}} -->
-<!-- <livewire:admin.section.setting-panel /> -->
-
+</section>

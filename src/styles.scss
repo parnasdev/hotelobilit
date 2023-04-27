@@ -1,3 +1,48 @@
-.admin-panel {
-    @import "./styles.admin.scss";
+@import "src/assets/css/fontiran.css";
+$base-color: #6683d7;
+$base-color-two: #4fcdde;
+$base-color-three: #e5c1a8;
+$white-color:#fff;
+$dark-color:#000;
+$light-color:#f2f2f2;
+$gray-color:#646464;
+
+body {
+  direction: rtl;
+  padding: 0;
+  margin: 0;
+  font-family: 'IRANSans' !important;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'IRANSans' !important;
+}
+.prs-responsive{
+  max-width: 1400px;
+  margin: 0 auto;
+}
+a{
+  text-decoration: none;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+  float: right;
+  border-radius: 20px;
+  padding: 1px;
+  height: 20vh !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #707070;
+  border-radius: 20px;
+  width: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #707070;
 }
