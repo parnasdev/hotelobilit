@@ -11,6 +11,8 @@ import {CityApiService} from "../../../Core/Https/city-api.service";
 import {AlertDialogComponent, AlertDialogDTO} from "../../../common-project/alert-dialog/alert-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {PublicService} from "../../../Core/Services/public.service";
+import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { storeHotelReqDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-list',
@@ -26,7 +28,7 @@ export class ListComponent implements OnInit {
     search: null
   };
   citiesResponse: CityResponseDTO[] = []
-  hotelList: HotelListRes[] = [];
+  hotelList: storeHotelReqDTO[] = [];
   cityType = false;
   keywordFC = new FormControl('');
   isLoading = false;
@@ -36,7 +38,7 @@ export class ListComponent implements OnInit {
   p = 1;
 
   constructor(public dialog: MatDialog,
-              public hotelApi: HotelApiService,
+              public hotelApi: PostApiService,
               public message: MessageService,
               public cityApiService: CityApiService,
               public commonApi: CommonApiService,
@@ -58,7 +60,7 @@ export class ListComponent implements OnInit {
       city: this.cityFC.value === '' ? null : this.cityFC.value,
       search: this.keywordFC.value
     }
-    this.hotelApi.getHotels(this.hotelReq, this.p).subscribe((res: any) => {
+    this.hotelApi.getPosts('hotel').subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelList = res.data;
@@ -80,16 +82,16 @@ export class ListComponent implements OnInit {
 
 
   deleteHotel(slug: string) {
-    this.hotelApi.delete(slug).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.custom(res.message);
-        this.getList();
-      } else {
-        this.message.custom(res.message)
-      }
-    }, (error: any) => {
-      this.message.error()
-    })
+    // this.hotelApi.delete(slug).subscribe((res: any) => {
+    //   if (res.isDone) {
+    //     this.message.custom(res.message);
+    //     this.getList();
+    //   } else {
+    //     this.message.custom(res.message)
+    //   }
+    // }, (error: any) => {
+    //   this.message.error()
+    // })
   }
 
   getCitySelected(item: any): void {

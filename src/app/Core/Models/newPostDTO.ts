@@ -84,6 +84,7 @@ export interface categoriesDTO {
 }
 
 export interface hotelPageDTO {
-    statuses: statusesDTO[]
-    cities: citiesDTO[]
+    statuses: statusesDTO[];
+    cities: citiesDTO[];
+    roomTypes: statusesDTO[]
 }

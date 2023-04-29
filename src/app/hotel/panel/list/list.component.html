@@ -7,20 +7,25 @@
       <input [formControl]="keywordFC" placeholder="جستجو بر اساس نام هتل" type="text">
       <button class="mr-2" (click)="getList()">جستجو</button>
     </div>
-    <a *ngIf="session.checkItemPermission('Hotel.create')" class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a>
+    <a class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a>
+    <!-- <a *ngIf="session.checkItemPermission('posts.create')" class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a> -->
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
       <span class="title-tour">عنوان هتل</span>
-      <span class="from-to">عنوان خارجی هتل</span>
+      <!-- <span class="from-to">عنوان خارجی هتل</span> -->
+      <span class="from-to">ایجاد کننده</span>
+      <span class="from-to">تعداد بازدید</span>
       <span class="setting">تنظیمات</span>
     </div>
     <div class="body-list-tour" *ngIf="hotelList.length > 0">
       <div class="item" *ngFor="let hotel of hotelList | paginate: paginateConfig;let i = index">
         <span class="id">{{ i + 1 }}</span>
-        <span class="title-tour">{{ hotel.name }}</span>
-        <span class="title-tour">{{ hotel.nameEn }}</span>
+        <span class="title-tour">{{ hotel.title }}</span>
+        <!-- <span class="title-tour">{{ hotel.title }}</span> -->
+        <span class="title-tour">{{ hotel.user.full_name }}</span>
+        <span class="title-tour">{{ hotel.visitCount }}</span>
         <div class="button-setting">
           <a *ngIf="session.checkItemPermission('Hotel.edit')" routerLink="/panel/hotel/edit/{{ hotel.slug }}"
             class="edit-btn">ویرایش</a>

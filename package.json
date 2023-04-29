@@ -26,7 +26,7 @@
     "ngx-mask": "^15.1.2",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
-    "sweetalert2": "^11.4.8",
+    "sweetalert2": "^11.7.3",
     "swiper": "^9.2.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

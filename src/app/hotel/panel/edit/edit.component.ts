@@ -98,7 +98,6 @@ export class EditComponent extends AddComponent implements OnInit {
         this.hotelInfo = res.data;
         // this.currentStar = +this.hotelInfo.stars;
         // this.cityTypeFC.setValue(this.hotelInfo.city.type != 0)
-        this.getRoomTypes()
         // this.getCities()
         this.getServices()
       } else {

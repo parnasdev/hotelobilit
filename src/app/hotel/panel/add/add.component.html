@@ -49,7 +49,7 @@
               </mat-button-toggle-group>
               <div class="selectdiv">
                 <select formControlName="city" name="" id="">
-                  <option *ngFor="let city of citiesResponse" [value]="city.id">{{city.name}}</option>
+                  <option *ngFor="let city of data.cities" [value]="city.id">{{city.name}}</option>
                 </select>
               </div>
             </div>
@@ -125,7 +125,7 @@
                   <span>اتاق های انتخاب شده</span>
 
                 </mat-select-trigger>
-                <mat-option *ngFor="let room of roomTypes" [value]="room">{{room.name + ' - ' + room.label}}</mat-option>
+                <mat-option *ngFor="let room of data.roomTypes" [value]="room">{{room.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

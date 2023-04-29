@@ -55,7 +55,8 @@ export class AddComponent implements OnInit {
   thumbnail = ''
   data: hotelPageDTO = {
     cities: [],
-    statuses: []
+    statuses: [],
+    roomTypes: []
   }
   serviceIDs: string[] = [];
   isLoading = false;
@@ -93,9 +94,7 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.errorService.clear();
-    // this.getServices();
-    // this.getCities()
-    this.getRoomTypes();
+    this.getData();
   }
 
 
@@ -120,14 +119,14 @@ export class AddComponent implements OnInit {
     })
   }
 
-  getRoomTypes(): void {
+  getData(): void {
     const req = {
       paginate: false,
       perPage: 20
     }
-    this.roomTypeApi.getRoomTypes(req).subscribe((res: any) => {
+    this.hotelApi.createPosts('hotel').subscribe((res: any) => {
       if (res.isDone) {
-        this.roomTypes = res.data;
+        this.data = res.data;
       } else {
         this.message.custom(res.message);
       }
@@ -135,10 +134,7 @@ export class AddComponent implements OnInit {
       this.message.error()
     })
   }
-
-
   
-
   setReq(): void {
     this.req = {
       title: '',
