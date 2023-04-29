@@ -1,11 +1,6 @@
 @import "src/assets/css/fontiran.css";
-$base-color: #6683d7;
-$base-color-two: #4fcdde;
-$base-color-three: #e5c1a8;
-$white-color:#fff;
-$dark-color:#000;
-$light-color:#f2f2f2;
-$gray-color:#646464;
+@import "src/assets/css/varible";
+
 
 body {
   direction: rtl;
@@ -45,4 +40,9 @@ a{
 ::-webkit-scrollbar {
   width: 5px;
   background-color: #707070;
+}
+.btn-base{
+  background: $base-color-three !important;
+  color: #fff !important;
+  border-radius: 4px !important;
 }

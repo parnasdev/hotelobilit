@@ -1,10 +1,4 @@
-$base-color: #6683d7;
-$base-color-two: #4fcdde;
-$base-color-three: #e5c1a8;
-$white-color: #fff;
-$dark-color: #000;
-$light-color: #f2f2f2;
-$gray-color: #646464;
+@import "src/assets/css/varible";
 
 
 .sidebar {
@@ -13,6 +7,8 @@ $gray-color: #646464;
   background: $white-color;
   border-radius: 0 30px 30px 0;
   padding: 1.5rem 0;
+  z-index: 50;
+  position: relative;
 
   .header-sidebar {
     width: 100%;
@@ -167,3 +163,4 @@ $gray-color: #646464;
     }
   }
 }
+
