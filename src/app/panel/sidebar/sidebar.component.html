@@ -1,93 +1,63 @@
 <div class="sidebar">
   <div class="header-sidebar">
-    <h1 class="name-panel">ParnasWeb</h1>
+    <h1 class="name-panel">Parnas Agency</h1>
     <button class="toggle-sidebar">
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828" viewBox="0 0 8.414 14.828">
           <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
-                fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
         </svg>
       </span>
     </button>
   </div>
   <div class="body-sidebar">
+
+    <div class="title-sidebar">
+      <div class="line-title"></div>
+      <h3>منوی اصلی</h3>
+    </div>
     <ul class="list-sidebar">
-      <li class="item-menu" *ngFor="let item of [1,2,3,4]"><a href="">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
-          <path id="Home"
+      <ng-template  ngFor let-item [ngForOf]="sideBarData" let-index="index">
+        <li class="item-menu" *ngIf="item.children.length == 0">
+          <a href="{{ item.link }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
+              <path id="Home"
                 d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
                 transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
-                stroke-linejoin="round" stroke-width="2"/>
-        </svg>
-        <span>داشبورد</span>
-      </a></li>
-      <li class="item-menu-collapse">
-        <a class="" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-           aria-controls="collapseExample">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
-            <path id="Home"
-                  d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
-                  transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
-                  stroke-linejoin="round" stroke-width="2"/>
-          </svg>
-          <span>زیر مجموعه دار</span>
+                stroke-linejoin="round" stroke-width="2" />
+            </svg>
+            <span>{{ item.name }}</span>
+          </a>
+        </li>
+        <li class="item-menu-collapse" *ngIf="item.children.length  > 0">
+          <a class="" data-bs-toggle="collapse" [href]="'#collapseExample' + index" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
+              <path id="Home"
+                d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
+                transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="2" />
+            </svg>
+            <span>{{ item.name }}</span>
+            <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828"
+              viewBox="0 0 8.414 14.828">
+              <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
+                fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+            </svg>
+          </a>
+          <div class="collapse" [id]="'collapseExample' + index">
+            <a *ngFor="let child of item.children"  href="{{ child.link }}" class="card card-body">
+                {{ child.name }}
+            </a>
 
-          <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828"
-               viewBox="0 0 8.414 14.828">
-            <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
-                  fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-          </svg>
-
-        </a>
-        <div class="collapse" id="collapseExample">
-          <div class="ps-4 ">
-            <a href="">زیر مجموعه</a>
           </div>
-        </div>
-      </li>
+        </li>
+      </ng-template>
+
     </ul>
     <div class="title-sidebar">
       <div class="line-title"></div>
-      <h3>برنامه ها و صفحه ها</h3>
+      <h3>کامپوننت ها</h3>
     </div>
-    <ul class="list-sidebar">
-          <li class="item-menu" *ngFor="let item of [1,2,3,4]"><a href="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
-              <path id="Home"
-                    d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
-                    transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="2"/>
-            </svg>
-            <span>داشبورد</span>
-          </a></li>
-          <li class="item-menu-collapse">
-            <a class="" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false"
-               aria-controls="collapseExample">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
-                <path id="Home"
-                      d="M1.712,19.216a30.521,30.521,0,0,1-.513-10,1.838,1.838,0,0,1,.128-.181A8.216,8.216,0,0,1,2,8.3c.6-.6,1.445-1.33,2.4-2.124C6.323,4.6,8.644,2.832,10.337,1.572a2.869,2.869,0,0,1,3.427-.008c1.706,1.259,4.048,3.025,5.967,4.61.962.795,1.8,1.529,2.394,2.123a7.282,7.282,0,0,1,.653.725c.048.064.079.111.1.144a38.532,38.532,0,0,1-.5,10.072,3.707,3.707,0,0,1-1.244,2.334,5.939,5.939,0,0,1-3.039,1.042q-1.095.137-2.17.225a46.917,46.917,0,0,1-7.834,0Q7.047,22.747,6,22.614a5.863,5.863,0,0,1-3.018-1.049A3.894,3.894,0,0,1,1.712,19.216ZM1.18,9.253l0-.006ZM22.9,9.211l0-.007Z"
-                      transform="translate(0.04 0.091)" fill="none" stroke="#646464" stroke-linecap="round"
-                      stroke-linejoin="round" stroke-width="2"/>
-              </svg>
-              <span>زیر مجموعه دار</span>
-
-              <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828"
-                   viewBox="0 0 8.414 14.828">
-                <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
-                      fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-              </svg>
-
-            </a>
-            <div class="collapse" id="collapseExample2">
-              <div class="card card-body">
-                زیر مجموعه
-              </div>
-            </div>
-          </li>
-        </ul>
-    <div class="title-sidebar">
-          <div class="line-title"></div>
-          <h3>کامپوننت ها</h3>
-        </div>
   </div>
 </div>
