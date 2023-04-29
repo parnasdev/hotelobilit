@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
-import { UploadResDTO } from 'src/app/agencies/edit/edit.component';
+import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 @Component({
   selector: 'prs-multiple-upload',
   templateUrl: './multiple-upload.component.html',
@@ -39,7 +39,7 @@ public show = true;
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.incommingFiles) {
+    if (changes['incommingFiles']) {
       this.selectedFiles = [];
       this.incommingFiles.forEach(item => {
         this.selectedFiles.push(item)

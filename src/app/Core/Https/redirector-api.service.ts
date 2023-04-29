@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {PublicService} from "../Services/public.service";
 import {environment} from "../../../environments/environment";
-import {CategoryReqDTO} from "../Models/CategoryDTO";
 import {Result} from "../Models/result";
 
 export interface RedirectorDTO {

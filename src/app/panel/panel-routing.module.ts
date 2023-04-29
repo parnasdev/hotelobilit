@@ -11,7 +11,13 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
-      }
+      },
+      {
+        path: 'hotel',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Hotel']},
+        loadChildren: () => import('../hotel/panel/hotel-panel.module').then(m => m.HotelPanelModule)
+      },
       // {
       //   path: 'tour',
       //   // canActivate: [PanelItemGuardService],
@@ -53,12 +59,6 @@ const routes: Routes = [
       //   // canActivate: [PanelItemGuardService],
       //   // data: {permitions: ['Cities']},
       //   loadChildren: () => import('../cities/cities.module').then(m => m.CitiesModule)
-      // },
-      // {
-      //   path: 'hotel',
-      //   // canActivate: [PanelItemGuardService],
-      //   // data: {permitions: ['Hotel']},
-      //   loadChildren: () => import('../hotel/panel/hotel-panel.module').then(m => m.HotelPanelModule)
       // },
       // {
       //   path: 'file-manager',

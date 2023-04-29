@@ -1,4 +1,22 @@
+import { RoomDTO } from "./tourDTO";
 
+export interface hotelDTO {
+    id: number;
+    user_id: number;
+    title: string;
+    slug: string;
+    description: string
+    body: string;
+    options: [];
+    pin: boolean;
+    comment: boolean;
+    post_type: string;
+    status_id: number;
+    deleted_at: string;
+    created_at: string;
+    updated_at: string;
+    files: []
+}
 export interface storeHotelReqDTO {
     id: number
     thumbnail: string
@@ -7,6 +25,17 @@ export interface storeHotelReqDTO {
     visitCount: number
     user: userDTO
     status: statusObjDTO
+}
+
+export interface InfoHotelDTO {
+    statuses: statusesDTO[]
+    cities: citiesDTO[]
+    roomTypes: statusesDTO[]
+    post: hotelDTO;
+    files: string[],
+    service_ids: number[],
+    city_id: number;
+    rooms: RoomDTO[]
 }
 
 export interface storeHotelSetReqDTO {

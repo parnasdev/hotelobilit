@@ -30,6 +30,8 @@ export class PanelGuardService {
     // }
     if (this.session.isLoggedIn()){
       return true
+    } else {
+      this.router.navigateByUrl('/auth/prs-admin')
     }
   }
 

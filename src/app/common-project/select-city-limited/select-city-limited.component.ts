@@ -59,7 +59,7 @@ export class SelectCityLimitedComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value)),
     );
-    if (changes.city) {
+    if (changes['city']) {
       this.getCities();
     }
 

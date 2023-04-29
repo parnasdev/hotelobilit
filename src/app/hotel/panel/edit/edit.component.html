@@ -1,4 +1,4 @@
-<prs-loading *ngIf="isLoading"></prs-loading>
+<!-- <prs-loading *ngIf="isLoading"></prs-loading> -->
 
 <div class="add-tour">
 
@@ -86,7 +86,7 @@
         <div class="top">
           <div class="item-info-second w-100">
             <label class="mb-2" for="">توضیحات</label>
-            <prs-editor [inCommingBody]="hotelInfo.body ? hotelInfo.body : ''"
+            <prs-editor [inCommingBody]="hotelInfo.post.body ? hotelInfo.post.body : ''"
               (body)="getDescriptionFromEditor($event)"></prs-editor>
           </div>
         </div>
@@ -101,7 +101,7 @@
       </div>
       <div class="info-tour-body-upload">
         <div class="top-one">
-          <prs-upload-single [incommingFile]="{path: '',url: hotelInfo.thumbnail}"
+          <prs-upload-single [incommingFile]="{path: '',url: getThumbnailHotel()}"
             (result)="getThumbnail($event)"></prs-upload-single>
         </div>
         <div class="bottom-one">
@@ -110,10 +110,10 @@
       </div>
     </div>
 
-    <div class="box-info-fly">
+    <!-- <div class="box-info-fly">
       <prs-services *ngIf="showServices" [services]="services" [inComing]="hotelInfo.services[0]"
         (result)="getServicesResult($event)"></prs-services>
-    </div>
+    </div> -->
     <div class="box-info-fly">
       <div class="info-tour-header">
         <div class="right">

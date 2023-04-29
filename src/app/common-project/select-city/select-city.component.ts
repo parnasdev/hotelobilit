@@ -59,7 +59,7 @@ isMobile = false;
       startWith(''),
       map(value => this._filter(value)),
     );
-    if (changes.city) {
+    if (changes['city']) {
       console.log(changes);
 
       this.getCities();

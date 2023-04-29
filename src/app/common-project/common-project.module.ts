@@ -22,7 +22,7 @@ import {Page404Component} from "./page404/page404.component";
 import {PopupVideoComponent} from './popup-video/popup-video.component';
 import {PipesModule} from "./pipes/pipes.module";
 import {ShowLocationComponent} from './show-location/show-location.component';
-import {SelectCategoriesComponent} from './select-categories/select-categories.component';
+// import {SelectCategoriesComponent} from './select-categories/select-categories.component';
 import {MatSelectModule} from "@angular/material/select";
 import {FaqComponent} from './faq/faq.component';
 import {FooterLinksComponent} from "./footer-links/footer-links.component";

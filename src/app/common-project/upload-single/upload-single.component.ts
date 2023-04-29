@@ -8,8 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
-import { UploadResDTO } from 'src/app/agencies/edit/edit.component';
-
+import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 
 
 @Component({
@@ -41,7 +40,7 @@ export class UploadSingleComponent implements OnInit,OnChanges {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes.incommingFile){
+    if(changes['incommingFile']){
       this.selectedFile= this.incommingFile;
     }
   }

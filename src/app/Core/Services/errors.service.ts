@@ -55,7 +55,7 @@ export class ErrorsService {
           }
           case 401: {
             this.session.removeUser();
-            this.router.navigateByUrl('/auth/validate');
+            this.router.navigateByUrl('/auth/prs-admin');
             break;
           }
           case 422: {
