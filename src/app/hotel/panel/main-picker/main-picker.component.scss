@@ -1,0 +1,236 @@
+/* You can add global styles to this file, and also import other style files */
+$border-color: #c6c6c6;
+$white-color: #ffffff;
+$dark-color: #151515;
+$red-color: #ff0000;
+$gray-color: #646464;
+
+body {
+  font-family: 'IRANSans' !important;
+  direction: rtl;
+}
+
+// @font-face {
+//   font-family: IRANSans;
+//   font-style: normal;
+//   font-weight: 900;
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot');
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Black.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+//   url('/assets/fonts/woff2/IRANSansWeb(FaNum)_Black.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+//   url('/assets/fonts/woff/IRANSansWeb(FaNum)_Black.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+//   url('/assets/fonts/ttf/IRANSansWeb(FaNum)_Black.ttf') format('truetype');
+// }
+// @font-face {
+//   font-family: IRANSans;
+//   font-style: normal;
+//   font-weight: bold;
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Bold.eot');
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+//   url('/assets/fonts/woff2/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+//   url('/assets/fonts/woff/IRANSansWeb(FaNum)_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+//   url('/assets/fonts/ttf/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
+// }
+// @font-face {
+//   font-family: IRANSans;
+//   font-style: normal;
+//   font-weight: 500;
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Medium.eot');
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+//   url('/assets/fonts/woff2/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+//   url('/assets/fonts/woff/IRANSansWeb(FaNum)_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+//   url('/assets/fonts/ttf/IRANSansWeb(FaNum)_Medium.ttf') format('truetype');
+// }
+// @font-face {
+//   font-family: IRANSans;
+//   font-style: normal;
+//   font-weight: 300;
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Light.eot');
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+//   url('/assets/fonts/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+//   url('/assets/fonts/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+//   url('/assets/fonts/ttf/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
+// }
+// @font-face {
+//   font-family: IRANSans;
+//   font-style: normal;
+//   font-weight: 200;
+
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_UltraLight.eot');
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+//   url('/assets/fonts/woff2/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+//   url('/assets/fonts/woff/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+//   url('/assets/fonts/ttf/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
+// }
+// @font-face {
+//   font-family: IRANSans;
+//   font-style: normal;
+//   font-weight: normal;
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum).eot');
+//   src: url('/assets/fonts/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+//   url('/assets/fonts/woff2/IRANSansWeb(FaNum).woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+//   url('/assets/fonts/woff/IRANSansWeb(FaNum).woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+//   url('/assets/fonts/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
+// }
+
+.p-calender {
+  height: 550px;
+  background: $white-color;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  .prev-month {
+    background: $red-color;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    transform: translateX(-37px);
+    cursor: pointer;
+
+    svg {
+      transition: 0.3s all;
+
+      &:hover {
+        transform: translateX(3px);
+        transition: 0.3s all;
+      }
+
+      path {
+        fill: $white-color;
+      }
+    }
+  }
+
+  .next-month {
+    background: $red-color;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transform: translateX(37px);
+
+    svg {
+      transition: 0.3s all;
+      transform: rotate(180deg);
+
+      &:hover {
+        transform: translateX(-3px) rotate(180deg);
+        transition: 0.3s all;
+      }
+
+      path {
+        fill: $white-color;
+      }
+    }
+  }
+
+  .box-calender {
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    width: 43%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .header-month {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+
+      h3 {
+        margin: 0;
+        color: $gray-color;
+        font-size: 16px;
+      }
+    }
+
+    .header-week {
+      width: 97%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      column-gap: 12px;
+      place-items: center;
+
+      span {
+        font-size: 13px;
+        color: $gray-color;
+        font-weight: 700;
+      }
+    }
+
+    .body-calender {
+      width: 97%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      row-gap: 20px;
+      column-gap: 12px;
+      place-items: center;
+      margin-top: 12px;
+
+      .label-capacity {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: #646464;
+        padding: 1px;
+        color: var(--white);
+        font-size: 13px;
+        position: absolute;
+        left: -5px;
+        top: -5px;
+      }
+
+      .item {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #eedede;
+        color: $dark-color;
+        font-size: 20px;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+        transition: 0.3s all;
+
+        &:hover {
+          background: $red-color;
+          color: $white-color;
+          transition: 0.3s all;
+        }
+
+        .price-day {
+          position: absolute;
+          transform: translateY(29px);
+          margin-top: 8px;
+          font-size: 12px;
+          color: #d4d4d4;
+        }
+      }
+    }
+  }
+}
+
+.opacity3 {
+  opacity: 0.3;
+}
