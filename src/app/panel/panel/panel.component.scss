@@ -1,10 +1,4 @@
-$base-color: #6683d7;
-$base-color-two: #4fcdde;
-$base-color-three: #e5c1a8;
-$white-color: #fff;
-$dark-color: #000;
-$light-color: #f2f2f2;
-$gray-color: #646464;
+@import "src/assets/css/varible";
 
 .p-panel {
   display: flex;
@@ -28,6 +22,7 @@ $gray-color: #646464;
       position: fixed;
       top: 7px;
       height: 100vh;
+      z-index: 10;
     }
 
     .main {
@@ -37,6 +32,7 @@ $gray-color: #646464;
       flex-direction: column;
       position: relative;
       padding: 0 1rem;
+      transition: 0.5s all !important;
 
       .header-panel {
         width: 100%;
@@ -84,7 +80,8 @@ $gray-color: #646464;
             background: unset;
             position: relative;
             margin: 0 20px;
-            span{
+
+            span {
               position: absolute;
               right: -8px;
               top: -8px;
@@ -114,10 +111,10 @@ $gray-color: #646464;
               font-size: 11px;
               animation: icon 1.5s forwards infinite;
               @keyframes icon {
-                0%{
+                0% {
                   opacity: 0;
                 }
-                100%{
+                100% {
                   opacity: 1;
                 }
               }
@@ -128,13 +125,138 @@ $gray-color: #646464;
 
       .body-panel {
         width: 100%;
-        height: 2000px;
+        height: auto;
       }
     }
   }
 }
-.main-full{
-  width: 100% !important;
-  transform: translateX(0) !important;
 
+.main-full {
+  width: 100% !important;
+  padding: 0 3rem !important;
+  transform: translateX(0) !important;
+}
+
+.toggle-sidebar-open {
+  border: none;
+  outline: none;
+  background: $white-color;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  padding: 9px;
+  position: absolute;
+  right: 13px;
+  top: 30px;
+  z-index: 3;
+  cursor: pointer;
+
+  svg {
+    transform: rotate(180deg);
+  }
+
+  span {
+    width: 34px;
+    height: 34px;
+    background: #6a6cf6;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+}
+
+input {
+  background: $white-color !important;
+}
+
+:host::ng-deep .dark-mode-panel {
+  svg {
+    path {
+      stroke: $text-color-dark !important;
+    }
+  }
+
+  .p-panel {
+    background: $base-color-two-dark !important;
+  }
+
+  .sidebar {
+    background: $base-color-dark !important;
+  }
+
+  .header-panel {
+    background: $base-color-dark !important;
+
+    input {
+      background: unset !important;
+      border: none !important;
+    }
+  }
+
+  input, select, textarea {
+    background: $base-color-dark !important;
+    border: 1px solid #726868 !important;
+  }
+
+  .dropzone {
+    background: $base-color-dark !important;
+  }
+
+  a, span, p, h1, h2, h3, h4, h5, h6, label {
+    color: $text-color-dark !important;
+  }
+
+  .info-tour-header {
+    background: rgba(149, 150, 245, 0.2) !important;
+
+    select {
+      border: 1px dashed #726868 !important;
+      color: $white-color !important;
+      padding: 4px !important;
+      position: relative;
+      top: -6px !important;
+    }
+  }
+
+  .info-tour-body {
+    border: 1px dashed #726868 !important;
+    border-top: none !important;
+  }
+
+  .toggle-sidebar, .toggle-sidebar-open {
+    background: $base-color-dark !important;
+  }
+
+  .header-list-tour {
+    background: $base-color-dark !important;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background: #1d1e65 !important;
+
+    input {
+      background: unset !important;
+      color: $text-color-dark !important;
+    }
+  }
+
+  .item-menu-collapse ,.item-menu {
+    &:hover {
+      background: $base-color-two-dark !important;
+
+      a {
+        color: $text-color-dark;
+      }
+    }
+    .card-body{
+      background: $base-color-three;
+      margin-top: 12px !important;
+      color: $text-color-dark !important;
+    }
+  }
+}
+:host::ng-deep .card-body{
+  background: $base-color-three !important;
+  margin-top: 12px !important;
+  color: $white-color !important;
 }

@@ -5,9 +5,9 @@
     <prs-select-city [hasHotel]="true" (citySelected)="getCitySelected($event)"></prs-select-city>
     <div class="d-flex search-box-hotel">
       <input [formControl]="keywordFC" placeholder="جستجو بر اساس نام هتل" type="text">
-      <button class="mr-2" (click)="getList()">جستجو</button>
+      <button class="ms-2 btn-base" (click)="getList()">جستجو</button>
     </div>
-    <a class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a>
+    <a class="btn-add-tour btn-base" routerLink="/panel/hotel/add">اضافه</a>
     <!-- <a *ngIf="session.checkItemPermission('posts.create')" class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a> -->
   </div>
   <div class="table-list-tour">
