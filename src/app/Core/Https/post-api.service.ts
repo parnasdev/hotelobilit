@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { PublicService } from '../Services/public.service';
 import { Result } from '../Models/result';
-import { HotelSetRequestDTO } from '../Models/hotelDTO';
+import { HotelRatesSetReqDTO, HotelSetRequestDTO } from '../Models/hotelDTO';
 import { hotelPageDTO, storeHotelReqDTO, storeHotelSetReqDTO } from '../Models/newPostDTO';
 
 @Injectable({
@@ -49,7 +49,7 @@ export class PostApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  rating(roomId: number, req: storeHotelSetReqDTO): any {
+  rating(roomId: number, req: HotelRatesSetReqDTO): any {
     const strUrl = this.serverControllerName + `rates/${roomId}`;
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
