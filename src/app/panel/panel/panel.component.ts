@@ -16,12 +16,12 @@ export class PanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $('.btn-sidebar').click(() => {
+    $('.toggle-sidebar').click(() => {
       $('.sidebar').animate({
         width: ['toggle', 'swing'],
         opacity: ['toggle', 'swing'],
       })
-      $('.main-page').toggleClass('main-full').animate(1500)
+      $('.main').toggleClass('main-full').animate(1500)
     })
     this.title.setTitle('پنل کاربری هتل و بلیط')
   }
