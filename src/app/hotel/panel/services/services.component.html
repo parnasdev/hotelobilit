@@ -1,0 +1,4 @@
+<mat-checkbox *ngFor="let item of services" (change)="changeChecked()" [(ngModel)]="item.checked" class="example-margin">
+  {{item.name}}
+</mat-checkbox>
+

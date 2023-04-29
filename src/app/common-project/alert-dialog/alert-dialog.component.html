@@ -1,0 +1,24 @@
+<div class="container mt-2" style="direction: rtl;">
+  <div class="d-flex justify-content-end"><i (click)="dialogRef.close()" class="fa fa-times parent-times"></i></div>
+  <div class="row no-gutters d-flex justify-content-center">
+    <div class="col-lg-12 col-12 p-1 mb-0" mat-dialog-actions>
+      <h6 class="font-weight-bold mb-0">{{data.title}}</h6>
+    </div>
+  </div>
+  <div class="row no-gutters HoteltSearch">
+    <div class="col-lg-12 p-1 text-right mb-3">
+      <span>{{data.description}}</span>
+    </div>
+    <div class="col-lg-6 col-6 p-1 d-flex justify-content-center">
+      <button class="SubmitButton text-center" type="button" (click)="yes()">
+        بله
+      </button>
+
+    </div>
+    <div class="col-lg-6 col-6 p-1 d-flex justify-content-center">
+      <button class="CancelButton text-center" type="button" (click)="cancel()">
+        انصراف
+      </button>
+    </div>
+  </div>
+</div>

@@ -51,3 +51,8 @@ export interface transactionDTO {
   status: string;
   ref_code: string;
 }
+
+export interface UploadResDTO {
+  path: string;
+  url: string
+}

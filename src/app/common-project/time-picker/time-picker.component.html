@@ -1,0 +1,13 @@
+<div class="parent-timer d-flex justify-content-between align-items-center">
+  <div class="minutes d-flex flex-column align-items-center">
+    <button class="btn-timer" (click)="increaseMinutes()"><i class="icon-up-open"></i></button>
+    <input class="inp-timer" [formControl]="minuteFC" (keyup)="minutesChanged($event)" type="text">
+    <button  class="btn-timer" (click)="decreaseMinutes()"><i class="icon-down-open"></i></button>
+  </div>
+  <h5 class="between-time">:</h5>
+  <div class="hour d-flex flex-column align-items-center">
+    <button  class="btn-timer" (click)="increaseHour()"><i class="icon-up-open"></i></button>
+    <input class="inp-timer" [formControl]="hourFC" (keyup)="hourChanged($event)" type="text">
+    <button  class="btn-timer" (click)="decreaseHour()"> <i class="icon-down-open"></i></button>
+  </div>
+</div>

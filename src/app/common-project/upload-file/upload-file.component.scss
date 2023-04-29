@@ -1,0 +1,57 @@
+.uploadfilecontainer {
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+margin: 15px auto;
+  border: 2px dashed #1C8ADB;
+  border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: #9ecbec  !important;
+  opacity: 0.8;
+}
+
+
+
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  width:80%;
+  margin:10px auto;
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius:12px;
+  padding:5px;
+  color: #1c8adb;
+}
+
+.files-list .delete-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.files-list .delete-file img {
+  width:30px;
+}
+.UploadImg {
+  max-width: 100%;
+  position: absolute;
+  top:6px;
+  height: auto;
+  padding: 15px;
+}
+
+.UploadImg img {
+  max-width:100%;
+  height:auto;
+}
+
+::ng-deep .upload-pay .uploadfilecontainer{
+  width: 50% !important;
+  height: 100px;
+}

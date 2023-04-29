@@ -1,0 +1,60 @@
+.parent{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 2rem 0;
+}
+.parent .progress{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.parent .img{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  padding: 1rem 0 1rem 0;
+}
+.parent .buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+.buttons .submit {
+  width: 40%;
+  height: 38px;
+  border-radius: 10px;
+  color: #fff;
+  background: #44bd32;
+  font-size: 13px;
+  border: none;
+  outline: none;
+  margin-left: 3px;
+}
+.buttons .disable {
+  width: 40%;
+  height: 38px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: no-drop;
+  background: #a0a0a0;
+  font-size: 13px;
+  border: none;
+  outline: none;
+  margin-left: 3px;
+}
+ .buttons .cancel {
+  width: 40%;
+  height: 38px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px;
+  background: #ff4d4d;
+  border: none;
+  outline: none;
+  margin-right: 3px;
+}

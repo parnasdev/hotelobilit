@@ -1,0 +1,182 @@
+<prs-loading *ngIf="isLoading"></prs-loading>
+
+<div class="add-tour">
+
+  <form class="w-100" [formGroup]="hotelForm">
+
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">اضافه کردن هتل</label>
+          <h2>اطلاعات هتل</h2>
+        </div>
+        <div class="left">
+          <div class="selectdiv">
+            <label>
+              <select formControlName="status">
+                <option value="Show">انتشار</option>
+                <option value="Draft" selected>پیش نویس</option>
+                <option value="Accepted">تایید شده</option>
+                <option value="NotAccepted">عدم تایید</option>
+                <option value="Pending">در انتظار تایید</option>
+                <option value="Suspended">معلق شده/منقضی شده</option>
+                <option value="Completion">تکمیل شده</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-tour-body">
+        <div class="top">
+          <div class="item-info">
+            <label for="">عنوان هتل</label>
+            <input formControlName="name" type="text">
+            <div *ngIf="errorService.hasError('name')">
+              <span class="text-danger">{{errorService.getError('name')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">عنوان انگلیسی هتل</label>
+            <input formControlName="nameEn" type="text">
+            <div *ngIf="errorService.hasError('nameEn')">
+              <span class="text-danger">{{errorService.getError('nameEn')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">شهر</label>
+            <mat-button-toggle-group name="fontStyle" [formControl]="cityTypeFC" (change)="cityTypeChange()"
+              aria-label="Font Style">
+              <mat-button-toggle [value]="true">داخلی</mat-button-toggle>
+              <mat-button-toggle [value]="false">خارجی</mat-button-toggle>
+            </mat-button-toggle-group>
+            <div class="selectdiv">
+              <select formControlName="city" name="" id="">
+                <option *ngFor="let city of citiesResponse" [value]="city.id">{{city.name}}</option>
+
+              </select>
+            </div>
+            <div *ngIf="errorService.hasError('city_id')">
+              <span class="text-danger">{{errorService.getError('city_id')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="item-info">
+            <label for="">ستاره</label>
+            <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
+
+          </div>
+          <div class="item-info">
+            <label for="">موقعیت هتل</label>
+            <input type="text" formControlName="location">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="box-info-fly">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2>اطلاعات </h2>
+        </div>
+      </div>
+      <div class="info-tour-body">
+        <div class="top">
+          <div class="item-info-second w-100">
+            <label class="mb-2" for="">توضیحات</label>
+            <prs-editor [inCommingBody]="hotelInfo.body ? hotelInfo.body : ''"
+              (body)="getDescriptionFromEditor($event)"></prs-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-info-fly">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2>آپلود تصاویر</h2>
+        </div>
+      </div>
+      <div class="info-tour-body-upload">
+        <div class="top-one">
+          <prs-upload-single [incommingFile]="{path: '',url: hotelInfo.thumbnail}"
+            (result)="getThumbnail($event)"></prs-upload-single>
+        </div>
+        <div class="bottom-one">
+          <prs-multiple-upload [incommingFiles]="convertedImages" (result)="getFiles($event)"></prs-multiple-upload>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-info-fly">
+      <prs-services *ngIf="showServices" [services]="services" [inComing]="hotelInfo.services[0]"
+        (result)="getServicesResult($event)"></prs-services>
+    </div>
+    <div class="box-info-fly">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2>انتخاب اتاق ها</h2>
+        </div>
+      </div>
+      <div class="info-tour-body">
+        <div class="address-parent">
+   
+
+          <div class="address-hotel">
+            <label for="address">اتاق های این هتل را انتخاب کنید </label>
+            <mat-form-field appearance="fill">
+              <mat-label>اتاق ها</mat-label>
+              <mat-select [compareWith]="compare" [formControl]="selectedRoomsFC" multiple>
+                <mat-select-trigger>
+                  <span>اتاق های انتخاب شده</span>
+
+                </mat-select-trigger>
+                <mat-option *ngFor="let room of roomTypes" [value]="room">{{room.name + ' - ' + room.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-info-fly">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2>اطلاعات ادرس</h2>
+        </div>
+      </div>
+      <div class="info-tour-body">
+        <div class="address-parent">
+          <!-- <prs-get-location style="width: 60%;
+             height: 286px;border-radius: 10px" *ngIf="show && cityTypeFC.value" [inCommingLatLng]="[lat,lng]"
+            (result)="getLatLng($event)">
+          </prs-get-location> -->
+
+          <div class="address-hotel">
+            <label for="address">آدرس </label>
+            <textarea formControlName="address" name="" id="address" cols="30" rows="10"
+              placeholder="آدرس را وارد کنید"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="link-video">
+      <div class="item-info">
+        <label for="">لینک آپارات</label>
+        <input type="text" placeholder="لینک iframe آپارات را وارد کنید" [formControl]="aparatFC">
+      </div>
+      <div class="item-info">
+        <label for="">لینک یوتیوب</label>
+        <input type="text" placeholder="لینک یوتیوب را وارد کنید" [formControl]="youtubeFC">
+      </div>
+    </div>
+
+    <div class="btn-parent-submit">
+      <button class="submit-tour" (click)="edit()">ویرایش هتل</button>
+    </div>
+
+  </form>
+
+</div>

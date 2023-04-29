@@ -1,0 +1,7 @@
+<input type="text" id="chips" name="chips"  placeholder="{{placeHolder}}" [formControl]="textFC">
+<prs-btn [label]="'اضافه'" (click)="add()"></prs-btn>
+<div class="d-flex">
+ <div  *ngFor="let item of list;let i =index">
+   <span style="background-color: chocolate;margin: 20px"  (click)="remove(i)">{{item}}</span>
+ </div>
+</div>

@@ -1,0 +1,28 @@
+.parent-timer{
+  margin-top: 6px;
+}
+.inp-timer{
+  width: 31px;
+  height: 31px;
+  margin: 6px 0;
+  text-align: center;
+  font-size: 14px !important;
+  border: 2px solid var(--light-color-two);
+  border-radius: 3px;
+}
+
+.btn-timer {
+  border: none;
+  outline: none;
+  background: unset;
+  cursor: pointer !important;
+}
+.btn-timer i{
+  cursor: pointer !important;
+  color: var(--base-color);
+  font-weight: 800;
+  font-size: 18px;
+}
+.between-time{
+  margin: 0 10px;
+}

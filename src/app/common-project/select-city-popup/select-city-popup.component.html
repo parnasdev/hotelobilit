@@ -1,0 +1,11 @@
+<div class="select-city-popup">
+    <div class="inp-form h-45">
+        <input  type="text" [(ngModel)]="keyword" class="input" placeholder="شهر خود را انتخاب کنید">
+    </div>
+    <ul class="p-list-city">
+        <li *ngFor="let city of data.cities | cityKeyword : keyword" (click)="onCitySelected(city)">
+          <span>{{ city.name }}</span>
+          <span>{{city.nameEn}}</span>
+        </li>
+    </ul>
+</div>

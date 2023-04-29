@@ -1,0 +1,18 @@
+<section class="section mt-1">
+  <div class="container">
+    <h1 class="text-center is-bold ">
+      {{ title }}
+    </h1>
+    <hr />
+    <div class="form-group">
+      <label for="gallery">{{ title }} :</label>
+      <input class="file-input-upload" #inputFile type="file" id="file" placeholder="فایل خود را انتخاب کنید"
+        (change)="getFile($event)">
+      <div style="margin-top: 1rem;" id="drop" class="dropzone">
+        <img [src]="selectedFile ? selectedFile.url : ''" class="w-25" alt="">
+      </div>
+    </div>
+
+
+  </div>
+</section>

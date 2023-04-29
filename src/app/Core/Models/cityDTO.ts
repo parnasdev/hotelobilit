@@ -1,5 +1,5 @@
 export interface CityListRequestDTO {
-  type: number | null;
+  type: number | boolean | null;
   perPage: number;
   search: string | null;
   hasOriginTour:boolean

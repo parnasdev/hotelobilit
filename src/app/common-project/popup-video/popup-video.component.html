@@ -1,0 +1,12 @@
+<div class="parent-video">
+  <i class="icon-cancel-1 text-danger" (click)="dialogRef.close()"></i>
+  <h2>
+ویدئو های معرفی هتل "{{data.name}}"
+  </h2>
+  <hr />
+  <div *ngIf="data.list[0].link" [innerHTML]="data.list[0].link | safeHtml">
+
+  </div>
+  <prs-btn *ngIf="data.list[1].link" (click)="goToYoutube()" [label]="'تماشا در یوتیوب'"></prs-btn>
+
+</div>

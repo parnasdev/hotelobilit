@@ -1,0 +1,35 @@
+<div [formGroup]="form">
+  <div class="information-passenger" formArrayName="footerLinks">
+    <div class="title">
+      <h2>لینک ها</h2>
+    </div>
+    <div class="header-top">
+      <span>عنوان</span>
+      <span>لینک</span>
+      <span>نوع لینک</span>
+      <button (click)="add()">اضافه</button>
+    </div>
+    <div class="body-top" *ngFor="let item of footerLinks.controls; let i = index">
+      <form [formGroupName]="i">
+        <div class="input-parent">
+          <input type="text" placeholder="عنوان" formControlName="title"/>
+        </div>
+        <div class="input-parent">
+          <input type="text" placeholder="لینک" formControlName="slug"/>
+        </div>
+        <div class="input-parent">
+          <select type="text" formControlName="type">
+            <option [value]="'دسترسی سریع'">دسترسی سریع</option>
+            <option [value]="'لینک های مفید'">لینک های مفید</option>
+          </select>
+        </div>
+        <div class="input-parent">
+          <i class="icon-cancel" (click)="removeLinks(i)"></i>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <prs-btn [label]="'ثبت سوالات'" (click)="submit()"></prs-btn>
+</div>
+

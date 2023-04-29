@@ -1,0 +1,33 @@
+<form class="example-form" *ngIf="!isMobile">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <img *ngIf="!isLoading" src="../../../assets/img/location.png" style="position: absolute;left: -17px;top: 10px" alt="">
+      <span style="position: absolute;left: 0;top: 17px" *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      <input type="text"
+             [placeholder]="title"
+             aria-label="Number"
+             matInput
+             [formControl]="cityFC"
+             (change)="changed(null)"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" (blur)="changed(option)"
+                    [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+  
+    </mat-form-field>
+</form>
+<form class="example-form" *ngIf="isMobile">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <img *ngIf="!isLoading" src="../../../assets/img/location.png" style="position: absolute;left: -17px;top: 10px" alt="">
+      <span style="position: absolute;left: 0;top: 17px" *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      <input type="text"
+      (click)="openSelectCity()"
+             [placeholder]="title"
+             aria-label="Number"
+             matInput
+             [formControl]="cityFC">
+    </mat-form-field>
+</form>
+  

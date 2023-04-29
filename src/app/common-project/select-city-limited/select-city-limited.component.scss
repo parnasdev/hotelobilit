@@ -1,0 +1,28 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  input {
+    height: 28px !important;
+    margin-top: 8px !important;
+    border-radius: 4px;
+    text-align: right;
+    padding: 0 8px;
+    font-size: 13px;
+    font-family: 'IRANSans', 'sans-serif' !important;
+  }
+  
+  ::ng-deep .mat-option-text {
+    font-family: 'IRANSans', 'sans-serif' !important;
+    text-align: right !important;
+  }
+  @media only screen and (max-width: 868px){
+  
+  }
+  

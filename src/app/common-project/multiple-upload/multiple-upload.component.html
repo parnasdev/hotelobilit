@@ -1,0 +1,18 @@
+<section class="section mt-1">
+  <div class="container">
+    <h1 class="text-center is-bold ">
+      ایجاد گالری جدید
+    </h1>
+    <hr />
+    <div class="form-group">
+      <label for="gallery">گالری:</label>
+      <input class="file-input-upload" #inputFile type="file" id="file" placeholder="فایل خود را انتخاب کنید"
+        (change)="getFile($event)">
+      <div id="drop" style="margin-top: 1rem;"  class="dropzone" *ngIf="show">
+        <img class="w-25" *ngFor="let file of selectedFiles" [src]="file.url" alt="">
+      </div>
+    </div>
+
+
+  </div>
+</section>

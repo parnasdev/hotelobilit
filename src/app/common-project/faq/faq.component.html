@@ -1,0 +1,32 @@
+<div [formGroup]="form">
+  <div class="information-passenger" formArrayName="faq">
+    <div class="title">
+      <div class="right">
+        <h2>سوالات متداول</h2>
+      </div>
+      <div class="left">
+        <button (click)="add()">اضافه</button>
+      </div>
+    </div>
+    <div class="header-top">
+      <span>سوال</span>
+      <span>جواب</span>
+      <span>حذف آیتم</span>
+    </div>
+    <div class="body-top" *ngFor="let item of Faq.controls; let i = index">
+      <form [formGroupName]="i">
+        <div class="input-parent">
+          <input type="text" placeholder="سوال" formControlName="question">
+        </div>
+        <div class="input-parent">
+          <textarea style="width: 100%; height: 100%" type="text" placeholder="جواب"
+                    formControlName="answer"></textarea>
+        </div>
+        <div class="input-parent">
+          <i class="icon-cancel" (click)="removeFaq(i)"></i>
+        </div>
+      </form>
+    </div>
+  </div>
+  <prs-btn style="margin-top: 10px" [label]="'ثبت سوالات'" (click)="submit()"></prs-btn>
+</div>

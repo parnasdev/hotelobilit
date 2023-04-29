@@ -1,0 +1,27 @@
+.select-city-popup {
+  height: 300px;
+  overflow-y: auto;
+  padding: 0 16px;
+}
+
+.p-list-city {
+  li {
+    border-bottom: 1px solid #ebebeb;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span{
+      font-size: 14px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+  }
+}
+.input{
+  &::placeholder{
+    font-size: 13px;
+    text-align: center;
+  }
+}

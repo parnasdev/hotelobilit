@@ -1,0 +1,11 @@
+<div class="parent">
+<!--  <mat-progress-bar mode="determinate" [value]="data.progress"></mat-progress-bar>-->
+  <div class="img">
+    <img *ngIf="isUpload" style="width: 100px;" id="blah" [src]="imageSrc" alt="" />
+    <span *ngIf="!isUpload" class="spinner-border"></span>
+  </div>
+<div class="buttons">
+  <button [ngClass]="{'submit' : isUpload, 'disable' : !isUpload}" [disabled]="!isUpload" (click)="submit()">ثبت</button>
+  <button class="cancel" (click)="close()">انصراف</button>
+</div>
+</div>
