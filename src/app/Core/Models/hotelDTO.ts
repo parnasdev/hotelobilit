@@ -173,13 +173,6 @@ export interface HotelRatesReqDTO {
   toDate: string;
 }
 
-export interface HotelRatesSetReqDTO {
-  checkin: string;
-  checkout: string;
-  rate: number;
-  price: number;
-}
-
 export interface HotelRatesResDTO {
   checkin: string;
   price: number
@@ -194,4 +187,16 @@ export interface RoomTypeDTO {
   isDefault: boolean
   label: string
   name: string
+}
+
+export interface HotelRatesSetReqDTO {
+  date_from: string
+  date_to: string
+  available_room_count: number
+  extra_bed_count: number
+  price:number
+  offer_price: number
+  extra_price: number
+  offer_extra_price: number
+  currency_code: string | null
 }
