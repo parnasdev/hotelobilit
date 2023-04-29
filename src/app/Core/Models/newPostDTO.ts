@@ -88,3 +88,8 @@ export interface hotelPageDTO {
     cities: citiesDTO[];
     roomTypes: statusesDTO[]
 }
+
+export interface ratigListReqDTO {
+    fromDate: string;
+    toDate: string;
+}
