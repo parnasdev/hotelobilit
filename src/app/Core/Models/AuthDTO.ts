@@ -102,6 +102,11 @@ export interface LoginResDTO {
   user: UserDTO | null;
 }
 
+export interface tokenResDTO {
+  token: string;
+  expire_at: string;
+}
+
 export interface LoginReqDTO {
   username : string | null
   password: string | null

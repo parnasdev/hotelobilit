@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { AuthApiService } from "../Https/auth-api.service";
 import { UserApiService } from '../Https/user-api.service';
-import { LoginResDTO, LoginResponseDTO, ProfileDTO, UserDTO } from '../Models/AuthDTO';
+import { LoginResDTO, LoginResponseDTO, ProfileDTO, UserDTO, tokenResDTO } from '../Models/AuthDTO';
 import { PermissionDTO } from '../Models/UserDTO';
 import { MessageService } from './message.service';
 
@@ -11,6 +11,7 @@ import { MessageService } from './message.service';
 })
 export class SessionService {
 
+  token = {} as tokenResDTO;
   user = {} as LoginResDTO;
   outlineApi = false;
   userPermissions: PermissionDTO[] = [];
@@ -22,13 +23,12 @@ export class SessionService {
     public userApi: UserApiService) {
   }
 
-  setTokenToSession(tokenObj: LoginResDTO): void {
-    this.user = {
+  setTokenToSession(tokenObj: tokenResDTO): void {
+    this.token = {
       expire_at: tokenObj.expire_at,
       token: tokenObj.token,
-      user: null
     }
-    localStorage.setItem('hotelobilit-user', JSON.stringify(this.user));
+    localStorage.setItem('hotelobilit-token', JSON.stringify(this.token));
   }
 
   setUserToSession(userObj: UserDTO): void {
@@ -102,8 +102,8 @@ export class SessionService {
   }
 
   getToken(): any {
-    const user = localStorage.getItem('hotelobilit-user');
-    return user ? JSON.parse(user).token : '';
+    const token = localStorage.getItem('hotelobilit-token');
+    return token ? JSON.parse(token).token : '';
   }
 
   getAgency(): any {
@@ -172,10 +172,12 @@ export class SessionService {
   }
 
   isLoggedIn(): any {
-    const user = localStorage.getItem('hotelobilit-user');
+    const user = localStorage.getItem('hotelobilit-token');
     return !!user;
   }
+
   removeUser(): any {
+    localStorage.removeItem('hotelobilit-token');
     localStorage.removeItem('hotelobilit-user');
   }
 
