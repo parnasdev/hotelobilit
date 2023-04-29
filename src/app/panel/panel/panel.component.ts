@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {SettingService} from "../../Core/Services/setting.service";
-
 declare let $: any;
 
 @Component({

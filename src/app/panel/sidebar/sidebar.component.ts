@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from "../../Core/Services/message.service";
-import {SessionService} from "../../Core/Services/session.service";
-import {AuthApiService} from "../../Core/Https/auth-api.service";
-import {Router} from "@angular/router";
-import {CheckErrorService} from "../../Core/Services/check-error.service";
-import {UserApiService} from "../../Core/Https/user-api.service";
-import {PermissionDTO} from "../../Core/Models/UserDTO";
-import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from "../../Core/Services/message.service";
+import { SessionService } from "../../Core/Services/session.service";
+import { AuthApiService } from "../../Core/Https/auth-api.service";
+import { Router } from "@angular/router";
+import { CheckErrorService } from "../../Core/Services/check-error.service";
+import { UserApiService } from "../../Core/Https/user-api.service";
+import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
+import { Sidebar } from './sidebarConfig';
 
 declare let $: any;
 
@@ -17,27 +17,32 @@ declare let $: any;
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  sideBarData = Sidebar;
+
+
 
   isLoading = false;
-  isTablet=false;
+  isTablet = false;
   userId = 0;
   isMenu = false;
   show = false;
 
   constructor(public session: SessionService,
-              public userApi: UserApiService,
-              public api: AuthApiService,
-              public router: Router,
-              public messageService: MessageService,
-              public responsiveService:ResponsiveService,
-              public errorService: ErrorsService,
-              public checkError: CheckErrorService) {
-    this.isTablet=responsiveService.isTablet();
+    public userApi: UserApiService,
+    public api: AuthApiService,
+    public router: Router,
+    public messageService: MessageService,
+    public responsiveService: ResponsiveService,
+    public errorService: ErrorsService,
+    public checkError: CheckErrorService) {
+      console.log(this.sideBarData);
+      
+    this.isTablet = responsiveService.isTablet();
     $(document).ready(() => {
       $(
         ".menu-main-1").click(() => {
-        $(".icon-1").toggleClass("active-arrow")
-      })
+          $(".icon-1").toggleClass("active-arrow")
+        })
       $(".menu-main-2").click(() => {
         $(".icon-2").toggleClass("active-arrow")
       })
@@ -119,7 +124,7 @@ export class SidebarComponent implements OnInit {
       if (res.isDone) {
         this.session.setUserToSession(res.data);
         this.session.getUserPermission();
-      } else {  
+      } else {
         this.messageService.custom(res.message);
       }
     }, (error: any) => {
