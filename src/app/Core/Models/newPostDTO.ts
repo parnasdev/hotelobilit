@@ -1,4 +1,3 @@
-import { RoomDTO } from "./tourDTO";
 
 export interface hotelDTO {
     id: number;
@@ -25,6 +24,17 @@ export interface storeHotelReqDTO {
     visitCount: number
     user: userDTO
     status: statusObjDTO
+    rooms?: RoomDTO[]
+}
+
+export interface RoomDTO {
+    Adl_capacity: number
+    age_child: number
+    chd_capacity: number;
+    coefficient: number;
+    id: number
+    online_reservation: number
+    room_type: string
 }
 
 export interface InfoHotelDTO {
@@ -35,7 +45,6 @@ export interface InfoHotelDTO {
     files: string[],
     service_ids: number[],
     city_id: number;
-    rooms: RoomDTO[]
 }
 
 export interface storeHotelSetReqDTO {
@@ -95,4 +104,28 @@ export interface ratigListReqDTO {
     toDate: string;
     roomId: number;
     hotelId: number;
+}
+
+export interface RatingResDTO {
+    currencies: string[]
+    hotel: storeHotelReqDTO
+    rates: RateDTO[]
+}
+
+
+export interface RateDTO {
+    available_room_count: number
+    created_at: string
+    currency_code: string
+    date: string
+    deleted_at: string
+    extra_bed_count: number
+    extra_price: number
+    id: number
+    offer_extra_price: number
+    offer_price: number
+    price: number
+    room_id: number
+    updated_at: string
+    user_id: number
 }

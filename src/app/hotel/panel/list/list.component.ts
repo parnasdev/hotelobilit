@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HotelApiService} from "../../../Core/Https/hotel-api.service";
 import {MessageService} from "../../../Core/Services/message.service";
 import {CommonApiService} from "../../../Core/Https/common-api.service";
 import {SessionService} from "../../../Core/Services/session.service";
-import {HotelListRes, HotelRequestDTO} from "../../../Core/Models/hotelDTO";
+import { HotelRequestDTO} from "../../../Core/Models/hotelDTO";
 import {FormControl} from "@angular/forms";
 import {CityResponseDTO} from "../../../Core/Models/cityDTO";
 import {CityApiService} from "../../../Core/Https/city-api.service";
@@ -60,7 +58,7 @@ export class ListComponent implements OnInit {
       city: this.cityFC.value === '' ? null : this.cityFC.value,
       search: this.keywordFC.value
     }
-    this.hotelApi.getPosts('hotel').subscribe((res: any) => {
+    this.hotelApi.getPosts('hotel',this.p).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelList = res.data;

@@ -19,8 +19,9 @@ export class PostApiService {
     this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
   }
 
-  getPosts(postType: string): any {
-    const strUrl = this.serverControllerName + `posts?post_type=${postType}`;
+  getPosts(postType: string ,pageNum = 1): any {
+    const strUrl = pageNum ? this.serverControllerName + `posts?post_type=${postType}&page=${pageNum}` : this.serverControllerName + `posts?post_type=${postType}`;
+
     return this.http.get<Result<storeHotelReqDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
 

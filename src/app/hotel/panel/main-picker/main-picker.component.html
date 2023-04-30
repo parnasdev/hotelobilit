@@ -1,4 +1,3 @@
-<div>
     <div class="p-calender">
         <button class="prev-month" (click)="changeMonth(-1)">
             <svg viewBox="0 0 32 32" width='30' height='30' xmlns="http://www.w3.org/2000/svg">
@@ -25,13 +24,15 @@
                 <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
                     <div *ngIf="i < 42" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
                         [class]="(item.isDisabled || !item.isValid) ? 'item opacity3' : 'item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
-                    'background': getColorItem(item)}">
+                    'background': getColorItem(item)}" id="dateInfo">
                         {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
-                        <label class="label-capacity" *ngIf="item.data && item.data.capacity"> {{ item.data?.capacity }}</label>
+                        <label class="label-capacity" *ngIf="item.data && item.data.available_room_count"> {{
+                            item.data?.available_room_count }}</label>
                         <small class="price-day" *ngIf="!item.isDisabled && item.isValid">
                             {{getPriceLabel(item.data) }}
                         </small>
                     </div>
+
                 </ng-template>
 
 
@@ -57,21 +58,25 @@
                 <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
                     <div *ngIf="i > 41" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
                         [class]="(item.isDisabled || !item.isValid) ? 'item opacity3' : 'item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
-                    'background': getColorItem(item)}">
+                    'background': getColorItem(item)}" id="dateInfo">
                         {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
-                        <label class="label-capacity" *ngIf="item.data && item.data.capacity"> {{ item.data?.capacity }}</label>
+                        <label class="label-capacity" *ngIf="item.data && item.data.available_room_count"> {{
+                            item.data?.available_room_count }}</label>
 
                         <small class="price-day" *ngIf="!item.isDisabled && item.isValid">
                             {{getPriceLabel(item.data) }}
                         </small>
                     </div>
+
+
+
                 </ng-template>
-
-
-
-
-
             </div>
+
+
+
+
+
 
         </div>
         <button class="next-month" (click)="changeMonth(1)">
@@ -84,4 +89,3 @@
         </button>
 
     </div>
-</div>
