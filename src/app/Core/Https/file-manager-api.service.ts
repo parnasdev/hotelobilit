@@ -4,7 +4,7 @@ import {PublicService} from "../Services/public.service";
 import {environment} from "../../../environments/environment";
 import {TransferListRequestDTO} from "../Models/transferDTO";
 import {Result} from "../Models/result";
-import { fileListResDTO } from '../Models/UploaderDTO';
+import { fileListResDTO } from '../Models/uploaderDTO';
 
 @Injectable({
   providedIn: 'root'
