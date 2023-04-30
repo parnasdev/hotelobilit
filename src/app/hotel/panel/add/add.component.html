@@ -9,15 +9,17 @@
         </div>
         <div class="left">
           <div class="selectdiv">
+            <select formControlName="city_id" name="" id="">
+              <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
+              <option *ngFor="let city of data.cities[0].categories" [value]="city.id">{{city.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="left">
+          <div class="selectdiv">
             <label>
-              <select formControlName="status">
-                <option value="Show">انتشار</option>
-                <option value="Draft" selected>پیش نویس</option>
-                <option value="Accepted">تایید شده</option>
-                <option value="NotAccepted">عدم تایید</option>
-                <option value="Pending">در انتظار تایید</option>
-                <option value="Suspended">معلق شده/منقضی شده</option>
-                <option value="Completion">تکمیل شده</option>
+              <select formControlName="status_id">
+                <option *ngFor="let item of data.statuses" value="item.id">{{ item.name }}</option>
               </select>
             </label>
           </div>
@@ -27,67 +29,59 @@
         <div class="top">
           <div class="item-info">
             <label for="">عنوان هتل</label>
-            <input formControlName="name" type="text">
-            <div *ngIf="errorService.hasError('name')">
-              <span class="text-danger">{{errorService.getError('name')}}</span>
+            <input formControlName="title" (change)="generateSlug()" type="text">
+            <div *ngIf="errorService.hasError('title')">
+              <span class="text-danger">{{errorService.getError('title')}}</span>
             </div>
           </div>
           <div class="item-info">
             <label for="">عنوان انگلیسی هتل</label>
-            <input formControlName="nameEn" type="text">
-            <div *ngIf="errorService.hasError('nameEn')">
-              <span class="text-danger">{{errorService.getError('nameEn')}}</span>
+            <input formControlName="titleEn" type="text">
+            <div *ngIf="errorService.hasError('titleEn')">
+              <span class="text-danger">{{errorService.getError('titleEn')}}</span>
             </div>
           </div>
           <div class="item-info">
-            <label for="">شهر</label>
-            <div class="d-flex align-items-center w-100 city-parent">
-              <mat-button-toggle-group name="fontStyle" [formControl]="cityTypeFC" (change)="cityTypeChange()"
-                aria-label="Font Style">
-                <mat-button-toggle [value]="true">داخلی</mat-button-toggle>
-                <mat-button-toggle [value]="false">خارجی</mat-button-toggle>
-              </mat-button-toggle-group>
-              <div class="selectdiv">
-                <select formControlName="city" name="" id="">
-                  <option *ngFor="let city of data.cities" [value]="city.id">{{city.name}}</option>
-                </select>
-              </div>
+            <label for="">نامک هتل</label>
+            <input formControlName="slug" type="text">
+            <div *ngIf="errorService.hasError('slug')">
+              <span class="text-danger">{{errorService.getError('slug')}}</span>
             </div>
-            <div *ngIf="errorService.hasError('city_id')">
-              <span class="text-danger">{{errorService.getError('city_id')}}</span>
-            </div>
-
           </div>
-        </div>
-        <div class="bottom">
           <div class="item-info">
             <label for="">ستاره</label>
             <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
           </div>
-          <div class="item-info">
+        </div>
+        <div class="bottom">
+          <!-- <div class="item-info">
             <label for="">موقعیت هتل</label>
             <input type="text" formControlName="location">
+          </div> -->
+
+          <div class="info-tour-body">
+            <div class="top">
+              <div class="item-info-second w-100">
+                <label class="mb-2" for="">توضیحات</label>
+                <textarea style="margin: 0 auto;width: 100%" formControlName="description"></textarea>
+                <!-- <prs-editor style="margin: 0 auto;width: 100%" (body)="getDescriptionFromEditor($event)"></prs-editor> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="info-tour-body">
+            <div class="top">
+              <div class="item-info-second w-100">
+                <label class="mb-2" for="">آدرس</label>
+                <textarea style="margin: 0 auto;width: 100%" formControlName="address" placeholder="آدرس را وارد کنید"></textarea>
+              </div>
+            </div>
           </div>
 
         </div>
       </div>
     </div>
 
-    <div class="box-info-fly">
-      <div class="info-tour-header">
-        <div class="right">
-          <h2 class="text-dark">اطلاعات </h2>
-        </div>
-      </div>
-      <div class="info-tour-body">
-        <div class="top">
-          <div class="item-info-second w-100">
-            <label class="mb-2" for="">توضیحات</label>
-            <prs-editor style="margin: 0 auto;width: 100%" (body)="getDescriptionFromEditor($event)"></prs-editor>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="box-info-fly">
       <div class="info-tour-header">
         <div class="right">
@@ -103,6 +97,7 @@
         </div>
       </div>
     </div>
+
     <!-- <div class="box-info-fly">
       <prs-services [services]="services" (result)="getServicesResult($event)"></prs-services>
     </div> -->
@@ -130,37 +125,6 @@
             </mat-form-field>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="box-info-fly">
-      <div class="info-tour-header">
-        <div class="right">
-          <h2 class="text-dark">اطلاعات ادرس</h2>
-        </div>
-      </div>
-      <div class="info-tour-body">
-        <div class="address-parent">
-          <!-- <prs-get-location *ngIf="cityTypeFC.value" style="width: 60%;
-             height: 286px;border-radius: 10px" [inCommingLatLng]="[lat,lng]" (result)="getLatLng($event)">
-          </prs-get-location> -->
-
-          <div class="address-hotel">
-            <label for="address">آدرس </label>
-            <textarea formControlName="address" name="" id="address" cols="30" rows="10"
-              placeholder="آدرس را وارد کنید"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="link-video">
-      <div class="item-info">
-        <label for="">لینک آپارات</label>
-        <input type="text" placeholder="لینک iframe آپارات را وارد کنید" [formControl]="aparatFC">
-      </div>
-      <div class="item-info">
-        <label for="">لینک یوتیوب</label>
-        <input type="text" placeholder="لینک یوتیوب را وارد کنید" [formControl]="youtubeFC">
       </div>
     </div>
 

@@ -39,13 +39,14 @@ export interface InfoHotelDTO {
 }
 
 export interface storeHotelSetReqDTO {
-    title: string;
-    slug: string;
-    status_id: number;
-    description: string;
-    body: string;
-    use_api: number;
-    city_id: number;
+    title: string | null;
+    titleEn: string | null;
+    slug: string | null;
+    status_id: number | null;
+    description: string | null;
+    body: string | null;
+    use_api: number | null;
+    city_id: number | null;
     rooms: roomObjDTO[]
 }
 

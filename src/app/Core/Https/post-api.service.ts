@@ -25,7 +25,7 @@ export class PostApiService {
   }
 
   createPosts(postType: string): any {
-    const strUrl = this.serverControllerName + `posts?post_type=${postType}`;
+    const strUrl = this.serverControllerName + `posts/create?post_type=${postType}`;
     return this.http.get<Result<hotelPageDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
@@ -34,8 +34,8 @@ export class PostApiService {
     return this.http.post<Result<any>>(strUrl, req ,this.publicService.getDefaultHeaders());
   }
 
-  editPosts(postType: string): any {
-    const strUrl = this.serverControllerName + `posts?post_type=${postType}`;
+  editPosts(postType: string, postId: number): any {
+    const strUrl = this.serverControllerName + `posts/${postId}/edit?post_type=${postType}`;
     return this.http.get<Result<hotelPageDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
 

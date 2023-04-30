@@ -1,6 +1,26 @@
 @import "src/assets/css/fontiran.css";
 @import "src/assets/css/varible";
 
+:root {
+  --base-color: #ff4241;
+  --base-color-second: #ff4241;
+  --base-color-three: #053742;
+  --light-color-one: #C6ECFF;
+  --light-color-two: #E0E0E0;
+  --gray-color-light: #646564;
+  --gray-color-dark: #3E3E3E;
+  --box-shadow: 1px 1px 6px #eee;;
+  --btn-animtion: 0.3s all;
+  --text-color: #404040;
+  --white: #fff;
+  --dark: #000;
+  --radius-btn: 15px 15px 1px 15px;
+  --opacity-color: #3e3e3e78;
+  --red-color: #CB1639;
+  --green-color: #0D7B0D;
+  --title-header: #d5d5d5bd;
+}
+
 
 body {
   direction: rtl;

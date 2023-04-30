@@ -17,7 +17,7 @@ import { ErrorsService } from "../../../Core/Services/errors.service";
 import { CheckErrorService } from "../../../Core/Services/check-error.service";
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
 import { RoomTypeListDTO } from 'src/app/Core/Models/roomTypeDTO';
-import { citiesDTO, hotelPageDTO, storeHotelReqDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { citiesDTO, hotelPageDTO, roomObjDTO, storeHotelReqDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 
@@ -30,7 +30,7 @@ export class AddComponent implements OnInit {
 
   aparatFC = new FormControl('');
   youtubeFC = new FormControl('');
-  selectedRoomsFC = new FormControl('');
+  selectedRoomsFC = new FormControl([]);
 
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   currentStar = 0;
@@ -43,8 +43,9 @@ export class AddComponent implements OnInit {
   public show = true;
   req: storeHotelSetReqDTO = {
     title: '',
+    titleEn: '',
     slug: '',
-    status_id: 0,
+    status_id: 1,
     description: '',
     body: '',
     use_api: 0,
@@ -54,7 +55,7 @@ export class AddComponent implements OnInit {
   images: any[] = [];
   thumbnail = ''
   data: hotelPageDTO = {
-    cities: [],
+    cities: [], 
     statuses: [],
     roomTypes: []
   }
@@ -81,13 +82,14 @@ export class AddComponent implements OnInit {
 
   //formGroup
   hotelForm = this.fb.group({
-    name: new FormControl('', [Validators.required]),
-    nameEn: new FormControl('', [Validators.required]),
-    city: new FormControl('', Validators.required),
-    status: new FormControl('Show', Validators.required),
-    location: new FormControl(''),
-    address: new FormControl(''),
+    title: new FormControl('', [Validators.required]),
+    titleEn: new FormControl('', [Validators.required]),
+    slug: new FormControl('', [Validators.required]),
+    status_id: new FormControl('1', Validators.required),
+    description: new FormControl(''),
     body: new FormControl(''),
+    address: new FormControl(''),
+    city_id: new FormControl(null, Validators.required),
     stars: new FormControl(''),
   });
 
@@ -136,15 +138,22 @@ export class AddComponent implements OnInit {
   }
   
   setReq(): void {
+    // const data = this.hotelForm.controls.status_id ? this.hotelForm.controls.status_id : 1;
+    // roomObjDTO
+    // this.selectedRoomsFC.value?.forEach(item => {
+
+    // })
     this.req = {
-      title: '',
-      slug: '',
-      status_id: 0,
-      description: '',
+      title: this.hotelForm.controls.title.value,
+      titleEn: this.hotelForm.controls.titleEn.value,
+      slug: this.hotelForm.controls.slug.value,
+      status_id: 1,
+      description: this.hotelForm.controls.description.value,
       body: '',
       use_api: 0,
-      city_id: 0,
-      rooms: []
+      city_id: this.hotelForm.controls.city_id.value,
+      // @ts-ignore
+      rooms: this.selectedRoomsFC?.value
     }
   }
 
@@ -171,7 +180,7 @@ export class AddComponent implements OnInit {
   }
 
   getThumbnail(image: UploadResDTO): void {
-    this.thumbnail = image.path;
+    this.thumbnail = image.url;
   }
 
   getServices(): void {
@@ -227,6 +236,23 @@ export class AddComponent implements OnInit {
     services.forEach((x: any) => {
       this.serviceIDs.push(x.id.toString());
     })
+  }
+
+  generateSlug(): void {
+    // if (!this.isSlugGenerated) {
+    //   this.tourApi.generateSlug(this.setService.obj.title).subscribe((res: any) => {
+    //     if (res.data) {
+    //       this.setService.obj.slug = res.data;
+    //       this.isSlugGenerated = true
+    //     } else {
+    //       this.message.custom(res.message)
+    //     }
+    //   }, (error: any) => {
+    //     this.message.error()
+    //   })
+    // } else {
+      this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
+    // }
   }
 
 

@@ -11,7 +11,7 @@ import { fileListResDTO } from '../Models/uploaderDTO';
 })
 export class FileManagerApiService {
 
-  private serverControllerName = 'panel/uploader/';
+  private serverControllerName = 'panel/uploader';
 
   constructor(public http: HttpClient,
               public publicService: PublicService) {
@@ -35,12 +35,12 @@ export class FileManagerApiService {
   }
 
   createFolder(name: string, directory: string): any {
-    const strUrl = this.serverControllerName + 'createFolder';
+    const strUrl = this.serverControllerName + '/createFolder';
     return this.http.post<Result<any>>(strUrl,null, this.publicService.getDefaultHeaders());
   }
 
   renameFolder(old_path: string, new_path: string): any {
-    const strUrl = this.serverControllerName + 'edit';
+    const strUrl = this.serverControllerName + '/edit';
     const entity={
       'old_path': old_path,
       'new_path': new_path
@@ -49,7 +49,7 @@ export class FileManagerApiService {
   }
 
   moveFile(from_path: string, to_path: string): any {
-    const strUrl = this.serverControllerName + 'moving';
+    const strUrl = this.serverControllerName + '/moving';
     const entity={
       'from_path': from_path,
       'to_path': to_path
@@ -58,7 +58,7 @@ export class FileManagerApiService {
   }
 
   deleteFile(type: string, path: string): any {
-    const strUrl = this.serverControllerName + 'destroy';
+    const strUrl = this.serverControllerName + '/destroy';
     const entity={
       'type': type,
       'path': path

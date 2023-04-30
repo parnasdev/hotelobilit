@@ -9,6 +9,7 @@ import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
+import { FileManagerApiService } from 'src/app/Core/Https/file-manager-api.service';
 @Component({
   selector: 'prs-multiple-upload',
   templateUrl: './multiple-upload.component.html',
@@ -30,7 +31,7 @@ public show = true;
   fileLoading = false
 
 
-  constructor(public commonApi: CommonApiService,
+  constructor(public uploaderApi: FileManagerApiService,
     public publicService: PublicService,
     public session: SessionService,
     public route: ActivatedRoute,
@@ -65,7 +66,7 @@ public show = true;
       const size = event.size / 1000 / 1000;
 
       if (size < 2) {
-        this.commonApi.singleFileUpload(event).pipe(
+        this.uploaderApi.upload(event, '/').pipe(
           map((event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.fileProgress = Math.round(event.loaded * 100 / event.total);
@@ -90,7 +91,7 @@ public show = true;
               this.result.emit(this.selectedFiles)
               this.isUpload = true;
             }
-          }, error => {
+          }, (error: any) => {
             this.isUpload = false;
             this.message.custom('فایل آپلود نشد مجدد تلاش کنید');
           });

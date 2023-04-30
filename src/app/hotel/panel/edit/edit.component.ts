@@ -12,6 +12,7 @@ import { InfoHotelDTO } from 'src/app/Core/Models/newPostDTO';
 export class EditComponent extends AddComponent implements OnInit {
 
   hotelName = '';
+  hotelId = 1;
   hotelInfo: InfoHotelDTO = {
     statuses: [],
     cities: [],
@@ -92,7 +93,7 @@ export class EditComponent extends AddComponent implements OnInit {
 
   getInfo(): void {
     this.isLoading = true;
-    this.hotelApi.editPosts('hotel').subscribe((res: any) => {
+    this.hotelApi.editPosts('hotel', this.hotelId).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelInfo = res.data;
