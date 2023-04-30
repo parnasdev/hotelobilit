@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { HotelApiService } from 'src/app/Core/Https/hotel-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { hotelInfoDTO } from 'src/app/Core/Models/hotelDTO';
 import { ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
