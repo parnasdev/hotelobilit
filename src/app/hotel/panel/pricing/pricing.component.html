@@ -1,33 +1,41 @@
-
 <div class="box-pricing">
   <div class="top">
-    <img class="img-hotel" src="../../../../assets/img/1634191054BLOG1.png" alt="">
     <div class="detail">
       <div class="star">
-        <i class="icon-star" *ngFor="let star of getStars(data.stars)"></i>
+        <!-- <i class="icon-star" *ngFor="let star of getStars(ratingData?.hotel?.stars)"></i> -->
       </div>
-      <h2 class="name-hotel my-2"><a href="">{{ data.name }}</a></h2>
+      <h2 class="name-hotel my-2">
+        <a href="">{{ ratingData ? ratingData.hotel.title : '' }}</a>
+      </h2>
       <div class="address">
-        <span>{{ data.location }}</span>
+        <!-- <span>{{ ratingData?.hotel?. }}</span> -->
       </div>
     </div>
   </div>
   <div class="bottom">
     <h2 class="title">قیمت گذاری هتل</h2>
     <span class="tip">اتاق مورد نظر برای قیمت گذاری را انتخاب کنید</span>
+
+    <select [formControl]="pricingTypeFC" (change)="typeChanged()">
+      <option value="0">نرخ گذاری عادی</option>
+      <option value="1">نرخ گذاری ضریبی</option>
+
+    </select>
     <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
-      <li *ngFor="let room of data.rooms" class="nav-item">
-        <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'" (click)="changeTab(room.id)">{{ room.label }}</a>
+      <li *ngFor="let room of ratingData?.hotel?.rooms" class="nav-item">
+        <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'" (click)="changeTab(room.id)">
+          {{ room.room_type}}</a>
+          <span *ngIf="pricingTypeFC.value === '1'">ضریب :‌۲.۵</span>
       </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
       <!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
       <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
-      <div class="w-100" *ngIf="data.rooms.length > 0">
+      <div class="w-100" *ngIf="(ratingData?.hotel?.rooms?? []).length > 0">
         <prs-main-picker *ngIf="showCalendar" [hotelID]="+id" [roomID]="activedRoom"></prs-main-picker>
       </div>
-      <div class="d-flex justify-content-center align-items-center" *ngIf="data.rooms.length == 0">
+      <div class="d-flex justify-content-center align-items-center" *ngIf="(ratingData?.hotel?.rooms ?? []).length == 0">
         <p>لطفا برای قیمت گذاری ابتدا در بخش ویرایش هتل اتاق های خود را انتخاب کنید</p>
       </div>
     </div>

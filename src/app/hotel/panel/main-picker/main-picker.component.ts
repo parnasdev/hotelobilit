@@ -9,6 +9,8 @@ import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-pricing-modal.component';
+import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { RateDTO, RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-main-picker',
@@ -18,6 +20,7 @@ import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-p
 export class MainPickerComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() roomID = 0;
+  isLoading = false;
   moment: any = moment;
   month = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
   daysOfMonth: any[] = []
@@ -25,13 +28,14 @@ export class MainPickerComponent implements OnInit {
   currentYears: any[] = []
   stDate: any = null;
   enDate: any = null;
-  pricesData: HotelRatesResDTO[] = [];
+  req!: ratigListReqDTO;
+  pricesData: RateDTO[] = [];
   selectedDates: any[] = [];
   constructor(public service: CalenderServices,
     public dialog: MatDialog,
     public errorService: ErrorsService,
     public route: ActivatedRoute,
-    public hotelApi: HotelApiService,
+    public api: PostApiService,
     public message: MessageService,) { }
   ngOnInit(): void {
     // @ts-ignore
@@ -109,9 +113,6 @@ export class MainPickerComponent implements OnInit {
     let today = moment(new Date()).format('jYYYY/jMM/jDD');
     return moment(d).isBefore(today)
   }
-
-
-
 
 
 
@@ -200,7 +201,7 @@ export class MainPickerComponent implements OnInit {
 
   getPriceLabel(item: any): string {
     if (item) {
-      if (item.rate === 1) {
+      if (item.currency_code === 'toman') {
         if (item.price.toString().length > 6) {
           return Intl.NumberFormat('en').format(item.price / 1000000) + ' ' + 'م ت'
         } else if (item.price.toString().length > 3) {
@@ -210,9 +211,9 @@ export class MainPickerComponent implements OnInit {
 
         }
 
-      } else if (item.rate === 3) {
+      } else if (item.currency_code === 'dollar') {
         return item.price + 'دلار'
-      } else if (item.rate === 2) {
+      } else if (item.currency_code === 'euro') {
         return item.price + 'یورو'
       } else {
         return item.price + 'درهم'
@@ -226,14 +227,17 @@ export class MainPickerComponent implements OnInit {
 
 
   getHotelRates() {
-
-    const req: HotelRatesReqDTO = {
+    this.isLoading = true;
+    this.req = {
       fromDate: moment(this.getFirstAndLastDates()[0]).format('YYYY-MM-DD'),
       toDate: moment(this.getFirstAndLastDates()[1]).format('YYYY-MM-DD'),
+      hotelId: +this.hotelID,
+      roomId: +this.roomID,
     }
-    this.hotelApi.getHotelRates(+this.hotelID, this.roomID, req).subscribe((res: any) => {
+    this.api.ratingList(this.req).subscribe((res: any) => {
+      this.isLoading = false;
       if (res.isDone) {
-        this.pricesData = res.data
+        this.pricesData = res.data.rates;
         this.daysOfMonth.forEach(item => {
           item.data = this.isExistOnPriceList(item.dateEn)
         });
@@ -241,17 +245,37 @@ export class MainPickerComponent implements OnInit {
         this.message.custom(res.message)
       }
     }, (error: any) => {
-      this.errorService.check(error)
+      this.isLoading = false
+      this.message.error()
     })
   }
 
 
   isExistOnPriceList(item: any): any {
-    // const y: any = moment(item).format('YYYY/MM/DD')
-    // if (this.daysOfMonth.length > 0) {
-    //   let result = this.pricesData.filter((x) => y === moment(x.checkin).format('YYYY/MM/DD'))
-    //   return result.length > 0 ? { price: result[0].price, rate: result[0].rate , capacity: result[0].capacity} : null;
-    // }
+    if (item && item !== '') {
+      const y: any = moment(item).format('YYYY/MM/DD')
+      if (this.daysOfMonth.length > 0) {
+        let result = this.pricesData.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
+        return result.length > 0 ? {
+          available_room_count: result[0].available_room_count,
+          created_at: result[0].created_at,
+          currency_code: result[0].currency_code,
+          date: result[0].date,
+          deleted_at: result[0].deleted_at,
+          extra_bed_count: result[0].extra_bed_count,
+          extra_price: result[0].extra_price,
+          id: result[0].id,
+          offer_extra_price: result[0].offer_extra_price,
+          offer_price: result[0].offer_price,
+          price: result[0].price,
+          room_id: result[0].room_id,
+          updated_at: result[0].updated_at,
+          user_id: result[0].user_id
+        } : null;
+      }
+    } else {
+      return null
+    }
   }
 
   getFirstAndLastDates() {

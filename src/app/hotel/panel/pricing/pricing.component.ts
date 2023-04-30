@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { hotelInfoDTO } from 'src/app/Core/Models/hotelDTO';
-import { ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -18,37 +18,10 @@ export class PricingComponent implements OnInit {
   showCalendar = true;
   slug = '';
   id = ''
+  pricingTypeFC = new FormControl('0')
   req!: ratigListReqDTO;
-  data: hotelInfoDTO = {
-    name: '',
-    city: {
-      name: '',
-      id: 0,
-      type: 0,
-      image: '',
-      faq: [],
-      slug: '',
-      slugEn: '',
-      description: '',
-      images: [],
-      nameEn: ''
-    },
-    nameEn: '',
-    stars: '',
-    location: '',
-    rooms: [],
-    address: '',
-    coordinate: { lat: 0, lng: 0 },
-    images: [],
-    mediaLink: [],
-    thumbnail: '',
-    body: '',
-    services: [],
-    status: '',
-    phone: '',
-    tours: [],
-  };
   activedRoom = 0;
+  ratingData!: RatingResDTO;
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
@@ -67,21 +40,20 @@ export class PricingComponent implements OnInit {
 
   getInfo(): void {
     this.isLoading = true;
-
     this.req = {
       fromDate: '',
       toDate: '',
-      hotelId: 0,
+      hotelId: +this.id,
       roomId: 0
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
-        this.data = res.data;
-        // if (this.data.rooms.length > 0) {
-        //   this.activedRoom = this.data.rooms[0].id;
-        //   this.reload()
-        // }
+        this.ratingData = res.data;
+        if ((this.ratingData.hotel.rooms ?? []).length > 0) {
+          this.activedRoom = (this.ratingData.hotel.rooms ?? [])[0].id;
+          this.reload()
+        }
       } else {
         this.message.custom(res.message)
       }
@@ -105,5 +77,8 @@ export class PricingComponent implements OnInit {
     this.showCalendar = false;
     setTimeout(() => this.showCalendar = true);
   }
+  typeChanged() {
+console.log(this.pricingTypeFC.value);
 
+  }
 }

@@ -37,7 +37,7 @@ export class EditComponent extends AddComponent implements OnInit {
     files: [],
     service_ids: [],
     city_id: 0,
-    rooms: []
+    
   };
   public override show = true;
   showServices = false;

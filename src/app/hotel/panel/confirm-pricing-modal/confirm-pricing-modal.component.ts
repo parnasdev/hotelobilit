@@ -6,6 +6,8 @@ import { HotelRatesSetReqDTO } from 'src/app/Core/Models/hotelDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import * as moment from 'jalali-moment';
+import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { NgxMaskDirective } from 'ngx-mask';
 export interface ConfirmPriceReqDTO {
   checkin: any;
   checkout: any;
@@ -28,7 +30,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   req!: HotelRatesSetReqDTO;
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmPriceReqDTO,
-    public api: HotelApiService,
+    public api: PostApiService,
     public message: MessageService,
     public errorService: ErrorsService,
     public dialog: MatDialog) { }
@@ -54,15 +56,15 @@ export class ConfirmPricingModalComponent implements OnInit {
       offer_extra_price: +this.offerBedPriceFC.value,
       currency_code: this.rateFC.value
     }
-    // this.api.addHotelRates(+this.data.hotelID, this.data.roomID, ).subscribe((res: any) => {
-    //   if (res.isDone) {
-    //     this.message.custom(res.message)
-    //     this.dialogRef.close(true)
-    //   } else {
-    //     this.message.custom(res.message)
-    //   }
-    // }, (error: any) => {
-    //   this.errorService.check(error)
-    // })
+    this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.custom(res.message)
+        this.dialogRef.close(true)
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.errorService.check(error)
+    })
   }
 }
