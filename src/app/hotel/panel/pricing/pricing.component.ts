@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { HotelApiService } from 'src/app/Core/Https/hotel-api.service';
+import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { hotelInfoDTO } from 'src/app/Core/Models/hotelDTO';
+import { ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -17,6 +19,7 @@ export class PricingComponent implements OnInit {
   showCalendar = true;
   slug = '';
   id = ''
+  req!: ratigListReqDTO;
   data: hotelInfoDTO = {
     name: '',
     city: {
@@ -51,27 +54,35 @@ export class PricingComponent implements OnInit {
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
     public route: ActivatedRoute,
-    public hotelApi: HotelApiService,
+    public api: PostApiService,
     public message: MessageService,) { }
 
   ngOnInit(): void {
     // @ts-ignore
     this.slug = this.route.snapshot.paramMap.get('slug');
-        // @ts-ignore
+    // @ts-ignore
     this.id = this.route.snapshot.paramMap.get('id');
+
     this.getInfo()
   }
 
   getInfo(): void {
     this.isLoading = true;
-    this.hotelApi.getHotel(this.slug, true).subscribe((res: any) => {
+
+    this.req = {
+      fromDate: '',
+      toDate: '',
+      hotelId: 0,
+      roomId: 0
+    }
+    this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.data = res.data;
-        if (this.data.rooms.length > 0) {
-          this.activedRoom = this.data.rooms[0].id;
-          this.reload()
-        }
+        // if (this.data.rooms.length > 0) {
+        //   this.activedRoom = this.data.rooms[0].id;
+        //   this.reload()
+        // }
       } else {
         this.message.custom(res.message)
       }

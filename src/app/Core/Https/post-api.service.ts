@@ -44,8 +44,8 @@ export class PostApiService {
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
-  ratingList(roomId: number, req: ratigListReqDTO): any {
-    const strUrl = this.serverControllerName + `rates/${roomId}?fromDate=${req.fromDate}&toDate=${req.toDate}`;
+  ratingList(req: ratigListReqDTO): any {
+    const strUrl = this.serverControllerName + `rates/${req.hotelId}/${req.roomId}?fromDate=${req.fromDate}&toDate=${req.toDate}`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
