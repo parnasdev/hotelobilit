@@ -115,7 +115,7 @@
             <label for="address">اتاق های این هتل را انتخاب کنید </label>
             <mat-form-field appearance="fill">
               <mat-label>اتاق ها</mat-label>
-              <mat-select [formControl]="selectedRoomsFC" multiple>
+              <mat-select [(ngModel)]="rooms" multiple>
                 <mat-select-trigger>
                   <span>اتاق های انتخاب شده</span>
 
@@ -123,6 +123,14 @@
                 <mat-option *ngFor="let room of data.roomTypes" [value]="room">{{room.name}}</mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+
+          <div class="item-info" *ngFor="let item of selectedRoomsFC.value">
+            <label for="">{{ item }}</label>
+            <input formControlName="title" type="text">
+            <div *ngIf="errorService.hasError('title')">
+              <span class="text-danger">{{errorService.getError('title')}}</span>
+            </div>
           </div>
         </div>
       </div>

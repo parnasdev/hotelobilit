@@ -57,6 +57,15 @@ export interface roomObjDTO {
     age_child: number;
 }
 
+export interface roomDTO {
+    id: number;
+    name: string;
+    room_type_id: number;
+    Adl_capacity: number;
+    chd_capacity: number;
+    age_child: number;
+}
+
 export interface statusObjDTO {
     name: string;
     label: string;

@@ -16,7 +16,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ErrorsService } from "../../../Core/Services/errors.service";
 import { CheckErrorService } from "../../../Core/Services/check-error.service";
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
-import { RoomTypeListDTO } from 'src/app/Core/Models/roomTypeDTO';
+import { RoomTypeListDTO, RoomTypeSetDTO } from 'src/app/Core/Models/roomTypeDTO';
 import { citiesDTO, hotelPageDTO, roomObjDTO, storeHotelReqDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
@@ -31,6 +31,8 @@ export class AddComponent implements OnInit {
   aparatFC = new FormControl('');
   youtubeFC = new FormControl('');
   selectedRoomsFC = new FormControl([]);
+
+  rooms: RoomTypeSetDTO[] = [];
 
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   currentStar = 0;
