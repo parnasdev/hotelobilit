@@ -1,4 +1,272 @@
-//baner
+@import "src/assets/css/varible";
+
+.s-search {
+  background-image: url("../../../assets/img/search-bg.jpg");
+  height: 450px;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  z-index: 1;
+
+  .p-search {
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+
+    .box-search {
+      width: 100%;
+      height: 250px;
+      background: var(--white);
+      border-radius: 15px;
+      padding: 0 2rem 1rem 2rem;
+
+      .row-search {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;;
+        column-gap: 12px;
+      }
+
+      .title-search {
+        margin: 1.5rem 0 1rem 0;
+
+        h2 {
+          font-weight: 700;
+          color: var(--text-color);
+          font-size: 21px;
+        }
+      }
+
+      .p-tab-search {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+
+        .btn-tour {
+          border-radius: 0 0 12px 12px;
+          background: #ff4340;
+          border: none;
+          outline: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 75px;
+          height: 75px;
+          padding: 12px 0;
+
+          svg {
+            path {
+              fill: #fff;
+            }
+          }
+
+          span {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 868px) {
+  :host::ng-deep prs-select-city{
+    width: 98% !important;
+  }
+  .box-search{
+    height: auto !important;
+  }
+  .s-search {
+    height: auto !important;
+    padding: 2rem 0;
+
+    .p-search {
+      height: auto !important;
+      padding-top: 0 !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .s-search .p-search .box-search{
+    height: auto;
+    .title-search{
+      margin: 12px 0 !important;
+      h2{
+        margin-bottom: 4px;
+        font-size: 18px !important;
+      }
+    }
+    .row-search {
+      width: 100%;
+      display: flex !important;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      .inp-form{
+        width: 100% !important;
+        margin-top: 10px;
+      }
+      .btn-search{
+        width: 100% !important;
+        margin-top: 10px;
+      }
+    }
+  }
+
+
+}
+
+@media only screen and (min-width: 501px) and (max-width: 868px) {
+  .box-search{
+    padding: 0 1rem 1rem 1rem;
+  }
+  .row-search{
+    grid-template-columns: 2fr 2fr 1fr !important;
+  }
+}
+
+//.section-one {
+//  background-image: url("../../../assets/img/Header-slider-tour90-num03.png");
+//  height: 300px;
+//  background-size: cover;
+//  background-position: center center;
+//  position: relative;
+//  z-index: 1;
+//}
+//
+//.section-one .bg-section-one {
+//  background-color: #3e3e3e85;
+//  z-index: -1;
+//  position: absolute;
+//  height: 100%;
+//  width: 100%;
+//  top: 0;
+//  right: 0;
+//}
+//
+//.parent-box-search {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: center;
+//  width: 100%;
+//  padding-top: 3rem;
+//}
+//
+//.parent-box-search h6 {
+//  color: #fff;
+//  font-size: 14px;
+//}
+//
+//.parent-box-search h1 {
+//  color: #fff;
+//  font-size: 22px;
+//  margin-top: 0;
+//}
+//
+//.box-search {
+//  display: flex;
+//  align-items: center;
+//  width: 58%;
+//  justify-content: space-between;
+//  margin-top: 2rem;
+//}
+//
+//.box-search .inp-form {
+//  width: 39% !important;
+//}
+//.box-search .inp-form input{
+//  font-family: IRANSans !important;
+//
+//}
+//
+//.box-search .inp-form select {
+//  color: var(--gray-color-light);
+//  font-size: 13px;
+//  font-weight: 500;
+//}
+//
+//.Continue-trip {
+//  margin-top: 1rem;
+//}
+//
+//.btn-search {
+//  height: 40px;
+//  width: 120px;
+//  padding: 0 10px;
+//  border-radius: var(--radius-btn);
+//  border: 2px solid $base-color;
+//  background-color: $base-color;
+//  transition: var(--btn-animtion);
+//  outline: none;
+//  color: #fff;
+//  font-size: 13px;
+//}
+//.btn-search:hover{
+//  background-color: var(--white);
+//  color: $base-color;
+//  transition: var(--btn-animtion);
+//}
+//.Continue-trip {
+//  margin-top: 3rem;
+//  color: var(--white);
+//}
+//
+//.icon-scroll-down {
+//  width: 45px;
+//  height: 45px;
+//  border-radius: 50%;
+//  background: var(--white);
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  position: relative;
+//  top: 14px;
+//  font-size: 18px;
+//  font-weight: 300;
+//  color: $base-color;
+//}
+//:host::ng-deep .mat-input-element{
+//  text-align: right !important;
+//}
+//:host::ng-deep .mat-form-field-underline {
+//  display: none;
+//}
+//
+//@media only screen and (max-width: 868px){
+//  .box-search {
+//    width: 100%;
+//    flex-wrap: wrap;
+//    margin-top: 0;
+//  }
+//  .parent-box-search h1 {
+//    font-size: 18px;
+//  }
+//  .box-search .inp-form {
+//    width: 48% !important;
+//  }
+//  .btn-search {
+//    margin: 1rem auto 0 auto;
+//  }
+//  .parent-box-search {
+//    padding-top: 1rem;
+//  }
+//  .icon-scroll-down {
+//    top: 8px;
+//  }
+//}
+//.button-down-scroll i{
+//  cursor: pointer !important;
+//}
+
 .baner {
   width: 100%;
   margin: 2rem 0;
@@ -41,6 +309,16 @@
 
 .title-hotel-swiper .top .new-tour {
   display: flex;
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 0;
+    height: 60px;
+    border-radius: 4px;
+    border-right: 3px solid $base-color;
+  }
 }
 
 .title-hotel-swiper .top .new-tour .text {
@@ -52,13 +330,16 @@
   margin-right: 1rem;
   border: none;
   outline: none;
+  background: $light-color;
+  width: 150px;
+  height: 40px;
 }
 
 .title-hotel-swiper .top .new-tour .text h3 {
   float: right;
   font-size: 18px;
   font-weight: 600;
-  color: var(--base-color);
+  color: $base-color;
   margin-bottom: 4px;
 }
 
@@ -75,7 +356,7 @@
 .title-hotel-swiper .bottom .border-right {
   width: 30%;
   height: 2px;
-  background-color: var(--base-color);
+  background-color: $base-color;
 }
 
 .title-hotel-swiper .bottom .border-left {
@@ -91,7 +372,7 @@
   top: 38px !important;
   width: 28px;
   height: 28px;
-  border: 3px solid var(--base-color);
+  border: 3px solid $base-color;
   border-radius: 8px;
 }
 
@@ -99,7 +380,7 @@
   content: "prev";
   font-size: 15px !important;
   font-weight: 600 !important;
-  color: var(--base-color) !important;
+  color: $base-color !important;
 }
 
 :host::ng-deep .swiper-hotel .swiper-button-prev {
@@ -109,7 +390,7 @@
   top: 38px !important;
   width: 28px;
   height: 28px;
-  border: 3px solid var(--base-color);
+  border: 3px solid $base-color;
   border-radius: 8px;
 }
 
@@ -117,7 +398,7 @@
   content: "next";
   font-size: 15px !important;
   font-weight: 600 !important;
-  color: var(--base-color) !important;
+  color: $base-color !important;
 }
 
 .hotel-parent {
@@ -229,47 +510,58 @@
   padding: 1rem 0 2rem 0;
 }
 
-.title-sort-swiper .top {
+.title-custom-website .top {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.title-sort-swiper .top .new-tour {
+.title-custom-website .top .new-tour {
   display: flex;
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 0;
+    height: 60px;
+    border-radius: 4px;
+    border-right: 3px solid $base-color;
+  }
 }
 
-.title-sort-swiper .top .new-tour .text {
+.title-custom-website .top .new-tour .text {
   margin-right: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.title-sort-swiper .top .new-tour .text h3 {
+.title-custom-website .top .new-tour .text h3 {
   float: right;
   font-size: 18px;
   font-weight: 600;
-  color: var(--base-color);
+  color: $base-color;
   margin-bottom: 4px;
 }
 
-.title-sort-swiper .top .new-tour .text span {
-  font-size: 12px !important;
+.title-custom-website .top .new-tour .text span {
+  font-size: 13px !important;
+  color:$gray-color;
 }
 
-.title-sort-swiper .bottom {
+.title-custom-website .bottom {
   display: flex;
   align-items: center;
   margin-top: 14px;
 }
 
-.title-sort-swiper .bottom .border-right {
+.title-custom-website .bottom .border-right {
   width: 30%;
   height: 2px;
-  background-color: var(--base-color);
+  background-color: $base-color;
 }
 
-.title-sort-swiper .bottom .border-left {
+.title-custom-website .bottom .border-left {
   width: 70%;
   height: 2px;
   background-color: var(--light-color-two);
@@ -282,7 +574,7 @@
   top: 38px !important;
   width: 28px;
   height: 28px;
-  border: 3px solid var(--base-color);
+  border: 3px solid $base-color;
   border-radius: 8px;
 }
 
@@ -290,7 +582,7 @@
   content: "prev";
   font-size: 15px !important;
   font-weight: 600 !important;
-  color: var(--base-color) !important;
+  color: $base-color !important;
 }
 
 :host::ng-deep .swiper-sort-city .swiper-button-prev {
@@ -300,7 +592,7 @@
   top: 38px !important;
   width: 28px;
   height: 28px;
-  border: 3px solid var(--base-color);
+  border: 3px solid $base-color;
   border-radius: 8px;
 }
 
@@ -308,7 +600,7 @@
   content: "next";
   font-size: 15px !important;
   font-weight: 600 !important;
-  color: var(--base-color) !important;
+  color: $base-color !important;
 }
 
 .sort-city-parent {
@@ -316,7 +608,7 @@
   overflow: hidden;
 }
 
-.title-sort-swiper {
+.title-custom-website {
   position: absolute;
   top: 10px;
   width: 98%;
@@ -592,7 +884,7 @@
 }
 
 .parent-collapse span {
-  color: var(--base-color);
+  color: $base-color;
   font-weight: 500;
 }
 
@@ -610,7 +902,7 @@
   width: 90%;
   margin: 10px auto 6px auto;
   font-size: 14px;
-  color: var(--base-color);
+  color: $base-color;
 }
 
 .info-blog h6 {
@@ -657,7 +949,7 @@
   .title-tour-special-swiper .top .new-tour .text h3 {
     float: right;
     font-size: 14px;
-    color: var(--base-color);
+    color: $base-color;
     margin-bottom: 0;
   }
   .title-tour-special-swiper .bottom {
@@ -698,10 +990,10 @@
   .title-hotel-swiper .top .new-tour .text h3 {
     font-size: 14px !important;
   }
-  .title-sort-swiper .top .new-tour .text span {
+  .title-custom-website .top .new-tour .text span {
     display: none;
   }
-  .title-sort-swiper .top .new-tour .text h3 {
+  .title-custom-website .top .new-tour .text h3 {
     font-size: 16px;
     margin-bottom: 0;
   }
@@ -836,10 +1128,10 @@
 .btn-next-slider {
   width: 28px;
   height: 28px;
-  border: 3px solid var(--base-color);
+  border: 3px solid $base-color;
   border-radius: 8px;
   margin-left: 1rem;
-  color: var(--base-color);
+  color: $base-color;
   background: var(--white);
   display: flex;
   align-items: center;
@@ -849,9 +1141,9 @@
 .btn-prev-slider {
   width: 28px;
   height: 28px;
-  border: 3px solid var(--base-color);
+  border: 3px solid $base-color;
   border-radius: 8px;
-  color: var(--base-color);
+  color: $base-color;
   background: var(--white);
   display: flex;
   align-items: center;
@@ -989,6 +1281,16 @@
 
   .title-tour-parent .top .new-tour {
     display: flex;
+    position: relative;
+    &:after{
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 0;
+      height: 60px;
+      border-radius: 4px;
+      border-right: 3px solid $base-color;
+    }
   }
 
   .title-tour-parent .top .new-tour .text {
@@ -1001,7 +1303,7 @@
     float: right;
     font-size: 18px;
     font-weight: 600;
-    color: var(--base-color);
+    color: $base-color;
     margin-bottom: 4px;
   }
 
@@ -1011,9 +1313,9 @@
   }
 
   .view-all-tour {
-    color: var(--base-color);
+    color: $base-color;
     font-weight: 600;
-    border-bottom: 3px solid var(--base-color);
+    border-bottom: 3px solid $base-color;
     padding-bottom: 8px;
     margin-top: 13px !important;
   }
@@ -1027,7 +1329,7 @@
   .title-tour-parent .bottom .border-right {
     width: 30%;
     height: 2px;
-    background-color: var(--base-color);
+    background-color: $base-color;
   }
 
   .title-tour-parent .bottom .border-left {
@@ -1068,7 +1370,7 @@
 
     i {
       font-size: 12px;
-      color: var(--base-color);
+      color: $base-color;
     }
   }
 
@@ -1096,13 +1398,13 @@
 
     strong {
       font-size: 21px;
-      color: var(--base-color);
+      color: $base-color;
       letter-spacing: 1px;
     }
 
     small {
       margin-right: 4px;
-      color: var(--base-color);
+      color: $base-color;
       font-size: 13px;
     }
   }
