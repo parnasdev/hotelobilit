@@ -195,7 +195,7 @@ input {
 
   input, select, textarea {
     background: $base-color-dark !important;
-    border: 1px solid #726868 !important;
+    border: 1px solid $border-color-dark !important;
   }
 
   .dropzone {
@@ -210,7 +210,7 @@ input {
     background: rgba(149, 150, 245, 0.2) !important;
 
     select {
-      border: 1px dashed #726868 !important;
+      border: 1px dashed $border-color-dark !important;
       color: $white-color !important;
       padding: 4px !important;
       position: relative;
@@ -219,7 +219,7 @@ input {
   }
 
   .info-tour-body {
-    border: 1px dashed #726868 !important;
+    border: 1px dashed $border-color-dark !important;
     border-top: none !important;
   }
 
@@ -254,6 +254,12 @@ input {
       color: $text-color-dark !important;
     }
   }
+  .btn-base{
+    background: unset !important;
+    color: $white-color !important;
+    border-radius: 4px !important;
+  }
+
 }
 :host::ng-deep .card-body{
   background: $base-color-three !important;

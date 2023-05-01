@@ -15,7 +15,7 @@ import { IndexComponent } from './index/index.component';
   ],
   imports: [
     CommonModule,
-    StoreRoutingModule
+    StoreRoutingModule,
   ]
 })
 export class StoreModule { }

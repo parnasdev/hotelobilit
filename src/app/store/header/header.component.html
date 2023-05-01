@@ -1,1 +1,75 @@
-<p>header works!</p>
+<header class="s-header isDesktop">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto p-header d-flex align-items-center justify-content-between">
+          <div class="menu">
+            <a class="link-header" routerLinkActive="active-link" href="https://www.snapptrip.com/">هتل داخلی</a>
+            <a class="link-header" routerLinkActive="active-link" href="https://www.snapptrip.com/flights">بلیط
+              هواپیما</a>
+            <a class="link-header" routerLinkActive="active-link" href="https://www.snapptrip.com/bus/">اتوبوس</a>
+            <a class="link-header" routerLinkActive="active-link" routerLink="">تور</a>
+          </div>
+          <div class="options-header">
+            <div class="menu-l d-flex align-items-center">
+              <a href="https://www.snapptrip.com/app" class="link">دانلود اپلیکیشن</a>
+              <a href="/dashboard/tour/list" class="link">پیگیری خرید</a>
+            </div>
+            <button  routerLink="/auth" class="btn-auth">ورود | ثبت نام</button>
+            <button  routerLink="/dashboard" class="btn-auth">پنل کاربری</button>
+
+            <a class="p-tel-header" href="tel:+982175132000">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 32 32" fill="currentColor"
+                   focusable="false" class="chakra-icon css-10ofrh5">
+                <path
+                  d="M9.959 2.667a3.653 3.653 0 013.652 3.145c.143 1.077.407 2.136.787 3.152a3.64 3.64 0 01-.827 3.849l-.877.875a18.272 18.272 0 005.599 5.589l.883-.881a3.655 3.655 0 013.848-.821c1.02.38 2.08.644 3.171.787 1.835.259 3.185 1.849 3.14 3.668v3.648c.004 1.025-.425 2.004-1.183 2.697s-1.772 1.036-2.817.941a25.34 25.34 0 01-11.037-3.917 24.94 24.94 0 01-7.68-7.664A25.278 25.278 0 012.686 6.636c-.095-1.016.247-2.027.937-2.783s1.668-1.185 2.693-1.187H9.96zm.012 2.421H6.316a1.225 1.225 0 00-1.221 1.315 22.847 22.847 0 003.56 10.028 22.575 22.575 0 006.949 6.935 22.904 22.904 0 009.968 3.545 1.227 1.227 0 001.336-1.224v-3.685a1.22 1.22 0 00-1.043-1.24 16.88 16.88 0 01-3.693-.919 1.225 1.225 0 00-1.288.271l-1.548 1.545a1.214 1.214 0 01-1.456.196 20.698 20.698 0 01-7.768-7.755 1.21 1.21 0 01.196-1.455l1.543-1.54c.336-.34.444-.844.275-1.293a16.817 16.817 0 01-.917-3.673 1.226 1.226 0 00-1.237-1.051zm8.524 2.795a7.097 7.097 0 015.612 5.603 1.01 1.01 0 01-1.984.386 5.08 5.08 0 00-4.016-4.009 1.01 1.01 0 01-.799-1.183c.109-.547.64-.903 1.187-.796zm-.082-4.88a11.97 11.97 0 0110.583 10.551 1.01 1.01 0 01-2.008.226 9.95 9.95 0 00-8.797-8.771c-.555-.061-.955-.56-.892-1.113s.56-.953 1.115-.892z">
+                </path>
+              </svg>
+            </a>
+            <a href="/" class="logo-website"><img width="76" height="48" alt="اسنپ تریپ"
+                                                  src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg"
+                                                  class="chakra-image css-1ryhtp0"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<header *ngIf="isTablet" class="header-mobile">
+  <div [ngClass]="isMenu?'under-menu':'show-menu'" class="animated  fadeInRight">
+    <div  class="p-exit-menu w-100 d-flex align-items-center justify-content-start p-3">
+      <button (click)="menuClose()" class="btn-exit-menu text-danger">
+        <svg viewBox="0 0 24 24" width="19" height="19" focusable="false" class="chakra-icon css-onkibi"
+             aria-hidden="true">
+          <path fill="currentColor"
+                d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <img width="105" height="70" alt="اسنپ تریپ"
+         src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg" class="chakra-image my-3">
+    <div class="menu">
+      <a class="link-header" href="https://www.snapptrip.com/">هتل داخلی</a>
+      <a class="link-header" href="https://www.snapptrip.com/flights">بلیط هواپیما</a>
+      <a class="link-header" href="https://www.snapptrip.com/bus/">اتوبوس</a>
+      <a class="link-header" href="">خرید تور</a>
+    </div>
+  </div>
+  <div  class="d-flex align-items-center w-55 justify-content-between">
+    <button (click)="menuOpen()" class="btn-menu-mobi text-dark">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 32 32" fill="currentColor"
+           focusable="false" class="chakra-icon css-13otjrl">
+        <path
+          d="M28 22.667a1.333 1.333 0 010 2.666H4a1.333 1.333 0 010-2.666h24zm0-8a1.333 1.333 0 010 2.666H4a1.333 1.333 0 010-2.666h24zm0-8a1.333 1.333 0 010 2.666H4a1.333 1.333 0 010-2.666h24z">
+        </path>
+      </svg>
+    </button>
+    <a href="/" class="logo-website"><img width="65" height="45" alt="اسنپ تریپ"
+                                          src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg" class="chakra-image css-1ryhtp0"></a>
+  </div>
+
+  <button  class="btn-auth">ورود | ثبت نام</button>
+  <button  routerLink="/dashboard" class="btn-auth">پنل کاربری</button>
+
+</header>

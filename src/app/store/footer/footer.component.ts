@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ResponsiveService} from "../../Core/Services/responsive.service";
 
 @Component({
   selector: 'prs-footer',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-
+  isLoading = false;
+  isMobile = false;
+  isDesktop = false;
+  isTablet = false;
+  isMenu = false;
+  constructor(
+    public mobileService: ResponsiveService,
+  ) {
+    this.isMobile = mobileService.isMobile()
+    this.isTablet = mobileService.isTablet()
+  }
 }
