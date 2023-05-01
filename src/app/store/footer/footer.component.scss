@@ -348,9 +348,9 @@ footer {
 //back-top
 
 #button {
-  background-color: var(--text-color);
+  background-color: $base-color-two;
   width: 50px;
-  height: 50px;
+  height: 70px;
   border-radius: 8px;
   text-align: center;
   opacity: 1;
@@ -384,13 +384,7 @@ footer {
 }
 
 .border-back-top {
-  width: 70%;
-  height: 4px;
-  border-radius: 100px;
-  background-color: #404040;
-  position: absolute;
-  top: 47px;
-  z-index: 98;
+  display: none;
 }
 
 .parent-back-top {

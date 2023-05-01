@@ -283,7 +283,7 @@
   width: 100%;
   margin: 2rem 0;
   background-color: var(--light-color-two);
-  height: 300px;
+  height: auto;
   padding: 2rem 0;
 }
 
@@ -437,7 +437,7 @@
   flex-direction: column;
   height: 400px;
   border: 1px solid #eee;
-  border-radius: 14px;
+  border-radius: 0 30px 30px 30px;
   margin-top: 1rem;
   overflow: hidden;
   cursor: pointer;
@@ -468,7 +468,7 @@
 
 .opacity-bg-parent .info-img {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .info-hotel {
@@ -480,8 +480,17 @@
 
 .info-hotel h1 {
   color: var(--white);
+  position: relative;
   font-weight: 500;
   font-size: 15px;
+  &:before{
+    content: '';
+    position: absolute;
+    right: -8px;
+    width: 14px;
+    border-bottom: 3px solid $white-color;
+    border-radius: 20px;
+  }
 }
 
 .footer-hotel-info {
