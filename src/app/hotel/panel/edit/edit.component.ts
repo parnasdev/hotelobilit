@@ -46,29 +46,9 @@ export class EditComponent extends AddComponent implements OnInit {
   override ngOnInit(): void {
     this.errorService.clear();
     // @ts-ignore
-    this.hotelName = this.route.snapshot.paramMap.get('slug');
+    this.hotelId = this.route.snapshot.paramMap.get('id');
     this.getInfo();
   }
-
-  // getServices(): void {
-  //   this.showServices = false
-  //   this.hotelApi.getServices().subscribe((res: any) => {
-  //     if (res.isDone) {
-  //       this.services = res.data
-  //       this.setData()
-  //       this.showServices = true
-
-  //     } else {
-  //       this.showServices = false
-
-  //       this.message.custom(res.message)
-  //     }
-  //   }, (error: any) => {
-  //     this.showServices = false
-  //     this.message.error()
-
-  //   })
-  // }
 
   edit(): void {
     this.setReq()
