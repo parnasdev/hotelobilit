@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
 
   openPicker() {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
-      width: '60%',
+      width: '80%',
       data: this.dateFC.value
     })
     dialog.afterClosed().subscribe(res => {
