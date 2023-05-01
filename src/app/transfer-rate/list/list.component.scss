@@ -1,7 +1,7 @@
 .title h2{
     font-size: 20px;
     font-weight: 500;
-    color: var(--base-color);
+    color: $base-color;
     margin-bottom: 7px;
   }
   .title p{
@@ -25,7 +25,7 @@
   }
   .title h2{
     font-size: 20px;
-    color: var(--base-color);
+    color: $base-color;
     margin-right: 4px;
   }
   .title button {
@@ -107,7 +107,7 @@
   }
   .button-setting .view-btn {
     width: auto;
-    background-color: var(--base-color);
+    background-color: $base-color;
     color: var(--white);
     border: none;
     outline: none;
@@ -141,7 +141,7 @@
   }
 
   .btn-add-tour {
-    background-color: var(--base-color);
+    background-color: $base-color;
     color: var(--white);
     width: 120px;
     height: 38px;

@@ -3,17 +3,17 @@
   width: auto;
   padding: 0 10px;
   border-radius: var(--radius-btn);
-  border: 2px solid var(--base-color);
-  background-color: var(--base-color);
+  border: 2px solid $base-color;
+  background-color: $base-color;
   transition: var(--btn-animtion);
   outline: none;
   color: #fff;
 }
 .btn-blue:hover{
-  border: 2px solid var(--base-color);
+  border: 2px solid $base-color;
   background-color: var(--white);
   transition: var(--btn-animtion);
-  color: var(--base-color);
+  color: $base-color;
 }
 
 .btn-dark{

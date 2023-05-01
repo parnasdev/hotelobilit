@@ -68,13 +68,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--base-color);
+    background-color: $base-color;
     font-size: 13px !important;
   }
   
   .info-tour-header .right h2 {
     font-size: 18px;
-    color: var(--base-color);
+    color: $base-color;
     margin-right: 10px;
     margin-bottom: 0;
   }
@@ -211,8 +211,8 @@
     font-size: 12px !important;
     width: 90%;
     background: var(--white);
-    color: var(--base-color);
-    border: 2px solid var(--base-color);
+    color: $base-color;
+    border: 2px solid $base-color;
     padding: 4px 0 !important;
     font-weight: 500;
     border-radius: 4px;
@@ -275,7 +275,7 @@
   }
   
   .package-item .icon-plus-circled {
-    color: var(--base-color);
+    color: $base-color;
     font-size: 20px;
   }
   
