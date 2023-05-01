@@ -1,5 +1,5 @@
 <div class="add-tour">
-  <form [formGroup]="form">
+  <form [formGroup]="form" class="w-100">
     <div class="box-info-fly">
 
       <div class="info-tour-header">
@@ -15,7 +15,7 @@
 
               <label for="">شهر </label>
 
-              <prs-select-city [hasHotel]="true" [inCommingCity]="cities[0]" [cities]="cities"
+              <prs-select-city [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
                 (citySelected)="getStCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">
                 <span class="text-danger">{{errorService.getError('origin_id')}}</span>
@@ -49,7 +49,7 @@
             <div class="select-info w-100">
               <label for="">ایرلاین</label>
               <select formControlName="origin_transfer_id">
-                <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
+                <option *ngFor="let item of pageData.airlines" [value]="item.id">{{item.name}}</option>
               </select>
             </div>
             <div *ngIf="errorService.hasError('origin_transfer_id')">
@@ -58,11 +58,9 @@
 
           </div>
 
-    
-      
           <div class="item-info">
             <div class="select-info w-100">
-              <label for="">شماره پرواز رفت</label>
+              <label for="">شماره پرواز</label>
               <input type="text" formControlName="origin_transfer_number">
             </div>
             <div *ngIf="errorService.hasError('origin_transfer_number')">

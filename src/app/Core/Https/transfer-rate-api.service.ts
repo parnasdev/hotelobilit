@@ -15,8 +15,8 @@ export class TransferRateAPIService {
 
   constructor(public http: HttpClient,
               public publicService: PublicService) {
-    this.serverControllerName =
-      environment.BACK_END_IP + this.serverControllerName;
+                this.serverControllerName =
+                environment.BACK_END_IP + this.serverControllerName;
   }
 
   getTransfers(req: TransferRateListReqDTO): any {

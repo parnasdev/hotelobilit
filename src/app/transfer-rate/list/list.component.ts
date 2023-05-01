@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
+import { SetTransferPageDTO, transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { TransferRateListDTO, TransferRateListReqDTO } from 'src/app/Core/Models/transferRateDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -12,13 +14,13 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 })
 export class ListComponent implements OnInit {
   req!: any;
-  transfers: TransferRateListDTO[] = [];
+  transfers: transferRateListDTO[] = [];
   loading = false;
   paginate: any;
   paginateConfig: any;
   p = 1;
 
-  constructor(public api: TransferRateAPIService,
+  constructor(public api: FlightApiService,
     public session: SessionService,
     public calendarService: CalenderServices,
     public message: MessageService) {
@@ -30,7 +32,7 @@ export class ListComponent implements OnInit {
 
   getTransfers(): void {
     this.setReq();
-    this.api.getTransfers(this.req).subscribe((res: any) => {
+    this.api.getTransferRates().subscribe((res: any) => {
       if (res.isDone) {
         this.transfers = res.data;
         this.paginate = res.meta;
@@ -58,16 +60,16 @@ export class ListComponent implements OnInit {
   }
 
   deleteTransfer(id: number) {
-    this.api.delete(id).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.custom(res.message);
-        this.getTransfers()
-      } else {
-        this.message.custom(res.message);
-      }
-    }, (error: any) => {
-      this.message.error()
-    })
+    // this.api.delete(id).subscribe((res: any) => {
+    //   if (res.isDone) {
+    //     this.message.custom(res.message);
+    //     this.getTransfers()
+    //   } else {
+    //     this.message.custom(res.message);
+    //   }
+    // }, (error: any) => {
+    //   this.message.error()
+    // })
   }
 
   checkItemPermission(item: string) {

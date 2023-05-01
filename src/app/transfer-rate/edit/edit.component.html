@@ -1,6 +1,6 @@
 
 <div class="add-tour" *ngIf="show">
-    <form [formGroup]="form">
+    <!-- <form [formGroup]="form">
         <div class="box-info-fly">
         
             <div class="info-tour-header">
@@ -55,7 +55,7 @@
                   <div class="select-info w-100">
                     <label for="">ایرلاین</label>
                     <select formControlName="origin_transfer_id">
-                      <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
+                      <option *ngFor="let item of pageData" [value]="item.id">{{item.name}}</option>
                     </select>
                   </div>
               
@@ -77,7 +77,7 @@
                   <div class="select-info w-100">
                     <label for="">ایرلاین برگشت</label>
                     <select formControlName="destination_transfer_id">
-                      <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
+                      <option *ngFor="let item of pageData" [value]="item.id">{{item.name}}</option>
                     </select>
                   </div>
                 </div>
@@ -163,5 +163,5 @@
         <div class="d-flex justify-content-end">
             <button class="btn-base" (click)="editRequest()" style="width: 10%; margin: 5px">ویرایش</button>
         </div>
-    </form>
+    </form> -->
 </div>

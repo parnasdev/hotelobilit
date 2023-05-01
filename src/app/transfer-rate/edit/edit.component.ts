@@ -38,40 +38,19 @@ export class EditComponent extends AddComponent implements OnInit {
   override ngOnInit(): void {
     //@ts-ignore
     this.id = this.route.snapshot.paramMap.get('id');
-    this.getTransferRate()
+    this.getDataEditPage()
   }
 
-  override getCities(): void {
-    const req: CityListRequestDTO = {
-      type: null,
-      hasHotel: true,
-      hasOriginTour: false,
-      hasDestTour: false,
-      search: null,
-      perPage: 20
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.cities = res.data;
-        // this.form.controls.origin_id.setValue(this.info.origin.id);
-        // this.form.controls.destination_id.setValue(this.info.destination.id);
-        // this.reload();
-      }
-    }, (error: any) => {
-      this.message.error()
-    })
-  }
-
-  override getTransfer(): void {
+   getDataEditPage(): void {
     const req: TransferListRequestDTO = {
       type: 1,
       search: null,
       paginate: false,
       perPage: 20
     }
-    this.transferApi.getTransfers(req).subscribe((res: any) => {
+    this.flightApi.getFlightRatesSet().subscribe((res: any) => {
       if (res.isDone) {
-        this.airlines = res.data
+        this.pageData = res.data
       }
     }, (error: any) => {
       this.message.error()
@@ -90,8 +69,7 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.show = true
         this.info = res.data;
-        this.getCities();
-        this.getTransfer();
+        // this.getTransfer();
         this.setValue();
         this.isLoading = false
       }
@@ -106,14 +84,14 @@ export class EditComponent extends AddComponent implements OnInit {
     // this.form.controls.destination_id.setValue(this.info.destination.id)
     // this.form.controls.origin_transfer_id.setValue(this.info.origin_transfer.id)
     // this.form.controls.destination_transfer_id.setValue(this.info.destination_transfer.id)
-    this.form.controls.departure_date.setValue(this.info.departure_date)
-    this.form.controls.return_date.setValue(this.info.return_date)
-    this.form.controls.departure_time.setValue(this.info.departure_time)
-    this.form.controls.return_time.setValue(this.info.return_time)
-    this.originTime = this.info.departure_time;
-    this.destTime = this.info.return_time;
-    this.form.controls.origin_transfer_number.setValue(this.info.origin_transfer_number)
-    this.form.controls.destination_transfer_number.setValue(this.info.destination_transfer_number)
+    // this.form.controls.departure_date.setValue(this.info.departure_date)
+    // this.form.controls.return_date.setValue(this.info.return_date)
+    // this.form.controls.departure_time.setValue(this.info.departure_time)
+    // this.form.controls.return_time.setValue(this.info.return_time)
+    // this.originTime = this.info.departure_time;
+    // this.destTime = this.info.return_time;
+    // this.form.controls.origin_transfer_number.setValue(this.info.origin_transfer_number)
+    // this.form.controls.destination_transfer_number.setValue(this.info.destination_transfer_number)
     // this.form.controls.adl_price.setValue(this.info.adl_price)
     // this.form.controls.chd_price.setValue(this.info.chd_price)
     // this.form.controls.inf_price.setValue(this.info.inf_price)
@@ -123,24 +101,24 @@ export class EditComponent extends AddComponent implements OnInit {
 
   editTransferRate(){
     this.isLoading = true
-    this.transferRateApi.edit(this.TransferRateRequest, +this.id).subscribe((res: any) => {
-      if (res.isDone) {
-        this.isLoading = false;
-        this.message.showMessageBig(res.message);
-        this.errorService.clear();
-        this.router.navigateByUrl('/panel/transferRate');
-      }
-    }, (error: any) => {
-      this.isLoading = false;
-      if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
-        this.markFormGroupTouched(this.form);
-        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
-      } else {
-        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-      }
-      this.checkError.check(error);
-    })
+    // this.transferRateApi.edit(this.TransferRateRequest, +this.id).subscribe((res: any) => {
+    //   if (res.isDone) {
+    //     this.isLoading = false;
+    //     this.message.showMessageBig(res.message);
+    //     this.errorService.clear();
+    //     this.router.navigateByUrl('/panel/transferRate');
+    //   }
+    // }, (error: any) => {
+    //   this.isLoading = false;
+    //   if (error.status == 422) {
+    //     this.errorService.recordError(error.error.data);
+    //     this.markFormGroupTouched(this.form);
+    //     this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+    //   } else {
+    //     this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+    //   }
+    //   this.checkError.check(error);
+    // })
   }
 
 }
