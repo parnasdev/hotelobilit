@@ -85,6 +85,9 @@ a {
   position: relative;
   display: flex;
   align-items: center;
+  img{
+    top: 30px !important;
+  }
 
   &:after {
     content: '';
@@ -116,4 +119,12 @@ a {
       font-weight: 600;
     }
   }
+}
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: unset !important;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  display: none !important;
 }
