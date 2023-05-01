@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
 import { HotelListResponseDTO } from 'src/app/Core/Models/hotelDTO';
+import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 
 @Component({
   selector: 'prs-index',
@@ -25,11 +26,27 @@ export class IndexComponent {
     city: '',
     location: '',
   }];
+  cities: CityResponseDTO[] = [
+  {
+    name: 'تهران',
+    id: 0,
+    type: 0,
+    image: 'assets/img/12123131.png',
+    slug: 'تهران-۲',
+    slugEn: 'tehran-2',
+    faq: [],
+    description: '',
+    images: [],
+    nameEn: '',
+  }
+  ];
 
   constructor(
     public mobileService: ResponsiveService,
   ) {
     this.isMobile = mobileService.isMobile()
+    this.isDesktop = mobileService.isDesktop()
+
     this.isTablet = mobileService.isTablet()
   }
 

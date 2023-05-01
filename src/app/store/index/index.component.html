@@ -10,7 +10,7 @@
               <button class="btn-tour">
                 <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
                   <path stroke="#fff"
-                        d="M192 0C85.97 0 0 85.97 0 192c0 77.41 26.97 99.03 172.3 309.7c9.531 13.77 29.91 13.77 39.44 0C357 291 384 269.4 384 192C384 85.97 298 0 192 0zM192 271.1c-44.13 0-80-35.88-80-80S147.9 111.1 192 111.1s80 35.88 80 80S236.1 271.1 192 271.1z"/>
+                    d="M192 0C85.97 0 0 85.97 0 192c0 77.41 26.97 99.03 172.3 309.7c9.531 13.77 29.91 13.77 39.44 0C357 291 384 269.4 384 192C384 85.97 298 0 192 0zM192 271.1c-44.13 0-80-35.88-80-80S147.9 111.1 192 111.1s80 35.88 80 80S236.1 271.1 192 271.1z" />
                 </svg>
                 <span>تور</span>
               </button>
@@ -18,7 +18,7 @@
             <div class="title-search">
               <h2 class="w-100">رزرو آنلاین تور</h2>
             </div>
-           <prs-search></prs-search>
+            <prs-search></prs-search>
           </div>
         </div>
       </div>
@@ -49,18 +49,18 @@
             </div>
           </div>
           <swiper class="swiper-sort-city" [slidesPerView]=" this.isMobile? 1.7 :(isTablet ? 3:5.5)" [navigation]="true"
-                  [spaceBetween]="this.isMobile?20:(isTablet?20:0)">
-            <ng-template>
+            [spaceBetween]="this.isMobile?20:(isTablet?20:0)">
+            <ng-template swiperSlide *ngFor="let city of cities">
               <div class="box-sort-tour-city">
-                <div class="img-sort-tour-city" routerLink="">
+                <div class="img-sort-tour-city" routerLink="/{{ 'تور' + '-' +city.slug}}">
                   <div class="info-img-sort-tour-city animated fadeInDown">
                     <img class="img-hover-child" src="assets/img/Attachment%201.svg" width="30" alt="">
                     <a class="view-details-more">مشاهده جزئیات بیشتر</a>
                   </div>
-                  <img src="" alt="">
+                  <img [src]="city.image" alt="">
                 </div>
                 <div class="text-sort-tour-city">
-                  <span style="cursor: pointer" routerLink="">تور آنتالیا</span>
+                  <span style="cursor: pointer" routerLink="/{{ 'تور' + '-' +city.slug}}">تور {{city.name}}</span>
                 </div>
               </div>
             </ng-template>
@@ -93,18 +93,18 @@
             </div>
           </div>
           <div class="tour-list-special">
-            <div  class="card-hotel">
+            <div class="card-hotel">
               <img src="../../../assets/img/1634191054BLOG1.png" routerLink="" alt="" class="img-hotel">
               <div class="parent-star">
-                <i  class="icon-star"></i>
-                <i  class="icon-star"></i>
-                <i  class="icon-star"></i>
-                <i  class="icon-star"></i>
-                <i  class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
               </div>
               <h2 class="name-hotel"><a routerLink="">
-                نام هتل
-              </a>
+                  نام هتل
+                </a>
               </h2>
               <small class="price-start">شروع قیمت تور از :</small>
               <div class="price">
@@ -130,7 +130,8 @@
     <div class="container-fluid h-100">
       <div class="row h-100">
         <div class="col-md-11 m-auto baner-parent h-100">
-          <a *ngIf="isDesktop" href="https://www.snapptrip.com/landing/csr/index.html?sender=trip" target="_blank" class="baner-right">
+          <a href="https://www.snapptrip.com/landing/csr/index.html?sender=trip" target="_blank"
+            class="baner-right">
             <img src="../../../assets/img/banner.jpg" alt="">
           </a>
           <a *ngIf="isDesktop" href="https://www.snapptrip.com/" target="_blank" class="baner-left">
@@ -177,28 +178,29 @@
             </div>
           </div>
           <swiper #swiper class="swiper-hotel"
-          [slidesPerView]=" this.isMobile? (hotels.length===1?1:1.3) :(isTablet ? 2:4.3)" [spaceBetween]="30">
-          <ng-template swiperSlide *ngFor="let hotel of hotels">
-            <div [style.background-image]="'url(' + hotel.thumbnail + ')'" routerLink="/hotels/{{hotel.slug}}"
-              class="box-hotel">
-              <div class="opacity-bg-parent">
-                <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
-                <div class="info-hotel">
-                  <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.name}}</h1>
-                  <div class="footer-hotel-info">
-                    <div class="location-hotel">
-                      <img src="assets/img/Location-white.svg" width="17" alt="">
-                      <span>{{hotel.city}} - {{hotel.location ? (hotel.location.length > 10 ? hotel.location.slice(0,10) + '...' :hotel.location ) : 'ثبت نشده'}}</span>
-                    </div>
-                    <div class="rate">
-                      <i class="icon-star" *ngFor="let star of getStars(hotel.stars)"></i>
+            [slidesPerView]=" this.isMobile? (hotels.length===1?1:1.3) :(isTablet ? 2:4.3)" [spaceBetween]="30">
+            <ng-template swiperSlide *ngFor="let hotel of hotels">
+              <div [style.background-image]="'url(' + hotel.thumbnail + ')'" routerLink="/hotels/{{hotel.slug}}"
+                class="box-hotel">
+                <div class="opacity-bg-parent">
+                  <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
+                  <div class="info-hotel">
+                    <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.name}}</h1>
+                    <div class="footer-hotel-info">
+                      <div class="location-hotel">
+                        <img src="assets/img/Location-white.svg" width="17" alt="">
+                        <span>{{hotel.city}} - {{hotel.location ? (hotel.location.length > 10 ?
+                          hotel.location.slice(0,10) + '...' :hotel.location ) : 'ثبت نشده'}}</span>
+                      </div>
+                      <div class="rate">
+                        <i class="icon-star" *ngFor="let star of getStars(hotel.stars)"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </ng-template>
-        </swiper>
+            </ng-template>
+          </swiper>
 
         </div>
       </div>
