@@ -27,7 +27,7 @@
         <span class="title-tour">{{ hotel.user.full_name }}</span>
         <span class="title-tour">{{ hotel.visitCount }}</span>
         <div class="button-setting">
-          <a *ngIf="session.checkItemPermission('Hotel.edit')" routerLink="/panel/hotel/edit/{{ hotel.slug }}"
+          <a routerLink="/panel/hotel/edit/{{ hotel.slug }}"
             class="edit-btn">ویرایش</a>
             <a  routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
             class="edit-btn">قیمت گذاری</a>

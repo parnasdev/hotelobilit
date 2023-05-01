@@ -70,6 +70,7 @@ export interface roomDTO {
     id: number;
     name: string;
     room_type_id: number;
+    coefficient: number;
     Adl_capacity: number;
     chd_capacity: number;
     age_child: number;
@@ -105,7 +106,7 @@ export interface categoriesDTO {
 export interface hotelPageDTO {
     statuses: statusesDTO[];
     cities: citiesDTO[];
-    roomTypes: statusesDTO[]
+    roomTypes: roomDTO[]
 }
 
 export interface ratigListReqDTO {

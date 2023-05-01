@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { HotelApiService } from "../../../Core/Https/hotel-api.service";
 import { MessageService } from "../../../Core/Services/message.service";
 import { CommonApiService } from "../../../Core/Https/common-api.service";
 import { SessionService } from "../../../Core/Services/session.service";
@@ -9,17 +7,16 @@ import { PublicService } from "../../../Core/Services/public.service";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { MapApiService } from "../../../Core/Https/map-api.service";
 import { MapReverseDTO } from "../../../Core/Models/mapDTO";
-import { CityDTO, CityListRequestDTO, CityResponseDTO } from "../../../Core/Models/cityDTO";
-import { HotelSetRequestDTO, ServiceDTO } from "../../../Core/Models/hotelDTO";
+import { CityDTO } from "../../../Core/Models/cityDTO";
 import { CityApiService } from "../../../Core/Https/city-api.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ErrorsService } from "../../../Core/Services/errors.service";
 import { CheckErrorService } from "../../../Core/Services/check-error.service";
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
-import { RoomTypeListDTO, RoomTypeSetDTO } from 'src/app/Core/Models/roomTypeDTO';
-import { citiesDTO, hotelPageDTO, roomObjDTO, storeHotelReqDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'prs-add',
@@ -27,14 +24,9 @@ import { PostApiService } from 'src/app/Core/Https/post-api.service';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-
   aparatFC = new FormControl('');
   youtubeFC = new FormControl('');
   selectedRoomsFC = new FormControl([]);
-
-  rooms: RoomTypeSetDTO[] = [];
-
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   currentStar = 0;
   lat = 0;
   lng = 0;
@@ -43,6 +35,7 @@ export class AddComponent implements OnInit {
   citiesResponse: citiesDTO[] = []
   cityTypeFC = new FormControl(true)
   public show = true;
+
   req: storeHotelSetReqDTO = {
     title: '',
     titleEn: '',
@@ -63,10 +56,11 @@ export class AddComponent implements OnInit {
   }
   serviceIDs: string[] = [];
   isLoading = false;
-  roomTypes: RoomTypeListDTO[] = [];
 
-  constructor(private route: ActivatedRoute,
-    private router: Router,
+selectedRooms: roomDTO[] = [];
+
+  constructor(
+    public router: Router,
     public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
@@ -123,6 +117,27 @@ export class AddComponent implements OnInit {
     })
   }
 
+  roomChanged() {
+   this.selectedRooms = [];
+    (this.selectedRoomsFC.value??[]).forEach(item => {
+  
+      let result =this.data.roomTypes.filter(x => x.name ===  item)
+      if(result.length > 0) {
+        let obj = {
+          id: 0,
+          name: result[0].name,
+          room_type_id: result[0].id,
+          coefficient: 0,
+          Adl_capacity: result[0].Adl_capacity,
+          chd_capacity: result[0].chd_capacity,
+          age_child: result[0].age_child,
+        }
+        this.selectedRooms.push(obj);
+      }
+    })
+    
+  }
+
   getData(): void {
     const req = {
       paginate: false,
@@ -155,7 +170,7 @@ export class AddComponent implements OnInit {
       use_api: 0,
       city_id: this.hotelForm.controls.city_id.value,
       // @ts-ignore
-      rooms: this.selectedRoomsFC?.value
+      rooms: this.selectedRooms
     }
   }
 
@@ -164,7 +179,9 @@ export class AddComponent implements OnInit {
     this.lng = 0;
     this.citiesResponse = this.data.cities;
   }
+  chn(item:any) {
 
+  }
   reload() {
     this.show = false;
     setTimeout(() => this.show = true);
@@ -213,11 +230,13 @@ export class AddComponent implements OnInit {
   }
 
   add(): void {
+    console.log(this.selectedRooms);
+    
     this.setReq()
     this.hotelApi.storePosts('hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);
-        this.router.navigateByUrl('panel/hotel/list')
+        this.router.navigateByUrl('panel/hotel')
       } else {
         this.message.custom(res.message)
       }

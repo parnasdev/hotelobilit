@@ -7,7 +7,7 @@
           <label for="">اضافه کردن هتل</label>
           <h2 class="text-dark">اطلاعات هتل</h2>
         </div>
-        <div class="left">
+        <div class="left" *ngIf="data.cities.length>0">
           <div class="selectdiv">
             <select formControlName="city_id" name="" id="">
               <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
@@ -73,7 +73,8 @@
             <div class="top">
               <div class="item-info-second w-100">
                 <label class="mb-2" for="">آدرس</label>
-                <textarea style="margin: 0 auto;width: 100%" formControlName="address" placeholder="آدرس را وارد کنید"></textarea>
+                <textarea style="margin: 0 auto;width: 100%" formControlName="address"
+                  placeholder="آدرس را وارد کنید"></textarea>
               </div>
             </div>
           </div>
@@ -101,44 +102,44 @@
     <!-- <div class="box-info-fly">
       <prs-services [services]="services" (result)="getServicesResult($event)"></prs-services>
     </div> -->
-    <div class="box-info-fly">
-      <div class="info-tour-header">
-        <div class="right">
-          <h2>انتخاب اتاق ها</h2>
-        </div>
-      </div>
-      <div class="info-tour-body">
-        <div class="address-parent">
-   
 
-          <div class="address-hotel">
-            <label for="address">اتاق های این هتل را انتخاب کنید </label>
-            <mat-form-field appearance="fill">
-              <mat-label>اتاق ها</mat-label>
-              <mat-select [(ngModel)]="rooms" multiple>
-                <mat-select-trigger>
-                  <span>اتاق های انتخاب شده</span>
 
-                </mat-select-trigger>
-                <mat-option *ngFor="let room of data.roomTypes" [value]="room">{{room.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="item-info" *ngFor="let item of selectedRoomsFC.value">
-            <label for="">{{ item }}</label>
-            <input formControlName="title" type="text">
-            <div *ngIf="errorService.hasError('title')">
-              <span class="text-danger">{{errorService.getError('title')}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="btn-parent-submit">
-      <button class="submit-tour" (click)="add()">ثبت هتل</button>
-    </div>
+  
   </form>
+  <div class="box-info-fly">
+    <div class="info-tour-header">
+      <div class="right">
+        <h2>انتخاب اتاق ها</h2>
+      </div>
+    </div>
+    <div class="info-tour-body">
+      <div class="address-parent">
 
+
+        <div class="address-hotel">
+          <label for="address">اتاق های این هتل را انتخاب کنید </label>
+          <mat-form-field appearance="fill">
+            <mat-label>اتاق ها</mat-label>
+            <mat-select [formControl]="selectedRoomsFC" (selectionChange)="roomChanged()" multiple>
+              <mat-select-trigger>
+                <span>اتاق های انتخاب شده</span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let room of data.roomTypes" [value]="room.name">{{room.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div>ضریب اتاق ها</div>
+      <div class="item-info" *ngFor="let item of selectedRooms">
+        <label for="">{{ item.name }}</label>
+        <input type="number" [(ngModel)]="item.coefficient">
+
+      </div>
+
+    </div>
+  </div>
+  <div class="btn-parent-submit">
+    <button class="submit-tour" (click)="add()">ثبت هتل</button>
+  </div>
 </div>
