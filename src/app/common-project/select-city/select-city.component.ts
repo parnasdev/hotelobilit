@@ -41,7 +41,7 @@ isMobile = false;
   filteredOptions!: Observable<CityResponseDTO[]>;
 
   ngOnInit() {
-    this.getCities();
+    // this.getCities();
   }
 
   private _filter(value: string): CityResponseDTO[] {
@@ -60,9 +60,9 @@ isMobile = false;
       map(value => this._filter(value)),
     );
     if (changes['city']) {
-      console.log(changes);
+      // console.log(changes);
 
-      this.getCities();
+      // this.getCities();
     }
 
   }
