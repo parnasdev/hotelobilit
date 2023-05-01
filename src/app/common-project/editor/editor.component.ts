@@ -47,9 +47,9 @@ export class EditorComponent implements OnInit, OnChanges {
       lineheight_formats: "1pt 2pt 3pt 4pt 5pt 6pt 7pt 8pt 9pt 10pt 11pt 12pt 14pt 16pt 18pt 20pt 22pt 24pt 26pt 36pt 38pt 40pt 42pt 44pt 46pt 48pt 50pt 60pt 70pt 80pt 100pt",
       directionality: 'rtl',
       language: 'fa_IR',
-      external_filemanager_path: "https://api.snapptour.com/filemanager/",
+      external_filemanager_path: "https://api.hotelobilittour.com/filemanager/",
       filemanager_title: "مدیریت فایل ها",
-      external_plugins: {"filemanager": "https://api.snapptour.com/filemanager/plugin.min.js"},
+      external_plugins: {"filemanager": "https://api.hotelobilittour.com/filemanager/plugin.min.js"},
       filemanager_crossdomain: true,
       setup: function (editor: any) {
         editor.on('change', (e: any) => {

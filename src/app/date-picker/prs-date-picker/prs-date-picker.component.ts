@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 export class PrsDatePickerComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PrsDatePickerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: string,
     public dialog: MatDialog) {
   }
 

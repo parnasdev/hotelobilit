@@ -3,21 +3,19 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-11 m-auto p-header d-flex align-items-center justify-content-between">
-          <a href="/" class="logo-website"><img width="76" height="48" alt=""
-                                                src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg"
+          <a href="/" class="logo-website"><img width="110"  alt=""
+                                                src="/assets/img/logo.png"
                                                 class="chakra-image css-1ryhtp0"></a>
           <div class="menu">
-            <a class="link-header" routerLinkActive="active-link" href="https://www.snapptrip.com/">هتل داخلی</a>
-            <a class="link-header" routerLinkActive="active-link" href="https://www.snapptrip.com/flights">بلیط
+            <a class="link-header" routerLinkActive="active-link" >هتل داخلی</a>
+            <a class="link-header" routerLinkActive="active-link">بلیط
               هواپیما</a>
-            <a class="link-header" routerLinkActive="active-link" href="https://www.snapptrip.com/bus/">اتوبوس</a>
             <a class="link-header" routerLinkActive="active-link" routerLink="">تور</a>
-            <a href="https://www.snapptrip.com/app" class="link-header">دانلود اپلیکیشن</a>
             <a href="/dashboard/tour/list" class="link-header">پیگیری خرید</a>
           </div>
           <div class="options-header">
-            <button  routerLink="/auth" class="btn-auth">ورود | ثبت نام</button>
-            <button  routerLink="/dashboard" class="btn-auth">پنل کاربری</button>
+            <button  routerLink="/auth" *ngIf="!session.isLoggedIn()"  class="btn-auth">ورود | ثبت نام</button>
+            <button  routerLink="/panel" *ngIf="session.isLoggedIn()" class="btn-auth">پنل کاربری</button>
 
             <a class="p-tel-header" href="tel:+98">
               <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 32 32" fill="currentColor"
@@ -46,12 +44,12 @@
         </svg>
       </button>
     </div>
-    <img width="105" height="70" alt="اسنپ تریپ"
-         src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg" class="chakra-image my-3">
+    <img width="105" height="70" alt="هتل و بلیط"
+         src="/assets/img/logo.png" class="chakra-image my-3">
     <div class="menu">
-      <a class="link-header" href="https://www.snapptrip.com/">هتل داخلی</a>
-      <a class="link-header" href="https://www.snapptrip.com/flights">بلیط هواپیما</a>
-      <a class="link-header" href="https://www.snapptrip.com/bus/">اتوبوس</a>
+      <a class="link-header" >هتل داخلی</a>
+      <a class="link-header">بلیط هواپیما</a>
+      <a class="link-header" href="https://www.hotelobilit.com/bus/">اتوبوس</a>
       <a class="link-header" href="">خرید تور</a>
     </div>
   </div>
@@ -64,8 +62,8 @@
         </path>
       </svg>
     </button>
-    <a href="/" class="logo-website"><img width="65" height="45" alt="اسنپ تریپ"
-                                          src="https://cdnsnapptrip.com/images/B2C/Uploads/logo/snapptrip-logo.svg" class="chakra-image css-1ryhtp0"></a>
+    <a href="/" class="logo-website"><img width="65" height="45" alt="هتل و بلیط"
+                                          src="/assets/img/logo.png" class="chakra-image css-1ryhtp0"></a>
   </div>
 
   <button  class="btn-auth">ورود | ثبت نام</button>

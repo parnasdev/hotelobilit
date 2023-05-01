@@ -1,3 +1,4 @@
+@import "src/assets/css/varible";
 footer {
   margin-top: 3rem !important;
 }
@@ -19,7 +20,7 @@ footer {
 
 .top-footer h3 {
   font-size: 22px;
-  color: var(--base-color);
+  color: $base-color;
 }
 
 .top-footer span {
@@ -145,7 +146,7 @@ footer {
 .parent-footer-bottom .main .title-footer .text,
 .parent-footer-bottom .left .title-footer .text,
 {
-  color: var(--base-color);
+  color: $base-color;
   font-size: 16px;
   margin: 0 10px 0 0 !important;
   font-weight: 600;
@@ -243,7 +244,7 @@ footer {
   width: 100%;
 }
 
-.text-snapptour-info {
+.text-hotelobilittour-info {
   line-height: 28px;
   color: var(--gray-color-light);
   text-align: justify;
@@ -279,7 +280,7 @@ footer {
 
 .text-parnas-design .design {
   font-size: 13px !important;
-  color: var(--base-color);
+  color: $base-color;
 }
 
 .text-parnas-design .parnas-agency {
@@ -295,7 +296,7 @@ footer {
 .parnas-footer:hover .text-parnas-design {
   display: flex !important;
   align-items: center;
-  background-color: var(--base-color);
+  background-color: $base-color;
   color: var(--white) !important;
   border-radius: 8px;
   height: 35px;
@@ -311,7 +312,7 @@ footer {
   left: -6px;
   margin-top: 1px;
   font-family: fontello !important;
-  color: var(--base-color);
+  color: $base-color;
   font-size: 20px !important;
 }
 
@@ -347,9 +348,9 @@ footer {
 //back-top
 
 #button {
-  background-color: var(--text-color);
+  background-color: $base-color-two;
   width: 50px;
-  height: 50px;
+  height: 70px;
   border-radius: 8px;
   text-align: center;
   opacity: 1;
@@ -383,13 +384,7 @@ footer {
 }
 
 .border-back-top {
-  width: 70%;
-  height: 4px;
-  border-radius: 100px;
-  background-color: #404040;
-  position: absolute;
-  top: 47px;
-  z-index: 98;
+  display: none;
 }
 
 .parent-back-top {
@@ -485,14 +480,14 @@ footer {
 .wrapper .facebook:hover,
 .wrapper .facebook:hover .tooltip,
 .wrapper .facebook:hover .tooltip::before {
-  background-color: var(--base-color);
+  background-color: $base-color;
   color: #ffffff;
 }
 
 .wrapper .twitter:hover,
 .wrapper .twitter:hover .tooltip,
 .wrapper .twitter:hover .tooltip::before {
-  background-color: var(--base-color);
+  background-color: $base-color;
   color: #000;
 }
 
@@ -504,7 +499,7 @@ footer {
 .wrapper .instagram:hover,
 .wrapper .instagram:hover .tooltip,
 .wrapper .instagram:hover .tooltip::before {
-  background-color: var(--base-color);
+  background-color: $base-color;
   color: #ffffff;
 }
 
@@ -515,14 +510,14 @@ footer {
 .wrapper .github:hover,
 .wrapper .github:hover .tooltip,
 .wrapper .github:hover .tooltip::before {
-  background-color: var(--base-color);
+  background-color: $base-color;
   color: #ffffff;
 }
 
 .wrapper .youtube:hover,
 .wrapper .youtube:hover .tooltip,
 .wrapper .youtube:hover .tooltip::before {
-  background-color: var(--base-color);
+  background-color: $base-color;
   color: #ffffff;
 }
 

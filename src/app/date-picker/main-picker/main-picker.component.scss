@@ -4,6 +4,7 @@ $white-color: #ffffff;
 $dark-color: #151515;
 $red-color: #ff0000;
 $gray-color: #646464;
+@import "src/assets/css/varible";
 
 body {
   font-family: 'IRANSans' !important;
@@ -83,7 +84,7 @@ body {
   margin: 0 auto;
 
   .prev-month {
-    background: $red-color;
+    background: $base-color-two;
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -110,7 +111,7 @@ body {
   }
 
   .next-month {
-    background: $red-color;
+    background: $base-color-two;
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -214,7 +215,7 @@ body {
         transition: 0.3s all;
 
         &:hover {
-          background: $red-color;
+          background: $base-color;
           color: $white-color;
           transition: 0.3s all;
         }

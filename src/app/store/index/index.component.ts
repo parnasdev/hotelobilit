@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { HotelListResponseDTO } from 'src/app/Core/Models/hotelDTO';
+import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 
 @Component({
   selector: 'prs-index',
@@ -12,11 +14,94 @@ export class IndexComponent {
   isDesktop = false;
   isTablet = false;
   isMenu = false;
+  hotels: HotelListResponseDTO[] = [ {
+    id: 1,
+    name: 'هتل تست',
+    nameEn: 'hotel test',
+    slug: 'hotel-test',
+    keyword: '---',
+    slugEn: 'hotel-test',
+    stars: '',
+    thumbnail: 'assets/img/12123131.png',
+    city: '',
+    location: '',
+  }];
+  cities: CityResponseDTO[] = [
+  {
+    name: 'تهران',
+    id: 0,
+    type: 0,
+    image: 'assets/img/12123131.png',
+    slug: 'تهران-۲',
+    slugEn: 'tehran-2',
+    faq: [],
+    description: '',
+    images: [],
+    nameEn: '',
+  },  {
+      name: 'شیراز',
+      id: 0,
+      type: 0,
+      image: 'assets/img/12123131.png',
+      slug: 'تهران-۲',
+      slugEn: 'tehran-2',
+      faq: [],
+      description: '',
+      images: [],
+      nameEn: '',
+    },  {
+      name: 'اضفهان',
+      id: 0,
+      type: 0,
+      image: 'assets/img/12123131.png',
+      slug: 'تهران-۲',
+      slugEn: 'tehran-2',
+      faq: [],
+      description: '',
+      images: [],
+      nameEn: '',
+    },  {
+      name: 'تبریز',
+      id: 0,
+      type: 0,
+      image: 'assets/img/12123131.png',
+      slug: 'تهران-۲',
+      slugEn: 'tehran-2',
+      faq: [],
+      description: '',
+      images: [],
+      nameEn: '',
+    },  {
+      name: 'مشهد',
+      id: 0,
+      type: 0,
+      image: 'assets/img/12123131.png',
+      slug: 'تهران-۲',
+      slugEn: 'tehran-2',
+      faq: [],
+      description: '',
+      images: [],
+      nameEn: '',
+    },  {
+      name: 'کیش',
+      id: 0,
+      type: 0,
+      image: 'assets/img/12123131.png',
+      slug: 'تهران-۲',
+      slugEn: 'tehran-2',
+      faq: [],
+      description: '',
+      images: [],
+      nameEn: '',
+    }
+  ];
 
   constructor(
     public mobileService: ResponsiveService,
   ) {
     this.isMobile = mobileService.isMobile()
+    this.isDesktop = mobileService.isDesktop()
+
     this.isTablet = mobileService.isTablet()
   }
 
@@ -30,4 +115,9 @@ export class IndexComponent {
     // @ts-ignore
     this.swiper.swiperRef.slidePrev(200);
   }
+
+  getStars(count: string): number[] {
+    return Array.from(Array(+count).keys());
+  }
+
 }
