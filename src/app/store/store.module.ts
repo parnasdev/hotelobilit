@@ -5,7 +5,7 @@ import { StoreRoutingModule } from './store-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { IndexComponent } from './index/index.component';
-
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { IndexComponent } from './index/index.component';
   ],
   imports: [
     CommonModule,
-    StoreRoutingModule
+    SwiperModule,
+    StoreRoutingModule,
   ]
 })
 export class StoreModule { }

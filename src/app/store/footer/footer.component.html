@@ -1,1 +1,127 @@
-<p>footer works!</p>
+<footer>
+  <section class="line-back-top">
+    <div class="prs-responsive">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10 m-auto d-flex justify-content-center parent-back-top">
+            <div class="border-back-top"></div>
+            <a id="button"><i class="icon-up-open"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <section class="bottom-footer">
+    <div class="prs-responsive h-100">
+      <div class="container-fluid h-100">
+        <div class="row h-100">
+          <div class="col-md-10 m-auto parent-footer-bottom">
+            <div class="right">
+              <div class="title-footer d-flex">
+                <!-- <img src="assets/img/Display.png" width="25" alt=""> -->
+                <h1 class="text">تماس با ما</h1>
+              </div>
+              <!--              <div class="map-location">-->
+              <!--                <iframe-->
+              <!--                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.2889932769044!2d51.43323711512511!3d35.719110535501315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e03d96fbc3287%3A0xf6b4bf5ce7af7319!2z2YfZhdmG2YjYp9iyINii2LPZhdin2YYg2KLYqNuM!5e0!3m2!1sen!2s!4v1634458141490!5m2!1sen!2s"-->
+              <!--                  width="100%" height="170" style="border:0;" allowfullscreen="" loading="lazy"></iframe>-->
+              <!--              </div>-->
+              <div class="info-box-right">
+                <div class="child">
+                  <img src="assets/img/008-maps.svg" width="20" alt="">
+                  <span>تهران، بلوار نلسون ماندلا، کوچه ایرج، پلاک صفر</span>
+                </div>
+                <div class="child">
+                  <img src="assets/img/003-telephone.svg" width="20" alt="">
+                  <span>فروش و رزرو تلفنی: ۷۵۱۳۲۳۰۰-۰۲۱</span>
+                </div>
+                <div class="child">
+                  <img src="assets/img/003-telephone.svg" width="20" alt="">
+                  <span>۷۵۱۳۲۰۰۰ - ۹۶۶۶۹۰۶۶ (۰۲۱)</span>
+                </div>
+                <div style="margin-top: 0 !important;" class="child">
+                  <img src="assets/img/001-mail%20inbox%20app.svg" width="20" alt="">
+                  <span>info@snapptrip.com</span>
+                  <div *ngIf="isDesktop" class="wrapper">
+                    <a class="icon instagram" href="https://instagram.com/snapptrip.tour">
+                      <div class="tooltip">https://instagram.com/snapptrip.tour</div>
+                      <div class="span-margin"><i class=" icon-instagram"></i></div>
+                    </a>
+                    <a class="icon instagram" href="mailto:info@snapptrip.com">
+                      <div class="tooltip">info@snapptrip.com</div>
+                      <div class="span-margin"><i class="icon-mail-alt"></i></div>
+                    </a>
+                    <a class="icon instagram" href="https://t.me/snapptrip">
+                      <div class="tooltip">https://t.me/snapptrip
+                      </div>
+                      <div class="span-margin"><i class="icon-telegram"></i></div>
+                    </a>
+                  </div>
+                </div>
+                <div *ngIf="isTablet" class="wrapper">
+                  <a class="icon instagram" href="https://instagram.com/snapptrip.tour">
+                    <div class="tooltip">https://instagram.com/snapptrip.tour</div>
+                    <div class="span-margin"><i class=" icon-instagram"></i></div>
+                  </a>
+                  <a class="icon instagram" href="mailto:info@snapptrip.com">
+                    <div class="tooltip">info@snapptrip.com</div>
+                    <div class="span-margin"><i class="icon-mail-alt"></i></div>
+                  </a>
+                  <a class="icon instagram" href="https://t.me/snapptrip">
+                    <div class="tooltip">https://t.me/snapptrip
+                    </div>
+                    <div class="span-margin"><i class="icon-telegram"></i></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="main">
+              <div class="title-footer d-flex">
+                <!-- <img src="assets/img/Display.png" width="25" alt=""> -->
+                <h1 class="text">دسترسی سریع</h1>
+              </div>
+              <ul class="list-menu-footer">
+                <!-- <li><a routerLink="/contact-us">تماس باما</a></li>
+                <li><a routerLink="/about-us">درباره ما</a></li>
+                <li><a href="/hotels">هتل های داخلی</a></li>
+                <li><a href="/hotels">هتل های خارجی</a></li> -->
+                <li><a routerLink="/{{ 'تور' + '-' +'کیش'}}" target="_blank">تور کیش</a></li>
+                <li><a routerLink="/{{ 'تور' + '-' +'مشهد'}}" target="_blank">تور مشهد</a></li>
+                <li><a routerLink="/{{ 'تور' + '-' +'استانبول'}}" target="_blank">تور استانبول</a></li>
+                <li><a routerLink="/{{ 'تور' + '-' +'آنتالیا'}}" target="_blank">تور آنتالیا</a></li>
+              </ul>
+            </div>
+            <div class="left">
+              <div class="top-box-left">
+                <div class="title-footer d-flex">
+                  <!-- <img src="assets/img/Display.png" width="25" alt=""> -->
+                  <h1 class="text">معرفی اسنپ تریپ</h1>
+                </div>
+                <p class="text-snapptour-info"></p>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="copyright">
+    <div class="prs-responsive">
+      <div class="container-fluid">
+        <div class="row">
+          <div class=" col-md-10 m-auto parent-copyright">
+            <div class="text-copy">
+              <span>© کپی رایت 1401. <span></span></span>
+              <p class="copyright-text-long">از مطالب این وب‌سایت فقط می‌توانید برای مقاصد غیرتجاری و با ذکر منبع
+                استفاده کنید. تمامی حقوق این وب‌سایت به شرکت آرا جهان نوین گستر اطلس تعلق دارد.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</footer>

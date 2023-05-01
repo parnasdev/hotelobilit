@@ -1,1 +1,213 @@
-<span>salam milad inja component index hast</span>
+<prs-header></prs-header>
+
+<section class="s-search">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto p-header d-flex align-items-center justify-content-between p-search">
+          <div class="box-search">
+            <div class="p-tab-search" *ngIf="!isMobile">
+              <button class="btn-tour">
+                <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="#fff"
+                        d="M192 0C85.97 0 0 85.97 0 192c0 77.41 26.97 99.03 172.3 309.7c9.531 13.77 29.91 13.77 39.44 0C357 291 384 269.4 384 192C384 85.97 298 0 192 0zM192 271.1c-44.13 0-80-35.88-80-80S147.9 111.1 192 111.1s80 35.88 80 80S236.1 271.1 192 271.1z"/>
+                </svg>
+                <span>تور</span>
+              </button>
+            </div>
+            <div class="title-search">
+              <h2 class="w-100">رزرو آنلاین تور</h2>
+            </div>
+<!--            <prs-search (onSubmit)="search($event)"></prs-search>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--search-header-->
+<!--<prs-search-section></prs-search-section>-->
+<!--end-->
+<!-- <prs-special-tour></prs-special-tour> -->
+<!--end-->
+<!--sort-city-->
+<section class="sort-city">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto sort-city-parent">
+          <div class="title-custom-website">
+            <div class="top">
+              <div class="new-tour">
+                <div class="text">
+                  <h3>نمایش تور بر اساس شهر</h3>
+                  <span>مشاهده مناسب ترین تور های لحظه آخری برای شما</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <swiper class="swiper-sort-city" [slidesPerView]=" this.isMobile? 1.7 :(isTablet ? 3:5.5)" [navigation]="true"
+                  [spaceBetween]="this.isMobile?20:(isTablet?20:0)">
+            <ng-template>
+              <div class="box-sort-tour-city">
+                <div class="img-sort-tour-city" routerLink="">
+                  <div class="info-img-sort-tour-city animated fadeInDown">
+                    <img class="img-hover-child" src="assets/img/Attachment%201.svg" width="30" alt="">
+                    <a class="view-details-more">مشاهده جزئیات بیشتر</a>
+                  </div>
+                  <img src="" alt="">
+                </div>
+                <div class="text-sort-tour-city">
+                  <span style="cursor: pointer" routerLink="">تور آنتالیا</span>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end-->
+<section class="tour-special">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto p-tour-special">
+          <div class="title-tour-parent">
+            <div class="top">
+              <div class="new-tour">
+                <div class="text">
+                  <h3> پیشنهادات ویژه تور </h3>
+                  <span>مشاهده مناسب ترین تور ها</span>
+                </div>
+              </div>
+              <div class="inp-form w-25">
+                <select class="select">
+                  <option>شهر</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="tour-list-special">
+            <div  class="card-hotel">
+              <img src="../../../assets/img/1634191054BLOG1.png" routerLink="" alt="" class="img-hotel">
+              <div class="parent-star">
+                <i  class="icon-star"></i>
+                <i  class="icon-star"></i>
+                <i  class="icon-star"></i>
+                <i  class="icon-star"></i>
+                <i  class="icon-star"></i>
+              </div>
+              <h2 class="name-hotel"><a routerLink="">
+                نام هتل
+              </a>
+              </h2>
+              <small class="price-start">شروع قیمت تور از :</small>
+              <div class="price">
+                <strong>200000</strong>
+                <small>تومان</small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <prs-newest-tours></prs-newest-tours> -->
+
+<!--baner-->
+<section class="baner">
+  <div class="prs-responsive h-100">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-md-11 m-auto baner-parent h-100">
+          <a *ngIf="isDesktop" href="https://www.snapptrip.com/landing/csr/index.html?sender=trip" target="_blank" class="baner-right">
+            <img src="../../../assets/img/banner.jpg" alt="">
+          </a>
+          <a *ngIf="isDesktop" href="https://www.snapptrip.com/" target="_blank" class="baner-left">
+            <img src="../../../assets/img/banner.jpg" alt="">
+          </a>
+          <a *ngIf="isMobile" href="https://www.snapptrip.com/" target="_blank" class="baner-left">
+            <img src="../../../assets/img/banner.jpg" alt="">
+          </a>
+          <a *ngIf="isMobile" href="https://www.snapptrip.com/" target="_blank" class="baner-left">
+            <img src="../../../assets/img/banner.jpg" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!--end-->
+
+<!--hotel-->
+<section class="hotel">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto hotel-parent">
+          <div class="title-hotel-swiper">
+            <div class="top">
+              <div class="new-tour">
+                <div class="text">
+                  <h3>هتل های برگزیده شهر</h3>
+                  <select>
+                    <option>city.name</option>
+                  </select>
+                </div>
+              </div>
+              <div class="parent-btn-slider">
+                <button class="btn-next-slider" (click)="slidePrev()">
+                  <i class="icon-right-open"></i>
+                </button>
+                <button class="btn-prev-slider" (click)="slideNext()">
+                  <i class="icon-left-open"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <swiper #swiper class="swiper-hotel">
+            <ng-template>
+              <div  routerLink=""
+                   class="box-hotel">
+                <div class="opacity-bg-parent">
+                  <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
+                  <div class="info-hotel">
+                    <h1 routerLink="">نام هتل</h1>
+                    <div class="footer-hotel-info">
+                      <div class="location-hotel">
+                        <img src="assets/img/Location-white.svg" width="17" alt="">
+                        <span>hotel city</span>
+                      </div>
+                      <div class="rate">
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end-->
+
+<prs-footer></prs-footer>

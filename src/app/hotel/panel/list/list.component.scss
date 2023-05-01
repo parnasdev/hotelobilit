@@ -1,3 +1,4 @@
+@import "src/assets/css/varible";
 .item-info {
   width: 32%;
   display: flex;
@@ -79,7 +80,7 @@
   grid-template-columns: 0.5fr 1fr 1fr 1.5fr 1fr;
 }
 .body-list-tour .item:not(:last-child){
-  border-bottom: 1px solid var(--light-color-two);
+  border-bottom: 1px solid $border-color-dark;
 }
 .body-list-tour .item span {
   margin: auto;
@@ -197,6 +198,7 @@ display: none;
   height: 32px;
   outline-color: var(--base-color);
 }
+
 @media only screen and (max-width: 868px) {
   .table-list-tour {
     overflow-x: scroll !important;

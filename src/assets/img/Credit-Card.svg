@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="105" height="105" viewBox="0 0 105 105">
+  <g id="Credit-Card" transform="translate(1.5 1.5)" opacity="0.3">
+    <path id="Path_883" data-name="Path 883" d="M1,51c0,11.126.6,19.756,2.1,26.486,1.484,6.679,3.787,11.205,7,14.416s7.738,5.515,14.416,7C31.244,100.4,39.874,101,51,101s19.756-.6,26.486-2.1c6.679-1.485,11.205-3.788,14.416-7s5.515-7.738,7-14.416c1.5-6.73,2.1-15.36,2.1-26.486s-.6-19.756-2.1-26.486c-1.485-6.679-3.788-11.2-7-14.416s-7.738-5.515-14.416-7C70.756,1.6,62.126,1,51,1s-19.756.6-26.486,2.1c-6.679,1.484-11.2,3.787-14.416,7s-5.515,7.738-7,14.416C1.6,31.244,1,39.874,1,51Z" fill="none" stroke="#137cb6" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <path id="Path_884" data-name="Path 884" d="M2.5,8H88.864" transform="translate(5.318 24.818)" fill="none" stroke="#137cb6" stroke-linecap="square" stroke-linejoin="round" stroke-width="5"/>
+    <path id="Path_885" data-name="Path 885" d="M14,18H32.182" transform="translate(46.091 60.273)" fill="none" stroke="#137cb6" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+  </g>
+</svg>
