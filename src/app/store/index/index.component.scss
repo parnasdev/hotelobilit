@@ -1,7 +1,7 @@
 @import "src/assets/css/varible";
 
 .s-search {
-  background-image: url("../../../assets/img/search-bg.jpg");
+  background-image: url("../../../assets/img/flat-lay-yellow-luggage-with-copy-space.jpg");
   height: 450px;
   background-size: cover;
   background-position: center center;
@@ -14,11 +14,10 @@
     align-items: center;
     justify-content: center;
     padding-top: 2rem;
-
     .box-search {
       width: 100%;
       height: 250px;
-      background: var(--white);
+      background: #ffffff95;
       border-radius: 15px;
       padding: 0 2rem 1rem 2rem;
 
@@ -46,8 +45,8 @@
         width: 100%;
 
         .btn-tour {
-          border-radius: 0 0 12px 12px;
-          background: #ff4340;
+          border-radius: 0 0;
+          background: $base-color;
           border: none;
           outline: none;
           display: flex;
@@ -77,10 +76,10 @@
 }
 
 @media only screen and (max-width: 868px) {
-  :host::ng-deep prs-select-city{
+  :host::ng-deep prs-select-city {
     width: 98% !important;
   }
-  .box-search{
+  .box-search {
     height: auto !important;
   }
   .s-search {
@@ -95,26 +94,31 @@
 }
 
 @media only screen and (max-width: 500px) {
-  .s-search .p-search .box-search{
+  .s-search .p-search .box-search {
     height: auto;
-    .title-search{
+
+    .title-search {
       margin: 12px 0 !important;
-      h2{
+
+      h2 {
         margin-bottom: 4px;
         font-size: 18px !important;
       }
     }
+
     .row-search {
       width: 100%;
       display: flex !important;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      .inp-form{
+
+      .inp-form {
         width: 100% !important;
         margin-top: 10px;
       }
-      .btn-search{
+
+      .btn-search {
         width: 100% !important;
         margin-top: 10px;
       }
@@ -125,10 +129,10 @@
 }
 
 @media only screen and (min-width: 501px) and (max-width: 868px) {
-  .box-search{
+  .box-search {
     padding: 0 1rem 1rem 1rem;
   }
-  .row-search{
+  .row-search {
     grid-template-columns: 2fr 2fr 1fr !important;
   }
 }
@@ -310,7 +314,8 @@
 .title-hotel-swiper .top .new-tour {
   display: flex;
   position: relative;
-  &:after{
+
+  &:after {
     content: '';
     position: absolute;
     right: -10px;
@@ -519,7 +524,8 @@
 .title-custom-website .top .new-tour {
   display: flex;
   position: relative;
-  &:after{
+
+  &:after {
     content: '';
     position: absolute;
     right: -10px;
@@ -546,7 +552,7 @@
 
 .title-custom-website .top .new-tour .text span {
   font-size: 13px !important;
-  color:$gray-color;
+  color: $gray-color;
 }
 
 .title-custom-website .bottom {
@@ -633,7 +639,7 @@
   overflow: hidden;
   height: 190px;
   background-color: var(--light-color-one) !important;
-  border-radius: 50%;
+  border-radius: 0 30px 30px 30px;
   width: 190px;
   margin-top: 1rem;
   cursor: pointer;
@@ -648,7 +654,7 @@
   height: 100%;
   display: none;
   background-color: #3e3e3e78;
-  border-radius: 50%;
+  border-radius: 0 30px 30px 30px;
 }
 
 .img-sort-tour-city:hover .info-img-sort-tour-city {
@@ -681,6 +687,8 @@
   span {
     font-size: 14px;
     font-weight: 500;
+    border-bottom: 2px dashed $gray-color !important;
+    padding-bottom: 8px !important;
   }
 }
 
@@ -1282,7 +1290,8 @@
   .title-tour-parent .top .new-tour {
     display: flex;
     position: relative;
-    &:after{
+
+    &:after {
       content: '';
       position: absolute;
       right: -10px;
