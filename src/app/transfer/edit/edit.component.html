@@ -1,0 +1,47 @@
+<div class="add-tour">
+
+  <form class="w-100">
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">ویرایش ایرلاین </label>
+          <h2>اطلاعات ایرلاین</h2>
+        </div>
+<!--        <div class="left">-->
+<!--          <div class="selectdiv">-->
+<!--            <label>-->
+<!--              <select [formControl]="statusFC">-->
+<!--                <option value="hide" selected> منتشر نشود</option>-->
+<!--                <option value="show">انتشار</option>-->
+<!--              </select>-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+      <div class="info-tour-body">
+        <div class="w-100 d-flex align-items-start justify-content-between">
+          <div class="top w-50">
+            <div class="item-info w-75">
+              <label for="">عنوان ایرلاین</label>
+              <input [formControl]="nameFC" type="text">
+            </div>
+          </div>
+          <div class="box-info-fly mt-0 w-50">
+            <div class="info-tour-body-upload">
+              <div class="top-one w-100">
+                <prs-upload-single [incommingFile]="{path:'',url: info.logo}" (result)="getLogo($event)"></prs-upload-single>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-parent-submit">
+
+          <button class="submit-tour" (click)="submit()">ویرایش</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+

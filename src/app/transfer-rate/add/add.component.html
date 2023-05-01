@@ -1,0 +1,180 @@
+
+<div class="add-tour">
+    <form [formGroup]="form">
+        <div class="box-info-fly">
+        
+            <div class="info-tour-header">
+              <div class="right">
+                <h2 class="text-dark">اطلاعات پرواز</h2>
+              </div>
+            </div>
+        
+            <div class="info-tour-body">
+                <div class="top">
+                    <div class="item-info-2">
+                        <div class="select-info">
+                        
+                          <label for="">شهر مبدا</label>
+                        
+                          <prs-select-city [hasHotel]="true" [inCommingCity]="cities[0]" [cities]="cities"
+                            (citySelected)="getStCity($event)"></prs-select-city>
+                            <div *ngIf="errorService.hasError('origin_id')">
+                                <span class="text-danger">{{errorService.getError('origin_id')}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+                    <div class="item-info">
+                      <div class="select-info">
+                        <label for="">شهر مقصد</label>
+                        <prs-select-city [hasHotel]="true" [cities]="cities"
+                          (citySelected)="getEndCity($event)"></prs-select-city>
+                        <div *ngIf="errorService.hasError('destination_id')">
+                          <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              <div class="top">
+            
+                <div class="item-info">
+                  <label for="">تاریخ پرواز رفت</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <input matInput [matDatepicker]="picker4" formControlName="departure_date" [min]="minDate"
+                      (click)="picker4.open()">
+                    <mat-datepicker #picker4></mat-datepicker>
+                  </mat-form-field>
+                  <div *ngIf="errorService.hasError('departure_date')">
+                    <span class="text-danger">{{errorService.getError('departure_date')}}</span>
+                  </div>
+              
+                </div>
+                <div class="item-info-timer">
+                  <label for="">ساعت پرواز رفت</label>
+                  <!--              <ngb-timepicker  formControlName="originTimeFC" [meridian]="false"></ngb-timepicker>-->
+                  <prs-time-picker (result)="getOriginTime($event)"></prs-time-picker>
+                </div>
+                <div class="item-info-2">
+                  <div class="select-info w-100">
+                    <label for="">ایرلاین</label>
+                    <select formControlName="origin_transfer_id">
+                      <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="errorService.hasError('origin_transfer_id')">
+                    <span class="text-danger">{{errorService.getError('origin_transfer_id')}}</span>
+                  </div>
+              
+                </div>
+            
+                <div class="item-info">
+                  <label for="">تاریخ پرواز برگشت</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <input matInput [matDatepicker]="picker7" formControlName="return_date" [min]="minDate"
+                      (click)="picker7.open()">
+                    <mat-datepicker #picker7></mat-datepicker>
+                  </mat-form-field>
+                  <div *ngIf="errorService.hasError('return_date')">
+                    <span class="text-danger">{{errorService.getError('return_date')}}</span>
+                  </div>
+                </div>
+                <div style="width: 32%;display: flex;justify-content: center" class="item-info-timer">
+                  <label for="">ساعت پرواز برگشت</label>
+                  <prs-time-picker (result)="getDestTime($event)"></prs-time-picker>
+                </div>
+                <div class="item-info">
+                  <div class="select-info w-100">
+                    <label for="">ایرلاین برگشت</label>
+                    <select formControlName="destination_transfer_id">
+                      <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="errorService.hasError('destination_transfer_id')">
+                    <span class="text-danger">{{errorService.getError('destination_transfer_id')}}</span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <div class="select-info w-100">
+                    <label for="">شماره پرواز رفت</label>
+                    <input type="text" formControlName="origin_transfer_number">
+                  </div>
+                  <div *ngIf="errorService.hasError('origin_transfer_number')">
+                    <span class="text-danger">{{errorService.getError('origin_transfer_number')}}</span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <div class="select-info w-100">
+                    <label for="">شماره پرواز برگشت</label>
+                    <input type="text" formControlName="destination_transfer_number">
+                  </div>
+                  <div *ngIf="errorService.hasError('destination_transfer_number')">
+                    <span class="text-danger">{{errorService.getError('destination_transfer_number')}}</span>
+                  </div>
+                </div>
+              </div>
+          
+            </div>
+        
+        </div>
+
+        <div class="box-info-fly">
+            <div class="info-tour-header">
+              <div class="right">
+                <h2 class="text-dark">نرخ پرواز و ظرفیت</h2>
+              </div>
+            </div>
+            <div class="info-tour-body">
+              <div class="top">
+            
+                <div class="item-info-services">
+                  <div class="box-services w-100">
+                    <label for="">نرخ پرواز بزرگسال(تومان)</label>
+                    <input formControlName="adl_price" type="text" mask="separator"
+                      thousandSeparator=",">
+                    <div *ngIf="errorService.hasError('adl_price')">
+                      <span class="text-danger">{{errorService.getError('adl_price')}}</span>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="item-info-services">
+                  <div class="box-services w-100">
+                    <label for="">نرخ پرواز کودک(تومان)</label>
+                    <input formControlName="chd_price" type="text" mask="separator"
+                      thousandSeparator=",">
+                    <div *ngIf="errorService.hasError('chd_price')">
+                      <span class="text-danger">{{errorService.getError('chd_price')}}</span>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="item-info-services">
+                    <div class="box-services w-100">
+                      <label for="">نرخ پرواز نوزاد(تومان)</label>
+                      <input formControlName="inf_price" type="text" mask="separator"
+                        thousandSeparator=",">
+                      <div *ngIf="errorService.hasError('inf_price')">
+                        <span class="text-danger">{{errorService.getError('inf_price')}}</span>
+                      </div>
+                    </div>
+                </div>
+            
+                <div class="item-info-services">
+                    <div class="box-services w-100">
+                      <label for="">ظرفیت پرواز</label>
+                      <input formControlName="capacity" type="text" mask="separator"
+                        thousandSeparator=",">
+                      <div *ngIf="errorService.hasError('capacity')">
+                        <span class="text-danger">{{errorService.getError('capacity')}}</span>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn-base" (click)="createRequest()" style="width: 10%; margin: 5px">ثبت</button>
+        </div>
+    </form>
+</div>

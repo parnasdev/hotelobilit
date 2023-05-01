@@ -151,7 +151,7 @@ export class MaterialPersianDateAdapter extends DateAdapter<jalaliMoment.Moment>
     return jalaliMoment.invalid();
   }
 
-  deserialize(value: any): jalaliMoment.Moment | null {
+  override deserialize(value: any): jalaliMoment.Moment | null {
     let date;
     if (value instanceof Date) {
       date = jalaliMoment(value);

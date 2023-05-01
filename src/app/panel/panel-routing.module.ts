@@ -24,18 +24,18 @@ const routes: Routes = [
       //   // data: {permitions: ['Tour']},
       //   loadChildren: () => import('../tour/panel/tour-panel.module').then(m => m.TourPanelModule)
       // },
-      // {
-      //   path: 'transfer',
-      //   // canActivate: [PanelItemGuardService],
-      //   // data: {permitions: ['Transfer']},
-      //   loadChildren: () => import('../transfer/transfer.module').then(m => m.TransferModule)
-      // },
-      // {
-      //   path: 'transferRate',
-      //   // canActivate: [PanelItemGuardService],
-      //   // data: {permitions: ['Transfer']},
-      //   loadChildren: () => import('../transfer-rate/transfer-rate.module').then(m => m.TransferRateModule)
-      // },
+      {
+        path: 'transfer',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../transfer/transfer.module').then(m => m.TransferModule)
+      },
+      {
+        path: 'transferRate',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../transfer-rate/transfer-rate.module').then(m => m.TransferRateModule)
+      },
       // {
       //   path: 'financial',
       //   loadChildren: () => import('../financial/financial.module').then(m => m.FinancialModule)
