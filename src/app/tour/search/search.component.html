@@ -1,0 +1,31 @@
+<input type="text" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+<div class="row-search">
+    <div class="inp-form">
+      <prs-select-city-limited class="w-100" [baseType]="false" [title]="'شهر مبدا'"></prs-select-city-limited>
+    </div>
+  <div class="inp-form">
+    <prs-select-city-limited class="w-100" [baseType]="true" [title]="'شهر مقصد'"></prs-select-city-limited>
+  </div>
+    <div class="inp-form">
+        <input type="text" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+    </div>
+  
+    <div class="inp-form">
+      <select name="">
+        <option value="null">تعداد شب</option>
+        <!-- <option *ngFor="let x of nights" [value]="x">{{x}} -->
+          <option [value]="1">1 شب</option>
+          <option [value]="2">2 شب</option>
+          <option [value]="3">3 شب</option>
+          <option [value]="4">4 شب</option>
+          <option [value]="5">5 شب</option>
+          <option [value]="6">6 شب</option>
+          <option [value]="7">7 شب</option>
+          <option [value]="8">8 شب</option>
+          <option [value]="9">9 شب</option>
+        <!-- <span style="margin-right: 4px">شب</span> -->
+        <!-- </option> -->
+      </select>
+    </div>
+    <button class="btn-search font-16">جست و جو</button>
+  </div>

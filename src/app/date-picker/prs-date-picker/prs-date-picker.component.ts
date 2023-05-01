@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'prs-prs-date-picker',
   templateUrl: './prs-date-picker.component.html',
@@ -12,6 +12,9 @@ export class PrsDatePickerComponent implements OnInit {
     public dialog: MatDialog) {
   }
 
+  getDates(dates:any) {
+    this.dialogRef.close(dates)
+  }
 
   ngOnInit() {
   }

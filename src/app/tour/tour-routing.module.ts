@@ -2,8 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HotelListComponent } from './hotel-list/hotel-list.component';
 import { ChooseRoomAndFlightComponent } from './choose-room-and-flight/choose-room-and-flight.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
+  {
+    path: 'search',
+    component: SearchComponent
+  },
   {
     path: ':cities',
     component: HotelListComponent
@@ -11,7 +16,7 @@ const routes: Routes = [
   {
     path: ':cities/:hotelID',
     component: ChooseRoomAndFlightComponent
-  }
+  },
 ];
 
 @NgModule({
