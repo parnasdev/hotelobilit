@@ -20,6 +20,6 @@ import { CommonProjectModule } from '../common-project/common-project.module';
     TourRoutingModule,
     DatePickerModule,
     CommonProjectModule
-  ]
+  ],exports:[SearchComponent]
 })
 export class TourModule { }

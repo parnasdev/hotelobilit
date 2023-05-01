@@ -1,0 +1,36 @@
+.row-search {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 12px;
+    .host::ng-deep .mat-datepicker-popup{
+      bottom: 0 !important;
+    }
+  }
+  
+  
+  
+  @media only screen and (max-width: 500px){
+    .row-search {
+      grid-template-columns: 1fr;
+      .inp-form{
+        margin-top: 12px !important;
+      }
+      .btn-search{
+        margin-top: 12px !important;
+      }
+    }
+  }
+  @media only screen and (min-width: 501px) and (max-width: 868px){
+    .row-search {
+      grid-template-columns: 1fr 1fr;
+      .inp-form{
+        margin-top: 12px !important;
+      }
+      .btn-search{
+        margin-top: 12px !important;
+      }
+    }
+  
+  }
+  

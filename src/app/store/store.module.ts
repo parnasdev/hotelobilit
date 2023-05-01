@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { IndexComponent } from './index/index.component';
 import {SwiperModule} from "swiper/angular";
+import { TourModule } from '../tour/tour.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {SwiperModule} from "swiper/angular";
   imports: [
     CommonModule,
     SwiperModule,
+    TourModule,
     StoreRoutingModule,
   ]
 })

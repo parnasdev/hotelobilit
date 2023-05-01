@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { HotelListResponseDTO } from 'src/app/Core/Models/hotelDTO';
 
 @Component({
   selector: 'prs-index',
@@ -12,6 +13,18 @@ export class IndexComponent {
   isDesktop = false;
   isTablet = false;
   isMenu = false;
+  hotels: HotelListResponseDTO[] = [ {
+    id: 1,
+    name: 'هتل تست',
+    nameEn: 'hotel test',
+    slug: 'hotel-test',
+    keyword: '---',
+    slugEn: 'hotel-test',
+    stars: '',
+    thumbnail: 'assets/img/12123131.png',
+    city: '',
+    location: '',
+  }];
 
   constructor(
     public mobileService: ResponsiveService,
@@ -30,4 +43,9 @@ export class IndexComponent {
     // @ts-ignore
     this.swiper.swiperRef.slidePrev(200);
   }
+
+  getStars(count: string): number[] {
+    return Array.from(Array(+count).keys());
+  }
+
 }

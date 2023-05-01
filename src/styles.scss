@@ -71,3 +71,32 @@ a {
   color: #fff !important;
   border-radius: 4px !important;
 }
+/*input*/
+.inp-form {
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  height: 58px;
+  padding: 0 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+
+  select {
+    font-weight: 600;
+    font-size: 15px;
+    color: #676767;
+  }
+
+  input {
+    font-weight: 600;
+    font-size: 15px !important;
+    color: #4d4b4b;
+
+    &::placeholder {
+      font-weight: 600;
+    }
+  }
+}

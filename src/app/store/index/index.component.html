@@ -18,7 +18,7 @@
             <div class="title-search">
               <h2 class="w-100">رزرو آنلاین تور</h2>
             </div>
-<!--            <prs-search (onSubmit)="search($event)"></prs-search>-->
+           <prs-search></prs-search>
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@
                 <div class="text">
                   <h3>هتل های برگزیده شهر</h3>
                   <select>
-                    <option>city.name</option>
+                    <option>city</option>
                   </select>
                 </div>
               </div>
@@ -176,32 +176,29 @@
               </div>
             </div>
           </div>
-          <swiper #swiper class="swiper-hotel">
-            <ng-template>
-              <div  routerLink=""
-                   class="box-hotel">
-                <div class="opacity-bg-parent">
-                  <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
-                  <div class="info-hotel">
-                    <h1 routerLink="">نام هتل</h1>
-                    <div class="footer-hotel-info">
-                      <div class="location-hotel">
-                        <img src="assets/img/Location-white.svg" width="17" alt="">
-                        <span>hotel city</span>
-                      </div>
-                      <div class="rate">
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                        <i class="icon-star"></i>
-                      </div>
+          <swiper #swiper class="swiper-hotel"
+          [slidesPerView]=" this.isMobile? (hotels.length===1?1:1.3) :(isTablet ? 2:4.3)" [spaceBetween]="30">
+          <ng-template swiperSlide *ngFor="let hotel of hotels">
+            <div [style.background-image]="'url(' + hotel.thumbnail + ')'" routerLink="/hotels/{{hotel.slug}}"
+              class="box-hotel">
+              <div class="opacity-bg-parent">
+                <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
+                <div class="info-hotel">
+                  <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.name}}</h1>
+                  <div class="footer-hotel-info">
+                    <div class="location-hotel">
+                      <img src="assets/img/Location-white.svg" width="17" alt="">
+                      <span>{{hotel.city}} - {{hotel.location ? (hotel.location.length > 10 ? hotel.location.slice(0,10) + '...' :hotel.location ) : 'ثبت نشده'}}</span>
+                    </div>
+                    <div class="rate">
+                      <i class="icon-star" *ngFor="let star of getStars(hotel.stars)"></i>
                     </div>
                   </div>
                 </div>
               </div>
-            </ng-template>
-          </swiper>
+            </div>
+          </ng-template>
+        </swiper>
 
         </div>
       </div>
