@@ -1,12 +1,17 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ValidateComponent} from "./validate/validate.component";
-import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component";
-import {ForgetComponent} from "./forget/forget.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ValidateComponent } from "./validate/validate.component";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { ForgetComponent } from "./forget/forget.component";
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'prs-admin'
+  },
   // {
   //   path: '',
   //   component: ValidateComponent
