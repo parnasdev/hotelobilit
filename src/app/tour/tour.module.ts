@@ -7,6 +7,7 @@ import { ChooseRoomAndFlightComponent } from './choose-room-and-flight/choose-ro
 import { SearchComponent } from './search/search.component';
 import { DatePickerModule } from '../date-picker/date-picker.module';
 import { CommonProjectModule } from '../common-project/common-project.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CommonProjectModule } from '../common-project/common-project.module';
     CommonModule,
     TourRoutingModule,
     DatePickerModule,
+    ReactiveFormsModule,
     CommonProjectModule
   ],exports:[SearchComponent]
 })

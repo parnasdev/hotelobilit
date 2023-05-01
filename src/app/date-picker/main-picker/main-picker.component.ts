@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'jalali-moment';
@@ -12,8 +12,10 @@ import { PostApiService } from 'src/app/Core/Https/post-api.service';
   templateUrl: './main-picker.component.html',
   styleUrls: ['./main-picker.component.scss']
 })
-export class MainPickerComponent implements OnInit {
+export class MainPickerComponent implements OnInit, OnChanges {
   @Output() result = new EventEmitter()
+  @Input() type = 'single';
+  @Input() inCommingDate: any
   isLoading = false;
   moment: any = moment;
   month = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
@@ -29,6 +31,19 @@ export class MainPickerComponent implements OnInit {
     public route: ActivatedRoute,
     public api: PostApiService,
     public message: MessageService,) { }
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['incommingDates']) {
+      if (this.type === 'multiple') {
+        this.stDate = this.inCommingDate.fromDate;
+        this.enDate = this.inCommingDate.toDate;
+        this.getSelectedDates();
+      } else {
+        this.stDate = this.inCommingDate.fromDate;
+        this.enDate = null;
+      }
+    }
+  }
   ngOnInit(): void {
     // @ts-ignore
     this.currentMonths = [+moment().format('jMM'), +(moment().add(1, 'jmonths').format('jMM'))]
@@ -107,27 +122,32 @@ export class MainPickerComponent implements OnInit {
 
 
   onDateClicked(item: any) {
-    if (!this.stDate && !this.enDate) {
-      this.stDate = item
-    } else if (this.stDate && !this.enDate) {
+    if (this.type === 'multiple') {
+      if (!this.stDate && !this.enDate) {
+        this.stDate = item
+      } else if (this.stDate && !this.enDate) {
 
-      if (moment(item.dateFa).isBefore(moment(this.stDate.dateFa))) {
-        this.message.custom('تاریخ انتخابی نامعتبر است')
-        this.stDate = null
-      } else {
-        this.enDate = item
-        this.result.emit({fromDate: this.stDate , toDate:this.enDate })
-        this.getSelectedDates();
-        if (this.selectedDates.length <= 14) {
+        if (moment(item.dateFa).isBefore(moment(this.stDate.dateFa))) {
+          this.message.custom('تاریخ انتخابی نامعتبر است')
+          this.stDate = null
         } else {
-          this.message.custom('تعداد روزهای انتخابی نباید بیشتر از ۱۴ روز باشد')
-          this.clearParams()
+          this.enDate = item
+          this.result.emit({ fromDate: this.stDate, toDate: this.enDate })
+          this.getSelectedDates();
+          if (this.selectedDates.length <= 14) {
+          } else {
+            this.message.custom('تعداد روزهای انتخابی نباید بیشتر از ۱۴ روز باشد')
+            this.clearParams()
+          }
         }
+      } else {
+        this.selectedDates = []
+        this.stDate = item
+        this.enDate = null
       }
     } else {
-      this.selectedDates = []
-      this.stDate = item
-      this.enDate = null
+      this.result.emit({ fromDate: item, toDate: '' })
+
     }
   }
 

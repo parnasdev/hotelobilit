@@ -1,12 +1,12 @@
 <div class="row-search">
     <div class="inp-form">
-      <prs-select-city-limited class="w-100" [baseType]="false" [title]="'شهر مبدا'"></prs-select-city-limited>
+      <prs-select-city class="w-100" [baseType]="false" [title]="'شهر مبدا'"></prs-select-city>
     </div>
   <div class="inp-form">
-    <prs-select-city-limited class="w-100" [baseType]="true" [title]="'شهر مقصد'"></prs-select-city-limited>
+    <prs-select-city class="w-100" [baseType]="true" [title]="'شهر مقصد'"></prs-select-city>
   </div>
     <div class="inp-form">
-        <input type="text" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+        <input type="text" [formControl]="dateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
     </div>
 
     <div class="inp-form">
