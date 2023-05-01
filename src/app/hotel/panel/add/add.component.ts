@@ -16,7 +16,7 @@ import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
 import { citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'prs-add',
@@ -61,6 +61,7 @@ selectedRooms: roomDTO[] = [];
 
   constructor(
     public router: Router,
+    public route: ActivatedRoute,
     public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
@@ -118,9 +119,9 @@ selectedRooms: roomDTO[] = [];
   }
 
   roomChanged() {
-   this.selectedRooms = [];
+    this.selectedRooms = [];
     (this.selectedRoomsFC.value??[]).forEach(item => {
-  
+      
       let result =this.data.roomTypes.filter(x => x.name ===  item)
       if(result.length > 0) {
         let obj = {
@@ -135,14 +136,9 @@ selectedRooms: roomDTO[] = [];
         this.selectedRooms.push(obj);
       }
     })
-    
   }
 
   getData(): void {
-    const req = {
-      paginate: false,
-      perPage: 20
-    }
     this.hotelApi.createPosts('hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
@@ -155,11 +151,6 @@ selectedRooms: roomDTO[] = [];
   }
   
   setReq(): void {
-    // const data = this.hotelForm.controls.status_id ? this.hotelForm.controls.status_id : 1;
-    // roomObjDTO
-    // this.selectedRoomsFC.value?.forEach(item => {
-
-    // })
     this.req = {
       title: this.hotelForm.controls.title.value,
       titleEn: this.hotelForm.controls.titleEn.value,
@@ -179,9 +170,7 @@ selectedRooms: roomDTO[] = [];
     this.lng = 0;
     this.citiesResponse = this.data.cities;
   }
-  chn(item:any) {
 
-  }
   reload() {
     this.show = false;
     setTimeout(() => this.show = true);
@@ -200,19 +189,6 @@ selectedRooms: roomDTO[] = [];
 
   getThumbnail(image: UploadResDTO): void {
     this.thumbnail = image.url;
-  }
-
-  getServices(): void {
-    this.hotelApi.createPosts('hotel').subscribe((res: any) => {
-      if (res.isDone) {
-        // this.services = res.data;
-      } else {
-        this.message.custom(res.message)
-      }
-    }, (error: any) => {
-      this.message.error()
-
-    })
   }
 
   getDescriptionFromEditor(body: any): void {
@@ -260,20 +236,7 @@ selectedRooms: roomDTO[] = [];
   }
 
   generateSlug(): void {
-    // if (!this.isSlugGenerated) {
-    //   this.tourApi.generateSlug(this.setService.obj.title).subscribe((res: any) => {
-    //     if (res.data) {
-    //       this.setService.obj.slug = res.data;
-    //       this.isSlugGenerated = true
-    //     } else {
-    //       this.message.custom(res.message)
-    //     }
-    //   }, (error: any) => {
-    //     this.message.error()
-    //   })
-    // } else {
       this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
-    // }
   }
 
 

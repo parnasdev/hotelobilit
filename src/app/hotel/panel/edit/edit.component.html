@@ -7,11 +7,11 @@
           <label for="">اضافه کردن هتل</label>
           <h2 class="text-dark">اطلاعات هتل</h2>
         </div>
-        <div class="left" *ngIf="data.cities.length>0">
+        <div class="left" *ngIf="hotelInfo.cities.length>0">
           <div class="selectdiv">
             <select formControlName="city_id" name="" id="">
               <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
-              <option *ngFor="let city of data.cities[0].categories" [value]="city.id">{{city.name}}</option>
+              <option *ngFor="let city of hotelInfo.cities[0].categories" [value]="city.id">{{city.name}}</option>
             </select>
           </div>
         </div>
@@ -19,7 +19,7 @@
           <div class="selectdiv">
             <label>
               <select formControlName="status_id">
-                <option *ngFor="let item of data.statuses" value="item.id">{{ item.name }}</option>
+                <option *ngFor="let item of hotelInfo.statuses" value="item.id">{{ item.name }}</option>
               </select>
             </label>
           </div>
@@ -124,7 +124,7 @@
               <mat-select-trigger>
                 <span>اتاق های انتخاب شده</span>
               </mat-select-trigger>
-              <mat-option *ngFor="let room of data.roomTypes" [value]="room.name">{{room.name}}</mat-option>
+              <mat-option *ngFor="let room of hotelInfo.roomTypes" [value]="room.name">{{room.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -134,7 +134,6 @@
       <div class="item-info" *ngFor="let item of selectedRooms">
         <label for="">{{ item.name }}</label>
         <input type="number" [(ngModel)]="item.coefficient">
-
       </div>
 
     </div>

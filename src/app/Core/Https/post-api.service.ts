@@ -40,9 +40,9 @@ export class PostApiService {
     return this.http.get<Result<hotelPageDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  updatePosts(postType: string, req: storeHotelSetReqDTO): any {
-    const strUrl = this.serverControllerName + `posts?post_type=${postType}`;
-    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  updatePosts(postType: string, req: storeHotelSetReqDTO, postId: number): any {
+    const strUrl = this.serverControllerName + `posts/${postId}?post_type=${postType}`;
+    return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
   ratingList(req: ratigListReqDTO): any {

@@ -24,7 +24,7 @@ export class EditComponent extends AddComponent implements OnInit {
       slug: '',
       description: '',
       body: '',
-      options: [],
+      options: {} as any,
       pin: false,
       comment: false,
       post_type: '',
@@ -34,6 +34,7 @@ export class EditComponent extends AddComponent implements OnInit {
       updated_at: '',
       files: []
     },
+    rooms: [],
     files: [],
     service_ids: [],
     city_id: 0,
@@ -43,7 +44,7 @@ export class EditComponent extends AddComponent implements OnInit {
   showServices = false;
   convertedImages:UploadResDTO[] = [];
 
-  override ngOnInit(): void {
+  override ngOnInit(): void { 
     this.errorService.clear();
     // @ts-ignore
     this.hotelId = this.route.snapshot.paramMap.get('id');
@@ -52,10 +53,10 @@ export class EditComponent extends AddComponent implements OnInit {
 
   edit(): void {
     this.setReq()
-    this.hotelApi.updatePosts('hotel', this.req).subscribe((res: any) => {
+    this.hotelApi.updatePosts('hotel', this.req, this.hotelId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
-        // this.router.navigateByUrl('/panel/hotel/list')
+        this.router.navigateByUrl('/panel/hotel')
       } else {
         this.message.custom(res.message)
       }
@@ -77,10 +78,7 @@ export class EditComponent extends AddComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelInfo = res.data;
-        // this.currentStar = +this.hotelInfo.stars;
-        // this.cityTypeFC.setValue(this.hotelInfo.city.type != 0)
-        // this.getCities()
-        this.getServices()
+        this.setData()
       } else {
         this.message.custom(res.message)
       }
@@ -93,45 +91,23 @@ export class EditComponent extends AddComponent implements OnInit {
     return c1 && c2 && c1.name === c2.name;
   }
 
-  // getRoomTypes(): void {
-  //   const req = {
-  //     paginate: false,
-  //     perPage: 20
-  //   }
-  //   this.roomTypeApi.getRoomTypes(req).subscribe((res: any) => {
-  //     if (res.isDone) {
-  //       this.roomTypes = res.data;
-  //       this.selectedRoomsFC.setValue(this.hotelInfo.rooms)
-  //       console.log(this.selectedRoomsFC.value);
-        
-  //     } else {
-  //       this.message.custom(res.message);
-  //     }
-  //   }, (error: any) => {
-  //     this.message.error()
-  //   })
-  // }
-
   setData(): void {
-    // this.hotelForm.controls['name'].setValue(this.hotelInfo.name);
-    // this.hotelForm.controls['nameEn'].setValue(this.hotelInfo.nameEn);
-    // this.hotelForm.controls['city'].setValue(this.hotelInfo.city.id);
-    // this.hotelForm.controls['location'].setValue(this.hotelInfo.location);
-    // this.hotelForm.controls['address'].setValue(this.hotelInfo.address);
-    // this.hotelForm.controls['body'].setValue(this.hotelInfo.body);
-    // this.hotelForm.controls['stars'].setValue(this.hotelInfo.stars);
-    // this.convertImagesToListObjects()
-    // if (this.hotelInfo.mediaLink) {
-    //   if (this.hotelInfo.mediaLink.length > 0) {
-    //     this.aparatFC.setValue(this.hotelInfo.mediaLink[0].link)
-    //     this.youtubeFC.setValue(this.hotelInfo.mediaLink[1].link)
-    //   }
-    // }
-    // this.images = this.hotelInfo.images_paths ?? []
-    // this.thumbnail = this.hotelInfo.thumbnail_paths ?? ''; 
+    this.hotelForm.controls.title.setValue(this.hotelInfo.post.title);
+    this.hotelForm.controls.titleEn.setValue(this.hotelInfo.post.options?.titleEn);
+    this.hotelForm.controls.slug.setValue(this.hotelInfo.post.slug);
+    // @ts-ignore
+    this.hotelForm.controls.city_id.setValue(this.hotelInfo.city_id);
+    this.hotelForm.controls.body.setValue(this.hotelInfo.post.body);
+    this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
+    this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
+    this.currentStar = this.hotelInfo.post.options.stars
+    this.convertImagesToListObjects()
+    this.convertRoomsToListObjects()
+    this.images = this.hotelInfo.files ?? []
+    this.thumbnail = this.hotelInfo.files[0] ?? '';
     // this.lat = this.hotelInfo.coordinate.lat
     // this.lng = this.hotelInfo.coordinate.lng
-    // this.reload()
+    this.reload()
   }
 
   convertImagesToListObjects() {
@@ -147,5 +123,16 @@ export class EditComponent extends AddComponent implements OnInit {
 
   getThumbnailHotel(): string{
     return ''
+  }
+
+  convertRoomsToListObjects(){
+    let list: any[] = [];
+    this.hotelInfo.rooms.forEach(item => {
+    let data = this.hotelInfo.roomTypes.find(x => x.id === item.room_type_id)?.name
+      list.push(data)
+    })
+    // @ts-ignore
+    this.selectedRoomsFC.setValue(list)
+    this.roomChanged()
   }
 }

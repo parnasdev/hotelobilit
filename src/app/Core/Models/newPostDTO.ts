@@ -6,7 +6,7 @@ export interface hotelDTO {
     slug: string;
     description: string
     body: string;
-    options: [];
+    options: any;
     pin: boolean;
     comment: boolean;
     post_type: string;
@@ -40,8 +40,9 @@ export interface RoomDTO {
 export interface InfoHotelDTO {
     statuses: statusesDTO[]
     cities: citiesDTO[]
-    roomTypes: statusesDTO[]
+    roomTypes: roomDTO[]
     post: hotelDTO;
+    rooms: any[];
     files: string[],
     service_ids: number[],
     city_id: number;
