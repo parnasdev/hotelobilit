@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'add',
     component: AddComponent
   }, {
-    path: 'edit/:slug',
+    path: 'edit/:id',
     component: EditComponent
   }
 ];

@@ -7,6 +7,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { TransferAPIService } from "../../Core/Https/transfer-api.service";
 import { UploadSingleComponent } from "../../common-project/upload-single/upload-single.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
+import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
+import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 
 @Component({
   selector: 'prs-edit',
@@ -14,13 +16,21 @@ import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  slug = ''
+  transfer_id = 0
   nameFC = new FormControl();
+  codeFC = new FormControl();
   statusFC = new FormControl();
-  req!: TransferSetRequestDTO
+  req: AirlineReqDTO = {
+    name: '',
+    code: '',
+    files: [],
+  }
   logo: UploadResDTO = {
+    id: null,
     path: '',
-    url: ''
+    url: '',
+    alt: '',
+    type: 1,
   };
   info: any
 
@@ -28,12 +38,12 @@ export class EditComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public dialog: MatDialog,
-    public api: TransferAPIService) {
+    public api: CategoryApiService) {
   }
 
   ngOnInit(): void {
     // @ts-ignore
-    this.slug = this.route.snapshot.paramMap.get('slug')
+    this.transfer_id = +this.route.snapshot.paramMap.get('id')
     this.getInfo()
   }
 
@@ -46,7 +56,7 @@ export class EditComponent implements OnInit {
 
   submit(): void {
     this.setReq()
-    this.api.edit(this.req, this.slug).subscribe((res: any) => {
+    this.api.updateCategory(this.transfer_id, 'airline', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)
         this.router.navigateByUrl('/panel/transfer');
@@ -59,7 +69,7 @@ export class EditComponent implements OnInit {
   }
 
   getInfo(): void {
-    this.api.getTransfer(this.slug).subscribe((res: any) => {
+    this.api.editCategoryPage(this.transfer_id, 'airline', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
         this.setValue()
@@ -79,17 +89,24 @@ export class EditComponent implements OnInit {
   }
 
   setValue(): void {
-    this.logo = this.info.logo;
-    this.nameFC.setValue(this.info.name)
+    this.logo = this.info.files.length > 0 ? this.info.files[0] : 0;
+    this.nameFC.setValue(this.info.airline.name)
+    this.codeFC.setValue(this.info.airline.code)
   }
 
 
   setReq(): void {
-    this.req = {
-      logo: this.logo.path,
-      name: this.nameFC.value,
-      type: 1
-    }
+    this.logo.type = 1
+    this.logo.id = null
+    this.logo.alt = ''
+    this.req.files.push(this.logo)
+    this.req.name = this.nameFC.value
+    this.req.code = this.codeFC.value
+    // this.req = {
+    //   files: [this.logo],
+    //   name: this.nameFC.value,
+    //   code: this.codeFC.value,
+    // }
   }
 
 }

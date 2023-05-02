@@ -53,6 +53,9 @@ export interface transactionDTO {
 }
 
 export interface UploadResDTO {
+  id?: number | null;
   path: string;
-  url: string
+  url: string;
+  alt?: string;
+  type?: number;
 }

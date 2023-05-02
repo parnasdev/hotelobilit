@@ -8,5 +8,5 @@ export interface AirlineListDTO {
 export interface AirlineReqDTO {
     name: string;
     code: string;
-    files: []
+    files: any[]
 }
