@@ -91,10 +91,10 @@
       </div>
       <div class="info-tour-body-upload">
         <div class="top-one">
-          <prs-upload-single (result)="getThumbnail($event)"></prs-upload-single>
+          <prs-upload-single *ngIf="showData" (result)="getThumbnail($event)"[incommingFile]="getThumbnailFromData()"></prs-upload-single>
         </div>
         <div class="bottom-one">
-          <prs-multiple-upload (result)="getFiles($event)"></prs-multiple-upload>
+          <prs-multiple-upload *ngIf="showData" (result)="getFiles($event)" [incommingFiles]="getImagesFromData()"></prs-multiple-upload>
         </div>
       </div>
     </div>

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { hotelInfoDTO } from "../../../Core/Models/hotelDTO";
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
-import { InfoHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
+import { Result } from 'src/app/Core/Models/result';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'prs-edit',
@@ -10,9 +12,11 @@ import { InfoHotelDTO } from 'src/app/Core/Models/newPostDTO';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent extends AddComponent implements OnInit {
-
+  showData = false
   hotelName = '';
   hotelId = 1;
+  roomTypes: roomDTO[] = []
+
   hotelInfo: InfoHotelDTO = {
     statuses: [],
     cities: [],
@@ -38,13 +42,13 @@ export class EditComponent extends AddComponent implements OnInit {
     files: [],
     service_ids: [],
     city_id: 0,
-    
+
   };
   public override show = true;
   showServices = false;
-  convertedImages:UploadResDTO[] = [];
+  convertedImages: UploadResDTO[] = [];
 
-  override ngOnInit(): void { 
+  override ngOnInit(): void {
     this.errorService.clear();
     // @ts-ignore
     this.hotelId = this.route.snapshot.paramMap.get('id');
@@ -78,7 +82,9 @@ export class EditComponent extends AddComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelInfo = res.data;
+        this.roomTypes = this.hotelInfo.roomTypes;
         this.setData()
+        this.showData = true
       } else {
         this.message.custom(res.message)
       }
@@ -87,7 +93,7 @@ export class EditComponent extends AddComponent implements OnInit {
       this.message.error()
     })
   }
-  compare(c1: {name: string}, c2: {name: string}) {
+  compare(c1: { name: string }, c2: { name: string }) {
     return c1 && c2 && c1.name === c2.name;
   }
 
@@ -103,8 +109,6 @@ export class EditComponent extends AddComponent implements OnInit {
     this.currentStar = this.hotelInfo.post.options.stars
     this.convertImagesToListObjects()
     this.convertRoomsToListObjects()
-    this.images = this.hotelInfo.files ?? []
-    this.thumbnail = this.hotelInfo.files[0] ?? '';
     // this.lat = this.hotelInfo.coordinate.lat
     // this.lng = this.hotelInfo.coordinate.lng
     this.reload()
@@ -121,18 +125,64 @@ export class EditComponent extends AddComponent implements OnInit {
     })
   }
 
-  getThumbnailHotel(): string{
+  getThumbnailHotel(): string {
     return ''
   }
 
-  convertRoomsToListObjects(){
+  convertRoomsToListObjects() {
     let list: any[] = [];
     this.hotelInfo.rooms.forEach(item => {
-    let data = this.hotelInfo.roomTypes.find(x => x.id === item.room_type_id)?.name
+      let data = this.hotelInfo.roomTypes.find(x => x.id === item.room_type_id)?.name
       list.push(data)
     })
     // @ts-ignore
     this.selectedRoomsFC.setValue(list)
-    this.roomChanged()
+    this.setRoomCoeffision()
+  }
+
+  getThumbnailFromData() {
+    let obj: UploadResDTO = {
+      path: '',
+      url: ''
+    }
+    this.hotelInfo.files.forEach(item => {
+      if (item.type === 1) {
+        obj = {
+          path: item.path,
+          url: item.url
+        }
+      }
+    })
+    return obj;
+  }
+  getImagesFromData() {
+let result: UploadResDTO[] = []
+    this.hotelInfo.files.forEach(item => {
+      if (item.type === 2) {
+       let obj = {
+          path: item.path,
+          url: item.url
+        }
+        result.push(obj);
+      }
+    })
+    return result;
+  }
+
+
+  setRoomCoeffision() {
+    this.selectedRooms = [];
+    this.hotelInfo.rooms.forEach(item => {
+      let obj = {
+        id: item.id,
+        name: item.name,
+        room_type_id: item.id,
+        coefficient: item.coefficient,
+        Adl_capacity: item.Adl_capacity,
+        chd_capacity: item.chd_capacity,
+        age_child: item.age_child,
+      }
+      this.selectedRooms.push(obj);
+    })
   }
 }
