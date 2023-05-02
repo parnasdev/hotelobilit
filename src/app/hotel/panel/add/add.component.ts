@@ -13,7 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ErrorsService } from "../../../Core/Services/errors.service";
 import { CheckErrorService } from "../../../Core/Services/check-error.service";
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
-import { citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { FileDTO, citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,6 +36,8 @@ export class AddComponent implements OnInit {
   cityTypeFC = new FormControl(true)
   public show = true;
 
+  files: FileDTO[] = [];
+
   req: storeHotelSetReqDTO = {
     title: '',
     titleEn: '',
@@ -43,21 +45,29 @@ export class AddComponent implements OnInit {
     status_id: 1,
     description: '',
     body: '',
+    address: '',
+    stars: 0,
+    comment: 0,
     use_api: 0,
     city_id: 0,
-    rooms: []
+    rooms: [],
+    categories: [],
+    del_files: [],
+    files: [],
+    options: [],
+    pin: 0
   }
   images: any[] = [];
   thumbnail = ''
   data: hotelPageDTO = {
-    cities: [], 
+    cities: [],
     statuses: [],
     roomTypes: []
   }
   serviceIDs: string[] = [];
   isLoading = false;
 
-selectedRooms: roomDTO[] = [];
+  selectedRooms: roomDTO[] = [];
 
   constructor(
     public router: Router,
@@ -120,10 +130,9 @@ selectedRooms: roomDTO[] = [];
 
   roomChanged() {
     this.selectedRooms = [];
-    (this.selectedRoomsFC.value??[]).forEach(item => {
-      
-      let result =this.data.roomTypes.filter(x => x.name ===  item)
-      if(result.length > 0) {
+    (this.selectedRoomsFC.value ?? []).forEach(item => {
+      let result = this.data.roomTypes.filter(x => x.name === item)
+      if (result.length > 0) {
         let obj = {
           id: 0,
           name: result[0].name,
@@ -149,20 +158,50 @@ selectedRooms: roomDTO[] = [];
       this.message.error()
     })
   }
-  
+
   setReq(): void {
     this.req = {
       title: this.hotelForm.controls.title.value,
       titleEn: this.hotelForm.controls.titleEn.value,
+      address: this.hotelForm.controls.address.value,
+      stars:  this.currentStar,
       slug: this.hotelForm.controls.slug.value,
       status_id: 1,
       description: this.hotelForm.controls.description.value,
       body: '',
+      categories: [],
+      comment: 0,
+      del_files: [],
+      files: this.files,
+      options: [],
+      pin: 0,
       use_api: 0,
       city_id: this.hotelForm.controls.city_id.value,
       // @ts-ignore
       rooms: this.selectedRooms
     }
+  }
+
+
+  generateFilesForReq(filePaths: string[], type: number) {
+    this.files.forEach((item, index) => {
+      if (type === 2) {
+        if (item.type === 2) {
+          this.files.splice(index, 1);
+        }
+      }
+    })
+
+    filePaths.forEach(item => {
+      let obj: FileDTO = {
+        path: item,
+        id: null,
+        alt: "test",
+        type: type,
+        url: ''
+      }
+      this.files.push(obj);
+    })
   }
 
   cityTypeChange(): void {
@@ -179,16 +218,15 @@ selectedRooms: roomDTO[] = [];
   getFiles(result: UploadResDTO[]): void {
     this.images = [];
     result.forEach(file => {
-      this.getImage(file.path);
+      this.images.push(file.path)
     });
-  }
-
-  getImage(imageStr: string): void {
-    this.images.push(imageStr)
+    this.generateFilesForReq(this.images, 2);
   }
 
   getThumbnail(image: UploadResDTO): void {
-    this.thumbnail = image.url;
+    this.thumbnail = image.path;
+    this.generateFilesForReq([this.thumbnail], 1)
+
   }
 
   getDescriptionFromEditor(body: any): void {
@@ -207,7 +245,7 @@ selectedRooms: roomDTO[] = [];
 
   add(): void {
     console.log(this.selectedRooms);
-    
+
     this.setReq()
     this.hotelApi.storePosts('hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -236,7 +274,7 @@ selectedRooms: roomDTO[] = [];
   }
 
   generateSlug(): void {
-      this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
+    this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
   }
 
 

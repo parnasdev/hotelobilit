@@ -14,7 +14,7 @@ export interface hotelDTO {
     deleted_at: string;
     created_at: string;
     updated_at: string;
-    files: []
+    files: any
 }
 export interface storeHotelReqDTO {
     id: number
@@ -43,7 +43,7 @@ export interface InfoHotelDTO {
     roomTypes: roomDTO[]
     post: hotelDTO;
     rooms: any[];
-    files: string[],
+    files: FileDTO[],
     service_ids: number[],
     city_id: number;
 }
@@ -53,11 +53,27 @@ export interface storeHotelSetReqDTO {
     titleEn: string | null;
     slug: string | null;
     status_id: number | null;
+    address: string | null;
+    stars: number
     description: string | null;
     body: string | null;
     use_api: number | null;
     city_id: number | null;
     rooms: roomObjDTO[]
+    options: any;
+    pin: number;
+    comment: number;
+    files: FileDTO[];
+    del_files: [];
+    categories: number[]
+}
+
+export interface FileDTO {
+    id: number | null;
+    path: string;
+    alt: string;
+    type: number
+    url: string
 }
 
 export interface roomObjDTO {
