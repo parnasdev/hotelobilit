@@ -1,26 +1,32 @@
 <div class="list-tour">
   <div class="title">
     <h2>لیست ایرلاین ها</h2>
-    <a class="btn-add-tour" *ngIf="checkItemPermission('Transfer.create')" routerLink="/panel/transfer/add">اضافه</a>
+    <a class="btn-add-tour" routerLink="/panel/transfer/add">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
       <!--      <span class="username">نام کاربر</span>-->
       <span class="title-tour">عنوان ایرلاین</span>
-      <span class="from-to">نوع حمل و نقل</span>
+      <span class="from-to">تعداد استفاده شده</span>
       <span class="setting">تنظیمات</span>
     </div>
-    <div class="body-list-tour" *ngIf="transfers.length > 0">
-      <div class="item" *ngFor="let transfer of transfers;let i = index">
+    <div class="body-list-tour" *ngIf="airlines.length > 0">
+      <div class="item" *ngFor="let airline of airlines| paginate: paginateConfig;let i = index">
         <span class="id">{{ i + 1 }}</span>
-        <span class="title-tour">{{ transfer.name }}</span>
-        <span class="title-tour">{{ transfer?.type?.name }}</span>
+        <span class="title-tour">{{ airline.name }}</span>
+        <span class="title-tour">{{ airline.useCount }}</span>
         <div class="button-setting">
-          <a *ngIf="session.checkItemPermission('Transfer.edit')" routerLink="/panel/transfer/edit/{{ transfer.id }}" class="edit-btn">ویرایش</a>
-          <button *ngIf="session.checkItemPermission('Transfer.delete')" (click)="deleteTransfer(transfer.id)" class="delete-btn">حذف</button>
+          <a routerLink="/panel/transfer/edit/{{ airline.id }}" class="edit-btn">ویرایش</a>
+          <button (click)="deleteTransfer(airline.id)" class="delete-btn">حذف</button>
         </div>
       </div>
     </div>
+  </div>
+  <div>
+    <pagination-controls *ngIf="paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+      screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
   </div>
 </div>

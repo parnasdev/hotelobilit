@@ -8,6 +8,7 @@ import {ListComponent} from './list/list.component';
 import {CommonProjectModule} from "../common-project/common-project.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
-    CommonProjectModule
+    CommonProjectModule,
+    NgxPaginationModule,
   ]
 })
 export class TransferModule {
