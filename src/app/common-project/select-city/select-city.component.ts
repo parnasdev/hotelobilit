@@ -61,7 +61,6 @@ isMobile = false;
     );
     if (changes['city']) {
       // console.log(changes);
-
       // this.getCities();
     }
 
@@ -69,8 +68,6 @@ isMobile = false;
 
   getCities(): void {
     this.isLoading = true
-    const inlist = ['تهران', 'مشهد', 'شیراز', 'یزد', 'اهواز', 'اصفهان', 'رشت', 'تبریز', 'بوشهر', 'کرمانشاه']
-    const outlist = ['تهران', 'مشهد', 'شیراز', 'یزد', 'اهواز', 'اصفهان', 'رشت', 'تبریز', 'بوشهر', 'استانبول', 'آنتالیا' , 'دبی' , 'تفلیس' , 'مارماریس' , 'آنکارا', 'رشت']
     const req: CityListRequestDTO = {
       type: this.type,
       hasHotel: this.hasHotel,

@@ -108,12 +108,10 @@ export class AddComponent implements OnInit {
   }
 
   getEndCity(cityItemSelected: any): void {
-    debugger
     this.form.controls.destination_id.setValue(cityItemSelected.id);
   }
 
   getStCity(cityItemSelected: any): void {
-    debugger
     this.form.controls.origin_id.setValue(cityItemSelected.id);
   }
 

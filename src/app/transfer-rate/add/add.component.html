@@ -30,7 +30,7 @@
               <label for="">شهر مقصد</label>
 3
               <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
-                (citySelected)="getStCity($event)"></prs-select-city>
+                (citySelected)="getEndCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">
                 <span class="text-danger">{{errorService.getError('origin_id')}}</span>
               </div>
@@ -49,8 +49,8 @@
                 (click)="picker4.open()">
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
-            <div *ngIf="errorService.hasError('departure_date')">
-              <span class="text-danger">{{errorService.getError('departure_date')}}</span>
+            <div *ngIf="errorService.hasError('date')">
+              <span class="text-danger">{{errorService.getError('date')}}</span>
             </div>
 
           </div>
@@ -61,12 +61,12 @@
           <div class="item-info-2">
             <div class="select-info w-100">
               <label for="">ایرلاین</label>
-              <select formControlName="origin_transfer_id">
+              <select formControlName="airline_id">
                 <option *ngFor="let item of pageData.airlines" [value]="item.id">{{item.name}}</option>
               </select>
             </div>
-            <div *ngIf="errorService.hasError('origin_transfer_id')">
-              <span class="text-danger">{{errorService.getError('origin_transfer_id')}}</span>
+            <div *ngIf="errorService.hasError('airline_id')">
+              <span class="text-danger">{{errorService.getError('airline_id')}}</span>
             </div>
 
           </div>
@@ -74,10 +74,10 @@
           <div class="item-info">
             <div class="select-info w-100">
               <label for="">شماره پرواز</label>
-              <input type="text" formControlName="origin_transfer_number">
+              <input type="text" formControlName="flight_number">
             </div>
-            <div *ngIf="errorService.hasError('origin_transfer_number')">
-              <span class="text-danger">{{errorService.getError('origin_transfer_number')}}</span>
+            <div *ngIf="errorService.hasError('flight_number')">
+              <span class="text-danger">{{errorService.getError('flight_number')}}</span>
             </div>
           </div>
 
