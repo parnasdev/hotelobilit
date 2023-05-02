@@ -3,8 +3,7 @@ import { hotelInfoDTO } from "../../../Core/Models/hotelDTO";
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
-import { Result } from 'src/app/Core/Models/result';
-import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'prs-edit',
@@ -176,13 +175,32 @@ let result: UploadResDTO[] = []
       let obj = {
         id: item.id,
         name: item.name,
-        room_type_id: item.id,
+        room_type_id: item.room_type_id,
         coefficient: item.coefficient,
         Adl_capacity: item.Adl_capacity,
         chd_capacity: item.chd_capacity,
         age_child: item.age_child,
       }
       this.selectedRooms.push(obj);
+    })
+  }
+
+  roomsUpdated() {
+    this.selectedRooms = [];
+    (this.selectedRoomsFC.value ?? []).forEach(item => {
+      let result = this.hotelInfo.roomTypes.filter(x => x.name === item)
+      if (result.length > 0) {
+        let obj = {
+          id: 0,
+          name: result[0].name,
+          room_type_id: result[0].id,
+          coefficient: 0,
+          Adl_capacity: result[0].Adl_capacity,
+          chd_capacity: result[0].chd_capacity,
+          age_child: result[0].age_child,
+        }
+        this.selectedRooms.push(obj);
+      }
     })
   }
 }

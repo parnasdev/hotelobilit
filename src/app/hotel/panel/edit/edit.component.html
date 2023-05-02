@@ -115,12 +115,11 @@
     <div class="info-tour-body">
       <div class="address-parent">
 
-
         <div class="address-hotel">
           <label for="address">اتاق های این هتل را انتخاب کنید </label>
           <mat-form-field appearance="fill">
             <mat-label>اتاق ها</mat-label>
-            <mat-select [formControl]="selectedRoomsFC" (selectionChange)="roomChanged()" multiple>
+            <mat-select [formControl]="selectedRoomsFC" (selectionChange)="roomsUpdated()" multiple>
               <mat-select-trigger>
                 <span>اتاق های انتخاب شده</span>
               </mat-select-trigger>

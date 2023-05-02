@@ -41,6 +41,8 @@ public show = true;
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['incommingFiles']) {
+      console.log(changes['incommingFiles']);
+    
       this.selectedFiles = [];
       this.incommingFiles.forEach(item => {
         this.selectedFiles.push(item)
@@ -88,6 +90,7 @@ public show = true;
               if (this.myInputVariable) {
                 this.myInputVariable.nativeElement.value = '';
               }
+              this.reload();
               this.result.emit(this.selectedFiles)
               this.isUpload = true;
             }
@@ -101,5 +104,6 @@ public show = true;
 
       }
     }
+    
   }
 }
