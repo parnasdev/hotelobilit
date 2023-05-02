@@ -14,7 +14,6 @@
             <div class="select-info">
 
               <label for="">شهر مبدا</label>
-3
               <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
                 (citySelected)="getStCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">
@@ -28,7 +27,6 @@
             <div class="select-info">
 
               <label for="">شهر مقصد</label>
-3
               <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
                 (citySelected)="getEndCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">

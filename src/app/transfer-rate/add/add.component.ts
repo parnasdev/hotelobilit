@@ -135,7 +135,7 @@ export class AddComponent implements OnInit {
 
   createTransferRate(){
     this.isLoading = true
-    this.flightApi.storeDataCreate(this.TransferRateRequest).subscribe((res: any) => {
+    this.flightApi.storeDataFlight(this.TransferRateRequest).subscribe((res: any) => {
       if (res.isDone) {
         this.isLoading = false;
         this.message.showMessageBig(res.message);

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectCityPopupComponent } from '../select-city-popup/select-city-popup.component';
 import { Result } from 'src/app/Core/Models/result';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
+import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-select-city',
@@ -17,7 +18,7 @@ import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
 })
 export class SelectCityComponent implements OnInit, OnChanges {
   @Output() citySelected = new EventEmitter()
-  @Input() cities: CityResponseDTO[] = []
+  @Input() cities: categoriesDTO[] = []
   @Input() hasHotel: boolean = false;
   @Input() hasOriginTour: boolean = false;
   @Input() type: number | null = null;
@@ -38,13 +39,12 @@ isMobile = false;
   }
 
   cityFC = new FormControl();
-  filteredOptions!: Observable<CityResponseDTO[]>;
+  filteredOptions!: Observable<categoriesDTO[]>;
 
   ngOnInit() {
-    // this.getCities();
   }
 
-  private _filter(value: string): CityResponseDTO[] {
+  private _filter(value: string): categoriesDTO[] {
     const filterValue = value.toLowerCase();
 
     return this.cities.filter(city => city.name.toLowerCase().includes(filterValue));
@@ -59,47 +59,44 @@ isMobile = false;
       startWith(''),
       map(value => this._filter(value)),
     );
-    if (changes['city']) {
-      // console.log(changes);
-      // this.getCities();
-    }
-
-  }
-
-  getCities(): void {
-    this.isLoading = true
-    const req: CityListRequestDTO = {
-      type: this.type,
-      hasHotel: this.hasHotel,
-      hasOriginTour: this.hasOriginTour,
-      hasDestTour: this.hasDestTour,
-      city: null,
-      search: null,
-      perPage: 20
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      this.isLoading = false
-      if (res.isDone) {
-        this.cities = res.data;
-        this.cities = this.cities.sort(function(x, y) {
-          return Number(y.type) - Number(x.type);
-        })
-        if (this.inCommingCity && this.inCommingCity !== '') {
-          if (this.cities.filter(c => (c.id === +this.inCommingCity) || (c.slugEn === this.inCommingCity)).length > 0) {
-            this.cityFC.setValue(this.cities.filter(c => (c.id === +this.inCommingCity) || (c.slugEn === this.inCommingCity))[0].name)
-            // this.citySelected.emit(this.cities.filter(c => c.slugEn === this.inCommingCity)[0])
-          }
-        }
-        this.filteredOptions = this.cityFC.valueChanges.pipe(
-          startWith(''),
-          map(value => this._filter(value)),
-        );
+    if (this.inCommingCity && this.inCommingCity !== '') {
+      if (this.cities.filter(c => (c.id === +this.inCommingCity) || (c.id === this.inCommingCity)).length > 0) {
+        this.cityFC.setValue(this.cities.filter(c => (c.id === +this.inCommingCity))[0].name)
+        // this.citySelected.emit(this.cities.filter(c => c.slugEn === this.inCommingCity)[0])
       }
-    }, (error: any) => {
-      this.isLoading = false
-      this.message.error()
-    })
+    }
+    this.filteredOptions = this.cityFC.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
+
   }
+
+  // getCities(): void {
+  //   this.isLoading = true
+  //   const req: CityListRequestDTO = {
+  //     type: this.type,
+  //     hasHotel: this.hasHotel,
+  //     hasOriginTour: this.hasOriginTour,
+  //     hasDestTour: this.hasDestTour,
+  //     city: null,
+  //     search: null,
+  //     perPage: 20
+  //   }
+  //   this.cityApi.getCities(req).subscribe((res: any) => {
+  //     this.isLoading = false
+  //     if (res.isDone) {
+  //       this.cities = res.data;
+  //       // this.cities = this.cities.sort(function(x, y) {
+  //       //   return Number(y.type) - Number(x.type);
+  //       // })
+        
+  //     }
+  //   }, (error: any) => {
+  //     this.isLoading = false
+  //     this.message.error()
+  //   })
+  // }
 
 
   openSelectCity() {

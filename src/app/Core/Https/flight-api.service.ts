@@ -12,10 +12,11 @@ export class FlightApiService {
 
   private serverControllerName = 'panel/';
 
-  constructor(public http: HttpClient,
-    public publicService: PublicService) {
-      this.serverControllerName =
-      environment.BACK_END_IP + this.serverControllerName;
+  constructor(
+    public http: HttpClient,
+    public publicService: PublicService) 
+    {
+      this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
     }
 
   getTransferRates(): any {
@@ -28,9 +29,19 @@ export class FlightApiService {
     return this.http.get<Result<SetTransferPageDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  storeDataCreate(req: flightStoreDTO): any {
+  getFlightEditPage(flight_id: number): any {
+    const strUrl = this.serverControllerName + `flights/${flight_id}/edit`;
+    return this.http.get<Result<SetTransferPageDTO>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
+  storeDataFlight(req: flightStoreDTO): any {
     const strUrl = this.serverControllerName + 'flights';
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  }
+
+  UpdateDataFlight(req: flightStoreDTO, flight_id: number): any {
+    const strUrl = this.serverControllerName + `flights/${flight_id}`;
+    return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
 }
