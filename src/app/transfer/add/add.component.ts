@@ -6,6 +6,8 @@ import {TransferSetRequestDTO} from "../../Core/Models/transferDTO";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
+import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
+import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 
 @Component({
   selector: 'prs-add',
@@ -14,8 +16,13 @@ import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 })
 export class AddComponent implements OnInit {
   nameFC = new FormControl();
+  codeFC = new FormControl();
   statusFC = new FormControl();
-  req!: TransferSetRequestDTO
+  req: AirlineReqDTO = {
+    name: '',
+    code: '',
+    files: [],
+  }
   logo: UploadResDTO = {
     path: '',
     url: ''
@@ -24,7 +31,7 @@ export class AddComponent implements OnInit {
   constructor(public message: MessageService,
               public router: Router,
               public dialog: MatDialog,
-              public api: TransferAPIService) {}
+              public api: CategoryApiService) {}
 
   ngOnInit(): void {}
 
@@ -38,7 +45,7 @@ export class AddComponent implements OnInit {
 
   submit(): void {
     this.setReq()
-    this.api.add(this.req).subscribe((res: any) => {
+    this.api.storeCategory('airline', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.router.navigateByUrl('/panel/transfer');
       }else {
@@ -54,9 +61,9 @@ export class AddComponent implements OnInit {
 
   setReq(): void {
     this.req = {
-      logo: this.logo.path,
+      code: this.codeFC.value,
       name: this.nameFC.value,
-      type: 1
+      files: []
     }
   }
 
