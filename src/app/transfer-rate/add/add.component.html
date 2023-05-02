@@ -13,9 +13,23 @@
           <div class="item-info-2">
             <div class="select-info">
 
-              <label for="">شهر </label>
+              <label for="">شهر مبدا</label>
+3
+              <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
+                (citySelected)="getStCity($event)"></prs-select-city>
+              <div *ngIf="errorService.hasError('origin_id')">
+                <span class="text-danger">{{errorService.getError('origin_id')}}</span>
+              </div>
+            </div>
 
-              <prs-select-city [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
+          </div>
+
+          <div class="item-info-2">
+            <div class="select-info">
+
+              <label for="">شهر مقصد</label>
+3
+              <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
                 (citySelected)="getStCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">
                 <span class="text-danger">{{errorService.getError('origin_id')}}</span>
@@ -31,7 +45,7 @@
           <div class="item-info">
             <label for="">تاریخ پرواز </label>
             <mat-form-field class="example-full-width" appearance="fill">
-              <input matInput [matDatepicker]="picker4" formControlName="departure_date" [min]="minDate"
+              <input matInput [matDatepicker]="picker4" formControlName="date" [min]="minDate"
                 (click)="picker4.open()">
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
@@ -42,7 +56,6 @@
           </div>
           <div class="item-info-timer">
             <label for="">ساعت پرواز </label>
-            <!--              <ngb-timepicker  formControlName="originTimeFC" [meridian]="false"></ngb-timepicker>-->
             <prs-time-picker (result)="getOriginTime($event)"></prs-time-picker>
           </div>
           <div class="item-info-2">

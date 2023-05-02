@@ -13,7 +13,6 @@ export class EditComponent extends AddComponent implements OnInit {
 
   id = '';
   cityID = 0;
-  show = false;
 
   info: TransferRateDTO = {
     id: 0,

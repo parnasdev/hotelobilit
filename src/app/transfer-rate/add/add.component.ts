@@ -64,6 +64,8 @@ export class AddComponent implements OnInit {
     description : '',
   }
 
+  show = false;
+
   constructor(public message: MessageService,
               public fb: FormBuilder,
               public router: Router,
@@ -106,10 +108,12 @@ export class AddComponent implements OnInit {
   }
 
   getEndCity(cityItemSelected: any): void {
+    debugger
     this.form.controls.destination_id.setValue(cityItemSelected.id);
   }
 
   getStCity(cityItemSelected: any): void {
+    debugger
     this.form.controls.origin_id.setValue(cityItemSelected.id);
   }
 
@@ -117,6 +121,7 @@ export class AddComponent implements OnInit {
     this.flightApi.getFlightRatesSet().subscribe((res: any) => {
       if (res.isDone) {
         this.pageData = res.data
+        this.show = true;
       }
     }, (error: any) => {
       this.message.error()
