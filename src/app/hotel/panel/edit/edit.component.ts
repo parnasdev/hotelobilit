@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { hotelInfoDTO } from "../../../Core/Models/hotelDTO";
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
-
 
 @Component({
   selector: 'prs-edit',
@@ -43,9 +41,11 @@ export class EditComponent extends AddComponent implements OnInit {
     city_id: 0,
 
   };
+
   public override show = true;
   showServices = false;
-  convertedImages: UploadResDTO[] = [];
+  hotelImages: UploadResDTO[] = [];
+  removedImages: number[] = [];
 
   override ngOnInit(): void {
     this.errorService.clear();
@@ -54,8 +54,32 @@ export class EditComponent extends AddComponent implements OnInit {
     this.getInfo();
   }
 
+  setEditReq(): void {
+    this.req = {
+      title: this.hotelForm.controls.title.value,
+      titleEn: this.hotelForm.controls.titleEn.value,
+      address: this.hotelForm.controls.address.value,
+      stars: this.currentStar,
+      slug: this.hotelForm.controls.slug.value,
+      status_id: 1,
+      description: this.hotelForm.controls.description.value,
+      body: '',
+      categories: [],
+      comment: 0,
+      del_files: this.removedImages,
+      files: this.hotelImages,
+      options: [],
+      pin: 0,
+      use_api: 0,
+      city_id: this.hotelForm.controls.city_id.value,
+      // @ts-ignore
+      rooms: this.selectedRooms
+    }
+  }
+
+
   edit(): void {
-    this.setReq()
+    this.setEditReq()
     this.hotelApi.updatePosts('hotel', this.req, this.hotelId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
@@ -65,7 +89,9 @@ export class EditComponent extends AddComponent implements OnInit {
       }
     }, (error: any) => {
       if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
+        this.errorService.recordError(error.error.errors);
+        this.errors = Object.values(error.error.errors)
+
         this.markFormGroupTouched(this.hotelForm);
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
@@ -106,27 +132,33 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
     this.currentStar = this.hotelInfo.post.options.stars
-    this.convertImagesToListObjects()
+    this.getImagesFromData();
     this.convertRoomsToListObjects()
     // this.lat = this.hotelInfo.coordinate.lat
     // this.lng = this.hotelInfo.coordinate.lng
     this.reload()
   }
 
-  convertImagesToListObjects() {
-    this.convertedImages = [];
-    this.hotelInfo.files.forEach((x: any) => {
-      let item: UploadResDTO = {
-        path: '',
-        url: x
+
+
+  getEditImages(result: UploadResDTO[]): void {
+    this.hotelImages = [];
+    result.forEach(x => {
+      let obj: UploadResDTO = {
+        path: x.path,
+        url: x.url,
+        id: x.id ?? 0,
+        type :x.type
       }
-      this.convertedImages.push(item)
+      this.hotelImages.push(obj)
     })
   }
 
-  getThumbnailHotel(): string {
-    return ''
+  getRemovedImages(event: any) {
+    this.removedImages = event;
   }
+
+
 
   convertRoomsToListObjects() {
     let list: any[] = [];
@@ -138,6 +170,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.selectedRoomsFC.setValue(list)
     this.setRoomCoeffision()
   }
+
 
   getThumbnailFromData() {
     let obj: UploadResDTO = {
@@ -155,17 +188,19 @@ export class EditComponent extends AddComponent implements OnInit {
     return obj;
   }
   getImagesFromData() {
-let result: UploadResDTO[] = []
+    this.hotelImages = []
     this.hotelInfo.files.forEach(item => {
-      if (item.type === 2) {
-       let obj = {
-          path: item.path,
-          url: item.url
-        }
-        result.push(obj);
+      let obj = {
+        path: item.path,
+        url: item.url,
+        id: item.id ?? null,
+        alt: item.alt ?? '',
+        type: item.type
       }
+      this.hotelImages.push(obj);
+
     })
-    return result;
+
   }
 
 

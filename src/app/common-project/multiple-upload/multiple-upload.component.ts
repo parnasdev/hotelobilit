@@ -22,9 +22,11 @@ export class MultipleUploadComponent implements OnInit {
   @Input() incommingFiles: UploadResDTO[] = []
   selectedFiles: UploadResDTO[] = []
   @Output() result = new EventEmitter();
+  @Output() deletedImages = new EventEmitter();
 
-public show = true;
 
+  public show = true;
+  removedImages: number[] = [];
   isLoading = false;
   fileProgress = 0;
   isUpload = false
@@ -41,22 +43,51 @@ public show = true;
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['incommingFiles']) {
-      console.log(changes['incommingFiles']);
-    
+
       this.selectedFiles = [];
+      debugger
       this.incommingFiles.forEach(item => {
         this.selectedFiles.push(item)
       })
-
+      if (!this.checkExistsThumbnail()) {
+        this.selectedFiles[0].type = 1;
+      }
       // this.reload()
-      
+
 
     }
+  }
+
+
+  setThumbnail(index: number) {
+    this.selectedFiles.forEach(x => x.type = 2)
+    this.selectedFiles[index].type = 1
+    this.result.emit(this.selectedFiles)
+    this.reload()
   }
 
   reload() {
     this.show = false;
     setTimeout(() => this.show = true);
+  }
+
+
+  remove(index: number) {
+    let imageID: number = (this.selectedFiles[index].id ?? 0)
+    if (imageID > 0) {
+      this.removedImages.push(imageID)
+
+    }
+
+    this.selectedFiles.splice(index, 1)
+    this.deletedImages.emit(this.removedImages)
+    this.result.emit(this.selectedFiles)
+  }
+
+
+  checkExistsThumbnail(): boolean {
+    let result: UploadResDTO[] = this.selectedFiles.filter(x => x.type === 1)
+    return result.length > 0
   }
 
 
@@ -86,7 +117,18 @@ public show = true;
 
             if (event === undefined) {
             } else {
-              this.selectedFiles.push(event.body.data);
+              let obj: UploadResDTO = {
+                path: event.body.data.path ?? '',
+                url: event.body.data.url ?? '',
+                alt: event.body.data.alt ?? '',
+                id: event.body.data.id ?? null,
+                type: event.body.data.type ?? 2
+              }
+              this.selectedFiles.push(obj);
+
+              if (!this.checkExistsThumbnail()) {
+                this.selectedFiles[0].type = 1;
+              }
               if (this.myInputVariable) {
                 this.myInputVariable.nativeElement.value = '';
               }
@@ -104,6 +146,6 @@ public show = true;
 
       }
     }
-    
+
   }
 }

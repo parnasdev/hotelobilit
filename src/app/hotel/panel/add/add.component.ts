@@ -13,7 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ErrorsService } from "../../../Core/Services/errors.service";
 import { CheckErrorService } from "../../../Core/Services/check-error.service";
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
-import { FileDTO, citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,8 +35,8 @@ export class AddComponent implements OnInit {
   citiesResponse: citiesDTO[] = []
   cityTypeFC = new FormControl(true)
   public show = true;
-
-  files: FileDTO[] = [];
+  images: UploadResDTO[] = [];
+  errors: any
 
   req: storeHotelSetReqDTO = {
     title: '',
@@ -57,7 +57,7 @@ export class AddComponent implements OnInit {
     options: [],
     pin: 0
   }
-  images: any[] = [];
+  images1: any[] = [];
   thumbnail = ''
   data: hotelPageDTO = {
     cities: [],
@@ -172,7 +172,7 @@ export class AddComponent implements OnInit {
       categories: [],
       comment: 0,
       del_files: [],
-      files: this.files,
+      files: this.images,
       options: [],
       pin: 0,
       use_api: 0,
@@ -182,27 +182,6 @@ export class AddComponent implements OnInit {
     }
   }
 
-
-  generateFilesForReq(filePaths: string[], type: number) {
-    this.files.forEach((item, index) => {
-      if (type === 2) {
-        if (item.type === 2) {
-          this.files.splice(index, 1);
-        }
-      }
-    })
-
-    filePaths.forEach(item => {
-      let obj: FileDTO = {
-        path: item,
-        id: null,
-        alt: "test",
-        type: type,
-        url: ''
-      }
-      this.files.push(obj);
-    })
-  }
 
   cityTypeChange(): void {
     this.lat = 0;
@@ -216,18 +195,30 @@ export class AddComponent implements OnInit {
   }
 
   getFiles(result: UploadResDTO[]): void {
+    // this.images = [];
+    // result.forEach(file => {
+    //   this.images.push(file.path)
+    // });
+    // this.generateFilesForReq(this.images, 2);
+  }
+
+
+
+
+  getImages(result: UploadResDTO[]): void {
     this.images = [];
-    result.forEach(file => {
-      this.images.push(file.path)
-    });
-    this.generateFilesForReq(this.images, 2);
+    result.forEach(x => {
+      let obj: UploadResDTO = {
+        path: x.path,
+        url: x.url,
+        id: x.id ?? null,
+        type :x.type
+      }
+      this.images.push(obj)
+    })
   }
 
-  getThumbnail(image: UploadResDTO): void {
-    this.thumbnail = image.path;
-    this.generateFilesForReq([this.thumbnail], 1)
 
-  }
 
   getDescriptionFromEditor(body: any): void {
     this.hotelForm.controls['body'].setValue(body);
@@ -236,7 +227,6 @@ export class AddComponent implements OnInit {
   markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach((control: any) => {
       control.markAsTouched();
-
       if (control.controls) {
         this.markFormGroupTouched(control);
       }
@@ -244,8 +234,6 @@ export class AddComponent implements OnInit {
   }
 
   add(): void {
-    console.log(this.selectedRooms);
-
     this.setReq()
     this.hotelApi.storePosts('hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -256,7 +244,9 @@ export class AddComponent implements OnInit {
       }
     }, (error: any) => {
       if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
+        this.errorService.recordError(error.error.errors);
+        this.errors = Object.values(error.error.errors)
+
         this.markFormGroupTouched(this.hotelForm);
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
@@ -276,6 +266,4 @@ export class AddComponent implements OnInit {
   generateSlug(): void {
     this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
   }
-
-
 }
