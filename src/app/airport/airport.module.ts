@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {TransferRoutingModule} from './transfer-routing.module';
+import { AirportRoutingModule } from './airport-routing.module';
 import {CommonProjectModule} from "../common-project/common-project.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -19,7 +19,7 @@ import { ListComponent } from './list/list.component';
   ],
   imports: [
     CommonModule,
-    TransferRoutingModule,
+    AirportRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
@@ -27,5 +27,4 @@ import { ListComponent } from './list/list.component';
     NgxPaginationModule,
   ]
 })
-export class TransferModule {
-}
+export class AirportModule { }

@@ -36,6 +36,12 @@ const routes: Routes = [
         // data: {permitions: ['Transfer']},
         loadChildren: () => import('../transfer-rate/transfer-rate.module').then(m => m.TransferRateModule)
       },
+      {
+        path: 'airport',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../airport/airport.module').then(m => m.AirportModule)
+      },
       // {
       //   path: 'financial',
       //   loadChildren: () => import('../financial/financial.module').then(m => m.FinancialModule)
