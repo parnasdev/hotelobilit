@@ -11,9 +11,9 @@ import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   req!: TransferListRequestDTO;
-  airlines: AirlineListDTO[] = [];
+  airports: AirlineListDTO[] = [];
   p = 1
   paginate: any;
   paginateConfig: any;
@@ -29,9 +29,9 @@ export class ListComponent implements OnInit {
 
   getTransfers(): void {
     this.setRea();
-    this.api.getCategoryList('airline', 'hotel', this.p).subscribe((res: any) => {
+    this.api.getCategoryList('airport', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
-        this.airlines = res.data;
+        this.airports = res.data;
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
@@ -55,8 +55,8 @@ export class ListComponent implements OnInit {
     }
   }
 
-  deleteTransfer(id: number) {
-    this.api.deleteCategory(id, 'airline', 'hotel').subscribe((res: any) => {
+  deleteAirport(id: number) {
+    this.api.deleteCategory(id, 'airport', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
         this.getTransfers()

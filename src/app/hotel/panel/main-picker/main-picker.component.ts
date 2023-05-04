@@ -20,6 +20,10 @@ import { RateDTO, RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newP
 export class MainPickerComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() roomID = 0;
+  @Input() pricingType = '0';
+
+  standardTwinId = 148;
+  standardTwinCoefficient = 0
   isLoading = false;
   moment: any = moment;
   month = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
@@ -29,7 +33,7 @@ export class MainPickerComponent implements OnInit {
   stDate: any = null;
   enDate: any = null;
   req!: ratigListReqDTO;
-  pricesData: RateDTO[] = [];
+  pricesData!: RatingResDTO
   selectedDates: any[] = [];
   constructor(public service: CalenderServices,
     public dialog: MatDialog,
@@ -89,6 +93,45 @@ export class MainPickerComponent implements OnInit {
     this.getHotelRates()
   }
 
+  getHotelRates() {
+    this.isLoading = true;
+    this.req = {
+      fromDate: moment(this.getFirstAndLastDates()[0]).format('YYYY-MM-DD'),
+      toDate: moment(this.getFirstAndLastDates()[1]).format('YYYY-MM-DD'),
+      hotelId: +this.hotelID,
+      roomId: +this.roomID,
+    }
+    this.api.ratingList(this.req).subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+        this.pricesData = res.data;
+        this.standardTwinCoefficient = this.getTwinCoefficient();
+
+        this.daysOfMonth.forEach(item => {
+          item.data = this.isExistOnPriceList(item.dateEn)
+        });
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.isLoading = false
+      this.message.error()
+    })
+  }
+
+
+  getTwinCoefficient() {
+    let result = 0
+    this.pricesData.hotel.rooms?.forEach(item => {
+      if (item.room_type_id === this.standardTwinId) {
+        result = item.coefficient
+      }
+    })
+    return result
+  }
+
+
+
 
   fillObject(dates: any = []) {
     let result: any[] = [];
@@ -117,6 +160,17 @@ export class MainPickerComponent implements OnInit {
 
 
   onDateClicked(item: any) {
+    if (this.pricingType === '0') {
+      this.normalClickType(item)
+    } else {
+      this.coefficientClickType(item)
+    }
+  }
+
+  coefficientClickType(item: any) {
+
+  }
+  normalClickType(item: any) {
     if (!this.stDate && !this.enDate) {
       this.stDate = item
     } else if (this.stDate && !this.enDate) {
@@ -140,6 +194,7 @@ export class MainPickerComponent implements OnInit {
       this.enDate = null
     }
   }
+
 
   getSelectedDates() {
     this.selectedDates = this.enumerateDaysBetweenDates(this.stDate?.dateEn, this.enDate?.dateEn)
@@ -226,36 +281,12 @@ export class MainPickerComponent implements OnInit {
   }
 
 
-  getHotelRates() {
-    this.isLoading = true;
-    this.req = {
-      fromDate: moment(this.getFirstAndLastDates()[0]).format('YYYY-MM-DD'),
-      toDate: moment(this.getFirstAndLastDates()[1]).format('YYYY-MM-DD'),
-      hotelId: +this.hotelID,
-      roomId: +this.roomID,
-    }
-    this.api.ratingList(this.req).subscribe((res: any) => {
-      this.isLoading = false;
-      if (res.isDone) {
-        this.pricesData = res.data.rates;
-        this.daysOfMonth.forEach(item => {
-          item.data = this.isExistOnPriceList(item.dateEn)
-        });
-      } else {
-        this.message.custom(res.message)
-      }
-    }, (error: any) => {
-      this.isLoading = false
-      this.message.error()
-    })
-  }
-
 
   isExistOnPriceList(item: any): any {
     if (item && item !== '') {
       const y: any = moment(item).format('YYYY/MM/DD')
       if (this.daysOfMonth.length > 0) {
-        let result = this.pricesData.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
+        let result = this.pricesData.rates.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
         return result.length > 0 ? {
           available_room_count: result[0].available_room_count,
           created_at: result[0].created_at,

@@ -1,3 +1,4 @@
+import { UploadResDTO } from "./commonDTO";
 
 export interface hotelDTO {
     id: number;
@@ -14,7 +15,7 @@ export interface hotelDTO {
     deleted_at: string;
     created_at: string;
     updated_at: string;
-    files: []
+    files: any
 }
 export interface storeHotelReqDTO {
     id: number
@@ -31,6 +32,7 @@ export interface RoomDTO {
     Adl_capacity: number
     age_child: number
     chd_capacity: number;
+    room_type_id: number;
     coefficient: number;
     id: number
     online_reservation: number
@@ -43,7 +45,7 @@ export interface InfoHotelDTO {
     roomTypes: roomDTO[]
     post: hotelDTO;
     rooms: any[];
-    files: string[],
+    files: UploadResDTO[],
     service_ids: number[],
     city_id: number;
 }
@@ -53,12 +55,22 @@ export interface storeHotelSetReqDTO {
     titleEn: string | null;
     slug: string | null;
     status_id: number | null;
+    address: string | null;
+    stars: number
     description: string | null;
     body: string | null;
     use_api: number | null;
     city_id: number | null;
     rooms: roomObjDTO[]
+    options: any;
+    pin: number;
+    comment: number;
+    files: UploadResDTO[];
+    del_files: number[];
+    categories: number[]
 }
+
+
 
 export interface roomObjDTO {
     room_type_id: number;

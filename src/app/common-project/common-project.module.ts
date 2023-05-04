@@ -9,7 +9,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UploadSingleComponent} from './upload-single/upload-single.component';
 import {MultipleUploadComponent} from './multiple-upload/multiple-upload.component';
 import {EditorComponent} from './editor/editor.component';
-import {ToolsModule} from "../tools/tools/tools.module";
 import {SelectCityComponent} from './select-city/select-city.component';
 import {SelectHotelComponent} from './select-hotel/select-hotel.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -80,7 +79,6 @@ import { SelectCityLimitedComponent } from './select-city-limited/select-city-li
     MatInputModule,
     MatDialogModule,
     EditorModule,
-    ToolsModule,
     PipesModule,
     MatSelectModule,
   ], entryComponents: [UploadSingleComponent, AlertDialogComponent]

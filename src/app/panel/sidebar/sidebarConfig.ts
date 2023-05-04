@@ -27,6 +27,8 @@ export const Sidebar: SidebarDTO[] = [
             { name: 'افزودن مسیر پرواز',permition:'Transfer.create', link: '/panel/transferRate/add', show: true },
             { name: 'لیست ایرلاین ها',permition:'Transfer.read', link: '/panel/transfer', show: true },
             { name: 'افزودن ایرلاین',permition:'Transfer.create', link: '/panel/transfer/add', show: true },
+            { name: 'لیست فرودگاه ها',permition:'Transfer.read', link: '/panel/airport', show: true },
+            { name: 'افزودن فرودگاه',permition:'Transfer.create', link: '/panel/airport/add', show: true },
         ]
     },
 ]

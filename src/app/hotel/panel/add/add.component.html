@@ -7,14 +7,7 @@
           <label for="">اضافه کردن هتل</label>
           <h2 class="text-dark">اطلاعات هتل</h2>
         </div>
-        <div class="left" *ngIf="data.cities.length>0">
-          <div class="selectdiv">
-            <select formControlName="city_id" name="" id="">
-              <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
-              <option *ngFor="let city of data.cities[0].categories" [value]="city.id">{{city.name}}</option>
-            </select>
-          </div>
-        </div>
+
         <div class="left">
           <div class="selectdiv">
             <label>
@@ -48,6 +41,7 @@
               <span class="text-danger">{{errorService.getError('slug')}}</span>
             </div>
           </div>
+      
           <div class="item-info">
             <label for="">ستاره</label>
             <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
@@ -58,7 +52,17 @@
             <label for="">موقعیت هتل</label>
             <input type="text" formControlName="location">
           </div> -->
-
+          <div class="item-info" *ngIf="data.cities.length>0">
+            <div class="selectdiv">
+              <select formControlName="city_id" name="" id="">
+                <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
+                <option *ngFor="let city of data.cities[0].categories" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+            <div *ngIf="errorService.hasError('city_id')">
+              <span class="text-danger">{{errorService.getError('city_id')}}</span>
+            </div>
+          </div>
           <div class="info-tour-body">
             <div class="top">
               <div class="item-info-second w-100">
@@ -68,6 +72,8 @@
               </div>
             </div>
           </div>
+
+
 
           <div class="info-tour-body">
             <div class="top">
@@ -90,11 +96,9 @@
         </div>
       </div>
       <div class="info-tour-body-upload">
-        <div class="top-one">
-          <prs-upload-single (result)="getThumbnail($event)"></prs-upload-single>
-        </div>
+   
         <div class="bottom-one">
-          <prs-multiple-upload (result)="getFiles($event)"></prs-multiple-upload>
+          <prs-multiple-upload (result)="getImages($event)"></prs-multiple-upload>
         </div>
       </div>
     </div>
@@ -138,6 +142,10 @@
       </div>
 
     </div>
+  </div>
+
+  <div class="p-error">
+    <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
   </div>
   <div class="btn-parent-submit">
     <button class="submit-tour" (click)="add()">ثبت هتل</button>

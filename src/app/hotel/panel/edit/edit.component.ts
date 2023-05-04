@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { hotelInfoDTO } from "../../../Core/Models/hotelDTO";
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
-import { InfoHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-edit',
@@ -10,9 +9,11 @@ import { InfoHotelDTO } from 'src/app/Core/Models/newPostDTO';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent extends AddComponent implements OnInit {
-
+  showData = false
   hotelName = '';
   hotelId = 1;
+  roomTypes: roomDTO[] = []
+
   hotelInfo: InfoHotelDTO = {
     statuses: [],
     cities: [],
@@ -38,21 +39,47 @@ export class EditComponent extends AddComponent implements OnInit {
     files: [],
     service_ids: [],
     city_id: 0,
-    
+
   };
+
   public override show = true;
   showServices = false;
-  convertedImages:UploadResDTO[] = [];
+  hotelImages: UploadResDTO[] = [];
+  removedImages: number[] = [];
 
-  override ngOnInit(): void { 
+  override ngOnInit(): void {
     this.errorService.clear();
     // @ts-ignore
     this.hotelId = this.route.snapshot.paramMap.get('id');
     this.getInfo();
   }
 
+  setEditReq(): void {
+    this.req = {
+      title: this.hotelForm.controls.title.value,
+      titleEn: this.hotelForm.controls.titleEn.value,
+      address: this.hotelForm.controls.address.value,
+      stars: this.currentStar,
+      slug: this.hotelForm.controls.slug.value,
+      status_id: 1,
+      description: this.hotelForm.controls.description.value,
+      body: '',
+      categories: [],
+      comment: 0,
+      del_files: this.removedImages,
+      files: this.hotelImages,
+      options: [],
+      pin: 0,
+      use_api: 0,
+      city_id: this.hotelForm.controls.city_id.value,
+      // @ts-ignore
+      rooms: this.selectedRooms
+    }
+  }
+
+
   edit(): void {
-    this.setReq()
+    this.setEditReq()
     this.hotelApi.updatePosts('hotel', this.req, this.hotelId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
@@ -62,7 +89,9 @@ export class EditComponent extends AddComponent implements OnInit {
       }
     }, (error: any) => {
       if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
+        this.errorService.recordError(error.error.errors);
+        this.errors = Object.values(error.error.errors)
+
         this.markFormGroupTouched(this.hotelForm);
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
@@ -78,7 +107,9 @@ export class EditComponent extends AddComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelInfo = res.data;
+        this.roomTypes = this.hotelInfo.roomTypes;
         this.setData()
+        this.showData = true
       } else {
         this.message.custom(res.message)
       }
@@ -87,7 +118,7 @@ export class EditComponent extends AddComponent implements OnInit {
       this.message.error()
     })
   }
-  compare(c1: {name: string}, c2: {name: string}) {
+  compare(c1: { name: string }, c2: { name: string }) {
     return c1 && c2 && c1.name === c2.name;
   }
 
@@ -101,38 +132,110 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
     this.currentStar = this.hotelInfo.post.options.stars
-    this.convertImagesToListObjects()
+    this.getImagesFromData();
     this.convertRoomsToListObjects()
-    this.images = this.hotelInfo.files ?? []
-    this.thumbnail = this.hotelInfo.files[0] ?? '';
     // this.lat = this.hotelInfo.coordinate.lat
     // this.lng = this.hotelInfo.coordinate.lng
     this.reload()
   }
 
-  convertImagesToListObjects() {
-    this.convertedImages = [];
-    this.hotelInfo.files.forEach((x: any) => {
-      let item: UploadResDTO = {
-        path: '',
-        url: x
+
+
+  getEditImages(result: UploadResDTO[]): void {
+    this.hotelImages = [];
+    result.forEach(x => {
+      let obj: UploadResDTO = {
+        path: x.path,
+        url: x.url,
+        id: x.id ?? 0,
+        type :x.type
       }
-      this.convertedImages.push(item)
+      this.hotelImages.push(obj)
     })
   }
 
-  getThumbnailHotel(): string{
-    return ''
+  getRemovedImages(event: any) {
+    this.removedImages = event;
   }
 
-  convertRoomsToListObjects(){
+
+
+  convertRoomsToListObjects() {
     let list: any[] = [];
     this.hotelInfo.rooms.forEach(item => {
-    let data = this.hotelInfo.roomTypes.find(x => x.id === item.room_type_id)?.name
+      let data = this.hotelInfo.roomTypes.find(x => x.id === item.room_type_id)?.name
       list.push(data)
     })
     // @ts-ignore
     this.selectedRoomsFC.setValue(list)
-    this.roomChanged()
+    this.setRoomCoeffision()
+  }
+
+
+  getThumbnailFromData() {
+    let obj: UploadResDTO = {
+      path: '',
+      url: ''
+    }
+    this.hotelInfo.files.forEach(item => {
+      if (item.type === 1) {
+        obj = {
+          path: item.path,
+          url: item.url
+        }
+      }
+    })
+    return obj;
+  }
+  getImagesFromData() {
+    this.hotelImages = []
+    this.hotelInfo.files.forEach(item => {
+      let obj = {
+        path: item.path,
+        url: item.url,
+        id: item.id ?? null,
+        alt: item.alt ?? '',
+        type: item.type
+      }
+      this.hotelImages.push(obj);
+
+    })
+
+  }
+
+
+  setRoomCoeffision() {
+    this.selectedRooms = [];
+    this.hotelInfo.rooms.forEach(item => {
+      let obj = {
+        id: item.id,
+        name: item.name,
+        room_type_id: item.room_type_id,
+        coefficient: item.coefficient,
+        Adl_capacity: item.Adl_capacity,
+        chd_capacity: item.chd_capacity,
+        age_child: item.age_child,
+      }
+      this.selectedRooms.push(obj);
+    })
+  }
+
+  roomsUpdated() {
+    this.selectedRooms = [];
+    (this.selectedRoomsFC.value ?? []).forEach(item => {
+      let result = this.hotelInfo.roomTypes.filter(x => x.name === item)
+      if (result.length > 0) {
+        let obj = {
+          id: 0,
+          name: result[0].name,
+          room_type_id: result[0].id,
+          coefficient: 0,
+          Adl_capacity: result[0].Adl_capacity,
+          chd_capacity: result[0].chd_capacity,
+          age_child: result[0].age_child,
+        }
+        this.selectedRooms.push(obj);
+      }
+    })
   }
 }

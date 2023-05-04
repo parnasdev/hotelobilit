@@ -15,7 +15,7 @@ import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
   transfer_id = 0
   nameFC = new FormControl();
   codeFC = new FormControl();
@@ -56,10 +56,10 @@ export class EditComponent implements OnInit {
 
   submit(): void {
     this.setReq()
-    this.api.updateCategory(this.transfer_id, 'airline', 'hotel', this.req).subscribe((res: any) => {
+    this.api.updateCategory(this.transfer_id, 'airport', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)
-        this.router.navigateByUrl('/panel/transfer');
+        this.router.navigateByUrl('/panel/airport');
       } else {
         this.message.custom(res.message);
       }
@@ -69,7 +69,7 @@ export class EditComponent implements OnInit {
   }
 
   getInfo(): void {
-    this.api.editCategoryPage(this.transfer_id, 'airline', 'hotel').subscribe((res: any) => {
+    this.api.editCategoryPage(this.transfer_id, 'airport', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
         this.setValue()
@@ -108,5 +108,4 @@ export class EditComponent implements OnInit {
     //   code: this.codeFC.value,
     // }
   }
-
 }

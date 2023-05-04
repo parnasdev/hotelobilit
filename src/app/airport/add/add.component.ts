@@ -14,7 +14,7 @@ import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddComponent {
   nameFC = new FormControl();
   codeFC = new FormControl();
   statusFC = new FormControl();
@@ -66,5 +66,4 @@ export class AddComponent implements OnInit {
       files: []
     }
   }
-
 }

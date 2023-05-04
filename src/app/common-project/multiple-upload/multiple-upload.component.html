@@ -8,8 +8,20 @@
       <label for="gallery">گالری:</label>
       <input class="file-input-upload" #inputFile type="file" id="file" placeholder="فایل خود را انتخاب کنید"
         (change)="getFile($event)">
-      <div id="drop" style="margin-top: 1rem;"  class="dropzone" *ngIf="show">
-        <img class="w-25" *ngFor="let file of selectedFiles" [src]="file.url" alt="">
+      <div id="drop" style="margin-top: 1rem;"  class="p-list dropzone" *ngIf="show">
+
+
+
+        <div class="w-100" *ngFor="let file of selectedFiles;let i = index" >
+          
+          <div class="p-image" >
+            <button (click)="remove(i)" class="delete">حذف</button>
+            <span *ngIf="file.type === 1">عکس شاخص</span>
+            <img [src]="file.url" (click)="setThumbnail(i)" alt="">
+          </div>
+
+        </div>
+
       </div>
     </div>
 

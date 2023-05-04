@@ -35,6 +35,8 @@ export class AddComponent implements OnInit {
   citiesResponse: citiesDTO[] = []
   cityTypeFC = new FormControl(true)
   public show = true;
+  images: UploadResDTO[] = [];
+  errors: any
 
   req: storeHotelSetReqDTO = {
     title: '',
@@ -43,21 +45,29 @@ export class AddComponent implements OnInit {
     status_id: 1,
     description: '',
     body: '',
+    address: '',
+    stars: 0,
+    comment: 0,
     use_api: 0,
     city_id: 0,
-    rooms: []
+    rooms: [],
+    categories: [],
+    del_files: [],
+    files: [],
+    options: [],
+    pin: 0
   }
-  images: any[] = [];
+  images1: any[] = [];
   thumbnail = ''
   data: hotelPageDTO = {
-    cities: [], 
+    cities: [],
     statuses: [],
     roomTypes: []
   }
   serviceIDs: string[] = [];
   isLoading = false;
 
-selectedRooms: roomDTO[] = [];
+  selectedRooms: roomDTO[] = [];
 
   constructor(
     public router: Router,
@@ -120,10 +130,9 @@ selectedRooms: roomDTO[] = [];
 
   roomChanged() {
     this.selectedRooms = [];
-    (this.selectedRoomsFC.value??[]).forEach(item => {
-      
-      let result =this.data.roomTypes.filter(x => x.name ===  item)
-      if(result.length > 0) {
+    (this.selectedRoomsFC.value ?? []).forEach(item => {
+      let result = this.data.roomTypes.filter(x => x.name === item)
+      if (result.length > 0) {
         let obj = {
           id: 0,
           name: result[0].name,
@@ -149,21 +158,30 @@ selectedRooms: roomDTO[] = [];
       this.message.error()
     })
   }
-  
+
   setReq(): void {
     this.req = {
       title: this.hotelForm.controls.title.value,
       titleEn: this.hotelForm.controls.titleEn.value,
+      address: this.hotelForm.controls.address.value,
+      stars:  this.currentStar,
       slug: this.hotelForm.controls.slug.value,
       status_id: 1,
       description: this.hotelForm.controls.description.value,
       body: '',
+      categories: [],
+      comment: 0,
+      del_files: [],
+      files: this.images,
+      options: [],
+      pin: 0,
       use_api: 0,
       city_id: this.hotelForm.controls.city_id.value,
       // @ts-ignore
       rooms: this.selectedRooms
     }
   }
+
 
   cityTypeChange(): void {
     this.lat = 0;
@@ -177,19 +195,30 @@ selectedRooms: roomDTO[] = [];
   }
 
   getFiles(result: UploadResDTO[]): void {
+    // this.images = [];
+    // result.forEach(file => {
+    //   this.images.push(file.path)
+    // });
+    // this.generateFilesForReq(this.images, 2);
+  }
+
+
+
+
+  getImages(result: UploadResDTO[]): void {
     this.images = [];
-    result.forEach(file => {
-      this.getImage(file.path);
-    });
+    result.forEach(x => {
+      let obj: UploadResDTO = {
+        path: x.path,
+        url: x.url,
+        id: x.id ?? null,
+        type :x.type
+      }
+      this.images.push(obj)
+    })
   }
 
-  getImage(imageStr: string): void {
-    this.images.push(imageStr)
-  }
 
-  getThumbnail(image: UploadResDTO): void {
-    this.thumbnail = image.url;
-  }
 
   getDescriptionFromEditor(body: any): void {
     this.hotelForm.controls['body'].setValue(body);
@@ -198,7 +227,6 @@ selectedRooms: roomDTO[] = [];
   markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach((control: any) => {
       control.markAsTouched();
-
       if (control.controls) {
         this.markFormGroupTouched(control);
       }
@@ -206,8 +234,6 @@ selectedRooms: roomDTO[] = [];
   }
 
   add(): void {
-    console.log(this.selectedRooms);
-    
     this.setReq()
     this.hotelApi.storePosts('hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -218,7 +244,9 @@ selectedRooms: roomDTO[] = [];
       }
     }, (error: any) => {
       if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
+        this.errorService.recordError(error.error.errors);
+        this.errors = Object.values(error.error.errors)
+
         this.markFormGroupTouched(this.hotelForm);
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
@@ -236,8 +264,6 @@ selectedRooms: roomDTO[] = [];
   }
 
   generateSlug(): void {
-      this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
+    this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
   }
-
-
 }

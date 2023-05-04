@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, RoomDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -15,6 +15,8 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class PricingComponent implements OnInit {
   isLoading = false;
+  standardTwinId = 148;
+  standardTwinCoefficient = 0
   showCalendar = true;
   slug = '';
   id = ''
@@ -22,6 +24,7 @@ export class PricingComponent implements OnInit {
   req!: ratigListReqDTO;
   activedRoom = 0;
   ratingData!: RatingResDTO;
+  rooms: RoomDTO[] = [];
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
@@ -34,7 +37,6 @@ export class PricingComponent implements OnInit {
     this.slug = this.route.snapshot.paramMap.get('slug');
     // @ts-ignore
     this.id = this.route.snapshot.paramMap.get('id');
-
     this.getInfo()
   }
 
@@ -50,9 +52,11 @@ export class PricingComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.ratingData = res.data;
-        if ((this.ratingData.hotel.rooms ?? []).length > 0) {
-          this.activedRoom = (this.ratingData.hotel.rooms ?? [])[0].id;
-          this.reload()
+        this.rooms = this.ratingData.hotel.rooms ?? [];
+        
+        if (this.rooms.length > 0) {
+          this.activedRoom = this.rooms[0].id;
+          this.reload();
         }
       } else {
         this.message.custom(res.message)
@@ -62,6 +66,17 @@ export class PricingComponent implements OnInit {
       this.message.error()
     })
   }
+
+  getTwinCoefficient() {
+    let result = 0
+    this.ratingData.hotel.rooms?.forEach(item => {
+      if (item.room_type_id === this.standardTwinId) {
+        result = item.coefficient
+      }
+    })
+    return result
+  }
+
 
   getStars(count: string): number[] {
     return Array.from(Array(+count).keys());
@@ -78,7 +93,7 @@ export class PricingComponent implements OnInit {
     setTimeout(() => this.showCalendar = true);
   }
   typeChanged() {
-console.log(this.pricingTypeFC.value);
+    console.log(this.pricingTypeFC.value);
 
   }
 }
