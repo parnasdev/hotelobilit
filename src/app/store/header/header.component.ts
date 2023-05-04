@@ -28,5 +28,4 @@ export class HeaderComponent {
   menuClose() {
     this.isMenu = false
   }
-
 }

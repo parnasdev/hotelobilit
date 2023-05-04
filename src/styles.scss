@@ -72,6 +72,11 @@ a {
   border: 2px solid $base-color-three !important;
   color: #fff !important;
   border-radius: 4px !important;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+
 }
 
 /*input*/
@@ -85,6 +90,10 @@ a {
   position: relative;
   display: flex;
   align-items: center;
+  svg{
+    position: absolute;
+    left: 10px;
+  }
   img{
     top: 30px !important;
   }
@@ -106,6 +115,7 @@ a {
     color: #676767;
     border: none;
     outline: none;
+    width: 100%;
   }
 
   input {

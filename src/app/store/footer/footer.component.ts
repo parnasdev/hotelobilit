@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
+declare let $: any;
 
 @Component({
   selector: 'prs-footer',
@@ -12,6 +13,7 @@ export class FooterComponent {
   isDesktop = false;
   isTablet = false;
   isMenu = false;
+
   constructor(
     public mobileService: ResponsiveService,
   ) {
