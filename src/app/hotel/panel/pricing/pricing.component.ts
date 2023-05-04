@@ -23,6 +23,7 @@ export class PricingComponent implements OnInit {
   pricingTypeFC = new FormControl('0')
   req!: ratigListReqDTO;
   activedRoom = 0;
+  roomTypeId = 0;
   ratingData!: RatingResDTO;
   rooms: RoomDTO[] = [];
   constructor(public checkError: CheckErrorService,
@@ -56,6 +57,7 @@ export class PricingComponent implements OnInit {
         
         if (this.rooms.length > 0) {
           this.activedRoom = this.rooms[0].id;
+          this.roomTypeId = this.rooms[0].room_type_id
           this.reload();
         }
       } else {
@@ -82,8 +84,10 @@ export class PricingComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-  changeTab(tab: number): void {
-    this.activedRoom = tab
+  changeTab(id: number,roomTypeId:number): void {
+    this.activedRoom = id
+    this.roomTypeId = roomTypeId
+
     this.reload()
   }
 
@@ -93,7 +97,7 @@ export class PricingComponent implements OnInit {
     setTimeout(() => this.showCalendar = true);
   }
   typeChanged() {
-    console.log(this.pricingTypeFC.value);
+    // console.log(this.pricingTypeFC.value);
 
   }
 }
