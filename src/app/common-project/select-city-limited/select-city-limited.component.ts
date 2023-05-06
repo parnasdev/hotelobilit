@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectCityPopupComponent } from '../select-city-popup/select-city-popup.component';
 import { Result } from 'src/app/Core/Models/result';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
+import { CityListReq } from 'src/app/Core/Models/newCityDTO';
 
 @Component({
   selector: 'prs-select-city-limited',
@@ -69,14 +70,9 @@ export class SelectCityLimitedComponent implements OnInit {
     this.isLoading = true
     const inlist = ['تهران', 'مشهد', 'شیراز', 'یزد', 'اهواز', 'اصفهان', 'رشت', 'تبریز', 'بوشهر', 'کرمانشاه']
     const outlist = ['تهران', 'مشهد', 'شیراز', 'یزد', 'اهواز', 'اصفهان', 'رشت', 'تبریز', 'بوشهر', 'استانبول', 'آنتالیا' , 'دبی' , 'تفلیس' , 'مارماریس' , 'آنکارا', 'کیش', 'قشم']
-    const req: CityListRequestDTO = {
-      type: this.type,
-      hasHotel: this.hasHotel,
-      hasOriginTour: this.hasOriginTour,
-      hasDestTour: this.hasDestTour,
-      city: null,
-      search: null,
-      perPage: 20
+    const req: CityListReq = {
+      hasFlight: 1,
+      hasHotel:0,
     }
     this.cityApi.getCities(req).subscribe((res: any) => {
       this.isLoading = false

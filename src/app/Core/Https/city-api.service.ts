@@ -4,12 +4,13 @@ import {PublicService} from "../Services/public.service";
 import {environment} from "../../../environments/environment";
 import {Result} from "../Models/result";
 import { CityListRequestDTO, CityResponseDTO, CitySetRequestDTO} from "../Models/cityDTO";
+import { CityListReq, CityListRes } from '../Models/newCityDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CityApiService {
-  private serverControllerName = 'city/';
+  private serverControllerName = 'cities';
 
   constructor(public http: HttpClient,
               public publicService: PublicService) {
@@ -18,15 +19,13 @@ export class CityApiService {
   }
 
 
-  getCities(req: CityListRequestDTO): any {
-    const strUrl = this.serverControllerName + 'getCities';
-
-    return this.http.post<Result<CityResponseDTO>>(strUrl, req, this.publicService.getDefaultHeaders());
+  getCities(req: CityListReq): any {
+    const strUrl = this.serverControllerName;
+    return this.http.post<Result<CityListRes>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
   add(req: CitySetRequestDTO): any {
     const strUrl = this.serverControllerName + 'createCity';
-
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 

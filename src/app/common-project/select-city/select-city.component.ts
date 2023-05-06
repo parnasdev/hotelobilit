@@ -10,6 +10,7 @@ import { SelectCityPopupComponent } from '../select-city-popup/select-city-popup
 import { Result } from 'src/app/Core/Models/result';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
+import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
 
 @Component({
   selector: 'prs-select-city',
@@ -18,17 +19,16 @@ import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 })
 export class SelectCityComponent implements OnInit, OnChanges {
   @Output() citySelected = new EventEmitter()
-  @Input() cities: categoriesDTO[] = []
+  @Input() cities: categoriesDTO[] | CityListRes[] = []
   @Input() hasHotel: boolean = false;
-  @Input() hasOriginTour: boolean = false;
+  @Input() hasFlight: boolean = false;
   @Input() type: number | null = null;
   @Input() city: number | null = null;
-isMobile = false;
-  @Input() hasDestTour: boolean = false;
   @Input() inCommingCity: any;
   @Input() baseType: boolean = false;
   @Input() title = 'شهر خود را وارد کنید';
   isLoading = false
+  isMobile = false;
 
   constructor(
     public cityApi: CityApiService,
@@ -59,6 +59,7 @@ isMobile = false;
       startWith(''),
       map(value => this._filter(value)),
     );
+
     if (this.inCommingCity && this.inCommingCity !== '') {
       if (this.cities.filter(c => (c.id === +this.inCommingCity) || (c.id === this.inCommingCity)).length > 0) {
         this.cityFC.setValue(this.cities.filter(c => (c.id === +this.inCommingCity))[0].name)
@@ -69,34 +70,7 @@ isMobile = false;
       startWith(''),
       map(value => this._filter(value)),
     );
-
   }
-
-  // getCities(): void {
-  //   this.isLoading = true
-  //   const req: CityListRequestDTO = {
-  //     type: this.type,
-  //     hasHotel: this.hasHotel,
-  //     hasOriginTour: this.hasOriginTour,
-  //     hasDestTour: this.hasDestTour,
-  //     city: null,
-  //     search: null,
-  //     perPage: 20
-  //   }
-  //   this.cityApi.getCities(req).subscribe((res: any) => {
-  //     this.isLoading = false
-  //     if (res.isDone) {
-  //       this.cities = res.data;
-  //       // this.cities = this.cities.sort(function(x, y) {
-  //       //   return Number(y.type) - Number(x.type);
-  //       // })
-        
-  //     }
-  //   }, (error: any) => {
-  //     this.isLoading = false
-  //     this.message.error()
-  //   })
-  // }
 
 
   openSelectCity() {

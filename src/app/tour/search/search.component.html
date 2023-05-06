@@ -1,9 +1,9 @@
 <div class="row-search">
     <div class="inp-form">
-      <prs-select-city class="w-100" [baseType]="false" [title]="'شهر مبدا'"></prs-select-city>
+      <prs-select-city class="w-100" [cities]="cities" [baseType]="false" [city]="1" [title]="'شهر مبدا'"></prs-select-city>
     </div>
   <div class="inp-form">
-    <prs-select-city class="w-100" [baseType]="true" [title]="'شهر مقصد'"></prs-select-city>
+    <prs-select-city class="w-100" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'"></prs-select-city>
   </div>
     <div class="inp-form">
         <input class="w-100" type="text" [formControl]="dateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">

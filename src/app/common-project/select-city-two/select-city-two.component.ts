@@ -8,6 +8,7 @@ import { CityApiService } from "../../Core/Https/city-api.service";
 import { SelectCityPopupComponent } from '../select-city-popup/select-city-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
+import { CityListReq } from 'src/app/Core/Models/newCityDTO';
 
 @Component({
   selector: 'prs-select-city-two',
@@ -62,13 +63,9 @@ export class SelectCityTwoComponent implements OnInit {
 
   getCities(): void {
     this.isLoading = true
-    const req: CityListRequestDTO = {
-      type: this.type,
-      hasHotel: this.hasHotel,
-      hasOriginTour: this.hasOriginTour,
-      hasDestTour: this.hasDestTour,
-      search: null,
-      perPage: 20
+    const req: CityListReq = {
+      hasFlight: this.hasHotel ? 1 : 0,
+      hasHotel: this.hasHotel ? 1 : 0
     }
     this.cityApi.getCities(req).subscribe((res: any) => {
       this.isLoading = false
