@@ -2,15 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'jalali-moment';
-import { SperatorPipe } from 'src/app/common-project/pipes/sperator.pipe';
-import { HotelApiService } from 'src/app/Core/Https/hotel-api.service';
-import { HotelRatesReqDTO, HotelRatesResDTO } from 'src/app/Core/Models/hotelDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-pricing-modal.component';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { RateDTO, RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-main-picker',
@@ -20,6 +17,7 @@ import { RateDTO, RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newP
 export class MainPickerComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() roomID = 0;
+  @Input() roomTypeID = 0
   @Input() pricingType = '0';
 
   standardTwinId = 148;
@@ -160,14 +158,21 @@ export class MainPickerComponent implements OnInit {
 
 
   onDateClicked(item: any) {
+    // console.log(this.standardTwinId,this.roomTypeID)
     if (this.pricingType === '0') {
       this.normalClickType(item)
     } else {
-      this.coefficientClickType(item)
+      if (this.roomTypeID === this.standardTwinId) {
+        this.normalClickType(item)
+      } else {
+        this.coefficientClickType(item)
+      }
     }
   }
 
   coefficientClickType(item: any) {
+
+console.log('s');
 
   }
   normalClickType(item: any) {
@@ -235,12 +240,13 @@ export class MainPickerComponent implements OnInit {
 
   confirmPricing(): void {
     const dialog = this.dialog.open(ConfirmPricingModalComponent, {
-      width: '30%',
+      width: '60%',
       data: {
         checkin: this.stDate,
         checkout: this.enDate,
         roomID: this.roomID,
-        hotelID: this.hotelID
+        hotelID: this.hotelID,
+        type: +this.pricingType
       }
     })
     dialog.afterClosed().subscribe(result => {

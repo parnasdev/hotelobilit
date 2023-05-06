@@ -13,6 +13,7 @@ export interface ConfirmPriceReqDTO {
   checkout: any;
   hotelID: number;
   roomID: number;
+  type: number;
 }
 @Component({
   selector: 'prs-confirm-pricing-modal',
@@ -36,8 +37,6 @@ export class ConfirmPricingModalComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.data);
-
   }
 
   submit() {
@@ -51,6 +50,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       available_room_count: this.capacityFC.value,
       extra_bed_count: +this.bedCountFC.value,
       price: +this.priceFC.value,
+      type: this.data.type,
       offer_price: +this.offerPriceFC.value,
       extra_price: +this.bedPriceFC.value,
       offer_extra_price: +this.offerBedPriceFC.value,

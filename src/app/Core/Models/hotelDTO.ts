@@ -193,7 +193,8 @@ export interface HotelRatesSetReqDTO {
   date_from: string
   date_to: string
   available_room_count: number
-  extra_bed_count: number
+  extra_bed_count: number;
+  type: number; // 0: standard 1:coefficient
   price:number
   offer_price: number
   extra_price: number
