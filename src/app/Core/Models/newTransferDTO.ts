@@ -51,16 +51,24 @@ export interface EditTransferPageDTO {
 }
 
 export interface flightStoreDTO {
-    origin_id: number;
-    destination_id: number;
-    airline_id: number;
-    date: number;
-    time: string;
-    flight_number: number
+    origin_id: string;
+    destination_id: string;
+    origin_airline_id: string;
+    destination_airline_id: string;
+    origin_time: string;
+    destination_time: string;
+    origin_flight_number: string;
+    destination_flight_number: string;
+    rates: flightRatesDTO[];
+    checkin_tomorrow: number;
+    checkout_yesterday: number
+}
+
+export interface flightRatesDTO {
     adl_price: number;
+    origin_date: string;
+destination_date: string;
     chd_price: number;
-    inf_price : number;
+    inf_price: number;
     capacity: number;
-    is_close : number;
-    description : string;
 }

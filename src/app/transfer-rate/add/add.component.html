@@ -1,5 +1,5 @@
 <div class="add-tour">
-  <form [formGroup]="form" class="w-100">
+  <form [formGroup]="form">
     <div class="box-info-fly">
 
       <div class="info-tour-header">
@@ -14,7 +14,8 @@
             <div class="select-info">
 
               <label for="">شهر مبدا</label>
-              <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
+
+              <prs-select-city [hasHotel]="true" [inCommingCity]="cities[0]" [cities]="cities"
                 (citySelected)="getStCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">
                 <span class="text-danger">{{errorService.getError('origin_id')}}</span>
@@ -23,62 +24,93 @@
 
           </div>
 
-          <div class="item-info-2">
+          <div class="item-info">
             <div class="select-info">
-
               <label for="">شهر مقصد</label>
-              <prs-select-city *ngIf="show" [hasHotel]="true" [inCommingCity]="pageData.cities[0].categories[0]" [cities]="pageData.cities[0].categories"
+              <prs-select-city [hasHotel]="true" [cities]="cities"
                 (citySelected)="getEndCity($event)"></prs-select-city>
-              <div *ngIf="errorService.hasError('origin_id')">
-                <span class="text-danger">{{errorService.getError('origin_id')}}</span>
+              <div *ngIf="errorService.hasError('destination_id')">
+                <span class="text-danger">{{errorService.getError('destination_id')}}</span>
               </div>
             </div>
-
           </div>
-
-
         </div>
         <div class="top">
 
           <div class="item-info">
-            <label for="">تاریخ پرواز </label>
+            <label for="">تاریخ پرواز رفت</label>
             <mat-form-field class="example-full-width" appearance="fill">
-              <input matInput [matDatepicker]="picker4" formControlName="date" [min]="minDate"
+              <input matInput [matDatepicker]="picker4" formControlName="departure_date" [min]="minDate"
                 (click)="picker4.open()">
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
-            <div *ngIf="errorService.hasError('date')">
-              <span class="text-danger">{{errorService.getError('date')}}</span>
+            <div *ngIf="errorService.hasError('departure_date')">
+              <span class="text-danger">{{errorService.getError('departure_date')}}</span>
             </div>
 
           </div>
           <div class="item-info-timer">
-            <label for="">ساعت پرواز </label>
+            <label for="">ساعت پرواز رفت</label>
+            <!--              <ngb-timepicker  formControlName="originTimeFC" [meridian]="false"></ngb-timepicker>-->
             <prs-time-picker (result)="getOriginTime($event)"></prs-time-picker>
           </div>
           <div class="item-info-2">
             <div class="select-info w-100">
               <label for="">ایرلاین</label>
-              <select formControlName="airline_id">
-                <option *ngFor="let item of pageData.airlines" [value]="item.id">{{item.name}}</option>
+              <select formControlName="origin_transfer_id">
+                <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
               </select>
             </div>
-            <div *ngIf="errorService.hasError('airline_id')">
-              <span class="text-danger">{{errorService.getError('airline_id')}}</span>
+            <div *ngIf="errorService.hasError('origin_transfer_id')">
+              <span class="text-danger">{{errorService.getError('origin_transfer_id')}}</span>
             </div>
 
           </div>
 
           <div class="item-info">
-            <div class="select-info w-100">
-              <label for="">شماره پرواز</label>
-              <input type="text" formControlName="flight_number">
-            </div>
-            <div *ngIf="errorService.hasError('flight_number')">
-              <span class="text-danger">{{errorService.getError('flight_number')}}</span>
+            <label for="">تاریخ پرواز برگشت</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [matDatepicker]="picker7" formControlName="return_date" [min]="minDate"
+                (click)="picker7.open()">
+              <mat-datepicker #picker7></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('return_date')">
+              <span class="text-danger">{{errorService.getError('return_date')}}</span>
             </div>
           </div>
-
+          <div style="width: 32%;display: flex;justify-content: center" class="item-info-timer">
+            <label for="">ساعت پرواز برگشت</label>
+            <prs-time-picker (result)="getDestTime($event)"></prs-time-picker>
+          </div>
+          <div class="item-info">
+            <div class="select-info w-100">
+              <label for="">ایرلاین برگشت</label>
+              <select formControlName="destination_transfer_id">
+                <option *ngFor="let item of airlines" [value]="item.id">{{item.name}}</option>
+              </select>
+            </div>
+            <div *ngIf="errorService.hasError('destination_transfer_id')">
+              <span class="text-danger">{{errorService.getError('destination_transfer_id')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <div class="select-info w-100">
+              <label for="">شماره پرواز رفت</label>
+              <input type="text" formControlName="origin_flight_number">
+            </div>
+            <div *ngIf="errorService.hasError('origin_flight_number')">
+              <span class="text-danger">{{errorService.getError('origin_flight_number')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <div class="select-info w-100">
+              <label for="">شماره پرواز برگشت</label>
+              <input type="text" formControlName="destination_flight_number">
+            </div>
+            <div *ngIf="errorService.hasError('destination_flight_number')">
+              <span class="text-danger">{{errorService.getError('destination_flight_number')}}</span>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -132,6 +164,64 @@
                 <span class="text-danger">{{errorService.getError('capacity')}}</span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="box-info-package">
+        <div class="info-tour-header">
+          <div class="right">
+            <h2>لیست تاریخ های قابل ارائه</h2>
+          </div>
+          <div class="package-item">
+            <a (click)="addDateRow()" class="btn-add-tour-fix">
+              <i class="icon-plus-squared-alt"></i>
+              <span>اضافه</span>
+            </a>
+          </div>
+        </div>
+        <div class="info-tour-body p-0">
+          <div class="w-100 d-flex flex-column mobile-package">
+            <form class="parent-package" [formGroup]="form" formArrayName="dates" action="">
+              <div *ngFor="let rate of RatesForm.controls; let i = index" [formGroupName]="i" class="item-package">
+                <div class="package-item">
+                  <i class="icon-cancel-1 text-danger" *ngIf="i > 0" (click)="removeDates(i)"></i>
+                </div>
+                <div class="form-package">
+                  <label for="">تاریخ</label>
+                  <div class="package-item">
+                    <mat-form-field appearance="fill">
+                      <input
+                        [ngClass]="{'input-parent': (!getIsTouched(rate,'date')),'input-parent-error': (getError(rate,'date'))}"
+                        matInput [matDatepicker]="picker6" autocomplete="off" formControlName="date" [min]="minDate"
+                        (click)="picker6.open()">
+                      <mat-datepicker #picker6></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="package-item">
+                    <input
+                      [ngClass]="{'input-parent': (!getIsTouched(rate,'adl_price')),'input-parent-error': (getError(rate,'adl_price'))}"
+                      type="text" placeholder="قیمت بزرگسال" formControlName="adl_price">
+                  </div>
+                  <div class="package-item">
+                    <input
+                      [ngClass]="{'input-parent': (!getIsTouched(rate,'chd_price')),'input-parent-error': (getError(rate,'chd_price'))}"
+                      type="text" placeholder="قیمت کودک" formControlName="chd_price">
+                  </div>
+                  <div class="package-item">
+                    <input
+                      [ngClass]="{'input-parent': (!getIsTouched(rate,'inf_price')),'input-parent-error': (getError(rate,'inf_price'))}"
+                      type="text" placeholder="قیمت نوزاد" formControlName="inf_price">
+                  </div>
+                  <div class="package-item">
+                    <input
+                      [ngClass]="{'input-parent': (!getIsTouched(rate,'capacity')),'input-parent-error': (getError(rate,'capacity'))}"
+                      type="text" placeholder="ظرفیت" formControlName="capacity">
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
