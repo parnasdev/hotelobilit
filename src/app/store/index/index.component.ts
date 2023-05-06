@@ -105,7 +105,6 @@ export class IndexComponent {
     this.isTablet = mobileService.isTablet()
   }
 
-
   slideNext() {
     // @ts-ignore
     this.swiper.swiperRef.slideNext(200);
