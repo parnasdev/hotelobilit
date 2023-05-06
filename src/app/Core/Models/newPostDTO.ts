@@ -152,3 +152,10 @@ export interface RateDTO {
     updated_at: string
     user_id: number
 }
+export interface TourSearchDTO {
+
+    origin: number,
+    destination: number,
+    date: string,
+    stayCount: number
+}

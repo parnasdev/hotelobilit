@@ -201,3 +201,11 @@ export interface HotelRatesSetReqDTO {
   offer_extra_price: number
   currency_code: string | null
 }
+
+
+
+export interface HotelSearchReqDTO {
+  city_code: string;
+  checkin: string;
+  checkout: string;
+}

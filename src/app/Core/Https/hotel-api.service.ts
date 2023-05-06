@@ -10,6 +10,7 @@ import {
   HotelRatesReqDTO,
   HotelRatesSetReqDTO,
   HotelRequestDTO,
+  HotelSearchReqDTO,
   HotelSetRequestDTO,
   ServiceDTO,
   SetHotelPackageDTO
@@ -112,5 +113,11 @@ export class HotelApiService {
   deleteHotelPackage(name: string): any {
     const strUrl = this.serverControllerName + `deleteHotelPackage/${name}`;
     return this.http.delete<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
+  search(req: HotelSearchReqDTO) {
+    const strUrl = this.serverControllerName + `search`;
+
+    return this.http.post<Result<any>>(strUrl,req, this.publicService.getDefaultHeaders());
   }
 }
