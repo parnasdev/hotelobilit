@@ -8,6 +8,7 @@ import { SearchComponent } from './search/search.component';
 import { DatePickerModule } from '../date-picker/date-picker.module';
 import { CommonProjectModule } from '../common-project/common-project.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import {SwiperModule} from "swiper/angular";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TourRoutingModule,
     DatePickerModule,
     ReactiveFormsModule,
-    CommonProjectModule
+    CommonProjectModule,
+    SwiperModule,
   ],exports:[SearchComponent]
 })
 export class TourModule { }
