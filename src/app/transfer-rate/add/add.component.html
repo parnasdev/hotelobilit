@@ -1,5 +1,5 @@
 <div class="add-tour">
-  <form [formGroup]="form">
+  <form class="w-100" [formGroup]="form">
     <div class="box-info-fly">
 
       <div class="info-tour-header">
@@ -34,21 +34,20 @@
           </div>
         </div>
         <div class="top">
-
-          <div class="item-info-timer">
+          <div class="item-info-timer w-45">
             <label for="">ساعت پرواز رفت</label>
             <!--              <ngb-timepicker  formControlName="originTimeFC" [meridian]="false"></ngb-timepicker>-->
             <prs-time-picker (result)="getOriginTime($event)"></prs-time-picker>
           </div>
 
-          <div class="item-info-timer">
+          <div class="item-info-timer w-45">
             <label for="">ساعت پرواز برگشت</label>
             <!--              <ngb-timepicker  formControlName="originTimeFC" [meridian]="false"></ngb-timepicker>-->
             <prs-time-picker (result)="getDestTime($event)"></prs-time-picker>
           </div>
-          <div class="item-info-2">
+          <div class="item-info-2 w-45">
             <div class="select-info w-100">
-              <label for="">ایرلاین</label>
+              <label for="">ایرلاین رفت</label>
               <select formControlName="origin_airline_id">
                 <option *ngFor="let item of (data.airlines ?? [])" [value]="item.id">{{item.name}}</option>
               </select>
@@ -57,7 +56,7 @@
               <span class="text-danger">{{errorService.getError('origin_airline_id')}}</span>
             </div>
           </div>
-          <div class="item-info">
+          <div class="item-info w-45">
             <div class="select-info w-100">
               <label for="">ایرلاین برگشت</label>
               <select formControlName="destination_airline_id">
@@ -68,7 +67,7 @@
               <span class="text-danger">{{errorService.getError('destination_airline_id')}}</span>
             </div>
           </div>
-          <div class="item-info">
+          <div class="item-info w-45">
             <div class="select-info w-100">
               <label for="">شماره پرواز رفت</label>
               <input type="text" formControlName="origin_flight_number">
@@ -77,7 +76,7 @@
               <span class="text-danger">{{errorService.getError('origin_flight_number')}}</span>
             </div>
           </div>
-          <div class="item-info">
+          <div class="item-info w-45">
             <div class="select-info w-100">
               <label for="">شماره پرواز برگشت</label>
               <input type="text" formControlName="destination_flight_number">
@@ -86,15 +85,20 @@
               <span class="text-danger">{{errorService.getError('destination_flight_number')}}</span>
             </div>
           </div>
+          <div class="w-45 mt-3 d-flex align-items-center justify-content-center">
+            <mat-label>چکین فردا</mat-label>
+            <mat-checkbox [(ngModel)]="checkin_tomorrow"></mat-checkbox>
+          </div>
+          <div class="w-45 mt-3 d-flex align-items-center justify-content-center">
+            <mat-label>چک اوت دیروز</mat-label>
+            <mat-checkbox [(ngModel)]="checkout_yesterday"></mat-checkbox>
+          </div>
+
         </div>
 
       </div>
-      <mat-label>چکین فردا</mat-label>
-      <mat-checkbox [(ngModel)]="checkin_tomorrow"></mat-checkbox>
 
 
-      <mat-label>چک اوت دیروز</mat-label>
-      <mat-checkbox [(ngModel)]="checkout_yesterday"></mat-checkbox>
 
 
 
@@ -123,9 +127,9 @@
                   <div class="package-item">
                     <i class="icon-cancel-1 text-danger" *ngIf="i > 0" (click)="removeDates(i)"></i>
                   </div>
-                  <div class="item-info-2">
-                    <label for="">تاریخ</label>
+                  <div class="item-info-2 p-item-custom">
                     <div class="select-info">
+                      <label for="">تاریخ رفت</label>
                       <mat-form-field appearance="fill">
                         <input
                           [ngClass]="{'input-parent': (!getIsTouched(rate,'origin_date')),'input-parent-error': (getError(rate,'origin_date'))}"
@@ -135,6 +139,7 @@
                       </mat-form-field>
                     </div>
                     <div class="select-info">
+                      <label for="">تاریخ برگشت</label>
                       <mat-form-field appearance="fill">
                         <input
                           [ngClass]="{'input-parent': (!getIsTouched(rate,'destination_date')),'input-parent-error': (getError(rate,'destination_date'))}"
@@ -144,21 +149,25 @@
                       </mat-form-field>
                     </div>
                     <div class="select-info">
+                      <label for="">بزرگسال</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'adl_price')),'input-parent-error': (getError(rate,'adl_price'))}"
                         type="text" placeholder="قیمت بزرگسال" formControlName="adl_price">
                     </div>
                     <div class="select-info">
+                      <label for="">کودک</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'chd_price')),'input-parent-error': (getError(rate,'chd_price'))}"
                         type="text" placeholder="قیمت کودک" formControlName="chd_price">
                     </div>
                     <div class="select-info">
+                      <label for="">نوزاد</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'inf_price')),'input-parent-error': (getError(rate,'inf_price'))}"
                         type="text" placeholder="قیمت نوزاد" formControlName="inf_price">
                     </div>
                     <div class="select-info">
+                      <label for="">موجودی</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'capacity')),'input-parent-error': (getError(rate,'capacity'))}"
                         type="text" placeholder="ظرفیت" formControlName="capacity">
