@@ -9,7 +9,6 @@ import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { citiesDTO } from 'src/app/Core/Models/newPostDTO';
 import { flightStoreDTO } from 'src/app/Core/Models/newTransferDTO';
-import { TransferListRequestDTO } from 'src/app/Core/Models/transferDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -24,6 +23,7 @@ export class AddComponent implements OnInit {
     airlines: [],
     cities: []
   }
+
   isMobile: any;
   isLoading = false;
   minDate = new Date(); //datepicker
@@ -53,8 +53,8 @@ export class AddComponent implements OnInit {
   INFFlightRate = new FormControl('');
 
   TransferRateRequest: flightStoreDTO = {
-    origin_id: '1',
-    destination_id: '2',
+    origin_id: '',
+    destination_id: '',
     origin_airline_id: '',
     destination_airline_id: '',
     origin_time: '',
@@ -132,21 +132,7 @@ export class AddComponent implements OnInit {
     return item.controls[fieldName].touched
   }
 
-  convertDateList(): any {
-    const result: any[] = []
-    this.RatesForm.value.forEach((item: any) => {
-      const obj = {
-        adl_price: item.adl_price,
-        origin_date: moment.from(item.origin_date, 'en', 'YYYY-MM-DD'),
-        destination_date:moment.from(item.destination_date, 'en', 'YYYY-MM-DD'),
-        chd_price: item.chd_price,
-        inf_price: item.inf_price,
-        capacity: item.capacity,
-      }
-      result.push(obj)
-    })
-    return result
-  }
+
 
   markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach((control: any) => {
@@ -220,17 +206,33 @@ export class AddComponent implements OnInit {
     this.createTransferRate();
   }
 
+  convertDateList(): any {
+    const result: any[] = []
+    this.RatesForm.value.forEach((item: any) => {
+      const obj = {
+        adl_price: item.adl_price,
+        origin_date: this.calenderServices.convertDate(item.origin_date, 'en', 'YYYY-MM-DD'),
+        destination_date:this.calenderServices.convertDate(item.destination_date, 'en', 'YYYY-MM-DD'),
+        chd_price: item.chd_price,
+        inf_price: item.inf_price,
+        capacity: item.capacity,
+      }
+      result.push(obj)
+    })
+    return result
+  }
+
   setReq() {
     this.TransferRateRequest = {
-      origin_id: '1',
-      destination_id: '2',
+      origin_id: this.form.value.origin_id ?? '',
+      destination_id:  this.form.value.destination_id ?? '',
       origin_airline_id: this.form.value.origin_airline_id ?? '',
       destination_airline_id: this.form.value.destination_airline_id ?? '',
       origin_time: this.form.value.origin_time ?? '',
       destination_time: this.form.value.destination_time ?? '',
       origin_flight_number: this.form.value.origin_flight_number ?? '',
       destination_flight_number: this.form.value.destination_flight_number ?? '',
-      rates: this.RatesForm.value,
+      rates: this.convertDateList(),
       checkin_tomorrow: this.form.value.checkin_tomorrow ? 1 : 0,
       checkout_yesterday: this.form.value.checkout_yesterday ? 1 : 0
     }
