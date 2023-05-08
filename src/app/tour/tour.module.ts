@@ -8,6 +8,9 @@ import { SearchComponent } from './search/search.component';
 import { DatePickerModule } from '../date-picker/date-picker.module';
 import { CommonProjectModule } from '../common-project/common-project.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatFormFieldModule} from "@angular/material/form-field";
 import {SwiperModule} from "swiper/angular";
 
 
@@ -24,6 +27,10 @@ import {SwiperModule} from "swiper/angular";
     ReactiveFormsModule,
     CommonProjectModule,
     SwiperModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+
   ],exports:[SearchComponent]
 })
 export class TourModule { }

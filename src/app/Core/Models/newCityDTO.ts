@@ -10,3 +10,10 @@ export interface CityListRes {
     slug: string;
     code: string;
 }
+
+export interface SearchObjectDTO {
+    origin: string;
+    dest: string;
+    stDate: string;
+    night: number | string;
+}

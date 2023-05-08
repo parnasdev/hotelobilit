@@ -1,16 +1,18 @@
 <div class="row-search">
     <div class="inp-form">
-      <prs-select-city class="w-100" [cities]="cities" [baseType]="false" [city]="1" [title]="'شهر مبدا'"></prs-select-city>
+    <prs-select-city class="w-100" [cities]="cities" [baseType]="false" [title]="'شهر مبدا'" [inCommingCity]="destFC.value"
+      (citySelected)="originSelected($event)" ></prs-select-city>
     </div>
   <div class="inp-form">
-    <prs-select-city class="w-100" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'"></prs-select-city>
+    <prs-select-city class="w-100" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'" [inCommingCity]="destFC.value"
+    (citySelected)="destSelected($event)"></prs-select-city>
   </div>
     <div class="inp-form">
-        <input class="w-100" type="text" [formControl]="dateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+        <input class="w-100" type="text" [formControl]="stDateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
     </div>
 
     <div class="inp-form">
-      <select class="w-100" name="">
+      <select [formControl]="nightFC" class="w-100" name="">
         <option value="null">تعداد شب</option>
         <!-- <option *ngFor="let x of nights" [value]="x">{{x}} -->
           <option [value]="1">1 شب</option>

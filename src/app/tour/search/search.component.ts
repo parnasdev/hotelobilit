@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
+import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
@@ -13,11 +13,24 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+
+  @Output() onSubmit = new EventEmitter();
+  @Input() inCommingSearchObject?: SearchObjectDTO;
   dateFC = new FormControl();
   isLoading = false;
   hasFlight = 0
   hasHotel = 0
   cities: categoriesDTO[] | CityListRes[] = []
+
+  originFC = new FormControl('', Validators.required);
+  destFC = new FormControl('', Validators.required);
+  nightFC = new FormControl(0, Validators.required);
+  stDateFC = new FormControl('', Validators.required);
+  // reservedDates: DatesResDTO[] = [];
+  nights: number[] = []
+  originID: number | null = null;
+
+  minDate = new Date();
 
   constructor(
     public dialog: MatDialog,
@@ -27,6 +40,15 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.getCities();
+  }
+
+  search() {
+    this.onSubmit.emit({
+      origin: this.originFC.value,
+      dest: this.destFC.value,
+      stDate: this.stDateFC.value,
+      night: this.nightFC.value
+    })
   }
 
   getCities(): void {
@@ -48,6 +70,23 @@ export class SearchComponent implements OnInit {
       this.isLoading = false
       this.message.error()
     })
+  }
+
+  originSelected(city: CityListRes): void {
+    this.originFC.setValue(city.code)
+    this.originID = city.id;
+    // if (this.destFC.valid) {
+    //   this.getReservedDates();
+    // }
+  }
+  
+  destSelected(city: CityListRes): void {
+    this.destFC.setValue(city.code)
+    // this.reservedDates = [];
+    this.stDateFC.setValue(null)
+    this.nightFC.setValue(null)
+    this.inCommingSearchObject = undefined
+    // this.getReservedDates();
   }
 
   openPicker() {
