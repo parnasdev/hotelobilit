@@ -9,7 +9,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
-import { CopyComponent } from './copy/copy.component';
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import { CopyComponent } from './copy/copy.component';
     AddComponent,
     EditComponent,
     ListComponent,
-    CopyComponent
   ],
   imports: [
     CommonModule,

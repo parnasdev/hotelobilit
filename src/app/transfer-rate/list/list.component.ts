@@ -4,6 +4,7 @@ import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.ser
 import { SetTransferPageDTO, transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { TransferRateListDTO, TransferRateListReqDTO } from 'src/app/Core/Models/transferRateDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 
@@ -21,7 +22,9 @@ export class ListComponent implements OnInit {
   p = 1;
 
   constructor(public api: FlightApiService,
+    public flightApi: FlightApiService,
     public session: SessionService,
+    public checkError: CheckErrorService,
     public calendarService: CalenderServices,
     public message: MessageService) {
   }
@@ -32,7 +35,7 @@ export class ListComponent implements OnInit {
 
   getTransfers(): void {
     this.setReq();
-    this.api.getTransferRates().subscribe((res: any) => {
+    this.api.getTransferRates(this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.transfers = res.data;
         this.paginate = res.meta;
@@ -59,18 +62,18 @@ export class ListComponent implements OnInit {
     }
   }
 
-  deleteTransfer(id: number) {
-    // this.api.delete(id).subscribe((res: any) => {
-    //   if (res.isDone) {
-    //     this.message.custom(res.message);
-    //     this.getTransfers()
-    //   } else {
-    //     this.message.custom(res.message);
-    //   }
-    // }, (error: any) => {
-    //   this.message.error()
-    // })
+  removeTransferRate(id: number) {
+    this.flightApi.removeDataFlight(id).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.showMessageBig(res.message);
+        this.getTransfers();
+      }
+    }, (error: any) => {
+      this.checkError.check(error);
+    })
   }
+
+
 
   checkItemPermission(item: string) {
     return !!this.session.userPermissions.find(x => x.name === item)
