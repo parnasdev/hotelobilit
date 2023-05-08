@@ -486,8 +486,13 @@
 
 .item-info-timer {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  label{
+    font-size: 12px !important;
+    margin-left: 12px;
+    color: $dark-color;
+    font-weight: 600;
+  }
 }
 
 :host::ng-deep .mat-button-toggle {
@@ -809,7 +814,9 @@ prs-select-hotel {
 }
 
 mat-label {
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: $dark-color;
 }
 
 :host::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -822,13 +829,16 @@ mat-label {
     top: -15px;
   }
 }
-
+.p-item-custom:not(:first-child){
+  border-bottom: 2px dashed $border-color;
+}
 .p-item-custom {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
   gap: 15px;
   padding: 12px;
+  place-items: center;
 
   .select-info {
     flex-direction: column;
@@ -862,4 +872,8 @@ mat-label {
 :host::ng-deep mat-form-field{
   position: relative !important;
   top: 7px !important;
+}
+.item-bg{
+  background: $light-color;
+  border-radius: 10px;
 }
