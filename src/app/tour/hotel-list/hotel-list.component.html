@@ -2,7 +2,7 @@
   <div class="prs-responsive">
     <div class="p-list-hotel">
       <div class="p-list-hotel-bottom">
-        <div class="filtering">
+        <div *ngIf="isDesktop" class="filtering">
           <div class="title-filtering">
             <h3>فیلتر ها :</h3>
             <a href="">پاک کردن فیلتر ها</a>
@@ -122,7 +122,7 @@
                   </div>
                 </div>
                 <div class="end-info">
-                  <span>قیمت هر نفر برای ۳ شب از :</span>
+                  <span *ngIf="isDesktop">قیمت هر نفر برای ۳ شب از :</span>
                   <div class="price">
                     <strong>۱۲.۰۰۰.۰۰۰</strong>
                     <small>تومان</small>

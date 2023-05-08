@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
+import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { citiesDTO } from 'src/app/Core/Models/newPostDTO';
 import { flightStoreDTO } from 'src/app/Core/Models/newTransferDTO';
-import { TransferListRequestDTO } from 'src/app/Core/Models/transferDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -17,6 +19,10 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
+  data: { airlines: AirlineListDTO[], cities: citiesDTO[] } = {
+    airlines: [],
+    cities: []
+  }
 
   isMobile: any;
   isLoading = false;
@@ -33,11 +39,9 @@ export class AddComponent implements OnInit {
   originTimeFC = new FormControl();
   destDateFC = new FormControl();
   destTimeFC = new FormControl();
-  airlines: any[] = []
 
   originFlightCodeFC = new FormControl();
   destFlightCodeFC = new FormControl();
-  pageData: any;
   originTime = ''
   destTime = ''
   originTransferFC = new FormControl();
@@ -60,8 +64,10 @@ export class AddComponent implements OnInit {
     rates: [],
     checkin_tomorrow: 0,
     checkout_yesterday: 0
-
   }
+
+  checkin_tomorrow = false;
+  checkout_yesterday = false;
 
   show = false;
 
@@ -86,45 +92,25 @@ export class AddComponent implements OnInit {
     destination_time: new FormControl('', Validators.required),
     origin_flight_number: new FormControl('', Validators.required),
     destination_flight_number: new FormControl('', Validators.required),
-    rates: this.fb.array([], Validators.required),
-    checkin_tomorrow: new FormControl('', Validators.required),
-    checkout_yesterday: new FormControl('', Validators.required)
+    rates: this.fb.array([]),
+    checkin_tomorrow: new FormControl(0, Validators.required),
+    checkout_yesterday: new FormControl(0, Validators.required)
   });
 
   ngOnInit(): void {
     this.getData();
   }
 
-  getCreateData() {
-    this.isLoading = true
-    this.flightApi.getFlightRatesSet().subscribe((res: any) => {
-      if (res.isDone) {
-        this.isLoading = false;
-        this.message.showMessageBig(res.message);
-        this.errorService.clear();
-        this.router.navigateByUrl('/panel/transferRate');
-      }
-    }, (error: any) => {
-      this.isLoading = false;
-      if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
-        this.markFormGroupTouched(this.form);
-        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
-      } else {
-        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-      }
-      this.checkError.check(error);
-    })
-  }
+
 
   addDateRow() {
     const dates = this.fb.group({
-      adl_price: [0],
-      origin_date: [''],
-      destination_date: [''],
-      chd_price: [0],
-      inf_price: [0],
-      capacity: [0],
+      adl_price: 0,
+      origin_date: null,
+      destination_date: null,
+      chd_price: 0,
+      inf_price: 0,
+      capacity: 0,
     });
     this.RatesForm.push(dates);
   }
@@ -146,21 +132,7 @@ export class AddComponent implements OnInit {
     return item.controls[fieldName].touched
   }
 
-  convertDateList(): any {
-    const result: any[] = []
-    this.RatesForm.value.forEach((item: any) => {
-      const obj = {
-        adl_price: item.id,
-        origin_date: item.origin_date,
-        destination_date: item.destination_date,
-        chd_price: item.chd_price,
-        inf_price: item.inf_price,
-        capacity: item.capacity,
-      }
-      result.push(obj)
-    })
-    return result
-  }
+
 
   markFormGroupTouched(formGroup: any) {
     (<any>Object).values(formGroup.controls).forEach((control: any) => {
@@ -184,7 +156,7 @@ export class AddComponent implements OnInit {
   getData(): void {
     this.flightApi.getFlightRatesSet().subscribe((res: any) => {
       if (res.isDone) {
-        this.pageData = res.data
+        this.data = res.data
         this.show = true;
       }
     }, (error: any) => {
@@ -230,28 +202,39 @@ export class AddComponent implements OnInit {
   }
 
   createRequest() {
-    console.log(this.RatesForm.value);
+    this.setReq();
+    this.createTransferRate();
+  }
+
+  convertDateList(): any {
+    const result: any[] = []
+    this.RatesForm.value.forEach((item: any) => {
+      const obj = {
+        adl_price: item.adl_price,
+        origin_date: this.calenderServices.convertDate(item.origin_date, 'en', 'YYYY-MM-DD'),
+        destination_date:this.calenderServices.convertDate(item.destination_date, 'en', 'YYYY-MM-DD'),
+        chd_price: item.chd_price,
+        inf_price: item.inf_price,
+        capacity: item.capacity,
+      }
+      result.push(obj)
+    })
+    return result
   }
 
   setReq() {
     this.TransferRateRequest = {
-            // @ts-ignore
-      origin_airline_id: this.form.value.origin_airline_id,
-            // @ts-ignore
-      destination_airline_id: this.form.value.destination_airline_id,
-             // @ts-ignore
-      origin_time: this.form.value.origin_time,
-            // @ts-ignore
-      destination_time: this.form.value.destination_time,
-            // @ts-ignore
-      origin_flight_number: this.form.value.origin_flight_number,
-            // @ts-ignore
-      destination_flight_number: this.form.value.destination_flight_number,
-            // @ts-ignore
-      checkin_tomorrow: this.form.value.checkin_tomorrow,
-            // @ts-ignore
-      checkout_yesterday: this.form.value.checkout_yesterday,
-
+      origin_id: this.form.value.origin_id ?? '',
+      destination_id:  this.form.value.destination_id ?? '',
+      origin_airline_id: this.form.value.origin_airline_id ?? '',
+      destination_airline_id: this.form.value.destination_airline_id ?? '',
+      origin_time: this.form.value.origin_time ?? '',
+      destination_time: this.form.value.destination_time ?? '',
+      origin_flight_number: this.form.value.origin_flight_number ?? '',
+      destination_flight_number: this.form.value.destination_flight_number ?? '',
+      rates: this.convertDateList(),
+      checkin_tomorrow: this.form.value.checkin_tomorrow ? 1 : 0,
+      checkout_yesterday: this.form.value.checkout_yesterday ? 1 : 0
     }
   }
 

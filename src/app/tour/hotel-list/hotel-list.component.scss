@@ -423,3 +423,57 @@
     transform: scale(1);
   }
 }
+
+
+@media only screen and (max-width: 868px) {
+  .p-list-hotel {
+    .p-list-hotel-bottom {
+      flex-direction: column;
+      padding: 14px !important;
+
+      .end {
+        width: 100% !important;
+
+        .title {
+          h2 {
+            font-size: 15px !important;
+            margin: 0;
+          }
+
+          span {
+            font-size: 13px !important;
+          }
+        }
+      }
+    }
+  }
+  .thumbnail-hotel{
+    flex-direction: column;
+    .img{
+      width: 100% !important;
+      height: 180px !important;
+      border-radius: 4px !important;
+    }
+    .info-thumbnail-hotel{
+      width: 100% !important;
+      flex-direction: column;
+      padding-right: 0;
+      padding-top: 14px;
+      .start-info{
+        width: 100% !important;
+        padding: 0 !important;
+        .name-hotel{
+          width: 100%;
+          margin-bottom: 0 !important;
+          a{
+            font-size: 15px !important;
+          }
+        }
+      }
+      .end-info{
+        width: 100% !important;
+        padding: 0 !important;
+      }
+    }
+  }
+}
