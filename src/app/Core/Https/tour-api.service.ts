@@ -23,4 +23,9 @@ export class TourApiService {
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
+  searchHotelInfo(type: string, hotelSlug: string, req: TourSearchReqDTO): any {
+    const strUrl = environment.BACK_END_IP + type + '/search/' + hotelSlug;
+    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  }
+
 }

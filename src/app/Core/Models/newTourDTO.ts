@@ -1,18 +1,21 @@
 import { RoomDTO } from "./newPostDTO";
 
 export interface TourSearchReqDTO {
+    origin?: number
     destination: number;
     date: string;
     stayCount: number;
 }
 
 export interface HotelSearchResDTO {
-    id: 1
+    id: number;
     title: string;
+    slug: string
     location: string;
     address: string;
     rooms: RoomDTO[];
-    stars: 0
+    stars: number;
     gallery: any[]
     thumbnail: string
+    services: string[]
 }

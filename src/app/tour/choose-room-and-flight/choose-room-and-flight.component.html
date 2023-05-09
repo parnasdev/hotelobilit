@@ -4,39 +4,25 @@
       <div class="row">
         <div class="col-md-11 m-auto p-flight-list-top">
           <div class="img-slider">
-            <swiper class="swiper-flight-list h-100" [slidesPerView]="1" [navigation]="true"
-                    [spaceBetween]="0">
-              <ng-template swiperSlide>
-                <img src="../../../assets/img/12123131.png" alt="">
-              </ng-template>
-              <ng-template swiperSlide>
-                <img src="../../../assets/img/1634191054BLOG1.png" alt="">
-              </ng-template>
-              <ng-template swiperSlide>
-                <img src="../../../assets/img/12123131.png" alt="">
-              </ng-template>
-              <ng-template swiperSlide>
-                <img src="../../../assets/img/1634191054BLOG1.png" alt="">
+            <swiper class="swiper-flight-list h-100" [slidesPerView]="1" [navigation]="true" [spaceBetween]="0">
+              <ng-template swiperSlide *ngFor="let item of hotelInfo.gallery">
+                <img [src]="item ? item : '../../../assets/img/12123131.png' " alt="">
               </ng-template>
             </swiper>
           </div>
           <div class="p-information">
-            <h2 class="name-hotel"><a href="">شما هتل میلاد کرد را انتخاب کرده اید</a></h2>
+            <h2 class="name-hotel"><a href="">شما هتل {{ hotelInfo.title }} را انتخاب کرده اید</a></h2>
             <div class="p-star">
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
+              <i class="icon-star" *ngFor="let item of getStars(hotelInfo.stars)"></i>
             </div>
             <div class="location">
               <img src="../../../assets/img/location.png" alt="">
-              <span>تهرانپارس شرقی ،خیابان سلطانی،هتل میلاد</span>
+              <span>{{ hotelInfo.address }}</span>
             </div>
           </div>
         </div>
         <div class="col-md-11 m-auto p-flight-list-bottom">
-          <div class="thumbnail-room">
+          <div class="thumbnail-room" *ngFor="let item of hotelInfo.rooms">
             <div class="d-flex align-items-center justify-content-start">
               <h3 class="title">جزییات اتاق</h3>
             </div>
