@@ -25,6 +25,7 @@ import { ListComponent } from './list/list.component';
     MatDialogModule,
     CommonProjectModule,
     NgxPaginationModule,
+    CommonProjectModule,
   ]
 })
 export class AirportModule { }
