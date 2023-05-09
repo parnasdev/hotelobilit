@@ -74,12 +74,13 @@ const routes: Routes = [
       //   path: 'user-agency',
       //   loadChildren: () => import('../user/user-agencies/user-agencies.module').then(m => m.UserAgenciesModule)
       // },
+      {
+        path: 'user',
+        // data: {permitions: ['User','User.list']},
+        // canActivate: [PanelItemGuardService],
+        loadChildren: () => import('../user/user.module').then(m => m.UserModule)
+      }, 
       // {
-      //   path: 'user',
-      //   // data: {permitions: ['User','User.list']},
-      //   // canActivate: [PanelItemGuardService],
-      //   loadChildren: () => import('../user/user.module').then(m => m.UserModule)
-      // }, {
       //   path: 'redirector',
       //   loadChildren: () => import('../redirector/redirector.module').then(m => m.RedirectorModule)
       // },

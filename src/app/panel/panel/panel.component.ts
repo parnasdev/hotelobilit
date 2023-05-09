@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {SettingService} from "../../Core/Services/setting.service";
+import { SessionService } from 'src/app/Core/Services/session.service';
 
 declare let $: any;
 
@@ -13,6 +14,7 @@ export class PanelComponent implements OnInit {
   isDarkMode = false;
 
   constructor(public title: Title,
+    public session: SessionService,
               public setting: SettingService) {
   }
 

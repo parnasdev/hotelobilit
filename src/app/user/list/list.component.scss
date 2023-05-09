@@ -1,0 +1,154 @@
+.list-tour {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  width: 99%;
+  align-items: center;
+  justify-content: space-between;
+}
+.title h2{
+  font-size: 20px;
+  color: var(--base-color);
+  margin-right: 4px;
+}
+.title button {
+  width: 100px;
+  background-color: var(--base-color-three);
+  color: var(--white);
+  border: none;
+  outline: none;
+  border-radius: var(--radius-btn);
+  height: 35px;
+}
+
+.table-list-tour {
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--light-color-two);
+  margin-top: 10px;
+}
+
+.header-list-tour {
+  height: 40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 0.7fr 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  background-color: var(--title-header);
+  border-bottom: 1px solid var(--light-color-two);
+}
+
+.header-list-tour span {
+  margin: auto;
+  font-size: 13px !important;
+}
+
+.body-list-tour {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.body-list-tour .item {
+  height: 60px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 0.7fr 1.5fr 1fr 1fr 1fr 1fr 1fr;
+}
+.body-list-tour .item:not(:last-child){
+  border-bottom: 1px solid var(--light-color-two);
+}
+.body-list-tour .item span {
+  margin: auto;
+  font-size: 13px !important;
+}
+.body-list-tour .item .status{
+  color: var(--red-color);
+  font-weight: 500;
+}
+.button-setting {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 4px;
+}
+
+.button-setting .edit-btn {
+  width: auto;
+  background-color: var(--base-color-three);
+  color: var(--white);
+  border: none;
+  outline: none;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button-setting .view-btn {
+  width: auto;
+  background-color: var(--base-color);
+  color: var(--white);
+  border: none;
+  outline: none;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button-setting .delete-btn {
+  width: auto;
+  background-color: var(--red-color);
+  color: var(--white);
+  border: none;
+  outline: none;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+}
+.button-setting .copy-btn {
+  width: auto;
+  background-color: var(--green-color);
+  color: var(--white);
+  border: none;
+  outline: none;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+}
+
+.date-create {
+  direction: ltr;
+}
+.btn-add-tour{
+  background-color: var(--base-color);
+  color: var(--white);
+  width: 120px;
+  height: 38px;
+  border-radius: var(--radius-btn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 868px){
+  .table-list-tour {
+    overflow-x: scroll !important;
+  }
+  .header-list-tour, .body-list-tour {
+    width: 900px;
+  }
+  h2{
+    margin-bottom: 0;
+  }
+}
