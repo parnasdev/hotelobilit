@@ -7,7 +7,7 @@
           <label for="">اضافه کردن هتل</label>
           <h2 class="text-dark">اطلاعات هتل</h2>
         </div>
- 
+
         <div class="left">
           <div class="selectdiv">
             <label>
@@ -94,7 +94,8 @@
           <prs-upload-single *ngIf="showData" (result)="getThumbnail($event)"[incommingFile]="getThumbnailFromData()"></prs-upload-single>
         </div> -->
         <div class="bottom-one">
-          <prs-multiple-upload *ngIf="showData" (result)="getEditImages($event)" (deletedImages)="getRemovedImages($event)" [incommingFiles]="hotelImages"></prs-multiple-upload>
+          <prs-multiple-upload *ngIf="showData" (result)="getEditImages($event)"
+            (deletedImages)="getRemovedImages($event)" [incommingFiles]="hotelImages"></prs-multiple-upload>
         </div>
       </div>
     </div>
@@ -104,7 +105,7 @@
     </div> -->
 
 
-  
+
   </form>
   <div class="box-info-fly">
     <div class="info-tour-header">
@@ -133,9 +134,12 @@
       <div class="item-info" *ngFor="let item of selectedRooms">
         <label for="">{{ item.name }}</label>
         <input type="number" [(ngModel)]="item.coefficient">
+        <mat-label>ضریبی شود‌؟‌</mat-label>
+        <mat-checkbox [(ngModel)]="item.has_coefficient"></mat-checkbox>
       </div>
 
     </div>
+
   </div>
   <div class="p-error">
     <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>

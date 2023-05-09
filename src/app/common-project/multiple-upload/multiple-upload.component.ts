@@ -45,7 +45,6 @@ export class MultipleUploadComponent implements OnInit {
     if (changes['incommingFiles']) {
 
       this.selectedFiles = [];
-      debugger
       this.incommingFiles.forEach(item => {
         this.selectedFiles.push(item)
       })
@@ -53,8 +52,6 @@ export class MultipleUploadComponent implements OnInit {
         this.selectedFiles[0].type = 1;
       }
       // this.reload()
-
-
     }
   }
 

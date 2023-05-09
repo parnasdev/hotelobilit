@@ -7,26 +7,23 @@
           <h2 class="text-dark">اطلاعات پرواز</h2>
         </div>
       </div>
-
       <div class="info-tour-body">
         <div class="top" *ngIf="show">
           <div class="item-info-2 w-48">
             <div class="select-info">
               <label for="">شهر مبدا</label>
               <prs-select-city [hasHotel]="true" [inCommingCity]="cities[0]" [cities]="data.cities[0].categories"
-                               (citySelected)="getStCity($event)"></prs-select-city>
+                (citySelected)="getStCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('origin_id')">
                 <span class="text-danger">{{errorService.getError('origin_id')}}</span>
               </div>
             </div>
-
           </div>
-
           <div style="padding-right: 2rem" class="item-info w-48">
             <div class="select-info">
               <label for="">شهر مقصد</label>
               <prs-select-city [hasHotel]="true" [cities]="data.cities[0].categories"
-                               (citySelected)="getEndCity($event)"></prs-select-city>
+                (citySelected)="getEndCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('destination_id')">
                 <span class="text-danger">{{errorService.getError('destination_id')}}</span>
               </div>
@@ -178,7 +175,7 @@
                         type="text" placeholder="ظرفیت" formControlName="capacity">
                     </div>
                     <button style="margin-top: 1.8rem" class="btn  w-100 btn-danger text-white" *ngIf="i > 0"
-                            (click)="removeDates(i)">
+                      (click)="removeDates(i)">
                       حذف
                     </button>
                   </div>

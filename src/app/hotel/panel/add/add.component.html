@@ -41,7 +41,7 @@
               <span class="text-danger">{{errorService.getError('slug')}}</span>
             </div>
           </div>
-      
+
           <div class="item-info">
             <label for="">ستاره</label>
             <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="info-tour-body-upload">
-   
+
         <div class="bottom-one">
           <prs-multiple-upload (result)="getImages($event)"></prs-multiple-upload>
         </div>
@@ -107,8 +107,6 @@
       <prs-services [services]="services" (result)="getServicesResult($event)"></prs-services>
     </div> -->
 
-
-  
   </form>
   <div class="box-info-fly">
     <div class="info-tour-header">
@@ -118,8 +116,6 @@
     </div>
     <div class="info-tour-body">
       <div class="address-parent">
-
-
         <div class="address-hotel">
           <label for="address">اتاق های این هتل را انتخاب کنید </label>
           <mat-form-field appearance="fill">
@@ -132,15 +128,14 @@
             </mat-select>
           </mat-form-field>
         </div>
-
       </div>
       <div>ضریب اتاق ها</div>
       <div class="item-info" *ngFor="let item of selectedRooms">
-        <label for="">{{ item.name }}</label>
         <input type="number" [(ngModel)]="item.coefficient">
+        <mat-label>ضریبی شود‌؟‌</mat-label>
+        <mat-checkbox [(ngModel)]="item.has_coefficient"></mat-checkbox>
 
       </div>
-
     </div>
   </div>
 
