@@ -4,6 +4,7 @@ import { PublicService } from '../Services/public.service';
 import { environment } from 'src/environments/environment';
 import { TourSearchDTO } from '../Models/newPostDTO';
 import { Result } from '../Models/result';
+import { TourSearchReqDTO } from '../Models/newTourDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ export class TourApiService {
       environment.BACK_END_IP + this.serverControllerName;
   }
 
-
-  search(req: TourSearchDTO): any {
-    const strUrl = this.serverControllerName + 'createHotel';
+  search(type: string, req: TourSearchReqDTO): any {
+    const strUrl = environment.BACK_END_IP + type + '/search';
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
+
 }

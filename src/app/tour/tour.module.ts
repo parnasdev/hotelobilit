@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {SwiperModule} from "swiper/angular";
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -23,13 +24,14 @@ import {SwiperModule} from "swiper/angular";
   imports: [
     CommonModule,
     TourRoutingModule,
-    DatePickerModule,
+    // DatePickerModule,
     ReactiveFormsModule,
     CommonProjectModule,
     SwiperModule,
     MatInputModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatNativeDateModule,
 
   ],exports:[SearchComponent]
 })

@@ -1,6 +1,7 @@
 <section class="s-list-hotel">
   <div class="prs-responsive">
     <div class="p-list-hotel">
+      <prs-search (onSubmit)="search($event)"></prs-search>
       <div class="p-list-hotel-bottom">
         <div *ngIf="isDesktop" class="filtering">
           <div class="title-filtering">
@@ -75,21 +76,19 @@
         <div class="end">
           <div class="title">
             <h2>هتل تور خود را انتخاب کنید :</h2>
-            <span>نتایج جستجو : ۲۳۴</span>
+            <span>نتایج جستجو : {{ hotels.length }}</span>
           </div>
           <div class="list-hotel">
             <!--thumbnail-hotel-->
-            <div class="thumbnail-hotel">
-              <div class="img"><img draggable="false" src="../../../assets/img/12123131.png" alt=""></div>
+            <div class="thumbnail-hotel" *ngFor="let hotel of hotels">
+              <div class="img">
+                <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail : '../../../assets/img/12123131.png'" alt="">
+              </div>
               <div class="info-thumbnail-hotel">
                 <div class="start-info">
-                  <h2 class="name-hotel"><a href="">هتل اسپیناس پالاس</a></h2>
+                  <h2 class="name-hotel"><a href="">{{ hotel.title }}</a></h2>
                   <div class="star-hotel">
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
+                    <i class="icon-star" *ngFor="let item of getStars(hotel.stars)"></i>
                   </div>
                   <div class="options-hotel">
                     <div class="item-option-hotel">
@@ -118,16 +117,16 @@
                                 stroke-width="2"/>
                       </g>
                     </svg>
-                    <span>سعادت آباد-انتهای بزرگراه یادگار امام ، میدان بهرود</span>
+                    <span>{{ hotel.address ? hotel.address :  'ثبت نشده'}}</span>
                   </div>
                 </div>
                 <div class="end-info">
-                  <span *ngIf="isDesktop">قیمت هر نفر برای ۳ شب از :</span>
+                  <span *ngIf="isDesktop">قیمت هر نفر برای {{ this.req.stayCount }} شب از :</span>
                   <div class="price">
-                    <strong>۱۲.۰۰۰.۰۰۰</strong>
+                    <strong>{{ getMinPrice(hotel.rooms) }}</strong>
                     <small>تومان</small>
                   </div>
-                  <a href="" class="btn-base w-100">انتخاب هتل و رزرو</a>
+                  <a (click)="selectHotel(hotel.id)" class="btn-base w-100">انتخاب هتل و رزرو</a>
                 </div>
               </div>
             </div>

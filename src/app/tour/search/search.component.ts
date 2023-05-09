@@ -96,7 +96,7 @@ export class SearchComponent implements OnInit {
     })
     dialog.afterClosed().subscribe(res => {
       console.log(res)
-      this.dateFC.setValue(res.fromDate.dateFa)
+      this.stDateFC.setValue(res.fromDate.dateEn)
     })
   }
 }

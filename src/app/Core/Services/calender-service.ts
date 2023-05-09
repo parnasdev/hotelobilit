@@ -13,6 +13,10 @@ export class CalenderServices {
         return val.slice(0, 5);
     }
 
+    convertDateFormat(date: string){
+        return date.split('/').join('-')
+    }
+
     convertDate(date: any, convertType: string,formatEn = "YYYY/MM/DD"): any {
         /* convertType : fa - en */
         // debugger;

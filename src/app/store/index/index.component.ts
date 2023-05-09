@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
 import { HotelListResponseDTO } from 'src/app/Core/Models/hotelDTO';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'prs-index',
@@ -98,6 +99,7 @@ export class IndexComponent {
 
   constructor(
     public mobileService: ResponsiveService,
+    public router: Router,
   ) {
     this.isMobile = mobileService.isMobile()
     this.isDesktop = mobileService.isDesktop()
@@ -117,6 +119,13 @@ export class IndexComponent {
 
   getStars(count: string): number[] {
     return Array.from(Array(+count).keys());
+  }
+
+  search(result:any) {
+    let city = result.origin + '-' + result.dest
+    this.router.navigate([`/tour/` + city], {
+      queryParams: result
+    })
   }
 
 }

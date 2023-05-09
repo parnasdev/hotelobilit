@@ -10,11 +10,11 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
-    path: ':cities',
+    path: ':city',
     component: HotelListComponent
   },
   {
-    path: ':cities/:hotelID',
+    path: 'flight/:hotelID',
     component: ChooseRoomAndFlightComponent
   },
 ];
