@@ -15,7 +15,7 @@ import { ListComponent } from './list/list.component';
   declarations: [
     AddComponent,
     EditComponent,
-    ListComponent
+    ListComponent,
   ],
   imports: [
     CommonModule,

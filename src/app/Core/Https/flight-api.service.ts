@@ -19,8 +19,9 @@ export class FlightApiService {
       this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
     }
 
-  getTransferRates(): any {
-    const strUrl = this.serverControllerName + 'flights';
+  getTransferRates(pageNum = 1): any {
+    const strUrl = pageNum ? this.serverControllerName + `flights?page=${pageNum}` : this.serverControllerName + `flights`;
+
     return this.http.get<Result<transferRateListDTO[]>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
@@ -42,6 +43,11 @@ export class FlightApiService {
   UpdateDataFlight(req: flightStoreDTO, flight_id: number): any {
     const strUrl = this.serverControllerName + `flights/${flight_id}`;
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  }
+
+  removeDataFlight(flight_id: number): any {
+    const strUrl = this.serverControllerName + `flights/${flight_id}`;
+    return this.http.delete<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
 }

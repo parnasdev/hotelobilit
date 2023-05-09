@@ -16,6 +16,7 @@ import { PipesModule } from '../common-project/pipes/pipes.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { IConfig } from 'ngx-mask';
+import { CopyComponent } from './copy/copy.component';
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
@@ -25,7 +26,8 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     ListComponent,
     AddComponent,
-    EditComponent
+    EditComponent,
+    CopyComponent
   ],
   imports: [
     CommonModule,

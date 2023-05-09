@@ -105,6 +105,7 @@ export class AddComponent implements OnInit {
 
   addDateRow() {
     const dates = this.fb.group({
+      id: null,
       adl_price: 0,
       origin_date: null,
       destination_date: null,
@@ -121,7 +122,9 @@ export class AddComponent implements OnInit {
 
 
   removeDates(i: any) {
-    this.RatesForm.removeAt(i);
+
+      this.RatesForm.removeAt(i);
+
   }
 
   getError(item: any, fieldName: string): any {
@@ -210,9 +213,10 @@ export class AddComponent implements OnInit {
     const result: any[] = []
     this.RatesForm.value.forEach((item: any) => {
       const obj = {
+        id: item.id,
         adl_price: item.adl_price,
         origin_date: this.calenderServices.convertDate(item.origin_date, 'en', 'YYYY-MM-DD'),
-        destination_date:this.calenderServices.convertDate(item.destination_date, 'en', 'YYYY-MM-DD'),
+        destination_date: this.calenderServices.convertDate(item.destination_date, 'en', 'YYYY-MM-DD'),
         chd_price: item.chd_price,
         inf_price: item.inf_price,
         capacity: item.capacity,
@@ -225,7 +229,7 @@ export class AddComponent implements OnInit {
   setReq() {
     this.TransferRateRequest = {
       origin_id: this.form.value.origin_id ?? '',
-      destination_id:  this.form.value.destination_id ?? '',
+      destination_id: this.form.value.destination_id ?? '',
       origin_airline_id: this.form.value.origin_airline_id ?? '',
       destination_airline_id: this.form.value.destination_airline_id ?? '',
       origin_time: this.form.value.origin_time ?? '',
@@ -233,8 +237,8 @@ export class AddComponent implements OnInit {
       origin_flight_number: this.form.value.origin_flight_number ?? '',
       destination_flight_number: this.form.value.destination_flight_number ?? '',
       rates: this.convertDateList(),
-      checkin_tomorrow: this.form.value.checkin_tomorrow ? 1 : 0,
-      checkout_yesterday: this.form.value.checkout_yesterday ? 1 : 0
+      checkin_tomorrow: this.checkin_tomorrow ? 1 : 0,
+      checkout_yesterday: this.checkout_yesterday ? 1 : 0
     }
   }
 

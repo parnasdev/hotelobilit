@@ -1,160 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
-import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
-import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
-import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
-import { citiesDTO } from 'src/app/Core/Models/newPostDTO';
-import { flightStoreDTO } from 'src/app/Core/Models/newTransferDTO';
-import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { ErrorsService } from 'src/app/Core/Services/errors.service';
-import { MessageService } from 'src/app/Core/Services/message.service';
+import { AddComponent } from '../add/add.component';
+import { debounce } from 'rxjs';
 
 @Component({
   selector: 'prs-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditComponent extends AddComponent implements OnInit {
   id = ''
-  data: any
-  isMobile: any;
-  isLoading = false;
-  minDate = new Date(); //datepicker
-
-  capacityFlightRate = new FormControl(0);
-
-  cities: CityResponseDTO[] = []
-  // cityID = 0;
-  originCityFC = new FormControl();
-  destCityFC = new FormControl();
-
-  originDateFC = new FormControl();
-  originTimeFC = new FormControl();
-  destDateFC = new FormControl();
-  destTimeFC = new FormControl();
-
-  originFlightCodeFC = new FormControl();
-  destFlightCodeFC = new FormControl();
-  originTime = ''
-  destTime = ''
-  originTransferFC = new FormControl();
-  destTransferFC = new FormControl();
-  destCityTypeFC = new FormControl(true);
-
-  CHDFlightRate = new FormControl('');
-  ADLFlightRate = new FormControl('');
-  INFFlightRate = new FormControl('');
-
-  TransferRateRequest: flightStoreDTO = {
-    origin_id: '',
-    destination_id: '',
-    origin_airline_id: '',
-    destination_airline_id: '',
+  infoData: any = {
+    origin_id: 0,
+    destination_id: 0,
+    origin_airline_id: 0,
+    destination_airline_id: 0,
     origin_time: '',
     destination_time: '',
     origin_flight_number: '',
     destination_flight_number: '',
     rates: [],
     checkin_tomorrow: 0,
-    checkout_yesterday: 0
-  }
+    checkout_yesterday: 0,
+  };
+  editData: any;
+  showData = false;
 
-  checkin_tomorrow = false;
-  checkout_yesterday = false;
-
-  show = false;
-
-  constructor(public message: MessageService,
-    public fb: FormBuilder,
-    public router: Router,
-    public route: ActivatedRoute,
-    public calenderServices: CalenderServices,
-    public errorService: ErrorsService,
-    public cityApi: CityApiService,
-    public checkError: ErrorsService,
-    public transferRateApi: TransferRateAPIService,
-    public flightApi: FlightApiService) {
-  }
-
-  form = this.fb.group({
-    origin_id: new FormControl('', Validators.required),
-    destination_id: new FormControl('', Validators.required),
-    origin_airline_id: new FormControl('', Validators.required),
-    destination_airline_id: new FormControl('', Validators.required),
-    origin_time: new FormControl('', Validators.required),
-    destination_time: new FormControl('', Validators.required),
-    origin_flight_number: new FormControl('', Validators.required),
-    destination_flight_number: new FormControl('', Validators.required),
-    rates: this.fb.array([]),
-    checkin_tomorrow: new FormControl(0, Validators.required),
-    checkout_yesterday: new FormControl(0, Validators.required)
-  });
-
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
 
-    this.getData();
+    this.getInfoData();
   }
 
 
-
-  addDateRow() {
-    const dates = this.fb.group({
-      adl_price: 0,
-      origin_date: null,
-      destination_date: null,
-      chd_price: 0,
-      inf_price: 0,
-      capacity: 0,
-    });
-    this.RatesForm.push(dates);
-  }
-
-  get RatesForm() {
-    return this.form.get('rates') as FormArray;
-  }
-
-
-  removeDates(i: any) {
-    this.RatesForm.removeAt(i);
-  }
-
-  getError(item: any, fieldName: string): any {
-    return item.controls[fieldName].errors
-  }
-
-  getIsTouched(item: any, fieldName: string): any {
-    return item.controls[fieldName].touched
-  }
-
-
-
-  markFormGroupTouched(formGroup: any) {
-    (<any>Object).values(formGroup.controls).forEach((control: any) => {
-      control.markAsTouched();
-
-      if (control.controls) {
-        this.markFormGroupTouched(control);
-      }
-    });
-  }
-
-  getEndCity(cityItemSelected: any): void {
-    this.form.controls.destination_id.setValue(cityItemSelected.id);
-  }
-
-  getStCity(cityItemSelected: any): void {
-    this.form.controls.origin_id.setValue(cityItemSelected.id);
-  }
-
-
-  getData(): void {
+  getInfoData(): void {
     this.flightApi.getFlightEditPage(+this.id).subscribe((res: any) => {
       if (res.isDone) {
-        this.data = res.data
+        this.editData = res.data
+        this.infoData = this.editData.flights;
+        this.setValue()
         this.show = true;
       }
     }, (error: any) => {
@@ -162,24 +45,44 @@ export class EditComponent implements OnInit {
     })
   }
 
+  setValue() {
+    this.form.controls.origin_id.setValue(this.infoData.origin_id);
+    this.form.controls.destination_id.setValue(this.infoData.destination_id);
+    this.form.controls.origin_airline_id.setValue(this.infoData.origin_airline_id);
+    this.form.controls.destination_airline_id.setValue(this.infoData.destination_airline_id);
+    this.form.controls.origin_time.setValue(this.infoData.origin_time);
+    this.form.controls.destination_time.setValue(this.infoData.destination_time);
+    this.form.controls.origin_flight_number.setValue(this.infoData.origin_flight_number);
+    this.form.controls.destination_flight_number.setValue(this.infoData.destination_flight_number);
+    this.form.controls.checkin_tomorrow.setValue(this.infoData.checkin_tomorrow);
+    this.form.controls.checkout_yesterday.setValue(this.infoData.checkout_yesterday);
 
-  getOriginTime(event: any): void {
-    if (event) {
-      this.originTime = event.hour + ':' + event.minute;
-      this.form.controls.origin_time.setValue(this.originTime);
-    }
+    this.checkin_tomorrow = this.infoData.checkin_tomorrow === 0 ? false :true
+    this.checkout_yesterday = this.infoData.checkout_yesterday === 0 ? false :true
+    this.infoData.rates.forEach((item : any) => {
+      this.addRow(item);
+    });
+    this.showData = true
   }
 
-  getDestTime(event: any): void {
-    if (event) {
-      this.destTime = event.hour + ':' + event.minute;
-      this.form.controls.destination_time.setValue(this.destTime);
-    }
+
+  addRow(item: any = null) {
+    const dates = this.fb.group({
+      id: item ? item.id : null,
+      adl_price: item ? item.adl_price : 0,
+      origin_date: item ? item.origin_date :null,
+      destination_date: item ? item.destination_date :null,
+      chd_price: item ? item.chd_price :0,
+      inf_price: item ? item.inf_price :0,
+      capacity: item ? item.capacity :0,
+    });
+    this.RatesForm.push(dates);
   }
 
-  createTransferRate() {
+
+  updateTransferRate() {
     this.isLoading = true
-    this.flightApi.UpdateDataFlight(this.TransferRateRequest,+this.id).subscribe((res: any) => {
+    this.flightApi.UpdateDataFlight(this.TransferRateRequest, +this.id).subscribe((res: any) => {
       if (res.isDone) {
         this.isLoading = false;
         this.message.showMessageBig(res.message);
@@ -199,31 +102,38 @@ export class EditComponent implements OnInit {
     })
   }
 
-  createRequest() {
-    this.setReq();
-    this.createTransferRate();
+  updateRequest() {
+    this.setUpdateReq();
+    this.updateTransferRate();
   }
 
-  convertDateList(): any {
-    const result: any[] = []
-    this.RatesForm.value.forEach((item: any) => {
-      const obj = {
-        adl_price: item.adl_price,
-        origin_date: this.calenderServices.convertDate(item.origin_date, 'en', 'YYYY-MM-DD'),
-        destination_date:this.calenderServices.convertDate(item.destination_date, 'en', 'YYYY-MM-DD'),
-        chd_price: item.chd_price,
-        inf_price: item.inf_price,
-        capacity: item.capacity,
+
+  removeTransferRate(id:number,index:number) {
+    this.isLoading = true
+    this.flightApi.removeDataFlight(id).subscribe((res: any) => {
+      if (res.isDone) {
+        this.isLoading = false;
+        this.message.showMessageBig(res.message);
+        this.RatesForm.removeAt(index);
       }
-      result.push(obj)
+    }, (error: any) => {
+      this.isLoading = false;
+      this.checkError.check(error);
     })
-    return result
   }
 
-  setReq() {
+  removeRates(i: any) {
+    const id = this.RatesForm.controls[i].value.id
+    if (id && id !== 0) {
+      this.removeTransferRate(id,i)
+    } else {
+      this.RatesForm.removeAt(i);
+    }
+  }
+  setUpdateReq() {
     this.TransferRateRequest = {
       origin_id: this.form.value.origin_id ?? '',
-      destination_id:  this.form.value.destination_id ?? '',
+      destination_id: this.form.value.destination_id ?? '',
       origin_airline_id: this.form.value.origin_airline_id ?? '',
       destination_airline_id: this.form.value.destination_airline_id ?? '',
       origin_time: this.form.value.origin_time ?? '',
@@ -231,8 +141,8 @@ export class EditComponent implements OnInit {
       origin_flight_number: this.form.value.origin_flight_number ?? '',
       destination_flight_number: this.form.value.destination_flight_number ?? '',
       rates: this.convertDateList(),
-      checkin_tomorrow: this.form.value.checkin_tomorrow ? 1 : 0,
-      checkout_yesterday: this.form.value.checkout_yesterday ? 1 : 0
+      checkin_tomorrow: this.checkin_tomorrow ? 1 : 0,
+      checkout_yesterday: this.checkout_yesterday ? 1 : 0
     }
   }
 
