@@ -55,7 +55,7 @@ export class HotelListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.req = {
         date: this.calendar.convertDateSpecial(params['stDate'], 'en'),
-        destination: this.checkCity(params['dest']) ?? 133,
+        destination: params['dest'],
         stayCount:params['night'] ?? 1
       }
     }
@@ -114,8 +114,8 @@ export class HotelListComponent implements OnInit {
     })
   }
 
-  selectHotel(hotel_id: number){
-    this.router.navigate([`/tour/` + 'flight/' + hotel_id], {
+  selectHotel(hotel_slug: string){
+    this.router.navigate([`/tour/` + 'flight/' + hotel_slug], {
       queryParams: this.req
     })
   }
