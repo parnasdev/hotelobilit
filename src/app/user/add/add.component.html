@@ -1,0 +1,75 @@
+<div class="add-tour">
+  <form [formGroup]="userForm">
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2>ایجاد کاربر جدید</h2>
+        </div>
+      </div>
+
+      <div class="info-tour-body">
+        <div class="top">
+          <div class="item-info">
+            <label for="">نام</label>
+            <input formControlName="name" type="text">
+            <div *ngIf="errorService.hasError('name')">
+              <span class="text-danger">{{errorService.getError('name')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">نام خانوادگی</label>
+            <input formControlName="family" type="text">
+            <div *ngIf="errorService.hasError('family')">
+              <span class="text-danger">{{errorService.getError('family')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">شماره همراه</label>
+            <input formControlName="phone" type="text">
+            <div *ngIf="errorService.hasError('phone')">
+              <span class="text-danger">{{errorService.getError('phone')}}</span>
+            </div>
+          </div>
+
+
+
+        </div>
+        <div class="bottom">
+          <!-- <div class="item-info">
+            <label for="">گذرواژه</label>
+            <input formControlName="password" type="text">
+            <div *ngIf="errorService.hasError('password')">
+              <span class="text-danger">{{errorService.getError('password')}}</span>
+            </div>
+          </div> -->
+
+
+          <div class="item-info">
+            <label for="">نام کاربری</label>
+            <input formControlName="username" type="text">
+            <div *ngIf="errorService.hasError('username')">
+              <span class="text-danger">{{errorService.getError('username')}}</span>
+            </div>
+          </div>
+
+          <div class="item-info">
+            <label for="">نقش</label>
+
+            <select formControlName="role_id" name="" id="">
+              <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
+            </select>
+            <div *ngIf="errorService.hasError('role_id')">
+              <span class="text-danger">{{errorService.getError('role_id')}}</span>
+            </div>
+          </div>
+
+
+        </div>
+        <button class="btn-base"  (click)="submit()" >ایجاد کاربر</button>
+
+      </div>
+    </div>
+  </form>
+
+</div>
+

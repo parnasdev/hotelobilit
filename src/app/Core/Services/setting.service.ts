@@ -55,19 +55,6 @@ export class SettingService {
               public message: MessageService) {
   }
 
-  getUserPermission(): void {
-    this.userApi.getUserPermission().subscribe((res: any) => {
-      if (res.isDone) {
-        this.userPermissions = res.data;
-      } else {
-        this.message.custom(res.message);
-      }
-    }, (error: any) => {
-      this.message.error();
-      this.checkError.check(error);
-    });
-
-  }
 
   checkItemPermission(item: string) {
     return !!this.userPermissions.find(x => x.name === item)

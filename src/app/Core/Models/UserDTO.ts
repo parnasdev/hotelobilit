@@ -6,26 +6,27 @@ export interface UserReqDTO {
 }
 
 export interface UserResDTO {
-  birthDay: string;
-  createdAt: string;
-  family: string;
-  city: CityResponseDTO
-  id: number;
-  name: string;
-  username: string;
-  phone: string;
-  role: string;
+  email: string
+  email_verified_at: string
+  full_name: string
+  gender: string
+  id: number
+  image_profile: string
+  last_viewed_at: string
+  phone: string
+  phone_verified_at: string
+  role: string
+  username: string
 }
 
 export interface UserCreateReq {
   name: string;
   family: string;
-  phone: string;
+  phone?: string;
+  edit_mode?: string
   username: string;
-  password: string;
-  birthDay: string;
-  permissions: string[],
   role_id: number;
+  password: string;
 }
 
 export interface UserRolesDTO {

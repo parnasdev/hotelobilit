@@ -31,4 +31,6 @@ export const Sidebar: SidebarDTO[] = [
             { name: 'افزودن فرودگاه',permition:'Transfer.create', link: '/panel/airport/add', show: true },
         ]
     },
+    { name: 'کاربران', icon: '', link: '/panel/user', show: true,permition:'', children: [] },
+
 ]

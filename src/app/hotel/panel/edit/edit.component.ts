@@ -11,16 +11,18 @@ import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 export class EditComponent extends AddComponent implements OnInit {
   showData = false
   hotelName = '';
+
   hotelId = 1;
   roomTypes: roomDTO[] = []
-
   hotelInfo: InfoHotelDTO = {
     statuses: [],
     cities: [],
+
     roomTypes: [],
     post: {
       id: 0,
       user_id: 0,
+
       title: '',
       slug: '',
       description: '',
@@ -55,6 +57,10 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   setEditReq(): void {
+    this.selectedRooms.forEach(x => {
+      x.has_coefficient = x.has_coefficient ? 1 : 0
+    })
+
     this.req = {
       title: this.hotelForm.controls.title.value,
       titleEn: this.hotelForm.controls.titleEn.value,
@@ -79,7 +85,7 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   edit(): void {
-    this.setEditReq()
+    this.setEditReq();
     this.hotelApi.updatePosts('hotel', this.req, this.hotelId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
@@ -131,7 +137,8 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.body.setValue(this.hotelInfo.post.body);
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
-    this.currentStar = this.hotelInfo.post.options.stars
+    this.currentStar = this.hotelInfo.post.options.stars;
+    // this.hasCoefficients = this.hotelInfo.post.hasCoefficients === 1
     this.getImagesFromData();
     this.convertRoomsToListObjects()
     // this.lat = this.hotelInfo.coordinate.lat
@@ -148,7 +155,7 @@ export class EditComponent extends AddComponent implements OnInit {
         path: x.path,
         url: x.url,
         id: x.id ?? 0,
-        type :x.type
+        type: x.type
       }
       this.hotelImages.push(obj)
     })
@@ -212,12 +219,14 @@ export class EditComponent extends AddComponent implements OnInit {
         name: item.name,
         room_type_id: item.room_type_id,
         coefficient: item.coefficient,
+        hasCoefficient: item.hasCoefficient === 1 ? true : false,
         Adl_capacity: item.Adl_capacity,
         chd_capacity: item.chd_capacity,
         age_child: item.age_child,
       }
       this.selectedRooms.push(obj);
     })
+    // this.showRoom = true
   }
 
   roomsUpdated() {
@@ -229,6 +238,7 @@ export class EditComponent extends AddComponent implements OnInit {
           id: 0,
           name: result[0].name,
           room_type_id: result[0].id,
+          has_coefficient: result[0].has_coefficient,
           coefficient: 0,
           Adl_capacity: result[0].Adl_capacity,
           chd_capacity: result[0].chd_capacity,

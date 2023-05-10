@@ -124,7 +124,7 @@ export class SessionService {
 
   getName(): any {
     const user = localStorage.getItem('hotelobilit-user');
-    return user ? JSON.parse(user).user.name : '';
+    return user ? JSON.parse(user).user.displayTitle : '';
   }
 
   getUsername(): any {

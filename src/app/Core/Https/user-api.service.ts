@@ -3,15 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {PublicService} from "../Services/public.service";
 import {environment} from "../../../environments/environment";
 import {Result} from "../Models/result";
-import {UserCreateReq, UserReqDTO} from "../Models/UserDTO";
-import { LoginResponseDTO, ProfileDTO } from '../Models/AuthDTO';
+import {UserCreateReq} from "../Models/UserDTO";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserApiService {
 
-  private serverControllerName = 'user/';
+  private serverControllerName = 'panel/users';
 
   constructor(public http: HttpClient,
               public publicService: PublicService) {
@@ -19,52 +18,34 @@ export class UserApiService {
       environment.BACK_END_IP + this.serverControllerName;
   }
 
-  getUsers(req: UserReqDTO): any {
-    const strUrl = this.serverControllerName + 'getUsers';
-    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
-  }
-
-  getUser(userId: string): any {
-    const strUrl = this.serverControllerName + `getUser/${userId}`;
+  getCreateData(): any {
+    const strUrl = this.serverControllerName + '/create';
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  addUser(req: UserCreateReq): any {
-    const strUrl = this.serverControllerName + `createUser`;
-    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  getUser(): any {
+    const strUrl = this.serverControllerName;
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
+  getEditData(id: number): any {
+    const strUrl = this.serverControllerName + `/${id}/edit`;
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
   editUser(req: UserCreateReq, userId: string): any {
-    const strUrl = this.serverControllerName + `editUser/${userId}`;
+    const strUrl = this.serverControllerName + `/${userId}`;
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
   deleteUser(userId: number): any {
-    const strUrl = this.serverControllerName + `deleteUser/${userId}`;
+    const strUrl = this.serverControllerName + `/${userId}`;
     return this.http.delete<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  getUserPermission(): any {
-    const strUrl = this.serverControllerName + `getUserPermission`;
-    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  createUser(req: UserCreateReq): any {
+    const strUrl = this.serverControllerName;
+    return this.http.post<Result<any>>(strUrl,req, this.publicService.getDefaultHeaders());
   }
 
-  getUserPermissionWithId(userId: number): any {
-    const strUrl = this.serverControllerName + `getUserPermission/${userId}`;
-    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
-  }
-
-  editProfile(req: ProfileDTO): any {
-    const url = this.serverControllerName + `editProfile`;
-    return this.http.post<Result<boolean>>(
-      url, req,
-      this.publicService.getDefaultHeaders());
-  }
-
-  getProfile(): any {
-    const url = this.serverControllerName + 'getProfile';
-    return this.http.get<Result<LoginResponseDTO>>(
-      url,
-      this.publicService.getDefaultHeaders());
-  }
 }
