@@ -10,3 +10,11 @@ export interface AirlineReqDTO {
     code: string;
     files: any[]
 }
+
+
+export interface AirportReqDTO {
+    parent: number;
+    name: string;
+    code: string;
+    files: any[]
+}

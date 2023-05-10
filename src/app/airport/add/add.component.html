@@ -22,22 +22,10 @@
       <div class="info-tour-body">
         <div class="top">
 
-          <div class="item-info-2 w-48">
-            <div class="select-info">
-              <label for="">شهر مبدا</label>
-              <prs-select-city [hasHotel]="true" [inCommingCity]="cities[0]" [cities]="data.cities[0].categories"
-                               (citySelected)="getStCity($event)"></prs-select-city>
-              <div *ngIf="errorService.hasError('origin_id')">
-                <span class="text-danger">{{errorService.getError('origin_id')}}</span>
-              </div>
-            </div>
-
-          </div>
-
           <div style="padding-right: 2rem" class="item-info w-48">
             <div class="select-info">
               <label for="">شهر مقصد</label>
-              <prs-select-city [hasHotel]="true" [cities]="data.cities[0].categories"
+              <prs-select-city [hasHotel]="true" [cities]="data.cities"
                                (citySelected)="getEndCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('destination_id')">
                 <span class="text-danger">{{errorService.getError('destination_id')}}</span>

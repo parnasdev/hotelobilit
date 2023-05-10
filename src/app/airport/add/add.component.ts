@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
-import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { AirlineReqDTO, AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
@@ -21,7 +21,8 @@ export class AddComponent {
   nameFC = new FormControl();
   codeFC = new FormControl();
   statusFC = new FormControl();
-  req: AirlineReqDTO = {
+  req: AirportReqDTO = {
+    parent: 0,
     name: '',
     code: '',
     files: [],
@@ -37,7 +38,6 @@ export class AddComponent {
 
   cities: CityResponseDTO[] = []
   // cityID = 0;
-  originCityFC = new FormControl();
   destCityFC = new FormControl();
 
   constructor(public message: MessageService,
@@ -63,10 +63,6 @@ export class AddComponent {
     this.destCityFC.setValue(cityItemSelected.id);
   }
 
-  getStCity(cityItemSelected: any): void {
-    this.originCityFC.setValue(cityItemSelected.id);
-  }
-
   getInfo(): void {
   }
 
@@ -86,9 +82,9 @@ export class AddComponent {
 
   submit(): void {
     this.setReq()
-    this.api.storeCategory('airline', 'hotel', this.req).subscribe((res: any) => {
+    this.api.storeCategory('airport', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
-        this.router.navigateByUrl('/panel/transfer');
+        this.router.navigateByUrl('/panel/airport');
       }else {
         this.message.custom(res.message);
       }
@@ -102,6 +98,7 @@ export class AddComponent {
 
   setReq(): void {
     this.req = {
+      parent: this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
       files: []
