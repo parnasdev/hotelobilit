@@ -1,7 +1,7 @@
 <section class="s-list-hotel">
   <div class="prs-responsive">
     <div class="p-list-hotel">
-      <prs-search (onSubmit)="search($event)"></prs-search>
+      <prs-search [inCommingSearchObject]="routeDataParam" (onSubmit)="search($event)"></prs-search>
       <div class="p-list-hotel-bottom">
         <div *ngIf="isDesktop" class="filtering">
           <div class="title-filtering">
@@ -123,7 +123,7 @@
                 <div class="end-info">
                   <span *ngIf="isDesktop">قیمت هر نفر برای {{ this.req.stayCount }} شب از :</span>
                   <div class="price">
-                    <strong>{{ getMinPrice(hotel.rooms) }}</strong>
+                    <strong>{{ getMinPrice(hotel.rooms)  | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                   <a (click)="selectHotel(hotel.slug)" class="btn-base w-100">انتخاب هتل و رزرو</a>

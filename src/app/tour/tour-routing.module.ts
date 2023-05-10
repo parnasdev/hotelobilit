@@ -14,7 +14,7 @@ const routes: Routes = [
     component: HotelListComponent
   },
   {
-    path: 'flight/:slug',
+    path: ':city/flight/:slug',
     component: ChooseRoomAndFlightComponent
   },
 ];

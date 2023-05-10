@@ -13,26 +13,28 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {SwiperModule} from "swiper/angular";
 import { MatNativeDateModule } from '@angular/material/core';
+import { PipesModule } from "../common-project/pipes/pipes.module";
 
 
 @NgModule({
-  declarations: [
-    HotelListComponent,
-    ChooseRoomAndFlightComponent,
-    SearchComponent
-  ],
-  imports: [
-    CommonModule,
-    TourRoutingModule,
-    // DatePickerModule,
-    ReactiveFormsModule,
-    CommonProjectModule,
-    SwiperModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-
-  ],exports:[SearchComponent]
+    declarations: [
+        HotelListComponent,
+        ChooseRoomAndFlightComponent,
+        SearchComponent
+    ],
+    exports: [SearchComponent],
+    imports: [
+        CommonModule,
+        TourRoutingModule,
+        // DatePickerModule,
+        ReactiveFormsModule,
+        CommonProjectModule,
+        SwiperModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        PipesModule
+    ]
 })
 export class TourModule { }

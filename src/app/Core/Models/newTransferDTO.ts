@@ -28,6 +28,7 @@ export interface transferRateListDTO {
     destination_id: number;
     airline_name: string;
     airline_id: number;
+    flight: transferRateListDTO;
     date: string;
     time: string;
     flight_number: number;

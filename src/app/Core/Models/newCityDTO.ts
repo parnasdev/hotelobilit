@@ -15,5 +15,5 @@ export interface SearchObjectDTO {
     origin: string;
     dest: string;
     stDate: string;
-    night: number | string;
+    night: any;
 }

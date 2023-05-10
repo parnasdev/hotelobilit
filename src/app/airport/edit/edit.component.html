@@ -21,6 +21,18 @@
       </div>
       <div class="info-tour-body">
         <div class="top">
+
+          <div style="padding-right: 2rem" class="item-info w-48">
+            <div class="select-info">
+              <label for="">شهر </label>
+              <prs-select-city [hasHotel]="true" [cities]="info.cities"
+                               (citySelected)="getEndCity($event)"></prs-select-city>
+              <div *ngIf="errorService.hasError('destination_id')">
+                <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+              </div>
+            </div>
+          </div>
+
           <div class="item-info">
             <label for="">عنوان فرودگاه</label>
             <input [formControl]="nameFC" type="text">
@@ -41,14 +53,15 @@
       </div>
       <div class="info-tour-body-upload">
         <div class="top-one">
-          <prs-upload-single [incommingFile]="{path:'',url: logo.url}" (result)="getLogo($event)"></prs-upload-single>
+          <prs-upload-single (result)="getLogo($event)"></prs-upload-single>
+
         </div>
       </div>
     </div>
 
     <div class="btn-parent-submit">
 
-      <button class="submit-tour" (click)="submit()">ویرایش فرودگاه</button>
+      <button class="submit-tour" (click)="submit()">ثبت فرودگاه</button>
     </div>
   </form>
 

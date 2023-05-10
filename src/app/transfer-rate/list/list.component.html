@@ -1,45 +1,72 @@
 <div class="list-tour">
-    <div class="title">
-      <h2>لیست مسیر پرواز ها</h2>
-      <a class="btn-add-tour" routerLink="/panel/transferRate/add">اضافه</a>
-    </div>
-    <div class="table-list-tour">
-      <div class="header-list-tour">
-        <span class="id">#</span>
-        <!--      <span class="username">نام کاربر</span>-->
-        <span class="title-tour">مبدا - مقصد</span>
-        <span class="title-tour">ایرلاین</span>
-        <span class="from-to">تاریخ</span>
-        <span class="from-to">ساعت</span>
-        <span class="from-to">شماره پرواز</span>
-        <span class="from-to">ظرفیت</span>
-        <span class="setting">تنظیمات</span>
+  <div class="title">
+    <h2>لیست مسیر پرواز ها</h2>
+    <a class="btn-add-tour" routerLink="/panel/transferRate/add">اضافه</a>
+  </div>
+  <div class="table-list-tour">
+    <div class="header-list-tour">
+      <div class="d-flex flex-column ">
+      <span class="id">رفت</span>
+      <span class="id">برگشت</span>
+
       </div>
-      <div class="body-list-tour" *ngIf="transfers.length > 0">
-        <div class="item" *ngFor="let transfer of transfers| paginate: paginateConfig; ;let i = index">
-          <span class="id">{{ transfer.id }}</span>
-          <span class="title-tour">{{ transfer.origin_name }} - {{ transfer.destination_name }}</span>
-          <span class="title-tour">{{ transfer.airline_name }}</span>
-          <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }}</span>
+      <!--      <span class="username">نام کاربر</span>-->
+      <span class="title-tour">مبدا - مقصد</span>
+      <span class="title-tour">ایرلاین</span>
+      <span class="from-to"> تاریخ</span>
+      <span class="from-to">ساعت</span>
+      <span class="from-to">شماره پرواز</span>
+      <span class="from-to">ظرفیت</span>
+      <span class="setting">تنظیمات</span>
+    </div>
+    <div class="body-list-tour" *ngIf="transfers.length > 0">
+      <div class="item" *ngFor="let transfer of transfers| paginate: paginateConfig; ;let i = index">
+        <div class="d-flex flex-column ">
+        <span class="id">{{ transfer.id }}</span>
+        <span class="id">{{ transfer.flight.id }}</span>
+
+        </div>
+        <div class="d-flex flex-column ">
+
+        <span class="title-tour">{{ transfer.origin_name }} - {{ transfer.destination_name }}</span>
+        <span class="title-tour">{{ transfer.flight.origin_name }} - {{ transfer.flight.destination_name }}</span>
+
+        </div>
+        <div class="d-flex flex-column ">
+        <span class="title-tour">{{ transfer.airline_name }}</span>
+        <span class="title-tour">{{ transfer.flight.airline_name }}</span>
+
+        </div>
+        <div class="d-flex flex-column ">
+          <span>{{ calendarService.convertDate(transfer.date,'fa') }}</span>
+          <span>{{ calendarService.convertDate(transfer.flight.date,'fa') }}</span>
+        </div>
+        <div class="d-flex flex-column ">
           <span class="title-tour">{{transfer.time}}</span>
-
+          <span class="title-tour">{{transfer.flight.time}}</span>
+        </div>
+        <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.flight_number }}</span>
+          <span class="title-tour">{{ transfer.flight.flight_number }}</span>
+        </div>
+        <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.capacity }}</span>
-          <div class="button-setting">
-            <a routerLink="/panel/transferRate/edit/{{ transfer.id }}" class="edit-btn">ویرایش</a>
-            <a routerLink="/panel/transferRate/copy/{{ transfer.id }}" class="edit-btn">کپی</a>
+          <span class="title-tour">{{ transfer.flight.capacity }}</span>
+        </div>
+        <div class="button-setting">
+          <a routerLink="/panel/transferRate/edit/{{ transfer.id }}" class="edit-btn">ویرایش</a>
+          <a routerLink="/panel/transferRate/copy/{{ transfer.id }}" class="edit-btn">کپی</a>
 
-            <button (click)="removeTransferRate(transfer.id)" class="delete-btn">حذف</button>
-          </div>
+          <button (click)="removeTransferRate(transfer.id)" class="delete-btn">حذف</button>
         </div>
       </div>
     </div>
-    <div>
-      <pagination-controls *ngIf="paginate.last_page > 1" class="pagination-control"
-        (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
-        screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
-      </pagination-controls>
-    </div>
+  </div>
+  <div>
+    <pagination-controls *ngIf="paginate?.last_page > 1" class="pagination-control" (pageChange)="onPageChanged($event)"
+      previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+      screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
+  </div>
 
 </div>
-  

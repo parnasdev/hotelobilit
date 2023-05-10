@@ -7,12 +7,14 @@ import { FooterComponent } from './footer/footer.component';
 import { IndexComponent } from './index/index.component';
 import {SwiperModule} from "swiper/angular";
 import { TourModule } from '../tour/tour.module';
+import { StoreComponent } from './store/store.component';
 
 @NgModule({
   declarations: [
     IndexComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    StoreComponent
   ],
   imports: [
     CommonModule,

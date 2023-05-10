@@ -19,6 +19,7 @@ export class CategoryApiService {
     }
   
   getCategoryList(cat_type: string, post_type: string, page: number): any {
+    // cat_type  = airline airport 
     const strUrl = this.serverControllerName + `categories?cat_type=${cat_type}&post_type=${post_type}&page=${page}`;
     return this.http.get<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
   }
@@ -43,8 +44,8 @@ export class CategoryApiService {
     return this.http.patch<Result<any[]>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
-  deleteCategory(cat_id: number,cat_type: string, post_type: string): any {
-    const strUrl = this.serverControllerName + `categories/${cat_id}?cat_type=${cat_type}&post_type=${post_type}`;
+  deleteCategory(cat_id: number,cat_type: string): any {
+    const strUrl = this.serverControllerName + `categories/${cat_id}?cat_type=${cat_type}`;
     return this.http.delete<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
   }
 

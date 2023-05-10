@@ -19,7 +19,7 @@ import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
 })
 export class SelectCityComponent implements OnInit, OnChanges {
   @Output() citySelected = new EventEmitter()
-  @Input() cities: categoriesDTO[] | CityListRes[] = []
+  @Input() cities: categoriesDTO[] = []
   @Input() hasHotel: boolean = false;
   @Input() hasFlight: boolean = false;
   @Input() type: number | null = null;
@@ -35,7 +35,7 @@ export class SelectCityComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     public mobileService: ResponsiveService,
     public message: MessageService) {
-      this.isMobile = mobileService.isMobile();
+    this.isMobile = mobileService.isMobile();
   }
 
   cityFC = new FormControl();
@@ -61,8 +61,14 @@ export class SelectCityComponent implements OnInit, OnChanges {
     );
 
     if (this.inCommingCity && this.inCommingCity !== '') {
-      if (this.cities.filter(c => (c.id === +this.inCommingCity) || (c.id === this.inCommingCity)).length > 0) {
-        this.cityFC.setValue(this.cities.filter(c => (c.id === +this.inCommingCity))[0].name)
+      if (this.cities.filter(c => (c.id === +this.inCommingCity) ||
+        (c.id === this.inCommingCity) ||
+        (c.code === this.inCommingCity) ||
+        (c.slug === this.inCommingCity)).length > 0) {
+        this.cityFC.setValue(this.cities.filter(c => 
+          (c.id === +this.inCommingCity) ||
+          (c.code === this.inCommingCity) ||
+          (c.slug === this.inCommingCity))[0].name)
         // this.citySelected.emit(this.cities.filter(c => c.slugEn === this.inCommingCity)[0])
       }
     }
@@ -76,9 +82,9 @@ export class SelectCityComponent implements OnInit, OnChanges {
   openSelectCity() {
     const dialog = this.dialog.open(SelectCityPopupComponent, {
       data: {
-        cities : this.cities
+        cities: this.cities
       }
-    
+
     })
     dialog.afterClosed().subscribe(Result => {
       if (Result) {

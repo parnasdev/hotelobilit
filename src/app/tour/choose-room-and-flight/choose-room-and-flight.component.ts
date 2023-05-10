@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
@@ -63,16 +64,16 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.getHotelInfo();
   }
 
-  setReq(){
+  setReq() {
     this.route.queryParams.subscribe(params => {
       this.req = {
         origin: params['origin'],
-        date: this.calendar.convertDateSpecial(params['stDate'], 'en'),
+        date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
         destination: params['dest'],
         stayCount: params['night'] ?? 1
       }
     }
-  );
+    );
   }
 
   getSearchData(): void {
@@ -99,12 +100,15 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.hotelInfo = res.data;
-        this.paginate = res.meta;
-        this.paginateConfig = {
-          itemsPerPage: this.paginate.per_page,
-          totalItems: this.paginate.total,
-          currentPage: this.paginate.current_page
-        }
+        this.getSearchData()
+
+        // this.paginate = res.meta;
+        // this.paginateConfig = {
+        //   itemsPerPage: this.paginate.per_page,
+        //   totalItems: this.paginate.total,
+        //   currentPage: this.paginate.current_page
+        // }
+
       } else {
         this.message.custom(res.message);
       }
@@ -116,5 +120,5 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   getStars(count: string | number): number[] {
     return Array.from(Array(+count).keys());
   }
-  
+
 }

@@ -56,7 +56,7 @@ export class ListComponent implements OnInit {
   }
 
   deleteTransfer(id: number) {
-    this.api.deleteCategory(id, 'airline', 'airline').subscribe((res: any) => {
+    this.api.deleteCategory(id, 'airline').subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
         this.getTransfers()

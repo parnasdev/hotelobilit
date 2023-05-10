@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
@@ -12,7 +13,7 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
 
   @Output() onSubmit = new EventEmitter();
   @Input() inCommingSearchObject?: SearchObjectDTO;
@@ -24,7 +25,7 @@ export class SearchComponent implements OnInit {
 
   originFC = new FormControl('', Validators.required);
   destFC = new FormControl('', Validators.required);
-  nightFC = new FormControl(0, Validators.required);
+  nightFC = new FormControl(1, Validators.required);
   stDateFC = new FormControl('', Validators.required);
   // reservedDates: DatesResDTO[] = [];
   nights: number[] = []
@@ -35,8 +36,17 @@ export class SearchComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public cityApi: CityApiService,
+    public calendarService: CalenderServices,
     public message: MessageService,
-    ) { }
+  ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['inCommingSearchObject']) {
+      this.originFC.setValue(this.inCommingSearchObject?.origin ?? '')
+      this.destFC.setValue(this.inCommingSearchObject?.dest ?? '')
+      this.nightFC.setValue(this.inCommingSearchObject?.night ?? 1)
+      this.stDateFC.setValue(this.inCommingSearchObject?.stDate ?? '')
+    }
+  }
 
   ngOnInit() {
     this.getCities();
@@ -64,7 +74,7 @@ export class SearchComponent implements OnInit {
         // this.cities = this.cities.sort(function(x, y) {
         //   return Number(y.type) - Number(x.type);
         // })
-        
+
       }
     }, (error: any) => {
       this.isLoading = false
@@ -79,12 +89,10 @@ export class SearchComponent implements OnInit {
     //   this.getReservedDates();
     // }
   }
-  
+
   destSelected(city: CityListRes): void {
     this.destFC.setValue(city.code)
     // this.reservedDates = [];
-    this.stDateFC.setValue(null)
-    this.nightFC.setValue(null)
     this.inCommingSearchObject = undefined
     // this.getReservedDates();
   }
@@ -96,7 +104,7 @@ export class SearchComponent implements OnInit {
     })
     dialog.afterClosed().subscribe(res => {
       console.log(res)
-      this.stDateFC.setValue(res.fromDate.dateEn)
+      this.stDateFC.setValue(res.fromDate.dateFa)
     })
   }
 }

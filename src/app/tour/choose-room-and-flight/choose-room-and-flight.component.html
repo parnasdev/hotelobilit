@@ -11,7 +11,9 @@
             </swiper>
           </div>
           <div class="p-information">
-            <h2 class="name-hotel"><a href="">شما هتل {{ hotelInfo.title }} را انتخاب کرده اید</a></h2>
+            <h2 class="name-hotel">
+              <a href="">شما  {{ hotelInfo.title }} را انتخاب کرده اید</a>
+            </h2>
             <div class="p-star">
               <i class="icon-star" *ngFor="let item of getStars(hotelInfo.stars)"></i>
             </div>
@@ -28,14 +30,13 @@
             </div>
             <div class="top">
               <div class="right">
-                <h2>اتاق کابانا دو نفره در محوطه</h2>
-                <span>دو تخته (Twin/Double)</span>
+                <h2>اتاق {{ item.room_type }}</h2>
               </div>
               <div class="left">
                 <div class="p-price">
                   <span>قیمت:</span>
                   <div class="price">
-                    <strong>2.000.000</strong>
+                    <strong>---</strong>
                     <small>تومان</small>
                   </div>
                 </div>

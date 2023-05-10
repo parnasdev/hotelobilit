@@ -115,6 +115,8 @@ export interface citiesDTO {
 export interface categoriesDTO {
     id: number;
     name: string;
+    code?: string
+    slug?: string;
 }
 
 export interface hotelPageDTO {

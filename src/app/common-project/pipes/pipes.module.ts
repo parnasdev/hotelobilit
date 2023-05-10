@@ -7,11 +7,12 @@ import { RoundPipe } from './round.pipe';
 import { OrderingPipe } from './ordering.pipe';
 import { CityKeywordPipe } from './city-keyword.pipe';
 import { OriginCityPipe } from './origin-city.pipe';
+import { ConvertDatePipe } from './convert-date.pipe';
 
 
 
 @NgModule({
-  declarations: [SperatorPipe,SafeHtmlPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe],
+  declarations: [SperatorPipe,SafeHtmlPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe, ConvertDatePipe],
   exports: [
     SperatorPipe,
     SafeHtmlPipe,

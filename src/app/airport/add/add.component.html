@@ -24,7 +24,7 @@
 
           <div style="padding-right: 2rem" class="item-info w-48">
             <div class="select-info">
-              <label for="">شهر مقصد</label>
+              <label for="">شهر </label>
               <prs-select-city [hasHotel]="true" [cities]="data.cities"
                                (citySelected)="getEndCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('destination_id')">

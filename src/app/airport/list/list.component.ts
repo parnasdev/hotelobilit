@@ -56,7 +56,7 @@ export class ListComponent {
   }
 
   deleteAirport(id: number) {
-    this.api.deleteCategory(id, 'airport', 'hotel').subscribe((res: any) => {
+    this.api.deleteCategory(id, 'airport').subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
         this.getTransfers()

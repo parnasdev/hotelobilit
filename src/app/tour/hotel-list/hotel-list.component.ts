@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
+import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
+import * as moment from 'jalali-moment';
 
 @Component({
   selector: 'prs-hotel-list',
@@ -20,9 +20,16 @@ export class HotelListComponent implements OnInit {
   isTablet = false;
 
   req: TourSearchReqDTO = {
-  date: '',
-  destination: 0,
-  stayCount: 0
+    date: '',
+    destination: 0,
+    stayCount: 0
+  }
+
+  routeDataParam: SearchObjectDTO = {
+    dest: '',
+    night: 0,
+    origin: '',
+    stDate: ''
   }
 
   hotels: HotelSearchResDTO[] = [];
@@ -30,7 +37,6 @@ export class HotelListComponent implements OnInit {
   paginate: any;
   paginateConfig: any;
 
-  cities: CityListRes[] = []
 
   constructor(
     public api: TourApiService,
@@ -41,28 +47,32 @@ export class HotelListComponent implements OnInit {
     public route: ActivatedRoute,
     public message: MessageService,
   ) {
-    this.isMobile = mobileService.isMobile()
-    this.isDesktop = mobileService.isDesktop()
-
-    this.isTablet = mobileService.isTablet()
+    this.isMobile = mobileService.isMobile();
+    this.isDesktop = mobileService.isDesktop();
+    this.isTablet = mobileService.isTablet();
+    this.route.queryParams.subscribe((params: any) => {
+      this.routeDataParam = params;
+    })
   }
 
   ngOnInit() {
-    this.getCities();
+    this.getSearchData();
   }
 
-  setReq(){
+  setReq() {
     this.route.queryParams.subscribe(params => {
       this.req = {
-        date: this.calendar.convertDateSpecial(params['stDate'], 'en'),
+        date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
         destination: params['dest'],
-        stayCount:params['night'] ?? 1
+        stayCount: params['night'] ?? 1
       }
     }
-  );
+    );
+
   }
 
   getSearchData(): void {
+    console.log('getSearchData')
     this.setReq();
     this.api.search('hotels', this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -81,42 +91,25 @@ export class HotelListComponent implements OnInit {
     })
   }
 
-  getCities(): void {
-    // this.isLoading = true
-    const req: CityListReq = {
-      hasHotel: 0,
-      hasFlight: 0,
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      // this.isLoading = false
-      if (res.isDone) {
-        this.cities = res.data;
-        this.getSearchData();
-        // this.cities = this.cities.sort(function(x, y) {
-        //   return Number(y.type) - Number(x.type);
-        // })
-        
-      }
-    }, (error: any) => {
-      // this.isLoading = false
-      this.message.error()
-    })
-  }
 
-  checkCity(cityCode: string){
-    return this.cities.find(x => x.code === cityCode)?.id
-  }
 
-  search(result:any) {
+  search(result: any) {
+    console.log('search')
     let city = result.origin + '-' + result.dest
     this.router.navigate([`/tour/` + city], {
-      queryParams: this.req
+      queryParams: result
     })
+    this.getSearchData();
+
   }
 
-  selectHotel(hotel_slug: string){
-    this.router.navigate([`/tour/` + 'flight/' + hotel_slug], {
-      queryParams: this.req
+  selectHotel(hotel_slug: string) {
+    console.log(this.routeDataParam);
+
+    let city = this.routeDataParam.origin + '-' + this.routeDataParam.dest
+
+    this.router.navigate([`/tour/` + city + '/flight/' + hotel_slug], {
+      queryParams: this.routeDataParam
     })
   }
 
@@ -124,14 +117,14 @@ export class HotelListComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-  getMinPrice(rooms: any[]){
+  getMinPrice(rooms: any[]) {
     let list: number[] = []
     rooms.forEach(item => {
       let price = 0
       item.rates.forEach((element: any) => { price += element.price });
       list.push(price)
     });
-    list.sort((a, b)=> b - a);
+    list.sort((a, b) => b - a);
     return list[0]
   }
 
