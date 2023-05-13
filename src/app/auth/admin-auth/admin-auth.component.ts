@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthApiService } from 'src/app/Core/Https/auth-api.service';
-import { ConvertRequestDTO, LoginReqDTO, LoginResDTO } from 'src/app/Core/Models/AuthDTO';
+import { LoginReqDTO } from 'src/app/Core/Models/AuthDTO';
+
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
@@ -37,8 +38,7 @@ export class AdminAuthComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   submit(): void {
     this.loginReq = {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import { AuthApiService } from 'src/app/Core/Https/auth-api.service';
@@ -44,9 +44,9 @@ export class ForgetComponent implements OnInit {
 
   setValue(): void {
     this.changePasswordReq = {
-      password: this.passwordFC.value,
-      phone: this.phone,
-      code: this.codeFC.value
+      password: this.passwordFC.value ?? '',
+      username: this.phone,
+      token: this.codeFC.value ?? ''
     };
   }
 

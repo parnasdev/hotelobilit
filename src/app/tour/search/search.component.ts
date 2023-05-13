@@ -74,7 +74,6 @@ export class SearchComponent implements OnInit, OnChanges {
         // this.cities = this.cities.sort(function(x, y) {
         //   return Number(y.type) - Number(x.type);
         // })
-
       }
     }, (error: any) => {
       this.isLoading = false

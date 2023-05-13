@@ -1,6 +1,5 @@
-import { UserDTO } from "./AuthDTO";
 import { CityResponseDTO } from "./cityDTO";
-import { RoomDTO, TourListResDTO, newTourPackageDTO, newTourPackageInfoDTO } from "./tourDTO";
+import {  TourListResDTO, newTourPackageInfoDTO } from "./tourDTO";
 
 export interface HotelSetRequestDTO {
   name: string;
@@ -178,7 +177,7 @@ export interface HotelRatesResDTO {
   price: number
   rate: number;
   roomType: RoomTypeDTO;
-  user: UserDTO
+  user: any
 }
 
 export interface RoomTypeDTO {

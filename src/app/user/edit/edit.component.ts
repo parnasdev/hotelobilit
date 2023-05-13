@@ -102,7 +102,7 @@ export class EditComponent implements OnInit {
     this.api.editUser(this.userReq, this.userId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
-        this.router.navigate(['/panel/user/list']);
+        this.router.navigate(['/panel/user']);
       } else {
         this.message.custom(res.message);
       }

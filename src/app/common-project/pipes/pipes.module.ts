@@ -20,7 +20,7 @@ import { ConvertDatePipe } from './convert-date.pipe';
     RoundPipe,
     OrderingPipe,
     CityKeywordPipe,
-    OriginCityPipe
+    OriginCityPipe,ConvertDatePipe
   ],
   imports: [
     CommonModule

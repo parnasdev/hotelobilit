@@ -1,12 +1,12 @@
-import {Component, Input, OnInit, Output, EventEmitter, SimpleChanges} from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthApiService} from "../../Core/Https/auth-api.service";
-import {ErrorsService} from "../../Core/Services/errors.service";
-import {PublicService} from "../../Core/Services/public.service";
-import {SessionService} from "../../Core/Services/session.service";
-import {MessageService} from "../../Core/Services/message.service";
-import { ValidateResDTO } from 'src/app/Core/Models/AuthDTO';
+import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthApiService } from "../../Core/Https/auth-api.service";
+import { ErrorsService } from "../../Core/Services/errors.service";
+import { PublicService } from "../../Core/Services/public.service";
+import { SessionService } from "../../Core/Services/session.service";
+import { MessageService } from "../../Core/Services/message.service";
+import { SendCodeReqDTO, ValidationResDTO } from 'src/app/Core/Models/AuthDTO';
 
 
 declare var $: any;
@@ -17,7 +17,6 @@ declare var $: any;
   styleUrls: ['./validate.component.scss']
 })
 export class ValidateComponent implements OnInit {
-
   @Input() isForgetPassword = false;
   @Output() forgetPassword = new EventEmitter();
   @Input() phone = '';
@@ -26,11 +25,11 @@ export class ValidateComponent implements OnInit {
   isLoading = false;
 
   constructor(public router: Router,
-              public api: AuthApiService,
-              public errorService: ErrorsService,
-              public publicService: PublicService,
-              public message: MessageService,
-              public session: SessionService
+    public api: AuthApiService,
+    public errorService: ErrorsService,
+    public publicService: PublicService,
+    public message: MessageService,
+    public session: SessionService
   ) {
     errorService.clear();
   }
@@ -62,15 +61,19 @@ export class ValidateComponent implements OnInit {
   }
 
   sendSms(phoneNumber: string, tokenType: string): void {
-    this.api.sendSms(phoneNumber, tokenType).subscribe((res: any) => {
+    let req: SendCodeReqDTO = {
+      step: tokenType,
+      username: phoneNumber
+    }
+    this.api.sendSms(req).subscribe((res: any) => {
       if (res.isDone) {
         if (this.isForgetPassword) {
           this.forgetPassword.emit(true);
         } else {
-          if(tokenType == 'login') {
-            this.router.navigate(['/auth/login/' + phoneNumber],{ queryParams: {temp: '1'}});
+          if (tokenType == 'login') {
+            this.router.navigate(['/auth/login/' + phoneNumber], { queryParams: { temp: '1' } });
           } else {
-            this.router.navigate(['/auth/register/' + phoneNumber],{ queryParams: {type: '3'}});
+            this.router.navigate(['/auth/register/' + phoneNumber], { queryParams: { type: '3' } });
           }
         }
       } else {
@@ -82,22 +85,22 @@ export class ValidateComponent implements OnInit {
     });
   }
 
-  checkAuthMode(validateData: ValidateResDTO): void { 
-    const phoneNumber = this.publicService.fixNumbers(this.phoneNumberFC.value) 
-    if (validateData.authMode === 1) {
+  checkAuthMode(validateData: ValidationResDTO): void {
+    const phoneNumber = this.publicService.fixNumbers(this.phoneNumberFC.value)
+    if (validateData.step === 'login') {
       // login
       if (this.isForgetPassword) {
         this.sendSms(phoneNumber, 'forget');
       } else {
-        if (validateData.password){
-          this.router.navigateByUrl('/auth/login/' + phoneNumber);
-        }else {
-          this.sendSms(phoneNumber, 'login');
-        }
+        // if (validateData.password){
+      this.router.navigateByUrl('/auth/login/' + phoneNumber);
+        // }else {
+        //   this.sendSms(phoneNumber, 'tempPassword');
+        // }
       }
     } else {
       // register
-      this.sendSms(phoneNumber, 'activation');
+      this.sendSms(phoneNumber, 'register');
     }
   }
 

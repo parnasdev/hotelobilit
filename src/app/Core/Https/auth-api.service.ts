@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {PublicService} from "../Services/public.service";
-import {Result} from "../Models/result";
-import { ChangePasswordReqDTO, ConvertRequestDTO, LoginReqDTO, LoginResDTO, ProfileDTO, UserDTO, ValidateResDTO } from '../Models/AuthDTO';
+import { Injectable } from '@angular/core';
+import { environment } from "../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { PublicService } from "../Services/public.service";
+import { Result } from "../Models/result";
+import { ChangePasswordReqDTO, LoginReqDTO, RegisterReqDTO, RegisterResDTO, SendCodeReqDTO, UserMeResDTO, ValidationResDTO} from '../Models/AuthDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,40 +13,40 @@ export class AuthApiService {
   private serverControllerName = 'auth/';
 
   constructor(public http: HttpClient,
-              public publicService: PublicService) {
+    public publicService: PublicService) {
     this.serverControllerName =
       environment.BACK_END_IP + this.serverControllerName;
   }
 
   me(): any {
     const url = this.serverControllerName + `me`;
-    return this.http.get<Result<UserDTO>>(
+    return this.http.get<Result<UserMeResDTO>>(
       url,
       this.publicService.getDefaultHeaders());
   }
 
   login(req: LoginReqDTO): any {
     const url = this.serverControllerName + `login`;
-    return this.http.post<Result<LoginResDTO>>(
-      url,
-      req,
-      this.publicService.getDefaultHeaders());
-  }
-
-  register(req: LoginReqDTO): any {
-    const url = this.serverControllerName + `register`;
     return this.http.post<Result<any>>(
       url,
       req,
       this.publicService.getDefaultHeaders());
   }
 
-  validate(phone: string): any {
+  register(req: RegisterReqDTO): any {
+    const url = this.serverControllerName + `register`;
+    return this.http.post<Result<RegisterResDTO>>(
+      url,
+      req,
+      this.publicService.getDefaultHeaders());
+  }
+
+  validate(username: string): any {
     const url = this.serverControllerName + 'validation';
     const entity = {
-      phone
+      username
     };
-    return this.http.post<Result<ValidateResDTO>>(
+    return this.http.post<Result<ValidationResDTO>>(
       url,
       entity,
       this.publicService.getDefaultHeaders());
@@ -59,40 +59,22 @@ export class AuthApiService {
       this.publicService.getDefaultHeaders());
   }
 
-  sendSms(phone: string, tokenType: string): any {
-    const url = this.serverControllerName + 'sendSMS';
-    const entity = {
-      phone,
-      tokenType
-    };
-    return this.http.post<Result<ValidateResDTO>>(
-      url,
-      entity,
-      this.publicService.getDefaultHeaders());
-  }
-
-  changePassword(req: ChangePasswordReqDTO): any {
-    const url = this.serverControllerName + 'changePassword';
-    return this.http.post<Result<ValidateResDTO>>(
+  sendSms(req: SendCodeReqDTO): any {
+    // forget || tempPassword || register
+    const url = this.serverControllerName + 'sendcode';
+    return this.http.post<Result<any>>(
       url,
       req,
       this.publicService.getDefaultHeaders());
   }
 
-  checkUser(): any {
-    const url = this.serverControllerName + 'checkUser';
-    return this.http.post<Result<ProfileDTO>>(
+  changePassword(req: ChangePasswordReqDTO): any {
+    const url = this.serverControllerName + 'changePassword';
+    return this.http.post<Result<any>>(
       url,
-      null,
+      req,
       this.publicService.getDefaultHeaders());
   }
 
-  convertUserToAgency(convertRequestData: ConvertRequestDTO): any {
-    const url = this.serverControllerName + 'convert';
-    return this.http.post<Result<UserDTO>>(
-      url,
-      convertRequestData,
-      this.publicService.getDefaultHeaders());
-  }
 
 }

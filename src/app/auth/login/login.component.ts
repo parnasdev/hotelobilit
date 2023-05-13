@@ -55,21 +55,26 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.isLoading = true;
-    this.api.login(this.registerReq).subscribe((res: any) => {
+    let obj: LoginReqDTO = {
+      password: this.passwordFC.value,
+      temp: 0,
+      username: this.phoneNumber
+    }
+    this.api.login(obj).subscribe((res: any) => {
       this.isLoading = false;
-      // if (res.isDone) {
-      //   this.session.setUserToSession(res.data);
-      //   if (this.session.getRole() === 'User') {
-      //     this.router.navigateByUrl('/dashboard');
-      //   } else if (this.session.getRole() === 'Admin' || this.session.getRole() === 'Staff') {
-      //     this.router.navigateByUrl('/panel');
-      //   } else {
-      //     this.router.navigateByUrl('/');
-      //   }
+      if (res.isDone) {
+        this.session.setTokenToSession(res.data);
+        // if (this.session.getRole() === 'User') {
+        //   // this.router.navigateByUrl('/dashboard');
+        // } else if (this.session.getRole() === 'Admin' || this.session.getRole() === 'Staff') {
+        //   this.router.navigateByUrl('/panel');
+        // } else {
+          this.router.navigateByUrl('/');
+        // }
 
-      // } else {
-      //   this.messageService.custom(res.message);
-      // }
+      } else {
+        this.messageService.custom(res.message);
+      }
     }, (error: any) => {
       this.isLoading = false;
       this.errorService.recordError(error.error.data);

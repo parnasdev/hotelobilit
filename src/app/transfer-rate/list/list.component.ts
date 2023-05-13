@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
-import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
-import { SetTransferPageDTO, transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
-import { TransferRateListDTO, TransferRateListReqDTO } from 'src/app/Core/Models/transferRateDTO';
+import {transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { MessageService } from 'src/app/Core/Services/message.service';

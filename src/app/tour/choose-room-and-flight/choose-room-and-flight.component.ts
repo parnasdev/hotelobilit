@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
+import { RateDTO } from 'src/app/Core/Models/newPostDTO';
 import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
@@ -26,9 +28,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     destination: 0,
     stayCount: 0
   }
-
-  flights = [];
-
+  
+  flights: transferRateListDTO[] = [];
   hotelInfo: HotelSearchResDTO = {
     id: 0,
     title: '',
@@ -93,6 +94,15 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }, (error: any) => {
       this.message.error()
     })
+  }
+
+
+  getPrice(price: number, rates: RateDTO[]): number {
+    let roomPrices = 0;
+    rates.forEach(x => {
+      roomPrices += x.price;
+    })
+    return roomPrices + price;
   }
 
   getHotelInfo(): void {
