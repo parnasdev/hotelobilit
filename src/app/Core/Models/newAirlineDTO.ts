@@ -13,8 +13,7 @@ export interface AirlineReqDTO {
 
 
 export interface AirportReqDTO {
-    parent: number;
+    parent_id: number;
     name: string;
     code: string;
-    files: any[]
 }

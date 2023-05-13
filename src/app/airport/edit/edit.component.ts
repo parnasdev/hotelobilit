@@ -3,8 +3,6 @@ import { FormControl } from "@angular/forms";
 import { MessageService } from "../../Core/Services/message.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
-import { UploadSingleComponent } from "../../common-project/upload-single/upload-single.component";
-import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import {  AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
@@ -24,17 +22,11 @@ export class EditComponent {
   req: AirportReqDTO = {
     name: '',
     code: '',
-    parent: 0,
-    files: [],
+    parent_id: 0,
   }
-  logo: UploadResDTO = {
-    id: null,
-    path: '',
-    url: '',
-    alt: '',
-    type: 1,
-  };
   info: any
+
+  show = false;
 
   constructor(public message: MessageService,
     public router: Router,
@@ -48,13 +40,6 @@ export class EditComponent {
     // @ts-ignore
     this.transfer_id = +this.route.snapshot.paramMap.get('id')
     this.getInfo()
-  }
-
-  getLogo(res: any): void {
-    if (res) {
-      this.message.showMessageBig('فایل شما با موفقیت آپلود شد.');
-      this.logo = res
-    }
   }
 
   submit(): void {
@@ -80,41 +65,30 @@ export class EditComponent {
       if (res.isDone) {
         this.info = res.data
         this.setValue()
+        this.show = true;
       } else {
+        this.show = true;
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.show = true;
       this.message.error()
     })
   }
 
-  getThumbnail(): void {
-    const dialog = this.dialog.open(UploadSingleComponent, {});
-    dialog.afterClosed().subscribe(result => {
-      this.logo = result
-    })
-  }
-
   setValue(): void {
-    this.logo = this.info.files.length > 0 ? this.info.files[0] : 0;
-    this.nameFC.setValue(this.info.airline.name)
-    this.codeFC.setValue(this.info.airline.code)
-    this.destCityFC.setValue(this.info.airline.parent)
-
+    // this.logo = this.info.files.length > 0 ? this.info.files[0] : 0;
+    this.nameFC.setValue(this.info.airport.name)
+    this.codeFC.setValue(this.info.airport.code)
+    this.destCityFC.setValue(this.info.airport.parent_id)
   }
 
 
   setReq(): void {
-    this.logo.type = 1
-    this.logo.id = null
-    this.logo.alt = ''
     this.req = {
-      parent: this.destCityFC.value,
+      parent_id: this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
-      files: []
     }
-    this.req.files.push(this.logo)
-
   }
 }
