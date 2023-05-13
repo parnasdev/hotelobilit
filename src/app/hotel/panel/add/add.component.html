@@ -130,11 +130,14 @@
         </div>
       </div>
       <div>ضریب اتاق ها</div>
-      <div class="item-info" *ngFor="let item of selectedRooms">
-        <input type="number" [(ngModel)]="item.coefficient">
-        <mat-label>ضریبی شود‌؟‌</mat-label>
-        <mat-checkbox [(ngModel)]="item.has_coefficient"></mat-checkbox>
+      <div class="d-flex w-100 d-flex align-items-center mb-3" *ngFor="let item of selectedRooms">
 
+        <div class="item-info">
+          <label for="">{{ item.name }}</label>
+          <input type="number" [(ngModel)]="item.coefficient" >
+        </div>
+        <mat-label>ضریبی شود‌؟‌</mat-label>
+        <mat-checkbox [(ngModel)]="item.has_coefficient" (ngModelChange)="coefficientChanged(item.room_type_id)"></mat-checkbox>
       </div>
     </div>
   </div>

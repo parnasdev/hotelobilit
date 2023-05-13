@@ -138,7 +138,7 @@ export class AddComponent implements OnInit {
           id: 0,
           name: result[0].name,
           room_type_id: result[0].id,
-          has_coefficient: result[0].has_coefficient ? 1 : 0,
+          has_coefficient: result[0].has_coefficient,
           coefficient: 0,
           Adl_capacity: result[0].Adl_capacity,
           chd_capacity: result[0].chd_capacity,
@@ -257,7 +257,17 @@ export class AddComponent implements OnInit {
       this.checkError.check(error);
     })
   }
+  coefficientChanged(id: number) {
+    
+    this.selectedRooms.forEach(x => {
+      if (x.room_type_id === id) {
+        x.has_coefficient = true
+      } else {
+        x.has_coefficient = false
 
+      }
+    })
+  }
   getServicesResult(services: any): void {
     this.serviceIDs = [];
     services.forEach((x: any) => {
