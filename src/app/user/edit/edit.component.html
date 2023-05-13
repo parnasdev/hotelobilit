@@ -31,10 +31,17 @@
             </div>
           </div>
 
-
-
         </div>
         <div class="bottom">
+
+          
+          <div class="item-info">
+            <label for="">نام کاربری</label>
+            <input formControlName="username" type="text">
+            <div *ngIf="errorService.hasError('username')">
+              <span class="text-danger">{{errorService.getError('username')}}</span>
+            </div>
+          </div>
 
           <div class="item-info">
             <label for="">گذرواژه</label>

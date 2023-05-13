@@ -88,7 +88,7 @@ export class EditComponent implements OnInit {
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family??'',
       phone: this.userForm.value.phone ?? '',
-      edit_mode: 'profile',
+      edit_mode: this.userForm.value.password !== '' ? 'password' :'profile',
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: this.userForm.value.role_id ?? 0,
