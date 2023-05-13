@@ -14,14 +14,13 @@
     <div class="header-list-tour">
       <span class="id">#</span>
       <span class="title-tour">عنوان هتل</span>
-      <!-- <span class="from-to">عنوان خارجی هتل</span> -->
       <span class="from-to">ایجاد کننده</span>
       <span class="from-to">تعداد بازدید</span>
       <span class="setting">تنظیمات</span>
     </div>
     <div class="body-list-tour" *ngIf="hotelList.length > 0">
       <div class="item" *ngFor="let hotel of hotelList | paginate: paginateConfig;let i = index">
-        <span class="id">{{ i + 1 }}</span>
+        <span class="id">{{hotel.id }}</span>
         <span class="title-tour">{{ hotel.title }}</span>
         <!-- <span class="title-tour">{{ hotel.title }}</span> -->
         <span class="title-tour">{{ hotel.user.full_name }}</span>

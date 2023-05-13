@@ -58,7 +58,7 @@ export class EditComponent extends AddComponent implements OnInit {
 
   setEditReq(): void {
     this.selectedRooms.forEach(x => {
-      x.has_coefficient = x.has_coefficient ? 1 : 0
+      x.has_coefficient = x.has_coefficient
     })
 
     this.req = {
@@ -138,7 +138,6 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
     this.currentStar = this.hotelInfo.post.options.stars;
-    // this.hasCoefficients = this.hotelInfo.post.hasCoefficients === 1
     this.getImagesFromData();
     this.convertRoomsToListObjects()
     // this.lat = this.hotelInfo.coordinate.lat
@@ -216,18 +215,24 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelInfo.rooms.forEach(item => {
       let obj = {
         id: item.id,
-        name: item.name,
+        name: this.getRoomName(item.room_type_id),
         room_type_id: item.room_type_id,
         coefficient: item.coefficient,
-        hasCoefficient: item.hasCoefficient === 1 ? true : false,
+        has_coefficient: item.has_coefficient,
         Adl_capacity: item.Adl_capacity,
         chd_capacity: item.chd_capacity,
         age_child: item.age_child,
       }
       this.selectedRooms.push(obj);
     })
-    // this.showRoom = true
   }
+
+  getRoomName(id: number) {
+    return this.hotelInfo.roomTypes.filter(x => x.id === id)[0].name
+  }
+
+
+
 
   roomsUpdated() {
     this.selectedRooms = [];

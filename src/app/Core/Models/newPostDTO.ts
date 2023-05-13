@@ -86,7 +86,7 @@ export interface roomDTO {
     name: string;
     room_type_id: number;
     coefficient: number;
-    has_coefficient?: number
+    has_coefficient?: boolean
     Adl_capacity: number;
     chd_capacity: number;
     age_child: number;

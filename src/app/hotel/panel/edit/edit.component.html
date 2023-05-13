@@ -20,7 +20,7 @@
       </div>
       <div class="info-tour-body">
         <div class="top">
-          <div class="item-info">
+          <div class="item-info d-flex">
             <label for="">عنوان هتل</label>
             <input formControlName="title" (change)="generateSlug()" type="text">
             <div *ngIf="errorService.hasError('title')">
@@ -78,7 +78,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -115,7 +114,6 @@
     </div>
     <div class="info-tour-body">
       <div class="address-parent">
-
         <div class="address-hotel">
           <label for="address">اتاق های این هتل را انتخاب کنید </label>
           <mat-form-field appearance="fill">
@@ -128,18 +126,18 @@
             </mat-select>
           </mat-form-field>
         </div>
-
       </div>
-      <div>ضریب اتاق ها</div>
-      <div class="item-info" *ngFor="let item of selectedRooms">
-        <label for="">{{ item.name }}</label>
-        <input type="number" [(ngModel)]="item.coefficient">
+      <h2 class="mb-2">ضریب اتاق ها</h2>
+      <div class="d-flex w-100 d-flex align-items-center mb-3" *ngFor="let item of selectedRooms">
+
+        <div class="item-info">
+          <label for="">{{ item.name }}</label>
+          <input type="number" [(ngModel)]="item.coefficient" >
+        </div>
         <mat-label>ضریبی شود‌؟‌</mat-label>
-        <mat-checkbox [(ngModel)]="item.has_coefficient"></mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.has_coefficient" (ngModelChange)="coefficientChanged(item.id)"></mat-checkbox>
       </div>
-
     </div>
-
   </div>
   <div class="p-error">
     <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
