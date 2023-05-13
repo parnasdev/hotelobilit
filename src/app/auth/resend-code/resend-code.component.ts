@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AuthApiService} from "../../Core/Https/auth-api.service";
 import {ErrorsService} from "../../Core/Services/errors.service";
 import {MessageService} from "../../Core/Services/message.service";
+import { SendCodeReqDTO } from 'src/app/Core/Models/AuthDTO';
 
 
 @Component({
@@ -58,7 +59,11 @@ export class ResendCodeComponent implements OnInit {
   }
 
   sendSms(phoneNumber: string): void {
-    this.api.sendSms(phoneNumber,this.type).subscribe((res: any) => {
+    let obj: SendCodeReqDTO = {
+      step: this.type,
+      username: phoneNumber
+    }
+    this.api.sendSms(obj).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom('کد با موفقیت ارسال شد');
       } else {

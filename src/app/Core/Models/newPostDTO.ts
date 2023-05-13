@@ -1,4 +1,5 @@
 import { UploadResDTO } from "./commonDTO";
+import { hotelRates } from "./tourDTO";
 
 export interface hotelDTO {
     id: number;
@@ -34,7 +35,8 @@ export interface RoomDTO {
     chd_capacity: number;
     room_type_id: number;
     coefficient: number;
-    id: number
+    id: number;
+    rates: RateDTO[];
     online_reservation: number
     room_type: string
 }

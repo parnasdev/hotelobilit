@@ -64,7 +64,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     // this.userId = this.session.getId();
     // this.toggleMenu()
-    this.getUserData();
   }
 
   toggleMenu(): void {
@@ -117,22 +116,7 @@ export class SidebarComponent implements OnInit {
     return !!this.session.userPermissions.find(x => x.name === item)
   }
 
-  getUserData(): void {
-    this.isLoading = true;
-    this.api.me().subscribe((res: any) => {
-      this.isLoading = false;
-      if (res.isDone) {
-        this.session.setUserToSession(res.data);
-        this.session.getUserPermission();
-      } else {
-        this.messageService.custom(res.message);
-      }
-    }, (error: any) => {
-      this.isLoading = false;
-      this.errorService.recordError(error.error.data);
-      this.errorService.check(error);
-    });
-  }
+
 
   logOut(): void {
     this.isLoading = true

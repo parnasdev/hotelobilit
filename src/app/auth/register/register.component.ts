@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormControl } from "@angular/forms";
-import { LoginReqDTO } from 'src/app/Core/Models/AuthDTO';
+import { LoginReqDTO, RegisterReqDTO } from 'src/app/Core/Models/AuthDTO';
 import { AuthApiService } from 'src/app/Core/Https/auth-api.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -41,42 +41,30 @@ export class RegisterComponent implements OnInit {
   }
 
   getCodeValues(): void {
-    const inputCode = this.publicService.fixNumbers(this.codeFC.value);
-    // this.registerReq = {
-    //   phone: this.phone,
-    //   password: inputCode,
-    //   accountType: this.getAccountTypeLabel()
-    // };
     this.register();
   }
 
-  getAccountTypeLabel(): string {
-    switch (this.accountType) {
-      case '2':
-        return 'staff';
-      case '4':
-        return 'agency';
-      case '1':
-        return 'admin'
-      default:
-        return 'user'
-    }
-  }
+
 
   register(): void {
+    const inputCode = this.publicService.fixNumbers(this.codeFC.value);
     this.isLoading = true;
-    this.api.register(this.registerReq).subscribe((res: any) => {
-      // this.isLoading = false;
-      // if (res.isDone) {
-      //   this.session.setUserToSession(res.data);
-      //   if (this.accountType === '4'){
-      //     this.router.navigateByUrl('/panel/profile');
-      //   } else {
-      //     this.router.navigateByUrl('/dashboard/user/profile');
-      //   }
-      // } else {
-      //   this.messageService.custom(res.message);
-      // }
+    let obj:RegisterReqDTO = {
+      token: inputCode,
+      username: this.phone
+    }
+    this.api.register(obj).subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+        this.session.setTokenToSession(res.data);
+        // if (this.accountType === '4'){
+        //   this.router.navigateByUrl('/panel/profile');
+        // } else {
+          this.router.navigateByUrl('/');
+        // }
+      } else {
+        this.messageService.custom(res.message);
+      }
     }, (error: any) => {
       this.isLoading = false;
       this.checkError.recordError(error.error.data);

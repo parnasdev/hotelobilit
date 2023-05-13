@@ -24,6 +24,7 @@
           </div>
         </div>
         <div class="col-md-11 m-auto p-flight-list-bottom">
+          <ng-template ngFor let-flight [ngForOf]="flights" let-index="index">
           <div class="thumbnail-room" *ngFor="let item of hotelInfo.rooms">
             <div class="d-flex align-items-center justify-content-start">
               <h3 class="title">جزییات اتاق</h3>
@@ -36,7 +37,7 @@
                 <div class="p-price">
                   <span>قیمت:</span>
                   <div class="price">
-                    <strong>---</strong>
+                    <strong>{{getPrice(flight.adl_price , item.rates ) | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                 </div>
@@ -48,36 +49,40 @@
                 <span class="fly">پرواز رفت </span>
                 <div class="airline">
                   <span>ایرلاین :</span>
+                  <span>{{ flight.airline_name }}</span>
+
                   <img src="../../../assets/img/parnas-logo.png" alt="">
                 </div>
                 <div class="time">
-                  <strong>11:00</strong>
+                  <strong>{{ flight.date |convertDate}}</strong>
                   <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="30" height="30">
                     <path
                       d="M.88,14.09,4.75,18a1,1,0,0,0,1.42,0h0a1,1,0,0,0,0-1.42L2.61,13H23a1,1,0,0,0,1-1h0a1,1,0,0,0-1-1H2.55L6.17,7.38A1,1,0,0,0,6.17,6h0A1,1,0,0,0,4.75,6L.88,9.85A3,3,0,0,0,.88,14.09Z"/>
                   </svg>
 
-                  <strong>12:30</strong>
+                  <strong>{{ flight.time }}</strong>
                 </div>
               </div>
               <div class="to">
                 <span class="fly">پرواز برگشت </span>
                 <div class="airline">
                   <span>ایرلاین :</span>
+                  <span>{{ flight.flight.airline_name }}</span>
                   <img src="../../../assets/img/parnas-logo.png" alt="">
                 </div>
                 <div class="time">
-                  <strong>11:00</strong>
+                  <strong>{{ flight.flight.date | convertDate}}</strong>
                   <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="30" height="30">
                     <path
                       d="M.88,14.09,4.75,18a1,1,0,0,0,1.42,0h0a1,1,0,0,0,0-1.42L2.61,13H23a1,1,0,0,0,1-1h0a1,1,0,0,0-1-1H2.55L6.17,7.38A1,1,0,0,0,6.17,6h0A1,1,0,0,0,4.75,6L.88,9.85A3,3,0,0,0,.88,14.09Z"/>
                   </svg>
-                  <strong>12:30</strong>
+                  <strong>{{ flight.flight.time }}</strong>
                 </div>
               </div>
 
             </div>
           </div>
+        </ng-template>
         </div>
       </div>
     </div>

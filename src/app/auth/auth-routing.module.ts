@@ -7,15 +7,11 @@ import { ForgetComponent } from "./forget/forget.component";
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 
 const routes: Routes = [
+
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'prs-admin'
+    component: ValidateComponent
   },
-  // {
-  //   path: '',
-  //   component: ValidateComponent
-  // },
   // {
   //   path: 'partner',
   //   component: AgencyValidateComponent
@@ -28,18 +24,18 @@ const routes: Routes = [
   //   path: 'partner/login/:phoneNumber',
   //   component: AgencyLoginComponent
   // },
-  // {
-  //   path: 'login/:phoneNumber',
-  //   component: LoginComponent
-  // },
-  // {
-  //   path: 'register/:phoneNumber',
-  //   component: RegisterComponent
-  // },
-  // {
-  //   path: 'forget/:phone',
-  //   component: ForgetComponent
-  // },
+  {
+    path: 'login/:phoneNumber',
+    component: LoginComponent
+  },
+  {
+    path: 'register/:phoneNumber',
+    component: RegisterComponent
+  },
+  {
+    path: 'forget/:phone',
+    component: ForgetComponent
+  },
 ]
 
 
