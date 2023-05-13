@@ -17,7 +17,7 @@
     </div>
     <ul class="list-sidebar">
       <ng-template  ngFor let-item [ngForOf]="sideBarData" let-index="index">
-        <li class="item-menu" *ngIf="item.children.length == 0">
+        <li class="item-menu" *ngIf="item.children.length == 0 && checkPermission(item.permition)">
           <a href="{{ item.link }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
               <path id="Home"
@@ -28,7 +28,7 @@
             <span>{{ item.name }}</span>
           </a>
         </li>
-        <li class="item-menu-collapse" *ngIf="item.children.length  > 0">
+        <li class="item-menu-collapse" *ngIf="item.children.length > 0 && checkPermission(item.permition)">
           <a class="" data-bs-toggle="collapse" [href]="'#collapseExample' + index" role="button" aria-expanded="false"
             aria-controls="collapseExample">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">

@@ -52,7 +52,7 @@ export class SessionService {
     localStorage.setItem('hotelobilit-user', JSON.stringify(this.user));
   }
 
-  getUserPermission(): void {
+  getUserPermission(): string[] {
     // this.userApi.getUserPermission().subscribe((res: any) => {
     //   if (res.isDone) {
     //     this.userPermissions = res.data;
@@ -63,7 +63,7 @@ export class SessionService {
     //   this.message.error();
     // });
     const user = localStorage.getItem('hotelobilit-user');
-    this.userPermissions = user ? JSON.parse(user).user.permissions : '';
+    return user ? JSON.parse(user).user.permissions : '';
   }
 
   checkPermission(item: string) {
@@ -181,7 +181,6 @@ export class SessionService {
   }
 
   removeUser(): any {
-    localStorage.removeItem('hotelobilit-user');
     localStorage.removeItem('hotelobilit-user');
   }
 

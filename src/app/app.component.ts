@@ -23,12 +23,13 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getUserData()
   }
+  
   getUserData(): void {
     if (this.session.isLoggedIn()) {
       this.api.me().subscribe((res: any) => {
         if (res.isDone) {
           this.session.setUserToSession(res.data);
-          this.session.getUserPermission();
+          // this.session.getUserPermission();
         } else {
           this.messageService.custom(res.message);
         }

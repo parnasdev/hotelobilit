@@ -49,13 +49,28 @@ export class AdminAuthComponent implements OnInit {
     this.login();
   }
 
+  getUserData(): void {
+    if (this.session.isLoggedIn()) {
+      this.api.me().subscribe((res: any) => {
+        if (res.isDone) {
+          this.session.setUserToSession(res.data);
+          this.router.navigateByUrl('/panel');
+          // this.session.getUserPermission();
+        } else {
+          this.messageService.custom(res.message);
+        }
+      }, (error: any) => {
+      });
+    }
+  }
+
   login(): void {
     this.isLoading = true;
     this.api.login(this.loginReq).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.session.setTokenToSession(res.data);
-        this.router.navigateByUrl('/panel');
+        this.getUserData();
         // if (this.session.getRole() === 'Admin') {
         //   this.router.navigateByUrl('/panel');
         // }

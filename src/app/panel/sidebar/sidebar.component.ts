@@ -19,8 +19,6 @@ declare let $: any;
 export class SidebarComponent implements OnInit {
   sideBarData = Sidebar;
 
-
-
   isLoading = false;
   isTablet = false;
   userId = 0;
@@ -62,8 +60,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userId = this.session.getId();
-    // this.toggleMenu()
+    console.log(this.session.getUserPermission());
   }
 
   toggleMenu(): void {
@@ -109,7 +106,8 @@ export class SidebarComponent implements OnInit {
   }
 
   checkPermission(item: string) {
-    return !!this.session.userPermissions.find(x => x.name.split('.')[0] === item)
+    let permissions: any[] = this.session.getUserPermission();
+    return permissions.find(x => x.split('.')[0] === item)
   }
 
   checkItemPermission(item: string) {
@@ -124,7 +122,7 @@ export class SidebarComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.session.removeUser();
-        this.router.navigateByUrl('/auth/partner')
+        this.router.navigateByUrl('/auth/prs-admin')
 
       }
     }, (error: any) => {
