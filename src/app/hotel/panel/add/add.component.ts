@@ -142,6 +142,7 @@ export class AddComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.checkError.check(error);
       this.message.error()
     })
   }

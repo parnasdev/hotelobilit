@@ -58,11 +58,6 @@ export class EditComponent extends AddComponent implements OnInit {
     this.getInfo();
   }
 
-
-
-
-
-
   getInfo(): void {
     this.isLoading = true;
     this.hotelApi.editPosts('hotel', this.hotelId).subscribe((res: any) => {
@@ -77,7 +72,8 @@ export class EditComponent extends AddComponent implements OnInit {
         this.message.custom(res.message)
       }
     }, (error: any) => {
-      this.isLoading = false
+      this.isLoading = false;
+      this.checkError.check(error);
       this.message.error()
     })
   }
@@ -277,7 +273,6 @@ export class EditComponent extends AddComponent implements OnInit {
         this.removedRoomsIDs.push(sr.id)
       }
     })
-    console.log(this.removedRoomsIDs);
   }
 
 }

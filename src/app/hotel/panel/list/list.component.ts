@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PublicService} from "../../../Core/Services/public.service";
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { storeHotelReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
 
 @Component({
   selector: 'prs-list',
@@ -38,6 +39,7 @@ export class ListComponent implements OnInit {
   constructor(public dialog: MatDialog,
               public hotelApi: PostApiService,
               public message: MessageService,
+              public checkError: ErrorsService,
               public cityApiService: CityApiService,
               public commonApi: CommonApiService,
               public session: SessionService,
@@ -73,6 +75,7 @@ export class ListComponent implements OnInit {
       }
     }, (error: any) => {
       this.isLoading = false;
+      this.checkError.check(error);
       this.message.error()
 
     })

@@ -37,6 +37,7 @@ export class MainPickerComponent implements OnInit {
     public dialog: MatDialog,
     public errorService: ErrorsService,
     public route: ActivatedRoute,
+    public checkError: ErrorsService,
     public api: PostApiService,
     public message: MessageService,) { }
   ngOnInit(): void {
@@ -113,6 +114,7 @@ export class MainPickerComponent implements OnInit {
       }
     }, (error: any) => {
       this.isLoading = false
+      this.checkError.check(error)
       this.message.error()
     })
   }
