@@ -26,7 +26,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddComponent implements OnInit {
   aparatFC = new FormControl('');
   youtubeFC = new FormControl('');
-  selectedRoomsFC = new FormControl([]);
   currentStar = 0;
   lat = 0;
   lng = 0;
@@ -37,6 +36,8 @@ export class AddComponent implements OnInit {
   public show = true;
   images: UploadResDTO[] = [];
   errors: any
+  isCoefficient: string = '0';
+
 
 
   req: storeHotelSetReqDTO = {
@@ -69,6 +70,7 @@ export class AddComponent implements OnInit {
   isLoading = false;
 
   selectedRooms: roomDTO[] = [];
+  rooms: roomDTO[] = []
 
   constructor(
     public router: Router,
@@ -129,30 +131,13 @@ export class AddComponent implements OnInit {
     })
   }
 
-  roomChanged() {
-    this.selectedRooms = [];
-    (this.selectedRoomsFC.value ?? []).forEach(item => {
-      let result = this.data.roomTypes.filter(x => x.name === item)
-      if (result.length > 0) {
-        let obj = {
-          id: 0,
-          name: result[0].name,
-          room_type_id: result[0].id,
-          has_coefficient: result[0].has_coefficient,
-          coefficient: 0,
-          Adl_capacity: result[0].Adl_capacity,
-          chd_capacity: result[0].chd_capacity,
-          age_child: result[0].age_child,
-        }
-        this.selectedRooms.push(obj);
-      }
-    })
-  }
+
 
   getData(): void {
     this.hotelApi.createPosts('hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
+        this.createRoomsList()
       } else {
         this.message.custom(res.message);
       }
@@ -161,12 +146,51 @@ export class AddComponent implements OnInit {
     })
   }
 
+  createRoomsList() {
+    this.data.roomTypes.forEach((item: any) => {
+      let obj: roomDTO = {
+        id: 0,
+        name: item.name,
+        room_type_id: item.id,
+        coefficient: item.coefficient,
+        isSelected: false,
+        has_coefficient: false,
+        Adl_capacity: item.Adl_capacity,
+        chd_capacity: item.chd_capacity,
+        age_child: item.age_child,
+      }
+      this.rooms.push(obj)
+    })
+    console.log(this.rooms);
+
+  }
+
+
+  setHasCoefficient() {
+    if (this.isCoefficient === '1') {
+      this.selectedRooms.forEach(x => {
+        if (x.name === 'دوتخته' || x.name === 'دو تخته') {
+          x.has_coefficient = true;
+        } else {
+          x.has_coefficient = false;
+        }
+      })
+    } else {
+      this.selectedRooms.forEach(x => {
+        x.has_coefficient = false
+      })
+    }
+  }
+
   setReq(): void {
+    this.getSelectedRooms()
+    this.setHasCoefficient()
+
     this.req = {
       title: this.hotelForm.controls.title.value,
       titleEn: this.hotelForm.controls.titleEn.value,
       address: this.hotelForm.controls.address.value,
-      stars:  this.currentStar,
+      stars: this.currentStar,
       slug: this.hotelForm.controls.slug.value,
       status_id: 1,
       description: this.hotelForm.controls.description.value,
@@ -183,6 +207,7 @@ export class AddComponent implements OnInit {
       rooms: this.selectedRooms
     }
   }
+
 
 
   cityTypeChange(): void {
@@ -214,7 +239,7 @@ export class AddComponent implements OnInit {
         path: x.path,
         url: x.url,
         id: x.id ?? null,
-        type :x.type
+        type: x.type
       }
       this.images.push(obj)
     })
@@ -257,17 +282,36 @@ export class AddComponent implements OnInit {
       this.checkError.check(error);
     })
   }
-  coefficientChanged(id: number) {
-    
-    this.selectedRooms.forEach(x => {
-      if (x.room_type_id === id) {
-        x.has_coefficient = true
-      } else {
-        x.has_coefficient = false
 
+
+
+  getSelectedRooms() {
+    this.rooms.forEach(x => {
+      if (x.isSelected) {
+        let obj = {
+          id: x.id,
+          name: x.name,
+          room_type_id: x.room_type_id,
+          coefficient: x.coefficient,
+          has_coefficient: x.has_coefficient,
+          Adl_capacity: x.Adl_capacity,
+          chd_capacity: x.chd_capacity,
+          age_child: x.age_child,
+        }
+        this.selectedRooms.push(obj)
       }
     })
   }
+  // coefficientChanged(id: number) {
+  //   this.selectedRooms.forEach(x => {
+  //     if (x.room_type_id === id) {
+  //       x.has_coefficient = true
+  //     } else {
+  //       x.has_coefficient = false
+
+  //     }
+  //   })
+  // }
   getServicesResult(services: any): void {
     this.serviceIDs = [];
     services.forEach((x: any) => {

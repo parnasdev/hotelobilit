@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PanelComponent } from './panel/panel.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ServiceRatesComponent } from './service-rates/service-rates.component';
+import { CurrencyRatesComponent } from './currency-rates/currency-rates.component';
 
 const routes: Routes = [
   {
@@ -11,6 +13,14 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
+      },
+      {
+        path: 'setServiceRate',
+        component: ServiceRatesComponent
+      },
+      {
+        path: 'setCurrencyRate',
+        component: CurrencyRatesComponent
       },
       {
         path: 'hotel',
