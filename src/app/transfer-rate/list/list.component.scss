@@ -109,7 +109,21 @@
     align-items: center;
     justify-content: center;
   }
-  .button-setting .view-btn {
+.button-setting .copy-btn {
+  width: 180px;
+  background-color: $base-color-four;
+  color: var(--white);
+  border: none;
+  outline: none;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-setting .view-btn {
     width: auto;
     background-color: $base-color;
     color: var(--white);
