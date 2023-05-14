@@ -169,8 +169,16 @@ export class AddComponent implements OnInit {
   setHasCoefficient() {
     if (this.isCoefficient === '1') {
       this.selectedRooms.forEach(x => {
-        if (x.name === 'دوتخته' || x.name === 'دو تخته') {
+        if (x.name === 'دوتخته' ||
+          x.name === 'تویین' ||
+          x.name === 'twin' ||
+          x.name === 'double' ||
+          x.name === 'دابل' ||
+          x.name === 'دو تخته' ||
+          x.name === '2 تخته' ||
+          x.name === '۲ تخت') {
           x.has_coefficient = true;
+          x.coefficient = 1
         } else {
           x.has_coefficient = false;
         }
