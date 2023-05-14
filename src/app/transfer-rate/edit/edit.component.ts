@@ -43,6 +43,8 @@ export class EditComponent extends AddComponent implements OnInit {
       }
     }, (error: any) => {
       this.message.error()
+      this.checkError.check(error);
+
     })
   }
 
