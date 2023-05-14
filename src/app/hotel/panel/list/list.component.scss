@@ -6,9 +6,9 @@
   align-items: flex-start;
 }
 .title h2{
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 500;
-  color: $base-color;
+  color: $gray-color;
   margin-bottom: 7px;
 }
 .title p{
@@ -31,8 +31,8 @@
   justify-content: space-between;
 }
 .title h2{
-  font-size: 20px;
-  color: $base-color;
+  font-size: 17px;
+  color: $gray-color;
   margin-right: 4px;
 }
 .title button {
@@ -65,6 +65,7 @@
 .header-list-tour span {
   margin: auto;
   font-size: 13px !important;
+  font-weight: 600;
 }
 
 .body-list-tour {
@@ -80,7 +81,7 @@
   grid-template-columns: 0.5fr 1fr 1fr 1.5fr 1.5fr;
 }
 .body-list-tour .item:not(:last-child){
-  border-bottom: 1px solid $border-color-dark;
+  border-bottom: 2px dashed #c6c6c6;
 }
 .body-list-tour .item span {
   margin: auto;
@@ -111,7 +112,7 @@
 }
 .button-setting .view-btn {
   width: auto;
-  background-color: $base-color;
+  background-color: $base-color-dark;
   color: var(--white);
   border: none;
   outline: none;
@@ -195,8 +196,14 @@ display: none;
   border: 1px solid #eee;
   padding: 0 8px;
   font-size: 13px;
-  height: 32px;
-  outline-color: $base-color;
+  height: 50px;
+  border-radius: 10px;
+  width: 250px;
+  margin-left: 10px;
+}
+.btn-search{
+  height: 48px !important;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 868px) {
