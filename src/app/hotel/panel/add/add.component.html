@@ -119,48 +119,20 @@
         <option [value]="1">نرخ گذاری ضریبی</option>
       </select>
     </div>
+    <div class="d-flex flex-wrap justify-content-between">
+      <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-24">
+        <h3>{{ item.name }}</h3>
+        <div class="d-flex  w-100 justify-content-between align-items-center">
+          <label for="">ضریب:</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
+            <input class="w-50" type="number" [(ngModel)]="item.coefficient">
+          </div>
 
-    <div class="d-flex flex-wrap">
-      <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-20">
-        <span>{{ item.name }}</span>
-        <div class="d-flex w-100 justify-content-center align-items-center">
-          <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
-          <input class="w-50" type="number" [(ngModel)]="item.coefficient">
         </div>
       </div>
-
     </div>
-    <!-- <div class="info-tour-body">
-      <div class="address-parent">
-        <div class="address-hotel">
-          <label for="address">اتاق های این هتل را انتخاب کنید </label>
-          <mat-form-field appearance="fill">
-            <mat-label>اتاق ها</mat-label>
-            <mat-select [formControl]="selectedRoomsFC" (selectionChange)="roomChanged()" multiple>
-              <mat-select-trigger>
-                <span>اتاق های انتخاب شده</span>
-              </mat-select-trigger>
-              <mat-option *ngFor="let room of data.roomTypes" [value]="room.name">{{room.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div>ضریب اتاق ها</div>
-      <div class="d-flex w-100 d-flex align-items-center mb-3" *ngFor="let item of selectedRooms">
-
-        <div class="item-info">
-          <label for="">{{ item.name }}</label>
-          <input type="number" [(ngModel)]="item.coefficient">
-        </div>
-        <mat-label>ضریبی شود‌؟‌</mat-label>
-        <mat-checkbox [(ngModel)]="item.has_coefficient"
-                      (ngModelChange)="coefficientChanged(item.room_type_id)"></mat-checkbox>
-      </div>
-    </div> -->
-
-
   </div>
-
   <div class="p-error">
     <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
   </div>
