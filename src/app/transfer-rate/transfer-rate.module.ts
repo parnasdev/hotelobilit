@@ -17,6 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { IConfig } from 'ngx-mask';
 import { CopyComponent } from './copy/copy.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSelectModule } from '@angular/material/select';
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
@@ -40,9 +42,11 @@ const maskConfig: Partial<IConfig> = {
     CommonProjectModule,
     MatCheckboxModule,
     NgxPaginationModule,
+    MatButtonToggleModule,
     MatInputModule,
     MatFormFieldModule,
     PipesModule,
+    MatSelectModule,
   ]
 })
 export class TransferRateModule { }

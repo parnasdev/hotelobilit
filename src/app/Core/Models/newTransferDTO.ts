@@ -52,6 +52,7 @@ export interface EditTransferPageDTO {
 }
 
 export interface flightStoreDTO {
+    cities: any;
     origin_id: string;
     destination_id: string;
     origin_airline_id: string;

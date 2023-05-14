@@ -19,10 +19,13 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-  data: { airlines: AirlineListDTO[], cities: citiesDTO[] } = {
+  data: { airlines: AirlineListDTO[], airports: AirlineListDTO[], cities: citiesDTO[] } = {
     airlines: [],
+    airports: [],
     cities: []
   }
+
+  selectedCityFC = new FormControl('');
 
   isMobile: any;
   isLoading = false;
@@ -53,6 +56,7 @@ export class AddComponent implements OnInit {
   INFFlightRate = new FormControl('');
 
   TransferRateRequest: flightStoreDTO = {
+    cities: [],
     origin_id: '',
     destination_id: '',
     origin_airline_id: '',
@@ -228,6 +232,7 @@ export class AddComponent implements OnInit {
 
   setReq() {
     this.TransferRateRequest = {
+      cities: this.selectedCityFC.value ?? [],
       origin_id: this.form.value.origin_id ?? '',
       destination_id: this.form.value.destination_id ?? '',
       origin_airline_id: this.form.value.origin_airline_id ?? '',

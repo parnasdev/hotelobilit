@@ -10,6 +10,7 @@ import { debounce } from 'rxjs';
 export class EditComponent extends AddComponent implements OnInit {
   id = ''
   infoData: any = {
+    cities: [],
     origin_id: 0,
     destination_id: 0,
     origin_airline_id: 0,
@@ -46,6 +47,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   setValue() {
+    this.selectedCityFC.setValue(this.infoData.cities)
     this.form.controls.origin_id.setValue(this.infoData.origin_id);
     this.form.controls.destination_id.setValue(this.infoData.destination_id);
     this.form.controls.origin_airline_id.setValue(this.infoData.origin_airline_id);
@@ -132,6 +134,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
   setUpdateReq() {
     this.TransferRateRequest = {
+      cities: this.selectedCityFC.value ?? [],
       origin_id: this.form.value.origin_id ?? '',
       destination_id: this.form.value.destination_id ?? '',
       origin_airline_id: this.form.value.origin_airline_id ?? '',
