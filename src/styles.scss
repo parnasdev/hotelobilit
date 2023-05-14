@@ -158,3 +158,12 @@ a {
     border-radius: 10px;
   }
 }
+.item-info{
+  input[type='text']{
+    cursor: text !important;
+  }
+
+}
+.text-gray{
+  color: $gray-color;
+}

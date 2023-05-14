@@ -20,4 +20,7 @@ export class FooterComponent {
     this.isMobile = mobileService.isMobile()
     this.isTablet = mobileService.isTablet()
   }
+  backTop(){
+    window.scrollTo(0,0)
+  }
 }

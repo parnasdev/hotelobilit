@@ -53,9 +53,9 @@
           <span class="title-tour">{{ transfer.capacity }}</span>
           <span class="title-tour">{{ transfer.flight.capacity }}</span>
         </div>
-        <div class="button-setting">
+        <div class="button-setting d-flex flex-column align-items-center">
           <a routerLink="/panel/transferRate/edit/{{ transfer.id }}" class="edit-btn">ویرایش</a>
-          <a routerLink="/panel/transferRate/copy/{{ transfer.id }}" class="edit-btn">کپی</a>
+          <a style="width: 180px !important;" routerLink="/panel/transferRate/copy/{{ transfer.id }}" class="copy-btn">کپی</a>
 
           <button (click)="removeTransferRate(transfer.id)" class="delete-btn">حذف</button>
         </div>

@@ -2,11 +2,12 @@
 
 .p-panel {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   padding: 12px;
   background: $light-color;
+  min-height: 800px;
 
   .panel {
     width: 100%;

@@ -47,9 +47,10 @@
 
 .info-tour-header .right h2 {
   font-size: 18px;
-  color: $base-color;
+  color: $gray-color;
   margin-right: 10px;
   margin-bottom: 0;
+
 }
 
 .info-tour-header .left select {
@@ -67,10 +68,14 @@
 
 .info-tour-body .top {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  place-items: center;
   margin: 8px 0;
+  .item-info{
+    width: 100% !important;
+  }
 }
 
 .info-tour-body .bottom {
@@ -207,12 +212,14 @@
   padding: 1rem 2rem;
   width: 99%;
 }
-.details-body-tour .textarea{
+
+.details-body-tour .textarea {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .details-body-tour textarea {
   height: 200px;
   width: 32%;
@@ -227,7 +234,8 @@
 .details-body-tour textarea::placeholder {
   color: var(--gray-color-light);
 }
-.submit-tour{
+
+.submit-tour {
   border: none;
   outline: none;
   margin-top: 12px;
@@ -244,13 +252,15 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.item-info-second{
+
+.item-info-second {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.item-info-second textarea{
+
+.item-info-second textarea {
   border: 1px solid var(--light-color-two);
   height: 150px;
   border-radius: 4px;
@@ -259,15 +269,16 @@
   width: 100%;
   font-size: 13px !important;
   font-weight: 500;
-  padding:  8px;
+  padding: 8px;
   outline: none;
 }
 
-.item-info label ,.item-info-second label{
+.item-info label, .item-info-second label {
   font-size: 13px !important;
   font-weight: 500;
 }
-.selectdiv{
+
+.selectdiv {
   width: 100%;
   background-color: var(--white);
   border: 1px solid var(--light-color-two);
@@ -275,10 +286,12 @@
   border-radius: 4px;
   margin-top: 8px;
 }
-.selectdiv select{
+
+.selectdiv select {
   border: none;
   height: 95%;
 }
+
 .item-info input {
   border: 1px solid var(--light-color-two);
   height: 30px;
@@ -323,38 +336,45 @@
 }
 
 
-:host::ng-deep prs-get-location{
+:host::ng-deep prs-get-location {
   z-index: 1;
 }
-.info-tour-body-upload{
+
+.info-tour-body-upload {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   width: 99%;
   margin: 1rem 0;
 }
-.info-tour-body-upload .bottom-one , .info-tour-body-upload .top-one{
+
+.info-tour-body-upload .bottom-one, .info-tour-body-upload .top-one {
   width: 48%;
   display: flex;
   flex-direction: column;
   height: auto;
 }
-.info-tour-body-upload prs-upload-file{
+
+.info-tour-body-upload prs-upload-file {
   width: 100% !important;
 }
-:host::ng-deep .info-tour-body-upload prs-upload-file .uploadfilecontainer{
+
+:host::ng-deep .info-tour-body-upload prs-upload-file .uploadfilecontainer {
   padding: 3rem 0 !important;
 }
-.single-img-upload-parent img{
+
+.single-img-upload-parent img {
   object-fit: cover;
 }
-.single-img-upload-parent{
+
+.single-img-upload-parent {
   background-color: var(--white);
   border: 1px solid var(--light-color-two);
   padding: 12px;
   border-radius: 8px;
 }
-.multi-img-upload-parent{
+
+.multi-img-upload-parent {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -365,7 +385,8 @@
   padding: 12px;
   border-radius: 8px;
 }
-.multi-img-upload-parent .images{
+
+.multi-img-upload-parent .images {
   width: 23%;
   height: 100px;
   border-radius: 8px;
@@ -373,24 +394,28 @@
   position: relative;
   margin-top: 8px;
 }
-.multi-img-upload-parent .images img{
+
+.multi-img-upload-parent .images img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.multi-img-upload-parent .images i{
+
+.multi-img-upload-parent .images i {
   position: absolute;
   right: 6px;
   top: 6px;
   color: var(--white);
   cursor: pointer;
 }
-.btn-parent-submit{
+
+.btn-parent-submit {
   margin-top: 1rem;
   display: flex;
   justify-content: flex-start;
 }
-.btn-upload-img{
+
+.btn-upload-img {
   width: auto;
   padding: 0 12px;
   height: 38px;
@@ -401,8 +426,9 @@
   border: none;
   outline: none;
 }
-@media only screen and (max-width: 868px){
-  .info-tour-header{
+
+@media only screen and (max-width: 868px) {
+  .info-tour-header {
     height: auto;
     display: flex;
     align-items: center;
@@ -416,6 +442,7 @@
     width: 100%;
   }
 }
+
 .info-tour-header .left select {
   border: none !important;
 }

@@ -70,6 +70,7 @@
   .body-list-tour .item {
     height: 130px;
     width: 100%;
+    background: $white-color;
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.7fr 0.7fr 0.7fr 1fr 1fr 1fr 0.5fr;
   }
@@ -77,7 +78,7 @@
   .body-list-tour .item:not(:last-child){
     border-bottom: 1px solid var(--light-color-two);
   }
-  
+
   .body-list-tour .item span {
     margin: auto;
     font-size: 13px !important;
@@ -108,7 +109,21 @@
     align-items: center;
     justify-content: center;
   }
-  .button-setting .view-btn {
+.button-setting .copy-btn {
+  width: 180px;
+  background-color: $base-color-four;
+  color: var(--white);
+  border: none;
+  outline: none;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-setting .view-btn {
     width: auto;
     background-color: $base-color;
     color: var(--white);
@@ -177,3 +192,9 @@
       width: 1000px;
     }
   }
+.edit-btn{
+  width: 180px !important;
+}
+.delete-btn{
+  width: 180px !important;
+}

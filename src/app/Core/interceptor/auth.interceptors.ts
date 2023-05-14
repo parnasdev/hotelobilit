@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): any {
     if (req.url.startsWith(environment.BACK_END_IP) || req.url.startsWith(environment.BACK_END_UPLOAD)) {
       let token = this.session.getToken();
-      console.log(token);
       
       
       let headers = new HttpHeaders();

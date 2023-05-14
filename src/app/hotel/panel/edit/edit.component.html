@@ -98,13 +98,9 @@
         </div>
       </div>
     </div>
-
     <!-- <div class="box-info-fly">
       <prs-services [services]="services" (result)="getServicesResult($event)"></prs-services>
     </div> -->
-
-
-
   </form>
   <div class="box-info-fly">
     <div class="info-tour-header">
@@ -112,31 +108,27 @@
         <h2>انتخاب اتاق ها</h2>
       </div>
     </div>
+    <div class="d-flex align-items-center justify-content-end  w-75 mb-5 mt-3">
+      <span style="margin-left: 12px;" class="tip">اتاق مورد نظر برای قیمت گذاری را انتخاب کنید</span>
+      <select style="width: 40%;" class="inp-form" [(ngModel)]="isCoefficient">
+        <option [value]="0">نرخ گذاری عادی</option>
+        <option [value]="1">نرخ گذاری ضریبی</option>
+      </select>
+    </div>
     <div class="info-tour-body">
-      <div class="address-parent">
-        <div class="address-hotel">
-          <label for="address">اتاق های این هتل را انتخاب کنید </label>
-          <mat-form-field appearance="fill">
-            <mat-label>اتاق ها</mat-label>
-            <mat-select [formControl]="selectedRoomsFC" (selectionChange)="roomsUpdated()" multiple>
-              <mat-select-trigger>
-                <span>اتاق های انتخاب شده</span>
-              </mat-select-trigger>
-              <mat-option *ngFor="let room of hotelInfo.roomTypes" [value]="room.name">{{room.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <h2 class="mb-2">ضریب اتاق ها</h2>
-      <div class="d-flex w-100 d-flex align-items-center mb-3" *ngFor="let item of selectedRooms">
 
-        <div class="item-info">
-          <label for="">{{ item.name }}</label>
-          <input type="number" [(ngModel)]="item.coefficient" >
+      <div class="d-flex flex-wrap">
+        <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-20">
+          <span>{{ item.name }}</span>
+          <div class="d-flex w-100 justify-content-center align-items-center">
+            <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
+            <input class="w-50" type="number" [(ngModel)]="item.coefficient">
+          </div>
         </div>
-        <mat-label>ضریبی شود‌؟‌</mat-label>
-        <mat-checkbox [(ngModel)]="item.has_coefficient" (ngModelChange)="coefficientChanged(item.id)"></mat-checkbox>
+
       </div>
+
+
     </div>
   </div>
   <div class="p-error">

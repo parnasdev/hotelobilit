@@ -34,6 +34,7 @@ export interface RoomDTO {
     age_child: number
     chd_capacity: number;
     room_type_id: number;
+    has_coefficient: boolean
     coefficient: number;
     id: number;
     rates: RateDTO[];
@@ -44,9 +45,9 @@ export interface RoomDTO {
 export interface InfoHotelDTO {
     statuses: statusesDTO[]
     cities: citiesDTO[]
-    roomTypes: roomDTO[]
+    roomTypes: roomObjDTO[]
     post: hotelDTO;
-    rooms: any[];
+    rooms: roomDTO[];
     files: UploadResDTO[],
     service_ids: number[],
     city_id: number;
@@ -57,6 +58,7 @@ export interface storeHotelSetReqDTO {
     titleEn: string | null;
     slug: string | null;
     status_id: number | null;
+    del_rooms?: number[]
     address: string | null;
     stars: number
     description: string | null;
@@ -75,6 +77,8 @@ export interface storeHotelSetReqDTO {
 
 
 export interface roomObjDTO {
+    id: number;
+    name: string;
     room_type_id: number;
     Adl_capacity: number;
     chd_capacity: number;
@@ -89,7 +93,9 @@ export interface roomDTO {
     has_coefficient?: boolean
     Adl_capacity: number;
     chd_capacity: number;
+    room_type?: string;
     age_child: number;
+    isSelected?: boolean
 }
 
 export interface statusObjDTO {
