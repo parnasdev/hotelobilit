@@ -15,14 +15,15 @@ import { MatInputModule } from '@angular/material/input';
 import { PipesModule } from '../common-project/pipes/pipes.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { IConfig } from 'ngx-mask';
+import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { CopyComponent } from './copy/copy.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
-const maskConfig: Partial<IConfig> = {
-  validation: false,
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
 };
-
 
 @NgModule({
   declarations: [
@@ -46,7 +47,9 @@ const maskConfig: Partial<IConfig> = {
     MatInputModule,
     MatFormFieldModule,
     PipesModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     MatSelectModule,
-  ]
+  ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class TransferRateModule { }

@@ -170,19 +170,19 @@
                       <label for="">بزرگسال</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'adl_price')),'input-parent-error': (getError(rate,'adl_price'))}"
-                        type="text" placeholder="قیمت بزرگسال" formControlName="adl_price">
+                        type="text" placeholder="قیمت بزرگسال" mask="separator" thousandSeparator="," formControlName="adl_price">
                     </div>
                     <div class="select-info">
                       <label for="">کودک</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'chd_price')),'input-parent-error': (getError(rate,'chd_price'))}"
-                        type="text" placeholder="قیمت کودک" formControlName="chd_price">
+                        type="text" placeholder="قیمت کودک" mask="separator" thousandSeparator="," formControlName="chd_price">
                     </div>
                     <div class="select-info">
                       <label for="">نوزاد</label>
                       <input
                         [ngClass]="{'input-parent': (!getIsTouched(rate,'inf_price')),'input-parent-error': (getError(rate,'inf_price'))}"
-                        type="text" placeholder="قیمت نوزاد" formControlName="inf_price">
+                        type="text" placeholder="قیمت نوزاد" mask="separator" thousandSeparator="," formControlName="inf_price">
                     </div>
                     <div class="select-info">
                       <label for="">موجودی</label>

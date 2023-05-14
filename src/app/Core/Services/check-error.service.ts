@@ -22,8 +22,8 @@ export class CheckErrorService {
                 break;
             }
             case 401: {
-                // this.session.removeUser();
-                // this.router.navigateByUrl('/prs-admin');
+                this.session.removeUser();
+                this.router.navigateByUrl('/auth');
                 break;
             }
             case 422: {

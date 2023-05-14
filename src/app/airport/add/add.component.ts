@@ -8,6 +8,7 @@ import { AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({
   selector: 'prs-add',
@@ -35,6 +36,7 @@ export class AddComponent {
               public flightApi: FlightApiService,
               public router: Router,
               public dialog: MatDialog,
+              public checkError: CheckErrorService,
               public errorService: ErrorsService,
               public api: CategoryApiService) {}
 
@@ -58,6 +60,8 @@ export class AddComponent {
       }
     }, (error: any) => {
       this.message.error()
+      this.checkError.check(error)
+      
     })
   }
 
@@ -71,6 +75,8 @@ export class AddComponent {
       }
     },(error:any) => {
       this.message.error()
+      this.checkError.check(error)
+
     })
   }
 

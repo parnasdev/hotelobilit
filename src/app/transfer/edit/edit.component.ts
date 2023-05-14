@@ -9,6 +9,7 @@ import { UploadSingleComponent } from "../../common-project/upload-single/upload
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({
   selector: 'prs-edit',
@@ -20,9 +21,11 @@ export class EditComponent implements OnInit {
   nameFC = new FormControl();
   codeFC = new FormControl();
   statusFC = new FormControl();
+  removedImages: number[] = [];
   req: AirlineReqDTO = {
     name: '',
     code: '',
+    del_files: [],
     files: [],
   }
   logo: UploadResDTO = {
@@ -37,6 +40,7 @@ export class EditComponent implements OnInit {
   constructor(public message: MessageService,
     public router: Router,
     public route: ActivatedRoute,
+    public checkError: CheckErrorService,
     public dialog: MatDialog,
     public api: CategoryApiService) {
   }
@@ -53,6 +57,8 @@ export class EditComponent implements OnInit {
       this.logo = res
     }
   }
+
+
 
   submit(): void {
     this.setReq()
@@ -77,6 +83,8 @@ export class EditComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.checkError.check(error);
+
       this.message.error()
     })
   }
@@ -96,17 +104,28 @@ export class EditComponent implements OnInit {
 
 
   setReq(): void {
-    this.logo.type = 1
-    this.logo.id = null
-    this.logo.alt = ''
-    this.req.files.push(this.logo)
+
+    this.req.files = this.logo.path !== ''  ? [{ path: this.logo.path, type: 1 }] : []
     this.req.name = this.nameFC.value
     this.req.code = this.codeFC.value
+    this.req.del_files = this.removedImages
     // this.req = {
     //   files: [this.logo],
     //   name: this.nameFC.value,
     //   code: this.codeFC.value,
     // }
   }
+  editImage() {
+    this.info.files.forEach((file: any) => {
+      this.removedImages.push(file.id ?? 0)
 
+    })
+    this.logo = {
+      id: null,
+      path: '',
+      url: '',
+      alt: '',
+      type: 1,
+    }
+  }
 }

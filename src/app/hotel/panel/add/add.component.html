@@ -121,11 +121,14 @@
     </div>
     <div class="d-flex flex-wrap justify-content-between">
       <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-24">
-        <h3>{{ item.name }}</h3>
-        <div class="d-flex  w-100 justify-content-between align-items-center">
+        <div class="d-flex flex-wrap justify-content-between w-100">
+          <h3>{{ item.name }}</h3>
+
+          <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
           <label for="">ضریب:</label>
           <div class="d-flex align-items-center justify-content-end">
-            <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
             <input class="w-50" type="number" [(ngModel)]="item.coefficient">
           </div>
 

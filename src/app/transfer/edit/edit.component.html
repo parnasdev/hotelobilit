@@ -41,6 +41,8 @@
       </div>
       <div class="info-tour-body-upload">
         <div class="top-one">
+          <button class="btn-base" *ngIf="logo.path !== ''" (click)="editImage()"> جهت ویرایش عکس کلیک کنید و سپس آپلود کنید</button>
+
           <prs-upload-single [incommingFile]="{path:'',url: logo.url}" (result)="getLogo($event)"></prs-upload-single>
         </div>
       </div>
