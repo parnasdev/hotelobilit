@@ -611,3 +611,11 @@ input {
 .w-24{
   width: 24% !important;
 }
+.w-22 {
+  width: 22%!important;
+}
+
+:host::ng-deep  .mdc-checkbox__background {
+  width: 30px !important;
+  height: 30px !important;
+}
