@@ -15,15 +15,13 @@
   <div class="bottom">
     <div class="w-100 d-flex align-items-center justify-content-between">
       <h2 class="title">قیمت گذاری هتل</h2>
-
     </div>
-   
-   
     <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
       <li *ngFor="let room of rooms" class="nav-item">
-        <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'" (click)="changeTab(room.id,room.room_type_id)">
+        <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
+          (click)="changeTab(room.id,room.room_type_id)">
           {{ room.room_type}}</a>
-          <span *ngIf="pricingTypeFC.value === '1'">ضریب :{{ room.coefficient }}</span>
+        <span *ngIf="isCoefficient === '1'">ضریب :{{ room.coefficient }}</span>
       </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
@@ -31,7 +29,8 @@
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
       <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
       <div class="w-100" *ngIf="rooms.length > 0">
-        <prs-main-picker *ngIf="showCalendar" [hotelID]="+id" [roomTypeID]="roomTypeId" [pricingType]="pricingTypeFC.value ?? '0'" [roomID]="activedRoom"></prs-main-picker>
+        <prs-main-picker *ngIf="showCalendar" [hotelID]="+id" [roomTypeID]="roomTypeId"
+          [pricingType]="isCoefficient ?? '0'" [roomID]="activedRoom"></prs-main-picker>
       </div>
       <div class="d-flex justify-content-center align-items-center" *ngIf="rooms.length == 0">
         <p>لطفا برای قیمت گذاری ابتدا در بخش ویرایش هتل اتاق های خود را انتخاب کنید</p>

@@ -20,7 +20,7 @@ export class PricingComponent implements OnInit {
   showCalendar = true;
   slug = '';
   id = ''
-  pricingTypeFC = new FormControl('0')
+ isCoefficient = '0';
   req!: ratigListReqDTO;
   activedRoom = 0;
   roomTypeId = 0;
@@ -54,6 +54,14 @@ export class PricingComponent implements OnInit {
       if (res.isDone) {
         this.ratingData = res.data;
         this.rooms = this.ratingData.hotel.rooms ?? [];
+
+    let obj:RoomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
+    if (obj && obj.has_coefficient) {
+      this.isCoefficient = '1'
+    } else {
+      this.isCoefficient = '0'
+    }
+        
         
         if (this.rooms.length > 0) {
           this.activedRoom = this.rooms[0].id;
@@ -96,8 +104,5 @@ export class PricingComponent implements OnInit {
     this.showCalendar = false;
     setTimeout(() => this.showCalendar = true);
   }
-  typeChanged() {
-    // console.log(this.pricingTypeFC.value);
 
-  }
 }

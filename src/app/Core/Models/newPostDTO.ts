@@ -34,6 +34,7 @@ export interface RoomDTO {
     age_child: number
     chd_capacity: number;
     room_type_id: number;
+    has_coefficient: boolean
     coefficient: number;
     id: number;
     rates: RateDTO[];

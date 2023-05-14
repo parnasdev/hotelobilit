@@ -9,8 +9,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyRatesComponent } from './currency-rates/currency-rates.component';
 import { ServiceRatesComponent } from './service-rates/service-rates.component';
+import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 
-
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+};
 @NgModule({
   declarations: [
     PanelComponent,
@@ -24,7 +29,9 @@ import { ServiceRatesComponent } from './service-rates/service-rates.component';
     CommonModule,
     PanelRoutingModule,
     FormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     ReactiveFormsModule,
-  ]
+  ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class PanelModule { }
