@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
-import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
+import { InfoHotelDTO, roomDTO, roomObjDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-edit',
@@ -13,7 +13,9 @@ export class EditComponent extends AddComponent implements OnInit {
   hotelName = '';
 
   hotelId = 1;
-  roomTypes: roomDTO[] = []
+  roomTypes: roomObjDTO[] = []
+
+  removedRoomsIDs: number[] = []
   hotelInfo: InfoHotelDTO = {
     statuses: [],
     cities: [],
@@ -56,56 +58,10 @@ export class EditComponent extends AddComponent implements OnInit {
     this.getInfo();
   }
 
-  setEditReq(): void {
-    this.selectedRooms.forEach(x => {
-      x.has_coefficient = x.has_coefficient
-    })
-
-    this.req = {
-      title: this.hotelForm.controls.title.value,
-      titleEn: this.hotelForm.controls.titleEn.value,
-      address: this.hotelForm.controls.address.value,
-      stars: this.currentStar,
-      slug: this.hotelForm.controls.slug.value,
-      status_id: 1,
-      description: this.hotelForm.controls.description.value,
-      body: '',
-      categories: [],
-      comment: 0,
-      del_files: this.removedImages,
-      files: this.hotelImages,
-      options: [],
-      pin: 0,
-      use_api: 0,
-      city_id: this.hotelForm.controls.city_id.value,
-      // @ts-ignore
-      rooms: this.selectedRooms
-    }
-  }
 
 
-  edit(): void {
-    this.setEditReq();
-    this.hotelApi.updatePosts('hotel', this.req, this.hotelId).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.custom(res.message);
-        this.router.navigateByUrl('/panel/hotel')
-      } else {
-        this.message.custom(res.message)
-      }
-    }, (error: any) => {
-      if (error.status == 422) {
-        this.errorService.recordError(error.error.errors);
-        this.errors = Object.values(error.error.errors)
 
-        this.markFormGroupTouched(this.hotelForm);
-        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
-      } else {
-        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-      }
-      this.checkError.check(error);
-    })
-  }
+
 
   getInfo(): void {
     this.isLoading = true;
@@ -114,6 +70,7 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.hotelInfo = res.data;
         this.roomTypes = this.hotelInfo.roomTypes;
+        this.createRooms()
         this.setData()
         this.showData = true
       } else {
@@ -128,6 +85,25 @@ export class EditComponent extends AddComponent implements OnInit {
     return c1 && c2 && c1.name === c2.name;
   }
 
+
+  createRooms() {
+    this.hotelInfo.roomTypes.forEach((item: any) => {
+      let room = this.hotelInfo.rooms.find(x => x.room_type_id === item.id);
+      let obj: roomDTO = {
+        id: room?.id ?? 0,
+        name: room?.name ?? item.name,
+        room_type_id: room?.room_type_id ?? item.id,
+        coefficient: room?.coefficient ?? item.coefficient,
+        isSelected: room ? true : false,
+        has_coefficient: false,
+        Adl_capacity: room?.Adl_capacity ?? item.Adl_capacity,
+        chd_capacity: room?.chd_capacity ?? item.chd_capacity,
+        age_child: room?.age_child ?? item.age_child,
+      }
+      this.rooms.push(obj)
+    })
+  }
+
   setData(): void {
     this.hotelForm.controls.title.setValue(this.hotelInfo.post.title);
     this.hotelForm.controls.titleEn.setValue(this.hotelInfo.post.options?.titleEn);
@@ -139,12 +115,39 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
     this.currentStar = this.hotelInfo.post.options.stars;
     this.getImagesFromData();
-    this.convertRoomsToListObjects()
+
+    let obj = this.hotelInfo.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
+    if (obj && obj.has_coefficient) {
+      this.isCoefficient = '1'
+    } else {
+      this.isCoefficient = '0'
+    }
+    // this.setRooms()
     // this.lat = this.hotelInfo.coordinate.lat
     // this.lng = this.hotelInfo.coordinate.lng
     this.reload()
   }
 
+
+
+
+  getSelectedRoomList() {
+    this.rooms.forEach(x => {
+      if (x.isSelected) {
+        let obj = {
+          id: x.id,
+          name: x.name,
+          room_type_id: x.room_type_id,
+          coefficient: x.coefficient,
+          has_coefficient: x.has_coefficient,
+          Adl_capacity: x.Adl_capacity,
+          chd_capacity: x.chd_capacity,
+          age_child: x.age_child,
+        }
+        this.selectedRooms.push(obj)
+      }
+    })
+  }
 
 
   getEditImages(result: UploadResDTO[]): void {
@@ -166,16 +169,6 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
 
-  convertRoomsToListObjects() {
-    let list: any[] = [];
-    this.hotelInfo.rooms.forEach(item => {
-      let data = this.hotelInfo.roomTypes.find(x => x.id === item.room_type_id)?.name
-      list.push(data)
-    })
-    // @ts-ignore
-    this.selectedRoomsFC.setValue(list)
-    this.setRoomCoeffision()
-  }
 
 
   getThumbnailFromData() {
@@ -209,48 +202,82 @@ export class EditComponent extends AddComponent implements OnInit {
 
   }
 
-
-  setRoomCoeffision() {
-    this.selectedRooms = [];
-    this.hotelInfo.rooms.forEach(item => {
-      let obj = {
-        id: item.id,
-        name: this.getRoomName(item.room_type_id),
-        room_type_id: item.room_type_id,
-        coefficient: item.coefficient,
-        has_coefficient: item.has_coefficient,
-        Adl_capacity: item.Adl_capacity,
-        chd_capacity: item.chd_capacity,
-        age_child: item.age_child,
-      }
-      this.selectedRooms.push(obj);
-    })
-  }
-
   getRoomName(id: number) {
-    return this.hotelInfo.roomTypes.filter(x => x.id === id)[0].name
+    return this.hotelInfo.roomTypes.filter(x => x.id === id)[0].name;
   }
 
-
-
-
-  roomsUpdated() {
-    this.selectedRooms = [];
-    (this.selectedRoomsFC.value ?? []).forEach(item => {
-      let result = this.hotelInfo.roomTypes.filter(x => x.name === item)
-      if (result.length > 0) {
-        let obj = {
-          id: 0,
-          name: result[0].name,
-          room_type_id: result[0].id,
-          has_coefficient: result[0].has_coefficient,
-          coefficient: 0,
-          Adl_capacity: result[0].Adl_capacity,
-          chd_capacity: result[0].chd_capacity,
-          age_child: result[0].age_child,
+  setHasCoefficients() {
+    if (this.isCoefficient === '1') {
+      this.selectedRooms.forEach(x => {
+        if (x.name === 'دوتخته' || x.name === 'دو تخته') {
+          x.has_coefficient = true;
+        } else {
+          x.has_coefficient = false;
         }
-        this.selectedRooms.push(obj);
+      })
+    } else {
+      this.selectedRooms.forEach(x => {
+        x.has_coefficient = false
+      })
+    }
+  }
+
+  setEditReq(): void {
+    this.getSelectedRoomList()
+    this.getRemovedRooms()
+    this.setHasCoefficients()
+    this.req = {
+      title: this.hotelForm.controls.title.value,
+      titleEn: this.hotelForm.controls.titleEn.value,
+      address: this.hotelForm.controls.address.value,
+      stars: this.currentStar,
+      slug: this.hotelForm.controls.slug.value,
+      status_id: 1,
+      description: this.hotelForm.controls.description.value,
+      body: '',
+      categories: [],
+      comment: 0,
+      del_files: this.removedImages,
+      del_rooms: this.removedRoomsIDs,
+      files: this.hotelImages,
+      options: [],
+      pin: 0,
+      use_api: 0,
+      city_id: this.hotelForm.controls.city_id.value,
+      // @ts-ignore
+      rooms: this.selectedRooms
+    }
+  }
+  edit(): void {
+    this.setEditReq();
+    this.hotelApi.updatePosts('hotel', this.req, this.hotelId).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.custom(res.message);
+        this.router.navigateByUrl('/panel/hotel')
+      } else {
+        this.message.custom(res.message)
       }
+    }, (error: any) => {
+      if (error.status == 422) {
+        this.errorService.recordError(error.error.errors);
+        this.errors = Object.values(error.error.errors)
+
+        this.markFormGroupTouched(this.hotelForm);
+        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+      } else {
+        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+      }
+      this.checkError.check(error);
     })
   }
+  getRemovedRooms() {
+    this.hotelInfo.rooms.forEach(sr => {
+      let x = this.selectedRooms.find(y => y.id == sr.id);
+      if (!x) {
+        this.removedRoomsIDs.push(sr.id)
+      }
+    })
+    console.log(this.removedRoomsIDs);
+  }
+
 }

@@ -33,7 +33,6 @@ export class SidebarComponent implements OnInit {
     public responsiveService: ResponsiveService,
     public errorService: ErrorsService,
     public checkError: CheckErrorService) {
-      console.log(this.sideBarData);
       
     this.isTablet = responsiveService.isTablet();
     $(document).ready(() => {
@@ -60,7 +59,6 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.session.getUserPermission());
   }
 
   toggleMenu(): void {
