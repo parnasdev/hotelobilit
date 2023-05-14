@@ -1,13 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HotelApiService } from 'src/app/Core/Https/hotel-api.service';
 import { HotelRatesSetReqDTO } from 'src/app/Core/Models/hotelDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import * as moment from 'jalali-moment';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { NgxMaskDirective } from 'ngx-mask';
 export interface ConfirmPriceReqDTO {
   checkin: any;
   checkout: any;

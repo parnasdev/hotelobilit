@@ -11,7 +11,7 @@ import {SettingDTO} from "../Models/commonDTO";
 
 export class SettingApiService {
 
-  private serverControllerName = 'setting/';
+  private serverControllerName = 'panel/';
 
   constructor(public http: HttpClient,
               public publicService: PublicService) {
@@ -20,12 +20,24 @@ export class SettingApiService {
   }
 
   getSetting(): any {
-    const strUrl = this.serverControllerName + 'getSetting';
+    const strUrl = this.serverControllerName + 'setting';
     return this.http.get<Result<SettingDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  changeSetting(settings: SettingDTO): any {
-    const strUrl = this.serverControllerName + 'changeSetting';
-    return this.http.post<Result<any>>(strUrl, settings, this.publicService.getDefaultHeaders());
+  changeSetting(settings: any): any {
+    const strUrl = this.serverControllerName + 'setting';
+    return this.http.patch<Result<any>>(strUrl, { 'options': settings }, this.publicService.getDefaultHeaders());
   }
+
+  getCurrencies(): any {
+    const strUrl = this.serverControllerName + 'setting/currencies';
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
+  getServices(): any {
+    const strUrl = this.serverControllerName + 'setting/services';
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
+
 }

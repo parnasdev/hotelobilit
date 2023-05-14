@@ -59,3 +59,26 @@ export interface UploadResDTO {
   alt?: string;
   type?: number;
 }
+
+export interface newSettingDTO {
+  siteDescription: string;
+  siteTitle: string;
+  separator: string;
+  favicon: string;
+  siteLogos: {
+    light: string;
+    dark: string;
+    mobile_light: string;
+    mobile_dark: string;
+  },
+  footer: {
+    namad: any[];
+    map: string;
+    info: any[];
+    description: string;
+  },
+  metas: any[];
+  post_thumbnail: string;
+  social_links: any[];
+  filters: any[];
+}

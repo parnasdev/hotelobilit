@@ -33,4 +33,10 @@ export const Sidebar: SidebarDTO[] = [
     },
     { name: 'کاربران', icon: '', link: '/panel/user', show: true,permition:'users', children: [] },
 
+    {   name: 'امکانات پایه', icon: '', link: '', show: true,permition:'settings', children: [
+            { name: 'نرخ گذاری ارز',permition:'settings', link: '/panel/setCurrencyRate', show: true },
+            { name: 'نرخ گذاری خدمات',permition:'settings', link: '/panel/setServiceRate', show: true },
+        ]
+    },
+
 ]
