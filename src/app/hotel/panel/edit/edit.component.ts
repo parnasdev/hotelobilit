@@ -58,11 +58,6 @@ export class EditComponent extends AddComponent implements OnInit {
     this.getInfo();
   }
 
-
-
-
-
-
   getInfo(): void {
     this.isLoading = true;
     this.hotelApi.editPosts('hotel', this.hotelId).subscribe((res: any) => {
@@ -77,7 +72,8 @@ export class EditComponent extends AddComponent implements OnInit {
         this.message.custom(res.message)
       }
     }, (error: any) => {
-      this.isLoading = false
+      this.isLoading = false;
+      this.checkError.check(error);
       this.message.error()
     })
   }
@@ -209,8 +205,16 @@ export class EditComponent extends AddComponent implements OnInit {
   setHasCoefficients() {
     if (this.isCoefficient === '1') {
       this.selectedRooms.forEach(x => {
-        if (x.name === 'دوتخته' || x.name === 'دو تخته') {
+        if (x.name === 'دوتخته' ||
+        x.name === 'تویین' ||
+        x.name === 'twin' ||
+        x.name === 'double' ||
+        x.name === 'دابل' ||
+        x.name === 'دو تخته' ||
+        x.name === '2 تخته' ||
+        x.name === '۲ تخت') {
           x.has_coefficient = true;
+          x.coefficient = 1;
         } else {
           x.has_coefficient = false;
         }
@@ -277,7 +281,6 @@ export class EditComponent extends AddComponent implements OnInit {
         this.removedRoomsIDs.push(sr.id)
       }
     })
-    console.log(this.removedRoomsIDs);
   }
 
 }

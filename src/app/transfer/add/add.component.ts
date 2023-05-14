@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({
   selector: 'prs-add',
@@ -30,6 +31,7 @@ export class AddComponent implements OnInit {
 
   constructor(public message: MessageService,
               public router: Router,
+              public checkError: CheckErrorService,
               public dialog: MatDialog,
               public api: CategoryApiService) {}
 
@@ -53,6 +55,8 @@ export class AddComponent implements OnInit {
       }
     },(error:any) => {
       this.message.error()
+      this.checkError.check(error);
+
     })
   }
 

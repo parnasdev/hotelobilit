@@ -9,6 +9,7 @@ import { UploadSingleComponent } from "../../common-project/upload-single/upload
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineReqDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({
   selector: 'prs-edit',
@@ -39,6 +40,7 @@ export class EditComponent implements OnInit {
   constructor(public message: MessageService,
     public router: Router,
     public route: ActivatedRoute,
+    public checkError: CheckErrorService,
     public dialog: MatDialog,
     public api: CategoryApiService) {
   }
@@ -81,6 +83,8 @@ export class EditComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.checkError.check(error);
+
       this.message.error()
     })
   }

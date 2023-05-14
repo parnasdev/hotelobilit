@@ -5,6 +5,7 @@ import { TransferListDTO, TransferListRequestDTO } from "../../Core/Models/trans
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({
   selector: 'prs-list',
@@ -20,6 +21,7 @@ export class ListComponent implements OnInit {
 
   constructor(public api: CategoryApiService,
     public session: SessionService,
+    public checkError: CheckErrorService,
     public message: MessageService) {
   }
 
@@ -65,6 +67,8 @@ export class ListComponent implements OnInit {
       }
     }, (error: any) => {
       this.message.error()
+      this.checkError.check(error);
+
     })
   }
 

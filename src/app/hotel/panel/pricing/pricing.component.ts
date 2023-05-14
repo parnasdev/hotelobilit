@@ -73,6 +73,7 @@ export class PricingComponent implements OnInit {
       }
     }, (error: any) => {
       this.isLoading = false
+      this.checkError.check(error)
       this.message.error()
     })
   }

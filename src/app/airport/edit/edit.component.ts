@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import {  AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({
   selector: 'prs-edit',
@@ -31,6 +32,7 @@ export class EditComponent {
   constructor(public message: MessageService,
     public router: Router,
     public route: ActivatedRoute,
+    public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public dialog: MatDialog,
     public api: CategoryApiService) {
@@ -53,6 +55,8 @@ export class EditComponent {
       }
     }, (error: any) => {
       this.message.error()
+      this.checkError.check(error)
+
     })
   }
 
@@ -73,6 +77,8 @@ export class EditComponent {
     }, (error: any) => {
       this.show = true;
       this.message.error()
+      this.checkError.check(error)
+
     })
   }
 
