@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="info-tour-body">
-        <div class="top">
+        <div class="top top-1">
           <div class="item-info">
             <label for="">عنوان هتل</label>
             <input formControlName="title" (change)="generateSlug()" type="text">
@@ -41,19 +41,9 @@
               <span class="text-danger">{{errorService.getError('slug')}}</span>
             </div>
           </div>
-
-          <div class="item-info">
-            <label for="">ستاره</label>
-            <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
-          </div>
-        </div>
-        <div class="bottom">
-          <!-- <div class="item-info">
-            <label for="">موقعیت هتل</label>
-            <input type="text" formControlName="location">
-          </div> -->
           <div class="item-info" *ngIf="data.cities.length>0">
-            <div class="selectdiv">
+            <label for="">شهر </label>
+            <div style="height: 45px" class="selectdiv">
               <select formControlName="city_id" name="" id="">
                 <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
                 <option *ngFor="let city of data.cities[0].categories" [value]="city.id">{{city.name}}</option>
@@ -63,7 +53,13 @@
               <span class="text-danger">{{errorService.getError('city_id')}}</span>
             </div>
           </div>
-          <div class="info-tour-body">
+        </div>
+        <div class="bottom bottom-1">
+          <!-- <div class="item-info">
+            <label for="">موقعیت هتل</label>
+            <input type="text" formControlName="location">
+          </div> -->
+          <div class="w-100">
             <div class="top">
               <div class="item-info-second w-100">
                 <label class="mb-2" for="">توضیحات</label>
@@ -72,27 +68,28 @@
               </div>
             </div>
           </div>
-
-
-
-          <div class="info-tour-body">
-            <div class="top">
+          <div class="w-100">
+            <div  class="top">
               <div class="item-info-second w-100">
                 <label class="mb-2" for="">آدرس</label>
                 <textarea style="margin: 0 auto;width: 100%" formControlName="address"
-                  placeholder="آدرس را وارد کنید"></textarea>
+                          placeholder="آدرس را وارد کنید"></textarea>
               </div>
             </div>
           </div>
-
         </div>
+        <div class="item-info">
+          <label for="">ستاره</label>
+          <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
+        </div>
+
       </div>
     </div>
 
     <div class="box-info-fly">
-      <div class="info-tour-header">
+      <div class="info--19pxtour-header">
         <div class="right">
-          <h2 class="text-dark">آپلود تصاویر</h2>
+          <h2 style="font-size: 17px" class="text-dark">آپلود تصاویر</h2>
         </div>
       </div>
       <div class="info-tour-body-upload">
@@ -134,10 +131,11 @@
 
         <div class="item-info">
           <label for="">{{ item.name }}</label>
-          <input type="number" [(ngModel)]="item.coefficient" >
+          <input type="number" [(ngModel)]="item.coefficient">
         </div>
         <mat-label>ضریبی شود‌؟‌</mat-label>
-        <mat-checkbox [(ngModel)]="item.has_coefficient" (ngModelChange)="coefficientChanged(item.room_type_id)"></mat-checkbox>
+        <mat-checkbox [(ngModel)]="item.has_coefficient"
+                      (ngModelChange)="coefficientChanged(item.room_type_id)"></mat-checkbox>
       </div>
     </div>
   </div>

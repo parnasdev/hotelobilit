@@ -14,7 +14,7 @@
     <div class="body-list-tour" *ngIf="airports.length > 0">
       <div class="item" *ngFor="let airport of airports | paginate: paginateConfig;let i = index">
         <span class="id">{{ i + 1 }}</span>
-        <span class="title-tour">{{ airport.name }}</span>
+        <span class="title-tour bold-600">{{ airport.name }}</span>
         <span class="title-tour">{{ airport.useCount }}</span>
         <div class="button-setting">
           <a routerLink="/panel/airport/edit/{{ airport.id }}" class="edit-btn">ویرایش</a>
