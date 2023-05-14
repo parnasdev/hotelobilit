@@ -63,7 +63,7 @@ export class AddComponent implements OnInit {
     this.req = {
       code: this.codeFC.value,
       name: this.nameFC.value,
-      files: []
+      files: [{path:this.logo.path,type: 1}]
     }
   }
 

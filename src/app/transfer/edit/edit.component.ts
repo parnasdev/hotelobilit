@@ -20,9 +20,11 @@ export class EditComponent implements OnInit {
   nameFC = new FormControl();
   codeFC = new FormControl();
   statusFC = new FormControl();
+  removedImages: number[] = [];
   req: AirlineReqDTO = {
     name: '',
     code: '',
+    del_files: [],
     files: [],
   }
   logo: UploadResDTO = {
@@ -53,6 +55,8 @@ export class EditComponent implements OnInit {
       this.logo = res
     }
   }
+
+
 
   submit(): void {
     this.setReq()
@@ -96,17 +100,28 @@ export class EditComponent implements OnInit {
 
 
   setReq(): void {
-    this.logo.type = 1
-    this.logo.id = null
-    this.logo.alt = ''
-    this.req.files.push(this.logo)
+
+    this.req.files = this.logo.path !== ''  ? [{ path: this.logo.path, type: 1 }] : []
     this.req.name = this.nameFC.value
     this.req.code = this.codeFC.value
+    this.req.del_files = this.removedImages
     // this.req = {
     //   files: [this.logo],
     //   name: this.nameFC.value,
     //   code: this.codeFC.value,
     // }
   }
+  editImage() {
+    this.info.files.forEach((file: any) => {
+      this.removedImages.push(file.id ?? 0)
 
+    })
+    this.logo = {
+      id: null,
+      path: '',
+      url: '',
+      alt: '',
+      type: 1,
+    }
+  }
 }
