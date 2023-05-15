@@ -21,7 +21,7 @@ export const Sidebar: SidebarDTO[] = [
     // ]
     // },
     ,{
-        name: 'پرواز ها', icon: '', link: '/panel/transferRate', permition: 'flights', show: true, children: []},
+        name: 'مسیرها و پروازها', icon: '', link: '/panel/transferRate', permition: 'flights', show: true, children: []},
             // { name: 'لیست مسیر پرواز ها', permition: 'flights.read', link: '/panel/transferRate', show: true },
             // { name: 'افزودن مسیر پرواز', permition: 'flights.create', link: '/panel/transferRate/add', show: true },
             // { name: 'افزودن ایرلاین', permition: 'airlines.create', link: '/panel/transfer/add', show: true },

@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
     perPage: 20,
   };
   users: UserResDTO[] = [];
-  loading = false;
+  isLoading = false;
   city = '';
 
   constructor(public userApi: UserApiService,
@@ -47,7 +47,7 @@ export class ListComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.loading = true;
+    this.isLoading = true;
     this.userApi.getUser().subscribe((res: any) => {
       if (res.isDone) {
         this.users = res.data
@@ -60,9 +60,9 @@ export class ListComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
-      this.loading = false;
+      this.isLoading = false;
     }, (error: any) => {
-      this.loading = false;
+      this.isLoading = false;
       this.message.error();
       this.checkErrorService.check(error);
     });
@@ -93,7 +93,7 @@ export class ListComponent implements OnInit {
 
 
   deleteUser(userId: number): void {
-    this.loading = true;
+    this.isLoading = true;
     this.userApi.deleteUser(userId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom('کاربر مورد نظر حذف شد');
@@ -101,9 +101,9 @@ export class ListComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
-      this.loading = false;
+      this.isLoading = false;
     }, (error: any) => {
-      this.loading = false;
+      this.isLoading = false;
       this.message.error();
       this.checkErrorService.check(error);
     });

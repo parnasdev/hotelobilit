@@ -18,7 +18,8 @@ export class CityListComponent implements OnInit {
   p = 1
   paginate: any;
   paginateConfig: any;
-  parent = 0;
+  parent = 0
+  isLoading = false;
 
   constructor(public api: CategoryApiService,
     public route: ActivatedRoute,
@@ -28,7 +29,6 @@ export class CityListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
     // @ts-ignore
     this.parent = +this.route.snapshot.paramMap.get('parent')
     this.getCities();
@@ -36,7 +36,9 @@ export class CityListComponent implements OnInit {
 
   getCities(): void {
     this.setReq();
+    this.isLoading = true
     this.api.getCategoryList('city', 'hotel', this.p, this.parent).subscribe((res: any) => {
+      this.isLoading = false
       if (res.isDone) {
         this.cities = res.data;
         this.paginate = res.meta;
@@ -49,6 +51,7 @@ export class CityListComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.isLoading = false
       this.checkError.check(error)
       this.message.error()
     })

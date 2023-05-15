@@ -61,12 +61,17 @@ export class EditComponent extends AddComponent implements OnInit {
     this.form.controls.checkin_tomorrow.setValue(this.infoData.checkin_tomorrow);
     this.form.controls.checkout_yesterday.setValue(this.infoData.checkout_yesterday);
 
-    this.checkin_tomorrow = this.infoData.checkin_tomorrow === 0 ? false :true
-    this.checkout_yesterday = this.infoData.checkout_yesterday === 0 ? false :true
-    this.infoData.rates.forEach((item : any) => {
+    this.checkin_tomorrow = this.infoData.checkin_tomorrow === 0 ? false : true
+    this.checkout_yesterday = this.infoData.checkout_yesterday === 0 ? false : true
+    this.infoData.rates.forEach((item: any) => {
       this.addRow(item);
     });
     this.showData = true
+  }
+
+
+  getCity(id: number) {
+    return this.editData.cities.find((y:any) => y.id === id).name
   }
 
 
@@ -74,11 +79,11 @@ export class EditComponent extends AddComponent implements OnInit {
     const dates = this.fb.group({
       id: item ? item.id : null,
       adl_price: item ? item.adl_price : 0,
-      origin_date: item ? item.origin_date :null,
-      destination_date: item ? item.destination_date :null,
-      chd_price: item ? item.chd_price :0,
-      inf_price: item ? item.inf_price :0,
-      capacity: item ? item.capacity :0,
+      origin_date: item ? item.origin_date : null,
+      destination_date: item ? item.destination_date : null,
+      chd_price: item ? item.chd_price : 0,
+      inf_price: item ? item.inf_price : 0,
+      capacity: item ? item.capacity : 0,
     });
     this.RatesForm.push(dates);
   }
@@ -112,7 +117,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
 
-  removeTransferRate(id:number,index:number) {
+  removeTransferRate(id: number, index: number) {
     this.isLoading = true
     this.flightApi.removeDataFlight(id).subscribe((res: any) => {
       if (res.isDone) {
@@ -129,7 +134,7 @@ export class EditComponent extends AddComponent implements OnInit {
   removeRates(i: any) {
     const id = this.RatesForm.controls[i].value.id
     if (id && id !== 0) {
-      this.removeTransferRate(id,i)
+      this.removeTransferRate(id, i)
     } else {
       this.RatesForm.removeAt(i);
     }

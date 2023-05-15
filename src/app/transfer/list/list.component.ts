@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
   p = 1
   paginate: any;
   paginateConfig: any;
-
+isLoading = false;
   constructor(public api: CategoryApiService,
     public session: SessionService,
     public checkError: CheckErrorService,
@@ -31,6 +31,7 @@ export class ListComponent implements OnInit {
 
   getTransfers(): void {
     this.setRea();
+    this.isLoading = true;
     this.api.getCategoryList('airline', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.airlines = res.data;
@@ -43,7 +44,10 @@ export class ListComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false;
+
     }, (error: any) => {
+      this.isLoading = false;
       this.message.error()
     })
   }

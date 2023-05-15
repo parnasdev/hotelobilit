@@ -18,6 +18,17 @@
       <span class="from-to">تعداد بازدید</span>
       <span class="setting">تنظیمات</span>
     </div>
+
+    <ng-template [ngIf]="isLoading" >
+      <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+      </div>
+    </ng-template>
     <div class="body-list-tour" *ngIf="hotelList.length > 0">
       <div class="item" *ngFor="let hotel of hotelList | paginate: paginateConfig;let i = index">
         <span class="id">{{hotel.id }}</span>
@@ -25,9 +36,8 @@
         <span class="title-tour">{{ hotel.user.full_name }}</span>
         <span class="title-tour">{{ hotel.visitCount }}</span>
         <div class="button-setting">
-          <a routerLink="/panel/hotel/edit/{{ hotel.id }}"
-            class="edit-btn">ویرایش</a>
-            <a style="background: #dc3545 !important;"  routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
+          <a routerLink="/panel/hotel/edit/{{ hotel.id }}" class="edit-btn">ویرایش</a>
+          <a style="background: #dc3545 !important;" routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
             class="edit-btn">قیمت گذاری</a>
           <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a>
           <button *ngIf="session.checkItemPermission('Hotel.delete')" (click)="deleteClicked(hotel.slug)"
@@ -37,10 +47,11 @@
       <div>
       </div>
     </div>
-    <pagination-controls class="pagination-control"
-    (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
-    screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
-  </pagination-controls>
+    <pagination-controls class="pagination-control" (pageChange)="onPageChanged($event)" previousLabel="قبلی"
+      nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+      screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
   </div>
 
 </div>
+
