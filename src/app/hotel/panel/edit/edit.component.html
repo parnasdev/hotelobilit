@@ -111,8 +111,8 @@
     <div class="d-flex align-items-center justify-content-end  w-75 mb-5 mt-3">
       <span style="margin-left: 12px;" class="tip">اتاق مورد نظر برای قیمت گذاری را انتخاب کنید</span>
       <select style="width: 40%;" class="inp-form" [(ngModel)]="isCoefficient">
-        <option [value]="0">نرخ گذاری عادی</option>
-        <option [value]="1">نرخ گذاری ضریبی</option>
+        <option value="0">نرخ گذاری عادی</option>
+        <option value="1">نرخ گذاری ضریبی</option>
       </select>
     </div>
     <div class="d-flex flex-wrap justify-content-between">
@@ -122,7 +122,7 @@
 
           <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center">
+        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
           <label for="">ضریب:</label>
           <div class="d-flex align-items-center justify-content-end">
             <input class="w-50" type="number" [(ngModel)]="item.coefficient">

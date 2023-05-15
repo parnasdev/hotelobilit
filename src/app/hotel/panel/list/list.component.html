@@ -5,7 +5,7 @@
     <!-- <prs-select-city [hasHotel]="true" (citySelected)="getCitySelected($event)"></prs-select-city> -->
     <div class="d-flex search-box-hotel">
       <input [formControl]="keywordFC" placeholder="جستجو بر اساس نام هتل" type="text">
-      <button class="ms-2 btn-base" (click)="getList()">جستجو</button>
+      <button class="ms-2 btn-base btn-search" (click)="getList()">جستجو</button>
     </div>
     <a class="btn-add-tour btn-base" routerLink="/panel/hotel/add">اضافه</a>
     <!-- <a *ngIf="session.checkItemPermission('posts.create')" class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a> -->
@@ -13,7 +13,7 @@
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
-      <span class="title-tour">عنوان هتل</span>
+      <span class="title-tour bold-600">عنوان هتل</span>
       <span class="from-to">ایجاد کننده</span>
       <span class="from-to">تعداد بازدید</span>
       <span class="setting">تنظیمات</span>
@@ -27,7 +27,7 @@
         <div class="button-setting">
           <a routerLink="/panel/hotel/edit/{{ hotel.id }}"
             class="edit-btn">ویرایش</a>
-            <a  routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
+            <a style="background: #999 !important;"  routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
             class="edit-btn">قیمت گذاری</a>
           <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a>
           <button *ngIf="session.checkItemPermission('Hotel.delete')" (click)="deleteClicked(hotel.slug)"
