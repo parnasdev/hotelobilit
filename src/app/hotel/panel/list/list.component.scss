@@ -57,7 +57,7 @@
   height: 40px;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1.5fr 1.5fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1.5fr 1.5fr;
   background-color: #D5D5D5;
   border-bottom: 1px solid var(--light-color-two);
 }
@@ -78,7 +78,7 @@
   height: 60px;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1.5fr 1.5fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1.5fr 1.5fr;
 }
 .body-list-tour .item:not(:last-child){
   border-bottom: 2px dashed #c6c6c6;
