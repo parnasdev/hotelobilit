@@ -27,7 +27,7 @@
         <div class="button-setting">
           <a routerLink="/panel/hotel/edit/{{ hotel.id }}"
             class="edit-btn">ویرایش</a>
-            <a style="background: #999 !important;"  routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
+            <a style="background: #dc3545 !important;"  routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
             class="edit-btn">قیمت گذاری</a>
           <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a>
           <button *ngIf="session.checkItemPermission('Hotel.delete')" (click)="deleteClicked(hotel.slug)"
