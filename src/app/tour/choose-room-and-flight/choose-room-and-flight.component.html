@@ -1,118 +1,333 @@
-<section class="s-flight-list">
+<!--<prs-loading *ngIf="isLoading"></prs-loading>-->
+
+<!--<prs-address-bar [path]="'هتل'" [path2]="hotelInfo.name ? hotelInfo.name : ''"></prs-address-bar>-->
+
+
+<!--select-fly-->
+
+<section>
   <div class="prs-responsive">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-11 m-auto p-flight-list-top">
-          <div class="img-slider">
-            <swiper class="swiper-flight-list h-100" [slidesPerView]="1" [navigation]="true" [spaceBetween]="0">
-              <ng-template swiperSlide *ngFor="let item of hotelInfo.gallery">
-                <img [src]="item ? item : '../../../assets/img/12123131.png' " alt="">
-              </ng-template>
-            </swiper>
-          </div>
-          <div class="p-information">
-            <h2 class="name-hotel">
-              <a href="">شما  {{ hotelInfo.title }} را انتخاب کرده اید</a>
-            </h2>
-            <div class="p-star">
-              <i class="icon-star" *ngFor="let item of getStars(hotelInfo.stars)"></i>
+        <div class="col-md-10 m-auto">
+          <div class="thumbnail-hotel">
+            <div class="img-hotel">
+              <img src="../../../assets/img/12123131.png" alt="">
             </div>
-            <div class="location">
-              <img src="../../../assets/img/location.png" alt="">
-              <span>{{ hotelInfo.address }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-11 m-auto p-flight-list-bottom">
-          <ng-template ngFor let-flight [ngForOf]="flights" let-index="index">
-          <div class="thumbnail-room" *ngFor="let item of hotelInfo.rooms">
-            <div class="d-flex align-items-center justify-content-start">
-              <h3 class="title">جزییات اتاق</h3>
-            </div>
-            <div class="top">
-              <div class="right">
-                <h2>اتاق {{ item.room_type }}</h2>
+            <div class="detail-hotel">
+              <div class="r">
+                <div class="star">
+                  <i class="icon-star"></i>
+                  <i class="icon-star"></i>
+                  <i class="icon-star"></i>
+                  <i class="icon-star"></i>
+                  <i class="icon-star"></i>
+                </div>
+                <h2 class="name-hotel">hotelInfo.name</h2>
+                <div class="address d-flex justify-content-start align-items-center">
+                  <img src="assets/img/location2.svg" width="15" alt="">
+                  <span>hotelInfo.location</span>
+                </div>
               </div>
-              <div class="left">
-                <div class="p-price">
-                  <span>قیمت:</span>
-                  <div class="price">
-                    <strong>{{getPrice(flight.adl_price , item.rates ) | sperator}}</strong>
+              <!-- <div class="l">
+                <div class="p-price" *ngIf="hotelInfo.packages.length > 0">
+                  <span class="title">شروع قیمت :</span>
+                  <div class="price d-flex align-items-center">
+                    <strong>{{ getStarterPrice() | round| sperator }}</strong>
                     <small>تومان</small>
                   </div>
                 </div>
-                <a href="" class="btn-base w-100">انتخاب تور</a>
-              </div>
-            </div>
-            <div class="bottom">
-              <div class="from">
-                <span class="fly">پرواز رفت </span>
-                <div class="airline">
-                  <span>ایرلاین :</span>
-                  <span>{{ flight.airline_name }}</span>
-
-                  <img src="../../../assets/img/parnas-logo.png" alt="">
-                </div>
-                <div class="time">
-                  <strong>{{ flight.date |convertDate}}</strong>
-                  <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="30" height="30">
-                    <path
-                      d="M.88,14.09,4.75,18a1,1,0,0,0,1.42,0h0a1,1,0,0,0,0-1.42L2.61,13H23a1,1,0,0,0,1-1h0a1,1,0,0,0-1-1H2.55L6.17,7.38A1,1,0,0,0,6.17,6h0A1,1,0,0,0,4.75,6L.88,9.85A3,3,0,0,0,.88,14.09Z"/>
-                  </svg>
-
-                  <strong>{{ flight.time }}</strong>
-                </div>
-              </div>
-              <div class="to">
-                <span class="fly">پرواز برگشت </span>
-                <div class="airline">
-                  <span>ایرلاین :</span>
-                  <span>{{ flight.flight.airline_name }}</span>
-                  <img src="../../../assets/img/parnas-logo.png" alt="">
-                </div>
-                <div class="time">
-                  <strong>{{ flight.flight.date | convertDate}}</strong>
-                  <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="30" height="30">
-                    <path
-                      d="M.88,14.09,4.75,18a1,1,0,0,0,1.42,0h0a1,1,0,0,0,0-1.42L2.61,13H23a1,1,0,0,0,1-1h0a1,1,0,0,0-1-1H2.55L6.17,7.38A1,1,0,0,0,6.17,6h0A1,1,0,0,0,4.75,6L.88,9.85A3,3,0,0,0,.88,14.09Z"/>
-                  </svg>
-                  <strong>{{ flight.flight.time }}</strong>
-                </div>
-              </div>
+              </div> -->
 
             </div>
           </div>
-        </ng-template>
+
+          <div class="title-tour-special-swiper mt-3" *ngIf="this.isDesktop">
+            <div class="top">
+              <div class="new-tour">
+                <div class="text d-flex align-items-center">
+                  <h3 style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب کنید</h3>
+                </div>
+              </div>
+              <div class="inp-form w-25">
+                <select name="" id="">
+                  <option disabled selected value="">فیلتر مبدا</option>
+                  <option value="all">همه</option>
+                  <option>city.name</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="title-tour-special-swiper mt-3" *ngIf="this.isMobile">
+            <div class="new-tour d-flex w-100-mobi mb-3">
+              <img src="assets/img/Bookmark.svg" width="17" alt="">
+              <div class="text mr-2">
+                <span style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب کنید</span>
+              </div>
+            </div>
+            <div class="top">
+              <div class="inp-form w-100-mobi">
+                <select name="" id="">
+                  <option disabled selected value="">فیلتر مبدا</option>
+                  <option value="all">همه</option>
+                  <option>city.name</option>
+                </select>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="border-right"></div>
+              <div class="border-left"></div>
+            </div>
+          </div>
+
+          <ng-template>
+            <div class="thumbnail-flight">
+              <div class="top">
+                <div class="start">
+                  <img src="" width="40" height="35" />
+                  <div class="d-flex flex-column align-items-start w-100">
+                    <div class="title w-100 d-flex justify-content-between">
+                      <div class="w-75">
+                        <span>پرواز رفت - </span>
+                        <span>تهران به کیش</span>
+                      </div>
+                      <span>item.origin_transfer.name</span>
+                    </div>
+                    <div class="p-date">
+                      <div class="date w-100 d-flex justify-content-between">
+                        <strong>زمان پرواز :</strong>
+                        <div>
+                        <span class="ml-2">
+                          calenderService.convertDateSpecial(item.departure_date, 'fa'</span>
+                          <strong>item.departure_time</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div *ngIf="isTablet" class="info-time">
+                  <span class="title">مدت اقامت :</span>
+                  <span style="margin-right: 4px" class="text">3 شب و 4 روز</span>
+                </div>
+
+                <div class="center">
+                  <img [src]="" width="40" height="35"/>
+                  <div class="d-flex flex-column align-items-start w-100 m-2">
+                    <div class="title w-100 d-flex justify-content-between">
+                      <div class="w-50">
+                        <span>پرواز بازگشت - </span>
+                        <span>تهران به کیش</span>
+                      </div>
+                      <span>item.destination_transfer.name</span>
+                    </div>
+                    <div class="p-date">
+                      <div class="date w-100 d-flex justify-content-between">
+                        <strong>زمان پرواز :</strong>
+                        <div>
+                        <span class="ml-2">calenderService.convertDateSpecial(item.return_date, 'fa'</span>
+                          <strong>item.return_time</strong>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="end">
+                  <span *ngIf="isDesktop">تامین کننده : آژانس میلاد</span>
+                  <a *ngIf="isDesktop"  class="btn-base w-100 d-flex align-items-center justify-content-center h-45 mt-2">
+                    انتخاب تور
+                  </a>
+                  <!-- <a data-toggle="collapse" class="btn-view-more" href="#collapseExample{{i}}" role="button"
+                     aria-expanded="false" aria-controls="collapseExample">
+                    مشاهده اطلاعات اتاق ها
+                    <i class="icon-down-open"></i>
+                  </a> -->
+                </div>
+              </div>
+              <!-- id="collapseExample{{i}}" -->
+              <!-- collapse -->
+              <div *ngIf="isDesktop" class="w-100 bottom" >
+                <div class="header-fly">
+                  <span>x.roomType.label</span>
+                  <span>سن</span>
+
+                </div>
+                <div class="body-fly">
+                  <div  class="price" >
+                    <strong>getFullPrice(y.roomType.name,item.adl_price)</strong>
+                    <small>تومان</small>
+                    <small>ثبت نشده</small>
+                  </div>
+
+                  <span>package.prices.age</span>
+                </div>
+              </div>
+              <div class="p-bed-mobi" *ngIf="isTablet">
+                <div class="item-full">
+                  <span>دو تخته (هر نفر)</span>
+                  <div class="price" >
+                    <strong>200000</strong>
+                    <small>تومان</small>
+                  </div>
+                </div>
+                <div  class="item">
+                  <span>سینگل</span>
+                  <div class="price">
+                    <strong>package.prices.single</strong>
+                    <small>تومان</small>
+                  </div>
+                </div>
+                <div  class="item">
+                  <span >سه تخته (هر نفر)</span>
+                  <div class="price">
+                    <strong>200000</strong>
+                    <small>تومان</small>
+                  </div>
+                </div>
+                <div  class="item">
+                  <span>چهارتخته (هر نفر)</span>
+                  <div class="price">
+                    <strong>200000</strong>
+                    <small>تومان</small>
+                  </div>
+                </div>
+                <div class="item-full">
+                  <span >کودک با تخت</span>
+                  <div class="price">
+                    <strong>200000</strong>
+                    <small>تومان</small>
+                  </div>
+
+                </div>
+                <div  class="item-full">
+                  <span >کودک بدون تخت</span>
+                  <div class="price">
+                    <strong>200000</strong>
+                    <small>تومان</small>
+                  </div>
+                </div>
+                <div class="item-full">
+                  <span>سن کودک بدون تخت</span>
+                  <p>2</p>
+                </div>
+              </div>
+              <div *ngIf="isTablet" class="w-100 d-flex my-3 flex-column align-items-center">
+                <span >تامین کننده : آژانس کرد</span>
+                <a   class="btn-base w-100 d-flex align-items-center justify-content-center h-45 mt-2">
+                  انتخاب تور
+                </a>
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="empty-box bg-white">
+            <span >پروازی برای این هتل یافت نشد</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!--end-->
 
+<!--
+<section class="info-hotel">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 m-auto parent-info-hotel">
+          <div class="title-info-hotel">
+            <div class="right">
+              <img src="assets/img/Tag.svg" width="35" alt="">
+              <div class="text">
+                <h2 class="title-fa">{{ hotelInfo.name }}</h2>
+                <h2 class="title-en">{{ hotelInfo.nameEn }}</h2>
+              </div>
+            </div>
+          </div>
+          <div class="box-info-hotel">
+            <div class="title-hotel">
+              <div class="name-city-country">
+                <img src="assets/img/Location.svg" width="20" alt="">
+                <span class="title-small-fa"> منطقه :</span>
+                <span class="title-fa mr-2">{{ hotelInfo.city.name }}, </span>
+                <span class="title-fa mr-2">{{ hotelInfo.location }}</span>
+              </div>
+              <div class="rate-star">
+                <span class="title-small-fa">درجه هتل :</span>
+                <i class="icon-star text-warning" *ngFor="let star of getStars(hotelInfo.stars)"></i>
+              </div>
+            </div>
 
+            <div class="parent-gallery" *ngIf="hotelInfo.images && hotelInfo.images.length > 0">
+              <div class="right-gallery">
+                <img class="top-right" [lightbox]="0" [gallery]="galleryId" [src]="hotelInfo.images[0]" alt="">
+                <img class="left-right" [lightbox]="1" [gallery]="galleryId" [src]="hotelInfo.images[1]" alt="">
+                <img class="bottom-right" [lightbox]="2" [gallery]="galleryId" [src]="hotelInfo.images[2]" alt="">
+                <img class="bottom-left" [lightbox]="3" [gallery]="galleryId" [src]="hotelInfo.images[3]" alt="">
+              </div>
+              <div class="left-gallery" [style.background-image]="'url(' + hotelInfo.thumbnail.split(' ').join('%20') + ')'">
+                <div class="parent-view-all-photo">
+                  <a class="btn-photos ml-2" *ngIf="hotelInfo.mediaLink && (hotelInfo.mediaLink[0].link && hotelInfo.mediaLink[1].link)" (click)="openMedia(hotelInfo.mediaLink)">
+                    <img src="assets/img/video-camera.png" width="25" alt="">
+                    <span>مشاهده ویدیو</span>
+                  </a>
+                  <a class="btn-photos" [lightbox]="0" [gallery]="galleryId">
+                    <img src="assets/img/Menu-hotel.svg" width="20" alt="">
+                    <span>مشاهده همه عکس ها</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="about-hotel">
+              <div class="map">
+                <div class="no-map" *ngIf="hotelInfo?.coordinate?.lat === 0 && hotelInfo?.coordinate?.lng === 0" >
+                  <span>نقشه موجود نیست</span>
+                </div>
+                <prs-show-location *ngIf="hotelInfo.coordinate.lat !== 0 && hotelInfo.coordinate.lng !== 0"  [inCommingLatLng]="hotelInfo.coordinate"></prs-show-location>
 
+                <a class="btn-map" *ngIf="hotelInfo.coordinate.lat !== 0">مسیریابی از مبدا شما !</a>
+                <div class="address">
+                  <img src="assets/img/008-maps.svg" width="20" alt="">
+                  <p class="text-en">{{ hotelInfo.address }}</p>
+                </div>
+                <div class="telephone">
+                  <img src="assets/img/003-telephone.svg" width="20" alt="">
+                  <p>{{ '-' }}</p>
+                </div>
+              </div>
+              <div class="info-about-hotel">
+                <div class="scrollbar" id="style-1"></div>
+                <h2>درباره  {{hotelInfo.name}} بیشتر بدانید :</h2>
+                <p *ngIf="hotelInfo.body" [innerHTML]="hotelInfo.body | safeHtml"></p>
+                <p *ngIf="!hotelInfo.body">توضیحاتی ثبت نشده است</p>
+              </div>
+            </div>
 
+            <div class="notes-hotel">
+              <div class="option">
+                <h2>امکانات هتل ، اتاق ها و خدمات دیگر در یک نگاه</h2>
+                <div class="parent-item-option" *ngIf="hotelInfo.services.length > 0">
+                  <div class="item" *ngFor="let service of hotelInfo.services[0].services">
+                    <span>{{service.name}}</span>
+                  </div>
+                </div>
+                <div class="parent-item-option" *ngIf="hotelInfo.services.length === 0">
+                  امکاناتی برای این هتل وجود ندارد.
+                </div>
+              </div>
+            </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</section> -->
 
 
