@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from "../../Core/Services/message.service";
-import {FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from "../../Core/Services/message.service";
+import { FormControl } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
@@ -23,6 +23,7 @@ export class AddComponent {
     parent_id: 0,
     name: '',
     code: '',
+    airports: []
   }
 
   data: any;
@@ -31,16 +32,20 @@ export class AddComponent {
   cities: CityResponseDTO[] = []
   // cityID = 0;
   destCityFC = new FormControl();
+  type: string = 'country'
+  selectedAirportFC = new FormControl([]);
 
   constructor(public message: MessageService,
-              public flightApi: FlightApiService,
-              public router: Router,
-              public dialog: MatDialog,
-              public checkError: CheckErrorService,
-              public errorService: ErrorsService,
-              public api: CategoryApiService) {}
+    public flightApi: FlightApiService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public checkError: CheckErrorService,
+    public errorService: ErrorsService,
+    public api: CategoryApiService) { }
 
   ngOnInit(): void {
+    this.type = this.route.snapshot.paramMap.get('type') ?? 'country';
     this.getData();
   }
 
@@ -61,7 +66,7 @@ export class AddComponent {
     }, (error: any) => {
       this.message.error()
       this.checkError.check(error)
-      
+
     })
   }
 
@@ -70,10 +75,10 @@ export class AddComponent {
     this.api.storeCategory('city', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.router.navigateByUrl('/panel/cities');
-      }else {
+      } else {
         this.message.custom(res.message);
       }
-    },(error:any) => {
+    }, (error: any) => {
       this.message.error()
       this.checkError.check(error)
 
@@ -81,11 +86,11 @@ export class AddComponent {
   }
 
   setReq(): void {
-    debugger
     this.req = {
-      parent_id: this.destCityFC.value,
+      parent_id: this.type === 'country' ? null : this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
+      airports: this.selectedAirportFC.value ?? []
     }
   }
 }
