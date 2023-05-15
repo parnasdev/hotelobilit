@@ -5,8 +5,8 @@
     <div class="box-info-tour">
       <div class="info-tour-header">
         <div class="right">
-          <label for="">اضافه کردن شهر جدید</label>
-          <h2 class="text-gray">اطلاعات شهر</h2>
+          <label for="">اضافه کردن {{ type === 'country' ? 'کشور' : 'شهر' }} جدید</label>
+          <h2 class="text-gray">اطلاعات {{ type === 'country' ? 'کشور' : 'شهر' }}</h2>
         </div>
         <!-- <div class="left">
           <div class="selectdiv">
@@ -22,7 +22,7 @@
       <div class="info-tour-body">
         <div class="top">
 
-          <div style="padding-right: 2rem" class="item-info w-48">
+          <div style="padding-right: 2rem" class="item-info w-48" *ngIf="type === 'city'">
             <div class="select-info">
               <label for="">کشور </label>
               <prs-select-city [hasHotel]="true" [cities]="data.countries"
@@ -33,21 +33,38 @@
             </div>
           </div>
           <div class="item-info">
-            <label for="">عنوان شهر</label>
+            <label for="">عنوان {{ type === 'country' ? 'کشور' : 'شهر' }}</label>
             <input [formControl]="nameFC" type="text">
           </div>
 
           <div class="item-info">
-            <label for="">کد شهر</label>
+            <label for="">کد {{ type === 'country' ? 'کشور' : 'شهر' }}</label>
             <input [formControl]="codeFC" type="text">
           </div>
         </div>
+        <div class="top">
+          <div class="address-hotel">
+            <label for="address">فرودگاه های موردنظر را انتخاب کنید</label>
+            <mat-form-field appearance="fill">
+              <mat-label>فرودگاه ها</mat-label>
+              <mat-select [formControl]="selectedAirportFC" multiple>
+                <mat-select-trigger>
+                  <span>فرودگاه های انتخاب شده</span>
+  
+                </mat-select-trigger>
+                <mat-option *ngFor="let x of data.airports" [value]="x.id">{{x.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
       </div>
+
+
     </div>
 
     <div class="btn-parent-submit">
 
-      <button class="submit-tour" (click)="submit()">ثبت شهر</button>
+      <button class="submit-tour" (click)="submit()">ثبت {{ type === 'country' ? 'کشور' : 'شهر' }}</button>
     </div>
   </form>
 

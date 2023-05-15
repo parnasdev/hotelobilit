@@ -15,11 +15,11 @@ const routes: Routes = [
     component: CityListComponent
   },
   {
-    path: 'add',
+    path: 'add/:type',
     component: AddComponent
   }, 
   {
-    path: 'edit/:id',
+    path: 'edit/:type/:id',
     component: EditComponent
   }
 ];

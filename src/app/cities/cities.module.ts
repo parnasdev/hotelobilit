@@ -10,6 +10,8 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { CityListComponent } from './city-list/city-list.component';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule, MatSelectTrigger } from '@angular/material/select';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { CityListComponent } from './city-list/city-list.component';
     CitiesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatDialogModule,
     CommonProjectModule,
     NgxPaginationModule,

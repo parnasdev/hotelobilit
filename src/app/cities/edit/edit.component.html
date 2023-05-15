@@ -5,8 +5,8 @@
     <div class="box-info-tour">
       <div class="info-tour-header">
         <div class="right">
-          <label for="">ویرایش شهر</label>
-          <h2>اطلاعات شهر</h2>
+          <label for="">ویرایش {{ type === 'country' ? 'کشور' : 'شهر' }}</label>
+          <h2>اطلاعات {{ type === 'country' ? 'کشور' : 'شهر' }}</h2>
         </div>
         <!-- <div class="left">
           <div class="selectdiv">
@@ -22,7 +22,7 @@
       <div class="info-tour-body">
         <div class="top">
 
-          <div style="padding-right: 2rem" class="item-info w-48">
+          <div style="padding-right: 2rem" class="item-info w-48"  *ngIf="type === 'city'">
             <div class="select-info">
               <label for="">کشور </label>
               <prs-select-city [hasHotel]="true" [cities]="info.countries" [inCommingCity]="info.city.parent_id"
@@ -34,12 +34,12 @@
           </div>
 
           <div class="item-info">
-            <label for="">عنوان شهر</label>
+            <label for="">عنوان {{ type === 'country' ? 'کشور' : 'شهر' }}</label>
             <input [formControl]="nameFC" type="text">
           </div>
 
           <div class="item-info">
-            <label for="">کد شهر</label>
+            <label for="">کد {{ type === 'country' ? 'کشور' : 'شهر' }}</label>
             <input [formControl]="codeFC" type="text">
           </div>
         </div>
@@ -48,7 +48,7 @@
 
     <div class="btn-parent-submit">
 
-      <button class="submit-tour" (click)="submit()">ویرایش شهر</button>
+      <button class="submit-tour" (click)="submit()">ویرایش {{ type === 'country' ? 'کشور' : 'شهر' }}</button>
     </div>
   </form>
 

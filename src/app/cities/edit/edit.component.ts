@@ -28,7 +28,7 @@ export class EditComponent {
   info: any
 
   show = false;
-
+type = '';
   constructor(public message: MessageService,
     public router: Router,
     public route: ActivatedRoute,
@@ -39,6 +39,7 @@ export class EditComponent {
   }
 
   ngOnInit(): void {
+    this.type = this.route.snapshot.paramMap.get('type') ?? 'country';
     // @ts-ignore
     this.transfer_id = +this.route.snapshot.paramMap.get('id')
     this.getInfo()

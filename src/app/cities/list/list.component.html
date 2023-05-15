@@ -1,7 +1,7 @@
 <div class="list-tour">
   <div class="title">
     <h2>لیست کشور ها</h2>
-    <a class="btn-add-tour" routerLink="/panel/cities/add">اضافه</a>
+    <a class="btn-add-tour" routerLink="/panel/cities/add/country">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
@@ -18,7 +18,7 @@
         <span class="title-tour">{{ city.useCount }}</span>
         <div class="button-setting">
           <a routerLink="/panel/cities/child/{{ city.id }}" class="edit-btn">نمایش شهر ها</a>
-          <a routerLink="/panel/cities/edit/{{ city.id }}" class="edit-btn">ویرایش</a>
+          <a routerLink="/panel/cities/edit/country/{{ city.id }}" class="edit-btn">ویرایش</a>
           <button (click)="deleteAirport(city.id)" class="delete-btn">حذف</button>
         </div>
       </div>
