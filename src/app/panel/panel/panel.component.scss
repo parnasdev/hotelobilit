@@ -28,10 +28,11 @@
 
     .main {
       width: 80%;
-      transform: translateX(-26%);
+      //transform: translateX(-26%);
       display: flex;
       flex-direction: column;
       position: relative;
+      right: 20%;
       padding: 0 1rem;
       transition: 0.5s all !important;
 
@@ -135,7 +136,7 @@
 .main-full {
   width: 100% !important;
   padding: 0 3rem !important;
-  transform: translateX(0) !important;
+  right: 0 !important;
 }
 
 .toggle-sidebar-open {
