@@ -58,6 +58,12 @@ const routes: Routes = [
         // data: {permitions: ['Cities']},
         loadChildren: () => import('../cities/cities.module').then(m => m.CitiesModule)
       },
+      {
+        path: 'rooms',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['RoomType']},
+        loadChildren: () => import('../room/room.module').then(m => m.RoomModule)
+      },
       // {
       //   path: 'financial',
       //   loadChildren: () => import('../financial/financial.module').then(m => m.FinancialModule)
@@ -111,12 +117,6 @@ const routes: Routes = [
       // //   path: 'gallery',
       // //   loadChildren: () => import('../gallery/gallery.module').then(m => m.GalleryModule)
       // // },
-      // {
-      //   path: 'roomType',
-      //   // canActivate: [PanelItemGuardService],
-      //   // data: {permitions: ['RoomType']},
-      //   loadChildren: () => import('../room-type/room-type.module').then(m => m.RoomTypeModule)
-      // },
       // {
       //   path: 'comment',
       //   loadChildren: () => import('../comment/comment.module').then(m => m.CommentModule)
