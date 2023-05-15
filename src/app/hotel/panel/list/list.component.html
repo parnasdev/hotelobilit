@@ -14,6 +14,8 @@
     <div class="header-list-tour">
       <span class="id">#</span>
       <span class="title-tour bold-600">عنوان هتل</span>
+      <span class="title-tour bold-600">عنوان انگلیسی هتل</span>
+
       <span class="from-to">ایجاد کننده</span>
       <span class="from-to">تعداد بازدید</span>
       <span class="setting">تنظیمات</span>
@@ -32,6 +34,7 @@
     <div class="body-list-tour" *ngIf="hotelList.length > 0">
       <div class="item" *ngFor="let hotel of hotelList | paginate: paginateConfig;let i = index">
         <span class="id">{{hotel.id }}</span>
+        <span class="title-tour">{{ hotel.title }}</span>
         <span class="title-tour">{{ hotel.title }}</span>
         <span class="title-tour">{{ hotel.user.full_name }}</span>
         <span class="title-tour">{{ hotel.visitCount }}</span>

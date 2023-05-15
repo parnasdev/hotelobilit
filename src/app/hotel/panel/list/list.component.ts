@@ -60,7 +60,7 @@ export class ListComponent implements OnInit {
       city: this.cityFC.value === '' ? null : this.cityFC.value,
       search: this.keywordFC.value
     }
-    this.hotelApi.getPosts('hotel',this.p).subscribe((res: any) => {
+    this.hotelApi.getPosts('hotel',this.p,this.keywordFC.value ?? '').subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.hotelList = res.data;
