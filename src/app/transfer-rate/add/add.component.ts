@@ -19,11 +19,15 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-  data: { airlines: AirlineListDTO[], airports: AirlineListDTO[], cities: citiesDTO[] } = {
-    airlines: [],
-    airports: [],
-    cities: []
-  }
+  data: {
+    airlines: AirlineListDTO[],
+    airports: AirlineListDTO[],
+    cities: citiesDTO[]
+  } = {
+      airlines: [],
+      airports: [],
+      cities: []
+    }
 
   selectedCityFC = new FormControl('');
 
@@ -127,7 +131,7 @@ export class AddComponent implements OnInit {
 
   removeDates(i: any) {
 
-      this.RatesForm.removeAt(i);
+    this.RatesForm.removeAt(i);
 
   }
 
@@ -228,6 +232,9 @@ export class AddComponent implements OnInit {
       result.push(obj)
     })
     return result
+  }
+  getCityName(id: number) {
+    return this.data.cities.find((y: any) => y.id === id)?.name
   }
 
   setReq() {

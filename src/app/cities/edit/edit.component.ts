@@ -19,6 +19,7 @@ export class EditComponent {
   codeFC = new FormControl();
   statusFC = new FormControl();
   destCityFC = new FormControl();
+  selectedAirportFC = new FormControl([]);
 
   req: AirportReqDTO = {
     name: '',
@@ -88,6 +89,8 @@ type = '';
     this.nameFC.setValue(this.info.city.name)
     this.codeFC.setValue(this.info.city.code)
     this.destCityFC.setValue(this.info.city.parent_id)
+    this.selectedAirportFC.setValue(this.info.city.airports)
+
   }
 
 
@@ -96,6 +99,7 @@ type = '';
       parent_id: this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
+      airports: this.selectedAirportFC.value ?? []
     }
   }
 }

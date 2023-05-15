@@ -14,7 +14,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 export class ListComponent implements OnInit {
   req!: any;
   transfers: transferRateListDTO[] = [];
-  loading = false;
+  isLoading = false;
   paginate: any;
   paginateConfig: any;
   p = 1;
@@ -33,7 +33,10 @@ export class ListComponent implements OnInit {
 
   getTransfers(): void {
     this.setReq();
+    this.isLoading = true
     this.api.getTransferRates(this.p).subscribe((res: any) => {
+      this.isLoading = false
+
       if (res.isDone) {
         this.transfers = res.data;
         this.paginate = res.meta;
@@ -46,6 +49,7 @@ export class ListComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.isLoading = false
       this.checkError.check(error);
       this.message.error()
     })

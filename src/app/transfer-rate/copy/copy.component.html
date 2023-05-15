@@ -121,6 +121,11 @@
                   <mat-option *ngFor="let city of editData.cities" [value]="city.id">{{city.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              <div>
+                <span class="city-box" *ngFor="let city of selectedCityFC.value">
+                  {{ getCityName(+city) }}
+                </span>
+              </div>
             </div>
           </div>
   
@@ -173,19 +178,19 @@
                         </mat-form-field>
                       </div>
                       <div class="select-info">
-                        <label for="">بزرگسال</label>
+                        <label for="">نرخ بزرگسال (تومان)</label>
                         <input
                           [ngClass]="{'input-parent': (!getIsTouched(rate,'adl_price')),'input-parent-error': (getError(rate,'adl_price'))}"
                           type="text" placeholder="قیمت بزرگسال" formControlName="adl_price">
                       </div>
                       <div class="select-info">
-                        <label for="">کودک</label>
+                        <label for="">نرخ کودک (تومان)</label>
                         <input
                           [ngClass]="{'input-parent': (!getIsTouched(rate,'chd_price')),'input-parent-error': (getError(rate,'chd_price'))}"
                           type="text" placeholder="قیمت کودک" formControlName="chd_price">
                       </div>
                       <div class="select-info">
-                        <label for="">نوزاد</label>
+                        <label for="">نرخ نوزاد (تومان)</label>
                         <input
                           [ngClass]="{'input-parent': (!getIsTouched(rate,'inf_price')),'input-parent-error': (getError(rate,'inf_price'))}"
                           type="text" placeholder="قیمت نوزاد" formControlName="inf_price">
