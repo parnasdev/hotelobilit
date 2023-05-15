@@ -7,7 +7,6 @@
           <label for="">اضافه کردن هتل</label>
           <h2 class="text-dark">اطلاعات هتل</h2>
         </div>
-
         <div class="left">
           <div class="selectdiv">
             <label>
@@ -17,6 +16,7 @@
             </label>
           </div>
         </div>
+        <a style="width: 100px !important;height: 40px !important;" routerLink="/panel/hotel/pricing/{{hotelId}}/{{hotelInfo.post.slug}}"  class="btn-base">قیمت گذاری </a>
       </div>
       <div class="info-tour-body">
         <div class="top">
@@ -115,7 +115,7 @@
         <option [value]="1">نرخ گذاری ضریبی</option>
       </select>
     </div>
-    <div class="d-flex flex-wrap justify-content-between">
+    <div class="d-flex flex-wrap justify-content-between w-100">
       <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-24">
         <div class="d-flex flex-wrap justify-content-between w-100">
           <h3>{{ item.name }}</h3>
