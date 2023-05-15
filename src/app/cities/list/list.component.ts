@@ -18,6 +18,7 @@ export class ListComponent {
   p = 1
   paginate: any;
   paginateConfig: any;
+  isLoading = false;
 
   constructor(public api: CategoryApiService,
     public checkError: CheckErrorService,
@@ -31,6 +32,7 @@ export class ListComponent {
 
   getCities(): void {
     this.setReq();
+    this.isLoading = true
     this.api.getCategoryList('city', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.cities = res.data;
@@ -43,7 +45,10 @@ export class ListComponent {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false
+
     }, (error: any) => {
+      this.isLoading = false
       this.checkError.check(error)
       this.message.error()
     })

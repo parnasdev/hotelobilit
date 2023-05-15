@@ -17,7 +17,7 @@ export class ErrorsService {
 
 
     hasError(field: any): any {
-        return this.errors.hasOwnProperty(field);
+        return this.errors?.hasOwnProperty(field);
     }
 
     getError(field: any): any {
@@ -44,7 +44,6 @@ export class ErrorsService {
             return;
         }
         this.errors = {};
-
     }
 
     check(errorCode: any): void {

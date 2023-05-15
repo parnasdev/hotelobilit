@@ -11,6 +11,14 @@
         <span class="from-to">تعداد استفاده شده</span>
         <span class="setting">تنظیمات</span>
       </div>
+      <div *ngIf="isLoading">
+        <div class="shimmer-4" *ngFor="let x of [1,2,3,4,5,6]">
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+        </div>
+      </div>
       <div class="body-list-tour" *ngIf="cities.length > 0">
         <div class="item" *ngFor="let city of cities | paginate: paginateConfig;let i = index">
           <span class="id">{{ i + 1 }}</span>
@@ -24,7 +32,7 @@
       </div>
     </div>
     <div>
-      <pagination-controls *ngIf="paginate.last_page > 1" class="pagination-control"
+      <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control"
         (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
         screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
       </pagination-controls>

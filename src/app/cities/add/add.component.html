@@ -42,7 +42,7 @@
             <input [formControl]="codeFC" type="text">
           </div>
         </div>
-        <div class="top">
+        <div class="top" *ngIf="type === 'city'">
           <div class="address-hotel">
             <label for="address">فرودگاه های موردنظر را انتخاب کنید</label>
             <mat-form-field appearance="fill">

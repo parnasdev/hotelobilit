@@ -43,7 +43,23 @@
             <input [formControl]="codeFC" type="text">
           </div>
         </div>
+        <div class="top" *ngIf="type === 'city'">
+          <div class="address-hotel">
+            <label for="address">فرودگاه های موردنظر را انتخاب کنید</label>
+            <mat-form-field appearance="fill">
+              <mat-label>فرودگاه ها</mat-label>
+              <mat-select [formControl]="selectedAirportFC" multiple>
+                <mat-select-trigger>
+                  <span>فرودگاه های انتخاب شده</span>
+  
+                </mat-select-trigger>
+                <mat-option *ngFor="let x of info.airports" [value]="x.id">{{x.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
       </div>
+
     </div>
 
     <div class="btn-parent-submit">
