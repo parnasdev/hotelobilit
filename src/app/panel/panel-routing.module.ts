@@ -52,6 +52,12 @@ const routes: Routes = [
         // data: {permitions: ['Transfer']},
         loadChildren: () => import('../airport/airport.module').then(m => m.AirportModule)
       },
+      {
+        path: 'cities',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Cities']},
+        loadChildren: () => import('../cities/cities.module').then(m => m.CitiesModule)
+      },
       // {
       //   path: 'financial',
       //   loadChildren: () => import('../financial/financial.module').then(m => m.FinancialModule)
@@ -69,12 +75,6 @@ const routes: Routes = [
       // {
       //   path: 'requestReserves',
       //   component: RequestReserveComponent
-      // },
-      // {
-      //   path: 'cities',
-      //   // canActivate: [PanelItemGuardService],
-      //   // data: {permitions: ['Cities']},
-      //   loadChildren: () => import('../cities/cities.module').then(m => m.CitiesModule)
       // },
       // {
       //   path: 'file-manager',

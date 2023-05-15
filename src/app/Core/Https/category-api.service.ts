@@ -18,9 +18,9 @@ export class CategoryApiService {
       this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
     }
   
-  getCategoryList(cat_type: string, post_type: string, page: number): any {
+  getCategoryList(cat_type: string, post_type: string, page: number, parent: number|null = null): any {
     // cat_type  = airline airport 
-    const strUrl = this.serverControllerName + `categories?cat_type=${cat_type}&post_type=${post_type}&page=${page}`;
+    const strUrl = this.serverControllerName + `categories?cat_type=${cat_type}&post_type=${post_type}&page=${page}&parent=${parent}`;
     return this.http.get<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
