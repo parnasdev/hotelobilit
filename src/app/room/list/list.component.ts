@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { RoomListDTO } from 'src/app/Core/Models/newRoomDTO';
 
 @Component({
   selector: 'prs-list',
@@ -13,7 +14,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 })
 export class ListComponent {
   req!: TransferListRequestDTO;
-  airports: AirlineListDTO[] = [];
+  rooms: RoomListDTO[] = [];
   p = 1
   paginate: any;
   paginateConfig: any;
@@ -29,10 +30,10 @@ export class ListComponent {
   }
 
   getTransfers(): void {
-    this.setRea();
-    this.api.getCategoryList('airport', 'hotel', this.p).subscribe((res: any) => {
+    this.setReq();
+    this.api.getCategoryList('RoomType', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
-        this.airports = res.data;
+        this.rooms = res.data;
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
@@ -48,7 +49,7 @@ export class ListComponent {
     })
   }
 
-  setRea(): void {
+  setReq(): void {
     this.req = {
       paginate: false,
       perPage: 10,
@@ -57,8 +58,8 @@ export class ListComponent {
     }
   }
 
-  deleteAirport(id: number) {
-    this.api.deleteCategory(id, 'airport').subscribe((res: any) => {
+  deleteRoom(id: number) {
+    this.api.deleteCategory(id, 'RoomType').subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
         this.getTransfers()

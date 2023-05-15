@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { RoomReqDTO } from 'src/app/Core/Models/newRoomDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -14,17 +15,20 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent {
-  transfer_id = 0
+  room_id = 0
   nameFC = new FormControl();
-  codeFC = new FormControl();
+  capacityFC = new FormControl();
   statusFC = new FormControl();
   destCityFC = new FormControl();
 
-  req: AirportReqDTO = {
+  req: RoomReqDTO = {
+    Adl_capacity: 0,
+    age_child: 0,
+    chd_capacity:0,
     name: '',
-    code: '',
-    parent_id: 0,
+    parent_id: null,
   }
+  
   info: any
 
   show = false;
@@ -40,16 +44,16 @@ export class EditComponent {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.transfer_id = +this.route.snapshot.paramMap.get('id')
+    this.room_id = +this.route.snapshot.paramMap.get('id')
     this.getInfo()
   }
 
   submit(): void {
     this.setReq()
-    this.api.updateCategory(this.transfer_id, 'airport', 'hotel', this.req).subscribe((res: any) => {
+    this.api.updateCategory(this.room_id, 'RoomType', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)
-        this.router.navigateByUrl('/panel/airport');
+        this.router.navigateByUrl('/panel/rooms');
       } else {
         this.message.custom(res.message);
       }
@@ -65,7 +69,7 @@ export class EditComponent {
   }
 
   getInfo(): void {
-    this.api.editCategoryPage(this.transfer_id, 'airport', 'hotel').subscribe((res: any) => {
+    this.api.editCategoryPage(this.room_id, 'RoomType', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
         this.setValue()
@@ -84,17 +88,18 @@ export class EditComponent {
 
   setValue(): void {
     // this.logo = this.info.files.length > 0 ? this.info.files[0] : 0;
-    this.nameFC.setValue(this.info.airport.name)
-    this.codeFC.setValue(this.info.airport.code)
-    this.destCityFC.setValue(this.info.airport.parent_id)
+    this.nameFC.setValue(this.info.roomType.name)
+    this.capacityFC.setValue(this.info.roomType.description.Adl_capacity)
   }
 
 
   setReq(): void {
     this.req = {
-      parent_id: this.destCityFC.value,
-      code: this.codeFC.value,
+      Adl_capacity: this.capacityFC.value,
+      age_child: 0,
+      chd_capacity:0,
       name: this.nameFC.value,
+      parent_id: null,
     }
   }
 }

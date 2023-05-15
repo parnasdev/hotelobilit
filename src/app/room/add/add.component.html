@@ -8,38 +8,18 @@
             <label for="">اضافه کردن اتاق جدید</label>
             <h2 class="text-gray">اطلاعات اتاق</h2>
           </div>
-          <!-- <div class="left">
-            <div class="selectdiv">
-              <label>
-                <select [formControl]="statusFC">
-                  <option value="hide" selected> منتشر نشود</option>
-                  <option value="show">انتشار</option>
-                </select>
-              </label>
-            </div>
-          </div> -->
         </div>
         <div class="info-tour-body">
           <div class="top">
   
-            <div style="padding-right: 2rem" class="item-info w-48">
-              <div class="select-info">
-                <label for="">شهر </label>
-                <prs-select-city [hasHotel]="true" [cities]="data.cities"
-                                 (citySelected)="getEndCity($event)"></prs-select-city>
-                <div *ngIf="errorService.hasError('destination_id')">
-                  <span class="text-danger">{{errorService.getError('destination_id')}}</span>
-                </div>
-              </div>
-            </div>
             <div class="item-info">
               <label for="">عنوان اتاق</label>
               <input [formControl]="nameFC" type="text">
             </div>
   
             <div class="item-info">
-              <label for="">کد اتاق</label>
-              <input [formControl]="codeFC" type="text">
+              <label for="">ظرفیت اتاق</label>
+              <input [formControl]="capacityFC" type="text">
             </div>
           </div>
         </div>

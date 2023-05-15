@@ -6,6 +6,7 @@ import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { RoomReqDTO } from 'src/app/Core/Models/newRoomDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -17,12 +18,14 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class AddComponent implements OnInit {
   nameFC = new FormControl();
-  codeFC = new FormControl();
+  capacityFC = new FormControl();
   statusFC = new FormControl();
-  req: AirportReqDTO = {
-    parent_id: 0,
+  req: RoomReqDTO = {
+    Adl_capacity: 0,
+    age_child: 0,
+    chd_capacity:0,
     name: '',
-    code: '',
+    parent_id: null,
   }
 
   data: any;
@@ -42,10 +45,6 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-  }
-
-  getEndCity(cityItemSelected: any): void {
-    this.destCityFC.setValue(cityItemSelected.id);
   }
 
   getInfo(): void {
@@ -69,7 +68,7 @@ export class AddComponent implements OnInit {
     this.setReq()
     this.api.storeCategory('RoomType', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
-        this.router.navigateByUrl('/panel/roomType');
+        this.router.navigateByUrl('/panel/rooms');
       }else {
         this.message.custom(res.message);
       }
@@ -81,9 +80,11 @@ export class AddComponent implements OnInit {
 
   setReq(): void {
     this.req = {
-      parent_id: this.destCityFC.value,
-      code: this.codeFC.value,
+      Adl_capacity: this.capacityFC.value,
+      age_child: 0,
+      chd_capacity:0,
       name: this.nameFC.value,
+      parent_id: null,
     }
   }
 }
