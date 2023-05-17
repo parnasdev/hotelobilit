@@ -1,4 +1,5 @@
 import { RoomDTO } from "./newPostDTO";
+import { flightStoreDTO, transferRateListDTO } from "./newTransferDTO";
 
 export interface TourSearchReqDTO {
     origin?: number
@@ -13,6 +14,7 @@ export interface HotelSearchResDTO {
     slug: string
     location: string;
     address: string;
+    flights: transferRateListDTO[]
     rooms: RoomDTO[];
     stars: number;
     gallery: any[]

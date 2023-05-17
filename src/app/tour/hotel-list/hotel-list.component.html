@@ -80,7 +80,7 @@
           </div>
           <div class="list-hotel">
             <!--thumbnail-hotel-->
-            <div class="thumbnail-hotel" *ngFor="let hotel of hotels">
+            <div class="thumbnail-hotel" *ngFor="let hotel of hotels;let i = index">
               <div class="img">
                 <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail : '../../../assets/img/12123131.png'" alt="">
               </div>
@@ -123,7 +123,7 @@
                 <div class="end-info">
                   <span *ngIf="isDesktop">قیمت هر نفر برای {{ this.req.stayCount }} شب از :</span>
                   <div class="price">
-                    <strong>{{ getMinPrice(hotel.rooms)  | sperator}}</strong>
+                    <strong>{{ getMinPrice(hotel)  | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                   <a (click)="selectHotel(hotel.slug)" class="btn-base w-100">انتخاب هتل و رزرو</a>

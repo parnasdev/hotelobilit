@@ -5,9 +5,10 @@ import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTour
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
+import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import * as moment from 'jalali-moment';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 
 @Component({
   selector: 'prs-hotel-list',
@@ -64,6 +65,7 @@ export class HotelListComponent implements OnInit {
       this.req = {
         date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
         destination: params['dest'],
+        origin: params['origin'],
         stayCount: params['night'] ?? 1
       }
     }
@@ -72,7 +74,6 @@ export class HotelListComponent implements OnInit {
   }
 
   getSearchData(): void {
-    console.log('getSearchData')
     this.setReq();
     this.api.search('hotels', this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -117,15 +118,34 @@ export class HotelListComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-  getMinPrice(rooms: any[]) {
-    let list: number[] = []
-    rooms.forEach(item => {
-      let price = 0
-      item.rates.forEach((element: any) => { price += element.price });
-      list.push(price)
+  getMinPrice(hotel: HotelSearchResDTO) {
+
+    let price = 0
+    hotel.rooms.forEach(item => {
+      if (item.room_type === 'دو تخته' || item.room_type === 'دوتخته') {
+
+        item.rates.forEach((element: any) => { price += element.price });
+      }
     });
-    list.sort((a, b) => b - a);
-    return list[0]
+    debugger
+    let flightPrice = this.getFlightPrice(hotel.flights)
+    if(price === 0) {
+      return 0
+    }else {
+      price = price + flightPrice;
+      return price
+    }
+  }
+
+
+  getFlightPrice(flights: transferRateListDTO[]) {
+    let priceList: number[] = [];
+    flights.forEach(item => {
+      priceList.push(item.adl_price)
+    })
+    priceList = priceList.sort((a, b) => a - b)
+    return priceList.length > 0 ? priceList[0] : 0;
+
   }
 
 }
