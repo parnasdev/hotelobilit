@@ -22,7 +22,6 @@
                           stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </g>
                 </svg>
-
               </div>
             </div>
             <div class="p-star">
@@ -69,7 +68,6 @@
                 </label>
                 <span>پر فروش ترین ها</span>
               </div>
-
             </div>
           </div>
         </div>
@@ -82,7 +80,7 @@
             <!--thumbnail-hotel-->
             <div class="thumbnail-hotel" *ngFor="let hotel of hotels;let i = index">
               <div class="img">
-                <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail : '../../../assets/img/12123131.png'" alt="">
+                <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
               </div>
               <div class="info-thumbnail-hotel">
                 <div class="start-info">

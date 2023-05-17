@@ -127,7 +127,6 @@ export class HotelListComponent implements OnInit {
         item.rates.forEach((element: any) => { price += element.price });
       }
     });
-    debugger
     let flightPrice = this.getFlightPrice(hotel.flights)
     if(price === 0) {
       return 0

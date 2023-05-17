@@ -53,6 +53,12 @@ const routes: Routes = [
         loadChildren: () => import('../airport/airport.module').then(m => m.AirportModule)
       },
       {
+        path: 'service',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../services/services.module').then(m => m.ServicesModule)
+      },
+      {
         path: 'cities',
         // canActivate: [PanelItemGuardService],
         // data: {permitions: ['Cities']},

@@ -152,7 +152,7 @@ export class EditComponent extends AddComponent implements OnInit {
       let obj: UploadResDTO = {
         path: x.path,
         url: x.url,
-        id: x.id ?? 0,
+        id: x.id ?? null,
         type: x.type
       }
       this.hotelImages.push(obj)

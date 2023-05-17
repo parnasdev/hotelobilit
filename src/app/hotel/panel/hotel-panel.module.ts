@@ -22,7 +22,6 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { NgxPaginationModule } from "ngx-pagination";
 import { PipesModule } from "../../common-project/pipes/pipes.module";
 import { MatSelectModule } from '@angular/material/select';
-import { PricingPopupComponent } from './pricing-popup/pricing-popup.component';
 import { ConfirmPricingModalComponent } from './confirm-pricing-modal/confirm-pricing-modal.component';
 import { MainPickerComponent } from './main-picker/main-picker.component';
 import { PricingComponent } from './pricing/pricing.component';
@@ -40,7 +39,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MainPickerComponent,
     PricingComponent,
     ConfirmPricingModalComponent,
-    PricingPopupComponent
   ],
   imports: [
     CommonModule,

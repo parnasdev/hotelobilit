@@ -30,8 +30,8 @@
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
       <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
       <div class="w-100" *ngIf="rooms.length > 0">
-        <prs-main-picker *ngIf="showCalendar" [hotelID]="+id" [roomTypeID]="roomTypeId"
-          [pricingType]="isCoefficient" [roomID]="activedRoom"></prs-main-picker>
+        <prs-main-picker *ngIf="showCalendar" [room]="getRoom()" [hotelID]="+id"
+          [pricingType]="isCoefficient"></prs-main-picker>
       </div>
       <div class="d-flex justify-content-center align-items-center" *ngIf="rooms.length == 0">
         <p>لطفا برای قیمت گذاری ابتدا در بخش ویرایش هتل اتاق های خود را انتخاب کنید</p>

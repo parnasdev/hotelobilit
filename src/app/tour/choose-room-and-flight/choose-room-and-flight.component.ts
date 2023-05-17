@@ -40,7 +40,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     rooms: [],
     stars: 0,
     gallery: [],
-    thumbnail: '',
+    thumbnail: {path: '',url:'',},
     services: []
   }
 

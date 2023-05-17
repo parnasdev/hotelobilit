@@ -1,0 +1,45 @@
+<div class="list-tour">
+  <div class="title">
+    <h2>لیست امکانات ها</h2>
+    <a class="btn-add-tour" routerLink="/panel/service/add">اضافه</a>
+  </div>
+  <div class="table-list-tour">
+    <div class="header-list-tour">
+      <span class="id">#</span>
+      <!--      <span class="username">نام کاربر</span>-->
+      <span class="title-tour">عنوان امکانات</span>
+      <span class="from-to">ایکون</span>
+      <span class="setting">تنظیمات</span>
+    </div>
+    <div *ngIf="isLoading">
+      <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+      </div>
+    </div>
+    <div class="body-list-tour" *ngIf="services.length > 0">
+      <div class="item" *ngFor="let service of services | paginate: paginateConfig;let i = index">
+        <span class="id">{{ i + 1 }}</span>
+        <span class="title-tour bold-600">{{ service.name }}</span>
+        <span class="title-tour">
+          <img draggable="false" width="50" [src]="service.thumbnail ? service.thumbnail.url : '../../../assets/img/nopicture.jpg'"
+            alt="">
+        </span>
+        <div class="button-setting">
+          <a routerLink="/panel/service/edit/{{ service.id }}" class="edit-btn">ویرایش</a>
+          <button (click)="deleteService(service.id)" class="delete-btn">حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
+      screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
+  </div>
+</div>

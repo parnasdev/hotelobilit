@@ -7,7 +7,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-pricing-modal.component';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, RoomDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-main-picker',
@@ -16,9 +16,20 @@ import { RatingResDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
 })
 export class MainPickerComponent implements OnInit {
   @Input() hotelID = 0;
-  @Input() roomID = 0;
-  @Input() roomTypeID = 0
   @Input() pricingType = '0';
+  @Input() room: RoomDTO | null = {
+    Adl_capacity: 0,
+    age_child: 0,
+    chd_capacity: 0,
+    room_type_id: 0,
+    has_coefficient: false,
+    coefficient: 0,
+    id: 0,
+    rates: [],
+    online_reservation: 0,
+    room_type: '',
+  };
+
 
   standardTwinId = 148;
   standardTwinCoefficient = 0
@@ -98,7 +109,7 @@ export class MainPickerComponent implements OnInit {
       fromDate: moment(this.getFirstAndLastDates()[0]).format('YYYY-MM-DD'),
       toDate: moment(this.getFirstAndLastDates()[1]).format('YYYY-MM-DD'),
       hotelId: +this.hotelID,
-      roomId: +this.roomID,
+      roomId: this.room ? +this.room.id : 0,
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
@@ -157,14 +168,12 @@ export class MainPickerComponent implements OnInit {
     return moment(d).isBefore(today)
   }
 
-
-
+  
   onDateClicked(item: any) {
-    // console.log(this.standardTwinId,this.roomTypeID)
     if (this.pricingType === '0') {
       this.normalClickType(item)
     } else {
-      if (this.roomTypeID === this.standardTwinId) {
+      if ((this.room ? this.room.room_type_id : 0) === this.standardTwinId) {
         this.normalClickType(item)
       } else {
         this.coefficientClickType(item)
@@ -174,7 +183,6 @@ export class MainPickerComponent implements OnInit {
 
   coefficientClickType(item: any) {
 
-console.log('s');
 
   }
   normalClickType(item: any) {
@@ -188,10 +196,10 @@ console.log('s');
       } else {
         this.enDate = item
         this.getSelectedDates();
-        if (this.selectedDates.length <= 14) {
+        if (this.selectedDates.length <= 30) {
           this.confirmPricing()
         } else {
-          this.message.custom('تعداد روزهای انتخابی نباید بیشتر از ۱۴ روز باشد')
+          this.message.custom('تعداد روزهای انتخابی نباید بیشتر از 30 روز باشد')
           this.clearParams()
         }
       }
@@ -246,7 +254,7 @@ console.log('s');
       data: {
         checkin: this.stDate,
         checkout: this.enDate,
-        roomID: this.roomID,
+        roomID: this.room ? this.room.id : 0,
         hotelID: this.hotelID,
         type: +this.pricingType
       }
@@ -263,6 +271,8 @@ console.log('s');
 
 
   getPriceLabel(item: any): string {
+    console.log(item);
+
     if (item) {
       if (item.currency_code === 'toman') {
         if (item.price.toString().length > 6) {
