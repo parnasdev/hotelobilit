@@ -100,6 +100,20 @@
       </div>
     </div>
 
+    <div class="d-flex box-info-fly">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2 class="text-dark">امکانات هتل</h2>
+        </div>
+      </div>
+      <div class="d-flex w-100 m-3 align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center" style="margin: 20px;" *ngFor="let service of data.services">
+          <label style="margin-left: 10px!important;" for="">{{ service.name }}</label>
+          <mat-checkbox [(ngModel)]="service.isSelected"></mat-checkbox>
+        </div>
+      </div>
+    </div>
+
     <!-- <div class="box-info-fly">
       <prs-services [services]="services" (result)="getServicesResult($event)"></prs-services>
     </div> -->

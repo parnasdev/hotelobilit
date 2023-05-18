@@ -41,6 +41,7 @@ export class EditComponent extends AddComponent implements OnInit {
     },
     rooms: [],
     files: [],
+    services: [],
     service_ids: [],
     city_id: 0,
 
@@ -111,7 +112,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
     this.currentStar = this.hotelInfo.post.options.stars;
     this.getImagesFromData();
-
+    this.setServiceChecked();
     let obj = this.hotelInfo.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
     if (obj && obj.has_coefficient) {
       this.isCoefficient = '1'
@@ -163,10 +164,6 @@ export class EditComponent extends AddComponent implements OnInit {
     this.removedImages = event;
   }
 
-
-
-
-
   getThumbnailFromData() {
     let obj: UploadResDTO = {
       path: '',
@@ -193,7 +190,6 @@ export class EditComponent extends AddComponent implements OnInit {
         type: item.type
       }
       this.hotelImages.push(obj);
-
     })
 
   }
@@ -206,13 +202,13 @@ export class EditComponent extends AddComponent implements OnInit {
     if (this.isCoefficient === '1') {
       this.selectedRooms.forEach(x => {
         if (x.name === 'دوتخته' ||
-        x.name === 'تویین' ||
-        x.name === 'twin' ||
-        x.name === 'double' ||
-        x.name === 'دابل' ||
-        x.name === 'دو تخته' ||
-        x.name === '2 تخته' ||
-        x.name === '۲ تخت') {
+          x.name === 'تویین' ||
+          x.name === 'twin' ||
+          x.name === 'double' ||
+          x.name === 'دابل' ||
+          x.name === 'دو تخته' ||
+          x.name === '2 تخته' ||
+          x.name === '۲ تخت') {
           x.has_coefficient = true;
           x.coefficient = 1;
         } else {
@@ -224,6 +220,16 @@ export class EditComponent extends AddComponent implements OnInit {
         x.has_coefficient = false
       })
     }
+  }
+
+  setServiceChecked() {
+    this.hotelInfo.services.forEach(item => {
+      this.hotelInfo.service_ids.forEach(x => {
+        if (item.id === x) {
+          item.isSelected = true;
+        }
+      })
+    })
   }
 
   setEditReq(): void {
@@ -240,6 +246,7 @@ export class EditComponent extends AddComponent implements OnInit {
       description: this.hotelForm.controls.description.value,
       body: '',
       categories: [],
+      services: this.getCheckedServices(),
       comment: 0,
       del_files: this.removedImages,
       del_rooms: this.removedRoomsIDs,
@@ -281,6 +288,17 @@ export class EditComponent extends AddComponent implements OnInit {
         this.removedRoomsIDs.push(sr.id)
       }
     })
+  }
+
+
+  getCheckedServices() {
+    let list: any[] = []
+    this.hotelInfo.services.forEach(item => {
+      if (item.isSelected) {
+        list.push(item.id);
+      }
+    })
+    return list;
   }
 
 }

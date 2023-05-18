@@ -50,6 +50,12 @@ export interface InfoHotelDTO {
     rooms: roomDTO[];
     files: UploadResDTO[],
     service_ids: number[],
+    services: {
+        id: number;
+        name: string;
+        isSelected?: boolean;
+        thumbnail: string;
+    }[]
     city_id: number;
 }
 
@@ -61,6 +67,7 @@ export interface storeHotelSetReqDTO {
     del_rooms?: number[]
     address: string | null;
     stars: number
+    services: number[]
     description: string | null;
     body: string | null;
     use_api: number | null;
@@ -131,6 +138,12 @@ export interface hotelPageDTO {
     statuses: statusesDTO[];
     cities: citiesDTO[];
     roomTypes: roomDTO[]
+    services: {
+        id: number;
+        name: string;
+        isSelected?: boolean;
+        thumbnail: string;
+    }[]
 }
 
 export interface ratigListReqDTO {
