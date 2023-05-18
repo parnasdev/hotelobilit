@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'jalali-moment';
-import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { TourApiService } from 'src/app/Core/Https/tour-api.service';
-import { RateDTO } from 'src/app/Core/Models/newPostDTO';
-import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
-import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { MessageService } from 'src/app/Core/Services/message.service';
-import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
+import {CityApiService} from 'src/app/Core/Https/city-api.service';
+import {TourApiService} from 'src/app/Core/Https/tour-api.service';
+import {RateDTO} from 'src/app/Core/Models/newPostDTO';
+import {HotelSearchResDTO, TourSearchReqDTO} from 'src/app/Core/Models/newTourDTO';
+import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
+import {CalenderServices} from 'src/app/Core/Services/calender-service';
+import {MessageService} from 'src/app/Core/Services/message.service';
+import {ResponsiveService} from 'src/app/Core/Services/responsive.service';
 
 @Component({
   selector: 'prs-choose-room-and-flight',
@@ -19,7 +19,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   isMobile = false;
   isDesktop = false;
   isTablet = false;
-
+  isRoom = false
   slug = '';
 
   req: TourSearchReqDTO = {
@@ -28,7 +28,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     destination: 0,
     stayCount: 0
   }
-  
+
   flights: transferRateListDTO[] = [];
   hotelInfo: HotelSearchResDTO = {
     id: 0,
@@ -40,7 +40,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     rooms: [],
     stars: 0,
     gallery: [],
-    thumbnail: {path: '',url:'',},
+    thumbnail: {path: '', url: '',},
     services: []
   }
 
@@ -68,13 +68,13 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   setReq() {
     this.route.queryParams.subscribe(params => {
-      this.req = {
-        origin: params['origin'],
-        date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-        destination: params['dest'],
-        stayCount: params['night'] ?? 1
+        this.req = {
+          origin: params['origin'],
+          date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+          destination: params['dest'],
+          stayCount: params['night'] ?? 1
+        }
       }
-    }
     );
   }
 
@@ -97,6 +97,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     })
   }
 
+  roomCollapse() {
+    this.isRoom = !this.isRoom
+  }
 
   getPrice(price: number, rates: RateDTO[]): number {
     let roomPrices = 0;

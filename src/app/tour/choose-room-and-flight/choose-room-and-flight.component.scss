@@ -1221,6 +1221,18 @@ prs-show-location {
         border-radius: 10px;
         border: 1px solid #eee;
         cursor: pointer;
+        position: relative;
+        .option-room{
+          position: absolute;
+          right: 0;
+          bottom: -103px;
+          height: 100px;
+          background: #fff;
+          width: 100%;
+          border: 1px solid #eee;
+          border-radius: 5px;
+          overflow-y: auto;
+        }
 
         .text {
           font-size: 14px;

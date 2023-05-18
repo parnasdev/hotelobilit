@@ -89,9 +89,10 @@
             </div>
             <div class="middle">
               <div class="rooms">
-                <div *ngFor="let item of [1,2,3,4,5,6]" class="item-room">
+                <div *ngFor="let item of [1]" (click)="roomCollapse()" class="item-room">
                   <span class="text">یک تخته</span>
                   <i class="icon-down-open"></i>
+                  <div *ngIf="isRoom" class="option-room"></div>
                 </div>
               </div>
               <div class="p-flight">
