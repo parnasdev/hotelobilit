@@ -46,6 +46,7 @@ export class AddComponent implements OnInit {
     slug: '',
     status_id: 1,
     description: '',
+    services: [],
     body: '',
     address: '',
     stars: 0,
@@ -64,7 +65,8 @@ export class AddComponent implements OnInit {
   data: hotelPageDTO = {
     cities: [],
     statuses: [],
-    roomTypes: []
+    roomTypes: [],
+    services: []
   }
   serviceIDs: string[] = [];
   isLoading = false;
@@ -204,6 +206,7 @@ export class AddComponent implements OnInit {
       status_id: 1,
       description: this.hotelForm.controls.description.value,
       body: '',
+      services: this.getSelectedServices(),
       categories: [],
       comment: 0,
       del_files: [],
@@ -239,6 +242,16 @@ export class AddComponent implements OnInit {
   }
 
 
+
+  getSelectedServices() {
+    let list: any[] = []
+    this.data.services.forEach(item => {
+      if (item.isSelected) {
+        list.push(item.id);
+      }
+    })
+    return list;
+  }
 
 
   getImages(result: UploadResDTO[]): void {
