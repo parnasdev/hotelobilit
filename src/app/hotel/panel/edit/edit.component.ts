@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
-import { InfoHotelDTO, roomDTO, roomObjDTO } from 'src/app/Core/Models/newPostDTO';
+import { InfoHotelDTO, categoriesDTO, roomDTO, roomObjDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-edit',
@@ -46,6 +46,9 @@ export class EditComponent extends AddComponent implements OnInit {
 
   };
 
+  newCities :categoriesDTO[] = []
+  showCities = false;
+
   public override show = true;
   showServices = false;
   hotelImages: UploadResDTO[] = [];
@@ -65,6 +68,8 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.hotelInfo = res.data;
         this.roomTypes = this.hotelInfo.roomTypes;
+        this.getCities();
+        this.showCities = true;
         this.createRooms()
         this.setData()
         this.showData = true
@@ -281,6 +286,14 @@ export class EditComponent extends AddComponent implements OnInit {
         this.removedRoomsIDs.push(sr.id)
       }
     })
+  }
+
+  getCities(){
+    let newList: categoriesDTO[] = [];
+    this.hotelInfo.cities.forEach(item => {
+      this.newCities = this.newCities.concat(item.categories)
+    })
+    console.log(this.newCities)
   }
 
 }

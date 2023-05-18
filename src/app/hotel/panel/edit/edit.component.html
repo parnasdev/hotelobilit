@@ -53,9 +53,9 @@
           </div> -->
           <div class="item-info" *ngIf="hotelInfo.cities.length>0">
             <div class="selectdiv">
-              <select formControlName="city_id" name="" id="">
+              <select formControlName="city_id" name="" id="" *ngIf="show">
                 <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
-                <option *ngFor="let city of hotelInfo.cities[0].categories" [value]="city.id">{{city.name}}</option>
+                <option *ngFor="let city of newCities" [value]="city.id">{{city.name}}</option>
               </select>
             </div>
           </div>
