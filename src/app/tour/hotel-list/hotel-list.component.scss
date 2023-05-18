@@ -491,7 +491,7 @@
   height: 200px;
   background: #c6c6c629;
   animation: shimmers 4s forwards infinite;
-  border-radius: 2px;
+  border-radius: 0 20px 20px 20px;
 }
 @keyframes shimmers {
   0%{

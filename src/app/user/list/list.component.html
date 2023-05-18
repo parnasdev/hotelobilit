@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="body-list-tour" *ngIf="users.length > 0">
-      <div class="item" *ngFor="let user of users| paginate: paginateConfig ; let i = index">
+      <div class="item bg-white" *ngFor="let user of users| paginate: paginateConfig ; let i = index">
         <span class="id">{{ user.id }}</span>
         <span class="username">{{ user.full_name }}</span>
         <span class="username">{{ user.phone ? user.phone : '-' }}</span>
