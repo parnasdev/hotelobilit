@@ -7,6 +7,9 @@ export interface TourSearchReqDTO {
     destination: number;
     date: string;
     stayCount: number;
+    keywords?: string | null
+    stars?: number | null
+    orderBy?: number | null
 }
 
 export interface HotelSearchResDTO {
@@ -20,5 +23,5 @@ export interface HotelSearchResDTO {
     stars: number;
     gallery: any[]
     thumbnail: UploadResDTO
-    services: string[]
+    services: any[]
 }
