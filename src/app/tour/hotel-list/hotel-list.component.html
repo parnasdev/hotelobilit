@@ -113,9 +113,9 @@
                   </div>
                 </div>
                 <div class="end-info">
-                  <span *ngIf="isDesktop">قیمت هر نفر برای {{ this.req.stayCount }} شب از :</span>
+                  <span *ngIf="isDesktop">قیمت تور برای هر نفر {{ this.req.stayCount }} شب از :</span>
                   <div class="price">
-                    <strong>{{ getMinPrice(hotel)  | sperator}}</strong>
+                    <strong>{{ hotel.totalRoomPrice  | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                   <a (click)="selectHotel(hotel.slug)" class="btn-base w-100">انتخاب هتل و رزرو</a>

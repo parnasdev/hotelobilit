@@ -20,6 +20,7 @@ export interface HotelSearchResDTO {
     address: string;
     flights: transferRateListDTO[]
     rooms: RoomDTO[];
+  totalRoomPrice?: any
     stars: number;
     gallery: any[]
     thumbnail: UploadResDTO
