@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'jalali-moment';
-import {CityApiService} from 'src/app/Core/Https/city-api.service';
-import {TourApiService} from 'src/app/Core/Https/tour-api.service';
-import {RateDTO} from 'src/app/Core/Models/newPostDTO';
-import {HotelSearchResDTO, TourSearchReqDTO} from 'src/app/Core/Models/newTourDTO';
-import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
-import {CalenderServices} from 'src/app/Core/Services/calender-service';
-import {MessageService} from 'src/app/Core/Services/message.service';
-import {ResponsiveService} from 'src/app/Core/Services/responsive.service';
+import { CityApiService } from 'src/app/Core/Https/city-api.service';
+import { TourApiService } from 'src/app/Core/Https/tour-api.service';
+import { RateDTO, RoomDTO } from 'src/app/Core/Models/newPostDTO';
+import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { MessageService } from 'src/app/Core/Services/message.service';
+import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
 
 @Component({
   selector: 'prs-choose-room-and-flight',
@@ -40,10 +40,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     rooms: [],
     stars: 0,
     gallery: [],
-    thumbnail: {path: '', url: '',},
+    thumbnail: { path: '', url: '', },
     services: []
   }
-
   paginate: any;
   paginateConfig: any;
 
@@ -68,13 +67,13 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   setReq() {
     this.route.queryParams.subscribe(params => {
-        this.req = {
-          origin: params['origin'],
-          date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-          destination: params['dest'],
-          stayCount: params['night'] ?? 1
-        }
+      this.req = {
+        origin: params['origin'],
+        date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+        destination: params['dest'],
+        stayCount: params['night'] ?? 1
       }
+    }
     );
   }
 
@@ -131,8 +130,91 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     })
   }
 
+  plus(index: number) {
+    let capacity = this.hotelInfo.rooms[index].rates.length > 0 ?
+      this.hotelInfo.rooms[index].rates[0].available_room_count : 0
+    if ((this.hotelInfo.rooms[index].count ?? 0) < capacity) {
+      this.hotelInfo.rooms[index].count = (this.hotelInfo.rooms[index].count ?? 0) + 1
+    }
+  }
+  minus(index: number) {
+    if ((this.hotelInfo.rooms[index].count ?? 0) > 0) {
+      this.hotelInfo.rooms[index].count = (this.hotelInfo.rooms[index].count ?? 0) - 1
+    }
+  }
+
   getStars(count: string | number): number[] {
     return Array.from(Array(+count).keys());
+  }
+
+  calculatePrice(flightID: number) {
+    let roomPrice = 0;
+    let price = 0;
+    this.hotelInfo.rooms.forEach(room => {
+      if ((room.count ?? 0) > 0) {
+        roomPrice = (room.count ?? 0) * this.getRoomPrice(room.rates)
+        roomPrice = roomPrice * room.Adl_capacity;
+      }
+      let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
+      price = roomPrice + (flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0)
+    })
+    return price
+  }
+
+  getRoomCapacity(rates: RateDTO[]): number {
+    let list: number[] = [];
+    rates.forEach(rate => {
+      list.push(rate.available_room_count)
+    })
+    list = list.sort((a, b) => b - a)
+    return list.length > 1 ? list[0] : 0
+  }
+
+  getRoomPrice(rates: RateDTO[]): number {
+    let price = 0;
+    rates.forEach(rate => {
+      price += rate.price;
+    })
+    return price;
+  }
+
+  submit(flightID: number) {
+    let req = {
+      checkIn: this.req.date,
+      checkOut: '',
+      hotel_id: this.hotelInfo.id,
+      flight_id: flightID,
+      rooms: this.getRoomsCount()
+    }
+
+
+
+    // this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
+    //   if (res.isDone) {
+
+
+
+    //   } else {
+    //     this.message.custom(res.message);
+    //   }
+    // }, (error: any) => {
+    //   this.message.error()
+    // })
+  }
+
+
+  getRoomsCount() {
+    let result: any[] = []
+    this.hotelInfo.rooms.forEach(x => {
+      if (x.count && x.count > 0) {
+        let obj = {
+          room_id: x.id,
+          count: x.count
+        }
+        result.push(obj)
+      }
+    })
+    return result;
   }
 
 }

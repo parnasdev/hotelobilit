@@ -22,10 +22,10 @@
                   <i class="icon-star"></i>
                   <i class="icon-star"></i>
                 </div>
-                <h2 class="name-hotel">hotelInfo.name</h2>
+                <h2 class="name-hotel">{{ hotelInfo.title }}</h2>
                 <div class="address d-flex justify-content-start align-items-center">
                   <img src="assets/img/location2.svg" width="15" alt="">
-                  <span>hotelInfo.location</span>
+                  <span>{{ hotelInfo.location }}</span>
                 </div>
               </div>
               <!-- <div class="l">
@@ -63,8 +63,8 @@
             <div class="new-tour d-flex w-100-mobi mb-3">
               <img src="assets/img/Bookmark.svg" width="17" alt="">
               <div class="text mr-2">
-                <span
-                  style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب کنید</span>
+                <span style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب
+                  کنید</span>
               </div>
             </div>
             <div class="top">
@@ -82,17 +82,25 @@
             </div>
           </div>
 
-          <div class="thumbnail-flight">
+          <div class="thumbnail-flight" *ngFor="let item of hotelInfo.flights">
             <div class="title">
               <h3>اطلاعات اتاق</h3>
               <h3>اطلاعات پرواز</h3>
             </div>
             <div class="middle">
               <div class="rooms">
-                <div *ngFor="let item of [1]" (click)="roomCollapse()" class="item-room">
-                  <span class="text">یک تخته</span>
-                  <i class="icon-down-open"></i>
-                  <div *ngIf="isRoom" class="option-room animated fadeIn"></div>
+                <div *ngFor="let room of hotelInfo.rooms;let i = index" (click)="roomCollapse()" class="item-room">
+                  <span class="text w-50">{{ room.room_type }}</span>
+
+                  <div class="p-count w-50">
+                    <button
+                      [ngClass]="{'btn-plus-off' : room.count === this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) < room.rates[0].available_room_count}"
+                      (click)="plus(i)">+</button>
+                    <span>{{ room.count ?? 0 }}</span>
+                    <button class="btn-minus" (click)="minus(i)">-</button>
+                  </div>
+                  <!-- <i class="icon-down-open"></i> -->
+                  <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
                 </div>
               </div>
               <div class="p-flight">
@@ -104,10 +112,10 @@
                       <h5>پرواز رفت</h5>
                     </div>
                     <div class="location">
-                      تهران به کیش
+                      {{ item.origin_name }} به {{ item.destination_name }}
                     </div>
                     <div class="p-date">
-                      <span>12:30 و 30/30/30</span>
+                      <span>{{ item.time.substring(0,5) }} و {{ item.date | convertDate }}</span>
                     </div>
                   </div>
                 </div>
@@ -116,13 +124,13 @@
                   <div class="detail">
                     <div class="d-flex align-items-center">
                       <i class="icon-circle"></i>
-                      <h5>پرواز رفت</h5>
+                      <h5>پرواز برگشت</h5>
                     </div>
                     <div class="location">
-                      تهران به کیش
+                      {{ item.flight.origin_name }} به {{ item.flight.destination_name }}
                     </div>
                     <div class="p-date">
-                      <span>12:30 و 30/30/30</span>
+                      <span>{{ item.flight.time.substring(0,5) }} و {{ item.flight.date | convertDate }}</span>
                     </div>
                   </div>
                 </div>
@@ -131,17 +139,17 @@
             </div>
             <div class="box-end">
               <div class="p-text">
-                <h4>نام تامیین کننده:</h4>
-                <h5>میلاد کرد</h5>
+                <h4>نام تامین کننده:</h4>
+                <h5>---</h5>
               </div>
               <div class="p-price">
                 <span>قیمت:</span>
                 <div class="price">
-                  <strong>2.000.000</strong>
+                  <strong>{{ calculatePrice(item.id) | sperator}}</strong>
                   <small>تومان</small>
                 </div>
               </div>
-              <a href="" class="btn-base w-75 mt-4">رزرو اتاق</a>
+              <a (click)="submit(item.id)" class="btn-base w-75 mt-4">رزرو اتاق</a>
             </div>
           </div>
           <div class="empty-box bg-white">
@@ -250,5 +258,3 @@
   </div>
 
 </section> -->
-
-
