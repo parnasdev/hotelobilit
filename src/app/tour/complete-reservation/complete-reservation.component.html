@@ -27,50 +27,54 @@
       <div class="d-flex align-items-center mt-4">
         <h2 class="title-tour">اطلاعات تور</h2>
       </div>
-      <div class="code">
+      <!-- <div class="code">
         <span>کد رفرنس: {{ 'fjg454' }}</span>
-      </div>
+      </div> -->
     </div>
     <div class="box-top-box-reserve">
       <div class="d-flex align-items-center title-top justify-content-between">
-        <h2 class="title-tour">نام تور</h2>
-        <h2 class="title-tour">هتل انتخابی : نام هتل</h2>
+        <!-- <h2 class="title-tour">نام تور</h2> -->
+        <h2 class="title-tour">هتل انتخابی : {{ data.hotel?.title }}</h2>
       </div>
       <div class="set-request-tour">
         <div class="info-from">
           <div class="d-flex align-items-center">
             <span>پرواز رفت:</span>
-            <span style="margin-right: 4px" class="city-name">تهران به کیش</span>
-            <span>تابان</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.origin_name }} به {{
+              data.flight.destination_name }}</span>
+            <span>{{ data.flight.airline_name }}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۹/۰۸</span>
+            <span class="text" style="direction: ltr!important">{{ data.flight.date | convertDate }} {{ ' ' +
+              (data.flight.time.substring(0,5)) }}</span>
           </div>
-          <div class="item">
+          <!-- <div class="item">
             <span class="title">تاریخ ورود به هتل :</span>
             <span class="text" style="direction: ltr!important">۱۴۰۲/۰۶/۰۲</span>
-          </div>
+          </div> -->
         </div>
         <div class="info-time">
           <span class="title">مدت اقامت:</span>
-          <span class="text">۲ شب ۳ روز</span>
+          <span class="text">{{ checkingReq.stayCount }} شب و {{ +checkingReq.stayCount + 1 }} روز</span>
         </div>
         <div class="info-to">
           <div class="d-flex align-items-center">
             <span>پرواز برگشت:</span>
-            <span style="margin-right: 4px" class="city-name">کیش به تهران</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.flight.origin_name }} به {{
+              data.flight.flight.destination_name }}</span>
             <span></span>
           </div>
 
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۲/۰۵</span>
+            <span class="text" style="direction: ltr!important">{{ data.flight.flight.date | convertDate }} {{ ' ' +
+              data.flight.flight.time.substring(0,5) }}</span>
           </div>
-          <div class="item">
+          <!-- <div class="item">
             <span class="title">تاریخ خروج از هتل :</span>
             <span class="text" style="direction: ltr!important">۱۴۰۲/۰۴/۰۳</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -80,15 +84,9 @@
       قرارداد درنظر گرفته می شود)</h2>
     <div class="set-info-supervisor">
       <div class="item-form">
-        <label class="dana-bold" for="">نام</label>
+        <label class="dana-bold" for="">نام و نام خانوادگی</label>
         <div class="inp-form mt-2">
-          <input type="text" placeholder="اینجا بنویسید …">
-        </div>
-      </div>
-      <div class="item-form">
-        <label class="dana-bold" for=""> نام خانوادگی</label>
-        <div class="inp-form mt-2">
-          <input type="text" placeholder="اینجا بنویسید …">
+          <input type="text" [formControl]="fullNameFC" placeholder="اینجا بنویسید …">
         </div>
       </div>
       <div class="item-form">
@@ -96,24 +94,22 @@
           کد ملی
         </label>
         <div class="inp-form mt-2">
-          <input type="text" placeholder="اینجا بنویسید …">
+          <input type="text" [formControl]="reserver_id_codeFC" placeholder="اینجا بنویسید …">
         </div>
       </div>
-
       <div class="item-form">
         <label class="dana-bold" for="">
           شماره همراه
         </label>
         <div class="inp-form mt-2">
-          <input type="text" placeholder="اینجا بنویسید …">
+          <input type="text" [formControl]="reserver_phoneFC" placeholder="اینجا بنویسید …">
         </div>
       </div>
     </div>
     <h2>اطلاعات مسافران</h2>
-<!-- 
-    <prs-passengers *ngFor="let room of roomsSelected" [RoomData]="room"
-      (passengerResult)="getRoomData($event)"></prs-passengers> -->
 
+    <prs-passengers *ngFor="let room of roomsSelected" [RoomData]="room" [tourType]="data.hotel.is_domestic"
+      (passengerResult)="getRoomData($event)"></prs-passengers>
 
 
     <div class="rules mt-3">

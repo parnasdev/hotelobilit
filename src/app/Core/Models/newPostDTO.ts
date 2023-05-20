@@ -113,6 +113,7 @@ export interface ReserveHotelDTO {
     location: string
     services: any[]
     slug: string
+    is_domestic: boolean;
     stars: string
     thumbnail: string
     title: string

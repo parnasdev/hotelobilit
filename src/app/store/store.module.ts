@@ -8,6 +8,7 @@ import { IndexComponent } from './index/index.component';
 import {SwiperModule} from "swiper/angular";
 import { TourModule } from '../tour/tour.module';
 import { StoreComponent } from './store/store.component';
+import { MaterialModule } from '../common-project/persianDatePickerAdapter/material.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { StoreComponent } from './store/store.component';
   imports: [
     CommonModule,
     SwiperModule,
+    MaterialModule,
     TourModule,
     StoreRoutingModule,
   ]

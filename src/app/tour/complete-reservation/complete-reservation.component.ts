@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { ReserveCheckingReqDTO, ReserveInfoDTO } from 'src/app/Core/Models/reserveDTO';
+import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { ReserveCheckingReqDTO, ReserveCreateDTO, ReserveInfoDTO, ReserveReqRoomDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 
 @Component({
@@ -12,11 +16,40 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 export class CompleteReservationComponent implements OnInit {
   flightID = '';
   hotelID = '';
+  req: ReserveCreateDTO = {
+    hotel_id: 0,
+    flight_id: 0,
+    rooms: [],
+    reserver_full_name: '',
+    reserver_phone: '',
+    reserver_id_code: '',
+    checkin: '',
+    stayCount: 0,
+  }
   checkingReq!: ReserveCheckingReqDTO
+  roomsSelected: ReserveRoomDTO[] = []
+  data: ReserveInfoDTO = {
+    flight: {} as transferRateListDTO,
+    hotel: {} as ReserveHotelDTO,
+    rooms: [],
+    rooms_selected: [],
+  };
 
-  data!: ReserveInfoDTO;
+  finalRoomSelected: ReserveReqRoomDTO[] = [];
+
+  fullNameFC = new FormControl();
+  reserver_phoneFC = new FormControl();
+  reserver_id_codeFC = new FormControl();
+  formGroup: FormGroup = this.fb.group({
+    reserver_id_code: this.reserver_id_codeFC,
+    reserver_phone: this.reserver_phoneFC,
+    fullName: this.fullNameFC,
+  })
   constructor(public api: ReserveApiService,
     public message: MessageService,
+    public fb: FormBuilder,
+    public router: Router,
+    public checkError: CheckErrorService,
     public route: ActivatedRoute) {
 
   }
@@ -43,6 +76,7 @@ export class CompleteReservationComponent implements OnInit {
 
 
   getRoomData(result: any) {
+    console.log(result);
 
   }
 
@@ -51,6 +85,7 @@ export class CompleteReservationComponent implements OnInit {
     this.api.checking(this.checkingReq).subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
+        this.setRoomSelected();
       } else {
         this.message.custom(res.message);
       }
@@ -59,14 +94,50 @@ export class CompleteReservationComponent implements OnInit {
     })
   }
 
+  setRoomSelected() {
+    this.data.rooms_selected.forEach(room => {
+      let x = this.data.rooms.filter(y => y.id === room.room_id)
+      if (x.length > 0) {
+        for (let i = 0; i < room.count; i++) {
+          this.roomsSelected.push(x[0]);
+        }
+      }
+    })
+  }
+
 
   submit() {
-
+    this.setReq();
+    this.api.create(this.req).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.custom(res.message)
+        this.router.navigateByUrl('/')
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.checkError.check(error)
+    })
   }
 
-  getCity(city: any) {
-
+  setReq() {
+    this.convertRooms()
+    this.req = {
+      hotel_id: +this.hotelID,
+      flight_id: +this.flightID,
+      rooms: [],
+      reserver_full_name: this.fullNameFC.value,
+      reserver_phone: this.reserver_phoneFC.value,
+      reserver_id_code: this.reserver_id_codeFC.value,
+      checkin: this.checkingReq.checkin,
+      stayCount: this.checkingReq.stayCount,
+    }
   }
+
+  convertRooms() {
+    console.log(this.roomsSelected);
+  }
+
 
   openRulesPopup() {
 
