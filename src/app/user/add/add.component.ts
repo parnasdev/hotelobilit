@@ -22,13 +22,16 @@ export class AddComponent implements OnInit {
   isMobile: any;
   isLoading = false;
   roles: {id: number;label: string}[] = [];
+  hotels: any[] = []; 
+  selectedhotelsFC = new FormControl('');
   userReq: UserCreateReq = {
     name: '',
     family: '',
     username: '',
     phone: '',
     password: '',
-    role_id: 1
+    role_id: 1,
+    hotels: []
   }
   setPermissions: string[] = [];
 
@@ -66,6 +69,7 @@ export class AddComponent implements OnInit {
     this.api.getCreateData().subscribe((res: any) => {
       if (res.isDone) {
         this.roles = res.data.roles;
+        this.hotels = res.data.hotels;
       } else {
         this.message.custom(res.message);
       }
@@ -93,6 +97,7 @@ export class AddComponent implements OnInit {
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: this.userForm.value.role_id ?? 0,
+      hotels: this.selectedhotelsFC.value
     };
   }
 
@@ -117,6 +122,10 @@ export class AddComponent implements OnInit {
       this.message.error();
       this.checkErrorService.check(error);
     });
+  }
+
+  getHotelName(id: number) {
+    return this.hotels.find((y: any) => y.id === id)?.name
   }
 
 }

@@ -65,6 +65,29 @@
 
 
         </div>
+
+        <div class="top">
+          <div class="address-hotel">
+            <label for="address">هتل های موردنظر را انتخاب کنید</label>
+            <mat-form-field appearance="fill">
+              <mat-label>هتل ها</mat-label>
+              <mat-select [formControl]="selectedhotelsFC" multiple>
+                <mat-select-trigger>
+                  <span>هتل های انتخاب شده</span>
+
+                </mat-select-trigger>
+                <mat-option *ngFor="let hotel of hotels" [value]="hotel.id">{{hotel.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <span class="city-box" *ngFor="let hotel of selectedhotelsFC.value">
+                {{ getHotelName(+hotel) }}
+              </span>
+            </div>
+    
+          </div>
+        </div>
+
         <button style="width: 15%" class="btn-base mt-3"  (click)="submit()" >ایجاد کاربر</button>
 
       </div>

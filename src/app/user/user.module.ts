@@ -15,6 +15,7 @@ import {MaterialModule} from "../common-project/persianDatePickerAdapter/materia
 import {CommonProjectModule} from "../common-project/common-project.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         NgxPaginationModule,
         MaterialModule,
         CommonProjectModule,
+        MatSelectModule,
     ]
 })
 export class UserModule { }

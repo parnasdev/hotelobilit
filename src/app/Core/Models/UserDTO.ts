@@ -27,6 +27,7 @@ export interface UserCreateReq {
   username: string;
   role_id: number;
   password: string;
+  hotels: any;
 }
 
 export interface UserRolesDTO {

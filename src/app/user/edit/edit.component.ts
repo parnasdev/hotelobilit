@@ -27,8 +27,11 @@ export class EditComponent implements OnInit {
     username: '',
     phone: '',
     password: '',
-    role_id: 1
+    role_id: 1,
+    hotels: []
   }
+  hotels: any[] = []; 
+  selectedhotelsFC = new FormControl('');
   userForm = this.fb.group({
     name: new FormControl(''),
     family: new FormControl(''),
@@ -37,6 +40,8 @@ export class EditComponent implements OnInit {
     password: new FormControl(''),
     role_id: new FormControl()
   });
+
+  role: string = '';
 
   constructor(public fb: FormBuilder,
     public api: UserApiService,
@@ -57,6 +62,7 @@ export class EditComponent implements OnInit {
     // @ts-ignore
     this.userId = this.route.snapshot.paramMap.get('userId');
     this.getUser();
+    this.role = this.session.getRole()
   }
 
   getUser(): void {
@@ -64,6 +70,8 @@ export class EditComponent implements OnInit {
       if (res.isDone) {
         this.userInfo = res.data;
         this.roles = res.data.roles;
+        console.log(this.roles)
+        this.hotels = res.data.hotels;
         this.fillForm();
       } else {
         this.message.custom(res.message);
@@ -79,8 +87,8 @@ export class EditComponent implements OnInit {
     this.userForm.controls.family.setValue(this.userInfo.user.family);
     this.userForm.controls.phone.setValue(this.userInfo.user.phone);
     this.userForm.controls.username.setValue(this.userInfo.user.username);
-
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
+    this.selectedhotelsFC.setValue(this.userInfo.hotelIds)
 
   }
   setReq() {
@@ -92,6 +100,7 @@ export class EditComponent implements OnInit {
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: this.userForm.value.role_id ?? 0,
+      hotels: this.selectedhotelsFC.value
     };
   }
 
@@ -116,6 +125,10 @@ export class EditComponent implements OnInit {
       this.message.error();
       this.checkErrorService.check(error);
     });
+  }
+
+  getHotelName(id: number) {
+    return this.hotels.find((y: any) => y.id === id)?.name
   }
 
 }
