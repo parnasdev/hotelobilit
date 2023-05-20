@@ -13,8 +13,12 @@
       <!--      <span class="username">نام کاربر</span>-->
       <span class="title-tour">مبدا - مقصد</span>
       <span class="title-tour">ایرلاین</span>
-      <span class="from-to"> تاریخ</span>
-      <span class="from-to">ساعت</span>
+
+      <div class="d-flex flex-column">
+        <span class="from-to"> تاریخ</span>
+        <span class="from-to">ساعت</span>
+
+      </div>
       <span class="from-to">شماره پرواز</span>
       <span class="from-to">بزرگسال (تومان)</span>
       <span class="from-to">کودک (تومان)</span>
@@ -51,12 +55,12 @@
 
         </div>
         <div class="d-flex flex-column ">
-          <span>{{ calendarService.convertDate(transfer.date,'fa') }}</span>
-          <span>{{ calendarService.convertDate(transfer.flight.date,'fa') }}</span>
-        </div>
-        <div class="d-flex flex-column ">
-          <span class="title-tour">{{transfer.time}}</span>
-          <span class="title-tour">{{transfer.flight.time}}</span>
+            <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }}</span>
+            <span class="title-tour">{{transfer.time}}</span>
+  
+            <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }}</span>
+            <span class="title-tour">{{transfer.flight.time}}</span>
+   
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.flight_number }}</span>
@@ -65,26 +69,28 @@
 
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.adl_price | sperator }}</span>
-          <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span>
+          <!-- <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span> -->
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.chd_price | sperator }}</span>
-          <span class="title-tour">{{ transfer.flight.chd_price | sperator }}</span>
+          <!-- <span class="title-tour">{{ transfer.flight.chd_price | sperator }}</span> -->
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.inf_price | sperator }}</span>
-          <span class="title-tour">{{ transfer.flight.inf_price | sperator }}</span>
+          <!-- <span class="title-tour">{{ transfer.flight.inf_price | sperator }}</span> -->
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.capacity }}</span>
           <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
         </div>
-        <div class="button-setting d-flex flex-column align-items-center">
-          <a routerLink="/panel/transferRate/edit/{{ transfer.id }}" class="edit-btn">ویرایش</a>
-          <a style="width: 180px !important;" routerLink="/panel/transferRate/copy/{{ transfer.id }}"
+        <div style="width: 50px !important;" class="button-setting d-flex flex-column align-items-center">
+          <a style="width: 50px !important;" routerLink="/panel/transferRate/edit/{{ transfer.id }}"
+            class="edit-btn">ویرایش</a>
+          <a style="width: 50px !important;" routerLink="/panel/transferRate/copy/{{ transfer.id }}"
             class="copy-btn">کپی</a>
 
-          <button (click)="removeTransferRate(transfer.id)" class="delete-btn">حذف</button>
+          <button style="width: 50px !important;" (click)="removeTransferRate(transfer.id)"
+            class="delete-btn">حذف</button>
         </div>
       </div>
     </div>

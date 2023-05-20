@@ -4,7 +4,6 @@
 
 
 <!--select-fly-->
-
 <section>
   <div class="prs-responsive">
     <div class="container-fluid">
@@ -23,10 +22,10 @@
                   <i class="icon-star"></i>
                   <i class="icon-star"></i>
                 </div>
-                <h2 class="name-hotel">hotelInfo.name</h2>
+                <h2 class="name-hotel">{{ hotelInfo.title }}</h2>
                 <div class="address d-flex justify-content-start align-items-center">
                   <img src="assets/img/location2.svg" width="15" alt="">
-                  <span>hotelInfo.location</span>
+                  <span>{{ hotelInfo.location }}</span>
                 </div>
               </div>
               <!-- <div class="l">
@@ -46,7 +45,8 @@
             <div class="top">
               <div class="new-tour">
                 <div class="text d-flex align-items-center">
-                  <h3 style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب کنید</h3>
+                  <h3 style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب
+                    کنید</h3>
                 </div>
               </div>
               <div class="inp-form w-25">
@@ -63,7 +63,8 @@
             <div class="new-tour d-flex w-100-mobi mb-3">
               <img src="assets/img/Bookmark.svg" width="17" alt="">
               <div class="text mr-2">
-                <span style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب کنید</span>
+                <span style="color: var(--dark) !important">با بررسی زمان پرواز و قیمت اتاق ها تور خود را انتخاب
+                  کنید</span>
               </div>
             </div>
             <div class="top">
@@ -81,150 +82,78 @@
             </div>
           </div>
 
-          <ng-template>
-            <div class="thumbnail-flight">
-              <div class="top">
-                <div class="start">
-                  <img src="" width="40" height="35" />
-                  <div class="d-flex flex-column align-items-start w-100">
-                    <div class="title w-100 d-flex justify-content-between">
-                      <div class="w-75">
-                        <span>پرواز رفت - </span>
-                        <span>تهران به کیش</span>
-                      </div>
-                      <span>item.origin_transfer.name</span>
+          <div class="thumbnail-flight" *ngFor="let item of hotelInfo.flights">
+            <div class="title">
+              <h3>اطلاعات اتاق</h3>
+              <h3>اطلاعات پرواز</h3>
+            </div>
+            <div class="middle">
+              <div class="rooms">
+                <div *ngFor="let room of hotelInfo.rooms;let i = index" (click)="roomCollapse()" class="item-room">
+                  <span class="text w-50">{{ room.room_type }}</span>
+
+                  <div class="p-count w-50">
+                    <button
+                      [ngClass]="{'btn-plus-off' : room.count === this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) < room.rates[0].available_room_count}"
+                      (click)="plus(i)">+</button>
+                    <span>{{ room.count ?? 0 }}</span>
+                    <button class="btn-minus" (click)="minus(i)">-</button>
+                  </div>
+                  <!-- <i class="icon-down-open"></i> -->
+                  <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
+                </div>
+              </div>
+              <div class="p-flight">
+                <div class="from">
+                  <img src="" alt="">
+                  <div class="detail">
+                    <div class="d-flex align-items-center">
+                      <i class="icon-circle"></i>
+                      <h5>پرواز رفت</h5>
+                    </div>
+                    <div class="location">
+                      {{ item.origin_name }} به {{ item.destination_name }}
                     </div>
                     <div class="p-date">
-                      <div class="date w-100 d-flex justify-content-between">
-                        <strong>زمان پرواز :</strong>
-                        <div>
-                        <span class="ml-2">
-                          calenderService.convertDateSpecial(item.departure_date, 'fa'</span>
-                          <strong>item.departure_time</strong>
-                        </div>
-                      </div>
+                      <span>{{ item.time.substring(0,5) }} و {{ item.date | convertDate }}</span>
                     </div>
                   </div>
-
                 </div>
-
-                <div *ngIf="isTablet" class="info-time">
-                  <span class="title">مدت اقامت :</span>
-                  <span style="margin-right: 4px" class="text">3 شب و 4 روز</span>
-                </div>
-
-                <div class="center">
-                  <img [src]="" width="40" height="35"/>
-                  <div class="d-flex flex-column align-items-start w-100 m-2">
-                    <div class="title w-100 d-flex justify-content-between">
-                      <div class="w-50">
-                        <span>پرواز بازگشت - </span>
-                        <span>تهران به کیش</span>
-                      </div>
-                      <span>item.destination_transfer.name</span>
+                <div class="to">
+                  <img src="" alt="">
+                  <div class="detail">
+                    <div class="d-flex align-items-center">
+                      <i class="icon-circle"></i>
+                      <h5>پرواز برگشت</h5>
+                    </div>
+                    <div class="location">
+                      {{ item.flight.origin_name }} به {{ item.flight.destination_name }}
                     </div>
                     <div class="p-date">
-                      <div class="date w-100 d-flex justify-content-between">
-                        <strong>زمان پرواز :</strong>
-                        <div>
-                        <span class="ml-2">calenderService.convertDateSpecial(item.return_date, 'fa'</span>
-                          <strong>item.return_time</strong>
-                        </div>
-                      </div>
-
+                      <span>{{ item.flight.time.substring(0,5) }} و {{ item.flight.date | convertDate }}</span>
                     </div>
                   </div>
                 </div>
-                <div class="end">
-                  <span *ngIf="isDesktop">تامین کننده : آژانس میلاد</span>
-                  <a *ngIf="isDesktop"  class="btn-base w-100 d-flex align-items-center justify-content-center h-45 mt-2">
-                    انتخاب تور
-                  </a>
-                  <!-- <a data-toggle="collapse" class="btn-view-more" href="#collapseExample{{i}}" role="button"
-                     aria-expanded="false" aria-controls="collapseExample">
-                    مشاهده اطلاعات اتاق ها
-                    <i class="icon-down-open"></i>
-                  </a> -->
-                </div>
-              </div>
-              <!-- id="collapseExample{{i}}" -->
-              <!-- collapse -->
-              <div *ngIf="isDesktop" class="w-100 bottom" >
-                <div class="header-fly">
-                  <span>x.roomType.label</span>
-                  <span>سن</span>
 
-                </div>
-                <div class="body-fly">
-                  <div  class="price" >
-                    <strong>getFullPrice(y.roomType.name,item.adl_price)</strong>
-                    <small>تومان</small>
-                    <small>ثبت نشده</small>
-                  </div>
-
-                  <span>package.prices.age</span>
-                </div>
-              </div>
-              <div class="p-bed-mobi" *ngIf="isTablet">
-                <div class="item-full">
-                  <span>دو تخته (هر نفر)</span>
-                  <div class="price" >
-                    <strong>200000</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-                <div  class="item">
-                  <span>سینگل</span>
-                  <div class="price">
-                    <strong>package.prices.single</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-                <div  class="item">
-                  <span >سه تخته (هر نفر)</span>
-                  <div class="price">
-                    <strong>200000</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-                <div  class="item">
-                  <span>چهارتخته (هر نفر)</span>
-                  <div class="price">
-                    <strong>200000</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-                <div class="item-full">
-                  <span >کودک با تخت</span>
-                  <div class="price">
-                    <strong>200000</strong>
-                    <small>تومان</small>
-                  </div>
-
-                </div>
-                <div  class="item-full">
-                  <span >کودک بدون تخت</span>
-                  <div class="price">
-                    <strong>200000</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-                <div class="item-full">
-                  <span>سن کودک بدون تخت</span>
-                  <p>2</p>
-                </div>
-              </div>
-              <div *ngIf="isTablet" class="w-100 d-flex my-3 flex-column align-items-center">
-                <span >تامین کننده : آژانس کرد</span>
-                <a   class="btn-base w-100 d-flex align-items-center justify-content-center h-45 mt-2">
-                  انتخاب تور
-                </a>
               </div>
             </div>
-          </ng-template>
-
+            <div class="box-end">
+              <div class="p-text">
+                <h4>قیمت پرواز + هتل : </h4>
+                <!-- <h5>---</h5> -->
+              </div>
+              <div class="p-price">
+                <span>قیمت:</span>
+                <div class="price">
+                  <strong>{{ calculatePrice(item.id) | sperator}}</strong>
+                  <small>تومان</small>
+                </div>
+              </div>
+              <a (click)="submit(item.id)" class="btn-base w-75 mt-4">رزرو تور</a>
+            </div>
+          </div>
           <div class="empty-box bg-white">
-            <span >پروازی برای این هتل یافت نشد</span>
+            <span>پروازی برای این هتل یافت نشد</span>
           </div>
         </div>
       </div>
@@ -329,5 +258,3 @@
   </div>
 
 </section> -->
-
-

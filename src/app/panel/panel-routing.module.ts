@@ -41,6 +41,18 @@ const routes: Routes = [
         loadChildren: () => import('../transfer/transfer.module').then(m => m.TransferModule)
       },
       {
+        path: 'financial',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../financial/financial.module').then(m => m.FinancialModule)
+      },
+      {
+        path: 'reports',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../reports/reports.module').then(m => m.ReportsModule)
+      },
+      {
         path: 'transferRate',
         // canActivate: [PanelItemGuardService],
         // data: {permitions: ['Transfer']},
@@ -51,6 +63,12 @@ const routes: Routes = [
         // canActivate: [PanelItemGuardService],
         // data: {permitions: ['Transfer']},
         loadChildren: () => import('../airport/airport.module').then(m => m.AirportModule)
+      },
+      {
+        path: 'service',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../services/services.module').then(m => m.ServicesModule)
       },
       {
         path: 'cities',

@@ -19,11 +19,14 @@ export class HotelListComponent implements OnInit {
   isMobile = false;
   isDesktop = false;
   isTablet = false;
-
+  isLoading = false
   req: TourSearchReqDTO = {
     date: '',
     destination: 0,
-    stayCount: 0
+    stayCount: 0,
+    keywords: '',
+    stars: 0,
+    orderBy: 0,
   }
 
   routeDataParam: SearchObjectDTO = {
@@ -32,11 +35,16 @@ export class HotelListComponent implements OnInit {
     origin: '',
     stDate: ''
   }
-
-  hotels: HotelSearchResDTO[] = [];
-
   paginate: any;
   paginateConfig: any;
+
+  //filter 
+  hotels: HotelSearchResDTO[] = [];
+  keyword: string = ''
+  star = 0;
+  expensive: boolean = false
+  cheapest: boolean = true;
+  orderBy = 1
 
 
   constructor(
@@ -54,6 +62,7 @@ export class HotelListComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       this.routeDataParam = params;
     })
+    this.orderBy = this.expensive ? 2 : 1
   }
 
   ngOnInit() {
@@ -66,7 +75,10 @@ export class HotelListComponent implements OnInit {
         date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
         destination: params['dest'],
         origin: params['origin'],
-        stayCount: params['night'] ?? 1
+        stayCount: params['night'] ?? 1,
+        keywords: this.keyword ? this.keyword : null,
+        stars: this.star > 0 ? +this.star : null,
+        orderBy: this.orderBy
       }
     }
     );
@@ -75,7 +87,10 @@ export class HotelListComponent implements OnInit {
 
   getSearchData(): void {
     this.setReq();
+    this.isLoading = true
     this.api.search('hotels', this.req).subscribe((res: any) => {
+      this.isLoading = false
+
       if (res.isDone) {
         this.hotels = res.data;
         this.paginate = res.meta;
@@ -87,7 +102,10 @@ export class HotelListComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false
+
     }, (error: any) => {
+      this.isLoading = false
       this.message.error()
     })
   }
@@ -95,7 +113,6 @@ export class HotelListComponent implements OnInit {
 
 
   search(result: any) {
-    console.log('search')
     let city = result.origin + '-' + result.dest
     this.router.navigate([`/tour/` + city], {
       queryParams: result
@@ -105,13 +122,28 @@ export class HotelListComponent implements OnInit {
   }
 
   selectHotel(hotel_slug: string) {
-    console.log(this.routeDataParam);
-
     let city = this.routeDataParam.origin + '-' + this.routeDataParam.dest
 
     this.router.navigate([`/tour/` + city + '/flight/' + hotel_slug], {
       queryParams: this.routeDataParam
     })
+  }
+
+
+  orderClicked(name: string, event: any) {
+    if (name === 'cheapest') {
+      if (event.target.checked) {
+        this.orderBy = 1
+      }
+    } else {
+      if (event.target.checked) {
+        this.orderBy = 2
+      }
+    }
+    this.filterSubmit()
+  }
+  filterSubmit() {
+    this.getSearchData();
   }
 
   getStars(count: string | number): number[] {
@@ -127,11 +159,10 @@ export class HotelListComponent implements OnInit {
         item.rates.forEach((element: any) => { price += element.price });
       }
     });
-    debugger
     let flightPrice = this.getFlightPrice(hotel.flights)
-    if(price === 0) {
+    if (price === 0) {
       return 0
-    }else {
+    } else {
       price = price + flightPrice;
       return price
     }
@@ -145,6 +176,14 @@ export class HotelListComponent implements OnInit {
     })
     priceList = priceList.sort((a, b) => a - b)
     return priceList.length > 0 ? priceList[0] : 0;
+
+  }
+
+  removeFilters() {
+    this.orderBy = 1;
+    this.star = 0;
+    this.keyword = ''
+    this.filterSubmit()
 
   }
 

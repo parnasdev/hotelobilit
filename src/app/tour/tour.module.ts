@@ -7,7 +7,7 @@ import { ChooseRoomAndFlightComponent } from './choose-room-and-flight/choose-ro
 import { SearchComponent } from './search/search.component';
 import { DatePickerModule } from '../date-picker/date-picker.module';
 import { CommonProjectModule } from '../common-project/common-project.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -30,6 +30,7 @@ import { PipesModule } from "../common-project/pipes/pipes.module";
         ReactiveFormsModule,
         CommonProjectModule,
         SwiperModule,
+        FormsModule,
         MatInputModule,
         MatDatepickerModule,
         MatFormFieldModule,

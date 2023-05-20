@@ -97,7 +97,13 @@ export class PricingComponent implements OnInit {
     this.activedRoom = id
     this.roomTypeId = roomTypeId
 
+
     this.reload()
+  }
+
+  getRoom(): RoomDTO | null {
+    let room = this.rooms.filter(x => x.room_type_id === this.roomTypeId)
+    return room.length > 0 ? room[0] : null
   }
 
 

@@ -114,12 +114,12 @@ export class AddComponent implements OnInit {
   addDateRow() {
     const dates = this.fb.group({
       id: null,
-      adl_price: 0,
+      adl_price: null,
       origin_date: null,
       destination_date: null,
-      chd_price: 0,
-      inf_price: 0,
-      capacity: 0,
+      chd_price: null,
+      inf_price: null,
+      capacity: null,
     });
     this.RatesForm.push(dates);
   }

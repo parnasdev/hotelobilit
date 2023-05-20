@@ -1,3 +1,4 @@
+import { UploadResDTO } from "./commonDTO";
 import { RoomDTO } from "./newPostDTO";
 import { flightStoreDTO, transferRateListDTO } from "./newTransferDTO";
 
@@ -6,6 +7,9 @@ export interface TourSearchReqDTO {
     destination: number;
     date: string;
     stayCount: number;
+    keywords?: string | null
+    stars?: number | null
+    orderBy?: number | null
 }
 
 export interface HotelSearchResDTO {
@@ -16,8 +20,9 @@ export interface HotelSearchResDTO {
     address: string;
     flights: transferRateListDTO[]
     rooms: RoomDTO[];
+  totalRoomPrice?: any
     stars: number;
     gallery: any[]
-    thumbnail: string
-    services: string[]
+    thumbnail: UploadResDTO
+    services: any[]
 }

@@ -46,14 +46,16 @@ export class ConfirmPricingModalComponent implements OnInit {
       date_from: moment(this.data.checkin.dateEn).format('YYYY-MM-DD'),
       date_to: moment(this.data.checkout.dateEn).format('YYYY-MM-DD'),
       available_room_count: this.capacityFC.value,
-      extra_bed_count: +this.bedCountFC.value,
-      price: +this.priceFC.value,
+      extra_bed_count: this.bedCountFC.value ? +this.bedCountFC.value : null,
+      price: this.priceFC.value ? +this.priceFC.value : null,
       type: this.data.type,
-      offer_price: +this.offerPriceFC.value,
-      extra_price: +this.bedPriceFC.value,
-      offer_extra_price: +this.offerBedPriceFC.value,
+      extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value
+      // offer_extra_price: this.offerBedPriceFC.value,
+      // offer_price: this.offerPriceFC.value,
+
     }
+
     this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)

@@ -1,4 +1,4 @@
-<section class="s-list-hotel">
+<section class="s-list-hotel mt-5">
   <div class="prs-responsive">
     <div class="p-list-hotel">
       <prs-search [inCommingSearchObject]="routeDataParam" (onSubmit)="search($event)"></prs-search>
@@ -6,13 +6,13 @@
         <div *ngIf="isDesktop" class="filtering">
           <div class="title-filtering">
             <h3>فیلتر ها :</h3>
-            <a href="">پاک کردن فیلتر ها</a>
+            <a style="cursor: pointer;" (click)="removeFilters()">پاک کردن فیلتر ها</a>
           </div>
           <div class="box-filtering">
             <div class="p-search">
               <h3>جستجوی نام هتل یا اقامتگاه</h3>
               <div class="inp-form w-100">
-                <input type="text" placeholder="نام هتل خود را وارد کنید ...">
+                <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..." (change)="filterSubmit()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
                   <g id="Search..." transform="translate(0 0)">
                     <path id="Path_1136" data-name="Path 1136"
@@ -22,18 +22,19 @@
                           stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
                   </g>
                 </svg>
-
               </div>
             </div>
             <div class="p-star">
               <h3>ستاره های هتل </h3>
               <div class="inp-form">
-                <select name="" id="">
-                  <option value="">1 ستاره</option>
-                  <option value="">2 ستاره</option>
-                  <option value="">3 ستاره</option>
-                  <option value="">4 ستاره</option>
-                  <option value="">5 ستاره</option>
+                <select name="" id="" [(ngModel)]="star" (ngModelChange)="filterSubmit()">
+                  <option [value]="0">همه</option>
+
+                  <option [value]="1">1 ستاره</option>
+                  <option [value]="2">2 ستاره</option>
+                  <option [value]="3">3 ستاره</option>
+                  <option [value]="4">4 ستاره</option>
+                  <option [value]="5">5 ستاره</option>
                 </select>
               </div>
             </div>
@@ -41,7 +42,7 @@
               <h3>مرتب سازی بر اساس</h3>
               <div class="item-sort">
                 <label class="checkbox path">
-                  <input type="checkbox">
+                  <input type="checkbox" [checked]="orderBy === 1" (click)="orderClicked('cheapest',$event)">
                   <svg viewBox="0 0 21 21">
                     <path
                       d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
@@ -51,23 +52,13 @@
               </div>
               <div class="item-sort">
                 <label class="checkbox path">
-                  <input type="checkbox">
+                  <input type="checkbox" [checked]="orderBy === 2" (click)="orderClicked('expensive' , $event)">
                   <svg viewBox="0 0 21 21">
                     <path
                       d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                   </svg>
                 </label>
                 <span>گران ترین ها</span>
-              </div>
-              <div class="item-sort">
-                <label class="checkbox path">
-                  <input type="checkbox">
-                  <svg viewBox="0 0 21 21">
-                    <path
-                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
-                  </svg>
-                </label>
-                <span>پر فروش ترین ها</span>
               </div>
 
             </div>
@@ -80,9 +71,17 @@
           </div>
           <div class="list-hotel">
             <!--thumbnail-hotel-->
+            <div *ngIf="isLoading" class="shimmer-1 mt-5">
+              <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
+            </div>
+
+            <div class="empty-box bg-white" *ngIf="hotels.length === 0">
+              <span >هتلی  یافت نشد</span>
+            </div>
+
             <div class="thumbnail-hotel" *ngFor="let hotel of hotels;let i = index">
               <div class="img">
-                <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail : '../../../assets/img/12123131.png'" alt="">
+                <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
               </div>
               <div class="info-thumbnail-hotel">
                 <div class="start-info">
@@ -91,18 +90,11 @@
                     <i class="icon-star" *ngFor="let item of getStars(hotel.stars)"></i>
                   </div>
                   <div class="options-hotel">
-                    <div class="item-option-hotel">
+                    <div class="item-option-hotel" *ngFor="let s of hotel.services">
                       <i class="icon-circle"></i>
-                      <span>حمام</span>
+                      <span>{{ s.name }}</span>
                     </div>
-                    <div class="item-option-hotel">
-                      <i class="icon-circle"></i>
-                      <span>حمام</span>
-                    </div>
-                    <div class="item-option-hotel">
-                      <i class="icon-circle"></i>
-                      <span>حمام</span>
-                    </div>
+
 
                   </div>
                   <div class="location-hotel">
@@ -121,9 +113,9 @@
                   </div>
                 </div>
                 <div class="end-info">
-                  <span *ngIf="isDesktop">قیمت هر نفر برای {{ this.req.stayCount }} شب از :</span>
+                  <span *ngIf="isDesktop">قیمت تور برای هر نفر {{ this.req.stayCount }} شب از :</span>
                   <div class="price">
-                    <strong>{{ getMinPrice(hotel)  | sperator}}</strong>
+                    <strong>{{ hotel.totalRoomPrice  | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                   <a (click)="selectHotel(hotel.slug)" class="btn-base w-100">انتخاب هتل و رزرو</a>
