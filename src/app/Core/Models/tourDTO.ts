@@ -345,6 +345,7 @@ export interface PassengerDTO {
   lastName: string;
   id_code: string;
   birthDate: string;
+  type?: any
   phoneNumber: string;
   nationality: string;
   passport_number: string;

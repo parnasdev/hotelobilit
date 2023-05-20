@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
+import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 import { RateDTO, RoomDTO } from 'src/app/Core/Models/newPostDTO';
 import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { ReserveCheckingReqDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
@@ -51,6 +53,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     public cityApi: CityApiService,
     public mobileService: ResponsiveService,
     public calendar: CalenderServices,
+    public reserveApi: ReserveApiService,
     public router: Router,
     public route: ActivatedRoute,
     public message: MessageService,
@@ -179,27 +182,30 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   submit(flightID: number) {
-    let req = {
-      checkIn: this.req.date,
-      checkOut: '',
+    let checkingReq: ReserveCheckingReqDTO = {
+      checkin: this.req.date,
+      stayCount: this.req.stayCount,
       hotel_id: this.hotelInfo.id,
       flight_id: flightID,
       rooms: this.getRoomsCount()
     }
 
+    this.router.navigate([`reserve/${this.hotelInfo.id}/${flightID}`], {
+      queryParams: {
+        checkin: this.req.date,
+        stayCount: this.req.stayCount,
+        rooms: JSON.stringify(this.getRoomsCount())
+      }
+    })
 
-
-    // this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
-    //   if (res.isDone) {
-
-
-
-    //   } else {
-    //     this.message.custom(res.message);
-    //   }
-    // }, (error: any) => {
-    //   this.message.error()
-    // })
+    this.reserveApi.checking(checkingReq).subscribe((res: any) => {
+      if (res.isDone) {
+      } else {
+        this.message.custom(res.message);
+      }
+    }, (error: any) => {
+      this.message.error()
+    })
   }
 
 

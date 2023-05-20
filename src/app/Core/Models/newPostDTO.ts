@@ -106,6 +106,18 @@ export interface roomDTO {
     isSelected?: boolean
 }
 
+export interface ReserveHotelDTO {
+    address: string
+    gallery: any[]
+    id: number
+    location: string
+    services: any[]
+    slug: string
+    stars: string
+    thumbnail: string
+    title: string
+}
+
 export interface statusObjDTO {
     name: string;
     label: string;

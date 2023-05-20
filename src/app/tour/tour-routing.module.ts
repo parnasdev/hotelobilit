@@ -3,11 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { HotelListComponent } from './hotel-list/hotel-list.component';
 import { ChooseRoomAndFlightComponent } from './choose-room-and-flight/choose-room-and-flight.component';
 import { SearchComponent } from './search/search.component';
+import { CompleteReservationComponent } from './complete-reservation/complete-reservation.component';
 
 const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'reserve/:hotel/:flight',
+    component: CompleteReservationComponent
   },
   {
     path: ':city',
@@ -17,6 +22,7 @@ const routes: Routes = [
     path: ':city/flight/:slug',
     component: ChooseRoomAndFlightComponent
   },
+
 ];
 
 @NgModule({

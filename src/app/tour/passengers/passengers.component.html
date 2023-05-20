@@ -1,0 +1,124 @@
+<div class="box-room mt-3">
+  <div class="w-100 d-flex flex-column-mobi justify-content-between align-items-center posi-relative">
+    <h2 class="title-tour">اتاق </h2>
+    <!-- <div class="btn-mobile">
+      <button style="margin-left: 11px;" class="btn-base-2 px-4 h-45" (click)="addRow(null,'cwb')" *ngIf="(reserveData.transfer?.chd_price ?? 0) > 0 && (+reserveData.package.prices.cwb ?? 0) > 0">افزودن کودک با
+        تخت</button>
+      <button class="btn-base-2 px-4 h-45" (click)="addRow(null,'cnb')" *ngIf="(reserveData.transfer?.chd_price ?? 0) > 0">افزودن کودک بدون تخت</button>
+    </div> -->
+  </div>
+  <div style="position: relative;" [formGroup]="ReserveForm">
+    <div formArrayName="passengers">
+      <div class="set-info-passengers posi-relative" *ngFor="let item of PassengerForm.controls; let i = index"
+        [formGroupName]="i">
+        <label class="label-fix" *ngIf="i==0">سرپرست</label>
+        <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')) }}</label>
+        <!-- نام  -->
+        <div class="item-form d-flex align-items-center">
+          <i style="cursor: pointer;font-size: 17px" class="icon-cancel text-danger" *ngIf="getPassebgerLabel(item.get('type')) !== 'سرپرست' &&
+           getPassebgerLabel(item.get('type')) !== 'همراه'" (click)="removeItem(i)"></i>
+          <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
+          <div class="inp-form mt-2">
+            <input type="text" (change)="onChange()" formControlName="firstName" placeholder="نام (لاتین)">
+          </div>
+          <ng-container *ngIf="item.get('firstName')?.touched && item.get('firstName')?.hasError('required')">
+            <span class="text-danger">نام الزامی است</span>
+          </ng-container>
+        </div>
+        <!-- نام خانوادگی -->
+        <div class="item-form">
+          <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+          <div class="inp-form mt-2">
+            <input type="text" (change)="onChange()" formControlName="lastName" placeholder="نام خانوادگی (لاتین)">
+
+          </div>
+          <ng-container *ngIf="item.get('lastName')?.touched && item.get('lastName')?.hasError('required')">
+            <span class="text-danger">نام خانوادگی الزامی است</span>
+          </ng-container>
+        </div>
+        <!-- کدملی -->
+        <div class="item-form" *ngIf="tourType">
+          <!-- <label class="dana-bold" for="">
+            کد ملی
+          </label> -->
+          <div class="inp-form mt-2">
+            <input type="text" (change)="onChange()" placeholder="کدملی" formControlName="id_code">
+
+          </div>
+          <ng-container *ngIf="item.get('id_code')?.touched && item.get('id_code')?.hasError('required')">
+            <span class="text-danger">کدملی الزامی است</span>
+          </ng-container>
+        </div>
+        <!-- تاریخ تولد -->
+        <div class="item-form">
+          <!-- <label class="dana-bold" for="">
+            تاریخ تولد
+          </label> -->
+          <div class="inp-form mt-2" *ngIf="show">
+            <!-- <input type="text" (change)="onChange()" placeholder="اینجا بنویسید …" formControlName="birthDate"> -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input class="input-parent" readonly (dateChange)="onChange()" [min]="getMinDate(item)" [max]="maxDate" matInput
+                formControlName="birthDate" placeholder="تاریخ تولد" autocomplete="off" [matDatepicker]="picker4"
+                (click)="picker4.open()">
+              <mat-datepicker startView="year" #picker4></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <ng-container *ngIf="item.get('birthDate')?.touched && item.get('birthDate')?.hasError('required')">
+            <span class="text-danger">تاریخ تولد الزامی است</span>
+          </ng-container>
+        </div>
+        <!-- <div class="item-form" *ngIf="i === 0">
+          <label class="dana-bold" for="">
+            شماره همراه
+          </label>
+          <div class="inp-form mt-2">
+            <input type="text" (change)="onChange()" formControlName="phoneNumber" placeholder="اینجا بنویسید …">
+
+          </div>
+          <ng-container *ngIf="item.get('phoneNumber')?.touched && item.get('phoneNumber')?.hasError('required')">
+            <span class="text-danger">شماره همراه الزامی است</span>
+          </ng-container>
+        </div> -->
+        <!-- شماره پاسپورت -->
+        <div class="item-form" *ngIf="!tourType">
+          <!-- <label class="dana-bold" for="">
+            شماره پاسپورت
+          </label> -->
+          <div class="inp-form mt-2">
+            <input type="text" (change)="onChange()" placeholder="شماره پاسپورت" formControlName="passport_number">
+          </div>
+          <ng-container
+            *ngIf="item.get('passport_number')?.touched && item.get('passport_number')?.hasError('required')">
+            <span class="text-danger">شماره پاسپورت الزامی است</span>
+          </ng-container>
+        </div>
+        <!-- تاریخ انقضای پاسپورت -->
+        <div class="item-form" *ngIf="!tourType">
+          <!-- <label class="dana-bold" for="">
+            تاریخ انقضای پاسپورت
+          </label> -->
+          <div class="inp-form mt-2">
+
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input class="input-parent" (dateChange)="onChange()" readonly [min]="maxDate" matInput
+                formControlName="passport_expire" placeholder="" autocomplete="off" placeholder="تاریخ انقضای پاسپورت"
+                [matDatepicker]="picker3" (click)="picker3.open()">
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+          <ng-container
+            *ngIf="item.get('passport_expire')?.touched && item.get('passport_expire')?.hasError('required')">
+            <span class="text-danger">تاریخ انقضا الزامی است</span>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- <div class="d-flex align-items-center row-end  justify-content-between flex-column-mobi" *ngIf="(reserveData.transfer?.inf_price ?? 0) > 0">
+      <span>مسافر گرامی چنانچه کودک زیر دوسال به همراه دارید جهت ورود اسامی دکمه روبه رو را بزنید</span>
+      <button class="btn-base-2 px-4 h-45" (click)="addRow(null,'infant')">افزودن نوزاد</button>
+    </div> -->
+  </div>
+</div>
