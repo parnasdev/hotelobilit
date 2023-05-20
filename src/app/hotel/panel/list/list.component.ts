@@ -57,12 +57,13 @@ export class ListComponent implements OnInit {
     this.hotelReq = {
       isAdmin: true,
       paginate: true,
-      city: this.cityFC.value === '' ? null : this.cityFC.value,
+      city: this.cityFC.value,
       search: this.keywordFC.value
     }
-    this.hotelApi.getPosts('hotel',this.p,this.keywordFC.value ?? '').subscribe((res: any) => {
+    this.hotelApi.getPosts('hotel',this.p,this.keywordFC.value ?? '', this.cityFC.value ?? '').subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
+        this.citiesResponse = res.cities
         this.hotelList = res.data;
         this.paginate = res.meta;
         this.paginateConfig = {
@@ -101,7 +102,7 @@ export class ListComponent implements OnInit {
     }else {
       this.cityFC.setValue('');
     }
-    this.getList()
+    // this.getList()
   }
 
   deleteClicked(slug: string) {
@@ -125,4 +126,5 @@ export class ListComponent implements OnInit {
     this.p = event;
     this.getList();
   }
+
 }

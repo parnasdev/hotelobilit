@@ -19,11 +19,11 @@ export class PostApiService {
     this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
   }
 
-  getPosts(postType: string ,pageNum = 1,q: string = ''): any {
+  getPosts(postType: string ,pageNum = 1,q: string = '', city_name: string = ''): any {
     let strUrl
-    if(q !== '') {
+    if(q !== '' || city_name !== '') {
       strUrl = pageNum ? this.serverControllerName +
-      `posts?post_type=${postType}&q=${q}&page=${pageNum}` :
+      `posts?post_type=${postType}&q=${q}&page=${pageNum}&city=${city_name}` :
        this.serverControllerName + `posts?q=${q}&post_type=${postType}`;
     }else {
       strUrl = pageNum ? this.serverControllerName +
