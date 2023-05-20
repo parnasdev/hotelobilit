@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyRatesComponent } from './currency-rates/currency-rates.component';
 import { ServiceRatesComponent } from './service-rates/service-rates.component';
 import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
+import { MaterialModule } from '../common-project/persianDatePickerAdapter/material.module';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -32,6 +33,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NgxMaskDirective,
     NgxMaskPipe,
     ReactiveFormsModule,
+    MaterialModule
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class PanelModule { }

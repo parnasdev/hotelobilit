@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { authInterceptorProviders } from './Core/interceptor/auth.interceptors';
+import { MaterialModule } from './common-project/persianDatePickerAdapter/material.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { authInterceptorProviders } from './Core/interceptor/auth.interceptors';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule
+
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReservePassengersDTO } from 'src/app/Core/Models/reserveDTO';
-import { PassengerDTO, ReserveInfoDTO, RoomDTO } from 'src/app/Core/Models/tourDTO';
+import { ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 
@@ -12,14 +11,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class PassengersComponent implements OnInit, OnChanges {
   @Input() age = '0';
-  @Input() RoomData: RoomDTO = {
-    capacity: 0,
-    id: 0,
-    name: '',
-    passengers: [],
-    price: 0,
-    supply: 0
-  }
+  @Input() RoomData!: ReserveRoomDTO;
   @Output() passengerResult = new EventEmitter();
   @Input() tourType: boolean = false;   // false = 'تور خارجی'  // true = ' تور داخلی'
   @Input() inCommingPassengers: any = {
@@ -40,18 +32,9 @@ export class PassengersComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['RoomData'].firstChange) {
-      for (let i = 0; i < (this.RoomData?.capacity ?? []); i++) {
-
-        // if (this.RoomData.passengers[i]) {
-        //   this.addRow(this.RoomData.passengers[i]);
-        // } else {
-        //   if (i == 0) {
-        //     this.addRow(this.RoomData.passengers[i], 'supervisor');
-        //   } else {
-        //     this.addRow(this.RoomData.passengers[i], 'passenger');
-
-        //   }
-        // }
+      for (let i = 0; i < (this.RoomData?.Adl_capacity ?? []); i++) {
+            this.addRow();
+      
       }
     }
     // if (changes.age.firstChange) {
@@ -91,26 +74,22 @@ export class PassengersComponent implements OnInit, OnChanges {
     return this.ReserveForm.get('passengers') as FormArray;
   }
 
-  addRow(obj: ReservePassengersDTO | null = null, type: string = '') {
-    if (this.checkAllowAddPassengerWithType(type)) {
+  addRow() {
       const Passengers = this.fb.group({
-        name: [obj ? obj.name : ''],
-        family: [obj ? obj.family : ''],
-        id_code: [obj ? obj.id_code : ''],
-        passport: [obj ? obj.passport : ''],
-        expired_passport: [obj ? obj.expired_passport : ''],
-        birth_day: [obj ? obj.birth_day : ''],
-        type: [obj ? obj.type : ''],
+        name: [''],
+        family: [''],
+        id_code: [''],
+        passport: [''],
+        expired_passport: [''],
+        birth_day: [''],
+        type: [''],
       })
       this.PassengerForm.push(Passengers);
-    } else {
-      this.message.custom('امکان اضافه کردن بیشتر وجود ندارد')
-
-    }
+  
   }
 
   convertPassengerObject() {
-    let passengers: PassengerDTO[] = [];
+    let passengers: ReservePassengersDTO[] = [];
     this.PassengerForm.controls.forEach((item, index) => {
       passengers.push(item.value)
     });
