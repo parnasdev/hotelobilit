@@ -52,14 +52,16 @@
             <label for="">موقعیت هتل</label>
             <input type="text" formControlName="location">
           </div> -->
-          <div class="item-info" *ngIf="hotelInfo.cities.length>0">
+          <prs-select-city *ngIf="newCities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="newCities" [inCommingCity]="hotelInfo.city_id"
+            (citySelected)="getCitySelected($event)"></prs-select-city>
+          <!-- <div class="item-info" *ngIf="hotelInfo.cities.length>0">
             <div class="selectdiv">
               <select formControlName="city_id" name="" id="" *ngIf="show">
                 <option disable [value]="null">شهر مورد نظر را انتخاب کنید</option>
                 <option *ngFor="let city of newCities" [value]="city.id">{{city.name}}</option>
               </select>
             </div>
-          </div>
+          </div> -->
           <div class="info-tour-body">
             <div class="top">
               <div class="item-info-second w-100">
@@ -113,7 +115,7 @@
     <div class="d-flex w-100 m-3 align-items-center justify-content-center">
       <div class="d-flex align-items-center justify-content-center" style="margin: 20px;" *ngFor="let service of hotelInfo.services">
         <label style="margin-left: 10px!important;" for="">{{ service.name }}</label>
-        <mat-checkbox [(ngModel)]="service.isSelected"></mat-checkbox>
+        <mat-checkbox [(ngModel)]="service.isSelected" [ngModelOptions]="{standalone: true}"></mat-checkbox>
       </div>
     </div>
   </div>

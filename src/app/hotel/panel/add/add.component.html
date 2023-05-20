@@ -41,7 +41,9 @@
               <span class="text-danger">{{errorService.getError('slug')}}</span>
             </div>
           </div>
-          <div class="item-info" *ngIf="data.cities.length>0">
+          <prs-select-city *ngIf="newCities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="newCities"
+          (citySelected)="getCitySelected($event)"></prs-select-city>
+          <!-- <div class="item-info" >
             <label for="">شهر </label>
             <div style="height: 45px" class="selectdiv">
               <select formControlName="city_id" name="" id="">
@@ -52,7 +54,7 @@
             <div *ngIf="errorService.hasError('city_id')">
               <span class="text-danger">{{errorService.getError('city_id')}}</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="bottom bottom-1">
           <!-- <div class="item-info">
@@ -109,7 +111,7 @@
       <div class="d-flex w-100 m-3 align-items-center justify-content-center">
         <div class="d-flex align-items-center justify-content-center" style="margin: 20px;" *ngFor="let service of data.services">
           <label style="margin-left: 10px!important;" for="">{{ service.name }}</label>
-          <mat-checkbox [(ngModel)]="service.isSelected"></mat-checkbox>
+          <mat-checkbox [(ngModel)]="service.isSelected" [ngModelOptions]="{standalone: true}"></mat-checkbox>
         </div>
       </div>
     </div>

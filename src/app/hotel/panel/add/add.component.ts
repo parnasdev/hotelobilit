@@ -13,7 +13,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ErrorsService } from "../../../Core/Services/errors.service";
 import { CheckErrorService } from "../../../Core/Services/check-error.service";
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
-import { citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { categoriesDTO, citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -71,8 +71,13 @@ export class AddComponent implements OnInit {
   serviceIDs: string[] = [];
   isLoading = false;
 
+  showServices = false;
+
   selectedRooms: roomDTO[] = [];
   rooms: roomDTO[] = []
+
+  newCities :categoriesDTO[] = []
+  showCities = false;
 
   constructor(
     public router: Router,
@@ -139,6 +144,7 @@ export class AddComponent implements OnInit {
     this.hotelApi.createPosts('hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
+        this.getCities(this.data.cities);
         this.createRoomsList()
       } else {
         this.message.custom(res.message);
@@ -343,5 +349,15 @@ export class AddComponent implements OnInit {
 
   generateSlug(): void {
     this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
+  }
+
+  getCities(cities: any[]){
+    cities.forEach(item => {
+      this.newCities = this.newCities.concat(item.categories)
+    })
+  }
+
+  getCitySelected(item: any): void {
+    this.hotelForm.controls['city_id'].setValue(item.id);
   }
 }

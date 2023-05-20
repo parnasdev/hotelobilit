@@ -47,11 +47,8 @@ export class EditComponent extends AddComponent implements OnInit {
 
   };
 
-  newCities :categoriesDTO[] = []
-  showCities = false;
-
   public override show = true;
-  showServices = false;
+  // showServices = false;
   hotelImages: UploadResDTO[] = [];
   removedImages: number[] = [];
 
@@ -69,7 +66,7 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.hotelInfo = res.data;
         this.roomTypes = this.hotelInfo.roomTypes;
-        this.getCities();
+        this.getCities(this.hotelInfo.cities);
         this.showCities = true;
         this.createRooms()
         this.setData()
@@ -304,14 +301,6 @@ export class EditComponent extends AddComponent implements OnInit {
       }
     })
     return list;
-  }
-
-  getCities(){
-    let newList: categoriesDTO[] = [];
-    this.hotelInfo.cities.forEach(item => {
-      this.newCities = this.newCities.concat(item.categories)
-    })
-    console.log(this.newCities)
   }
 
 }
