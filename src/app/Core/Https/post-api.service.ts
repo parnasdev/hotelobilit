@@ -23,11 +23,11 @@ export class PostApiService {
     let strUrl
     if(q !== '' || city_name !== '') {
       strUrl = pageNum ? this.serverControllerName +
-      `posts?post_type=${postType}&q=${q}&page=${pageNum}&city=${city_name}` :
+      `posts?post_type=${postType}&q=${q}&page=${pageNum}&category=${city_name}` :
        this.serverControllerName + `posts?q=${q}&post_type=${postType}`;
     }else {
       strUrl = pageNum ? this.serverControllerName +
-      `posts?post_type=${postType}&page=${pageNum}` :
+      `posts?post_type=${postType}&page=${pageNum}&category=${city_name}` :
        this.serverControllerName + `posts?post_type=${postType}`;
     }
 

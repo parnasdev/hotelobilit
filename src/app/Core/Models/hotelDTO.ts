@@ -93,7 +93,7 @@ export interface HotelRequestDTO {
   paginate: boolean
   perPage?: number
   hasTour?: boolean;
-  city: number | string | null;
+  category: number | string | null;
   search: string | null;
 }
 

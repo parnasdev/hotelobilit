@@ -63,7 +63,7 @@ export class SelectHotelComponent implements OnInit,OnChanges {
     const req: HotelRequestDTO = {
       isAdmin: this.isAdmin,
       paginate: false,
-      city: null,
+      category: null,
       search: null,
     }
     this.hotelApi.getHotels(req).subscribe((res: any) => {

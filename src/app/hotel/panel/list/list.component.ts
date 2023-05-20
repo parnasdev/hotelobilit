@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   hotelReq: HotelRequestDTO = {
     isAdmin: true,
     paginate: true,
-    city: null,
+    category: null,
     search: null
   };
   citiesResponse: CityResponseDTO[] = []
@@ -57,7 +57,7 @@ export class ListComponent implements OnInit {
     this.hotelReq = {
       isAdmin: true,
       paginate: true,
-      city: this.cityFC.value,
+      category: this.cityFC.value,
       search: this.keywordFC.value
     }
     this.hotelApi.getPosts('hotel',this.p,this.keywordFC.value ?? '', this.cityFC.value ?? '').subscribe((res: any) => {
