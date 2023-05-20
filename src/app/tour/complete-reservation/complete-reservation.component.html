@@ -1,0 +1,134 @@
+<div class="prs-responsive">
+  <div class="col-md-11 mx-auto px-mobi">
+    <div class="box-fix-user-reservation animated fadeInUp">
+      <div class="detail-box-fix-user-reservation">
+        <div class="p-detail-reservation col-md-11 mx-auto">
+          <div class="p-price d-flex align-items-center">
+            <span>مبلغ قابل پرداخت:</span>
+            <div class="price d-flex align-items-center">
+              <strong>2000000</strong>
+              <small>تومان</small>
+            </div>
+          </div>
+          <div class="count-p">
+            <div class="total">
+              <span>تعداد کل(نفرات) : {{ 1 + 'نفر' }}</span>
+            </div>
+            <div class="room">
+              <span>تعداد اتاق انتخابی : 1</span>
+            </div>
+          </div>
+          <button class="btn-base btn-box-fix" (click)="submit()">ثبت درخواست</button>
+          <!-- <button class="btn-base btn-box-fix">رزرو</button> -->
+        </div>
+      </div>
+    </div>
+    <div class="d-flex  align-items-center justify-content-between ">
+      <div class="d-flex align-items-center mt-4">
+        <h2 class="title-tour">اطلاعات تور</h2>
+      </div>
+      <div class="code">
+        <span>کد رفرنس: {{ 'fjg454' }}</span>
+      </div>
+    </div>
+    <div class="box-top-box-reserve">
+      <div class="d-flex align-items-center title-top justify-content-between">
+        <h2 class="title-tour">نام تور</h2>
+        <h2 class="title-tour">هتل انتخابی : نام هتل</h2>
+      </div>
+      <div class="set-request-tour">
+        <div class="info-from">
+          <div class="d-flex align-items-center">
+            <span>پرواز رفت:</span>
+            <span style="margin-right: 4px" class="city-name">تهران به کیش</span>
+            <span>تابان</span>
+          </div>
+          <div class="item">
+            <span class="title">تاریخ و ساعت پرواز رفت :</span>
+            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۹/۰۸</span>
+          </div>
+          <div class="item">
+            <span class="title">تاریخ ورود به هتل :</span>
+            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۶/۰۲</span>
+          </div>
+        </div>
+        <div class="info-time">
+          <span class="title">مدت اقامت:</span>
+          <span class="text">۲ شب ۳ روز</span>
+        </div>
+        <div class="info-to">
+          <div class="d-flex align-items-center">
+            <span>پرواز برگشت:</span>
+            <span style="margin-right: 4px" class="city-name">کیش به تهران</span>
+            <span></span>
+          </div>
+
+          <div class="item">
+            <span class="title">تاریخ و ساعت پرواز برگشت :</span>
+            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۲/۰۵</span>
+          </div>
+          <div class="item">
+            <span class="title">تاریخ خروج از هتل :</span>
+            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۴/۰۳</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <h2 style="font-size: 14px" class="title-tour text-danger mt-3">اطلاعات رزروگیرنده (این مشخصات به عنوان طرف
+      قرارداد درنظر گرفته می شود)</h2>
+    <div class="set-info-supervisor">
+      <div class="item-form">
+        <label class="dana-bold" for="">نام</label>
+        <div class="inp-form mt-2">
+          <input type="text" placeholder="اینجا بنویسید …">
+        </div>
+      </div>
+      <div class="item-form">
+        <label class="dana-bold" for=""> نام خانوادگی</label>
+        <div class="inp-form mt-2">
+          <input type="text" placeholder="اینجا بنویسید …">
+        </div>
+      </div>
+      <div class="item-form">
+        <label class="dana-bold" for="">
+          کد ملی
+        </label>
+        <div class="inp-form mt-2">
+          <input type="text" placeholder="اینجا بنویسید …">
+        </div>
+      </div>
+
+      <div class="item-form">
+        <label class="dana-bold" for="">
+          شماره همراه
+        </label>
+        <div class="inp-form mt-2">
+          <input type="text" placeholder="اینجا بنویسید …">
+        </div>
+      </div>
+    </div>
+    <h2>اطلاعات مسافران</h2>
+<!-- 
+    <prs-passengers *ngFor="let room of roomsSelected" [RoomData]="room"
+      (passengerResult)="getRoomData($event)"></prs-passengers> -->
+
+
+
+    <div class="rules mt-3">
+      <!-- <input type="checkbox" [(ngModel)]="isPrivacyCheck"> -->
+      <p>ثبت درخواست به منزله پذیرش تمام
+        <a style="color: var(--base-color)" (click)="openRulesPopup()">قوانین و مقررات</a>
+        قوانین و مقررات مرتبط با سایت اسنپ تریپ و پکیجهای این تور می باشد
+      </p>
+    </div>
+
+
+
+    <div class="p-submit w-100 d-flex justify-content-center mt-4">
+      <button class="btn-base px-4" (click)="submit()">ثبت درخواست</button>
+    </div>
+  </div>
+
+</div>
