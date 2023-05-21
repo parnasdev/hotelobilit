@@ -16,15 +16,15 @@
   <div class="bottom">
     <div class="w-100 d-flex align-items-center justify-content-between">
       <h2 class="title">قیمت گذاری هتل</h2>
+      <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+        <li *ngFor="let room of rooms" class="nav-item">
+          <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
+             (click)="changeTab(room.id,room.room_type_id)">
+            {{ room.room_type}}</a>
+          <span *ngIf="isCoefficient === '1'">ضریب :{{ room.coefficient }}</span>
+        </li>
+      </ul>
     </div>
-    <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
-      <li *ngFor="let room of rooms" class="nav-item">
-        <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
-          (click)="changeTab(room.id,room.room_type_id)">
-          {{ room.room_type}}</a>
-        <span *ngIf="isCoefficient === '1'">ضریب :{{ room.coefficient }}</span>
-      </li>
-    </ul>
     <div class="tab-content" id="pills-tabContent">
       <!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
