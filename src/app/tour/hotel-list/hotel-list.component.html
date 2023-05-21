@@ -12,7 +12,8 @@
             <div class="p-search">
               <h3>جستجوی نام هتل یا اقامتگاه</h3>
               <div class="inp-form w-100">
-                <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..." (change)="filterSubmit()">
+                <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..."
+                       (change)="filterSubmit()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
                   <g id="Search..." transform="translate(0 0)">
                     <path id="Path_1136" data-name="Path 1136"
@@ -76,16 +77,24 @@
             </div>
 
             <div class="empty-box bg-white" *ngIf="hotels.length === 0">
-              <span >هتلی  یافت نشد</span>
+              <span>هتلی  یافت نشد</span>
             </div>
 
             <div class="thumbnail-hotel" *ngFor="let hotel of hotels;let i = index">
               <div class="img">
-                <img draggable="false" [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
+                <img draggable="false"
+                     [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
               </div>
               <div class="info-thumbnail-hotel">
                 <div class="start-info">
-                  <h2 class="name-hotel"><a href="">{{ hotel.title }}</a></h2>
+                  <div class="d-flex flex-column align-items-start">
+                    <h2 class="name-hotel"><a href="">{{ hotel.title }}</a></h2>
+                    <h2 class="name-hotel-en"><a href="">hotel title en</a></h2>
+                  </div>
+                  <div *ngIf="false" class="d-flex flex-column align-items-start">
+                    <h2 class="name-hotel"><a href="">hotel title en</a></h2>
+                    <h2 class="name-hotel-en"><a href="">{{ hotel.title }}</a></h2>
+                  </div>
                   <div class="star-hotel">
                     <i class="icon-star" *ngFor="let item of getStars(hotel.stars)"></i>
                   </div>
@@ -109,7 +118,7 @@
                                 stroke-width="2"/>
                       </g>
                     </svg>
-                    <span>{{ hotel.address ? hotel.address :  'ثبت نشده'}}</span>
+                    <span>{{ hotel.address ? hotel.address : 'ثبت نشده'}}</span>
                   </div>
                 </div>
                 <div class="end-info">

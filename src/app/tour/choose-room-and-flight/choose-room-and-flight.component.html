@@ -84,25 +84,10 @@
 
           <div class="thumbnail-flight" *ngFor="let item of hotelInfo.flights">
             <div class="title">
-              <h3>اطلاعات اتاق</h3>
               <h3>اطلاعات پرواز</h3>
+              <h3>اطلاعات اتاق</h3>
             </div>
             <div class="middle">
-              <div class="rooms">
-                <div *ngFor="let room of hotelInfo.rooms;let i = index" (click)="roomCollapse()" class="item-room">
-                  <span class="text w-50">{{ room.room_type }}</span>
-
-                  <div class="p-count w-50">
-                    <button
-                      [ngClass]="{'btn-plus-off' : room.count === this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) < room.rates[0].available_room_count}"
-                      (click)="plus(i)">+</button>
-                    <span>{{ room.count ?? 0 }}</span>
-                    <button class="btn-minus" (click)="minus(i)">-</button>
-                  </div>
-                  <!-- <i class="icon-down-open"></i> -->
-                  <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
-                </div>
-              </div>
               <div class="p-flight">
                 <div class="from">
                   <img src="" alt="">
@@ -135,6 +120,25 @@
                   </div>
                 </div>
 
+              </div>
+              <div  class="rooms">
+                <div *ngFor="let room of hotelInfo.rooms;let i = index" (click)="roomCollapse()" class="item-room">
+                  <span class="text w-50">{{ room.room_type }}</span>
+
+                  <div class="p-count w-50">
+                    <button
+                      [ngClass]="{'btn-plus-off' : room.count === this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) < room.rates[0].available_room_count}"
+                      (click)="plus(i)">+</button>
+                    <span>{{ room.count ?? 0 }}</span>
+                    <button class="btn-minus" (click)="minus(i)">-</button>
+                  </div>
+                  <!-- <i class="icon-down-open"></i> -->
+                  <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
+                </div>
+                <div class="price">
+                  <strong>2,000.000</strong>
+                  <small>تومان</small>
+                </div>
               </div>
             </div>
             <div class="box-end">

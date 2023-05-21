@@ -1253,7 +1253,20 @@ prs-show-location {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 8px;
-
+      margin-top: 16px;
+      .price{
+        display: flex;
+        align-items: center;
+        strong{
+          font-size: 15px;
+          color: $dark-color;
+        }
+        small{
+          font-size: 13px;
+          margin-right: 4px;
+          color: #c6c6c6;
+        }
+      }
       .item-room {
         width: 100%;
         display: flex;
@@ -1287,9 +1300,8 @@ prs-show-location {
 
     .p-flight {
       width: 100%;
-      border-top: 2px dashed #ebebeb;
-      margin-top: 12px;
-      padding-top: 12px;
+      border-bottom: 2px dashed #ebebeb;
+      padding-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
