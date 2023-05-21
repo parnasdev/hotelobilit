@@ -1,4 +1,7 @@
-<div class="add-tour">
+<div class="d-flex align-items-center justify-content-center" *ngIf="isLoading">
+  <span>در حال دریافت اطلاعات ... </span>
+</div>
+<div class="add-tour" *ngIf="!isLoading">
 
   <form class="w-100" [formGroup]="hotelForm">
     <div class="box-info-tour">

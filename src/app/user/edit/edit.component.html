@@ -3,7 +3,7 @@
     <div class="box-info-tour">
       <div class="info-tour-header">
         <div class="right">
-          <h2>ایجاد کاربر جدید</h2>
+          <h2>ویرایش کاربر </h2>
         </div>
       </div>
 
@@ -65,7 +65,24 @@
 
         </div>
 
+
+
+
         <div class="top" *ngIf="role === 'programmer' || 'admin'">
+          <div class="address-hotel">
+            <label for="address">شهر های موردنظر را انتخاب کنید</label>
+            <mat-form-field appearance="fill">
+              <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()"  multiple>
+                <mat-select-trigger>
+                  <span>شهر های انتخاب شده</span>
+
+                </mat-select-trigger>
+                <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+ 
+    
+          </div>
           <div class="address-hotel">
             <label for="address">هتل های موردنظر را انتخاب کنید</label>
             <mat-form-field appearance="fill">
@@ -75,7 +92,7 @@
                   <span>هتل های انتخاب شده</span>
 
                 </mat-select-trigger>
-                <mat-option *ngFor="let hotel of hotels" [value]="hotel.id">{{hotel.title}}</mat-option>
+                <mat-option *ngFor="let hotel of filteredHotel" [value]="hotel.id">{{hotel.title}}</mat-option>
               </mat-select>
             </mat-form-field>
             <div>

@@ -165,7 +165,6 @@ export class MainPickerComponent implements OnInit {
   isBefore(date: any) {
     let d = moment(date,'jYYYY/jMM/jDD').format('YYYY/MM/DD');
     let today = moment(new Date()).format('YYYY/MM/DD');
-    console.log(moment(d).isBefore(today))
     return moment(d).isBefore(today)
   }
 

@@ -22,6 +22,7 @@ export interface storeHotelReqDTO {
     id: number
     thumbnail: string
     title: string
+    titleEn: string
     slug: string
     visitCount: number
     user: userDTO

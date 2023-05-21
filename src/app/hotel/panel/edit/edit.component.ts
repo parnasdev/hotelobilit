@@ -11,7 +11,6 @@ import { InfoHotelDTO, categoriesDTO, roomDTO, roomObjDTO } from 'src/app/Core/M
 export class EditComponent extends AddComponent implements OnInit {
   showData = false
   hotelName = '';
-
   hotelId = 1;
   roomTypes: roomObjDTO[] = []
 
