@@ -1282,7 +1282,8 @@ prs-show-location {
         border: 1px solid #eee;
         cursor: pointer;
         position: relative;
-        .price{
+
+        .price {
           padding-top: 8px;
           border-top: 2px dashed $border-color;
         }
@@ -1314,6 +1315,10 @@ prs-show-location {
       align-items: center;
       justify-content: space-between;
 
+      .line {
+        border-bottom: 2px dashed $border-color;
+      }
+
       .from,
       .to {
         display: flex;
@@ -1323,6 +1328,7 @@ prs-show-location {
         .detail {
           display: flex;
           flex-direction: column;
+          align-items: center;
 
           h5 {
             font-size: 15px;
@@ -1343,8 +1349,11 @@ prs-show-location {
 
         .location {
           color: $gray-color;
-          font-size: 14px;
+          font-size: 13px !important;
           margin-top: 6px;
+          background: $light-color;
+          border-radius: 10px;
+          padding: 8px;
         }
 
         .p-date {
