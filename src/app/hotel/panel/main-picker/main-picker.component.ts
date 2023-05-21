@@ -146,8 +146,6 @@ export class MainPickerComponent implements OnInit {
 
   fillObject(dates: any = []) {
     let result: any[] = [];
-
-
     dates.forEach((date: any) => {
       const object = {
         dateFa: moment(date).isValid() ? date : '',
@@ -173,6 +171,7 @@ export class MainPickerComponent implements OnInit {
     if (this.pricingType === '0') {
       this.normalClickType(item)
     } else {
+      debugger
       if ((this.room ? this.room.room_type_id : 0) === this.standardTwinId) {
         this.normalClickType(item)
       } else {
