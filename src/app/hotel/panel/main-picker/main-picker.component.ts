@@ -76,7 +76,6 @@ export class MainPickerComponent implements OnInit {
     }
   };
 
-
   fixDates(startof: any, endOf: any) {
     const days = this.enumerateDaysBetweenDates(startof, endOf)
     let weekOfFirstDay = moment(startof).weekday() + 1;
@@ -99,7 +98,6 @@ export class MainPickerComponent implements OnInit {
     // console.log(this.fixDates(start2, end2))
     const dates = [...this.fixDates(start1, end1), ...this.fixDates(start2, end2)]
     this.daysOfMonth = this.fillObject(dates)
-
     this.getHotelRates()
   }
 
