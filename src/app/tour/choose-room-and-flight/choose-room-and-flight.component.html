@@ -106,13 +106,14 @@
                 </div>
                 <div class="line w-50">
                   <div class="airline-from">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-center">
                       <img width="25" src="{{  item.airline_thumb ?? '../../../assets/img/nopicture.jpg' }}" alt="">
                       <span>{{ item.airline_name }}</span>
                     </div>
                   </div>
+                  <div class="line-between"></div>
                   <div class="airline-to">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-center">
                       <img width="25"  src="{{ item.flight.airline_thumb?? '../../../assets/img/nopicture.jpg'  }}" alt="">
                       <span>{{item.flight.airline_name}}</span>
                     </div>

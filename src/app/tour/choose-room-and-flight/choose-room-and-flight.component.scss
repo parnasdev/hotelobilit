@@ -1316,18 +1316,26 @@ prs-show-location {
       justify-content: space-between;
 
       .line {
-        border-top: 2px dashed $border-color;
         padding-top: 10px;
         display: flex;
-        margin-top: 18px;
         align-items: center;
         justify-content: space-between;
+        .line-between{
+          border-top: 2px dashed $border-color;
+          width: 80%;
+          position: relative;
+          top: 3px;
+        }
         .airline-from , .airline-to{
+          display: flex;
+          img{
+            margin-bottom: 8px;
+          }
           span{
             font-size: 14px;
             font-weight: 600;
             color: $gray-color;
-            margin-right: 4px;
+            margin-top: 8px;
           }
         }
       }
