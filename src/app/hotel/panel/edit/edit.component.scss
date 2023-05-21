@@ -623,6 +623,11 @@ input {
   display: grid !important;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
    gap: 15px;
+  .item{
+    background: $white-color;
+    padding: 5px 8px !important;
+    border-radius: 5px;
+  }
   .mdc-checkbox__background {
     width: 20px !important;
     height: 20px !important;

@@ -113,7 +113,7 @@
       </div>
     </div>
     <div class="d-flex w-100 p-list-option m-3 align-items-center justify-content-center">
-      <div class="d-flex align-items-center justify-content-start w-100" *ngFor="let service of hotelInfo.services">
+      <div class="d-flex align-items-center justify-content-start w-100 item" *ngFor="let service of hotelInfo.services">
         <mat-checkbox [(ngModel)]="service.isSelected" [ngModelOptions]="{standalone: true}"></mat-checkbox>
         <label style="margin-left: 10px!important;" for="">{{ service.name }}</label>
       </div>
