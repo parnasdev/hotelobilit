@@ -15,6 +15,7 @@ export interface TourSearchReqDTO {
 export interface HotelSearchResDTO {
     id: number;
     title: string;
+    titleEn: string;
     slug: string
     location: string;
     address: string;

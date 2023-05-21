@@ -212,7 +212,7 @@ export class EditComponent extends AddComponent implements OnInit {
           x.name === '2 تخته' ||
           x.name === '۲ تخت') {
           x.has_coefficient = true;
-          x.coefficient = 1;
+          x.coefficient = 2;
         } else {
           x.has_coefficient = false;
         }

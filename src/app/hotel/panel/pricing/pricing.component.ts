@@ -20,7 +20,7 @@ export class PricingComponent implements OnInit {
   showCalendar = true;
   slug = '';
   id = ''
- isCoefficient = '0';
+  isCoefficient = '0';
   req!: ratigListReqDTO;
   activedRoom = 0;
   roomTypeId = 0;
@@ -55,14 +55,14 @@ export class PricingComponent implements OnInit {
         this.ratingData = res.data;
         this.rooms = this.ratingData.hotel.rooms ?? [];
 
-    let obj:RoomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
-    if (obj && obj.has_coefficient) {
-      this.isCoefficient = '1'
-    } else {
-      this.isCoefficient = '0'
-    }
-        
-        
+        let obj: RoomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
+        if (obj && obj.has_coefficient) {
+          this.isCoefficient = '1'
+        } else {
+          this.isCoefficient = '0'
+        }
+
+
         if (this.rooms.length > 0) {
           this.activedRoom = this.rooms[0].id;
           this.roomTypeId = this.rooms[0].room_type_id
@@ -93,7 +93,7 @@ export class PricingComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-  changeTab(id: number,roomTypeId:number): void {
+  changeTab(id: number, roomTypeId: number): void {
     this.activedRoom = id
     this.roomTypeId = roomTypeId
 
