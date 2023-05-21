@@ -31,7 +31,7 @@
   <div class="w-48 mt-4 d-flex flex-column align-items-start">
     <label for="">تعداد تخت اضافه</label>
     <div class="inp-form mt-2 w-100">
-      <input class="input" type="text" placeholder="تعداد تخت اضافه" [formControl]="bedCountFC">
+      <input class="input" type="text" readonly placeholder="تعداد تخت اضافه" [formControl]="bedCountFC">
     </div>
   </div>
 
@@ -53,7 +53,7 @@
   </div> -->
 
 
-  <div class="d-flex mt-3 w-75 mx-auto align-items-center justify-content-evenly">
+  <!-- <div class="d-flex mt-3 w-75 mx-auto align-items-center justify-content-evenly">
     <span>نرخ ارز</span>
     <div class="inp-form w-25">
       <select class="w-100" name="" id="" [formControl]="rateFC">
@@ -64,7 +64,7 @@
         <option [value]="'euro'">یورو</option>
       </select>
     </div>
-  </div>
+  </div> -->
 
   <div class="d-flex justify-content-between mx-auto align-items-center w-50 mt-5">
     <button class="btn-base btn w-48 h-45" (click)="submit()">ثبت</button>

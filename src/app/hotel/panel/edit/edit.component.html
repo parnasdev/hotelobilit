@@ -47,6 +47,18 @@
             <bar-rating [(rate)]="currentStar" [theme]="'default'" [max]="5"></bar-rating>
           </div>
         </div>
+        <div class="item-info">
+          <label>نرخ ارز</label>
+          <div class="inp-form w-25">
+            <select class="w-100" name="" id="" formControlName="currency">
+              <option disabled [value]="'all'">انتخاب کنید</option>
+              <option [value]="'toman'">تومان</option>
+              <option [value]="'dollar'">دلار</option>
+              <option [value]="'derham'">درهم</option>
+              <option [value]="'euro'">یورو</option>
+            </select>
+          </div>
+        </div>
         <div class="bottom">
           <!-- <div class="item-info">
             <label for="">موقعیت هتل</label>
@@ -137,15 +149,32 @@
       <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-24">
         <div class="d-flex flex-wrap justify-content-between w-100">
           <h3>{{ item.name }}</h3>
-
           <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center">
+          <label for="">تخت اضافه:</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <input class="w-50" type="number" [(ngModel)]="item.extra_bed_count">
+          </div>
+
         </div>
         <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
           <label for="">ضریب:</label>
           <div class="d-flex align-items-center justify-content-end">
             <input class="w-50" type="number" [(ngModel)]="item.coefficient">
           </div>
-
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+          <label for="">رزرواسیون آنلاین</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <mat-checkbox  color="primary" [(ngModel)]="item.online_reservation"></mat-checkbox>
+          </div>
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+          <label for="">موجودی از دوتخته</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <mat-checkbox  color="primary" [(ngModel)]="item.is_twin_count"></mat-checkbox>
+          </div>
         </div>
       </div>
     </div>

@@ -46,6 +46,7 @@ export class AddComponent implements OnInit {
     slug: '',
     status_id: 1,
     description: '',
+    currency_code: '',
     services: [],
     body: '',
     address: '',
@@ -76,7 +77,7 @@ export class AddComponent implements OnInit {
   selectedRooms: roomDTO[] = [];
   rooms: roomDTO[] = []
 
-  newCities :categoriesDTO[] = []
+  newCities: categoriesDTO[] = []
   showCities = false;
 
   constructor(
@@ -104,6 +105,7 @@ export class AddComponent implements OnInit {
     slug: new FormControl('', [Validators.required]),
     status_id: new FormControl('1', Validators.required),
     description: new FormControl(''),
+    currency: new FormControl('all'),
     body: new FormControl(''),
     address: new FormControl(''),
     city_id: new FormControl(null, Validators.required),
@@ -162,6 +164,8 @@ export class AddComponent implements OnInit {
         name: item.name,
         room_type_id: item.id,
         coefficient: item.coefficient,
+        extra_bed_count: item.extra_bed_count,
+        online_reservation: item.online_reservation,
         isSelected: false,
         has_coefficient: false,
         Adl_capacity: item.Adl_capacity,
@@ -209,6 +213,7 @@ export class AddComponent implements OnInit {
       address: this.hotelForm.controls.address.value,
       stars: this.currentStar,
       slug: this.hotelForm.controls.slug.value,
+      currency_code: this.hotelForm.controls.currency.value ?? 'toman',
       status_id: 1,
       description: this.hotelForm.controls.description.value,
       body: '',
@@ -321,6 +326,9 @@ export class AddComponent implements OnInit {
           name: x.name,
           room_type_id: x.room_type_id,
           coefficient: x.coefficient,
+          is_twin_count: x.is_twin_count,
+          extra_bed_count: x.extra_bed_count,
+          online_reservation: x.online_reservation,
           has_coefficient: x.has_coefficient,
           Adl_capacity: x.Adl_capacity,
           chd_capacity: x.chd_capacity,
@@ -351,7 +359,7 @@ export class AddComponent implements OnInit {
     this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
   }
 
-  getCities(cities: any[]){
+  getCities(cities: any[]) {
     cities.forEach(item => {
       this.newCities = this.newCities.concat(item.categories)
     })

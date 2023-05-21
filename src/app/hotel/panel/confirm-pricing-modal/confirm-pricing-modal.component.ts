@@ -12,6 +12,7 @@ export interface ConfirmPriceReqDTO {
   hotelID: number;
   roomID: number;
   type: number;
+  bedCount: number;
 }
 @Component({
   selector: 'prs-confirm-pricing-modal',
@@ -32,9 +33,11 @@ export class ConfirmPricingModalComponent implements OnInit {
     public api: PostApiService,
     public message: MessageService,
     public errorService: ErrorsService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
+    this.bedCountFC.setValue(this.data.bedCount)
   }
 
   submit() {

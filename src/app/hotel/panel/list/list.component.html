@@ -10,8 +10,8 @@
             (citySelected)="getCitySelected($event)"></prs-select-city>
         </div>
       </div>
-      <input style="margin-right: 8px" [formControl]="keywordFC" placeholder="جستجو بر اساس نام هتل" type="text">
-      <button class="ms-2 btn-base btn-search" (click)="getList()">جستجو</button>
+      <input style="margin-right: 8px" [formControl]="keywordFC" (change)="filter()" placeholder="جستجو بر اساس نام هتل" type="text">
+      <button class="ms-2 btn-base btn-search" (click)="filter()">جستجو</button>
     </div>
     <a class="btn-add-tour btn-base" routerLink="/panel/hotel/add">اضافه</a>
     <!-- <a *ngIf="session.checkItemPermission('posts.create')" class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a> -->
@@ -21,7 +21,6 @@
       <span class="id">#</span>
       <span class="title-tour bold-600">عنوان هتل</span>
       <span class="title-tour bold-600">عنوان انگلیسی هتل</span>
-
       <span class="from-to">ایجاد کننده</span>
       <span class="from-to">تعداد بازدید</span>
       <span class="setting">تنظیمات</span>

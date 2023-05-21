@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { RatingResDTO, RoomDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, RoomDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -16,16 +15,16 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 export class PricingComponent implements OnInit {
   isLoading = false;
   standardTwinId = 148;
-  standardTwinCoefficient = 0
+  standardTwinCoefficient = 0;
   showCalendar = true;
   slug = '';
-  id = ''
+  id = '';
   isCoefficient = '0';
   req!: ratigListReqDTO;
   activedRoom = 0;
   roomTypeId = 0;
   ratingData!: RatingResDTO;
-  rooms: RoomDTO[] = [];
+  rooms: roomDTO[] = [];
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
@@ -55,19 +54,15 @@ export class PricingComponent implements OnInit {
         this.ratingData = res.data;
         this.rooms = this.ratingData.hotel.rooms ?? [];
 
-        let obj: RoomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
+        let obj: roomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
+        this.activedRoom = obj ? obj.id : 0
+        this.roomTypeId = obj ? obj.room_type_id : 0
         if (obj && obj.has_coefficient) {
           this.isCoefficient = '1'
         } else {
           this.isCoefficient = '0'
         }
 
-
-        if (this.rooms.length > 0) {
-          this.activedRoom = this.rooms[0].id;
-          this.roomTypeId = this.rooms[0].room_type_id
-          this.reload();
-        }
       } else {
         this.message.custom(res.message)
       }
@@ -101,7 +96,7 @@ export class PricingComponent implements OnInit {
     this.reload()
   }
 
-  getRoom(): RoomDTO | null {
+  getRoom(): roomDTO | null {
     let room = this.rooms.filter(x => x.room_type_id === this.roomTypeId)
     return room.length > 0 ? room[0] : null
   }

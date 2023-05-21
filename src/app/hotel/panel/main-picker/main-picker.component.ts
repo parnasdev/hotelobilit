@@ -7,7 +7,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-pricing-modal.component';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { RatingResDTO, RoomDTO, ratigListReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, RoomDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-main-picker',
@@ -17,7 +17,7 @@ import { RatingResDTO, RoomDTO, ratigListReqDTO } from 'src/app/Core/Models/newP
 export class MainPickerComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() pricingType = '0';
-  @Input() room: RoomDTO | null = {
+  @Input() room: roomDTO | null = {
     Adl_capacity: 0,
     age_child: 0,
     chd_capacity: 0,
@@ -25,9 +25,11 @@ export class MainPickerComponent implements OnInit {
     has_coefficient: false,
     coefficient: 0,
     id: 0,
-    rates: [],
-    online_reservation: 0,
+    online_reservation: false,
     room_type: '',
+    name: '',
+    is_twin_count: false,
+    extra_bed_count: 0
   };
 
 
@@ -161,8 +163,9 @@ export class MainPickerComponent implements OnInit {
   }
 
   isBefore(date: any) {
-    let d = this.service.convertDate(date, 'en');
-    let today = moment(new Date()).format('jYYYY/jMM/jDD');
+    let d = moment(date,'jYYYY/jMM/jDD').format('YYYY/MM/DD');
+    let today = moment(new Date()).format('YYYY/MM/DD');
+    console.log(moment(d).isBefore(today))
     return moment(d).isBefore(today)
   }
 
@@ -254,7 +257,8 @@ export class MainPickerComponent implements OnInit {
         checkout: this.enDate,
         roomID: this.room ? this.room.id : 0,
         hotelID: this.hotelID,
-        type: +this.pricingType
+        type: +this.pricingType,
+        bedCount: this.room?.extra_bed_count
       }
     })
     dialog.afterClosed().subscribe(result => {
@@ -269,25 +273,22 @@ export class MainPickerComponent implements OnInit {
 
 
   getPriceLabel(item: any): string {
-    console.log(item);
-
     if (item) {
+      let price =this.pricingType === '1' ?  item.price / (this.room?.Adl_capacity ?? 1) : item.price;
       if (item.currency_code === 'toman') {
-        if (item.price.toString().length > 6) {
-          return Intl.NumberFormat('en').format(item.price / 1000000) + ' ' + 'م ت'
-        } else if (item.price.toString().length > 3) {
-          return Intl.NumberFormat('en').format(item.price / 1000) + ' ' + 'ه ت'
+        if (price.toString().length > 6) {
+          return Intl.NumberFormat('en').format(price / 1000000) + ' ' + 'م ت'
+        } else if (price.toString().length > 3) {
+          return Intl.NumberFormat('en').format(price / 1000) + ' ' + 'ه ت'
         } else {
-          return Intl.NumberFormat('en').format(item.price) + 'ت'
-
+          return Intl.NumberFormat('en').format(price) + 'ت'
         }
-
       } else if (item.currency_code === 'dollar') {
-        return item.price + 'دلار'
+        return price + 'دلار'
       } else if (item.currency_code === 'euro') {
-        return item.price + 'یورو'
+        return price + 'یورو'
       } else {
-        return item.price + 'درهم'
+        return price + 'درهم'
       }
     } else {
       return '---'

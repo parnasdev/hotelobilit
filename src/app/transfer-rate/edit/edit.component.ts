@@ -44,7 +44,6 @@ export class EditComponent extends AddComponent implements OnInit {
     }, (error: any) => {
       this.message.error()
       this.checkError.check(error);
-
     })
   }
 
@@ -58,18 +57,14 @@ export class EditComponent extends AddComponent implements OnInit {
     this.form.controls.destination_time.setValue(this.infoData.destination_time);
     this.form.controls.origin_flight_number.setValue(this.infoData.origin_flight_number);
     this.form.controls.destination_flight_number.setValue(this.infoData.destination_flight_number);
-    this.form.controls.checkin_tomorrow.setValue(this.infoData.checkin_tomorrow);
-    this.form.controls.checkout_yesterday.setValue(this.infoData.checkout_yesterday);
-
-    this.checkin_tomorrow = this.infoData.checkin_tomorrow === 0 ? false : true
-    this.checkout_yesterday = this.infoData.checkout_yesterday === 0 ? false : true
+    
+    this.checkin_tomorrow = this.infoData.checkin_tomorrow ? 1 : 0
+    this.checkout_yesterday = this.infoData.checkout_yesterday ? 1 : 0
     this.infoData.rates.forEach((item: any) => {
       this.addRow(item);
     });
     this.showData = true
   }
-
-
   getCity(id: number) {
     return this.editData.cities.find((y:any) => y.id === id).name
   }

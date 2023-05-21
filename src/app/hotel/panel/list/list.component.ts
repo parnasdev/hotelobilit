@@ -51,6 +51,11 @@ export class ListComponent implements OnInit {
     this.getList();
   }
 
+  filter() {
+    this.p = 1;
+    this.getList()
+  }
+
   getList(): void {
     this.isLoading = true;
     this.hotelList = [];

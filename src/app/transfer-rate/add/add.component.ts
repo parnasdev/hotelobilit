@@ -74,8 +74,8 @@ export class AddComponent implements OnInit {
     checkout_yesterday: 0
   }
 
-  checkin_tomorrow = false;
-  checkout_yesterday = false;
+  checkin_tomorrow:number = 0;
+  checkout_yesterday:number = 0;
 
   show = false;
 

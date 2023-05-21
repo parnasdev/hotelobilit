@@ -114,10 +114,11 @@ export class MainPickerComponent implements OnInit, OnChanges {
   }
 
   isBefore(date: any) {
-    let d = this.service.convertDate(date, 'en');
-    let today = moment(new Date()).format('jYYYY/jMM/jDD');
+    let d = moment(date,'jYYYY/jMM/jDD').format('YYYY/MM/DD');
+    let today = moment(new Date()).format('YYYY/MM/DD');
     return moment(d).isBefore(today)
   }
+
 
 
 

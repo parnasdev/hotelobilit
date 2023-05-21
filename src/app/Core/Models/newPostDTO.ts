@@ -26,7 +26,7 @@ export interface storeHotelReqDTO {
     visitCount: number
     user: userDTO
     status: statusObjDTO
-    rooms?: RoomDTO[]
+    rooms?: roomDTO[]
 }
 
 export interface RoomDTO {
@@ -68,6 +68,7 @@ export interface storeHotelSetReqDTO {
     del_rooms?: number[]
     address: string | null;
     stars: number
+    currency_code: string;
     services: number[]
     description: string | null;
     body: string | null;
@@ -100,6 +101,9 @@ export interface roomDTO {
     coefficient: number;
     has_coefficient?: boolean
     Adl_capacity: number;
+    online_reservation?: boolean;
+    is_twin_count?: boolean
+    extra_bed_count?: number
     chd_capacity: number;
     room_type?: string;
     age_child: number;

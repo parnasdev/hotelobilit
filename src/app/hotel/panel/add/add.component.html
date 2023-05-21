@@ -41,6 +41,19 @@
               <span class="text-danger">{{errorService.getError('slug')}}</span>
             </div>
           </div>
+
+          <div class="item-info">
+            <label>نرخ ارز</label>
+            <div class="inp-form w-25">
+              <select class="w-100" name="" id="" formControlName="currency">
+                <option disabled [value]="'all'">انتخاب کنید</option>
+                <option [value]="'toman'">تومان</option>
+                <option [value]="'dollar'">دلار</option>
+                <option [value]="'derham'">درهم</option>
+                <option [value]="'euro'">یورو</option>
+              </select>
+            </div>
+          </div>
           <prs-select-city *ngIf="newCities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="newCities"
           (citySelected)="getCitySelected($event)"></prs-select-city>
           <!-- <div class="item-info" >
@@ -108,10 +121,10 @@
           <h2 class="text-dark">امکانات هتل</h2>
         </div>
       </div>
-      <div class="d-flex w-100 m-3 align-items-center justify-content-center">
-        <div class="d-flex align-items-center justify-content-center" style="margin: 20px;" *ngFor="let service of data.services">
-          <label style="margin-left: 10px!important;" for="">{{ service.name }}</label>
+      <div class="d-flex w-100 m-3 align-items-center justify-content-center p-list-option">
+        <div class="d-flex align-items-center justify-content-start w-100 item" *ngFor="let service of data.services">
           <mat-checkbox [(ngModel)]="service.isSelected" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+          <label style="margin-left: 10px!important;" for="">{{ service.name }}</label>
         </div>
       </div>
     </div>
@@ -138,16 +151,33 @@
     <div class="d-flex flex-wrap justify-content-between w-100">
       <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-24">
         <div class="d-flex flex-wrap justify-content-between w-100">
-          <h3>{{ item.name }}</h3>
-
+          <h1>{{ item.name }}</h1>
           <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center">
+          <label for="">تخت اضافه:</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <input class="w-50" type="number" [(ngModel)]="item.extra_bed_count">
+          </div>
+
         </div>
         <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
           <label for="">ضریب:</label>
           <div class="d-flex align-items-center justify-content-end">
             <input class="w-50" type="number" [(ngModel)]="item.coefficient">
           </div>
-
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center">
+          <label for="">رزرواسیون آنلاین</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <mat-checkbox  color="primary" [(ngModel)]="item.online_reservation"></mat-checkbox>
+          </div>
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+          <label for="">موجودی از دوتخته</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <mat-checkbox  color="primary" [(ngModel)]="item.is_twin_count"></mat-checkbox>
+          </div>
         </div>
       </div>
     </div>

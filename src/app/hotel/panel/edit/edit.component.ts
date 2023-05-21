@@ -80,6 +80,7 @@ export class EditComponent extends AddComponent implements OnInit {
       this.message.error()
     })
   }
+
   compare(c1: { name: string }, c2: { name: string }) {
     return c1 && c2 && c1.name === c2.name;
   }
@@ -92,6 +93,9 @@ export class EditComponent extends AddComponent implements OnInit {
         id: room?.id ?? 0,
         name: room?.name ?? item.name,
         room_type_id: room?.room_type_id ?? item.id,
+        extra_bed_count: room?.extra_bed_count ?? item.extra_bed_count,
+        is_twin_count: room?.is_twin_count ?? item.is_twin_count,
+        online_reservation: room?.online_reservation ?? item.online_reservation,
         coefficient: room?.coefficient ?? item.coefficient,
         isSelected: room ? true : false,
         has_coefficient: false,
@@ -110,6 +114,8 @@ export class EditComponent extends AddComponent implements OnInit {
     // @ts-ignore
     this.hotelForm.controls.city_id.setValue(this.hotelInfo.city_id);
     this.hotelForm.controls.body.setValue(this.hotelInfo.post.body);
+    this.hotelForm.controls.currency.setValue(this.hotelInfo.post.options?.currency_code);
+
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
     this.currentStar = this.hotelInfo.post.options.stars;
@@ -138,6 +144,9 @@ export class EditComponent extends AddComponent implements OnInit {
           name: x.name,
           room_type_id: x.room_type_id,
           coefficient: x.coefficient,
+          is_twin_count: x.is_twin_count,
+          extra_bed_count: x.extra_bed_count,
+          online_reservation: x.online_reservation,
           has_coefficient: x.has_coefficient,
           Adl_capacity: x.Adl_capacity,
           chd_capacity: x.chd_capacity,
@@ -244,6 +253,7 @@ export class EditComponent extends AddComponent implements OnInit {
       address: this.hotelForm.controls.address.value,
       stars: this.currentStar,
       slug: this.hotelForm.controls.slug.value,
+      currency_code: this.hotelForm.controls.currency.value ?? 'toman',
       status_id: 1,
       description: this.hotelForm.controls.description.value,
       body: '',
