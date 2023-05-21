@@ -1,0 +1,60 @@
+@import "src/assets/css/varible";
+
+.bg-main{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000090;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+//flight loading
+.parent-loading{
+  width: 250px;
+  height: 250px;
+  background-color: #ffffff;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 50px;
+  border: 5px solid $base-color;
+}
+.flight-preloader {
+  svg {
+    max-width: 95%;
+    max-height: 95%;
+    position: absolute;
+    top: -5%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    path {
+      fill-opacity: 0;
+      stroke: $base-color;
+      stroke-width: 3;
+      stroke-dasharray: 670;
+      stroke-dashoffset: 670;
+      animation: draw 3s infinite linear;
+    }
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+.title-loading{
+  position: relative;
+  top: 50px;
+  color: $base-color;
+  font-weight: 600;
+  font-size: 18px;
+}

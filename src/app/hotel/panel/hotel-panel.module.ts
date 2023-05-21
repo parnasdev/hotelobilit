@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ConfirmPricingModalComponent } from './confirm-pricing-modal/confirm-pricing-modal.component';
 import { MainPickerComponent } from './main-picker/main-picker.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { StoreModule } from 'src/app/store/store.module';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -50,6 +51,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ReactiveFormsModule,
     MatCheckboxModule,
     PipesModule,
+    StoreModule,
     NgxMaskDirective,
     NgxMaskPipe,
     CommonProjectModule,
