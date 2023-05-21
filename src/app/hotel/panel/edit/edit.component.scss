@@ -615,8 +615,6 @@ input {
 }
 
 :host::ng-deep .mdc-checkbox__background {
-  width: 25px !important;
-  height: 25px !important;
 }
 
 .p-list-option {
@@ -639,3 +637,5 @@ input {
     top: 2px;
   }
 }
+
+

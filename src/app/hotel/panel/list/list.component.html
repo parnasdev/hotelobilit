@@ -10,7 +10,7 @@
             (citySelected)="getCitySelected($event)"></prs-select-city>
         </div>
       </div>
-      <input [formControl]="keywordFC" placeholder="جستجو بر اساس نام هتل" type="text">
+      <input style="margin-right: 8px" [formControl]="keywordFC" placeholder="جستجو بر اساس نام هتل" type="text">
       <button class="ms-2 btn-base btn-search" (click)="getList()">جستجو</button>
     </div>
     <a class="btn-add-tour btn-base" routerLink="/panel/hotel/add">اضافه</a>
