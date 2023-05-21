@@ -328,3 +328,19 @@
   }
 
 }
+.text-error {
+  font-size: 12px;
+  position: relative;
+  top: 6px;
+  animation: anim-error 1s infinite;
+  font-weight: 600;
+
+}
+@keyframes anim-error{ 
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}

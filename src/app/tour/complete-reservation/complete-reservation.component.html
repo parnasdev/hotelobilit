@@ -107,10 +107,10 @@
       </div>
     </div>
     <h2>اطلاعات مسافران</h2>
-
-    <prs-passengers *ngFor="let room of roomsSelected" [RoomData]="room" [tourType]="data.hotel.is_domestic"
-      (passengerResult)="getRoomData($event)"></prs-passengers>
-
+    <ng-template [ngIf]="showPassengers">
+      <prs-passengers *ngFor="let room of roomsSelected" [RoomData]="room" [markAsRead]="markAsRead"
+        [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
+    </ng-template>
 
     <div class="rules mt-3">
       <!-- <input type="checkbox" [(ngModel)]="isPrivacyCheck"> -->
