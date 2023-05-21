@@ -20,9 +20,9 @@
   <div class="bottom">
     <div class="w-100 d-flex align-items-center justify-content-between">
       <h2 class="title">قیمت گذاری هتل</h2>
-      <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
-        <li *ngFor="let room of rooms" class="nav-item">
-          <a [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
+      <ul style="border: 1px solid #E0E0E0" class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+        <li *ngFor="let room of rooms" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'" class="nav-item d-flex flex-column align-items-center">
+          <a style="padding: 0 16px !important;" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
              (click)="changeTab(room.id,room.room_type_id)">
             {{ room.room_type}}</a>
           <span *ngIf="isCoefficient === '1'">ضریب :{{ room.coefficient }}</span>

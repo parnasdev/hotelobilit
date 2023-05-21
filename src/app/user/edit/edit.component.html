@@ -1,5 +1,5 @@
 <div class="add-tour">
-  <form [formGroup]="userForm">
+  <form class="w-100" [formGroup]="userForm">
     <div class="box-info-tour">
       <div class="info-tour-header">
         <div class="right">
@@ -34,7 +34,7 @@
         </div>
         <div class="bottom">
 
-          
+
           <div class="item-info">
             <label for="">نام کاربری</label>
             <input formControlName="username" type="text">
@@ -80,8 +80,8 @@
                 <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
               </mat-select>
             </mat-form-field>
- 
-    
+
+
           </div>
           <div class="address-hotel">
             <label for="address">هتل های موردنظر را انتخاب کنید</label>
@@ -100,7 +100,7 @@
                 {{ getHotelName(+hotel) }}
               </span>
             </div>
-    
+
           </div>
         </div>
 
