@@ -11,6 +11,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class PassengersComponent implements OnInit, OnChanges {
   @Input() age = '0';
+  @Input() markAsRead = false;
   @Input() RoomData!: ReserveRoomDTO;
   @Output() passengerResult = new EventEmitter();
   @Input() tourType: boolean = false;   // false = 'تور خارجی'  // true = ' تور داخلی'
@@ -33,8 +34,13 @@ export class PassengersComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['RoomData'].firstChange) {
       for (let i = 0; i < (this.RoomData?.Adl_capacity ?? []); i++) {
-            this.addRow();
-      
+        this.addRow();
+      }
+    }
+
+    if(changes['markAsRead']) {
+      if(this.markAsRead) {
+        this.markFormGroupTouched(this.ReserveForm)
       }
     }
     // if (changes.age.firstChange) {
@@ -59,6 +65,16 @@ export class PassengersComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control:any) => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
 
   getMinDate(item: any) {
     if (this.getPassebgerLabel(item.get('type')) === 'سرپرست' || this.getPassebgerLabel(item.get('type')) === 'همراه') {
@@ -75,17 +91,16 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
   addRow() {
-      const Passengers = this.fb.group({
-        name: [''],
-        family: [''],
-        id_code: [''],
-        passport: [''],
-        expired_passport: [''],
-        birth_day: [''],
-        type: [''],
-      })
-      this.PassengerForm.push(Passengers);
-  
+    const Passengers = this.fb.group({
+      name: ['', [Validators.required]],
+      family: ['', [Validators.required]],
+      id_code:  this.tourType ?  ['', [Validators.required]] : [''],
+      passport:  !this.tourType ?  ['', [Validators.required]] : [''],
+      expired_passport: !this.tourType ?  ['', [Validators.required]] : [''],
+      birth_day: ['', [Validators.required]],
+      type: 'adl',
+    })
+    this.PassengerForm.push(Passengers);
   }
 
   convertPassengerObject() {
@@ -116,6 +131,7 @@ export class PassengersComponent implements OnInit, OnChanges {
   onChange(): void {
     // if (this.PassengerForm.valid) {
     this.convertPassengerObject()
+
     // }else {
     //   this.markFormGroupTouched()
     // this.PassengerForm.controls.forEach(x => {

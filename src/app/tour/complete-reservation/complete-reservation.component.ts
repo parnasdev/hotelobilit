@@ -16,6 +16,8 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 export class CompleteReservationComponent implements OnInit {
   flightID = '';
   hotelID = '';
+  showPassengers = true;
+  markAsRead = false;
   req: ReserveCreateDTO = {
     hotel_id: 0,
     flight_id: 0,
@@ -104,9 +106,14 @@ export class CompleteReservationComponent implements OnInit {
       }
     })
   }
-
+  reload() {
+    this.showPassengers = false;
+    setTimeout(() => this.showPassengers = true);
+  }
 
   submit() {
+    this.markAsRead = true;
+    this.reload()
     this.setReq();
     this.api.create(this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -125,7 +132,7 @@ export class CompleteReservationComponent implements OnInit {
     this.req = {
       hotel_id: +this.hotelID,
       flight_id: +this.flightID,
-      rooms: [],
+      rooms: this.finalRoomSelected,
       reserver_full_name: this.fullNameFC.value,
       reserver_phone: this.reserver_phoneFC.value,
       reserver_id_code: this.reserver_id_codeFC.value,
@@ -135,7 +142,14 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   convertRooms() {
-    console.log(this.roomsSelected);
+    this.roomsSelected.forEach(item => {
+      let obj: ReserveReqRoomDTO = {
+        passengers: item.passengers ?? [],
+        room_id: item.id
+      }
+      this.finalRoomSelected.push(obj)
+    })
+
   }
 
 

@@ -21,7 +21,7 @@ export interface ConfirmPriceReqDTO {
 export class ConfirmPricingModalComponent implements OnInit {
   priceFC = new FormControl()
   offerPriceFC = new FormControl()
-  rateFC = new FormControl('toman')
+  rateFC = new FormControl('all')
   capacityFC = new FormControl()
   bedCountFC = new FormControl();
   bedPriceFC = new FormControl();
@@ -50,10 +50,9 @@ export class ConfirmPricingModalComponent implements OnInit {
       price: this.priceFC.value ? +this.priceFC.value : null,
       type: this.data.type,
       extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
-      currency_code: this.rateFC.value
+      currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null
       // offer_extra_price: this.offerBedPriceFC.value,
       // offer_price: this.offerPriceFC.value,
-
     }
 
     this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {

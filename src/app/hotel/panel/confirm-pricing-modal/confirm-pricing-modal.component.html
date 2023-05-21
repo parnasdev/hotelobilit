@@ -57,6 +57,7 @@
     <span>نرخ ارز</span>
     <div class="inp-form w-25">
       <select class="w-100" name="" id="" [formControl]="rateFC">
+        <option disabled [value]="'all'">انتخاب کنید</option>
         <option [value]="'toman'">تومان</option>
         <option [value]="'dollar'">دلار</option>
         <option [value]="'derham'">درهم</option>

@@ -14,7 +14,7 @@
         <label class="label-fix" *ngIf="i==0">سرپرست</label>
         <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')) }}</label>
         <!-- نام  -->
-        <div class="item-form d-flex align-items-center">
+        <div class="item-form align-items-center">
           <!-- <i style="cursor: pointer;font-size: 17px" class="icon-cancel text-danger" *ngIf="getPassebgerLabel(item.get('type')) !== 'سرپرست' &&
            getPassebgerLabel(item.get('type')) !== 'همراه'" (click)="removeItem(i)"></i> -->
           <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
@@ -22,20 +22,21 @@
             <input type="text" (change)="onChange()" formControlName="name" placeholder="نام (لاتین)">
           </div>
           <ng-container *ngIf="item.get('name')?.touched && item.get('name')?.hasError('required')">
-            <span class="text-danger">نام الزامی است</span>
+            <span class="text-error text-danger">نام الزامی است</span>
           </ng-container>
         </div>
+
         <!-- نام خانوادگی -->
         <div class="item-form">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
-
           </div>
           <ng-container *ngIf="item.get('family')?.touched && item.get('family')?.hasError('required')">
-            <span class="text-danger">نام خانوادگی الزامی است</span>
+            <span class="text-error text-danger">نام خانوادگی الزامی است</span>
           </ng-container>
         </div>
+
         <!-- کدملی -->
         <div class="item-form" *ngIf="tourType">
           <!-- <label class="dana-bold" for="">
@@ -46,7 +47,7 @@
 
           </div>
           <ng-container *ngIf="item.get('id_code')?.touched && item.get('id_code')?.hasError('required')">
-            <span class="text-danger">کدملی الزامی است</span>
+            <span class="text-error text-danger">کدملی الزامی است</span>
           </ng-container>
         </div>
         <!-- تاریخ تولد -->
@@ -54,17 +55,17 @@
           <!-- <label class="dana-bold" for="">
             تاریخ تولد
           </label> -->
-          <div class="inp-form mt-2" >
+          <div class="inp-form mt-2">
             <!-- <input type="text" (change)="onChange()" placeholder="اینجا بنویسید …" formControlName="birthDate"> -->
             <mat-form-field class="example-full-width" appearance="fill">
-              <input class="input-parent" readonly (dateChange)="onChange()" [min]="getMinDate(item)" [max]="maxDate"
-                matInput formControlName="birth_day" placeholder="تاریخ تولد" autocomplete="off"
-                [matDatepicker]="picker4" (click)="picker4.open()">
+              <input class="input-parent" readonly (dateChange)="onChange()" [max]="maxDate" matInput
+                formControlName="birth_day" placeholder="تاریخ تولد" autocomplete="off" [matDatepicker]="picker4"
+                (click)="picker4.open()">
               <mat-datepicker startView="multi-year" #picker4></mat-datepicker>
             </mat-form-field>
           </div>
           <ng-container *ngIf="item.get('birth_day')?.touched && item.get('birth_day')?.hasError('required')">
-            <span class="text-danger">تاریخ تولد الزامی است</span>
+            <span class="text-error text-danger">تاریخ تولد الزامی است</span>
           </ng-container>
         </div>
 
@@ -77,7 +78,7 @@
             <input type="text" (change)="onChange()" placeholder="شماره پاسپورت" formControlName="passport">
           </div>
           <ng-container *ngIf="item.get('passport')?.touched && item.get('passport')?.hasError('required')">
-            <span class="text-danger">شماره پاسپورت الزامی است</span>
+            <span class="text-error text-danger">شماره پاسپورت الزامی است</span>
           </ng-container>
         </div>
         <!-- تاریخ انقضای پاسپورت -->
@@ -97,14 +98,14 @@
           </div>
           <ng-container
             *ngIf="item.get('expired_passport')?.touched && item.get('expired_passport')?.hasError('required')">
-            <span class="text-danger">تاریخ انقضا الزامی است</span>
+            <span class="text-error text-danger">تاریخ انقضا الزامی است</span>
           </ng-container>
         </div>
       </div>
 
     </div>
 
-  <!-- <div class="d-flex align-items-center row-end  justify-content-between flex-column-mobi" *ngIf="(reserveData.transfer?.inf_price ?? 0) > 0">
+    <!-- <div class="d-flex align-items-center row-end  justify-content-between flex-column-mobi" *ngIf="(reserveData.transfer?.inf_price ?? 0) > 0">
       <span>مسافر گرامی چنانچه کودک زیر دوسال به همراه دارید جهت ورود اسامی دکمه روبه رو را بزنید</span>
       <button class="btn-base-2 px-4 h-45" (click)="addRow(null,'infant')">افزودن نوزاد</button>
     </div> -->
