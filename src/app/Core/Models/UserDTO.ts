@@ -20,6 +20,10 @@ export interface UserResDTO {
 }
 
 export interface UserCreateReq {
+  agency_name: string
+  agency_tell:string
+  agency_address:string 
+  agency_necessary_phone:string 
   name: string;
   family: string;
   phone?: string;

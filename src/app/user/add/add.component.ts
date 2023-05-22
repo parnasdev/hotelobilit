@@ -26,9 +26,13 @@ export class AddComponent implements OnInit {
   selectedhotelsFC = new FormControl();
   selectedCity = new FormControl();
   filteredHotel: any[] = [];
-
+  errors: any
   cities: { id: number, name: string }[] = [];
   userReq: UserCreateReq = {
+    agency_name: '',
+    agency_tell:'',
+    agency_address:'', 
+    agency_necessary_phone:'', 
     name: '',
     family: '',
     username: '',
@@ -56,6 +60,10 @@ export class AddComponent implements OnInit {
   }
 
   userForm = this.fb.group({
+    agency_name: new FormControl(),
+    agency_tell: new FormControl(),
+    agency_address: new FormControl(),
+    agency_necessary_phone: new FormControl(),
     name: new FormControl(''),
     family: new FormControl(''),
     username: new FormControl(''),
@@ -116,6 +124,10 @@ export class AddComponent implements OnInit {
 
   setReq() {
     this.userReq = {
+      agency_name: this.userForm.value.agency_name ?? '',
+      agency_tell: this.userForm.value.agency_tell ?? '',
+      agency_address: this.userForm.value.agency_address ?? '',
+      agency_necessary_phone: this.userForm.value.agency_necessary_phone ?? '',
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
@@ -139,7 +151,8 @@ export class AddComponent implements OnInit {
     }, (error: any) => {
       if (error.status == 422) {
         this.errorService.recordError(error.error.data);
-        this.markFormGroupTouched(this.userForm);
+        this.errors = Object.values(error.error.errors)
+
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
         this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')

@@ -92,7 +92,6 @@ export class MainPickerComponent implements OnInit, OnChanges {
     // console.log(this.fixDates(start2, end2))
     const dates = [...this.fixDates(start1, end1), ...this.fixDates(start2, end2)]
     this.daysOfMonth = this.fillObject(dates)
-
   }
 
 
@@ -118,8 +117,6 @@ export class MainPickerComponent implements OnInit, OnChanges {
     let today = moment(new Date()).format('YYYY/MM/DD');
     return moment(d).isBefore(today)
   }
-
-
 
 
   onDateClicked(item: any) {
