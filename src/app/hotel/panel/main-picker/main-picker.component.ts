@@ -7,7 +7,8 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-pricing-modal.component';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
-import { RatingResDTO, RoomDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
+import { RatingResDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'prs-main-picker',
@@ -33,7 +34,7 @@ export class MainPickerComponent implements OnInit {
   };
 
 
-  standardTwinId = 148;
+  standardTwinId = environment.TWIN_ROOM_ID;
   standardTwinCoefficient = 0
   isLoading = false;
   moment: any = moment;
@@ -161,12 +162,12 @@ export class MainPickerComponent implements OnInit {
   }
 
   isBefore(date: any) {
-    let d = moment(date,'jYYYY/jMM/jDD').format('YYYY/MM/DD');
+    let d = moment(date, 'jYYYY/jMM/jDD').format('YYYY/MM/DD');
     let today = moment(new Date()).format('YYYY/MM/DD');
     return moment(d).isBefore(today)
   }
 
-  
+
   onDateClicked(item: any) {
     if (this.pricingType === '0') {
       this.normalClickType(item)
@@ -174,15 +175,39 @@ export class MainPickerComponent implements OnInit {
       if ((this.room ? this.room.room_type_id : 0) === this.standardTwinId) {
         this.normalClickType(item)
       } else {
-        this.coefficientClickType(item)
+        // this.coefficientClickType(item)
       }
     }
   }
+  getPriceLabel(item: any): string {
 
-  coefficientClickType(item: any) {
-
-
+    if (item) {
+      let price = 0;
+      if (this.room?.room_type_id !== this.standardTwinId) {
+        price = this.pricingType === '1' ? item.price / (this.room?.Adl_capacity ?? 1) : item.price;
+      } else {
+        price = item.price / 2
+      }
+      if (item.currency_code === 'toman') {
+        if (price.toString().length > 6) {
+          return Intl.NumberFormat('en').format(price / 1000000) + ' ' + 'م ت'
+        } else if (price.toString().length > 3) {
+          return Intl.NumberFormat('en').format(price / 1000) + ' ' + 'ه ت'
+        } else {
+          return Intl.NumberFormat('en').format(price) + 'ت'
+        }
+      } else if (item.currency_code === 'dollar') {
+        return Intl.NumberFormat('en').format(price) + 'دلار'
+      } else if (item.currency_code === 'euro') {
+        return Intl.NumberFormat('en').format(price) + 'یورو'
+      } else {
+        return Intl.NumberFormat('en').format(price) + 'درهم'
+      }
+    } else {
+      return '---'
+    }
   }
+
   normalClickType(item: any) {
     if (!this.stDate && !this.enDate) {
       this.stDate = item
@@ -255,7 +280,8 @@ export class MainPickerComponent implements OnInit {
         roomID: this.room ? this.room.id : 0,
         hotelID: this.hotelID,
         type: +this.pricingType,
-        bedCount: this.room?.extra_bed_count
+        bedCount: this.room?.extra_bed_count,
+        currency_code: this.pricesData.hotel.currency_code
       }
     })
     dialog.afterClosed().subscribe(result => {
@@ -269,30 +295,7 @@ export class MainPickerComponent implements OnInit {
   }
 
 
-  getPriceLabel(item: any): string {
-    if (item) {
-      let price =this.pricingType === '1' ?  item.price / (this.room?.Adl_capacity ?? 1) : item.price;
-      if (item.currency_code === 'toman') {
-        if (price.toString().length > 6) {
-          return Intl.NumberFormat('en').format(price / 1000000) + ' ' + 'م ت'
-        } else if (price.toString().length > 3) {
-          return Intl.NumberFormat('en').format(price / 1000) + ' ' + 'ه ت'
-        } else {
-          return Intl.NumberFormat('en').format(price) + 'ت'
-        }
-      } else if (item.currency_code === 'dollar') {
-        return price + 'دلار'
-      } else if (item.currency_code === 'euro') {
-        return price + 'یورو'
-      } else {
-        return price + 'درهم'
-      }
-    } else {
-      return '---'
-    }
 
-
-  }
 
 
 
@@ -314,6 +317,7 @@ export class MainPickerComponent implements OnInit {
           offer_price: result[0].offer_price,
           price: result[0].price,
           room_id: result[0].room_id,
+
           updated_at: result[0].updated_at,
           user_id: result[0].user_id
         } : null;

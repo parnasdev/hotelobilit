@@ -22,6 +22,10 @@ export class EditComponent implements OnInit {
   userInfo: any;
   roles: { id: number; label: string }[] = [];
   userReq: UserCreateReq = {
+    agency_name: '',
+    agency_tell:'',
+    agency_address:'', 
+    agency_necessary_phone:'', 
     name: '',
     family: '',
     username: '',
@@ -36,6 +40,10 @@ export class EditComponent implements OnInit {
   hotels: any[] = [];
   selectedhotelsFC = new FormControl('');
   userForm = this.fb.group({
+    agency_name: new FormControl(''),
+    agency_tell:new FormControl(''),
+    agency_address:new FormControl(''), 
+    agency_necessary_phone:new FormControl(''), 
     name: new FormControl(''),
     family: new FormControl(''),
     username: new FormControl(''),
@@ -45,6 +53,7 @@ export class EditComponent implements OnInit {
   });
 
   role: string = '';
+  errors: any
 
   constructor(public fb: FormBuilder,
     public api: UserApiService,
@@ -111,6 +120,11 @@ export class EditComponent implements OnInit {
   }
 
   fillForm(): void {
+    this.userForm.controls.agency_name.setValue(this.userInfo.user.agency_name);
+    this.userForm.controls.agency_address.setValue(this.userInfo.user.agency_address);
+    this.userForm.controls.agency_tell.setValue(this.userInfo.user.agency_tell);
+    this.userForm.controls.agency_necessary_phone.setValue(this.userInfo.user.agency_necessary_phone);
+    
     this.userForm.controls.name.setValue(this.userInfo.user.name);
     this.userForm.controls.family.setValue(this.userInfo.user.family);
     this.userForm.controls.phone.setValue(this.userInfo.user.phone);
@@ -120,6 +134,10 @@ export class EditComponent implements OnInit {
   }
   setReq() {
     this.userReq = {
+      agency_name: this.userForm.value.agency_name ?? '',
+      agency_tell: this.userForm.value.agency_tell ?? '',
+      agency_address: this.userForm.value.agency_address ?? '',
+      agency_necessary_phone: this.userForm.value.agency_necessary_phone ?? '',
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
@@ -148,7 +166,6 @@ export class EditComponent implements OnInit {
     })
   }
 
-
   submit() {
     this.setReq();
     this.api.editUser(this.userReq, this.userId).subscribe((res: any) => {
@@ -161,6 +178,8 @@ export class EditComponent implements OnInit {
     }, (error: any) => {
       if (error.status == 422) {
         this.errorService.recordError(error.error.data);
+        this.errors = Object.values(error.error.errors)
+
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
         this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')

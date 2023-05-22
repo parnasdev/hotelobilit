@@ -13,6 +13,7 @@ export interface ConfirmPriceReqDTO {
   roomID: number;
   type: number;
   bedCount: number;
+  currency_code: string;
 }
 @Component({
   selector: 'prs-confirm-pricing-modal',
@@ -37,6 +38,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.data.currency_code
     this.bedCountFC.setValue(this.data.bedCount)
   }
 
@@ -68,5 +70,15 @@ export class ConfirmPricingModalComponent implements OnInit {
     }, (error: any) => {
       this.errorService.check(error)
     })
+  }
+
+  getCurrencyLabel() {
+    switch (this.data.currency_code) {
+      case 'toman': return 'تومان';
+      case 'euro': return 'یورو';
+      case 'derham': return 'درهم';
+      case 'dollar': return 'دلار';
+      default: return ''
+    }
   }
 }

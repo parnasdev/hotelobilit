@@ -25,6 +25,7 @@ export interface storeHotelReqDTO {
     titleEn: string
     slug: string
     visitCount: number
+    currency_code: string;
     user: userDTO
     status: statusObjDTO
     rooms?: roomDTO[]

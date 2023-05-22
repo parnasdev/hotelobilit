@@ -6,6 +6,38 @@
           <h2>ایجاد کاربر جدید</h2>
         </div>
       </div>
+      <div class="info-tour-body">
+        <div class="top flex-wrap">
+          <div class="item-info">
+            <label for="">نام آژانس</label>
+            <input formControlName="agency_name" type="text">
+            <div *ngIf="errorService.hasError('agency_name')">
+              <span class="text-danger">{{errorService.getError('agency_name')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">آدرس آژانس</label>
+            <input formControlName="agency_address" type="text">
+            <div *ngIf="errorService.hasError('agency_address')">
+              <span class="text-danger">{{errorService.getError('agency_address')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">تلفن آژانس</label>
+            <input formControlName="agency_tell" type="text">
+            <div *ngIf="errorService.hasError('agency_tell')">
+              <span class="text-danger">{{errorService.getError('agency_tell')}}</span>
+            </div>
+          </div>
+          <div class="item-info">
+            <label for="">تلفن ضروری آژانس</label>
+            <input formControlName="agency_necessary_phone" type="text">
+            <div *ngIf="errorService.hasError('agency_necessary_phone')">
+              <span class="text-danger">{{errorService.getError('agency_necessary_phone')}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="info-tour-body">
         <div class="top">
@@ -100,6 +132,10 @@
             </div>
     
           </div>
+        </div>
+
+        <div class="p-error">
+          <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
         </div>
 
         <button style="width: 15%" class="btn-base mt-3"  (click)="submit()" >ایجاد کاربر</button>
