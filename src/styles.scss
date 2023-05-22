@@ -22,6 +22,122 @@
   --title-header: #d5d5d5bd;
 }
 
+//--------------------width
+$widthSize: 100;
+@mixin width {
+  @for $i from 0 to $widthSize {
+    $width: $i * 1%;
+    .w-#{$i} {
+      width: $width !important;
+    }
+  }
+}
+
+@include width;
+//---------------------end-width
+
+//----------------height
+$heightSize: 700;
+@mixin height {
+  @for $i from 0 to $heightSize {
+    $height: $i * 1px;
+    .h-#{$i} {
+      height: $height !important;
+    }
+  }
+}
+
+@include height;
+//--------------end-height
+
+//-----------------fontSize
+$fontSizes: 40;
+@mixin fontSize {
+  @for $i from 0 to $fontSizes {
+    $font-size: $i * 1px;
+    .font-size-#{$i} {
+      font-size: $font-size !important;
+    }
+  }
+}
+
+@include fontSize;
+//-----------------end-font-size
+
+//----------------border-radius
+$sizeRadius: 512;
+@mixin radius {
+  @for $i from 0 to $sizeRadius {
+    $border-radius: $i * 1px;
+    .border-radius-#{$i} {
+      border-radius: $border-radius !important;
+    }
+  }
+}
+
+@include radius;
+//--------------end-border-radius
+
+
+//----------------margin-top
+$mt: 200;
+@mixin marginTop {
+  @for $i from 0 to $mt {
+    $margin-top: $i * 1px;
+    .m-top-#{$i} {
+      margin-top: $margin-top !important;
+    }
+  }
+}
+
+@include marginTop;
+//--------------end-margin-top
+
+
+//----------------margin-bottom
+$mb: 200;
+@mixin marginBottom {
+  @for $i from 0 to $mb {
+    $margin-bottom: $i * 1px;
+    .m-bottom-#{$i} {
+      margin-bottom: $margin-bottom !important;
+    }
+  }
+}
+
+@include marginBottom;
+//--------------end-margin-bottom
+
+
+//----------------margin-right
+$mr: 200;
+@mixin marginRight {
+  @for $i from 0 to $mr {
+    $margin-right: $i * 1px;
+    .m-right-#{$i} {
+      margin-right: $margin-right !important;
+    }
+  }
+}
+
+@include marginRight;
+//--------------end-margin-right
+
+
+//----------------margin-left
+$ml: 200;
+@mixin marginLeft {
+  @for $i from 0 to $ml {
+    $margin-left: $i * 1px;
+    .m-left-#{$i} {
+      margin-left: $margin-left !important;
+    }
+  }
+}
+@include marginLeft;
+//--------------end-margin-left
+
+
 
 body {
   direction: rtl;
@@ -170,6 +286,7 @@ a {
   input[type='text'] {
     cursor: text !important;
   }
+
   select {
     border: 1px solid var(--light-color-two);
     height: 30px;
@@ -214,79 +331,87 @@ pagination-template {
     place-items: center;
   }
 }
-.bold-600{
+
+.bold-600 {
   font-weight: 600;
 }
-.shimmer-3{
+
+.shimmer-3 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-2{
+
+.shimmer-2 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-4{
+
+.shimmer-4 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-5{
+
+.shimmer-5 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-6{
+
+.shimmer-6 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.item-shimmer{
+
+.item-shimmer {
   width: 100%;
   height: 50px;
   background: #c6c6c629;
   animation: shimmers 4s forwards infinite;
   border-radius: 2px;
 }
+
 @keyframes shimmers {
-  0%{
+  0% {
     background: #c6c6c629;
   }
-  25%{
+  25% {
     background: #c6c6c6;
   }
-  50%{
+  50% {
     background: #c6c6c629;
   }
-  100%{
+  100% {
     background: #c6c6c6;
   }
 }
 
 
-@media only screen and (max-width: 500px){
-  .inp-form{
-    &:after{
+@media only screen and (max-width: 500px) {
+  .inp-form {
+    &:after {
       border-top: 1px solid $base-color !important;
     }
   }
-  .cdk-overlay-pane{
+  .cdk-overlay-pane {
     width: 95% !important;
     max-width: 95vw !important;
   }
