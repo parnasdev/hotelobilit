@@ -1322,6 +1322,21 @@ prs-show-location {
 }
 
 @media only screen and (max-width: 868px) {
+  .thumbnail-hotel .img-hotel {
+    right: 0;
+    top: 0;
+  }
+  .thumbnail-hotel .detail-hotel .r .address {
+    margin-top: 0 !important;
+  }
+  .thumbnail-hotel .detail-hotel .r .name-hotel {
+    line-height: 22px !important;
+    font-size: 15px !important;
+    height: auto !important;
+  }
+  .pr12-mobi{
+    padding-right: 12px !important;
+  }
   .thumbnail-flight{
     display: none !important;
   }

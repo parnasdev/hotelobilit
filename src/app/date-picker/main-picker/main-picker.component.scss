@@ -235,3 +235,35 @@ body {
 .opacity3 {
   opacity: 0.3;
 }
+
+
+@media only screen and (max-width: 868px){
+  .p-calender{
+    flex-direction: column;
+    height: auto !important;
+    .box-calender:nth-child(3){
+      display: none !important;
+    }
+    .box-calender{
+      width: 100% !important;
+    }
+  }
+  .p-calender .box-calender .body-calender{
+    column-gap: 6px !important;
+    row-gap: 12px !important;
+    .item {
+      width: 100% !important;
+      height: 40px !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+    }
+  }
+  .prev-month{
+    transform: unset !important;
+    margin-bottom: 14px !important;
+  }
+  .next-month{
+    transform: unset !important;
+    margin-top: 14px !important;
+  }
+}

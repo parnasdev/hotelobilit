@@ -127,5 +127,4 @@ export class IndexComponent {
       queryParams: result
     })
   }
-
 }

@@ -3,6 +3,72 @@
     <div class="p-list-hotel">
       <prs-search [inCommingSearchObject]="routeDataParam" (onSubmit)="search($event)"></prs-search>
       <div class="p-list-hotel-bottom">
+        <button (click)="filteringOpen()" *ngIf="isTablet" class="btn-filter">
+          فیلتر
+        </button>
+        <div *ngIf="isFiltering" class="filtering w-100 mt-2">
+          <div class="title-filtering">
+            <h3>فیلتر ها :</h3>
+            <a style="cursor: pointer;" (click)="removeFilters()">پاک کردن فیلتر ها</a>
+          </div>
+          <div class="box-filtering">
+            <div class="p-search">
+              <h3>جستجوی نام هتل یا اقامتگاه</h3>
+              <div class="inp-form w-100">
+                <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..."
+                       (change)="filterSubmit()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
+                  <g id="Search..." transform="translate(0 0)">
+                    <path id="Path_1136" data-name="Path 1136"
+                          d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
+                          fill="none" stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path id="Path_1137" data-name="Path 1137" d="M27.668,27.668l-7.32-7.32" fill="none"
+                          stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div class="p-star">
+              <h3>ستاره های هتل </h3>
+              <div class="inp-form">
+                <select name="" id="" [(ngModel)]="star" (ngModelChange)="filterSubmit()">
+                  <option [value]="0">همه</option>
+
+                  <option [value]="1">1 ستاره</option>
+                  <option [value]="2">2 ستاره</option>
+                  <option [value]="3">3 ستاره</option>
+                  <option [value]="4">4 ستاره</option>
+                  <option [value]="5">5 ستاره</option>
+                </select>
+              </div>
+            </div>
+            <div class="p-sort">
+              <h3>مرتب سازی بر اساس</h3>
+              <div class="item-sort">
+                <label class="checkbox path">
+                  <input type="checkbox" [checked]="orderBy === 1" (click)="orderClicked('cheapest',$event)">
+                  <svg viewBox="0 0 21 21">
+                    <path
+                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                  </svg>
+                </label>
+                <span>ارزان ترین ها</span>
+              </div>
+              <div class="item-sort">
+                <label class="checkbox path">
+                  <input type="checkbox" [checked]="orderBy === 2" (click)="orderClicked('expensive' , $event)">
+                  <svg viewBox="0 0 21 21">
+                    <path
+                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                  </svg>
+                </label>
+                <span>گران ترین ها</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="isDesktop" class="filtering">
           <div class="title-filtering">
             <h3>فیلتر ها :</h3>
@@ -75,7 +141,6 @@
             <div *ngIf="isLoading" class="shimmer-1 mt-5">
               <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
             </div>
-
             <div class="empty-box bg-white" *ngIf="hotels.length === 0">
               <span>هتلی  یافت نشد</span>
             </div>

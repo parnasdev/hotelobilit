@@ -434,6 +434,17 @@
 
 
 @media only screen and (max-width: 868px) {
+  .btn-filter{
+    background: $base-color;
+    padding: 6px 0;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+  }
+  .s-list-hotel{
+    padding: 0 12px !important;
+  }
   .p-list-hotel {
     .p-list-hotel-bottom {
       flex-direction: column;

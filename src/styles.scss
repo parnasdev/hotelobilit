@@ -279,3 +279,10 @@ pagination-template {
   }
 }
 
+
+@media only screen and (max-width: 500px){
+  .cdk-overlay-pane{
+    width: 95% !important;
+    max-width: 95vw !important;
+  }
+}

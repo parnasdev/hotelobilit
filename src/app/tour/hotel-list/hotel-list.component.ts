@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ResponsiveService } from "../../Core/Services/responsive.service";
-import { ActivatedRoute, Router } from '@angular/router';
-import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
-import { MessageService } from 'src/app/Core/Services/message.service';
-import { TourApiService } from 'src/app/Core/Https/tour-api.service';
-import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
-import { CityApiService } from 'src/app/Core/Https/city-api.service';
+import {Component, OnInit} from '@angular/core';
+import {ResponsiveService} from "../../Core/Services/responsive.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {HotelSearchResDTO, TourSearchReqDTO} from 'src/app/Core/Models/newTourDTO';
+import {MessageService} from 'src/app/Core/Services/message.service';
+import {TourApiService} from 'src/app/Core/Https/tour-api.service';
+import {CalenderServices} from 'src/app/Core/Services/calender-service';
+import {SearchObjectDTO} from 'src/app/Core/Models/newCityDTO';
+import {CityApiService} from 'src/app/Core/Https/city-api.service';
 import * as moment from 'jalali-moment';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
 
 @Component({
   selector: 'prs-hotel-list',
@@ -19,7 +19,8 @@ export class HotelListComponent implements OnInit {
   isMobile = false;
   isDesktop = false;
   isTablet = false;
-  isLoading = false
+  isLoading = false;
+  isFiltering = false;
   req: TourSearchReqDTO = {
     date: '',
     destination: 0,
@@ -38,7 +39,7 @@ export class HotelListComponent implements OnInit {
   paginate: any;
   paginateConfig: any;
 
-  //filter 
+  //filter
   hotels: HotelSearchResDTO[] = [];
   keyword: string = ''
   star = 0;
@@ -71,16 +72,16 @@ export class HotelListComponent implements OnInit {
 
   setReq() {
     this.route.queryParams.subscribe(params => {
-      this.req = {
-        date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-        destination: params['dest'],
-        origin: params['origin'],
-        stayCount: params['night'] ?? 1,
-        keywords: this.keyword ? this.keyword : null,
-        stars: this.star > 0 ? +this.star : null,
-        orderBy: this.orderBy
+        this.req = {
+          date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+          destination: params['dest'],
+          origin: params['origin'],
+          stayCount: params['night'] ?? 1,
+          keywords: this.keyword ? this.keyword : null,
+          stars: this.star > 0 ? +this.star : null,
+          orderBy: this.orderBy
+        }
       }
-    }
     );
 
   }
@@ -109,7 +110,6 @@ export class HotelListComponent implements OnInit {
       this.message.error()
     })
   }
-
 
 
   search(result: any) {
@@ -142,6 +142,7 @@ export class HotelListComponent implements OnInit {
     }
     this.filterSubmit()
   }
+
   filterSubmit() {
     this.getSearchData();
   }
@@ -156,7 +157,9 @@ export class HotelListComponent implements OnInit {
     hotel.rooms.forEach(item => {
       if (item.room_type === 'دو تخته' || item.room_type === 'دوتخته') {
 
-        item.rates.forEach((element: any) => { price += element.price });
+        item.rates.forEach((element: any) => {
+          price += element.price
+        });
       }
     });
     let flightPrice = this.getFlightPrice(hotel.flights)
@@ -187,4 +190,7 @@ export class HotelListComponent implements OnInit {
 
   }
 
+  filteringOpen() {
+    this.isFiltering = !this.isFiltering
+  }
 }
