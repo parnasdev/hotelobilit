@@ -82,6 +82,90 @@
             </div>
           </div>
 
+          <div *ngIf="isTablet"  class="thumbnail-flight-mobi">
+            <div class="title">
+              <h3>اطلاعات پرواز</h3>
+            </div>
+            <div class="flight-from">
+              <div class="top">
+                <span>پرواز رفت</span>
+                <div class="airline-to">
+                    <img width="25" src="../../../assets/img/no-image-all.jpg" alt="">
+                    <span>تابان</span>
+                </div>
+
+              </div>
+              <div class="bottom">
+                <div class="location">
+                 تهران به کیش
+                </div>
+                <span class="date">
+                  21:00 و 1402/3/5
+                </span>
+
+              </div>
+            </div>
+            <div class="flight-to">
+              <div class="top">
+                <span>پرواز برگشت</span>
+                <div class="airline-to">
+                  <img width="25" src="../../../assets/img/no-image-all.jpg" alt="">
+                  <span>ماهان</span>
+                </div>
+
+              </div>
+              <div class="bottom">
+                <div class="location">
+                  تهران به کیش
+                </div>
+                <span class="date">
+                  21:00 و 1402/3/5
+                </span>
+
+              </div>
+            </div>
+            <div class="title mt-2">
+              <h3>اطلاعات اتاق</h3>
+            </div>
+            <div  class="rooms">
+              <div *ngFor="let room of hotelInfo.rooms;let i = index" (click)="roomCollapse()" class="item-room flex-wrap">
+                <span class="text w-50">{{ room.room_type }}</span>
+                <div class="p-count w-50">
+                  <button
+                    [ngClass]="{'btn-plus-off' : room.count === this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) < room.rates[0].available_room_count}"
+                    (click)="plus(i)">+</button>
+                  <span>{{ room.count ?? 0 }}</span>
+                  <button class="btn-minus" (click)="minus(i)">-</button>
+                </div>
+                <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
+                  <strong>2,000.000</strong>
+                  <small>تومان</small>
+                </div>
+                <!-- <i class="icon-down-open"></i> -->
+                <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
+              </div>
+
+            </div>
+            <div class="box-end">
+              <div class="p-text">
+                <h4>قیمت هر نفر :</h4>
+                <!-- <h5>---</h5> -->
+              </div>
+              <div class="p-price">
+                <span>قیمت:</span>
+                <div class="price">
+                  <strong>2,000,000</strong>
+                  <small>تومان</small>
+                </div>
+              </div>
+              <a  class="btn-base w-75 mt-4">رزرو تور</a>
+            </div>
+
+
+          </div>
+
+
+
           <div class="thumbnail-flight" *ngFor="let item of hotelInfo.flights">
             <div class="title">
               <h3>اطلاعات پرواز</h3>
