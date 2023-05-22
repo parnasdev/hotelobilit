@@ -168,16 +168,15 @@ export class MainPickerComponent implements OnInit {
 
   
   onDateClicked(item: any) {
-    // if (this.pricingType === '0') {
-    //   this.normalClickType(item)
-    // } else {
-    //   debugger
-    //   if ((this.room ? this.room.room_type_id : 0) === this.standardTwinId) {
+    if (this.pricingType === '0') {
+      this.normalClickType(item)
+    } else {
+      if ((this.room ? this.room.room_type_id : 0) === this.standardTwinId) {
         this.normalClickType(item)
-      // } else {
-      //   this.coefficientClickType(item)
-      // }
-    // }
+      } else {
+        this.coefficientClickType(item)
+      }
+    }
   }
 
   coefficientClickType(item: any) {
