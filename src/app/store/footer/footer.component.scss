@@ -526,6 +526,9 @@ footer {
 }
 
 @media only screen and (max-width: 868px) {
+  .bottom-footer .right{
+    border-bottom: 2px dashed $border-color !important;
+  }
   .info-box-right{
     .child:last-child{
       margin-top: 16px;

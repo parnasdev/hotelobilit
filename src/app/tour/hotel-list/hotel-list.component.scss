@@ -434,13 +434,16 @@
 
 
 @media only screen and (max-width: 868px) {
+
   .btn-filter{
     background: $base-color;
+    margin-bottom: 12px;
     padding: 6px 0;
     width: 100px;
     border-radius: 5px;
     border: none;
     outline: none;
+    color: $dark-color !important;
   }
   .s-list-hotel{
     padding: 0 12px !important;

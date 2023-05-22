@@ -281,6 +281,11 @@ pagination-template {
 
 
 @media only screen and (max-width: 500px){
+  .inp-form{
+    &:after{
+      border-top: 1px solid $base-color !important;
+    }
+  }
   .cdk-overlay-pane{
     width: 95% !important;
     max-width: 95vw !important;
