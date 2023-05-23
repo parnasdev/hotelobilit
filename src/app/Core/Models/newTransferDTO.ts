@@ -70,8 +70,9 @@ export interface flightStoreDTO {
 export interface flightRatesDTO {
     adl_price: number;
     origin_date: string;
-destination_date: string;
+    destination_date: string;
     chd_price: number;
     inf_price: number;
     capacity: number;
 }
+

@@ -58,3 +58,11 @@ export interface ReserveRoomDTO {
     user: any;
     passengers?: ReservePassengersDTO[]
 }
+export interface ReserveRoomsReqDTO {
+    room_id: number;
+    count: number;
+    adl_count: number;
+    chd_count: number;
+    extra_count: number;
+    inf_count: number;
+}

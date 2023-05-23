@@ -4,10 +4,10 @@ import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
-import { RateDTO, RoomDTO } from 'src/app/Core/Models/newPostDTO';
-import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
+import { RateDTO } from 'src/app/Core/Models/newPostDTO';
+import { ChooseTourListDTO, HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
-import { ReserveCheckingReqDTO } from 'src/app/Core/Models/reserveDTO';
+import { ReserveRoomsReqDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
@@ -24,6 +24,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   isRoom = false
   slug = '';
 
+
   req: TourSearchReqDTO = {
     origin: 0,
     date: '',
@@ -31,13 +32,13 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     stayCount: 0
   }
 
-  flights: transferRateListDTO[] = [];
+
   hotelInfo: HotelSearchResDTO = {
     id: 0,
     title: '',
     slug: '',
     flights: [],
-    titleEn:'',
+    titleEn: '',
     location: '',
     address: '',
     rooms: [],
@@ -48,6 +49,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
   paginate: any;
   paginateConfig: any;
+
+  data: ChooseTourListDTO[] = []
 
   constructor(
     public api: TourApiService,
@@ -81,24 +84,23 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     );
   }
 
-  getSearchData(): void {
-    this.setReq();
-    this.api.search('flights', this.req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.flights = res.data;
-        this.paginate = res.meta;
-        this.paginateConfig = {
-          itemsPerPage: this.paginate.per_page,
-          totalItems: this.paginate.total,
-          currentPage: this.paginate.current_page
-        }
-      } else {
-        this.message.custom(res.message);
-      }
-    }, (error: any) => {
-      this.message.error()
-    })
-  }
+  // getSearchData(): void {
+  //   this.setReq();
+  //   this.api.search('flights', this.req).subscribe((res: any) => {
+  //     if (res.isDone) {
+  //       this.paginate = res.meta;
+  //       this.paginateConfig = {
+  //         itemsPerPage: this.paginate.per_page,
+  //         totalItems: this.paginate.total,
+  //         currentPage: this.paginate.current_page
+  //       }
+  //     } else {
+  //       this.message.custom(res.message);
+  //     }
+  //   }, (error: any) => {
+  //     this.message.error()
+  //   })
+  // }
 
   roomCollapse() {
     this.isRoom = !this.isRoom
@@ -117,7 +119,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.hotelInfo = res.data;
-        this.getSearchData()
+        this.convertData(this.hotelInfo.flights);
+
 
         // this.paginate = res.meta;
         // this.paginateConfig = {
@@ -134,17 +137,74 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     })
   }
 
-  plus(index: number) {
-    let capacity = this.hotelInfo.rooms[index].rates.length > 0 ?
-      this.hotelInfo.rooms[index].rates[0].available_room_count : 0
-    if ((this.hotelInfo.rooms[index].count ?? 0) < capacity) {
-      this.hotelInfo.rooms[index].count = (this.hotelInfo.rooms[index].count ?? 0) + 1
-    }
+
+  convertData(flights: transferRateListDTO[]) {
+    flights.forEach(flight => {
+      let obj: ChooseTourListDTO = {
+        id: flight.id,
+        origin_name: flight.origin_name,
+        origin_id: flight.origin_id,
+        destination_name: flight.destination_name,
+        destination_id: flight.destination_id,
+        airline_name: flight.airline_name,
+        airline_id: flight.airline_id,
+        airline_thumb: flight.airline_thumb,
+        flight: flight.flight,
+        date: flight.date,
+        time: flight.time,
+        adl_price: flight.adl_price,
+        flight_number: flight.flight_number,
+        chd_price: flight.chd_price,
+        inf_price: flight.inf_price,
+        capacity: flight.capacity,
+        is_close: flight.is_close,
+        description: flight.description,
+        rooms: this.hotelInfo.rooms,
+        selectedRooms: []
+      }
+      this.data.push(obj)
+    })
   }
-  minus(index: number) {
-    if ((this.hotelInfo.rooms[index].count ?? 0) > 0) {
-      this.hotelInfo.rooms[index].count = (this.hotelInfo.rooms[index].count ?? 0) - 1
+
+  plus(roomIndex: number, flightIndex: number) {
+    let capacity = this.getRoomCapacity(this.data[flightIndex].rooms[roomIndex].rates);
+    if ((this.data[flightIndex].rooms[roomIndex].count ?? 0) < capacity) {
+      this.data[flightIndex].rooms[roomIndex].count = (this.data[flightIndex].rooms[roomIndex].count ?? 0) + 1
     }
+    this.getSelectedRoom(flightIndex)
+  }
+
+  minus(roomIndex: number, flightIndex: number) {
+    if ((this.data[flightIndex].rooms[roomIndex].count ?? 0) > 0) {
+      this.data[flightIndex].rooms[roomIndex].count = (this.data[flightIndex].rooms[roomIndex].count ?? 0) - 1
+    }
+    this.getSelectedRoom(flightIndex)
+  }
+
+  getRoomName(id: number) {
+    let result = this.hotelInfo.rooms.filter(x => x.id === id)
+    return result.length > 0 ? result[0].room_type : id
+  }
+
+
+  getSelectedRoom(flightIndex: number) {
+    this.data[flightIndex].selectedRooms = []
+    this.data[flightIndex].rooms.forEach(room => {
+      if ((room.count ?? 0) > 0) {
+        for (let index = 0; index < (room.count ?? 0); index++) {
+          let obj: ReserveRoomsReqDTO = {
+            room_id: room.id,
+            count: 1,
+            adl_count: room.Adl_capacity,
+            chd_count: 0,
+            inf_count: 0,
+            extra_count: 0
+          }
+          this.data[flightIndex].selectedRooms.push(obj)
+        }
+      }
+
+    })
   }
 
   getStars(count: string | number): number[] {
@@ -171,7 +231,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       list.push(rate.available_room_count)
     })
     list = list.sort((a, b) => b - a)
-    return list.length > 1 ? list[0] : 0
+    return list.length > 0 ? list[0] : 0
   }
 
   getRoomPrice(rates: RateDTO[]): number {
@@ -182,46 +242,18 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return price;
   }
 
-  submit(flightID: number) {
-    let checkingReq: ReserveCheckingReqDTO = {
-      checkin: this.req.date,
-      stayCount: this.req.stayCount,
-      hotel_id: this.hotelInfo.id,
-      flight_id: flightID,
-      rooms: this.getRoomsCount()
-    }
+  submit(flightID: number,flightIndex: number) {
+    // console.log(this.data[flightIndex].selectedRooms);
 
     this.router.navigate([`reserve/${this.hotelInfo.id}/${flightID}`], {
       queryParams: {
         checkin: this.req.date,
         stayCount: this.req.stayCount,
-        rooms: JSON.stringify(this.getRoomsCount())
+        rooms: JSON.stringify(this.data[flightIndex].selectedRooms)
       }
-    })
-
-    this.reserveApi.checking(checkingReq).subscribe((res: any) => {
-      if (res.isDone) {
-      } else {
-        this.message.custom(res.message);
-      }
-    }, (error: any) => {
-      this.message.error()
     })
   }
 
 
-  getRoomsCount() {
-    let result: any[] = []
-    this.hotelInfo.rooms.forEach(x => {
-      if (x.count && x.count > 0) {
-        let obj = {
-          room_id: x.id,
-          count: x.count
-        }
-        result.push(obj)
-      }
-    })
-    return result;
-  }
 
 }
