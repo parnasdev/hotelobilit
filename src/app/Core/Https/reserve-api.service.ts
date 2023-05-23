@@ -10,7 +10,7 @@ import { Result } from '../Models/result';
 })
 export class ReserveApiService {
 
-  private serverControllerName = 'reserves/';
+  private serverControllerName = 'reserves';
 
   constructor(public http: HttpClient,
     public publicService: PublicService) {
@@ -24,15 +24,15 @@ export class ReserveApiService {
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
   showReserve(reference: string): any {
-    const strUrl = this.serverControllerName + reference
+    const strUrl = this.serverControllerName + '/'+ reference
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
   voucher(reference: string): any {
-    const strUrl = this.serverControllerName + 'voucher' + reference
+    const strUrl = this.serverControllerName + '/voucher' + reference
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
   checking(req: ReserveCheckingReqDTO): any {
-    const strUrl = this.serverControllerName + 'checking'
+    const strUrl = this.serverControllerName + '/checking'
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 }

@@ -1,5 +1,5 @@
 <div class="prs-responsive">
-  <div class="col-md-11 mx-auto px-mobi">
+  <div class="col-md-11 mx-auto px-mobi pb-5">
     <div class="box-fix-user-reservation animated fadeInUp">
       <div class="detail-box-fix-user-reservation">
         <div class="p-detail-reservation col-md-11 mx-auto">
@@ -46,8 +46,8 @@
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">{{ data.flight.date | convertDate }} {{ ' ' +
-              (data.flight.time.substring(0,5)) }}</span>
+            <span class="text" style="direction: ltr!important">{{ data?.flight?.date | convertDate }} {{ ' ' +
+              (data.flight?.time?.substring(0,5)) }}</span>
           </div>
           <!-- <div class="item">
             <span class="title">تاریخ ورود به هتل :</span>
@@ -61,15 +61,15 @@
         <div class="info-to">
           <div class="d-flex align-items-center">
             <span>پرواز برگشت:</span>
-            <span style="margin-right: 4px" class="city-name">{{ data.flight.flight.origin_name }} به {{
-              data.flight.flight.destination_name }}</span>
+            <span style="margin-right: 4px" class="city-name">{{ data?.flight?.flight?.origin_name }} به {{
+              data.flight?.flight?.destination_name }}</span>
             <span></span>
           </div>
 
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{ data.flight.flight.date | convertDate }} {{ ' ' +
-              data.flight.flight.time.substring(0,5) }}</span>
+            <span class="text" style="direction: ltr!important">{{ data?.flight?.flight?.date | convertDate }} {{ ' ' +
+              data.flight?.flight?.time?.substring(0,5) }}</span>
           </div>
           <!-- <div class="item">
             <span class="title">تاریخ خروج از هتل :</span>
@@ -88,6 +88,9 @@
         <div class="inp-form mt-2">
           <input type="text" [formControl]="fullNameFC" placeholder="اینجا بنویسید …">
         </div>
+        <ng-container *ngIf="getError('reserver_full_name')">
+          <span class="text-error text-danger">نام و نام خانوادگی الزامی است</span>
+        </ng-container>
       </div>
       <div class="item-form">
         <label class="dana-bold" for="">
@@ -96,6 +99,9 @@
         <div class="inp-form mt-2">
           <input type="text" [formControl]="reserver_id_codeFC" placeholder="اینجا بنویسید …">
         </div>
+        <ng-container *ngIf="getError('reserver_id_code')">
+          <span class="text-error text-danger">کدملی الزامی است</span>
+        </ng-container>
       </div>
       <div class="item-form">
         <label class="dana-bold" for="">
@@ -104,11 +110,15 @@
         <div class="inp-form mt-2">
           <input type="text" [formControl]="reserver_phoneFC" placeholder="اینجا بنویسید …">
         </div>
+        <ng-container *ngIf="getError('reserver_phone')">
+          <span class="text-error text-danger">شماره همراه الزامی است</span>
+        </ng-container>
       </div>
     </div>
     <h2>اطلاعات مسافران</h2>
-    <ng-template [ngIf]="showPassengers">
-      <prs-passengers *ngFor="let room of roomsSelected" [RoomData]="room" [markAsRead]="markAsRead"
+    <ng-template [ngIf]="showPassengers" >
+
+      <prs-passengers *ngFor="let room of roomsSelected;let i=index" [RoomData]="room" [index]="i"
         [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
     </ng-template>
 
@@ -122,9 +132,9 @@
 
 
 
-    <div class="p-submit w-100 d-flex justify-content-center mt-4">
+    <!-- <div class="p-submit w-100 d-flex justify-content-center mt-4">
       <button class="btn-base px-4" (click)="submit()">ثبت درخواست</button>
-    </div>
+    </div> -->
   </div>
 
 </div>

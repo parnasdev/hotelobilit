@@ -12,15 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { SwiperModule } from "swiper/angular";
-import { MatNativeDateModule } from '@angular/material/core';
 import { PipesModule } from "../common-project/pipes/pipes.module";
 import { CompleteReservationComponent } from './complete-reservation/complete-reservation.component';
 import { PassengersComponent } from './passengers/passengers.component';
-import { MaterialModule } from '../common-project/persianDatePickerAdapter/material.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { StoreModule } from '../store/store.module';
-
 
 @NgModule({
     declarations: [

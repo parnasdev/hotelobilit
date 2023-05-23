@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class PassengersComponent implements OnInit, OnChanges {
   @Input() age = '0';
-  @Input() markAsRead = false;
+  @Input() index =0
   @Input() RoomData!: ReserveRoomDTO;
   @Output() passengerResult = new EventEmitter();
   @Input() tourType: boolean = false;   // false = 'تور خارجی'  // true = ' تور داخلی'
@@ -28,31 +30,29 @@ export class PassengersComponent implements OnInit, OnChanges {
   maxDate = new Date();
   show = false;
   constructor(public fb: FormBuilder,
+    public errorService: ErrorsService,
     public calenderService: CalenderServices,
     public message: MessageService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    
+
     if (changes['RoomData'].firstChange) {
       for (let i = 0; i < (this.RoomData?.Adl_capacity ?? []); i++) {
         this.addRow();
       }
-    }
-
-    if(changes['markAsRead']) {
-      if(this.markAsRead) {
-        this.markFormGroupTouched(this.ReserveForm)
+      for (let index = 0; index < (this.RoomData.options?.chd_count ?? 0); index++) {
+        this.addRow('chd');
+      }
+      for (let index = 0; index < (this.RoomData.options?.inf_count ?? 0); index++) {
+        this.addRow('inf');
       }
     }
-    // if (changes.age.firstChange) {
-    //   this.minDate = new Date(this.calenderService.changeMiladiDate(new Date(), -(+this.age), 'year'));
-    //   this.infantMinDate = new Date(this.calenderService.changeMiladiDate(new Date(), -(2), 'year'));
-
-    //   this.show = true
-    // }
 
   }
+
+
+
+
 
   removeItem(index: number) {
     this.PassengerForm.removeAt(index);
@@ -68,7 +68,7 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
-    (<any>Object).values(formGroup.controls).forEach((control:any) => {
+    (<any>Object).values(formGroup.controls).forEach((control: any) => {
       control.markAsTouched();
 
       if (control.controls) {
@@ -96,11 +96,11 @@ export class PassengersComponent implements OnInit, OnChanges {
     const Passengers = this.fb.group({
       name: ['', [Validators.required]],
       family: ['', [Validators.required]],
-      id_code:  this.tourType ?  ['', [Validators.required]] : [''],
-      passport:  !this.tourType ?  ['', [Validators.required]] : [''],
-      expired_passport: !this.tourType ?  ['', [Validators.required]] : [''],
+      id_code: this.tourType ? ['', [Validators.required]] : [''],
+      passport: !this.tourType ? ['', [Validators.required]] : [''],
+      expired_passport: !this.tourType ? ['', [Validators.required]] : [''],
       birth_day: ['', [Validators.required]],
-      type: 'adl',
+      type: type,
     })
     this.PassengerForm.push(Passengers);
   }
@@ -108,7 +108,10 @@ export class PassengersComponent implements OnInit, OnChanges {
   convertPassengerObject() {
     let passengers: ReservePassengersDTO[] = [];
     this.PassengerForm.controls.forEach((item, index) => {
+    item.value.birth_day = moment(item.value.birth_day).format('YYYY-MM-DD');
       passengers.push(item.value)
+      console.log(item.value.birth_day);
+      
     });
     this.RoomData.passengers = passengers;
     this.passengerResult.emit(this.RoomData);
@@ -163,21 +166,31 @@ export class PassengersComponent implements OnInit, OnChanges {
 
   getPassebgerLabel(label: any) {
 
-    switch (label.value) {
-      case 'cwb':
+    switch (label) {
+      case 'chd':
         return 'کودک با تخت'
       case 'cnb':
         return 'کودک بدون تخت'
-      case 'supervisor':
+      case 'supaervisor':
         return 'سرپرست'
       case 'passenger':
         return 'همراه'
-      case 'infant':
+      case 'inf':
         return 'نوزاد'
+        case 'adl':
+          return 'بزرگسال'
       default:
         return ''
     }
   }
+  getRoomError() {
+    return this.errorService.hasError('rooms.' + this.index + '.passengers')
+  }
 
-
+  hasError(i: number, name: string){
+    return this.errorService.hasError('rooms.' + this.index + '.passengers.' + i + '.' + name)
+  }
+  getError(i: number, name: string){
+    return this.errorService.getError('rooms.' + this.index + '.passengers.' + i + '.' + name)
+  }
 }

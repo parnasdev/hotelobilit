@@ -17,6 +17,7 @@ export class ErrorsService {
 
 
     hasError(field: any): any {
+      // debugger
         return this.errors?.hasOwnProperty(field);
     }
 
@@ -30,6 +31,7 @@ export class ErrorsService {
     }
 
     recordError(error: any): any {
+      // debugger
         this.errors = error;
     }
 

@@ -6,6 +6,7 @@ import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { ReserveCheckingReqDTO, ReserveCreateDTO, ReserveInfoDTO, ReserveReqRoomDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 
 @Component({
@@ -17,7 +18,6 @@ export class CompleteReservationComponent implements OnInit {
   flightID = '';
   hotelID = '';
   showPassengers = true;
-  markAsRead = false;
   req: ReserveCreateDTO = {
     hotel_id: 0,
     flight_id: 0,
@@ -50,6 +50,7 @@ export class CompleteReservationComponent implements OnInit {
   constructor(public api: ReserveApiService,
     public message: MessageService,
     public fb: FormBuilder,
+    public errorService: ErrorsService,
     public router: Router,
     public checkError: CheckErrorService,
     public route: ActivatedRoute) {
@@ -78,8 +79,15 @@ export class CompleteReservationComponent implements OnInit {
 
 
   getRoomData(result: any) {
-    console.log(result);
 
+    this.roomsSelected.forEach(item => {
+
+      if (item.id === result.id) {
+        item.passengers = result.passengers;
+        // item. = this.getRommTotalPrice(data.passengers, data.name)
+      }
+    })
+    // this.getTotalPrice();
   }
 
   checking() {
@@ -96,6 +104,10 @@ export class CompleteReservationComponent implements OnInit {
     })
   }
 
+  getError(name: string){
+    return this.errorService.hasError(name)
+  }
+
   setRoomSelected() {
     this.data.rooms_selected.forEach(room => {
       let x = this.data.rooms.filter(y => y.id === room.room_id)
@@ -106,6 +118,8 @@ export class CompleteReservationComponent implements OnInit {
         }
       }
     })
+    console.log(this.roomsSelected);
+    
   }
 
   reload() {
@@ -114,8 +128,6 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   submit() {
-    this.markAsRead = true;
-    this.reload()
     this.setReq();
     this.api.create(this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -125,6 +137,7 @@ export class CompleteReservationComponent implements OnInit {
         this.message.custom(res.message)
       }
     }, (error: any) => {
+      this.errorService.recordError(error.error.errors)
       this.checkError.check(error)
     })
   }
@@ -144,6 +157,7 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   convertRooms() {
+    this.finalRoomSelected = [];
     this.roomsSelected.forEach(item => {
       let obj: ReserveReqRoomDTO = {
         passengers: item.passengers ?? [],
