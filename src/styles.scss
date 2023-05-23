@@ -421,3 +421,19 @@ pagination-template {
 .h-100{
   height: 100% !important;
 }
+.empty-box{
+  width: 100%;
+  height: auto;
+  padding: 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid $border-color;
+  span{
+    font-weight: 600;
+    color: $dark-color;
+
+  }
+}
