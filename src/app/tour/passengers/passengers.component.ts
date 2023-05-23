@@ -32,6 +32,8 @@ export class PassengersComponent implements OnInit, OnChanges {
     public message: MessageService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    
     if (changes['RoomData'].firstChange) {
       for (let i = 0; i < (this.RoomData?.Adl_capacity ?? []); i++) {
         this.addRow();
@@ -90,7 +92,7 @@ export class PassengersComponent implements OnInit, OnChanges {
     return this.ReserveForm.get('passengers') as FormArray;
   }
 
-  addRow() {
+  addRow(type = 'adl') {
     const Passengers = this.fb.group({
       name: ['', [Validators.required]],
       family: ['', [Validators.required]],

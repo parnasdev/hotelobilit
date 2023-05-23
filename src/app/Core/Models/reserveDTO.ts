@@ -32,7 +32,7 @@ export interface ReserveCheckingReqDTO {
     flight_id: number;
     checkin: string;
     stayCount: number
-    rooms: { room_id: number, count: number }[]
+    rooms: ReserveRoomsReqDTO[]
 }
 
 
@@ -40,7 +40,7 @@ export interface ReserveInfoDTO {
     flight: transferRateListDTO;
     hotel: ReserveHotelDTO
     rooms: ReserveRoomDTO[]
-    rooms_selected: { room_id: number, count: number }[]
+    rooms_selected: ReserveRoomsReqDTO[]
 }
 
 export interface ReserveRoomDTO {
@@ -57,6 +57,7 @@ export interface ReserveRoomDTO {
     services: { insurance_rate: number, transfer_rate: number, visa_rate: number }
     user: any;
     passengers?: ReservePassengersDTO[]
+    options?:ReserveRoomsReqDTO
 }
 export interface ReserveRoomsReqDTO {
     room_id: number;

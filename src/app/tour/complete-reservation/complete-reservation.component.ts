@@ -101,11 +101,13 @@ export class CompleteReservationComponent implements OnInit {
       let x = this.data.rooms.filter(y => y.id === room.room_id)
       if (x.length > 0) {
         for (let i = 0; i < room.count; i++) {
+          x[0].options = room;
           this.roomsSelected.push(x[0]);
         }
       }
     })
   }
+
   reload() {
     this.showPassengers = false;
     setTimeout(() => this.showPassengers = true);
