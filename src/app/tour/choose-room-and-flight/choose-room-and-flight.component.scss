@@ -828,6 +828,19 @@ prs-show-location {
 }
 
 @media only screen and (max-width: 868px) {
+  .p-count-room{
+    padding-left: 0 !important;
+    .p-item-count-room{
+      width: 100% !important;
+      flex-wrap: wrap;
+      height: auto !important;
+      padding: 8px !important;
+      .inp-item{
+        width: 100% !important;
+        margin-top: 10px;
+      }
+    }
+  }
   .thumbnail-hotel {
     height: auto;
     position: relative;
@@ -1077,53 +1090,63 @@ prs-show-location {
 
 
 //thumbnail-flight-mobi
-.thumbnail-flight-mobi{
+.thumbnail-flight-mobi {
   background: $white-color;
   border-radius: 10px;
   border: 1px solid $border-color;
   padding: 10px;
   margin-top: 14px;
-  .title{
+
+  .title {
     width: 100%;
-    h3{
+
+    h3 {
       font-size: 15px;
       color: $gray-color;
       font-weight: 600;
       margin-bottom: 8px;
     }
   }
-  .flight-from{
+
+  .flight-from {
     width: 100%;
     display: flex;
     flex-direction: column;
     border-bottom: 2px dashed $border-color;
     padding-bottom: 8px;
-    .top{
+
+    .top {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      span{
+
+      span {
         font-size: 13px;
         font-weight: 600;
         color: $dark-color;
       }
-      .airline-to{
+
+      .airline-to {
         display: flex;
         align-items: center;
-        img{
+
+        img {
           margin-left: 8px;
         }
-        span{
+
+        span {
           font-weight: 500 !important;
         }
       }
     }
-    .bottom{
+
+    .bottom {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .location {
         color: $gray-color;
         font-size: 12px !important;
@@ -1132,44 +1155,53 @@ prs-show-location {
         border-radius: 10px;
         padding: 8px;
       }
-      .date{
+
+      .date {
         font-size: 12px !important;
         color: $gray-color !important;
       }
     }
   }
-  .flight-to{
+
+  .flight-to {
     width: 100%;
     display: flex;
     flex-direction: column;
     border-bottom: 2px dashed $border-color;
     padding: 8px 0;
-    .top{
+
+    .top {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      span{
+
+      span {
         font-size: 13px;
         font-weight: 600;
         color: $dark-color;
       }
-      .airline-to{
+
+      .airline-to {
         display: flex;
         align-items: center;
-        img{
+
+        img {
           margin-left: 8px;
         }
-        span{
+
+        span {
           font-weight: 500 !important;
         }
       }
     }
-    .bottom{
+
+    .bottom {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .location {
         color: $gray-color;
         font-size: 12px !important;
@@ -1178,12 +1210,14 @@ prs-show-location {
         border-radius: 10px;
         padding: 8px;
       }
-      .date{
+
+      .date {
         font-size: 12px !important;
         color: $gray-color !important;
       }
     }
   }
+
   .rooms {
     width: 100%;
     display: grid;
@@ -1242,6 +1276,7 @@ prs-show-location {
       }
     }
   }
+
   .box-end {
     border-radius: 10px;
     height: auto;
@@ -1334,10 +1369,10 @@ prs-show-location {
     font-size: 15px !important;
     height: auto !important;
   }
-  .pr12-mobi{
+  .pr12-mobi {
     padding-right: 12px !important;
   }
-  .thumbnail-flight{
+  .thumbnail-flight {
     display: none !important;
   }
   .info-time {
@@ -1570,18 +1605,22 @@ prs-show-location {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .line-between{
+
+        .line-between {
           border-top: 2px dashed $border-color;
           width: 80%;
           position: relative;
           top: 3px;
         }
-        .airline-from , .airline-to{
+
+        .airline-from, .airline-to {
           display: flex;
-          img{
+
+          img {
             margin-bottom: 8px;
           }
-          span{
+
+          span {
             font-size: 14px;
             font-weight: 600;
             color: $gray-color;
@@ -1764,5 +1803,31 @@ prs-show-location {
     place-items: center;
     color: var(--base-color);
     border: 1px solid #989898;
+  }
+}
+
+.p-count-room {
+  width: 100%;
+  padding-left: 7rem;
+
+  .p-item-count-room {
+    background: $white-color;
+    border-radius: 10px;
+    border: 1px solid $border-color;
+    margin-top: 12px;
+    padding: 0 12px;
+    align-items: center;
+
+    .inp-item {
+      input {
+        height: 30px;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        width: 100%;
+        outline: none;
+        margin-top: 8px;
+        padding: 0 8px;
+      }
+    }
   }
 }
