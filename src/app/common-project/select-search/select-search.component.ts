@@ -46,7 +46,7 @@ export class SelectSearchComponent {
     }
 
     if (this.inCommingAirport) {
-      this.hotelFC.setValue(this.inCommingAirport.name)
+      this.hotelFC.setValue(this.inCommingAirport)
       this.hotelSelected.emit(this.inCommingAirport)
 
     }

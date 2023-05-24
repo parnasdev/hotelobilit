@@ -1,0 +1,52 @@
+@import "src/assets/css/varible";
+.select-fly-city{
+  border-bottom: 1px solid #C6C6C6 !important;
+  border-bottom: 12px;
+  label{
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+}
+
+.item-fly{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $white-color;
+  height: 100px !important;
+  margin-top: 14px;
+  padding: 0 12px;
+  border-radius: 5px;
+  .box-id{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: $base-color-two;
+    color: $white-color;
+  }
+  label{
+    font-size: 14px;
+    font-weight: 600;
+  }
+  input{
+    height: 35px;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    padding: 0 8px;
+    outline: none;
+    width: 100%;
+    margin-top: 8px;
+  }
+  select{
+    height: 35px;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    padding: 0 8px;
+    outline: none;
+    width: 100%;
+    margin-top: 8px;
+  }
+}

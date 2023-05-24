@@ -28,6 +28,8 @@ import { MainPickerComponent } from './main-picker/main-picker.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { StoreModule } from 'src/app/store/store.module';
 import { TransferServiceComponent } from './transfer-service/transfer-service.component';
+import { UpdateTransferServicePopupComponent } from './update-transfer-service-popup/update-transfer-service-popup.component';
+import { SetRoomsAndCoefficientComponent } from './set-rooms-and-coefficient/set-rooms-and-coefficient.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -43,6 +45,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PricingComponent,
     ConfirmPricingModalComponent,
     TransferServiceComponent,
+    UpdateTransferServicePopupComponent,
+    SetRoomsAndCoefficientComponent,
   ],
   imports: [
     CommonModule,
