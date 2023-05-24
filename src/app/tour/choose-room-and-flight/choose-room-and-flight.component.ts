@@ -190,9 +190,10 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   checkFlightCapacity(flightIndex: number, roomIndex: number) {
     let count = 0;
     this.data[flightIndex].rooms.forEach((room) => {
-          count += (room.count ?? 0) * room.Adl_capacity + 1;
+          count += (room.count ?? 0) * room.Adl_capacity;   
     })
-    if (count < this.data[flightIndex].capacity) {
+    count += this.data[flightIndex].rooms[roomIndex].Adl_capacity
+    if (count <= this.data[flightIndex].capacity) {
       return true;
     } else {
       return false
