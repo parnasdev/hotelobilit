@@ -11,6 +11,7 @@ import { ReserveRoomsReqDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'prs-choose-room-and-flight',
@@ -167,11 +168,16 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   plus(roomIndex: number, flightIndex: number) {
-    let capacity = this.getRoomCapacity(this.data[flightIndex].rooms[roomIndex].rates);
-    if ((this.data[flightIndex].rooms[roomIndex].count ?? 0) < capacity) {
-      this.data[flightIndex].rooms[roomIndex].count = (this.data[flightIndex].rooms[roomIndex].count ?? 0) + 1
+
+    if (this.checkFlightCapacity(flightIndex, roomIndex)) {
+      let capacity = this.getRoomCapacity(this.data[flightIndex].rooms[roomIndex].rates);
+      if ((this.data[flightIndex].rooms[roomIndex].count ?? 0) < capacity) {
+        this.data[flightIndex].rooms[roomIndex].count = (this.data[flightIndex].rooms[roomIndex].count ?? 0) + 1
+      }
+      this.getSelectedRoom(flightIndex)
+    } else {
+      this.message.custom('پرواز برای این تعداد مسافر ظرفیت ندارد')
     }
-    this.getSelectedRoom(flightIndex)
   }
 
   minus(roomIndex: number, flightIndex: number) {
@@ -180,6 +186,19 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
     this.getSelectedRoom(flightIndex)
   }
+
+  checkFlightCapacity(flightIndex: number, roomIndex: number) {
+    let count = 0;
+    this.data[flightIndex].rooms.forEach((room) => {
+          count += (room.count ?? 0) * room.Adl_capacity + 1;
+    })
+    if (count < this.data[flightIndex].capacity) {
+      return true;
+    } else {
+      return false
+    }
+  }
+
 
   getRoomName(id: number) {
     let result = this.hotelInfo.rooms.filter(x => x.id === id)
@@ -212,16 +231,16 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   calculatePrice(flightID: number) {
-    let roomPrice = 0;
     let price = 0;
+    let roomPrice = 0;
+    let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
+    let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
     this.hotelInfo.rooms.forEach(room => {
-      if ((room.count ?? 0) > 0) {
-        roomPrice = (room.count ?? 0) * this.getRoomPrice(room.rates)
-        roomPrice = roomPrice * room.Adl_capacity;
+      if (room.room_type_id === environment.TWIN_ROOM_ID) {
+        roomPrice = this.getRoomPrice(room.rates)
       }
-      let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
-      price = roomPrice + (flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0)
     })
+    price = roomPrice + flightPrice;
     return price
   }
 
@@ -242,7 +261,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return price;
   }
 
-  submit(flightID: number,flightIndex: number) {
+  submit(flightID: number, flightIndex: number) {
     // console.log(this.data[flightIndex].selectedRooms);
 
     this.router.navigate([`reserve/${this.hotelInfo.id}/${flightID}`], {
@@ -253,7 +272,14 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       }
     })
   }
-
+  removeSelectedRoom(x: ReserveRoomsReqDTO, index: number, flightIndex: number): void {
+    this.data[flightIndex].rooms.forEach(room => {
+      if (room.id === x.room_id) {
+        room.count = (room.count ?? 0) - 1;
+      }
+    })
+    this.data[flightIndex].selectedRooms.splice(index, 1);
+  }
 
 
 }
