@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServiceApiService } from 'src/app/Core/Https/service-api.service';
+import { serviceSetReq } from 'src/app/Core/Models/newServicesDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -16,13 +17,15 @@ export class TransferServiceComponent implements OnInit {
   @Input() hotelId = 0
   airports: any[] = [];
   show = false;
-  
+
+  airportsSelected: serviceSetReq[] = []
+
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public route: ActivatedRoute,
     public api: ServiceApiService,
     public message: MessageService) { }
-  
+
   ngOnInit(): void {
     this.getData();
   }
@@ -44,8 +47,28 @@ export class TransferServiceComponent implements OnInit {
     })
   }
 
-  getHotelSelected($event: any){
-    
+  getAirportSelected(event: any) {
+    let obj: serviceSetReq = {
+      airport_id: event.id,
+      hotel_id: this.hotelId,
+      transfer_rate: 0,
+      transfer_rate_type: ''
+    }
+    this.airportsSelected.push(obj)
   }
+submit() {
+  this.api.storeService(this.airportsSelected).subscribe((res: any) => {
+    this.isLoading = false;
+    if (res.isDone) {
+      this.message.custom(res.message)
 
+    } else {
+      this.message.custom(res.message)
+    }
+  }, (error: any) => {
+    this.isLoading = false
+    this.checkError.check(error)
+    this.message.error()
+  })
+}
 }

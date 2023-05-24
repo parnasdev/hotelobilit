@@ -1,1 +1,25 @@
-<prs-select-search *ngIf="show" [airports]="airports" (hotelSelected)="getHotelSelected($event)"></prs-select-search>
+<prs-select-search *ngIf="show" [airports]="airports" (hotelSelected)="getAirportSelected($event)"></prs-select-search>
+
+
+<div class="d-flex flex-column">
+    <div class="d-flex" *ngFor="let item of airportsSelected">
+
+        <span>{{ item.airport_id }}</span>
+        <div class="d-flex flex-column">
+            <label for="">نرخ ترانسفر</label>
+            <input type="text" placeholder="نرخ ترانسفر" [(ngModel)]="item.transfer_rate">
+        </div>
+        <div class="d-flex flex-column">
+            <label for="">نرخ ترانسفر</label>
+            <select class="w-100" name="" id="" [(ngModel)]="item.transfer_rate_type">
+                <option disabled [value]="'all'">انتخاب کنید</option>
+                <option [value]="'toman'">تومان</option>
+                <option [value]="'dollar'">دلار</option>
+                <option [value]="'derham'">درهم</option>
+                <option [value]="'euro'">یورو</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<button class="btn-base w-25" (click)="submit()">ذخیره</button>

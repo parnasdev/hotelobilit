@@ -27,7 +27,7 @@ export class ServiceApiService {
       return this.http.get<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
     }
   
-    storeService(req: serviceSetReq): any {
+    storeService(req: serviceSetReq[]): any {
       const strUrl = this.serverControllerName + `services`;
       return this.http.post<Result<any[]>>(strUrl,req, this.publicService.getDefaultHeaders());
     }
