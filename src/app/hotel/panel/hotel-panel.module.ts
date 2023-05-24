@@ -5,6 +5,7 @@ import { HotelPanelRoutingModule } from './hotel-panel-routing.module';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
+import {MatTabsModule} from '@angular/material/tabs';
 import {
   IConfig,
   NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask
@@ -26,6 +27,7 @@ import { ConfirmPricingModalComponent } from './confirm-pricing-modal/confirm-pr
 import { MainPickerComponent } from './main-picker/main-picker.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { StoreModule } from 'src/app/store/store.module';
+import { TransferServiceComponent } from './transfer-service/transfer-service.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -40,6 +42,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MainPickerComponent,
     PricingComponent,
     ConfirmPricingModalComponent,
+    TransferServiceComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +61,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     BarRatingModule,
     NgxPaginationModule,
     MatSelectModule,
+    MatTabsModule
 
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction),
   ]

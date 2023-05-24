@@ -23,12 +23,16 @@ import {PipesModule} from "./pipes/pipes.module";
 import {ShowLocationComponent} from './show-location/show-location.component';
 // import {SelectCategoriesComponent} from './select-categories/select-categories.component';
 import {MatSelectModule} from "@angular/material/select";
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {FaqComponent} from './faq/faq.component';
 import {FooterLinksComponent} from "./footer-links/footer-links.component";
 import {EditorModule} from "@tinymce/tinymce-angular";
 import { SelectCityTwoComponent } from './select-city-two/select-city-two.component';
 import { SelectCityPopupComponent } from './select-city-popup/select-city-popup.component';
 import { SelectCityLimitedComponent } from './select-city-limited/select-city-limited.component';
+import { SelectSearchComponent } from './select-search/select-search.component';
+
+
 
 
 @NgModule({
@@ -53,6 +57,7 @@ import { SelectCityLimitedComponent } from './select-city-limited/select-city-li
     SelectCityTwoComponent,
     SelectCityPopupComponent,
     SelectCityLimitedComponent,
+    SelectSearchComponent,
   ],
   exports: [
     UploadFileComponent,
@@ -69,6 +74,7 @@ import { SelectCityLimitedComponent } from './select-city-limited/select-city-li
     FaqComponent,
     FooterLinksComponent,
     SelectCityLimitedComponent,
+    SelectSearchComponent
   ],
   imports: [
     CommonModule,
@@ -81,6 +87,7 @@ import { SelectCityLimitedComponent } from './select-city-limited/select-city-li
     EditorModule,
     PipesModule,
     MatSelectModule,
+    NgxMatSelectSearchModule
   ], entryComponents: [UploadSingleComponent, AlertDialogComponent]
 })
 export class CommonProjectModule {

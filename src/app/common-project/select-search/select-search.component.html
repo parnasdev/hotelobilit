@@ -1,0 +1,18 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <input type="text"
+             placeholder="فرودگاه خود را انتخاب کنید"
+             aria-label="Number"
+             matInput
+             [formControl]="hotelFC"
+             [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" (blur)="changed(option)"  [value]="option.name">
+          <span>{{option.name}}</span>
+        </mat-option>
+      </mat-autocomplete>
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+  
+    </mat-form-field>
+  </form>
+  
