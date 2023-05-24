@@ -1,0 +1,7 @@
+:host::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important;
+  margin-top: 14px !important;
+  input{
+    font-size: 14px !important;
+  }
+}
