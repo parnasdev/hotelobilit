@@ -828,19 +828,22 @@ prs-show-location {
 }
 
 @media only screen and (max-width: 868px) {
-  .p-count-room{
+  .p-count-room {
     padding-left: 0 !important;
-    .p-item-count-room{
+
+    .p-item-count-room {
       width: 100% !important;
       flex-wrap: wrap;
       height: auto !important;
       padding: 8px !important;
-      .inp-item{
+
+      .inp-item {
         width: 100% !important;
         margin-top: 10px;
       }
     }
   }
+
   .thumbnail-hotel {
     height: auto;
     position: relative;
@@ -1361,20 +1364,25 @@ prs-show-location {
     right: 0;
     top: 0;
   }
+
   .thumbnail-hotel .detail-hotel .r .address {
     margin-top: 0 !important;
   }
+
   .thumbnail-hotel .detail-hotel .r .name-hotel {
     line-height: 22px !important;
     font-size: 15px !important;
     height: auto !important;
   }
+
   .pr12-mobi {
     padding-right: 12px !important;
   }
+
   .thumbnail-flight {
     display: none !important;
   }
+
   .info-time {
     width: 95%;
     margin: 12px auto !important;
@@ -1610,10 +1618,19 @@ prs-show-location {
           border-top: 2px dashed $border-color;
           width: 80%;
           position: relative;
+          display: flex;
+          justify-content: center;
           top: 3px;
+
+          span {
+            position: absolute;
+            top: -28px;
+            font-size: 14px;
+          }
         }
 
-        .airline-from, .airline-to {
+        .airline-from,
+        .airline-to {
           display: flex;
 
           img {
@@ -1653,8 +1670,7 @@ prs-show-location {
             margin-left: 8px;
           }
 
-          .location {
-          }
+          .location {}
         }
 
         .location {

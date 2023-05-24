@@ -8,6 +8,7 @@ import { ReserveCheckingReqDTO, ReserveCreateDTO, ReserveInfoDTO, ReserveReqRoom
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -49,6 +50,7 @@ export class CompleteReservationComponent implements OnInit {
   })
   constructor(public api: ReserveApiService,
     public message: MessageService,
+    private _location: Location,
     public fb: FormBuilder,
     public errorService: ErrorsService,
     public router: Router,
@@ -100,7 +102,10 @@ export class CompleteReservationComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
-      this.message.error()
+      if(error.status === 400) {
+        this.message.showMessageBig(error.error.message);
+        this._location.back();
+      }
     })
   }
 
@@ -118,7 +123,6 @@ export class CompleteReservationComponent implements OnInit {
         }
       }
     })
-    console.log(this.roomsSelected);
     
   }
 
@@ -155,6 +159,7 @@ export class CompleteReservationComponent implements OnInit {
       stayCount: this.checkingReq.stayCount,
     }
   }
+
 
   convertRooms() {
     this.finalRoomSelected = [];
