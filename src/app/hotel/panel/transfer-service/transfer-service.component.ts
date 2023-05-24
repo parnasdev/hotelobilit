@@ -12,13 +12,15 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./transfer-service.component.scss']
 })
 export class TransferServiceComponent implements OnInit {
-
+price = 0
+rate =''
   isLoading = false;
   @Input() hotelId = 0
   airports: any[] = [];
   show = false;
-
+  airportId: number = 0;
   airportsSelected: serviceSetReq[] = []
+  list: any[] = [];
 
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
@@ -28,6 +30,7 @@ export class TransferServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.getList()
   }
 
   getData(): void {
@@ -47,28 +50,41 @@ export class TransferServiceComponent implements OnInit {
     })
   }
 
-  getAirportSelected(event: any) {
+
+  getList() {
+    this.api.getServiceList(this.hotelId).subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+        this.list = res.data;
+
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.isLoading = false
+      this.checkError.check(error)
+      this.message.error()
+    })
+  }
+  submit() {
     let obj: serviceSetReq = {
-      airport_id: event.id,
+      airport_id: this.airportId,
       hotel_id: this.hotelId,
       transfer_rate: 0,
       transfer_rate_type: ''
     }
-    this.airportsSelected.push(obj)
-  }
-submit() {
-  this.api.storeService(this.airportsSelected).subscribe((res: any) => {
-    this.isLoading = false;
-    if (res.isDone) {
-      this.message.custom(res.message)
+    this.api.storeService(obj).subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+        this.message.custom(res.message)
 
-    } else {
-      this.message.custom(res.message)
-    }
-  }, (error: any) => {
-    this.isLoading = false
-    this.checkError.check(error)
-    this.message.error()
-  })
-}
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.isLoading = false
+      this.checkError.check(error)
+      this.message.error()
+    })
+  }
 }
