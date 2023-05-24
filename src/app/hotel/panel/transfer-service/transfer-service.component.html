@@ -1,25 +1,28 @@
 
-<div class="w-100 select-fly-city d-flex flex-column align-items-start">
-  <label for="">انتخاب شهر فرودگاه</label>
-  <prs-select-search *ngIf="show" [airports]="airports" (hotelSelected)="getAirportSelected($event)"></prs-select-search>
-</div>
-<div class="d-flex item-fly w-100" *ngFor="let item of airportsSelected">
 
-  <span  class="font-size-13 box-id">{{ item.airport_id }}</span>
-  <div class="d-flex w-25 flex-column">
-    <label for="">نرخ ترانسفر</label>
-    <input type="text" placeholder="نرخ ترانسفر" [(ngModel)]="item.transfer_rate">
-  </div>
-  <div class="d-flex w-25 flex-column">
-    <label for="">نوع ارز</label>
-    <select class="w-100" name="" id="" [(ngModel)]="item.transfer_rate_type">
-      <option disabled [value]="'all'">انتخاب کنید</option>
-      <option [value]="'toman'">تومان</option>
-      <option [value]="'dollar'">دلار</option>
-      <option [value]="'derham'">درهم</option>
-      <option [value]="'euro'">یورو</option>
-    </select>
-  </div>
-  <button class="btn-base h-45 m-top-15 w-15" (click)="submit()">ذخیره</button>
-</div>
 
+<div style="border: 1px solid #c6c6c6" class="p-4 m-top-20 border-radius-10">
+  <div class="w-100 select-fly-city d-flex flex-column align-items-start">
+    <label for="">انتخاب شهر فرودگاه</label>
+    <prs-select-search *ngIf="show" [airports]="airports" (hotelSelected)="getAirportSelected($event)"></prs-select-search>
+  </div>
+  <div class="d-flex item-fly w-100" *ngFor="let item of airportsSelected">
+
+    <span  class="font-size-13 box-id">{{ item.airport_id }}</span>
+    <div class="d-flex w-25 flex-column">
+      <label for="">نرخ ترانسفر</label>
+      <input type="text" placeholder="نرخ ترانسفر" [(ngModel)]="item.transfer_rate">
+    </div>
+    <div class="d-flex w-25 flex-column">
+      <label for="">نوع ارز</label>
+      <select class="w-100" name="" id="" [(ngModel)]="item.transfer_rate_type">
+        <option disabled [value]="'all'">انتخاب کنید</option>
+        <option [value]="'toman'">تومان</option>
+        <option [value]="'dollar'">دلار</option>
+        <option [value]="'derham'">درهم</option>
+        <option [value]="'euro'">یورو</option>
+      </select>
+    </div>
+    <button class="btn-base h-45 m-top-15 w-15" (click)="submit()">ذخیره</button>
+  </div>
+</div>
