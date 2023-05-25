@@ -23,7 +23,8 @@ export class EditComponent extends AddComponent implements OnInit {
     post: {
       id: 0,
       user_id: 0,
-
+      address: '',
+      titleEn: '',
       title: '',
       slug: '',
       description: '',

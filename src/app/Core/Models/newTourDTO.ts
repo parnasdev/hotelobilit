@@ -36,7 +36,7 @@ export interface ChooseTourListDTO {
   destination_id: number;
   airline_name: string;
   airline_id: number;
-  airline_thumb: string
+  airline_thumb: any
   flight: transferRateListDTO;
   date: string;
   time: string;

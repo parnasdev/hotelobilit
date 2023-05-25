@@ -36,6 +36,11 @@ export class ServiceApiService {
       const strUrl = this.serverControllerName + `services/${hotel_id}/edit`;
       return this.http.get<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
     }
+
+    removeService(id: number): any {
+      const strUrl = this.serverControllerName + `services/${id}`;
+      return this.http.delete<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
+    }
   
     updateService(hotel_id: number, req: any): any {
       const strUrl = this.serverControllerName + `services/${hotel_id}`;

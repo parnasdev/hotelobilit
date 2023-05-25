@@ -5,6 +5,8 @@ export interface hotelDTO {
     id: number;
     user_id: number;
     title: string;
+    titleEn: string;
+    address: string;
     slug: string;
     description: string
     body: string;
@@ -174,9 +176,9 @@ export interface ratigListReqDTO {
 }
 
 export interface RatingResDTO {
-    currencies: string[]
-    hotel: storeHotelReqDTO
-    rates: RateDTO[]
+    currencies: string[];
+    hotel: storeHotelReqDTO;
+    rates: RateDTO[];
 }
 
 
