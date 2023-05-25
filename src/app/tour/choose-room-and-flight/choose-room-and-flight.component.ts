@@ -245,6 +245,18 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return price
   }
 
+  calculatePriceByRates(flightID: number, rates: RateDTO[]) {
+    let price = 0;
+    let roomPrice = 0;
+    let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
+    let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
+    rates.forEach(rate => {
+      roomPrice += rate.price;
+    })
+    price = roomPrice + flightPrice;
+    return price
+  }
+
   getRoomCapacity(rates: RateDTO[]): number {
     let list: number[] = [];
     rates.forEach(rate => {

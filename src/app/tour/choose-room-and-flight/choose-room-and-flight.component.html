@@ -199,7 +199,7 @@
                     </div>
                     <div class="line-between">
 
-                      <span>ظرفیت پرواز :{{ item.capacity }}</span>
+                      <span>تعداد موجودی پرواز :{{ item.capacity }}</span>
                     </div>
                     <div class="airline-to">
                       <div class="d-flex flex-column align-items-center">
@@ -239,7 +239,7 @@
                       <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
                     </div>
                     <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                      <strong>{{ getRoomPrice(room.rates) }}</strong>
+                      <strong>{{ calculatePriceByRates(item.id, room.rates) | sperator }}</strong>
                       <small>تومان</small>
                     </div>
                     <!-- <i class="icon-down-open"></i> -->
