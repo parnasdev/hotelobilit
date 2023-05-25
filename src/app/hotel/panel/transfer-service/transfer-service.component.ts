@@ -33,6 +33,10 @@ rate =''
     this.getList()
   }
 
+  getAirportSelected(data: any){
+
+  }
+
   getData(): void {
     this.isLoading = true;
     this.api.createServicePage(this.hotelId).subscribe((res: any) => {
