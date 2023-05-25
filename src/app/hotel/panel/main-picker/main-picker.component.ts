@@ -180,13 +180,12 @@ export class MainPickerComponent implements OnInit {
     }
   }
   getPriceLabel(item: any): string {
-
     if (item) {
       let price = 0;
       if (this.room?.room_type_id !== this.standardTwinId) {
         price = this.pricingType === '1' ? item.price / (this.room?.Adl_capacity ?? 1) : item.price;
       } else {
-        price = item.price / 2
+        price = item.price
       }
       if (item.currency_code === 'toman') {
         if (price.toString().length > 6) {
