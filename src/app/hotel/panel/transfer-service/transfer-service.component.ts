@@ -35,11 +35,7 @@ export class TransferServiceComponent implements OnInit {
     this.getData();
     this.getList()
   }
-
-  getAirportSelected(data: any){
-
-  }
-
+  
   getData(): void {
     this.isLoading = true;
     this.api.createServicePage(this.hotelId).subscribe((res: any) => {
@@ -135,6 +131,6 @@ export class TransferServiceComponent implements OnInit {
       if(result) {
         this.getList()
       }
-    })
+      })
+    }
   }
-}
