@@ -295,20 +295,17 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   plusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex:number){
-    debugger
-    let data: any = [];
-    let items = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)
-    items.length > 1 ? items[roomIndex] : data;
+    let item = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)[0]
     switch (ItemType) {
       case 'extra_count':
-        data.extra_count += 1 
+        item.extra_count += 1 
         break;
       case 'chd_count':
-        data.chd_count += 1 
+        item.chd_count += 1 
         break;
       case 'inf_count':
-        if(data.inf_count < data.adl_count){
-          data.inf_count += 1 
+        if(item.inf_count < item.adl_count){
+          item.inf_count += 1 
         }
         break;
       default:
@@ -317,8 +314,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   minusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex:number){
-    debugger
-    let item = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)[roomIndex]
+    let item = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)[0]
     switch (ItemType) {
       case 'extra_count':
         if(item.extra_count > 0){
