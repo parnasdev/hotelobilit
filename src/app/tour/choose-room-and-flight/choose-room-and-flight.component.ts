@@ -294,5 +294,51 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.data[flightIndex].selectedRooms.splice(index, 1);
   }
 
+  plusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex:number){
+    debugger
+    let data: any = [];
+    let items = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)
+    items.length > 1 ? items[roomIndex] : data;
+    switch (ItemType) {
+      case 'extra_count':
+        data.extra_count += 1 
+        break;
+      case 'chd_count':
+        data.chd_count += 1 
+        break;
+      case 'inf_count':
+        if(data.inf_count < data.adl_count){
+          data.inf_count += 1 
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  minusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex:number){
+    debugger
+    let item = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)[roomIndex]
+    switch (ItemType) {
+      case 'extra_count':
+        if(item.extra_count > 0){
+          item.extra_count -= 1
+        }
+        break;
+      case 'chd_count':
+        if(item.chd_count > 0){
+          item.chd_count -= 1 
+        }
+        break;
+      case 'inf_count':
+        if(item.inf_count > 0){
+          item.inf_count -= 1
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
 
 }
