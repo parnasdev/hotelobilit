@@ -4,6 +4,7 @@ import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { TabsComponent } from './tabs/tabs.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
   } , 
   {
     path: 'pricing/:id/:slug',
-    component: PricingComponent
+    component: TabsComponent
   }
 ];
 

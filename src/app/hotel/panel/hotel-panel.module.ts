@@ -30,6 +30,7 @@ import { StoreModule } from 'src/app/store/store.module';
 import { TransferServiceComponent } from './transfer-service/transfer-service.component';
 import { UpdateTransferServicePopupComponent } from './update-transfer-service-popup/update-transfer-service-popup.component';
 import { SetRoomsAndCoefficientComponent } from './set-rooms-and-coefficient/set-rooms-and-coefficient.component';
+import { TabsComponent } from './tabs/tabs.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -47,6 +48,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TransferServiceComponent,
     UpdateTransferServicePopupComponent,
     SetRoomsAndCoefficientComponent,
+    TabsComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,38 @@
+<prs-loading *ngIf="isLoading"></prs-loading>
+<div class="box-pricing">
+  <div class="top w-100 d-flex justify-content-between">
+    <div class="detail">
+      <div class="star">
+        <!-- <i class="icon-star" *ngFor="let star of getStars(ratingData?.hotel?.stars)"></i> -->
+      </div>
+      <h2 class="name-hotel my-2">
+        <a>{{ ratingData ? ratingData.hotel.title : '' }}</a>
+      </h2>
+      <h2 class="name-hotel my-2">
+        <a>{{ ratingData ? ratingData.hotel.titleEn : '' }}</a>
+      </h2>
+      <div class="address">
+        <!-- <span>{{ ratingData?.hotel?. }}</span> -->
+      </div>
+    </div>
+    <a style="width: 100px !important;height: 40px !important;" routerLink="/panel/hotel/edit/{{id}}"  class="btn-base">ویرایش هتل</a>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="قیمت گذاری هتل">
+      <ng-template matTabContent>
+        <prs-pricing></prs-pricing>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="ضرایب هتل">
+      <ng-template matTabContent>
+        <prs-set-rooms-and-coefficient [hotel_id]="+id"></prs-set-rooms-and-coefficient>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="ترانسفر">
+      <ng-template matTabContent>
+        <prs-transfer-service [hotelId]="+id"></prs-transfer-service>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

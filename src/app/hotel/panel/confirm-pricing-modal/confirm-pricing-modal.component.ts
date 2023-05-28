@@ -52,7 +52,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       date_to: moment(this.data.checkout.dateEn).format('YYYY-MM-DD'),
       available_room_count: this.capacityFC.value,
       extra_bed_count: this.bedCountFC.value ? +this.bedCountFC.value : null,
-      price: this.priceFC.value ? +this.priceFC.value : null,
+      price: +this.priceFC.value,
       type: this.data.type,
       extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null
