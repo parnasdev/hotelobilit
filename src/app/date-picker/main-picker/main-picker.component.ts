@@ -6,6 +6,7 @@ import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { DatesResDTO } from 'src/app/Core/Models/tourDTO';
 
 @Component({
   selector: 'prs-main-picker',
@@ -16,6 +17,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
   @Output() result = new EventEmitter()
   @Input() type = 'single';
   @Input() inCommingDate: any
+  @Input() dateLise: DatesResDTO[] = []
   isLoading = false;
   moment: any = moment;
   month = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
@@ -98,22 +100,29 @@ export class MainPickerComponent implements OnInit, OnChanges {
   fillObject(dates: any = []) {
     let result: any[] = [];
 
-
     dates.forEach((date: any) => {
       const object = {
         dateFa: moment(date).isValid() ? date : '',
         dateEn: moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY/MM/DD') : '',
         isHoliday: moment(date, 'jYYYY/jMM/jDD').weekday() === 5,
-        isDisabled: this.isBefore(date),
+        isDisabled: this.isBefore(date) || !this.isExistDateList(moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD') : ''),
         isValid: moment(date).isValid(),
       }
       result.push(object);
     })
+    console.log(result);
+    
     return result;
   }
 
+  isExistDateList(date: string) {
+   let result = this.dateLise.filter(x => x.date === date)
+   
+    return result.length > 0;
+  }
+
   isBefore(date: any) {
-    let d = moment(date,'jYYYY/jMM/jDD').format('YYYY/MM/DD');
+    let d = moment(date, 'jYYYY/jMM/jDD').format('YYYY/MM/DD');
     let today = moment(new Date()).format('YYYY/MM/DD');
     return moment(d).isBefore(today)
   }
