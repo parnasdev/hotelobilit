@@ -24,6 +24,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   @Input() hotel_id: number = 0
   isCoefficient: string = '0';
   rooms: roomDTO[] = []
+  isLoading = false;
   removedRoomsIDs: number[] = []
 
   selectedRooms: roomDTO[] = [];
@@ -103,6 +104,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   }
 
   getInfo(): void {
+    this.isLoading = true
     this.hotelApi.editPosts('hotel', this.hotel_id).subscribe((res: any) => {
       if (res.isDone) {
         this.hotelInfo = res.data;
@@ -116,7 +118,11 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
       } else {
         this.message.custom(res.message)
       }
+      this.isLoading = false
+
     }, (error: any) => {
+      this.isLoading = false
+
       this.checkError.check(error);
       this.message.error()
     })

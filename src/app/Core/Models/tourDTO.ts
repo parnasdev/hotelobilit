@@ -307,7 +307,7 @@ export interface Tour {
 
 export interface DatesResDTO {
   date: string;
-  nights: number[];
+  night: number;
 }
 
 

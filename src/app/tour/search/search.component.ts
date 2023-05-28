@@ -39,11 +39,11 @@ export class SearchComponent implements OnInit, OnChanges {
 
   constructor(
     public dialog: MatDialog,
-    public error:ErrorsService,
+    public error: ErrorsService,
     public cityApi: CityApiService,
     public calendarService: CalenderServices,
     public message: MessageService,
-  ) { 
+  ) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -108,37 +108,28 @@ export class SearchComponent implements OnInit, OnChanges {
     let destCode = this.destFC.value ?? '';
     this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
       if (res.isDone) {
-        debugger
         this.reservedDates = res.data;
         if (this.inCommingSearchObject) {
           this.stDateFC.setValue(this.inCommingSearchObject.stDate)
         }
         this.reservedDates.forEach(x => {
-          if (moment(x.date, 'YYYY-MM-DD').isSame(moment(this.stDateFC.value, 'YYYY-MM-DD'))) {
-            this.nights = x.nights;
-          }
+          this.nights.push(x.night)
         });
-        this.nightFC.setValue(this.inCommingSearchObject?.night)
+        // this.nightFC.setValue(this.inCommingSearchObject?.night)
       }
     }, (error: any) => {
       this.error.check(error)
     })
   }
 
-  myFilter = (d: Date | null): boolean => {
 
-    let list = this.reservedDates.filter(x => moment(x.date, 'YYYY-MM-DD').isSame(moment(d, 'YYYY-MM-DD')))
-    if (list.length > 0) {
-      this.nights = list[0].nights;
-      this.nightFC.setValue(this.nights[0])
-    }
-    return list.length > 0;
-  };
 
   openPicker() {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
       width: '80%',
-      data: this.dateFC.value
+      data: {
+        dateList: this.reservedDates
+      }
     })
     dialog.afterClosed().subscribe(res => {
       this.stDateFC.setValue(res.fromDate.dateFa)
