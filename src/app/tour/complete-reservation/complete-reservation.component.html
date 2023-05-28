@@ -46,7 +46,7 @@
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">{{ data?.flight?.date | convertDate }} {{ ' ' +
+            <span class="text" style="direction: ltr!important">{{ data?.flight?.date }} {{ ' ' +
               (data.flight?.time?.substring(0,5)) }}</span>
           </div>
           <!-- <div class="item">
@@ -68,7 +68,7 @@
 
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{ data?.flight?.flight?.date | convertDate }} {{ ' ' +
+            <span class="text" style="direction: ltr!important">{{ data?.flight?.flight?.date }} {{ ' ' +
               data.flight?.flight?.time?.substring(0,5) }}</span>
           </div>
           <!-- <div class="item">

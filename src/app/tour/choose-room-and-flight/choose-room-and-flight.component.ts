@@ -248,12 +248,14 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   calculatePriceByRates(flightID: number, rates: RateDTO[]) {
     let price = 0;
     let roomPrice = 0;
+    let currency = this.hotelInfo.rooms[0].currencies.euro;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
     let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
     rates.forEach(rate => {
-      roomPrice += rate.price;
+      roomPrice += rate.price * currency;
     })
-    price = roomPrice + flightPrice;
+
+    price = roomPrice + flightPrice ;
     return price
   }
 
@@ -276,7 +278,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   submit(flightID: number, flightIndex: number) {
     // console.log(this.data[flightIndex].selectedRooms);
-
+debugger
     this.router.navigate([`reserve/${this.hotelInfo.id}/${flightID}`], {
       queryParams: {
         checkin: this.req.date,

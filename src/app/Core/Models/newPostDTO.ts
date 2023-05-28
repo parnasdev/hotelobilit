@@ -38,6 +38,7 @@ export interface RoomDTO {
     age_child: number
     chd_capacity: number;
     room_type_id: number;
+    currencies: any
     has_coefficient: boolean
     count?: number
     coefficient: number;

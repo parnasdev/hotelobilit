@@ -26,6 +26,7 @@ export class PricingComponent implements OnInit {
   req!: ratigListReqDTO;
   activedRoom = 0;
   roomTypeId = 0;
+  calendarLang = 'shamsi'
   ratingData!: RatingResDTO;
   rooms: roomDTO[] = [];
   constructor(public checkError: CheckErrorService,
