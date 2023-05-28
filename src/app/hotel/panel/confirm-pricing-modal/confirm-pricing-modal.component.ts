@@ -6,11 +6,13 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import * as moment from 'jalali-moment';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { roomDTO } from 'src/app/Core/Models/newPostDTO';
 export interface ConfirmPriceReqDTO {
   checkin: any;
   checkout: any;
   hotelID: number;
   roomID: number;
+  room: roomDTO;
   type: number;
   bedCount: number;
   currency_code: string;

@@ -281,6 +281,7 @@ export class MainPickerComponent implements OnInit {
         checkin: this.stDate,
         checkout: this.enDate,
         roomID: this.room ? this.room.id : 0,
+        room: this.room,
         hotelID: this.hotelID,
         type: +this.pricingType,
         bedCount: this.room?.extra_bed_count,

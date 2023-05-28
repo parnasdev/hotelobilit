@@ -1,6 +1,6 @@
 <div class="p-4 d-flex w-100 flex-wrap justify-content-between">
   <div class="w-100">
-    <h3>قیمت اتاق (به ازای هر نفر)</h3>
+    <strong>قیمت گذاری</strong>
 
   </div>
 
@@ -13,7 +13,7 @@
   </div>
 
   <div class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">قیمت اتاق ({{ getCurrencyLabel() }})</label>
+    <label for="">قیمت هر نفر در اتاق {{ data.room.room_type }} ({{ getCurrencyLabel() }})</label>
     <div class="inp-form mt-2 mt-2 w-100">
       <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت خود را وارد کنید"
         [formControl]="priceFC">
