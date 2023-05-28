@@ -183,13 +183,14 @@ export class MainPickerComponent implements OnInit {
     if (item) {
       let price = 0;
       if (this.room?.room_type_id !== this.standardTwinId) {
-        price = this.pricingType === '1' ? item.price / (this.room?.Adl_capacity ?? 1) : item.price;
+        price = item.price;
       } else {
-        if(this.pricingType === '1') {
-          price = item.price / 2
-        } else {
-          price = item.price
-        }
+        price = item.price
+        // if(this.pricingType === '1') {
+        //   price = item.price / 2
+        // } else {
+        //   price = item.price
+        // }
       }
       if (item.currency_code === 'toman') {
         if (price.toString().length > 6) {
