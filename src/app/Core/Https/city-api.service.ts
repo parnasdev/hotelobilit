@@ -24,6 +24,11 @@ export class CityApiService {
     return this.http.post<Result<CityListRes>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
+  getDates(originCityCode: string, destCityCode:string): any {
+    const strUrl = this.serverControllerName + `/getDates/${originCityCode}/${destCityCode}`;
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
   add(req: CitySetRequestDTO): any {
     const strUrl = this.serverControllerName + 'createCity';
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
@@ -46,5 +51,7 @@ export class CityApiService {
 
     return this.http.get<Result<CityResponseDTO>>(strUrl, this.publicService.getDefaultHeaders());
   }
+
+
 
 }

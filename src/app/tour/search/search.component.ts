@@ -1,10 +1,13 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
+import { DatesResDTO } from 'src/app/Core/Models/tourDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
@@ -19,9 +22,10 @@ export class SearchComponent implements OnInit, OnChanges {
   @Input() inCommingSearchObject?: SearchObjectDTO;
   dateFC = new FormControl();
   isLoading = false;
-  hasFlight = 0
-  hasHotel = 0
+  hasFlight = 1
+  hasHotel = 1
   cities: categoriesDTO[] | CityListRes[] = []
+  reservedDates: DatesResDTO[] = [];
 
   originFC = new FormControl('', Validators.required);
   destFC = new FormControl('', Validators.required);
@@ -35,10 +39,13 @@ export class SearchComponent implements OnInit, OnChanges {
 
   constructor(
     public dialog: MatDialog,
+    public error:ErrorsService,
     public cityApi: CityApiService,
     public calendarService: CalenderServices,
     public message: MessageService,
-  ) { }
+  ) { 
+
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['inCommingSearchObject']) {
       this.originFC.setValue(this.inCommingSearchObject?.origin ?? '')
@@ -84,17 +91,49 @@ export class SearchComponent implements OnInit, OnChanges {
   originSelected(city: CityListRes): void {
     this.originFC.setValue(city.code)
     this.originID = city.id;
-    // if (this.destFC.valid) {
-    //   this.getReservedDates();
-    // }
+    if (this.destFC.valid) {
+      this.getReservedDates();
+    }
   }
 
   destSelected(city: CityListRes): void {
     this.destFC.setValue(city.code)
-    // this.reservedDates = [];
+    this.reservedDates = [];
     this.inCommingSearchObject = undefined
-    // this.getReservedDates();
+    this.getReservedDates();
   }
+
+  getReservedDates(): void {
+    let originCode = this.originFC.value ?? '';
+    let destCode = this.destFC.value ?? '';
+    this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
+      if (res.isDone) {
+        debugger
+        this.reservedDates = res.data;
+        if (this.inCommingSearchObject) {
+          this.stDateFC.setValue(this.inCommingSearchObject.stDate)
+        }
+        this.reservedDates.forEach(x => {
+          if (moment(x.date, 'YYYY-MM-DD').isSame(moment(this.stDateFC.value, 'YYYY-MM-DD'))) {
+            this.nights = x.nights;
+          }
+        });
+        this.nightFC.setValue(this.inCommingSearchObject?.night)
+      }
+    }, (error: any) => {
+      this.error.check(error)
+    })
+  }
+
+  myFilter = (d: Date | null): boolean => {
+
+    let list = this.reservedDates.filter(x => moment(x.date, 'YYYY-MM-DD').isSame(moment(d, 'YYYY-MM-DD')))
+    if (list.length > 0) {
+      this.nights = list[0].nights;
+      this.nightFC.setValue(this.nights[0])
+    }
+    return list.length > 0;
+  };
 
   openPicker() {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
@@ -102,7 +141,6 @@ export class SearchComponent implements OnInit, OnChanges {
       data: this.dateFC.value
     })
     dialog.afterClosed().subscribe(res => {
-      console.log(res)
       this.stDateFC.setValue(res.fromDate.dateFa)
     })
   }

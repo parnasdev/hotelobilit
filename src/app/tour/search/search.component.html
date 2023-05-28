@@ -14,18 +14,9 @@
     <div class="inp-form">
       <select [formControl]="nightFC" class="w-100" name="">
         <option value="null">تعداد شب</option>
-        <!-- <option *ngFor="let x of nights" [value]="x">{{x}} -->
-          <option [value]="1">1 شب</option>
-          <option [value]="2">2 شب</option>
-          <option [value]="3">3 شب</option>
-          <option [value]="4">4 شب</option>
-          <option [value]="5">5 شب</option>
-          <option [value]="6">6 شب</option>
-          <option [value]="7">7 شب</option>
-          <option [value]="8">8 شب</option>
-          <option [value]="9">9 شب</option>
-        <!-- <span style="margin-right: 4px">شب</span> -->
-        <!-- </option> -->
+          <option *ngFor="let x of nights" [value]="x">{{x}}
+          <span style="margin-right: 4px">شب</span>
+        </option>
       </select>
     </div>
     <button class="btn-search btn-base font-16" (click)="search()">جست و جو</button>
