@@ -163,7 +163,20 @@ export class AddComponent implements OnInit {
   }
 
   getHotelName(id: number) {
-    return this.hotels.find((y: any) => y.id === id)?.name
+    return this.filteredHotel.find((y: any) => y.id === id)?.title
+  }
+
+  getCityName(id: number) {
+    return this.cities.find((y: any) => y.id === id)?.name
+  }
+
+  deleteCityItem(index: number){
+    this.selectedCity.value.splice(index, 1)
+    this.selectionChange();
+  }
+
+  deleteItem(index:number){
+    this.selectedhotelsFC.value.splice(index, 1)
   }
 
 }

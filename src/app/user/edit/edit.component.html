@@ -97,13 +97,11 @@
         </div>
 
 
-
-
-        <div class="top" *ngIf="role === 'programmer' || 'admin'">
-          <div class="address-hotel">
-            <label for="address">شهر های موردنظر را انتخاب کنید</label>
-            <mat-form-field appearance="fill">
-              <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()"  multiple>
+        <div class="selection-box" *ngIf="role === 'programmer' || 'admin'">
+          <div class="select-city">
+            <label>شهر های موردنظر را انتخاب کنید</label>
+            <mat-form-field class="select-mat" appearance="fill">
+              <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()" multiple>
                 <mat-select-trigger>
                   <span>شهر های انتخاب شده</span>
 
@@ -112,11 +110,18 @@
               </mat-select>
             </mat-form-field>
 
+            <div class="show-box">
+              <span class="city-box" *ngFor="let city of selectedCity.value; let i = index">
+                <i (click)="deleteCityItem(i)" class="text-danger">X</i>
+                {{ getCityName(+city) }}
+              </span>
+            </div>
+
 
           </div>
-          <div class="address-hotel">
-            <label for="address">هتل های موردنظر را انتخاب کنید</label>
-            <mat-form-field appearance="fill">
+          <div class="select-hotel">
+            <label>هتل های موردنظر را انتخاب کنید</label>
+            <mat-form-field class="select-mat" appearance="fill">
               <mat-label>هتل ها</mat-label>
               <mat-select [formControl]="selectedhotelsFC" multiple>
                 <mat-select-trigger>
@@ -126,14 +131,16 @@
                 <mat-option *ngFor="let hotel of filteredHotel" [value]="hotel.id">{{hotel.title}}</mat-option>
               </mat-select>
             </mat-form-field>
-            <div>
-              <span class="city-box" *ngFor="let hotel of selectedhotelsFC.value">
+            <div class="show-box">
+              <span class="city-box" *ngFor="let hotel of selectedhotelsFC.value; let i = index">
+                <i (click)="deleteItem(i)" class="text-danger">X</i>
                 {{ getHotelName(+hotel) }}
               </span>
             </div>
 
           </div>
         </div>
+
         <div class="p-error">
           <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
         </div>
