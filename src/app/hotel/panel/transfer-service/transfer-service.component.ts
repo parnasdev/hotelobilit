@@ -54,7 +54,7 @@ export class TransferServiceComponent implements OnInit {
   }
 
   getAirportName(id: number) {
-    return this.airports.find(x => x.id === id).name
+    return this.airports.find(x => x.id === id)?.name
 
   }
 

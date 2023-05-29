@@ -46,8 +46,8 @@
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">{{ data?.flight?.date }} {{ ' ' +
-              (data.flight?.time?.substring(0,5)) }}</span>
+            <span class="text" style="direction: ltr!important">{{ data.flight.date }} {{ ' ' +
+              (data.flight.time.substring(0,5)) }}</span>
           </div>
           <!-- <div class="item">
             <span class="title">تاریخ ورود به هتل :</span>
@@ -61,15 +61,15 @@
         <div class="info-to">
           <div class="d-flex align-items-center">
             <span>پرواز برگشت:</span>
-            <span style="margin-right: 4px" class="city-name">{{ data?.flight?.flight?.origin_name }} به {{
-              data.flight?.flight?.destination_name }}</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.flight.origin_name }} به {{
+              data.flight.flight.destination_name }}</span>
             <span></span>
           </div>
 
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{ data?.flight?.flight?.date }} {{ ' ' +
-              data.flight?.flight?.time?.substring(0,5) }}</span>
+            <span class="text" style="direction: ltr!important">{{ data.flight.flight.date }} {{ ' ' +
+              data.flight.flight.time.substring(0,5) }}</span>
           </div>
           <!-- <div class="item">
             <span class="title">تاریخ خروج از هتل :</span>
