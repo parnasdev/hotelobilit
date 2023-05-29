@@ -23,79 +23,59 @@
         </div>
       </div>
     </div>
-    <div class="d-flex  align-items-center justify-content-between title-complete">
+    <div class="d-flex  align-items-center justify-content-between ">
       <div class="d-flex align-items-center mt-4">
         <h2 class="title-tour">اطلاعات تور</h2>
       </div>
-      <div class="d-flex align-items-center">
-        <h2 class="title-tour font-size-16">هتل انتخابی : </h2>
-        <h2 class="title-tour text-base m-right-8 font-size-16">هتل داریوش</h2>
-      </div>
+      <!-- <div class="code">
+        <span>کد رفرنس: {{ 'fjg454' }}</span>
+      </div> -->
     </div>
     <div class="box-top-box-reserve">
-      <div *ngIf="isDesktop" class="d-flex align-items-center title-top justify-content-between">
-        <h3 class="w-40 font-size-15 bold-600 m-bottom-5">پرواز رفت</h3>
-        <h3 class="w-40 font-size-15 bold-600 m-bottom-5">پرواز برگشت</h3>
+      <div class="d-flex align-items-center title-top justify-content-between">
+        <!-- <h2 class="title-tour">نام تور</h2> -->
+        <h2 class="title-tour">هتل انتخابی : {{ data.hotel.title }}</h2>
       </div>
       <div class="set-request-tour">
         <div class="info-from">
-          <div class="m-bottom-10 font-size-14 text-gray title-fly-mobi">پرواز رفت :</div>
-          <div class="d-flex align-items-center w-100 justify-content-between">
-            <span style="margin-right: 4px" class="city-name">تهران مهرآباد</span>
-            <strong class="m-left-47">به</strong>
-            <strong>کیش</strong>
+          <div class="d-flex align-items-center">
+            <span>پرواز رفت:</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.origin_name }} به {{
+              data.flight.destination_name }}</span>
+            <span>{{ data.flight.airline_name }}</span>
           </div>
-          <div class="p-airline-top">
-            <img src="/assets/img/kish-air.png" width="40" alt="">
-            <span class="font-size-13">کیش ایر</span>
+          <div class="item">
+            <span class="title">تاریخ و ساعت پرواز رفت :</span>
+            <span class="text" style="direction: ltr!important">{{ data.flight.date }} {{ ' ' +
+              (data.flight.time.substring(0,5)) }}</span>
           </div>
-          <div class="w-100 end-box d-flex align-items-center justify-content-between">
-            <div class="date">
-              <span class="title">تاریخ :</span>
-              <strong>1/1/1</strong>
-            </div>
-            <div class="time">
-              <span class="title">ساعت :</span>
-              <strong>22:00</strong>
-            </div>
-          </div>
-
+          <!-- <div class="item">
+            <span class="title">تاریخ ورود به هتل :</span>
+            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۶/۰۲</span>
+          </div> -->
         </div>
-        <!--          <div class="item">-->
-        <!--        -->
-        <!--&lt;!&ndash;            <span class="text" style="direction: ltr!important">{{ data?.flight?.date }} {{ ' ' +&ndash;&gt;-->
-        <!--&lt;!&ndash;            (data.flight?.time?.substring(0, 5)) }}</span>&ndash;&gt;-->
-        <!--          </div>-->
-        <!-- <div class="item">
-          <span class="title">تاریخ ورود به هتل :</span>
-          <span class="text" style="direction: ltr!important">۱۴۰۲/۰۶/۰۲</span>
-        </div> -->
         <div class="info-time">
-          <img class="m-bottom-10" src="../../../assets/img/moon.png" alt="">
           <span class="title">مدت اقامت:</span>
           <span class="text">{{ checkingReq.stayCount }} شب و {{ +checkingReq.stayCount + 1 }} روز</span>
         </div>
         <div class="info-to">
-          <div class="m-bottom-10 font-size-14 text-gray title-fly-mobi">پرواز برگشت :</div>
-          <div class="d-flex align-items-center w-100 justify-content-between">
-            <span style="margin-right: 4px" class="city-name">تهران مهرآباد</span>
-            <strong class="m-left-47">به</strong>
-            <strong>کیش</strong>
+          <div class="d-flex align-items-center">
+            <span>پرواز برگشت:</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.flight.origin_name }} به {{
+              data.flight.flight.destination_name }}</span>
+            <span></span>
           </div>
-          <div class="p-airline-top">
-            <img src="/assets/img/kish-air.png" width="40" alt="">
-            <span class="font-size-13">کیش ایر</span>
+
+          <div class="item">
+            <span class="title">تاریخ و ساعت پرواز برگشت :</span>
+            <span class="text" style="direction: ltr!important">{{ data.flight.flight.date }} {{ ' ' +
+              data.flight.flight.time.substring(0,5) }}</span>
           </div>
-          <div class="w-100 end-box d-flex align-items-center justify-content-between">
-            <div class="date">
-              <span class="title">تاریخ :</span>
-              <strong>1/1/1</strong>
-            </div>
-            <div class="time">
-              <span class="title">ساعت :</span>
-              <strong>22:00</strong>
-            </div>
-          </div>
+          <!-- <div class="item">
+            <span class="title">تاریخ خروج از هتل :</span>
+            <span class="text" style="direction: ltr!important">۱۴۰۲/۰۴/۰۳</span>
+          </div> -->
+        </div>
       </div>
     </div>
 
@@ -136,10 +116,10 @@
       </div>
     </div>
     <h2>اطلاعات مسافران</h2>
-    <ng-template [ngIf]="showPassengers">
+    <ng-template [ngIf]="showPassengers" >
 
       <prs-passengers *ngFor="let room of roomsSelected;let i=index" [RoomData]="room" [index]="i"
-                      [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
+        [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
     </ng-template>
 
     <div class="rules mt-3">
@@ -149,6 +129,7 @@
         قوانین و مقررات مرتبط با سایت اسنپ تریپ و پکیجهای این تور می باشد
       </p>
     </div>
+
 
 
     <!-- <div class="p-submit w-100 d-flex justify-content-center mt-4">

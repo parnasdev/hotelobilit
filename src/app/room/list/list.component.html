@@ -23,11 +23,9 @@
         </div>
       </div>
     </div>
-    <div>
-      <pagination-controls *ngIf="paginate.last_page > 1" class="pagination-control"
-        (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
-        screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
-      </pagination-controls>
-    </div>
+    <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+      screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
   </div>
   
