@@ -9,7 +9,7 @@
         <div class="col-md-10 m-auto">
           <div class="thumbnail-hotel">
             <div class="img-hotel">
-              <img src="../../../assets/img/12123131.png" alt="">
+              <img [src]="hotelInfo.thumbnail ? hotelInfo.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
             </div>
             <div class="detail-hotel">
               <div class="r">
@@ -167,7 +167,14 @@
 
 
           <div class="d-flex flex-column w-100" *ngFor="let item of data;let flightIndex = index">
-            <div class="thumbnail-flight">
+
+            <div style="position: relative;"
+              [ngClass]="{'focus-thumbnail' :(getRoomSelectedID() === item.id && data.length > 1)}"
+              class="thumbnail-flight ">
+              <div class="blur"
+                *ngIf="getRoomSelectedID() == 0 ? false : (getRoomSelectedID() === item.id ? false : true)">
+                <!-- <span>تغییر پرواز</span> -->
+              </div>
               <div class="title">
                 <h3>اطلاعات پرواز</h3>
                 <h3>اطلاعات اتاق</h3>
@@ -192,7 +199,8 @@
                   <div class="line w-50">
                     <div class="airline-from">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="25" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}" alt="">
+                        <img width="25" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
+                          alt="">
                         <span>{{ item.airline_name }}</span>
                       </div>
                     </div>
@@ -238,7 +246,7 @@
                       <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
                     </div>
                     <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                      <strong>{{ calculatePriceByRates(item.id, room.rates) | sperator }}</strong>
+                      <strong>{{ calculatePriceByRates(item.id, room.rates,roomIndex) | sperator }}</strong>
                       <small>تومان</small>
                     </div>
                     <!-- <i class="icon-down-open"></i> -->
@@ -264,7 +272,11 @@
             </div>
             <div class="p-count-room d-flex flex-column" *ngFor="let x of item.selectedRooms;let i=index">
               <div class="p-item-count-room d-flex w-75 h-80 mx-auto justify-content-between">
-                <svg (click)="removeSelectedRoom(x,i,flightIndex)" style="cursor: pointer" width="30" height="30" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path fill="#ff0000" d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z"/></svg>
+                <svg (click)="removeSelectedRoom(x,i,flightIndex)" style="cursor: pointer" width="30" height="30"
+                  viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#ff0000"
+                    d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
+                </svg>
                 <h4 class="m-bottom-0 bold-600 font-size-15">اتاق {{getRoomName(x.room_id)}}</h4>
 
                 <div class="d-flex inp-item flex-column">
@@ -277,7 +289,8 @@
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="'btn-plus'" (click)="plusCount('extra_count', x.room_id, flightIndex, i)">+</button>
+                    <button [ngClass]="'btn-plus'"
+                      (click)="plusCount('extra_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.extra_count }}</span>
                     <button class="btn-minus" (click)="minusCount('extra_count', x.room_id, flightIndex, i)">-</button>
                   </div>
@@ -286,7 +299,8 @@
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد کودک با تخت</label>
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="'btn-plus'" (click)="plusCount('chd_count', x.room_id, flightIndex, i)">+</button>
+                    <button [ngClass]="'btn-plus'"
+                      (click)="plusCount('chd_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.chd_count }}</span>
                     <button class="btn-minus" (click)="minusCount('chd_count', x.room_id, flightIndex, i)">-</button>
                   </div>
@@ -295,7 +309,8 @@
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="'btn-plus'" (click)="plusCount('inf_count', x.room_id, flightIndex, i)">+</button>
+                    <button [ngClass]="'btn-plus'"
+                      (click)="plusCount('inf_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.inf_count }}</span>
                     <button class="btn-minus" (click)="minusCount('inf_count', x.room_id, flightIndex, i)">-</button>
                   </div>
@@ -305,12 +320,12 @@
 
           </div>
 
-        <div class="empty-box bg-white" *ngIf="hotelInfo.flights.length === 0">
-          <span>پروازی برای این هتل یافت نشد</span>
+          <div class="empty-box bg-white" *ngIf="hotelInfo.flights.length === 0">
+            <span>پروازی برای این هتل یافت نشد</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </section>
 

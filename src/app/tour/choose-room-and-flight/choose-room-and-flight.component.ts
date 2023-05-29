@@ -27,9 +27,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
 
   req: TourSearchReqDTO = {
-    origin: 0,
+    origin: '',
     date: '',
-    destination: 0,
+    destination: '',
     stayCount: 0
   }
 
@@ -115,6 +115,12 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return roomPrices + price;
   }
 
+
+  getRoomSelectedID() {
+    
+   return this.data.find(r => r.selectedRooms.length > 0)?.id ?? 0;
+  }
+
   getHotelInfo(): void {
     this.setReq();
     this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
@@ -190,7 +196,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   checkFlightCapacity(flightIndex: number, roomIndex: number) {
     let count = 0;
     this.data[flightIndex].rooms.forEach((room) => {
-          count += (room.count ?? 0) * room.Adl_capacity;   
+      count += (room.count ?? 0) * room.Adl_capacity;
     })
     count += this.data[flightIndex].rooms[roomIndex].Adl_capacity
     if (count <= this.data[flightIndex].capacity) {
@@ -231,32 +237,58 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-  calculatePrice(flightID: number) {
-    let price = 0;
-    let roomPrice = 0;
-    let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
-    let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
-    this.hotelInfo.rooms.forEach(room => {
-      if (room.room_type_id === environment.TWIN_ROOM_ID) {
-        roomPrice = this.getRoomPrice(room.rates)
-      }
-    })
-    price = roomPrice + flightPrice;
-    return price
-  }
 
-  calculatePriceByRates(flightID: number, rates: RateDTO[]) {
+
+
+  getRoomPrice(rates: RateDTO[], roomIndex: number, flightID: number): number {
     let price = 0;
-    let roomPrice = 0;
-    let currency = this.hotelInfo.rooms[0].currencies.euro;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
     let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
     rates.forEach(rate => {
-      roomPrice += rate.price * currency;
+      price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
     })
+    return price + flightPrice + this.getInsuransePrice(roomIndex) + this.getTransferPrice(roomIndex, flightID);
+  }
 
-    price = roomPrice + flightPrice ;
-    return price
+
+  getTransferPrice(roomIndex: number, flightID: number) {
+    let destID = this.data.find(x => x.id === flightID)?.destination_id
+   let transfer=  this.hotelInfo.rooms[roomIndex].transfers.find(transfer => transfer.airport_id === destID);
+    return (transfer?.transfer_rate ?? 0) * this.getCurrencyRate(transfer?.transfer_rate_type ?? '', roomIndex)
+  }
+
+
+  calculatePrice(flightID: number) {
+    let roomPrice = 0;
+    this.hotelInfo.rooms.forEach((room, index) => {
+      if (room.room_type_id === environment.TWIN_ROOM_ID) {
+        roomPrice = this.getRoomPrice(room.rates, index, flightID)
+      }
+    })
+    return roomPrice
+  }
+
+  calculatePriceByRates(flightID: number, rates: RateDTO[], roomIndex: number): number {
+    let roomPrice = 0;
+    roomPrice = this.getRoomPrice(rates, roomIndex, flightID)
+    return roomPrice
+  }
+
+
+  getCurrencyRate(code: string, roomIndex: number): number {
+    let currencies = this.hotelInfo.rooms[roomIndex].currencies;
+    switch (code) {
+      case 'toman':
+        return currencies.toman;
+      case 'dollar':
+        return currencies.dollar;
+      case 'euro':
+        return currencies.euro;
+      case 'derham':
+        return currencies.derham;
+      default:
+        return 0
+    }
   }
 
   getRoomCapacity(rates: RateDTO[]): number {
@@ -268,12 +300,10 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return list.length > 0 ? list[0] : 0
   }
 
-  getRoomPrice(rates: RateDTO[]): number {
-    let price = 0;
-    rates.forEach(rate => {
-      price += rate.price;
-    })
-    return price;
+
+
+  getInsuransePrice(roomIndex: number): number {
+    return this.hotelInfo.rooms[roomIndex].services?.insurance_rate ?? 0;
   }
 
   submit(flightID: number, flightIndex: number) {
@@ -295,18 +325,22 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.data[flightIndex].selectedRooms.splice(index, 1);
   }
 
-  plusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex:number){
-    let item = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)[0]
+  plusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex: number) {
+    let item = this.data[flightIndex].selectedRooms[roomIndex]
+    let extra_bed_countFiltered = this.hotelInfo.rooms.filter(x => x.id === roomId)
+    let extra_bed_count = extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
     switch (ItemType) {
       case 'extra_count':
-        item.extra_count += 1 
+        if(item.extra_count < extra_bed_count) {
+          item.extra_count += 1
+        }
         break;
       case 'chd_count':
-        item.chd_count += 1 
+        item.chd_count += 1
         break;
       case 'inf_count':
-        if(item.inf_count < item.adl_count){
-          item.inf_count += 1 
+        if (item.inf_count < item.adl_count) {
+          item.inf_count += 1
         }
         break;
       default:
@@ -314,21 +348,21 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
   }
 
-  minusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex:number){
-    let item = this.data[flightIndex].selectedRooms.filter(x => x.room_id === roomId)[0]
+  minusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex: number) {
+    let item = this.data[flightIndex].selectedRooms[roomIndex]
     switch (ItemType) {
       case 'extra_count':
-        if(item.extra_count > 0){
+        if (item.extra_count > 0) {
           item.extra_count -= 1
         }
         break;
       case 'chd_count':
-        if(item.chd_count > 0){
-          item.chd_count -= 1 
+        if (item.chd_count > 0) {
+          item.chd_count -= 1
         }
         break;
       case 'inf_count':
-        if(item.inf_count > 0){
+        if (item.inf_count > 0) {
           item.inf_count -= 1
         }
         break;

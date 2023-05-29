@@ -49,6 +49,7 @@ export class SearchComponent implements OnInit, OnChanges {
       this.destFC.setValue(this.inCommingSearchObject?.dest ?? '')
       this.nightFC.setValue(this.inCommingSearchObject?.night ?? 1)
       this.stDateFC.setValue(this.inCommingSearchObject?.stDate ?? '')
+      this.getReservedDates()
     }
   }
 
@@ -122,6 +123,8 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
   openPicker() {
+    console.log(this.reservedDates);
+    
     const dialog = this.dialog.open(PrsDatePickerComponent, {
       width: '80%',
       data: {
