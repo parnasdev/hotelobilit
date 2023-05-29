@@ -408,6 +408,46 @@
 :host::ng-deep .mat-checkbox-label{
   font-family: IRANSans !important;
 }
+
+.city-box {
+  padding: 10px;
+  border: 1px solid #202020;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.select-city {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  .select-mat {
+    width: 25%;
+  }
+}
+
+.select-hotel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  .select-mat {
+    width: 25%;
+  }
+}
+
+.show-box{
+  display: flex;
+}
+
+.selection-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 8px 0;
+}
+
 @media only screen and (max-width: 868px){
   .info-tour-body {
     display: flex;

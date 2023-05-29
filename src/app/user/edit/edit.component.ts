@@ -38,7 +38,7 @@ export class EditComponent implements OnInit {
   filteredHotel: any[] = [];
   cities: { id: number, name: string }[] = [];
   hotels: any[] = [];
-  selectedhotelsFC = new FormControl('');
+  selectedhotelsFC = new FormControl();
   userForm = this.fb.group({
     agency_name: new FormControl(''),
     agency_tell:new FormControl(''),
@@ -190,7 +190,20 @@ export class EditComponent implements OnInit {
   }
 
   getHotelName(id: number) {
-    return this.hotels.find((y: any) => y.id === id)?.name
+    return this.filteredHotel.find((y: any) => y.id === id)?.title
+  }
+
+  getCityName(id: number) {
+    return this.cities.find((y: any) => y.id === id)?.name
+  }
+
+  deleteCityItem(index: number){
+    this.selectedCity.value.splice(index, 1)
+    this.selectionChange();
+  }
+
+  deleteItem(index:number){
+    this.selectedhotelsFC.value?.splice(index, 1)
   }
 
 }
