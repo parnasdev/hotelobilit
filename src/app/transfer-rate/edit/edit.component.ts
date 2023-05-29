@@ -106,7 +106,8 @@ export class EditComponent extends AddComponent implements OnInit {
     })
   }
 
-  updateRequest() {
+  updateRequest(type: string) {
+    this.type = type;
     this.setUpdateReq();
     this.updateTransferRate();
   }
