@@ -164,7 +164,7 @@
                     <i class="icon-star" *ngFor="let item of getStars(hotel.stars)"></i>
                   </div>
                   <div class="options-hotel">
-                    <div class="item-option-hotel" *ngFor="let s of hotel.services">
+                    <div class="item-option-hotel" *ngFor="let s of hotel.services | slice:0:3;">
                       <i class="icon-circle"></i>
                       <span>{{ s.name }}</span>
                     </div>

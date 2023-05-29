@@ -278,8 +278,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   submit(flightID: number, flightIndex: number) {
     // console.log(this.data[flightIndex].selectedRooms);
-debugger
-    this.router.navigate([`reserve/${this.hotelInfo.id}/${flightID}`], {
+    this.router.navigate([`/tour/reserve/${this.hotelInfo.id}/${flightID}`], {
       queryParams: {
         checkin: this.req.date,
         stayCount: this.req.stayCount,

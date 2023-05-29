@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import * as moment from 'moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
@@ -17,7 +16,6 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnChanges {
-
   @Output() onSubmit = new EventEmitter();
   @Input() inCommingSearchObject?: SearchObjectDTO;
   dateFC = new FormControl();
@@ -31,7 +29,6 @@ export class SearchComponent implements OnInit, OnChanges {
   destFC = new FormControl('', Validators.required);
   nightFC = new FormControl(1, Validators.required);
   stDateFC = new FormControl('', Validators.required);
-  // reservedDates: DatesResDTO[] = [];
   nights: number[] = []
   originID: number | null = null;
 
