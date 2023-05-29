@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <title>به سایت هتل و بلیط خوش آمدید</title>
   <base href="/">
-  <meta name="viewport" content=" initial-scale=1.0,width=device-width,minimum-scale=1.0,maximum-scale=1.0" >
+  <meta name="viewport" content=" initial-scale=1.0,width=device-width,minimum-scale=1.0,maximum-scale=1.0">
   <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.png"> -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/fontello.css">
   <link rel="stylesheet" href="assets/css/fontello-embedded.css">
   <link rel="stylesheet" href="assets/css/fontiran.css">
@@ -21,24 +22,24 @@
         crossorigin=""/> -->
   <!-- <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/mapp.min.css"> -->
   <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/fa/style.css">
-  <link href="assets/plugins/bootstrap-fileinput-master/css/fileinput.css"  rel="stylesheet" />
-  <link href="assets/plugins/bootstrap-fileinput-master/themes/explorer-fas/theme.css"  rel="stylesheet"/>
-  <link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox.min.css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="assets/plugins/dropzone/dropzone.css" media="screen" />
+  <link href="assets/plugins/bootstrap-fileinput-master/css/fileinput.css" rel="stylesheet"/>
+  <link href="assets/plugins/bootstrap-fileinput-master/themes/explorer-fas/theme.css" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox.min.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="assets/plugins/dropzone/dropzone.css" media="screen"/>
   <meta name="fragment" content="!">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css" />
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
 
-<!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-PVB2Z5W');
-</script> -->
+  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-PVB2Z5W');
+  </script> -->
 
 </head>
 <body class="mat-typography">
@@ -48,7 +49,9 @@
 <script src="assets/plugins/tinymce/jquery.tinymce.min.js"></script>
 <script src="assets/plugins/tinymce/tinymce.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 <script src="assets/js/theme.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -71,6 +74,15 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script>
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > -100 && $(this).scrollTop() < 1000) {
+      $('#button').addClass('d-none')
+      $('#button').removeClass('d-flex')
+    } else {
+      $('#button').removeClass('d-none')
+      $('#button').addClass('d-flex')
+    }
+  })
 
 </script>
 </body>

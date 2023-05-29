@@ -89,7 +89,7 @@ footer {
 }
 
 .bottom-footer {
-  height: 450px;
+  height: auto;
   background-color: #f4f4f4;
 }
 
@@ -97,10 +97,11 @@ footer {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  height: 370px;
+  height: auto;
   padding-top: 15px;
   position: relative;
   top: -10px;
+  padding: 1rem 0;
 }
 
 .parent-footer-bottom .right {
@@ -161,17 +162,29 @@ footer {
   box-shadow: var(--box-shadow);
   border-radius: 2px;
 }
+.title-footer{
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    right: 8px;
+    bottom: -8px;
+    width: 70%;
+    border-bottom: 2px solid $base-color;
+  }
+}
 
 .info-box-right {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-top: 6px;
 }
 
 .info-box-right .child {
   display: flex;
   align-items: center;
-  margin-top: 12px !important;
+  margin-top: 16px !important;
 }
 
 .info-box-right .child span {
@@ -266,7 +279,6 @@ footer {
 
 .parent-copyright {
   height: 85px;
-  background-color: #fff;
   border-radius: 10px 10px 0 0 !important;
   display: flex;
   align-items: center;
@@ -346,20 +358,23 @@ footer {
 }
 
 //back-top
-
+.d-none{
+  display: none !important;
+}
 #button {
   background-color: $base-color-two;
   width: 50px;
-  height: 70px;
-  border-radius: 8px;
+  height: 50px;
+  border-radius: 50%;
   text-align: center;
   opacity: 1;
   z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 23px;
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
 }
 
 #button i {
