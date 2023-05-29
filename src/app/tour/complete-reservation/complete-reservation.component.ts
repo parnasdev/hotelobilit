@@ -70,6 +70,7 @@ export class CompleteReservationComponent implements OnInit {
               public route: ActivatedRoute) {
     this.isMobile = mobileService.isMobile()
     this.isTablet = mobileService.isTablet()
+    this.isDesktop = mobileService.isDesktop()
 
   }
 
