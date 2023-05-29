@@ -19,6 +19,9 @@ export class FooterComponent {
   ) {
     this.isMobile = mobileService.isMobile()
     this.isTablet = mobileService.isTablet()
+
+  }
+  ngOnInit() {
   }
   backTop(){
     window.scrollTo(0,0)
