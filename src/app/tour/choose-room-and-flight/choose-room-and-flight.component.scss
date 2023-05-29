@@ -1,6 +1,13 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import "src/assets/css/varible";
 
+
+  .title-complete {
+    h2 {
+      margin-bottom: 0;
+      font-size: 16px !important;
+    }
+  }
 .box-info-hotel {
   width: 100%;
 }
@@ -779,10 +786,15 @@ prs-show-location {
       }
 
       .name-hotel {
-        margin-top: 1.2rem;
+        margin: 8px 0 0 0;
         font-weight: 600;
         color: #0A246A;
         font-size: 16px !important;
+
+      }
+
+      h3 {
+        margin: 0;
       }
 
       .address {
@@ -1670,7 +1682,8 @@ prs-show-location {
             margin-left: 8px;
           }
 
-          .location {}
+          .location {
+          }
         }
 
         .location {
@@ -1847,3 +1860,5 @@ prs-show-location {
     }
   }
 }
+
+
