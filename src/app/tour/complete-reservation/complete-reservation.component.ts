@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
-import { ReserveCheckingReqDTO, ReserveCreateDTO, ReserveInfoDTO, ReserveReqRoomDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
-import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
-import { ErrorsService } from 'src/app/Core/Services/errors.service';
-import { MessageService } from 'src/app/Core/Services/message.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ReserveApiService} from 'src/app/Core/Https/reserve-api.service';
+import {ReserveHotelDTO} from 'src/app/Core/Models/newPostDTO';
+import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
+import {
+  ReserveCheckingReqDTO,
+  ReserveCreateDTO,
+  ReserveInfoDTO,
+  ReserveReqRoomDTO,
+  ReserveRoomDTO
+} from 'src/app/Core/Models/reserveDTO';
+import {CheckErrorService} from 'src/app/Core/Services/check-error.service';
+import {ErrorsService} from 'src/app/Core/Services/errors.service';
+import {MessageService} from 'src/app/Core/Services/message.service';
 import {Location} from '@angular/common';
+import {ResponsiveService} from "../../Core/Services/responsive.service";
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -16,6 +23,9 @@ import {Location} from '@angular/common';
   styleUrls: ['./complete-reservation.component.scss']
 })
 export class CompleteReservationComponent implements OnInit {
+  isMobile = false;
+  isDesktop = false;
+  isTablet = false;
   flightID = '';
   hotelID = '';
   showPassengers = true;
@@ -48,16 +58,22 @@ export class CompleteReservationComponent implements OnInit {
     reserver_phone: this.reserver_phoneFC,
     fullName: this.fullNameFC,
   })
+
   constructor(public api: ReserveApiService,
-    public message: MessageService,
-    private _location: Location,
-    public fb: FormBuilder,
-    public errorService: ErrorsService,
-    public router: Router,
-    public checkError: CheckErrorService,
-    public route: ActivatedRoute) {
+              public message: MessageService,
+              public mobileService: ResponsiveService,
+              private _location: Location,
+              public fb: FormBuilder,
+              public errorService: ErrorsService,
+              public router: Router,
+              public checkError: CheckErrorService,
+              public route: ActivatedRoute) {
+    this.isMobile = mobileService.isMobile()
+    this.isTablet = mobileService.isTablet()
+    this.isDesktop = mobileService.isDesktop()
 
   }
+
   ngOnInit(): void {
     this.hotelID = this.route.snapshot.paramMap.get('hotel') ?? ''
     this.flightID = this.route.snapshot.paramMap.get('flight') ?? ''
@@ -68,14 +84,14 @@ export class CompleteReservationComponent implements OnInit {
 
   setCheckingReq() {
     this.route.queryParams.subscribe(params => {
-      this.checkingReq = {
-        checkin: params['checkin'],
-        stayCount: params['stayCount'],
-        hotel_id: +this.hotelID,
-        flight_id: +this.flightID,
-        rooms: JSON.parse(params['rooms'])
+        this.checkingReq = {
+          checkin: params['checkin'],
+          stayCount: params['stayCount'],
+          hotel_id: +this.hotelID,
+          flight_id: +this.flightID,
+          rooms: JSON.parse(params['rooms'])
+        }
       }
-    }
     );
   }
 
@@ -102,14 +118,14 @@ export class CompleteReservationComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
-      if(error.status === 400) {
+      if (error.status === 400) {
         this.message.showMessageBig(error.error.message);
         this._location.back();
       }
     })
   }
 
-  getError(name: string){
+  getError(name: string) {
     return this.errorService.hasError(name)
   }
 
@@ -123,7 +139,7 @@ export class CompleteReservationComponent implements OnInit {
         }
       }
     })
-    
+
   }
 
   reload() {
