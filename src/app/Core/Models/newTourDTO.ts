@@ -1,11 +1,11 @@
 import { UploadResDTO } from "./commonDTO";
 import { RoomDTO } from "./newPostDTO";
-import { flightStoreDTO, transferRateListDTO } from "./newTransferDTO";
+import { transferRateListDTO } from "./newTransferDTO";
 import { ReserveRoomsReqDTO } from "./reserveDTO";
 
 export interface TourSearchReqDTO {
-    origin?: number
-    destination: number;
+    origin?: string
+    destination: string;
     date: string;
     stayCount: number;
     keywords?: string | null

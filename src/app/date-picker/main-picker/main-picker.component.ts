@@ -99,7 +99,6 @@ export class MainPickerComponent implements OnInit, OnChanges {
 
   fillObject(dates: any = []) {
     let result: any[] = [];
-
     dates.forEach((date: any) => {
       const object = {
         dateFa: moment(date).isValid() ? date : '',
@@ -110,15 +109,17 @@ export class MainPickerComponent implements OnInit, OnChanges {
       }
       result.push(object);
     })
-    console.log(result);
-    
     return result;
   }
 
   isExistDateList(date: string) {
-   let result = this.dateLise.filter(x => x.date === date)
-   
-    return result.length > 0;
+    if (date) {
+      let result = this.dateLise.filter(x => x.date === date)
+      return result.length > 0;
+    } else {
+      return false
+    }
+
   }
 
   isBefore(date: any) {

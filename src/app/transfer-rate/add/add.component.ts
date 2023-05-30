@@ -78,6 +78,7 @@ export class AddComponent implements OnInit {
   checkout_yesterday:number = 0;
 
   show = false;
+  type = 'add'
 
   constructor(public message: MessageService,
     public fb: FormBuilder,
@@ -212,7 +213,8 @@ export class AddComponent implements OnInit {
     })
   }
 
-  createRequest() {
+  createRequest(type:string) {
+    this.type = type;
     this.setReq();
     this.createTransferRate();
   }
@@ -221,7 +223,7 @@ export class AddComponent implements OnInit {
     const result: any[] = []
     this.RatesForm.value.forEach((item: any) => {
       const obj = {
-        id: item.id,
+        id: this.type === 'edit' ? item.id : null,
         adl_price: item.adl_price,
         origin_date: this.calenderServices.convertDate(item.origin_date, 'en', 'YYYY-MM-DD'),
         destination_date: this.calenderServices.convertDate(item.destination_date, 'en', 'YYYY-MM-DD'),

@@ -72,7 +72,7 @@ export class EditComponent extends AddComponent implements OnInit {
 
   addRow(item: any = null) {
     const dates = this.fb.group({
-      id: item ? item.id : null,
+      id: item ? item.id : 0,
       adl_price: item ? item.adl_price : null,
       origin_date: item ? item.origin_date : null,
       destination_date: item ? item.destination_date : null,
@@ -106,7 +106,8 @@ export class EditComponent extends AddComponent implements OnInit {
     })
   }
 
-  updateRequest() {
+  updateRequest(type: string) {
+    this.type = type;
     this.setUpdateReq();
     this.updateTransferRate();
   }
