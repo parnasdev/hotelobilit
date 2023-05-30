@@ -15,7 +15,7 @@
         <label class="label-fix">سرپرست</label>
         <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value) }}</label>
         <!-- نام  -->
-        <div class="item-form align-items-center">
+        <div class="item-form align-items-center w-15">
 
           <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
           <div class="inp-form mt-2">
@@ -26,7 +26,7 @@
           </ng-container>
         </div>
         <!-- نام خانوادگی -->
-        <div class="item-form">
+        <div class="item-form w-20">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
@@ -36,7 +36,7 @@
           </ng-container>
         </div>
         <!-- نشنالیتی -->
-        <div class="item-form">
+        <div class="item-form w-7">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <select (change)="onChange()" formControlName="nationality" name="" id="">
@@ -50,7 +50,7 @@
         </div>
 
         <!-- gender -->
-        <div class="item-form">
+        <div class="item-form w-5">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <select (change)="onChange()" formControlName="gender" name="" id="">
@@ -63,7 +63,7 @@
           </ng-container>
         </div>
         <!-- کدملی -->
-        <div class="item-form" *ngIf="tourType">
+        <div class="item-form w-14">
           <!-- <label class="dana-bold" for="">
             کد ملی
           </label> -->
@@ -76,11 +76,11 @@
           </ng-container>
         </div>
         <!-- تاریخ تولد -->
-        <div class="item-form">
+        <div class="item-form w-10">
           <!-- <label class="dana-bold" for="">
             تاریخ تولد
           </label> -->
-          <div class="inp-form mt-2">
+          <div class="inp-form mt-2 ">
             <!-- <input type="text" (change)="onChange()" placeholder="اینجا بنویسید …" formControlName="birthDate"> -->
             <mat-form-field class="example-full-width" appearance="fill">
               <input class="input-parent" readonly (dateChange)="onChange()" [max]="maxDate" matInput
@@ -94,7 +94,7 @@
           </ng-container>
         </div>
         <!-- شماره پاسپورت -->
-        <div class="item-form" *ngIf="!tourType">
+        <div class="item-form w-10" *ngIf="!tourType">
           <!-- <label class="dana-bold" for="">
             شماره پاسپورت
           </label> -->
@@ -106,7 +106,7 @@
           </ng-container>
         </div>
         <!-- تاریخ انقضای پاسپورت -->
-        <div class="item-form" *ngIf="!tourType">
+        <div class="item-form w-10" *ngIf="!tourType">
           <!-- <label class="dana-bold" for="">
             تاریخ انقضای پاسپورت
           </label> -->
