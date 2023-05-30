@@ -1,7 +1,10 @@
 <span class="text-error text-danger" *ngIf="getRoomError()"> لطفا اطلاعات مسافرین را وارد کنید</span>
 <div class="box-room mt-3" [ngClass]="{'red-border' :getRoomError()}">
   <div class="w-100 d-flex flex-column-mobi justify-content-between align-items-center posi-relative">
-    <h2 class="title-tour">اتاق {{ RoomData.room_type }} </h2>
+    <div class="d-flex align-items-center">
+      <i class="icon-circle text-base font-size-9"></i>
+      <h2 class="title-tour m-right-10 m-bottom-0 font-size-17">اتاق {{ RoomData.room_type }} </h2>
+    </div>
     <!-- <div class="btn-mobile">
       <button style="margin-left: 11px;" class="btn-base-2 px-4 h-45" (click)="addRow(null,'cwb')" *ngIf="(reserveData.transfer?.chd_price ?? 0) > 0 && (+reserveData.package.prices.cwb ?? 0) > 0">افزودن کودک با
         تخت</button>
@@ -11,7 +14,7 @@
   <div style="position: relative;" [formGroup]="ReserveForm">
     <div formArrayName="passengers">
       <div class="set-info-passengers posi-relative" *ngFor="let item of PassengerForm.controls; let i = index"
-        [formGroupName]="i">
+           [formGroupName]="i">
         <label class="label-fix">سرپرست</label>
         <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value) }}</label>
         <!-- نام  -->
@@ -22,7 +25,7 @@
             <input type="text" (change)="onChange()" formControlName="name" placeholder="نام (لاتین)">
           </div>
           <ng-container *ngIf="hasError(i, 'name')">
-            <span class="text-error text-danger">{{ getError(i,'name') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'name') }}</span>
           </ng-container>
         </div>
         <!-- نام خانوادگی -->
@@ -32,7 +35,7 @@
             <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
           </div>
           <ng-container *ngIf="hasError(i, 'family')">
-            <span class="text-error text-danger">{{ getError(i,'family') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'family') }}</span>
           </ng-container>
         </div>
         <!-- نشنالیتی -->
@@ -45,7 +48,7 @@
             </select>
           </div>
           <ng-container *ngIf="hasError(i, 'nationality')">
-            <span class="text-error text-danger">{{ getError(i,'nationality') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'nationality') }}</span>
           </ng-container>
         </div>
 
@@ -59,7 +62,7 @@
             </select>
           </div>
           <ng-container *ngIf="hasError(i, 'gender')">
-            <span class="text-error text-danger">{{ getError(i,'gender') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'gender') }}</span>
           </ng-container>
         </div>
         <!-- کدملی -->
@@ -72,7 +75,7 @@
 
           </div>
           <ng-container *ngIf="hasError(i, 'id_code')">
-            <span class="text-error text-danger">{{ getError(i,'id_code') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'id_code') }}</span>
           </ng-container>
         </div>
         <!-- تاریخ تولد -->
@@ -84,13 +87,13 @@
             <!-- <input type="text" (change)="onChange()" placeholder="اینجا بنویسید …" formControlName="birthDate"> -->
             <mat-form-field class="example-full-width" appearance="fill">
               <input class="input-parent" readonly (dateChange)="onChange()" [max]="maxDate" matInput
-                formControlName="birth_day" placeholder="تاریخ تولد" autocomplete="off" [matDatepicker]="picker4"
-                (click)="picker4.open()">
+                     formControlName="birth_day" placeholder="تاریخ تولد" autocomplete="off" [matDatepicker]="picker4"
+                     (click)="picker4.open()">
               <mat-datepicker startView="multi-year" #picker4></mat-datepicker>
             </mat-form-field>
           </div>
           <ng-container *ngIf="hasError(i, 'birth_day')">
-            <span class="text-error text-danger">{{ getError(i,'birth_day') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'birth_day') }}</span>
           </ng-container>
         </div>
         <!-- شماره پاسپورت -->
@@ -102,7 +105,7 @@
             <input type="text" (change)="onChange()" placeholder="شماره پاسپورت" formControlName="passport">
           </div>
           <ng-container *ngIf="hasError(i, 'passport')">
-            <span class="text-error text-danger">{{ getError(i,'passport') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'passport') }}</span>
           </ng-container>
         </div>
         <!-- تاریخ انقضای پاسپورت -->
@@ -114,14 +117,15 @@
 
             <mat-form-field class="example-full-width" appearance="fill">
               <input class="input-parent" (dateChange)="onChange()" readonly [min]="maxDate" matInput
-                formControlName="expired_passport" placeholder="" autocomplete="off" placeholder="تاریخ انقضای پاسپورت"
-                [matDatepicker]="picker3" (click)="picker3.open()">
+                     formControlName="expired_passport" placeholder="" autocomplete="off"
+                     placeholder="تاریخ انقضای پاسپورت"
+                     [matDatepicker]="picker3" (click)="picker3.open()">
               <mat-datepicker #picker3></mat-datepicker>
             </mat-form-field>
 
           </div>
           <ng-container *ngIf="hasError(i, 'expired_passport')">
-            <span class="text-error text-danger">{{ getError(i,'expired_passport') }}</span>
+            <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>
           </ng-container>
         </div>
       </div>
