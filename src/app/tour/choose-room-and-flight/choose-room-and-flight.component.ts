@@ -253,8 +253,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getTransferPrice(roomIndex: number, flightID: number) {
     let destID = this.data.find(x => x.id === flightID)?.destination_id
-    let transfer = this.hotelInfo.rooms[roomIndex].transfers.find(transfer => transfer.airport_id === destID);
-    return (transfer?.transfer_rate ?? 0) * this.getCurrencyRate(transfer?.transfer_rate_type ?? '', roomIndex)
+    let transfer = this.hotelInfo.rooms[roomIndex].services.find(transfer => transfer.airport_id === destID);
+    return (transfer?.rate ?? 0) * this.getCurrencyRate(transfer?.rate_type ?? '', roomIndex)
   }
 
 
@@ -303,7 +303,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
 
   getInsuransePrice(roomIndex: number): number {
-    return this.hotelInfo.rooms[roomIndex].services?.insurance_rate ?? 0;
+    return  0;
   }
 
   submit(flightID: number, flightIndex: number) {

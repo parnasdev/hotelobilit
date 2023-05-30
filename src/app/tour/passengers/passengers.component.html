@@ -15,10 +15,14 @@
     <div formArrayName="passengers">
       <div class="set-info-passengers posi-relative" *ngFor="let item of PassengerForm.controls; let i = index"
            [formGroupName]="i">
-        <label class="label-fix">سرپرست</label>
-        <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value) }}</label>
+        <label *ngIf="i === 0" class="label-fix">سرپرست</label>
+        <div class="price-fix">
+          <strong>{{item.get('price')?.value|sperator }}</strong>
+          <small>تومان</small>
+        </div>
+        <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value,item.get('bed_type')?.value) }}</label>
         <!-- نام  -->
-        <div class="item-form align-items-center w-15">
+        <div class="item-form align-items-center w-18">
 
           <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
           <div class="inp-form mt-2">
@@ -29,7 +33,7 @@
           </ng-container>
         </div>
         <!-- نام خانوادگی -->
-        <div class="item-form w-20">
+        <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-25' : 'w-22'}}">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
@@ -39,7 +43,7 @@
           </ng-container>
         </div>
         <!-- نشنالیتی -->
-        <div class="item-form w-7">
+        <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-7'}}">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <select (change)="onChange()" formControlName="nationality" name="" id="">
@@ -53,7 +57,7 @@
         </div>
 
         <!-- gender -->
-        <div class="item-form w-5">
+        <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-6'}}">
           <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
           <div class="inp-form mt-2">
             <select (change)="onChange()" formControlName="gender" name="" id="">
@@ -66,7 +70,7 @@
           </ng-container>
         </div>
         <!-- کدملی -->
-        <div class="item-form w-14">
+        <div class="item-form w-15" *ngIf="tourType && item.get('nationality')?.value == '0'">
           <!-- <label class="dana-bold" for="">
             کد ملی
           </label> -->
@@ -79,7 +83,7 @@
           </ng-container>
         </div>
         <!-- تاریخ تولد -->
-        <div class="item-form w-10">
+        <div class="item-form w-12">
           <!-- <label class="dana-bold" for="">
             تاریخ تولد
           </label> -->
@@ -97,7 +101,7 @@
           </ng-container>
         </div>
         <!-- شماره پاسپورت -->
-        <div class="item-form w-10" *ngIf="!tourType">
+        <div class="item-form w-10" *ngIf="!tourType || item.get('nationality')?.value == '1'">
           <!-- <label class="dana-bold" for="">
             شماره پاسپورت
           </label> -->
@@ -109,7 +113,7 @@
           </ng-container>
         </div>
         <!-- تاریخ انقضای پاسپورت -->
-        <div class="item-form w-10" *ngIf="!tourType">
+        <div class="item-form w-15" *ngIf="!tourType || item.get('nationality')?.value == '1'">
           <!-- <label class="dana-bold" for="">
             تاریخ انقضای پاسپورت
           </label> -->

@@ -361,3 +361,30 @@
 .red-border {
   border: 2px solid red;
 }
+
+.price-fix {
+  position: absolute;
+  left: 0;
+  background: #C6C6C6;
+  z-index: 50;
+  top: 0;
+  padding: 4px 6px;
+border-radius: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+
+  strong {
+    color: #ffffff;
+    font-size: 12px;
+
+  }
+  small {
+    color: #ffffff;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+}
+
+.posi-relative {
+  position: relative;
+}

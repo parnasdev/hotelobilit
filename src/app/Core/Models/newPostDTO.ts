@@ -50,10 +50,11 @@ export interface RoomDTO {
     }[];
     id: number;
     services: {
-        insurance_rate: number
-        transfer_rate: number
-        visa_rate: number
-    };
+        airport_id: number
+        category:string
+        rate:number
+        rate_type:string
+    }[];
     rates: RateDTO[];
     online_reservation: number
     room_type: string

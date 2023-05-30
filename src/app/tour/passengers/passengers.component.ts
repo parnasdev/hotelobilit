@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
+import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -13,10 +15,17 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class PassengersComponent implements OnInit, OnChanges {
   @Input() age = '0';
-  @Input() index =0
+  @Input() index = 0
   @Input() RoomData!: ReserveRoomDTO;
   @Output() passengerResult = new EventEmitter();
-  @Input() tourType: boolean = false;   // false = 'تور خارجی'  // true = ' تور داخلی'
+  @Input() tourType: boolean = false;
+
+  @Input() data: ReserveInfoDTO = {
+    flight: {} as transferRateListDTO,
+    hotel: {} as ReserveHotelDTO,
+    rooms: [],
+    rooms_selected: [],
+  };// false = 'تور خارجی'  // true = ' تور داخلی'
   @Input() inCommingPassengers: any = {
     capacity: 0,
     id: 0,
@@ -46,8 +55,11 @@ export class PassengersComponent implements OnInit, OnChanges {
       for (let index = 0; index < (this.RoomData.options?.inf_count ?? 0); index++) {
         this.addRow('inf');
       }
+      for (let index = 0; index < (this.RoomData.options?.extra_count ?? 0); index++) {
+        this.addRow('adl', 'extra');
+      }
     }
-
+    this.convertPassengerObject()
   }
 
 
@@ -92,28 +104,70 @@ export class PassengersComponent implements OnInit, OnChanges {
     return this.ReserveForm.get('passengers') as FormArray;
   }
 
-  addRow(type = 'adl') {
+  addRow(type = 'adl', bed_type = 'normal') {
     const Passengers = this.fb.group({
       name: ['', [Validators.required]],
       family: ['', [Validators.required]],
       gender: ['0', [Validators.required]],
+      bed_type: bed_type,
       nationality: ['0', [Validators.required]],
       id_code: this.tourType ? ['', [Validators.required]] : [''],
       passport: !this.tourType ? ['', [Validators.required]] : [''],
       expired_passport: !this.tourType ? ['', [Validators.required]] : [''],
       birth_day: ['', [Validators.required]],
       type: type,
+      price: this.getPrice(type,bed_type)
     })
     this.PassengerForm.push(Passengers);
+  }
+
+
+
+  getPrice(type: string, bed_type = 'normal') {
+    switch (type) {
+      case 'adl':
+        if (bed_type === 'normal') {
+          return (this.RoomData.totalPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();
+        } else {
+          return (this.RoomData.totalExtraPrice ?? 0) + this.data.flight.adl_price;
+        }
+      case 'chd':
+        return (this.RoomData.totalPrice ?? 0) + this.data.flight.chd_price
+      case 'inf':
+        return (this.RoomData.totalPrice ?? 0) + this.data.flight.inf_price
+      default:
+        return 0
+    }
+  }
+
+  getCurrencyRate(code: string, roomIndex: number): number {
+    let currencies = this.data.rooms[roomIndex].currencies;
+    switch (code) {
+      case 'toman':
+        return currencies.toman;
+      case 'dollar':
+        return currencies.dollar;
+      case 'euro':
+        return currencies.euro;
+      case 'derham':
+        return currencies.derham;
+      default:
+        return 0
+    }
+  }
+
+
+  getTransferPrice() {
+    let destID = this.data.flight.destination_id
+    let transfer = this.data.rooms[0].services.find(transfer => transfer.airport_id === destID);
+    return (transfer?.rate ?? 0) * this.getCurrencyRate(transfer?.rate_type ?? '', 0)
   }
 
   convertPassengerObject() {
     let passengers: ReservePassengersDTO[] = [];
     this.PassengerForm.controls.forEach((item, index) => {
-    item.value.birth_day = moment(item.value.birth_day).format('YYYY-MM-DD');
+      item.value.birth_day = moment(item.value.birth_day).format('YYYY-MM-DD');
       passengers.push(item.value)
-      console.log(item.value.birth_day);
-      
     });
     this.RoomData.passengers = passengers;
     this.passengerResult.emit(this.RoomData);
@@ -166,7 +220,7 @@ export class PassengersComponent implements OnInit, OnChanges {
     }
   }
 
-  getPassebgerLabel(label: any) {
+  getPassebgerLabel(label: any, bed_type: string = 'normal') {
 
     switch (label) {
       case 'chd':
@@ -179,8 +233,13 @@ export class PassengersComponent implements OnInit, OnChanges {
         return 'همراه'
       case 'inf':
         return 'نوزاد'
-        case 'adl':
+      case 'adl':
+        if (bed_type === 'normal') {
           return 'بزرگسال'
+        } else {
+          return 'تخت اضافه'
+        }
+
       default:
         return ''
     }
@@ -189,10 +248,10 @@ export class PassengersComponent implements OnInit, OnChanges {
     return this.errorService.hasError('rooms.' + this.index + '.passengers')
   }
 
-  hasError(i: number, name: string){
+  hasError(i: number, name: string) {
     return this.errorService.hasError('rooms.' + this.index + '.passengers.' + i + '.' + name)
   }
-  getError(i: number, name: string){
+  getError(i: number, name: string) {
     return this.errorService.getError('rooms.' + this.index + '.passengers.' + i + '.' + name)
   }
 }
