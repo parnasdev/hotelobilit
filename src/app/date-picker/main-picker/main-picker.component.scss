@@ -250,6 +250,7 @@ body {
   .p-calender {
     flex-direction: column;
     height: auto !important;
+    padding: 0 !important;
 
     .box-calender:nth-child(3) {
       display: none !important;
@@ -276,7 +277,6 @@ body {
   }
   .next-month {
     transform: unset !important;
-    margin-top: 14px !important;
   }
 }
 
