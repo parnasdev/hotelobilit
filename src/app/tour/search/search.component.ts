@@ -126,7 +126,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   openPicker() {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
-      width: '80%',
+      width: '60%',
       data: {
         dateList: this.reservedDates
       }

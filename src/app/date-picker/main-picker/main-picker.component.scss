@@ -74,27 +74,29 @@ body {
 // }
 
 .p-calender {
-  height: 550px;
-  background: $white-color;
+  height: auto;
+  background: #f9f9f9;
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
+  position: relative;
 
   .prev-month {
     background: $base-color-two;
     width: 45px;
     height: 45px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     outline: none;
-    transform: translateX(-37px);
     cursor: pointer;
+    position: absolute;
+    right: 0;
+
 
     svg {
       transition: 0.3s all;
@@ -114,14 +116,14 @@ body {
     background: $base-color-two;
     width: 45px;
     height: 45px;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     outline: none;
     cursor: pointer;
-    transform: translateX(37px);
+    position: absolute;
+    left: 0;
 
     svg {
       transition: 0.3s all;
@@ -147,18 +149,23 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: $white-color;
 
     .header-month {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 10px 0;
+      margin: 0 0 14px 0;
 
       h3 {
         margin: 0;
-        color: $gray-color;
-        font-size: 16px;
+        color: $base-color-two;
+        font-weight: 600 !important;
+        font-size: 15px;
+        padding-bottom: 7px;
+        border-bottom: 2px dashed $base-color-two;
+
       }
     }
 
@@ -168,6 +175,8 @@ body {
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
       column-gap: 12px;
       place-items: center;
+      border-bottom: 1px solid #ebebeb;
+      padding-bottom: 8px;
 
       span {
         font-size: 13px;
@@ -237,20 +246,23 @@ body {
 }
 
 
-@media only screen and (max-width: 868px){
-  .p-calender{
+@media only screen and (max-width: 868px) {
+  .p-calender {
     flex-direction: column;
     height: auto !important;
-    .box-calender:nth-child(3){
+
+    .box-calender:nth-child(3) {
       display: none !important;
     }
-    .box-calender{
+
+    .box-calender {
       width: 100% !important;
     }
   }
-  .p-calender .box-calender .body-calender{
+  .p-calender .box-calender .body-calender {
     column-gap: 6px !important;
     row-gap: 12px !important;
+
     .item {
       width: 100% !important;
       height: 40px !important;
@@ -258,12 +270,32 @@ body {
       font-weight: 600 !important;
     }
   }
-  .prev-month{
+  .prev-month {
     transform: unset !important;
     margin-bottom: 14px !important;
   }
-  .next-month{
+  .next-month {
     transform: unset !important;
     margin-top: 14px !important;
   }
+}
+
+
+.p-calender .box-calender .body-calender {
+  gap: 6px !important;
+
+  #dateInfo {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 14px !important;
+    transition: 0.5s all;
+    &:hover{
+      transition: 0.5s all;
+      transform: scale(1.1);
+    }
+  }
+}
+.box-calender{
+  height: auto !important;
+  width: 49% !important;
 }
