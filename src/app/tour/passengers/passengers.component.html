@@ -35,6 +35,33 @@
             <span class="text-error text-danger">{{ getError(i,'family') }}</span>
           </ng-container>
         </div>
+        <!-- نشنالیتی -->
+        <div class="item-form">
+          <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+          <div class="inp-form mt-2">
+            <select (change)="onChange()" formControlName="nationality" name="" id="">
+              <option value="0">ایرانی</option>
+              <option value="1">غیرایرانی</option>
+            </select>
+          </div>
+          <ng-container *ngIf="hasError(i, 'nationality')">
+            <span class="text-error text-danger">{{ getError(i,'nationality') }}</span>
+          </ng-container>
+        </div>
+
+        <!-- gender -->
+        <div class="item-form">
+          <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+          <div class="inp-form mt-2">
+            <select (change)="onChange()" formControlName="gender" name="" id="">
+              <option value="1">مرد</option>
+              <option value="0">زن</option>
+            </select>
+          </div>
+          <ng-container *ngIf="hasError(i, 'gender')">
+            <span class="text-error text-danger">{{ getError(i,'gender') }}</span>
+          </ng-container>
+        </div>
         <!-- کدملی -->
         <div class="item-form" *ngIf="tourType">
           <!-- <label class="dana-bold" for="">

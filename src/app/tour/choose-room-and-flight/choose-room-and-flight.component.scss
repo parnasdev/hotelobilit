@@ -920,6 +920,7 @@ prs-show-location {
   box-shadow: var(--box-shadow);
   border-radius: 7px;
   display: flex;
+  transition: 0.5s all;
   flex-direction: column;
   margin-top: 12px;
   width: 100%;
@@ -1876,5 +1877,6 @@ prs-show-location {
 
 .focus-thumbnail {
   transform: scale(1.1);
-  margin: 2.5rem 0;
+  transition: 0.5s all;
+  margin: 2.5rem 0 1rem 0;
 }

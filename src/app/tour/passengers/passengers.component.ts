@@ -96,6 +96,8 @@ export class PassengersComponent implements OnInit, OnChanges {
     const Passengers = this.fb.group({
       name: ['', [Validators.required]],
       family: ['', [Validators.required]],
+      gender: ['0', [Validators.required]],
+      nationality: ['0', [Validators.required]],
       id_code: this.tourType ? ['', [Validators.required]] : [''],
       passport: !this.tourType ? ['', [Validators.required]] : [''],
       expired_passport: !this.tourType ? ['', [Validators.required]] : [''],

@@ -24,7 +24,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   isTablet = false;
   isRoom = false
   slug = '';
-
+  chd_count = 2;
 
   req: TourSearchReqDTO = {
     origin: '',
@@ -117,8 +117,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
 
   getRoomSelectedID() {
-    
-   return this.data.find(r => r.selectedRooms.length > 0)?.id ?? 0;
+
+    return this.data.find(r => r.selectedRooms.length > 0)?.id ?? 0;
   }
 
   getHotelInfo(): void {
@@ -253,7 +253,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getTransferPrice(roomIndex: number, flightID: number) {
     let destID = this.data.find(x => x.id === flightID)?.destination_id
-   let transfer=  this.hotelInfo.rooms[roomIndex].transfers.find(transfer => transfer.airport_id === destID);
+    let transfer = this.hotelInfo.rooms[roomIndex].transfers.find(transfer => transfer.airport_id === destID);
     return (transfer?.transfer_rate ?? 0) * this.getCurrencyRate(transfer?.transfer_rate_type ?? '', roomIndex)
   }
 
@@ -331,12 +331,14 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     let extra_bed_count = extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
     switch (ItemType) {
       case 'extra_count':
-        if(item.extra_count < extra_bed_count) {
+        if (item.extra_count < extra_bed_count) {
           item.extra_count += 1
         }
         break;
       case 'chd_count':
-        item.chd_count += 1
+        if (item.chd_count <this.chd_count) {
+          item.chd_count += 1
+        }
         break;
       case 'inf_count':
         if (item.inf_count < item.adl_count) {
@@ -346,6 +348,11 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  getExtraBedCount(roomId:number) {
+    let extra_bed_countFiltered = this.hotelInfo.rooms.filter(x => x.id === roomId)
+    return extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
   }
 
   minusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex: number) {

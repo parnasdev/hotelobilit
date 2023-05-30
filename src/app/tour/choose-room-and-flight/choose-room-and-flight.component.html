@@ -289,7 +289,7 @@
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="'btn-plus'"
+                    <button [ngClass]="{'btn-plus-off' : x.extra_count == getExtraBedCount(x.room_id),'btn-plus' :x.extra_count <= getExtraBedCount(x.room_id)}"
                       (click)="plusCount('extra_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.extra_count }}</span>
                     <button class="btn-minus" (click)="minusCount('extra_count', x.room_id, flightIndex, i)">-</button>
@@ -299,7 +299,7 @@
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد کودک با تخت</label>
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="'btn-plus'"
+                    <button [ngClass]="{'btn-plus-off' : x.chd_count == chd_count,'btn-plus' :x.chd_count <= chd_count}"
                       (click)="plusCount('chd_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.chd_count }}</span>
                     <button class="btn-minus" (click)="minusCount('chd_count', x.room_id, flightIndex, i)">-</button>
@@ -309,7 +309,7 @@
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="'btn-plus'"
+                    <button [ngClass]="{'btn-plus-off' : x.inf_count == x.adl_count,'btn-plus' :x.inf_count <= x.adl_count}"
                       (click)="plusCount('inf_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.inf_count }}</span>
                     <button class="btn-minus" (click)="minusCount('inf_count', x.room_id, flightIndex, i)">-</button>

@@ -145,19 +145,24 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
   openPicker() {
-    const dialog = this.dialog.open(PrsDatePickerComponent, {
-      width: '60%',
-      data: {
-        dateList: this.reservedDates
-      }
-    })
-    dialog.afterClosed().subscribe(res => {
-      this.stDateFC.setValue(res.fromDate.dateFa)
-      let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
-      if (itemFiltered.length > 0) {
-        this.nightFC.setValue(itemFiltered[0].night)
-      }
+    if(this.reservedDates.length > 0) {
+      const dialog = this.dialog.open(PrsDatePickerComponent, {
+        width: '80%',
+        data: {
+          dateList: this.reservedDates
+        }
+      })
+      dialog.afterClosed().subscribe(res => {
+        this.stDateFC.setValue(res.fromDate.dateFa)
+        let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
+        if (itemFiltered.length > 0) {
+          this.nightFC.setValue(itemFiltered[0].night)
+        }
+  
+      })
+    }else {
+      this.message.custom('دیتایی موجود نیست')
+    }
 
-    })
   }
 }
