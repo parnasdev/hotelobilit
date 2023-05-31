@@ -73,7 +73,11 @@ export class SessionService {
   checkItemPermission(item: string) {
     return !!this.userPermissions.find(x => x.name === item)
   }
-
+  getRole(): any {
+    const user = localStorage.getItem('hotelobilit-user');
+    console.log(user ? JSON.parse(user).user.role : '')
+    return user ? JSON.parse(user).user.role : '';
+  }
   getIsManager(): any {
     const user = localStorage.getItem('hotelobilit-user');
     return user ? JSON.parse(user).user.isManager : false;
@@ -170,10 +174,7 @@ export class SessionService {
     return user ? JSON.parse(user).user.birthDay : '';
   }
 
-  getRole(): any {
-    const user = localStorage.getItem('hotelobilit-user');
-    return user ? JSON.parse(user).user.role : '';
-  }
+  
 
   isLoggedIn(): any {
     const user = localStorage.getItem('hotelobilit-user');

@@ -341,10 +341,11 @@ pagination-template {
 
 .shimmer-3 {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
   gap: 20px;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
+
   padding: 4px 8px;
 }
 

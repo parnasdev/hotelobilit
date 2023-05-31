@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {PublicService} from "../Services/public.service";
-import {environment} from "../../../environments/environment";
-import {Result} from "../Models/result";
-import {UserCreateReq} from "../Models/UserDTO";
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { PublicService } from "../Services/public.service";
+import { environment } from "../../../environments/environment";
+import { Result } from "../Models/result";
+import { UserCreateReq } from "../Models/UserDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class UserApiService {
   private serverControllerName = 'panel/users';
 
   constructor(public http: HttpClient,
-              public publicService: PublicService) {
+    public publicService: PublicService) {
     this.serverControllerName =
       environment.BACK_END_IP + this.serverControllerName;
   }
@@ -23,8 +23,11 @@ export class UserApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  getUser(): any {
-    const strUrl = this.serverControllerName;
+  getUser(role: number | null = null,parent: number| null = null): any {
+    const strUrl = role ? this.serverControllerName +
+     (parent ? `?role=${role}&parent=${parent}` : `?role=${role}`) :
+     (parent ? this.serverControllerName +
+      `?parent=${parent}` : this.serverControllerName);
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
@@ -45,7 +48,7 @@ export class UserApiService {
 
   createUser(req: UserCreateReq): any {
     const strUrl = this.serverControllerName;
-    return this.http.post<Result<any>>(strUrl,req, this.publicService.getDefaultHeaders());
+    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
 }

@@ -1,6 +1,9 @@
 <div class="list-tour">
   <div class="title">
     <h2>کاربران</h2>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="roleSelected" (ngModelChange)="roleChanged()">
+      <mat-button-toggle *ngFor="let item of roles" [value]="item.id">{{ item.label }}</mat-button-toggle>
+    </mat-button-toggle-group>
     <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
 
   </div>
@@ -32,13 +35,13 @@
         <span class="username">{{ user.full_name }}</span>
         <span class="username">{{ user.phone ? user.phone : '-' }}</span>
         <span class="username">{{ user.username ? user.username : '-' }}</span>
-
         <span class="view">{{ user.role ? user.role : '-' }}</span>
         <span class="date-create">{{ user.phone_verified_at ? calService.convertDate1(user.phone_verified_at, 'fa') :
           '-' }}</span>
-          <span class="date-create">{{ user.last_viewed_at ? calService.convertDate1(user.last_viewed_at, 'fa') :
-            '-' }}</span>
+        <span class="date-create">{{ user.last_viewed_at ? calService.convertDate1(user.last_viewed_at, 'fa') :
+          '-' }}</span>
         <div class="button-setting">
+          <a routerLink="/panel/user/{{user.id}}" class="edit-btn"  *ngIf="user.role === 'آژانس'">کاربران</a>
           <a routerLink="/panel/user/edit/{{user.id}}" class="edit-btn">ویرایش</a>
           <button (click)="deleteClicked(user.id)" class="delete-btn">حذف</button>
         </div>

@@ -16,6 +16,7 @@ import {CommonProjectModule} from "../common-project/common-project.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatSelectModule } from '@angular/material/select';
+import { AgencyUsersComponent } from './agency-users/agency-users.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
     AddComponent,
     ListComponent,
     EditComponent,
+    AgencyUsersComponent,
   ],exports: [],
     imports: [
         CommonModule,

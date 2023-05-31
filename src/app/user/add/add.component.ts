@@ -26,14 +26,18 @@ export class AddComponent implements OnInit {
   selectedhotelsFC = new FormControl();
   selectedCity = new FormControl();
   filteredHotel: any[] = [];
+  permissions: { id: number, label: string, isChecked?: boolean }[] = []
   errors: any
+  parent: string | null = '0';
   cities: { id: number, name: string }[] = [];
   userReq: UserCreateReq = {
     agency_name: '',
-    agency_tell:'',
-    agency_address:'', 
-    agency_necessary_phone:'', 
+    agency_tell: '',
+    agency_address: '',
+    agency_necessary_phone: '',
+    parent_id: 0,
     name: '',
+    permissions: [],
     family: '',
     username: '',
     phone: '',
@@ -73,6 +77,7 @@ export class AddComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.parent = this.route.snapshot.paramMap.get('parent');
     this.getData();
   }
 
@@ -80,6 +85,7 @@ export class AddComponent implements OnInit {
     this.api.getCreateData().subscribe((res: any) => {
       if (res.isDone) {
         this.roles = res.data.roles;
+        this.permissions = res.data.permissions;
         this.hotels = res.data.hotels;
         this.getCities()
       } else {
@@ -130,12 +136,24 @@ export class AddComponent implements OnInit {
       agency_necessary_phone: this.userForm.value.agency_necessary_phone ?? '',
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
+      parent_id: this.parent ? +this.parent : 0,
       phone: this.userForm.value.phone ?? '',
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
+      permissions: this.getPermissionsIDs(),
       role_id: this.userForm.value.role_id ?? 0,
       hotels: this.selectedhotelsFC.value
     };
+  }
+
+  getPermissionsIDs() {
+    let result: number[] = []
+    this.permissions.forEach(item => {
+      if (item.isChecked) {
+        result.push(item.id)
+      }
+    })
+    return result;
   }
 
   submit() {
@@ -170,12 +188,12 @@ export class AddComponent implements OnInit {
     return this.cities.find((y: any) => y.id === id)?.name
   }
 
-  deleteCityItem(index: number){
+  deleteCityItem(index: number) {
     this.selectedCity.value.splice(index, 1)
     this.selectionChange();
   }
 
-  deleteItem(index:number){
+  deleteItem(index: number) {
     this.selectedhotelsFC.value.splice(index, 1)
   }
 

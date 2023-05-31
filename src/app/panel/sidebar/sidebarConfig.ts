@@ -24,7 +24,6 @@ export const Sidebar: SidebarDTO[] = [
             { name: 'اتاق ها', permition: 'RoomTypes', link: '/panel/rooms', show: true },
             { name: 'امکانات هتل', permition: 'RoomTypes', link: '/panel/facilities', show: true },
             { name: 'خدمات', permition: 'RoomTypes', link: '/panel/services', show: true },
-
             { name: 'شهر ها و کشور ها', permition: 'cities.read', link: '/panel/cities', show: true },
             { name: 'ایرلاین ها', permition: 'airlines.read', link: '/panel/transfer', show: true },
             { name: 'فرودگاه ها', permition: 'cities.read', link: '/panel/airport', show: true },

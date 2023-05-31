@@ -20,30 +20,35 @@ import { UserApiService } from "../../Core/Https/user-api.service";
 export class EditComponent implements OnInit {
   userId = '';
   userInfo: any;
+  permissions: { id: number, label: string, isChecked?: boolean }[] = []
+
   roles: { id: number; label: string }[] = [];
   userReq: UserCreateReq = {
     agency_name: '',
-    agency_tell:'',
-    agency_address:'', 
-    agency_necessary_phone:'', 
+    agency_tell: '',
+    agency_address: '',
+    parent_id: 0,
+    agency_necessary_phone: '',
     name: '',
     family: '',
     username: '',
     phone: '',
+    permissions: [],
     password: '',
     role_id: 1,
     hotels: []
   }
   selectedCity = new FormControl();
   filteredHotel: any[] = [];
+  parent: string | null = '0';
   cities: { id: number, name: string }[] = [];
   hotels: any[] = [];
   selectedhotelsFC = new FormControl();
   userForm = this.fb.group({
     agency_name: new FormControl(''),
-    agency_tell:new FormControl(''),
-    agency_address:new FormControl(''), 
-    agency_necessary_phone:new FormControl(''), 
+    agency_tell: new FormControl(''),
+    agency_address: new FormControl(''),
+    agency_necessary_phone: new FormControl(''),
     name: new FormControl(''),
     family: new FormControl(''),
     username: new FormControl(''),
@@ -73,6 +78,8 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     this.userId = this.route.snapshot.paramMap.get('userId');
+    this.parent = this.route.snapshot.paramMap.get('parent');
+
     this.getUser();
     this.role = this.session.getRole()
   }
@@ -84,6 +91,7 @@ export class EditComponent implements OnInit {
         this.roles = res.data.roles;
         this.hotels = res.data.hotels;
         this.getCities()
+        this.permissions = res.data.permissions;
 
         this.fillForm();
       } else {
@@ -103,7 +111,7 @@ export class EditComponent implements OnInit {
         this.cities.push(hotel.city);
       }
     })
-    
+
     this.selectedCity.setValue(this.getLastSelectedCities())
     this.setHotelSelection();
   }
@@ -124,12 +132,19 @@ export class EditComponent implements OnInit {
     this.userForm.controls.agency_address.setValue(this.userInfo.user.agency_address);
     this.userForm.controls.agency_tell.setValue(this.userInfo.user.agency_tell);
     this.userForm.controls.agency_necessary_phone.setValue(this.userInfo.user.agency_necessary_phone);
-    
+
     this.userForm.controls.name.setValue(this.userInfo.user.name);
     this.userForm.controls.family.setValue(this.userInfo.user.family);
     this.userForm.controls.phone.setValue(this.userInfo.user.phone);
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
+
+    this.permissions.forEach((item: any) => {
+      let result = this.userInfo.permissionIds.filter((x: number) => item.id === x);
+      if (result.length > 0) {
+        item.isChecked = true;
+      }
+    })
 
   }
   setReq() {
@@ -141,7 +156,9 @@ export class EditComponent implements OnInit {
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
-      edit_mode: this.userForm.value.password !== '' ? 'password' : 'profile',
+      edit_mode: 'profile',
+      permissions: this.getPermissionsIDs(),
+      parent_id: this.parent ? +this.parent : 0,
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: this.userForm.value.role_id ?? 0,
@@ -151,7 +168,15 @@ export class EditComponent implements OnInit {
   setHotelSelection() {
     this.selectionChange()
     this.selectedhotelsFC.setValue(this.userInfo.hotelIds)
-
+  }
+  getPermissionsIDs() {
+    let result: number[] = []
+    this.permissions.forEach(item => {
+      if (item.isChecked) {
+        result.push(item.id)
+      }
+    })
+    return result;
   }
 
 
@@ -197,12 +222,12 @@ export class EditComponent implements OnInit {
     return this.cities.find((y: any) => y.id === id)?.name
   }
 
-  deleteCityItem(index: number){
+  deleteCityItem(index: number) {
     this.selectedCity.value.splice(index, 1)
     this.selectionChange();
   }
 
-  deleteItem(index:number){
+  deleteItem(index: number) {
     this.selectedhotelsFC.value?.splice(index, 1)
   }
 
