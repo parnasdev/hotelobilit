@@ -280,7 +280,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   calculatePrice(flightID: number) {
     let roomPrice = 0;
-    this.hotelInfo.rooms.forEach((room, index) => {
+    let rooms = this.getUniqueRooms(this.hotelInfo.rooms)
+    rooms.forEach((room:any, index: number) => {
       if (room.room_type_id === environment.TWIN_ROOM_ID) {
         roomPrice = this.getRoomPrice(room.rates, index, flightID)
       }
