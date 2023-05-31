@@ -235,7 +235,7 @@
 
                 </div>
                 <div class="rooms">
-                  <div *ngFor="let room of item.rooms;let roomIndex = index" (click)="roomCollapse()"
+                  <div *ngFor="let room of getUniqueRooms(item.rooms);let roomIndex = index" (click)="roomCollapse()"
                     class="item-room flex-wrap">
                     <span class="text w-50">{{ room.room_type }}</span>
                     <div class="p-count w-50">

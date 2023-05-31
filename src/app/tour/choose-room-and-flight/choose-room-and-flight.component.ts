@@ -4,10 +4,11 @@ import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
-import { RateDTO } from 'src/app/Core/Models/newPostDTO';
+import { RateDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 import { ChooseTourListDTO, HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { ReserveRoomsReqDTO } from 'src/app/Core/Models/reserveDTO';
+import { RoomDTO } from 'src/app/Core/Models/tourDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
@@ -128,7 +129,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         this.hotelInfo = res.data;
         this.convertData(this.hotelInfo.flights);
 
-
         // this.paginate = res.meta;
         // this.paginateConfig = {
         //   itemsPerPage: this.paginate.per_page,
@@ -143,7 +143,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       this.message.error()
     })
   }
-
 
   convertData(flights: transferRateListDTO[]) {
     flights.forEach(flight => {
@@ -171,6 +170,34 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       }
       this.data.push(obj)
     })
+  }
+
+  getUniqueRooms(rooms: any): any{
+    let newRooms: any[] = []
+    let room: any;
+    rooms.forEach((item: any, index: number) => {
+      room = newRooms.find((x: roomDTO) => x.room_type === item.room_type)
+      if(!room){
+        newRooms.push(item)
+      } else {
+        let oldPrice = this.getRoomUniquePrice(room.rates, index)
+        let newPrice = this.getRoomUniquePrice(item.rates, index)
+        if(newPrice > oldPrice){
+          let index = newRooms.findIndex(x => x.id === room.id)
+          newRooms.splice(index, 1)
+          newRooms.push(item)
+        }
+      }
+    })
+    return newRooms
+  }
+
+  getRoomUniquePrice(rates: RateDTO[], roomIndex: number): number {
+    let price = 0;
+    rates.forEach(rate => {
+      price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+    })
+    return price
   }
 
   plus(roomIndex: number, flightIndex: number) {
@@ -206,12 +233,10 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
   }
 
-
   getRoomName(id: number) {
     let result = this.hotelInfo.rooms.filter(x => x.id === id)
     return result.length > 0 ? result[0].room_type : id
   }
-
 
   getSelectedRoom(flightIndex: number) {
     this.data[flightIndex].selectedRooms = []
@@ -237,9 +262,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-
-
-
   getRoomPrice(rates: RateDTO[], roomIndex: number, flightID: number): number {
     let price = 0;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
@@ -250,13 +272,11 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return price + flightPrice + this.getInsuransePrice(roomIndex) + this.getTransferPrice(roomIndex, flightID);
   }
 
-
   getTransferPrice(roomIndex: number, flightID: number) {
     let destID = this.data.find(x => x.id === flightID)?.destination_id
     let transfer = this.hotelInfo.rooms[roomIndex].services.find(transfer => transfer.airport_id === destID);
     return (transfer?.rate ?? 0) * this.getCurrencyRate(transfer?.rate_type ?? '', roomIndex)
   }
-
 
   calculatePrice(flightID: number) {
     let roomPrice = 0;
@@ -273,7 +293,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     roomPrice = this.getRoomPrice(rates, roomIndex, flightID)
     return roomPrice
   }
-
 
   getCurrencyRate(code: string, roomIndex: number): number {
     let currencies = this.hotelInfo.rooms[roomIndex].currencies;
@@ -304,8 +323,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return list.length > 0 ? list[0] : 0
   }
 
-
-
   getInsuransePrice(roomIndex: number): number {
     return  0;
   }
@@ -320,6 +337,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       }
     })
   }
+
   removeSelectedRoom(x: ReserveRoomsReqDTO, index: number, flightIndex: number): void {
     this.data[flightIndex].rooms.forEach(room => {
       if (room.id === x.room_id) {
@@ -381,6 +399,5 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         break;
     }
   }
-
 
 }
