@@ -5,6 +5,12 @@
       [inCommingAirport]="getAirportName(data.obj.airport_id)"
         (hotelSelected)="getAirportSelected($event)"></prs-select-search>
     </div>
+    <div class="w-20 select-fly-city d-flex flex-column align-items-start">
+      <label for="">انتخاب خدمت</label>
+      <prs-select-search [airports]="data.tourServices"
+      [inCommingAirport]="getServiceName(data.obj.category_id)"
+        (hotelSelected)="getServiceSelected($event)"></prs-select-search>
+    </div>
     <div class="d-flex w-25 flex-column">
       <label for="">نرخ ترانسفر</label>
       <input type="text" placeholder="نرخ ترانسفر" [(ngModel)]="price">

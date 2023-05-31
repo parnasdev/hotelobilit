@@ -21,8 +21,10 @@ export class TransferServiceComponent implements OnInit {
   airports: any[] = [];
   show = false;
   airportId: number = 0;
+  categoryId: number = 0;
   airportsSelected: serviceSetReq[] = []
-  list: any[] = [];
+  services: any[] = [];
+  rateServices: any[] = [];
 
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
@@ -42,6 +44,7 @@ export class TransferServiceComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.airports = res.data.airports
+        this.services = res.data.tourServices
         this.show = true;
       } else {
         this.message.custom(res.message)
@@ -55,7 +58,10 @@ export class TransferServiceComponent implements OnInit {
 
   getAirportName(id: number) {
     return this.airports.find(x => x.id === id)?.name
+  }
 
+  getServiceName(id: number) {
+    return this.services.find(x => x.id === id)?.name 
   }
 
 
@@ -63,7 +69,7 @@ export class TransferServiceComponent implements OnInit {
     this.api.getServiceList(this.hotelId).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
-        this.list = res.data;
+        this.rateServices = res.data;
 
       } else {
         this.message.custom(res.message)
@@ -78,12 +84,19 @@ export class TransferServiceComponent implements OnInit {
   getAirportSelected(event: any) {
     this.airportId = event.id;
   }
+
+  getServiceSelected(event: any){
+    this.categoryId = event.id;
+  }
+
   submit() {
     let obj: serviceSetReq = {
       airport_id: this.airportId,
       hotel_id: this.hotelId,
-      transfer_rate: this.price,
-      transfer_rate_type: this.rate
+      flight_id: null,
+      category_id: this.categoryId,
+      rate: this.price,
+      rate_type: this.rate
     }
     this.api.storeService(obj).subscribe((res: any) => {
       this.isLoading = false;
@@ -121,9 +134,10 @@ export class TransferServiceComponent implements OnInit {
     const dialog = this.dialog.open(UpdateTransferServicePopupComponent, {
       width: '80%',
       data: {
-        obj: this.list.find(v => v.id === id),
+        obj: this.rateServices.find(v => v.id === id),
         hotel_id: this.hotelId,
         airports: this.airports,
+        tourServices: this.services,
         id: id
       }
     })

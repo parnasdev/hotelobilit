@@ -5,8 +5,13 @@
       <prs-select-search *ngIf="show" [airports]="airports"
         (hotelSelected)="getAirportSelected($event)"></prs-select-search>
     </div>
+    <div class="w-20 select-fly-city d-flex flex-column align-items-start">
+      <label for="">انتخاب خدمت</label>
+      <prs-select-search *ngIf="show" [airports]="services"
+        (hotelSelected)="getServiceSelected($event)"></prs-select-search>
+    </div>
     <div class="d-flex w-25 flex-column">
-      <label for="">نرخ ترانسفر</label>
+      <label for="">نرخ خدمت</label>
       <input type="text" placeholder="نرخ ترانسفر" mask="separator" thousandSeparator=","  [(ngModel)]="price">
     </div>
     <div class="d-flex w-25 flex-column">
@@ -22,16 +27,23 @@
     <button class="btn-base h-45 m-top-15 w-15" (click)="submit()">ذخیره</button>
   </div>
 
-  <div class="d-flex item-fly w-100" *ngFor="let item of list">
-
-    <span class="font-size-13">{{ getAirportName(item.airport_id) }}</span>
+  <div class="d-flex item-fly w-100" *ngFor="let item of rateServices">
+    
+    <div class="d-flex w-25 flex-column">
+      <label for="">نام خدمت</label>
+      <span class="font-size-13">{{ getServiceName(item.category_id) }}</span> 
+    </div>
+    <div class="d-flex w-25 flex-column">
+      <label for="">نام فرودگاه</label>
+      <span class="font-size-13">{{ getAirportName(item.airport_id) }}</span> 
+    </div>
     <div class="d-flex w-25 flex-column">
       <label for="">نرخ ترانسفر</label>
-      <span class="m-top-10">{{ item.transfer_rate | sperator }}</span>   
-     </div>
+      <span class="m-top-10">{{ item.rate | sperator }}</span>   
+    </div>
     <div class="d-flex w-25 flex-column">
       <label for="">نوع ارز</label>
-      <span class="m-top-10">{{ item.transfer_rate_type }}</span>
+      <span class="m-top-10">{{ item.rate_type }}</span>
     </div>
     <div class="btn-base" (click)="edit(item.id)">ویرایش</div>
     <svg  style="cursor: pointer" (click)="remove(item.id)" width="30" height="30" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path fill="#ff0000" d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z"/></svg>

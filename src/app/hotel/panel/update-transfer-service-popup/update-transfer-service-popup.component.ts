@@ -14,6 +14,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class UpdateTransferServicePopupComponent {
   airportId: number = 0;
+  categoryId: number = 0;
   price = 0
   rate = ''
   isLoading = false;
@@ -24,31 +25,41 @@ export class UpdateTransferServicePopupComponent {
     public errorService: ErrorsService,
     public api: ServiceApiService,
     public dialogRef: MatDialogRef<UpdateTransferServicePopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { hotel_id: number,id: number, obj: serviceSetReq,airports: any[]},
+    @Inject(MAT_DIALOG_DATA) public data: { hotel_id: number,id: number, obj: serviceSetReq,airports: any[], tourServices: any[]},
     public dialog: MatDialog,
     public message: MessageService) { }
 
   ngOnInit(): void {
-    this.price = this.data.obj.transfer_rate;
-    this.rate = this.data.obj.transfer_rate_type;
+    this.price = this.data.obj.rate;
+    this.rate = this.data.obj.rate_type;
     this.airportId = this.data.obj.airport_id;
   }
 
 
   getAirportName(id: number) {
     return this.data.airports.find(x => x.id === id).name
-
   }
+
+  getServiceName(id: number){
+    return this.data.tourServices.find(x => x.id === id).name
+  }
+
   getAirportSelected(event: any) {
     this.airportId = event.id;
   }
 
+  getServiceSelected(event: any) {
+    this.categoryId = event.id;
+  }
+
   submit() {
     let obj: serviceSetReq = {
+      hotel_id: 0,
+      flight_id: null,
       airport_id: this.airportId,
-      hotel_id: this.data.hotel_id,
-      transfer_rate: this.price,
-      transfer_rate_type: this.rate
+      category_id: this.data.hotel_id,
+      rate: this.price,
+      rate_type: this.rate
     }
     this.api.updateService(this.data.id, obj).subscribe((res: any) => {
       this.isLoading = false;

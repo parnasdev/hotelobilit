@@ -1,8 +1,10 @@
 export interface serviceSetReq {
-    hotel_id: number;
+    category_id: number;
+    hotel_id: number | null;
     airport_id: number;
-    transfer_rate: number;
-    transfer_rate_type: string;
+    flight_id: number | null;
+    rate: number;
+    rate_type: string;
 }
 
 export interface ServiceListRes {
