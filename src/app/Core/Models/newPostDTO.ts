@@ -38,11 +38,23 @@ export interface RoomDTO {
     age_child: number
     chd_capacity: number;
     room_type_id: number;
+    extra_bed_count: number;
     currencies: any
     has_coefficient: boolean
     count?: number
     coefficient: number;
+    transfers: {
+        airport_id: number;
+        transfer_rate: number;
+        transfer_rate_type: string;
+    }[];
     id: number;
+    services: {
+        airport_id: number
+        category:string
+        rate:number
+        rate_type:string
+    }[];
     rates: RateDTO[];
     online_reservation: number
     room_type: string

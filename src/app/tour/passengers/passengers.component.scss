@@ -161,7 +161,6 @@
   flex-wrap: wrap;
 
   .item-form {
-    width: 24%;
     margin-top: 14px;
   }
 }
@@ -292,7 +291,7 @@
   font-size: 18px;
   font-weight: 600;
   position: absolute;
-  left: -0;
+  right: 0;
   z-index: 50;
   top: 0;
   background: var(--base-color);
@@ -308,7 +307,7 @@
   font-weight: 600;
   position: absolute;
   transform: translateY(-36px);
-  left: 0;
+  right: 0;
   // top: 0;
   z-index: 50;
   background: #646464;
@@ -338,7 +337,6 @@
       width: 70% !important;
     }
   }
-
 }
 
 .text-error {
@@ -362,4 +360,31 @@
 
 .red-border {
   border: 2px solid red;
+}
+
+.price-fix {
+  position: absolute;
+  left: 0;
+  background: #C6C6C6;
+  z-index: 50;
+  top: 0;
+  padding: 4px 6px;
+border-radius: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+
+  strong {
+    color: #ffffff;
+    font-size: 12px;
+
+  }
+  small {
+    color: #ffffff;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+}
+
+.posi-relative {
+  position: relative;
 }

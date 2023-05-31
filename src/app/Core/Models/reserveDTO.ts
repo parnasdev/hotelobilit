@@ -25,6 +25,7 @@ export interface ReservePassengersDTO {
     expired_passport: string
     birth_day: string
     type: string
+    price?: number;
 }
 
 export interface ReserveCheckingReqDTO {
@@ -52,12 +53,19 @@ export interface ReserveRoomDTO {
     has_coefficient: boolean
     id: number
     online_reservation: number
-    rates: RateDTO    
+    rates: RateDTO[]
     room_type: string
-    services: { insurance_rate: number, transfer_rate: number, visa_rate: number }
+    services: {
+        airport_id: number
+        category:string
+        rate:number
+        rate_type:string
+    }[];
     user: any;
     passengers?: ReservePassengersDTO[]
-    options?:ReserveRoomsReqDTO
+    options?: ReserveRoomsReqDTO;
+    totalPrice?: number;
+    totalExtraPrice?: number;
 }
 export interface ReserveRoomsReqDTO {
     room_id: number;

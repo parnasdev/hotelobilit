@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ReserveApiService} from 'src/app/Core/Https/reserve-api.service';
-import {ReserveHotelDTO} from 'src/app/Core/Models/newPostDTO';
-import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
+import { RateDTO, ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import {
   ReserveCheckingReqDTO,
   ReserveCreateDTO,
@@ -11,11 +11,11 @@ import {
   ReserveReqRoomDTO,
   ReserveRoomDTO
 } from 'src/app/Core/Models/reserveDTO';
-import {CheckErrorService} from 'src/app/Core/Services/check-error.service';
-import {ErrorsService} from 'src/app/Core/Services/errors.service';
-import {MessageService} from 'src/app/Core/Services/message.service';
-import {Location} from '@angular/common';
-import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
+import { MessageService } from 'src/app/Core/Services/message.service';
+import { Location } from '@angular/common';
+import { ResponsiveService } from "../../Core/Services/responsive.service";
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -25,6 +25,7 @@ import {ResponsiveService} from "../../Core/Services/responsive.service";
 export class CompleteReservationComponent implements OnInit {
   isMobile = false;
   isDesktop = false;
+  totalPrice = 0;
   isTablet = false;
   flightID = '';
   hotelID = '';
@@ -60,14 +61,14 @@ export class CompleteReservationComponent implements OnInit {
   })
 
   constructor(public api: ReserveApiService,
-              public message: MessageService,
-              public mobileService: ResponsiveService,
-              private _location: Location,
-              public fb: FormBuilder,
-              public errorService: ErrorsService,
-              public router: Router,
-              public checkError: CheckErrorService,
-              public route: ActivatedRoute) {
+    public message: MessageService,
+    public mobileService: ResponsiveService,
+    private _location: Location,
+    public fb: FormBuilder,
+    public errorService: ErrorsService,
+    public router: Router,
+    public checkError: CheckErrorService,
+    public route: ActivatedRoute) {
     this.isMobile = mobileService.isMobile()
     this.isTablet = mobileService.isTablet()
     this.isDesktop = mobileService.isDesktop()
@@ -84,29 +85,35 @@ export class CompleteReservationComponent implements OnInit {
 
   setCheckingReq() {
     this.route.queryParams.subscribe(params => {
-        this.checkingReq = {
-          checkin: params['checkin'],
-          stayCount: params['stayCount'],
-          hotel_id: +this.hotelID,
-          flight_id: +this.flightID,
-          rooms: JSON.parse(params['rooms'])
-        }
+      this.checkingReq = {
+        checkin: params['checkin'],
+        stayCount: params['stayCount'],
+        hotel_id: +this.hotelID,
+        flight_id: +this.flightID,
+        rooms: JSON.parse(params['rooms'])
       }
+    }
     );
   }
 
 
   getRoomData(result: any) {
-
+    this.totalPrice = 0
     this.roomsSelected.forEach(item => {
+      item.passengers?.forEach(pass => {
+        this.totalPrice += (pass.price ?? 0);
 
+      })
       if (item.id === result.id) {
         item.passengers = result.passengers;
         // item. = this.getRommTotalPrice(data.passengers, data.name)
       }
     })
-    // this.getTotalPrice();
+
+
   }
+
+
 
   checking() {
     this.setCheckingReq()
@@ -125,16 +132,67 @@ export class CompleteReservationComponent implements OnInit {
     })
   }
 
+  getCurrencyRate(code: string, roomIndex: number): number {
+    let currencies = this.data.rooms[roomIndex].currencies;
+    if (currencies) {
+      switch (code) {
+        case 'toman':
+          return currencies.toman;
+        case 'dollar':
+          return currencies.dollar;
+        case 'euro':
+          return currencies.euro;
+        case 'derham':
+          return currencies.derham;
+        default:
+          return 0
+      }
+    } else {
+      return 0;
+    }
+  }
+  getRoomCount() {
+    return this.roomsSelected.length;
+  }
+
+  getPassengersCount() {
+    let count = 0;
+    this.roomsSelected.forEach(x => {
+      count += (x.passengers ?? []).length;
+    })
+    return count
+  }
+  getRoomPrice(roomIndex: number): number {
+    let price = 0;
+    this.data.rooms[roomIndex].rates.forEach((rate: any) => {
+      price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+    })
+    return price
+  }
+
+
+
+
+  getExtraBedPrice(roomIndex: number): number {
+    let price = 0;
+    this.data.rooms[roomIndex].rates.forEach((rate: any) => {
+      price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+    })
+    return price
+  }
+
   getError(name: string) {
     return this.errorService.hasError(name)
   }
 
   setRoomSelected() {
-    this.data.rooms_selected.forEach(room => {
+    this.data.rooms_selected.forEach((room, index) => {
       let x = this.data.rooms.filter(y => y.id === room.room_id)
       if (x.length > 0) {
         for (let i = 0; i < room.count; i++) {
           x[0].options = room;
+          x[0].totalPrice = this.getRoomPrice(index)
+          x[0].totalExtraPrice = this.getExtraBedPrice(index)
           this.roomsSelected.push(x[0]);
         }
       }

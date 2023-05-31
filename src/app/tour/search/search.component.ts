@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
@@ -17,9 +17,9 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnChanges {
-
   @Output() onSubmit = new EventEmitter();
   @Input() inCommingSearchObject?: SearchObjectDTO;
+  getDatesLoading = false;
   dateFC = new FormControl();
   isLoading = false;
   hasFlight = 1
@@ -29,18 +29,25 @@ export class SearchComponent implements OnInit, OnChanges {
 
   originFC = new FormControl('', Validators.required);
   destFC = new FormControl('', Validators.required);
-  nightFC = new FormControl(1, Validators.required);
+  nightFC = new FormControl(0, Validators.required);
   stDateFC = new FormControl('', Validators.required);
-  // reservedDates: DatesResDTO[] = [];
   nights: number[] = []
   originID: number | null = null;
 
   minDate = new Date();
 
+  fg: FormGroup = this.fb.group({
+    origin: this.originFC,
+    dest: this.destFC,
+    night: this.nightFC,
+    stDate: this.stDateFC,
+  })
+
   constructor(
     public dialog: MatDialog,
     public error: ErrorsService,
     public cityApi: CityApiService,
+    public fb: FormBuilder,
     public calendarService: CalenderServices,
     public message: MessageService,
   ) {
@@ -52,6 +59,7 @@ export class SearchComponent implements OnInit, OnChanges {
       this.destFC.setValue(this.inCommingSearchObject?.dest ?? '')
       this.nightFC.setValue(this.inCommingSearchObject?.night ?? 1)
       this.stDateFC.setValue(this.inCommingSearchObject?.stDate ?? '')
+      this.getReservedDates()
     }
   }
 
@@ -60,12 +68,17 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   search() {
-    this.onSubmit.emit({
-      origin: this.originFC.value,
-      dest: this.destFC.value,
-      stDate: this.stDateFC.value,
-      night: this.nightFC.value
-    })
+    if (this.fg.invalid) {
+      this.message.custom('جهت جستجو ورود اطلاعات الزامی است')
+    } else {
+      this.onSubmit.emit({
+        origin: this.originFC.value,
+        dest: this.destFC.value,
+        stDate: this.stDateFC.value,
+        night: this.nightFC.value
+      })
+    }
+
   }
 
   getCities(): void {
@@ -106,18 +119,25 @@ export class SearchComponent implements OnInit, OnChanges {
   getReservedDates(): void {
     let originCode = this.originFC.value ?? '';
     let destCode = this.destFC.value ?? '';
+    this.getDatesLoading = true;
     this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
       if (res.isDone) {
         this.reservedDates = res.data;
         if (this.inCommingSearchObject) {
           this.stDateFC.setValue(this.inCommingSearchObject.stDate)
         }
+        this.nights = [];
         this.reservedDates.forEach(x => {
-          this.nights.push(x.night)
+          if (this.nights.filter(item => item === x.night).length === 0) {
+            this.nights.push(x.night);
+          }
         });
-        // this.nightFC.setValue(this.inCommingSearchObject?.night)
       }
+      this.getDatesLoading = false;
+
     }, (error: any) => {
+      this.getDatesLoading = false;
+
       this.error.check(error)
     })
   }
@@ -125,14 +145,24 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
   openPicker() {
-    const dialog = this.dialog.open(PrsDatePickerComponent, {
-      width: '80%',
-      data: {
-        dateList: this.reservedDates
-      }
-    })
-    dialog.afterClosed().subscribe(res => {
-      this.stDateFC.setValue(res.fromDate.dateFa)
-    })
+    if(this.reservedDates.length > 0) {
+      const dialog = this.dialog.open(PrsDatePickerComponent, {
+        width: '60%',
+        data: {
+          dateList: this.reservedDates
+        }
+      })
+      dialog.afterClosed().subscribe(res => {
+        this.stDateFC.setValue(res.fromDate.dateFa)
+        let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
+        if (itemFiltered.length > 0) {
+          this.nightFC.setValue(itemFiltered[0].night)
+        }
+  
+      })
+    }else {
+      this.message.custom('دیتایی موجود نیست')
+    }
+
   }
 }

@@ -2,12 +2,13 @@
 @import "src/assets/css/varible";
 
 
-  .title-complete {
-    h2 {
-      margin-bottom: 0;
-      font-size: 16px !important;
-    }
+.title-complete {
+  h2 {
+    margin-bottom: 0;
+    font-size: 16px !important;
   }
+}
+
 .box-info-hotel {
   width: 100%;
 }
@@ -919,6 +920,7 @@ prs-show-location {
   box-shadow: var(--box-shadow);
   border-radius: 7px;
   display: flex;
+  transition: 0.5s all;
   flex-direction: column;
   margin-top: 12px;
   width: 100%;
@@ -1682,8 +1684,7 @@ prs-show-location {
             margin-left: 8px;
           }
 
-          .location {
-          }
+          .location {}
         }
 
         .location {
@@ -1861,4 +1862,21 @@ prs-show-location {
   }
 }
 
+.blur {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  position: absolute;
+  cursor: not-allowed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
 
+.focus-thumbnail {
+  transform: scale(1.1);
+  transition: 0.5s all;
+  margin: 2.5rem 0 1rem 0;
+}

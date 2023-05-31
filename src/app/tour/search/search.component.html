@@ -8,13 +8,16 @@
     (citySelected)="destSelected($event)"></prs-select-city>
   </div>
     <div class="inp-form">
+
         <input class="w-100" type="text" [formControl]="stDateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+        <mat-spinner diameter="20" *ngIf="getDatesLoading">
+        </mat-spinner>
     </div>
 
     <div class="inp-form">
       <select [formControl]="nightFC" class="w-100" name="">
-        <option value="null">تعداد شب</option>
-          <option *ngFor="let x of [1,2,3,4,5,6,7,8,9]" [value]="x">
+        <option [value]="0">تعداد شب</option>
+          <option *ngFor="let x of nights" [value]="x">
             {{x}}
           <span style="margin-right: 4px">شب</span>
         </option>

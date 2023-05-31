@@ -17,6 +17,7 @@ import { CompleteReservationComponent } from './complete-reservation/complete-re
 import { PassengersComponent } from './passengers/passengers.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         SwiperModule,
         FormsModule,
         MatCheckboxModule,
+        MatProgressSpinnerModule,
         NgxPaginationModule,
         CommonProjectModule,
         PipesModule,

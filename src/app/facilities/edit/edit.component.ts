@@ -4,6 +4,7 @@ import { MessageService } from "../../Core/Services/message.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
+import { AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';

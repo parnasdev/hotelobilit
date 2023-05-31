@@ -6,19 +6,19 @@
           <div class="p-price d-flex align-items-center">
             <span>مبلغ قابل پرداخت:</span>
             <div class="price d-flex align-items-center">
-              <strong>2000000</strong>
+              <strong>{{ totalPrice |sperator}}</strong>
               <small>تومان</small>
             </div>
           </div>
           <div class="count-p">
             <div class="total">
-              <span>تعداد کل(نفرات) : {{ 1 + 'نفر' }}</span>
+              <span>تعداد کل(نفرات) : {{ getPassengersCount() + 'نفر' }}</span>
             </div>
             <div class="room">
-              <span>تعداد اتاق انتخابی : 1</span>
+              <span>تعداد اتاق انتخابی : {{ getRoomCount() }}</span>
             </div>
           </div>
-          <button class="btn-base btn-box-fix" (click)="submit()">ثبت درخواست</button>
+          <button class="btn-base btn-box-fix" (click)="submit()">پرداخت آنلاین</button>
           <!-- <button class="btn-base btn-box-fix">رزرو</button> -->
         </div>
       </div>
@@ -29,7 +29,7 @@
       </div>
       <div class="d-flex align-items-center">
         <h2 class="title-tour font-size-16">هتل انتخابی : </h2>
-        <h2 class="title-tour text-base m-right-8 font-size-16">هتل داریوش</h2>
+        <h2 class="title-tour text-base m-right-8 font-size-16">{{ data.hotel.title }}</h2>
       </div>
     </div>
     <div class="box-top-box-reserve">
@@ -41,22 +41,22 @@
         <div class="info-from">
           <div *ngIf="isTablet" class="m-bottom-10 font-size-14 text-gray title-fly-mobi">پرواز رفت :</div>
           <div class="d-flex align-items-center w-100 justify-content-between">
-            <span style="margin-right: 4px" class="city-name">تهران مهرآباد</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.origin_name }}</span>
             <strong class="m-left-47">به</strong>
-            <strong>کیش</strong>
+            <strong>{{ data.flight.destination_name }}</strong>
           </div>
           <div class="p-airline-top">
-            <img src="/assets/img/kish-air.png" width="40" alt="">
-            <span class="font-size-13">کیش ایر</span>
+            <img src="{{ data.flight.airline_thumb?.url }}" width="40" alt="">
+            <span class="font-size-13">{{ data.flight.airline_name }}</span>
           </div>
           <div class="w-100 end-box d-flex align-items-center justify-content-between">
             <div class="date">
               <span class="title">تاریخ :</span>
-              <strong>1/1/1</strong>
+              <strong>{{ data.flight.date | convertDate}}</strong>
             </div>
             <div class="time">
               <span class="title">ساعت :</span>
-              <strong>22:00</strong>
+              <strong>{{ data.flight.time }}</strong>
             </div>
           </div>
 
@@ -78,22 +78,22 @@
         <div class="info-to">
           <div *ngIf="isTablet" class="m-bottom-10 font-size-14 text-gray title-fly-mobi">پرواز برگشت :</div>
           <div class="d-flex align-items-center w-100 justify-content-between">
-            <span style="margin-right: 4px" class="city-name">تهران مهرآباد</span>
+            <span style="margin-right: 4px" class="city-name">{{ data.flight.flight.origin_name }}</span>
             <strong class="m-left-47">به</strong>
-            <strong>کیش</strong>
+            <strong>{{ data.flight.flight.destination_name }}</strong>
           </div>
           <div class="p-airline-top">
-            <img src="/assets/img/kish-air.png" width="40" alt="">
-            <span class="font-size-13">کیش ایر</span>
+            <img src="{{ data.flight.flight.airline_thumb?.url }}" width="40" alt="">
+            <span class="font-size-13">{{ data.flight.flight.airline_name }}</span>
           </div>
           <div class="w-100 end-box d-flex align-items-center justify-content-between">
             <div class="date">
               <span class="title">تاریخ :</span>
-              <strong>1/1/1</strong>
+              <strong>{{ data.flight.flight.date | convertDate}}</strong>
             </div>
             <div class="time">
               <span class="title">ساعت :</span>
-              <strong>22:00</strong>
+              <strong>{{ data.flight.flight.time }}</strong>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@
     <h2>اطلاعات مسافران</h2>
     <ng-template [ngIf]="showPassengers">
 
-      <prs-passengers *ngFor="let room of roomsSelected;let i=index" [RoomData]="room" [index]="i"
+      <prs-passengers *ngFor="let room of roomsSelected;let i=index" [data]="data" [RoomData]="room" [index]="i"
                       [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
     </ng-template>
 

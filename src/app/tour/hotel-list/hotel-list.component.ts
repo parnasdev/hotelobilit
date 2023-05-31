@@ -23,7 +23,8 @@ export class HotelListComponent implements OnInit {
   isFiltering = false;
   req: TourSearchReqDTO = {
     date: '',
-    destination: 0,
+    destination: '',
+    origin: '',
     stayCount: 0,
     keywords: '',
     stars: 0,
@@ -71,18 +72,16 @@ export class HotelListComponent implements OnInit {
   }
 
   setReq() {
-    this.route.queryParams.subscribe(params => {
+  
         this.req = {
-          date: moment(params['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-          destination: params['dest'],
-          origin: params['origin'],
-          stayCount: params['night'] ?? 1,
+          date: moment(this.routeDataParam['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+          destination: this.routeDataParam['dest'],
+          origin: this.routeDataParam['origin'],
+          stayCount: this.routeDataParam['night'] ?? 1,
           keywords: this.keyword ? this.keyword : null,
           stars: this.star > 0 ? +this.star : null,
           orderBy: this.orderBy
         }
-      }
-    );
 
   }
 
@@ -113,6 +112,7 @@ export class HotelListComponent implements OnInit {
 
 
   search(result: any) {
+    this.routeDataParam = result
     let city = result.origin + '-' + result.dest
     this.router.navigate([`/tour/` + city], {
       queryParams: result
