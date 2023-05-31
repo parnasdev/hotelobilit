@@ -13,7 +13,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./update-transfer-service-popup.component.scss']
 })
 export class UpdateTransferServicePopupComponent {
-  airportId: number = 0;
+  airportId: number | null = 0;
   categoryId: number = 0;
   price = 0
   rate = ''
@@ -25,7 +25,13 @@ export class UpdateTransferServicePopupComponent {
     public errorService: ErrorsService,
     public api: ServiceApiService,
     public dialogRef: MatDialogRef<UpdateTransferServicePopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { hotel_id: number,id: number, obj: serviceSetReq,airports: any[], tourServices: any[]},
+    @Inject(MAT_DIALOG_DATA) public data: { 
+      hotel_id: number,
+      id: number,
+      type: string,
+      obj: serviceSetReq,
+      airports: any[], 
+      tourServices: any[]},
     public dialog: MatDialog,
     public message: MessageService) { }
 
@@ -36,7 +42,7 @@ export class UpdateTransferServicePopupComponent {
   }
 
 
-  getAirportName(id: number) {
+  getAirportName(id: number | null) {
     return this.data.airports.find(x => x.id === id).name
   }
 
@@ -54,10 +60,10 @@ export class UpdateTransferServicePopupComponent {
 
   submit() {
     let obj: serviceSetReq = {
-      hotel_id: 0,
-      flight_id: null,
-      airport_id: this.airportId,
-      category_id: this.data.hotel_id,
+      airport_id: this.data.type === 'hotel' ? this.airportId : null,
+      hotel_id: this.data.type === 'hotel' ? this.data.hotel_id : null,
+      flight_id: this.data.type === 'flight' ? this.data.id : null,
+      category_id: this.data.id,
       rate: this.price,
       rate_type: this.rate
     }

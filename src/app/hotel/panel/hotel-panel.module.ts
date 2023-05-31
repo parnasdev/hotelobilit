@@ -54,6 +54,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MainPickerEnComponent,
     ConfirmPricingModalEnComponent,
   ],
+  exports: [
+    TransferServiceComponent,
+    UpdateTransferServicePopupComponent,
+  ],
   imports: [
     CommonModule,
     HotelPanelRoutingModule,
@@ -71,7 +75,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     BarRatingModule,
     NgxPaginationModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
 
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction),
   ]

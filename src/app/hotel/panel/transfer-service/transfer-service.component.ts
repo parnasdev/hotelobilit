@@ -18,6 +18,8 @@ export class TransferServiceComponent implements OnInit {
   rate = ''
   isLoading = false;
   @Input() hotelId = 0
+  @Input() flightId = 0
+  @Input() catType = 'hotel'
   airports: any[] = [];
   show = false;
   airportId: number = 0;
@@ -40,7 +42,9 @@ export class TransferServiceComponent implements OnInit {
   
   getData(): void {
     this.isLoading = true;
-    this.api.createServicePage(this.hotelId).subscribe((res: any) => {
+    let id = this.catType === 'hotel' ? this.hotelId : this.flightId;
+    let type = this.catType === 'hotel' ? 'hotel' : 'flight';
+    this.api.createServicePage(id, type).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.airports = res.data.airports
@@ -66,7 +70,9 @@ export class TransferServiceComponent implements OnInit {
 
 
   getList() {
-    this.api.getServiceList(this.hotelId).subscribe((res: any) => {
+    let id = this.catType === 'hotel' ? this.hotelId : this.flightId;
+    let type = this.catType === 'hotel' ? 'hotel' : 'flight';
+    this.api.getServiceList(id, type).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.rateServices = res.data;
@@ -91,9 +97,9 @@ export class TransferServiceComponent implements OnInit {
 
   submit() {
     let obj: serviceSetReq = {
-      airport_id: this.airportId,
-      hotel_id: this.hotelId,
-      flight_id: null,
+      airport_id: this.catType === 'hotel' ? this.airportId : null,
+      hotel_id: this.catType === 'hotel' ? this.hotelId : null,
+      flight_id: this.catType === 'flight' ? this.flightId : null,
       category_id: this.categoryId,
       rate: this.price,
       rate_type: this.rate
@@ -138,7 +144,8 @@ export class TransferServiceComponent implements OnInit {
         hotel_id: this.hotelId,
         airports: this.airports,
         tourServices: this.services,
-        id: id
+        id: id,
+        type: this.catType
       }
     })
     dialog.afterClosed().subscribe(result => {

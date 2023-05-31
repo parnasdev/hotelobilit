@@ -1,7 +1,7 @@
 export interface serviceSetReq {
     category_id: number;
     hotel_id: number | null;
-    airport_id: number;
+    airport_id: number | null;
     flight_id: number | null;
     rate: number;
     rate_type: string;

@@ -19,6 +19,8 @@ import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } fro
 import { CopyComponent } from './copy/copy.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { HotelPanelModule } from '../hotel/panel/hotel-panel.module';
+import { SetServiceComponent } from './set-service/set-service.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -30,7 +32,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ListComponent,
     AddComponent,
     EditComponent,
-    CopyComponent
+    CopyComponent,
+    SetServiceComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NgxMaskDirective,
     NgxMaskPipe,
     MatSelectModule,
+    HotelPanelModule,
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class TransferRateModule { }

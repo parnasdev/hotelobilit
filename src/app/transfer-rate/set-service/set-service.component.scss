@@ -1,0 +1,74 @@
+@import "src/assets/css/varible";
+
+.box-info-fly {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px !important;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.box-info-package {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px !important;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.info-tour-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    width: 99%;
+    background-color: #d5d5d5bd;
+}
+
+.info-tour-header .right {
+    display: flex;
+    align-items: center;
+}
+  
+.info-tour-header .right label {
+    width: auto;
+    padding: 0 8px;
+    height: 25px;
+    border-radius: 512px;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $base-color;
+    font-size: 13px !important;
+}
+  
+.info-tour-header .right h2 {
+    font-size: 18px;
+    color: $base-color;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+  
+.info-tour-header .left select {
+    width: 200px;
+    background-color: var(--white);
+}
+
+.info-tour-body {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eeeeee;
+    padding: 1rem 2rem;
+    width: 99%;
+}
+
+
+
+
+

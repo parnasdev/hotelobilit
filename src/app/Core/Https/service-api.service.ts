@@ -17,13 +17,13 @@ export class ServiceApiService {
       this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
      }
   
-    getServiceList(hotel_id: number): any {
-      const strUrl = this.serverControllerName + `services?hotel=${hotel_id}`;
+    getServiceList(hotel_id: number, type: string): any {
+      const strUrl = this.serverControllerName + `services?${type}=${hotel_id}`;
       return this.http.get<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
     }
   
-    createServicePage(hotel_id: number): any {
-      const strUrl = this.serverControllerName + `services/create?hotel=${hotel_id}`;
+    createServicePage(hotel_id: number, type: string): any {
+      const strUrl = this.serverControllerName + `services/create?${type}=${hotel_id}`;
       return this.http.get<Result<any[]>>(strUrl, this.publicService.getDefaultHeaders());
     }
   
