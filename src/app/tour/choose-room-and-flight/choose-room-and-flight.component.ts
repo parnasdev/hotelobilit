@@ -329,14 +329,18 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   submit(flightID: number, flightIndex: number) {
-    // console.log(this.data[flightIndex].selectedRooms);
-    this.router.navigate([`/tour/reserve/${this.hotelInfo.id}/${flightID}`], {
-      queryParams: {
-        checkin: this.req.date,
-        stayCount: this.req.stayCount,
-        rooms: JSON.stringify(this.data[flightIndex].selectedRooms)
-      }
-    })
+    if(this.data[flightIndex].selectedRooms.length > 0){
+      this.router.navigate([`/tour/reserve/${this.hotelInfo.id}/${flightID}`], {
+        queryParams: {
+          checkin: this.req.date,
+          stayCount: this.req.stayCount,
+          rooms: JSON.stringify(this.data[flightIndex].selectedRooms)
+        }
+      })
+    } else {
+      this.message.custom('لطفا برای رزرو حداقل یک اتاق انتخاب کنید')
+    }
+    
   }
 
   removeSelectedRoom(x: ReserveRoomsReqDTO, index: number, flightIndex: number): void {
