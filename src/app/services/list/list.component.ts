@@ -4,6 +4,7 @@ import {  TransferListRequestDTO } from "../../Core/Models/transferDTO";
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'prs-list',
@@ -18,20 +19,26 @@ export class ListComponent {
   paginateConfig: any;
   isLoading = false
 
+  serviceType = 'hotel';
+
   constructor(public api: CategoryApiService,
+    public route: ActivatedRoute,
     public checkError: CheckErrorService,
     public session: SessionService,
     public message: MessageService) {
   }
 
   ngOnInit(): void {
-    this.getServices();
+    this.route.queryParams.subscribe(params => {
+      this.serviceType = params['type'] ?? 'hotel';
+      this.getServices();
+    });
   }
 
   getServices(): void {
     this.setRea();
     this.isLoading = true
-    this.api.getCategoryList('tourService', 'hotel', this.p).subscribe((res: any) => {
+    this.api.getCategoryList('tourService', this.serviceType, this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.services = res.data;
         this.paginate = res.meta;

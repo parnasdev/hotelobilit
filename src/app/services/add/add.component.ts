@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from "../../Core/Services/message.service";
 import { FormControl } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirportReqDTO } from 'src/app/Core/Models/newAirlineDTO';
@@ -26,19 +26,25 @@ export class AddComponent {
 
   data: any;
   show = false;
+  serviceType = '';
 
   // cityID = 0;
 
   constructor(public message: MessageService,
     public flightApi: FlightApiService,
     public router: Router,
+    public route: ActivatedRoute,
     public dialog: MatDialog,
     public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public api: CategoryApiService) { }
 
   ngOnInit(): void {
-    this.getData();
+    this.route.queryParams.subscribe(params => {
+      this.serviceType = params['type'] ?? 'hotel';
+      this.getData();
+    });
+    
   }
 
 
@@ -61,7 +67,7 @@ export class AddComponent {
 
 
   getData(): void {
-    this.api.createCategoryPage('tourService', 'hotel').subscribe((res: any) => {
+    this.api.createCategoryPage('tourService', 'flight').subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data
       } else {
@@ -75,7 +81,7 @@ export class AddComponent {
 
   submit(): void {
     this.setReq()
-    this.api.storeCategory('tourService', 'hotel', this.req).subscribe((res: any) => {
+    this.api.storeCategory('tourService', 'flight', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.router.navigateByUrl('/panel/services');
       } else {

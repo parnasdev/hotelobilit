@@ -6,18 +6,8 @@
       <div class="info-tour-header">
         <div class="right">
           <label for="">اضافه کردن امکانات جدید</label>
-          <h2 class="text-gray">اطلاعات امکانات</h2>
+          <h2 class="text-gray">اطلاعات امکانات {{ serviceType === 'hotel' ? 'هتل' : 'پرواز'}}</h2>
         </div>
-        <!-- <div class="left">
-          <div class="selectdiv">
-            <label>
-              <select [formControl]="statusFC">
-                <option value="hide" selected> منتشر نشود</option>
-                <option value="show">انتشار</option>
-              </select>
-            </label>
-          </div>
-        </div> -->
       </div>
       <div class="info-tour-body">
         <div class="top">

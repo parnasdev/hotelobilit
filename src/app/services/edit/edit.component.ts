@@ -24,6 +24,8 @@ export class EditComponent {
 
   show = false;
   service_id = '';
+  serviceType = '';
+
   constructor(public message: MessageService,
     public router: Router,
     public route: ActivatedRoute,
@@ -36,7 +38,10 @@ export class EditComponent {
   ngOnInit(): void {
     // @ts-ignore
     this.service_id = +this.route.snapshot.paramMap.get('id')
-    this.getInfo()
+    this.route.queryParams.subscribe(params => {
+      this.serviceType = params['type'] ?? 'hotel';
+      this.getInfo()
+    });
   }
 
   submit(): void {

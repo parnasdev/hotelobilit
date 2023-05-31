@@ -1,7 +1,12 @@
 <div class="list-tour">
   <div class="title">
-    <h2>لیست خدمات</h2>
-    <a class="btn-add-tour" routerLink="/panel/services/add">اضافه</a>
+    <div class="d-flex w-50">
+      <h2 class="ml-3">لیست خدمات</h2>
+      <a class="btn-base w-10" routerLink="/panel/services" [queryParams]="{type: 'hotel'}" routerLinkActive="active">هتل</a>
+      <a class="btn-base w-10 mr-5" routerLink="/panel/services" [queryParams]="{type: 'flight'}" routerLinkActive="active">پرواز</a>
+    </div>
+
+    <a class="btn-add-tour" routerLink="/panel/services/add" [queryParams]="{type: serviceType }">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
