@@ -1,7 +1,7 @@
 <div class="list-tour">
     <div class="title">
       <h2>کاربران</h2>
-      <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
+      <a class="btn-add-tour" routerLink="/panel/user/add/{{ userId }}">اضافه</a>
   
     </div>
     <div class="table-list-tour">
@@ -39,7 +39,7 @@
             <span class="date-create">{{ user.last_viewed_at ? calService.convertDate1(user.last_viewed_at, 'fa') :
               '-' }}</span>
           <div class="button-setting">
-            <a routerLink="/panel/user/edit/{{user.id}}" class="edit-btn">ویرایش</a>
+            <a routerLink="/panel/user/edit/{{user.id}}/{{ userId }}" class="edit-btn">ویرایش</a>
             <button (click)="deleteClicked(user.id)" class="delete-btn">حذف</button>
           </div>
         </div>

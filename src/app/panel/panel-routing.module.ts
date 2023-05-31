@@ -77,6 +77,12 @@ const routes: Routes = [
         loadChildren: () => import('../services/services.module').then(m => m.ServicesModule)
       },
       {
+        path: 'reserves',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../reservation/reservation.module').then(m => m.ReservationModule)
+      },
+      {
         path: 'cities',
         // canActivate: [PanelItemGuardService],
         // data: {permitions: ['Cities']},

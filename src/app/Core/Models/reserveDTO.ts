@@ -57,9 +57,9 @@ export interface ReserveRoomDTO {
     room_type: string
     services: {
         airport_id: number
-        category:string
-        rate:number
-        rate_type:string
+        category: string
+        rate: number
+        rate_type: string
     }[];
     user: any;
     passengers?: ReservePassengersDTO[]
@@ -74,4 +74,31 @@ export interface ReserveRoomsReqDTO {
     chd_count: number;
     extra_count: number;
     inf_count: number;
+}
+
+export interface ReserveListResponseDTO {
+    details: {
+        checkin: string;
+        checkout: string
+    }
+    hotel: ReserveHotelDTO
+    id: number
+    status: {
+        color: string;
+        label: string;
+        name: string
+    }
+    ref_code: string
+    reserver_full_name: string
+    reserver_id_code: string
+    reserver_phone: string
+    reserves: ReserveListChildDTO[]
+    total_price: number
+}
+
+export interface ReserveListChildDTO {
+    details: ReservePassengersDTO[]
+    flight: transferRateListDTO
+    id: number
+    total_price: number
 }

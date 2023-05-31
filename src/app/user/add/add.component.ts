@@ -11,6 +11,7 @@ import { PublicService } from "../../Core/Services/public.service";
 import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { MessageService } from "../../Core/Services/message.service";
 import { UserApiService } from "../../Core/Https/user-api.service";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'prs-add',
@@ -54,6 +55,7 @@ export class AddComponent implements OnInit {
     public errorService: ErrorsService,
     public message: MessageService,
     public checkError: CheckErrorService,
+    private _location: Location,
     public router: Router,
     public commonApi: CommonApiService,
     public session: SessionService,
@@ -162,7 +164,7 @@ export class AddComponent implements OnInit {
       if (res.isDone) {
         this.message.custom(res.message);
         this.userForm.reset();
-        this.router.navigate(['/panel/user']);
+        this._location.back()
       } else {
         this.message.custom(res.message);
       }

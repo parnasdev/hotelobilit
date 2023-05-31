@@ -11,6 +11,7 @@ import { PublicService } from "../../Core/Services/public.service";
 import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { MessageService } from "../../Core/Services/message.service";
 import { UserApiService } from "../../Core/Https/user-api.service";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'prs-edit',
@@ -67,6 +68,7 @@ export class EditComponent implements OnInit {
     public calService: CalenderServices,
     public errorService: ErrorsService,
     public message: MessageService,
+    private _location: Location,
     public checkError: CheckErrorService,
     public router: Router,
     public commonApi: CommonApiService,
@@ -196,7 +198,7 @@ export class EditComponent implements OnInit {
     this.api.editUser(this.userReq, this.userId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
-        this.router.navigate(['/panel/user']);
+        this._location.back()
       } else {
         this.message.custom(res.message);
       }

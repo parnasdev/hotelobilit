@@ -35,4 +35,9 @@ export class ReserveApiService {
     const strUrl = this.serverControllerName + '/checking'
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
+  list(): any {
+    const strUrl =  environment.BACK_END_IP + 'panel/reserves'
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+
+}
 }
