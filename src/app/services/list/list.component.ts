@@ -31,7 +31,7 @@ export class ListComponent {
   getServices(): void {
     this.setRea();
     this.isLoading = true
-    this.api.getCategoryList('service', 'hotel', this.p).subscribe((res: any) => {
+    this.api.getCategoryList('tourService', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.services = res.data;
         this.paginate = res.meta;
@@ -61,7 +61,7 @@ export class ListComponent {
   }
 
   deleteService(id: number) {
-    this.api.deleteCategory(id, 'service').subscribe((res: any) => {
+    this.api.deleteCategory(id, 'tourService').subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
         this.getServices()

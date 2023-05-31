@@ -1,7 +1,7 @@
 <div class="list-tour">
   <div class="title">
     <h2>لیست خدمات</h2>
-    <a class="btn-add-tour" routerLink="/panel/service/add">اضافه</a>
+    <a class="btn-add-tour" routerLink="/panel/services/add">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
@@ -30,7 +30,7 @@
             alt="">
         </span>
         <div class="button-setting">
-          <a routerLink="/panel/service/edit/{{ service.id }}" class="edit-btn">ویرایش</a>
+          <a routerLink="/panel/services/edit/{{ service.id }}" class="edit-btn">ویرایش</a>
           <button (click)="deleteService(service.id)" class="delete-btn">حذف</button>
         </div>
       </div>

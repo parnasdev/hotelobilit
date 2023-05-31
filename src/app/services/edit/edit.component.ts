@@ -41,10 +41,10 @@ export class EditComponent {
 
   submit(): void {
     this.setReq()
-    this.api.updateCategory(+this.service_id, 'service', 'hotel', this.req).subscribe((res: any) => {
+    this.api.updateCategory(+this.service_id, 'tourService', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)
-        this.router.navigateByUrl('/panel/service');
+        this.router.navigateByUrl('/panel/services');
       } else {
         this.message.custom(res.message);
       }
@@ -70,7 +70,7 @@ export class EditComponent {
 
 
   getInfo(): void {
-    this.api.editCategoryPage(+this.service_id, 'service', 'hotel').subscribe((res: any) => {
+    this.api.editCategoryPage(+this.service_id, 'tourService', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
         this.setValue()

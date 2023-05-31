@@ -61,7 +61,7 @@ export class AddComponent {
 
 
   getData(): void {
-    this.api.createCategoryPage('service', 'hotel').subscribe((res: any) => {
+    this.api.createCategoryPage('tourService', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data
       } else {
@@ -75,9 +75,9 @@ export class AddComponent {
 
   submit(): void {
     this.setReq()
-    this.api.storeCategory('service', 'hotel', this.req).subscribe((res: any) => {
+    this.api.storeCategory('tourService', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
-        this.router.navigateByUrl('/panel/service');
+        this.router.navigateByUrl('/panel/services');
       } else {
         this.message.custom(res.message);
       }
