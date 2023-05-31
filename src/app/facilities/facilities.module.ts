@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { FacilitiesRoutingModule } from './facilities-routing.module';
 import {CommonProjectModule} from "../common-project/common-project.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -8,7 +9,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
-import { ServicesRoutingModule } from './services-routing.module';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { ServicesRoutingModule } from './services-routing.module';
   ],
   imports: [
     CommonModule,
-    ServicesRoutingModule,
+    FacilitiesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
@@ -28,4 +28,4 @@ import { ServicesRoutingModule } from './services-routing.module';
     CommonProjectModule,
   ]
 })
-export class ServicesModule { }
+export class FacilitiesModule { }

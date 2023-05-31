@@ -12,10 +12,10 @@
           </div>
           <div class="count-p">
             <div class="total">
-              <span>تعداد کل(نفرات) : {{ 1 + 'نفر' }}</span>
+              <span>تعداد کل(نفرات) : {{ getPassengersCount() + 'نفر' }}</span>
             </div>
             <div class="room">
-              <span>تعداد اتاق انتخابی : 1</span>
+              <span>تعداد اتاق انتخابی : {{ getRoomCount() }}</span>
             </div>
           </div>
           <button class="btn-base btn-box-fix" (click)="submit()">پرداخت آنلاین</button>

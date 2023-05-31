@@ -277,17 +277,21 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getCurrencyRate(code: string, roomIndex: number): number {
     let currencies = this.hotelInfo.rooms[roomIndex].currencies;
-    switch (code) {
-      case 'toman':
-        return currencies.toman;
-      case 'dollar':
-        return currencies.dollar;
-      case 'euro':
-        return currencies.euro;
-      case 'derham':
-        return currencies.derham;
-      default:
-        return 0
+    if(currencies) {
+      switch (code) {
+        case 'toman':
+          return currencies.toman;
+        case 'dollar':
+          return currencies.dollar;
+        case 'euro':
+          return currencies.euro;
+        case 'derham':
+          return currencies.derham;
+        default:
+          return 0
+      }
+    }else {
+      return 0;
     }
   }
 

@@ -1,8 +1,10 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TransferAPIService } from "../../Core/Https/transfer-api.service";
 import { MessageService } from "../../Core/Services/message.service";
-import {  TransferListRequestDTO } from "../../Core/Models/transferDTO";
+import { TransferListDTO, TransferListRequestDTO } from "../../Core/Models/transferDTO";
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
+import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 
 @Component({

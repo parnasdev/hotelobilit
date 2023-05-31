@@ -108,6 +108,7 @@
   
           </div>
 
+   
           <div class="top">
             <div class="address-hotel">
               <label for="address">شهر های موردنظر را انتخاب کنید</label>
@@ -123,7 +124,7 @@
               </mat-form-field>
               <div>
                 <span class="city-box" *ngFor="let city of selectedCityFC.value">
-                  {{ getCityName(+city) }}
+                  {{ getCity(+city) }}
                 </span>
               </div>
             </div>

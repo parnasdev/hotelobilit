@@ -1,0 +1,43 @@
+
+
+<div class="add-tour">
+  <form class="w-100">
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">اضافه کردن امکانات جدید</label>
+          <h2 class="text-gray">اطلاعات امکانات</h2>
+        </div>
+        <!-- <div class="left">
+          <div class="selectdiv">
+            <label>
+              <select [formControl]="statusFC">
+                <option value="hide" selected> منتشر نشود</option>
+                <option value="show">انتشار</option>
+              </select>
+            </label>
+          </div>
+        </div> -->
+      </div>
+      <div class="info-tour-body">
+        <div class="top">
+
+          <div class="item-info">
+            <label for="">عنوان</label>
+            <input [formControl]="nameFC" type="text">
+          </div>
+          <div class="bottom-one">
+            <prs-multiple-upload (result)="getImages($event)"></prs-multiple-upload>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-parent-submit">
+
+      <button class="submit-tour" (click)="submit()">ثبت </button>
+    </div>
+  </form>
+
+</div>
+
