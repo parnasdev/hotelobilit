@@ -1,6 +1,16 @@
 <div class="list-tour">
   <div class="title">
     <h2>لیست مسیر پرواز ها</h2>
+    <div class="d-flex search-box-hotel">
+      <!-- <div class="item-info-2 w-48">
+        <div class="select-info">
+          <prs-select-city [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="citiesResponse"
+            (citySelected)="getCitySelected($event)"></prs-select-city>
+        </div>
+      </div> -->
+      <!-- <input style="margin-right: 8px" [formControl]="keywordFC" (change)="filter()" placeholder="جستجو بر اساس نام هتل" type="text"> -->
+      <!-- <button class="ms-2 btn-base btn-search" (click)="filter()">جستجو</button> -->
+    </div>
     <a class="btn-add-tour" routerLink="/panel/transferRate/add">اضافه</a>
   </div>
   <div class="table-list-tour">
