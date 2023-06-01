@@ -9,7 +9,7 @@ import {SwiperModule} from "swiper/angular";
 import { TourModule } from '../tour/tour.module';
 import { StoreComponent } from './store/store.component';
 import { MaterialModule } from '../common-project/persianDatePickerAdapter/material.module';
-import { LoadingComponent } from './loading/loading.component';
+import { CommonProjectModule } from '../common-project/common-project.module';
 
 @NgModule({
   declarations: [
@@ -17,13 +17,13 @@ import { LoadingComponent } from './loading/loading.component';
     HeaderComponent,
     FooterComponent,
     StoreComponent,
-    LoadingComponent
-  ],exports:[ LoadingComponent],
+  ],exports:[ ],
   imports: [
     CommonModule,
     SwiperModule,
     MaterialModule,
     TourModule,
+    CommonProjectModule,
     StoreRoutingModule,
   ]
 })

@@ -8,7 +8,6 @@ import { RateDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 import { ChooseTourListDTO, HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { ReserveRoomsReqDTO } from 'src/app/Core/Models/reserveDTO';
-import { RoomDTO } from 'src/app/Core/Models/tourDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
@@ -26,7 +25,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   isRoom = false
   slug = '';
   chd_count = 2;
-
+  isLoading = false;
   req: TourSearchReqDTO = {
     origin: '',
     date: '',
@@ -124,6 +123,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getHotelInfo(): void {
     this.setReq();
+    this.isLoading = true;
     this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.hotelInfo = res.data;
@@ -139,7 +139,11 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false;
+
     }, (error: any) => {
+      this.isLoading = false;
+
       this.message.error()
     })
   }
@@ -172,17 +176,17 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     })
   }
 
-  getUniqueRooms(rooms: any): any{
+  getUniqueRooms(rooms: any): any {
     let newRooms: any[] = []
     let room: any;
     rooms.forEach((item: any, index: number) => {
       room = newRooms.find((x: roomDTO) => x.room_type === item.room_type)
-      if(!room){
+      if (!room) {
         newRooms.push(item)
       } else {
         let oldPrice = this.getRoomUniquePrice(room.rates, index)
         let newPrice = this.getRoomUniquePrice(item.rates, index)
-        if(newPrice > oldPrice){
+        if (newPrice > oldPrice) {
           let index = newRooms.findIndex(x => x.id === room.id)
           newRooms.splice(index, 1)
           newRooms.push(item)
@@ -281,7 +285,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   calculatePrice(flightID: number) {
     let roomPrice = 0;
     let rooms = this.getUniqueRooms(this.hotelInfo.rooms)
-    rooms.forEach((room:any, index: number) => {
+    rooms.forEach((room: any, index: number) => {
       if (room.room_type_id === environment.TWIN_ROOM_ID) {
         roomPrice = this.getRoomPrice(room.rates, index, flightID)
       }
@@ -297,7 +301,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getCurrencyRate(code: string, roomIndex: number): number {
     let currencies = this.hotelInfo.rooms[roomIndex].currencies;
-    if(currencies) {
+    if (currencies) {
       switch (code) {
         case 'toman':
           return currencies.toman;
@@ -310,7 +314,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         default:
           return 0
       }
-    }else {
+    } else {
       return 0;
     }
   }
@@ -325,11 +329,11 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   getInsuransePrice(roomIndex: number): number {
-    return  0;
+    return 0;
   }
 
   submit(flightID: number, flightIndex: number) {
-    if(this.data[flightIndex].selectedRooms.length > 0){
+    if (this.data[flightIndex].selectedRooms.length > 0) {
       this.router.navigate([`/tour/reserve/${this.hotelInfo.id}/${flightID}`], {
         queryParams: {
           checkin: this.req.date,
@@ -340,7 +344,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     } else {
       this.message.custom('لطفا برای رزرو حداقل یک اتاق انتخاب کنید')
     }
-    
+
   }
 
   removeSelectedRoom(x: ReserveRoomsReqDTO, index: number, flightIndex: number): void {
@@ -363,7 +367,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         }
         break;
       case 'chd_count':
-        if (item.chd_count <this.chd_count) {
+        if (item.chd_count < this.chd_count) {
           item.chd_count += 1
         }
         break;
@@ -377,7 +381,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
   }
 
-  getExtraBedCount(roomId:number) {
+  getExtraBedCount(roomId: number) {
     let extra_bed_countFiltered = this.hotelInfo.rooms.filter(x => x.id === roomId)
     return extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
   }

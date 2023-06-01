@@ -41,7 +41,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatInputModule,
         MatDatepickerModule,
         MatFormFieldModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ]
 })
 export class TourModule { }

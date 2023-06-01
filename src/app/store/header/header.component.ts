@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
 import { SessionService } from 'src/app/Core/Services/session.service';
+import { MessageService } from 'src/app/Core/Services/message.service';
+import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { AuthApiService } from 'src/app/Core/Https/auth-api.service';
 
 @Component({
   selector: 'prs-header',
@@ -15,6 +18,9 @@ export class HeaderComponent {
   isMenu = false;
   constructor(
     public mobileService: ResponsiveService,
+    public messageService: MessageService,
+    public checkError: CheckErrorService,
+    public api: AuthApiService,
     public session: SessionService
   ) {
     this.isMobile = mobileService.isMobile()
@@ -27,5 +33,21 @@ export class HeaderComponent {
 
   menuClose() {
     this.isMenu = false
+  }
+
+
+  logout(): void {
+    this.isLoading = true
+    this.api.logout().subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+        this.session.removeUser();
+
+      }
+    }, (error: any) => {
+      this.isLoading = false;
+      this.messageService.error();
+      this.checkError.check(error);
+    })
   }
 }

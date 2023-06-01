@@ -21,10 +21,10 @@
   </div>
   
   <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">قیمت تخفیف خورده</label>
+    <label for="">قیمت کودک با تخت</label>
     <div class="inp-form mt-2 w-100">
-      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت تخفیف خورده"
-        [formControl]="offerPriceFC">
+      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت کودک با تخت"
+        [formControl]="bedPriceFC">
     </div>
   </div> -->
 
@@ -38,7 +38,7 @@
 
 
   <div class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">قیمت تخت اضافه</label>
+    <label for="">قیمت تخت اضافه({{ getCurrencyLabel() }})</label>
     <div class="inp-form mt-2 w-100">
       <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت تخت اضافه"
         [formControl]="bedPriceFC">

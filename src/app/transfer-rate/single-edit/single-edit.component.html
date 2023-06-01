@@ -1,0 +1,219 @@
+<prs-loading *ngIf="isLoading"></prs-loading>
+<div class="add-tour" *ngIf="showData">
+    <form class="w-100" [formGroup]="form">
+        <div class="box-info-fly">
+
+            <div class="info-tour-header">
+                <div class="right">
+                    <h2 class="text-dark">اطلاعات پرواز</h2>
+                </div>
+            </div>
+
+            <div class="info-tour-body">
+                <div class="top">
+                    <div class="item-info-2 w-48">
+                        <div class="select-info">
+                            <label for="">فرودگاه مبدا</label>
+                            <prs-select-city [title]="'فرودگاه خود را انتخاب کنید'" [hasHotel]="true"
+                                [inCommingCity]="infoData.origin_id" [cities]="editData.airports"
+                                (citySelected)="getStCity($event)">
+                            </prs-select-city>
+                            <div *ngIf="errorService.hasError('origin_id')">
+                                <span class="text-danger">{{errorService.getError('origin_id')}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="padding-right: 2rem" class="item-info w-48">
+                        <div class="select-info">
+                            <label for="">فرودگاه مقصد</label>
+                            <prs-select-city [title]="'فرودگاه خود را انتخاب کنید'" [hasHotel]="true"
+                                [inCommingCity]="infoData.destination_id" [cities]="editData.airports"
+                                (citySelected)="getEndCity($event)"></prs-select-city>
+                            <div *ngIf="errorService.hasError('destination_id')">
+                                <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top">
+                    <div class="w-45 mt-3 d-flex align-items-center item-bg justify-content-between px-3">
+                        <div class="d-flex align-items-center">
+                            <mat-label>چکین فردا</mat-label>
+                            <mat-checkbox [(ngModel)]="checkin_tomorrow"
+                                [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                        </div>
+
+                        <div class="item-info-timer w-45">
+                            <label for="">ساعت پرواز رفت</label>
+                            <prs-time-picker [inCommingTime]="infoData.time"
+                                (result)="getOriginTime($event)"></prs-time-picker>
+                        </div>
+                    </div>
+                    <div class="w-45 mt-3 d-flex align-items-center item-bg justify-content-between px-3">
+                        <div class="d-flex align-items-center">
+                            <mat-label>چک اوت دیروز</mat-label>
+                            <mat-checkbox [(ngModel)]="checkout_yesterday" [ngModelOptions]="{standalone: true}">
+                            </mat-checkbox>
+                        </div>
+                        <div class="item-info-timer w-45">
+                            <label for="">ساعت پرواز برگشت</label>
+                            <!--              <ngb-timepicker  formControlName="originTimeFC" [meridian]="false"></ngb-timepicker>-->
+                            <prs-time-picker [inCommingTime]="infoData.flight.time"
+                                (result)="getDestTime($event)"></prs-time-picker>
+                        </div>
+                    </div>
+                    <div class="w-45 d-flex align-items-center  justify-content-between">
+                        <div class="item-info-2 w-48">
+                            <div class="select-info w-100">
+                                <label for="">ایرلاین رفت</label>
+                                <select formControlName="origin_airline_id">
+                                    <option *ngFor="let item of (editData.airlines ?? [])" [value]="item.id">
+                                        {{item.name}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="errorService.hasError('origin_airline_id')">
+                                <span class="text-danger">{{errorService.getError('origin_airline_id')}}</span>
+                            </div>
+                        </div>
+                        <div class="item-info w-48">
+                            <div class="select-info w-100">
+                                <label for="">شماره پرواز رفت</label>
+                                <input type="text" formControlName="origin_flight_number">
+                            </div>
+                            <div *ngIf="errorService.hasError('origin_flight_number')">
+                                <span class="text-danger">{{errorService.getError('origin_flight_number')}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-45 d-flex align-items-center  justify-content-between">
+                        <div class="item-info w-48">
+                            <div class="select-info w-100">
+                                <label for="">ایرلاین برگشت</label>
+                                <select formControlName="destination_airline_id">
+                                    <option *ngFor="let item of (editData.airlines ?? [])" [value]="item.id">
+                                        {{item.name}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="errorService.hasError('destination_airline_id')">
+                                <span class="text-danger">{{errorService.getError('destination_airline_id')}}</span>
+                            </div>
+                        </div>
+                        <div class="item-info w-48">
+                            <div class="select-info w-100">
+                                <label for="">شماره پرواز برگشت</label>
+                                <input type="text" formControlName="destination_flight_number">
+                            </div>
+                            <div *ngIf="errorService.hasError('destination_flight_number')">
+                                <span class="text-danger">{{errorService.getError('destination_flight_number')}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="top">
+                    <div class="address-hotel">
+                        <label for="address">شهر های موردنظر را انتخاب کنید</label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>شهر ها</mat-label>
+                            <mat-select [formControl]="selectedCityFC" multiple>
+                                <mat-select-trigger>
+                                    <span>شهر های انتخاب شده</span>
+
+                                </mat-select-trigger>
+                                <mat-option *ngFor="let city of editData.cities"
+                                    [value]="city.id">{{city.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div>
+                            <span class="city-box" *ngFor="let city of selectedCityFC.value">
+                                {{ getCity(+city) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="box-info-fly">
+
+
+            <div class="box-info-package">
+                <div class="info-tour-header">
+                    <div class="right">
+                        <h2> تاریخ قابل ارائه</h2>
+                    </div>
+
+                </div>
+                <div class="info-tour-body p-0">
+                    <div class="w-100 d-flex flex-column mobile-package">
+                            <form class="parent-package">
+                                <div class="item-package">
+                                    <div class="package-item">
+                                    </div>
+                                    <div class="item-info-2 p-item-custom">
+                                        <div class="select-info">
+                                            <label style="position: relative;top: 17px" for="">تاریخ رفت</label>
+                                            <mat-form-field appearance="fill">
+                                                <input
+                                                    
+                                                    matInput [matDatepicker]="picker6" autocomplete="off"
+                                                    [formControl]="originDateFC" [min]="minDate"
+                                                    (click)="picker6.open()">
+                                                <mat-datepicker #picker6></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="select-info">
+                                            <label style="position: relative;top: 17px" for="">تاریخ برگشت</label>
+                                            <mat-form-field appearance="fill">
+                                                <input
+                                                    matInput [matDatepicker]="picker7" autocomplete="off"
+                                                    [formControl]="destination_dateFC" [min]="minDate"
+                                                    (click)="picker7.open()">
+                                                <mat-datepicker #picker7></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="select-info">
+                                            <label for="">نرخ بزرگسال (تومان)</label>
+                                            <input
+                                                type="text" placeholder="قیمت بزرگسال" mask="separator"
+                                                thousandSeparator="," [formControl]="adl_priceFC">
+                                        </div>
+                                        <div class="select-info">
+                                            <label for="">نرخ کودک (تومان)</label>
+                                            <input
+                                                type="text" placeholder="قیمت کودک" mask="separator"
+                                                thousandSeparator="," [formControl]="chd_priceFC">
+                                        </div>
+                                        <div class="select-info">
+                                            <label for="">نرخ نوزاد (تومان)</label>
+                                            <input
+                                                type="text" placeholder="قیمت نوزاد" mask="separator"
+                                                thousandSeparator="," [formControl]="inf_priceFC">
+                                        </div>
+                                        <div class="select-info">
+                                            <label for="">موجودی</label>
+                                            <input
+                                                type="text" placeholder="ظرفیت" [formControl]="capacityFC">
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn-base" (click)="updateRequest('edit')" style="width: 10%; margin: 5px">ثبت</button>
+        </div>
+    </form>
+</div>

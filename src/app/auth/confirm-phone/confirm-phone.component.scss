@@ -1,0 +1,153 @@
+.form-auth {
+    margin: 4rem 0;
+  }
+  
+  .parent-form {
+    background-color: var(--white);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-image: url("../../../assets/img/pattern-fly.png");
+  }
+  
+  .box-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .box-form h2 {
+    font-weight: 600 !important;
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .form .item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1rem;
+  }
+  
+  .form .item label {
+    color: var(--title-color);
+    font-weight: 500;
+    margin-bottom: 7px;
+  }
+  
+  .form .item input {
+    height: 40px;
+    border-radius: 3px;
+    width: 100%;
+    border: 2px solid #e4e4e4;
+    padding: 0 8px;
+    color: var(--title-color);
+  }
+  
+  .btn-form-auth {
+    height: 40px;
+    width: 100%;
+    margin-top: 1.5rem;
+    border-radius: 3px;
+    background-color: var(--base-color-second);
+    color: var(--title-color);
+    border: none;
+    outline: none;
+  }
+  
+  .form .text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 13px;
+    align-items: center;
+  }
+  
+  .form .text span {
+    font-size: 13px !important;
+    color: var(--title-color);
+  }
+  
+  .form .text a {
+    font-size: 13px !important;
+    color: var(--red-color);
+    font-weight: 500;
+    margin-right: 4px;
+  }
+  
+  .forget-password {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .forget-password a {
+    color: var(--title-color);
+    font-weight: 500;
+  }
+  
+  .footer-text-form {
+    width: 85%;
+    margin: 1rem auto;
+    font-size: 13px !important;
+    text-align: center;
+  }
+  .input-password{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    border-radius: 3px;
+    width: 100%;
+    border: 2px solid #e4e4e4;
+    padding: 0 8px;
+    color: var(--title-color);
+  }
+  .input-password .inp-pass{
+    border: none !important;
+    width: 95%;
+    height: 35px !important;
+    outline: none;
+  }
+  .logo-website{
+    margin-bottom: 3rem;
+  }
+  @media only screen and (max-width: 380px) {
+    .box-form {
+      width: 100%;
+    }
+    .parent-form {
+      width: 95%;
+      height: auto !important;
+      padding: 2rem 1rem;
+    }
+    .form .item label {
+      font-size: 13px;
+    }
+  }
+  
+  @media only screen and (min-width: 381px) and (max-width: 868px) {
+    .box-form {
+      width: 80%;
+    }
+    .parent-form {
+      width: 95%;
+      height: auto !important;
+      padding: 2rem 1rem;
+    }
+    .form .item label {
+      font-size: 13px;
+    }
+  }
+  

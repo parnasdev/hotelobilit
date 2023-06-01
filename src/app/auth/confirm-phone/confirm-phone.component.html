@@ -1,0 +1,73 @@
+<section class="form-auth" *ngIf="authMode === 2">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto parent-form">
+          <form class="box-form" (ngSubmit)="submit()">
+            <a routerLink="/">
+              <img class="logo-website" src="assets/img/logo-header.png" width="200" alt="">
+            </a>
+            <div class="box-form">
+              <h2> {{ data }} اعتبارسنجی شماره همراه</h2>   <a (click)="changeNumber()">(تغییر شماره)</a>
+              <div class="form">
+                <div class="item align-items-center justify-content-center">
+                  <h3 for="">کد ارسالی به شماره همراه خود را وارد کنید</h3>
+                  <code-input [isCodeHidden]="false" [codeLength]="4" (codeChanged)="onCodeChanged($event)"
+                    (codeCompleted)="onCodeCompleted()">
+                  </code-input>
+                </div>
+                <button type="submit" class="btn-form-auth">اعتبارسنجی
+                  <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                </button>
+
+                <prs-resend-code [type]="'tempPassword'" [phone]="data"></prs-resend-code>
+                <!--              <div class="text">-->
+                <!--                <span>قبلا ثبت نام کرده اید؟</span>-->
+                <!--                <a routerLink="/validate">ورود به حساب کاربری</a>-->
+                <!--              </div>-->
+                <p class="footer-text-form">با ورود و یا ثبت نام در هتل و بلیط شما شرایط و قوانین استفاده از سرویس های
+                  سایت
+                  هتل و بلیط و قوانین حریم خصوصی آن را می‌پذیرید.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-auth" *ngIf="authMode === 1">
+  <div class="prs-responsive">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-11 m-auto parent-form">
+          <form class="box-form" (ngSubmit)="validate()">
+            <a routerLink="/">
+              <img class="logo-website" src="assets/img/logo-header.png" width="200" alt="">
+            </a>
+            <div class="box-form">
+              <h2>ورود / ثبت نام در هتل و بلیط</h2>
+   
+              <div class="form">
+                <div class="item">
+                  <label for="">شماره موبایل خود را وارد کنید:</label>
+                  <input [formControl]="phoneNumberFC" type="text">
+                </div>
+                <div class="dnager-in-auth-majuls-left-big" *ngIf="errorService.hasError('phone')">
+                  <span>{{errorService.getError('phone')}}</span>
+                </div>
+                <button type="submit" class="btn-form-auth">ورود
+                  <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+                </button>
+
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

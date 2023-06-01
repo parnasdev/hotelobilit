@@ -31,6 +31,7 @@ import { SelectCityTwoComponent } from './select-city-two/select-city-two.compon
 import { SelectCityPopupComponent } from './select-city-popup/select-city-popup.component';
 import { SelectCityLimitedComponent } from './select-city-limited/select-city-limited.component';
 import { SelectSearchComponent } from './select-search/select-search.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -58,6 +59,7 @@ import { SelectSearchComponent } from './select-search/select-search.component';
     SelectCityPopupComponent,
     SelectCityLimitedComponent,
     SelectSearchComponent,
+    LoadingComponent
   ],
   exports: [
     UploadFileComponent,
@@ -74,7 +76,8 @@ import { SelectSearchComponent } from './select-search/select-search.component';
     FaqComponent,
     FooterLinksComponent,
     SelectCityLimitedComponent,
-    SelectSearchComponent
+    SelectSearchComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

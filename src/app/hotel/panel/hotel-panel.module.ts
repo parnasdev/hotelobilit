@@ -68,7 +68,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ReactiveFormsModule,
     MatCheckboxModule,
     PipesModule,
-    StoreModule,
     NgxMaskDirective,
     NgxMaskPipe,
     CommonProjectModule,

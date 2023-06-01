@@ -5,19 +5,23 @@ import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
 import { CopyComponent } from './copy/copy.component';
 import { SetServiceComponent } from './set-service/set-service.component';
+import { SingleEditComponent } from './single-edit/single-edit.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ListComponent
-  }, 
+  },
   {
     path: 'add',
     component: AddComponent
-  }, 
+  },
   {
     path: 'edit/:id',
     component: EditComponent
+  }, {
+    path: 'single-edit/:id',
+    component: SingleEditComponent
   },
   {
     path: 'copy/:id',

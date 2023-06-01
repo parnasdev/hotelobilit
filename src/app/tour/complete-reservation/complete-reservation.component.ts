@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
 import { RateDTO, ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
@@ -16,6 +16,10 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { Location } from '@angular/common';
 import { ResponsiveService } from "../../Core/Services/responsive.service";
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmPhoneComponent } from 'src/app/auth/confirm-phone/confirm-phone.component';
+import { SessionService } from 'src/app/Core/Services/session.service';
+import { PublicService } from 'src/app/Core/Services/public.service';
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -52,7 +56,7 @@ export class CompleteReservationComponent implements OnInit {
   finalRoomSelected: ReserveReqRoomDTO[] = [];
 
   fullNameFC = new FormControl();
-  reserver_phoneFC = new FormControl();
+  reserver_phoneFC = new FormControl('', Validators.required);
   reserver_id_codeFC = new FormControl();
   formGroup: FormGroup = this.fb.group({
     reserver_id_code: this.reserver_id_codeFC,
@@ -65,6 +69,9 @@ export class CompleteReservationComponent implements OnInit {
     public mobileService: ResponsiveService,
     private _location: Location,
     public fb: FormBuilder,
+    public dialog: MatDialog,
+    public publicService: PublicService,
+    public session: SessionService,
     public errorService: ErrorsService,
     public router: Router,
     public checkError: CheckErrorService,
@@ -227,7 +234,7 @@ export class CompleteReservationComponent implements OnInit {
       flight_id: +this.flightID,
       rooms: this.finalRoomSelected,
       reserver_full_name: this.fullNameFC.value,
-      reserver_phone: this.reserver_phoneFC.value,
+      reserver_phone: this.reserver_phoneFC.value ?? '',
       reserver_id_code: this.reserver_id_codeFC.value,
       checkin: this.checkingReq.checkin,
       stayCount: this.checkingReq.stayCount,
@@ -245,6 +252,30 @@ export class CompleteReservationComponent implements OnInit {
       this.finalRoomSelected.push(obj)
     })
 
+  }
+
+  checkAuth() {
+    if (this.session.isLoggedIn()) {
+      this.submit()
+    } else {
+      this.auth()
+    }
+  }
+
+  auth() {
+    if (this.reserver_phoneFC.valid) {
+      const dialog = this.dialog.open(ConfirmPhoneComponent, {
+        width: '40%',
+        data: this.publicService.fixNumbers(this.reserver_phoneFC.value)
+      })
+      dialog.afterClosed().subscribe(result => {
+        if (result) {
+          this.submit()
+        }
+      })
+    } else {
+      this.message.custom('لطفا تلفن همراه رزرو گیرنده را وارد کنید')
+    }
   }
 
 

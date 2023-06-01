@@ -21,6 +21,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { HotelPanelModule } from '../hotel/panel/hotel-panel.module';
 import { SetServiceComponent } from './set-service/set-service.component';
+import { SingleEditComponent } from './single-edit/single-edit.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -33,7 +34,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddComponent,
     EditComponent,
     CopyComponent,
-    SetServiceComponent
+    SetServiceComponent,
+    SingleEditComponent
   ],
   imports: [
     CommonModule,

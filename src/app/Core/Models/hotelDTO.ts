@@ -191,6 +191,7 @@ export interface RoomTypeDTO {
 export interface HotelRatesSetReqDTO {
   date_from: string
   date_to: string
+  chd_price: number | null
   available_room_count: number
   extra_bed_count: number | null;
   type: number; // 0: standard 1:coefficient

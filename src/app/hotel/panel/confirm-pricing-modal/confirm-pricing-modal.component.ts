@@ -15,6 +15,7 @@ export interface ConfirmPriceReqDTO {
   room: roomDTO;
   type: number;
   bedCount: number;
+  chd_price: number;
   currency_code: string;
 }
 @Component({
@@ -28,6 +29,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   rateFC = new FormControl('all')
   capacityFC = new FormControl()
   bedCountFC = new FormControl();
+  chd_priceFC = new FormControl();
   bedPriceFC = new FormControl();
   offerBedPriceFC = new FormControl();
   req!: HotelRatesSetReqDTO;
@@ -56,6 +58,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       extra_bed_count: this.bedCountFC.value ? +this.bedCountFC.value : null,
       price: this.priceFC.value ? +this.priceFC.value : null,
       type: this.data.type,
+      chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : null,
       extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null
       // offer_extra_price: this.offerBedPriceFC.value,

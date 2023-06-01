@@ -64,6 +64,7 @@ export class AddComponent implements OnInit {
     origin_id: '',
     destination_id: '',
     origin_airline_id: '',
+    singleEdit: true,
     destination_airline_id: '',
     origin_time: '',
     destination_time: '',

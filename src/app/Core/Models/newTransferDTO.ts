@@ -29,6 +29,9 @@ export interface transferRateListDTO {
     airline_name: string;
     airline_id: number;
     airline_thumb: any
+    cities?: any
+    checkin_tomorrow?: boolean
+    checkout_yesterday?: boolean
     flight: transferRateListDTO;
     date: string;
     time: string;
@@ -60,11 +63,18 @@ export interface flightStoreDTO {
     destination_airline_id: string;
     origin_time: string;
     destination_time: string;
+    singleEdit?: boolean
     origin_flight_number: string;
     destination_flight_number: string;
     rates: flightRatesDTO[];
     checkin_tomorrow: number;
     checkout_yesterday: number
+    adl_price?: number;
+    origin_date?: string;
+    destination_date?: string;
+    chd_price?: number;
+    inf_price?: number;
+    capacity?: number;
 }
 
 export interface flightRatesDTO {
@@ -75,4 +85,3 @@ export interface flightRatesDTO {
     inf_price: number;
     capacity: number;
 }
-

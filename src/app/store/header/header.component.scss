@@ -68,6 +68,17 @@
         font-weight: 500;
         font-size: 13px;
       }
+      .btn-logout {
+        border: 2px solid rgb(202, 0, 0);
+        width: 50px;
+        height: 30px;
+        background: unset;
+        border-radius: 6px;
+        margin-right: 1.7rem;
+        color: rgb(202, 0, 0);
+        font-weight: 500;
+        font-size: 13px;
+      }
 
       .p-tel-header {
         margin-right: 1.5rem;
@@ -159,6 +170,17 @@
       border-radius: 6px;
       margin-right: 1.7rem;
       color: $base-color;
+      font-weight: 500;
+      font-size: 13px;
+    }
+    .btn-logout {
+      border: 2px solid red;
+      width: 100px;
+      height: 35px;
+      background: unset;
+      border-radius: 6px;
+      margin-right: 1.7rem;
+      color: red;
       font-weight: 500;
       font-size: 13px;
     }
