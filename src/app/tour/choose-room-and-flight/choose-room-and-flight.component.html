@@ -6,7 +6,7 @@
   <div class="prs-responsive">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-10 m-auto">
+        <div class="col-md-12 m-auto">
           <div class="thumbnail-hotel">
             <div class="img-hotel">
               <img [src]="hotelInfo.thumbnail ? hotelInfo.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
@@ -21,6 +21,7 @@
                   <i class="icon-star"></i>
                 </div>
                 <h2 class="name-hotel">{{ hotelInfo.title }}</h2>
+                <small>BB</small>
                 <h3>{{ hotelInfo.titleEn }}</h3>
 
                 <div class="address d-flex justify-content-start align-items-center">
@@ -90,7 +91,7 @@
               <div class="top">
                 <span>پرواز رفت</span>
                 <div class="airline-to">
-                  <img width="25" src="../../../assets/img/no-image-all.jpg" alt="">
+                  <img width="40" src="../../../assets/img/no-image-all.jpg" alt="">
                   <span>تابان</span>
                 </div>
 
@@ -199,7 +200,7 @@
                   <div class="line w-50">
                     <div class="airline-from">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="25" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
+                        <img width="45" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
                           alt="">
                         <span>{{ item.airline_name }}</span>
                       </div>
@@ -210,7 +211,7 @@
                     </div>
                     <div class="airline-to">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="25" src="{{ item.flight.airline_thumb?? '../../../assets/img/nopicture.jpg'  }}"
+                        <img width="45" src="{{ item.flight.airline_thumb.url?? '../../../assets/img/nopicture.jpg'  }}"
                           alt="">
                         <span>{{item.flight.airline_name}}</span>
                       </div>
@@ -297,7 +298,7 @@
                 </div>
 
                 <div class="d-flex inp-item flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد کودک با تخت</label>
+                  <label class="font-size-13 bold-600" for="">تعداد کودک  </label>
                   <div class="p-count w-100 mt-2">
                     <button [ngClass]="{'btn-plus-off' : x.chd_count == chd_count,'btn-plus' :x.chd_count <= chd_count}"
                       (click)="plusCount('chd_count', x.room_id, flightIndex, i)">+</button>
