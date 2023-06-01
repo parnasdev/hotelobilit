@@ -195,6 +195,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
         Adl_capacity: room?.Adl_capacity ?? item.Adl_capacity,
         chd_capacity: room?.chd_capacity ?? item.chd_capacity,
         age_child: room?.age_child ?? item.age_child,
+        total_extra_count: room?.total_extra_count ?? item.total_extra
       }
       this.rooms.push(obj)
     })
@@ -241,6 +242,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
           Adl_capacity: x.Adl_capacity,
           chd_capacity: x.chd_capacity,
           age_child: x.age_child,
+          total_extra_count: x.total_extra_count
         }
         this.selectedRooms.push(obj)
       }

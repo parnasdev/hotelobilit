@@ -131,8 +131,8 @@ export class PassengersComponent implements OnInit, OnChanges {
         } else {
           return (this.RoomData.totalExtraPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();;
         }
-      case 'chd':
-        return (this.RoomData.totalPrice ?? 0) + this.data.flight.chd_price
+      case 'chd':     
+        return ((this.RoomData.totalPrice ?? 0)/2) + this.data.flight.chd_price
       case 'inf':
         return this.data.flight.inf_price
       default:

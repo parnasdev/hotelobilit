@@ -57,6 +57,7 @@ export interface RoomDTO {
     }[];
     rates: RateDTO[];
     online_reservation: number
+    total_extra_count: number
     room_type: string
 }
 
@@ -125,6 +126,7 @@ export interface roomDTO {
     room_type?: string;
     age_child: number;
     isSelected?: boolean
+    total_extra_count?: number;
 }
 
 export interface ReserveHotelDTO {

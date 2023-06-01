@@ -358,17 +358,26 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   plusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex: number) {
     let item = this.data[flightIndex].selectedRooms[roomIndex]
+
     let extra_bed_countFiltered = this.hotelInfo.rooms.filter(x => x.id === roomId)
     let extra_bed_count = extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
     switch (ItemType) {
       case 'extra_count':
         if (item.extra_count < extra_bed_count) {
-          item.extra_count += 1
+          if(this.checkExtraPerson(flightIndex, roomId,roomIndex)) {
+            item.extra_count += 1
+          }else {
+            this.message.custom('به دلیل نبود ظرفیت امکان اضافه کردن وجود ندارد')
+          }
         }
         break;
       case 'chd_count':
         if (item.chd_count < this.chd_count) {
-          item.chd_count += 1
+          if(this.checkExtraPerson(flightIndex, roomId,roomIndex)) {
+            item.chd_count += 1
+          }else {
+            this.message.custom('به دلیل نبود ظرفیت امکان اضافه کردن وجود ندارد')
+          }
         }
         break;
       case 'inf_count':
@@ -381,12 +390,25 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
   }
 
+  checkExtraPerson(flightIndex: number, roomId: number ,roomIndex:number) {
+    let roomFiltered =  this.data[flightIndex].rooms.filter(x => x.id === roomId)
+    let total_extra_count = roomFiltered.length > 0 ? roomFiltered[0].total_extra_count : 0;
+    let item = this.data[flightIndex].selectedRooms[roomIndex]
+    let sum = item.extra_count + item.chd_count;
+    if (sum < total_extra_count) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   getExtraBedCount(roomId: number) {
     let extra_bed_countFiltered = this.hotelInfo.rooms.filter(x => x.id === roomId)
     return extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
   }
 
   minusCount(ItemType: string, roomId: number, flightIndex: number, roomIndex: number) {
+
     let item = this.data[flightIndex].selectedRooms[roomIndex]
     switch (ItemType) {
       case 'extra_count':
