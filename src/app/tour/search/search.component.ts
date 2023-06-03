@@ -24,7 +24,8 @@ export class SearchComponent implements OnInit, OnChanges {
   isLoading = false;
   hasFlight = 1
   hasHotel = 1
-  cities: categoriesDTO[] | CityListRes[] = []
+  originCities: categoriesDTO[] | CityListRes[] = []
+  destinationCities: categoriesDTO[] | CityListRes[] = []
   reservedDates: DatesResDTO[] = [];
 
   originFC = new FormControl('', Validators.required);
@@ -64,7 +65,8 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.getCities();
+    this.getOriginCities();
+    this.getDestinationCities()
   }
 
   search() {
@@ -81,16 +83,36 @@ export class SearchComponent implements OnInit, OnChanges {
 
   }
 
-  getCities(): void {
+  getOriginCities(): void {
     this.isLoading = true
     const req: CityListReq = {
-      hasHotel: this.hasHotel ? 1 : 0,
-      hasFlight: this.hasFlight ? 1 : 0,
+      hasHotel: 0,
+      hasFlight: 1,
     }
     this.cityApi.getCities(req).subscribe((res: any) => {
       this.isLoading = false
       if (res.isDone) {
-        this.cities = res.data;
+        this.originCities = res.data;
+        // this.cities = this.cities.sort(function(x, y) {
+        //   return Number(y.type) - Number(x.type);
+        // })
+      }
+    }, (error: any) => {
+      this.isLoading = false
+      this.message.error()
+    })
+  }
+
+  getDestinationCities(): void {
+    this.isLoading = true
+    const req: CityListReq = {
+      hasHotel: 1,
+      hasFlight: 0,
+    }
+    this.cityApi.getCities(req).subscribe((res: any) => {
+      this.isLoading = false
+      if (res.isDone) {
+        this.destinationCities = res.data;
         // this.cities = this.cities.sort(function(x, y) {
         //   return Number(y.type) - Number(x.type);
         // })
@@ -145,7 +167,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
 
   openPicker() {
-    if(this.reservedDates.length > 0) {
+    if (this.reservedDates.length > 0) {
       const dialog = this.dialog.open(PrsDatePickerComponent, {
         width: '60%',
         data: {
@@ -158,9 +180,9 @@ export class SearchComponent implements OnInit, OnChanges {
         if (itemFiltered.length > 0) {
           this.nightFC.setValue(itemFiltered[0].night)
         }
-  
+
       })
-    }else {
+    } else {
       this.message.custom('دیتایی موجود نیست')
     }
 

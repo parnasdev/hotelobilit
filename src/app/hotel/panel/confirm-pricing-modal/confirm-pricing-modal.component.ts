@@ -32,6 +32,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   chd_priceFC = new FormControl();
   bedPriceFC = new FormControl();
   offerBedPriceFC = new FormControl();
+  checking_base = false
   req!: HotelRatesSetReqDTO;
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmPriceReqDTO,
@@ -60,9 +61,9 @@ export class ConfirmPricingModalComponent implements OnInit {
       type: this.data.type,
       chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : null,
       extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
-      currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null
-      // offer_extra_price: this.offerBedPriceFC.value,
-      // offer_price: this.offerPriceFC.value,
+      currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
+      checking_base: this.checking_base,
+      offer_price: this.checking_base? this.offerPriceFC.value : null,
     }
 
     this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {

@@ -206,6 +206,7 @@ export interface RateDTO {
     extra_bed_count: number
     extra_price: number
     id: number
+    checking_base: boolean
     offer_extra_price: number
     offer_price: number
     price: number

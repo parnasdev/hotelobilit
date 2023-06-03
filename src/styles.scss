@@ -192,9 +192,17 @@ a {
   display: grid;
   place-items: center;
   font-weight: 600;
-
 }
-
+.btn-base-red {
+  background: rgb(158, 17, 17)!important;
+  border: 2px solid rgb(158, 17, 17) !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+}
 .w-48 {
   width: 48% !important;
 }

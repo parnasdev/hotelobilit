@@ -19,7 +19,7 @@
         [formControl]="priceFC">
     </div>
   </div>
-  
+
   <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
     <label for="">قیمت کودک با تخت</label>
     <div class="inp-form mt-2 w-100">
@@ -44,13 +44,24 @@
         [formControl]="bedPriceFC">
     </div>
   </div>
-  <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">قیمت تخفیف خورده تخت اضافه</label>
-    <div class="inp-form mt-2 w-100">
-      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت تخفیف خورده تخت اضافه"
-        [formControl]="offerBedPriceFC">
+  <div class="w-48 mt-4 d-flex align-items-start">
+    <div class="d-flex flex-column">
+      <label for="">چکین بیس شود ؟</label>
+      <mat-checkbox [(ngModel)]="checking_base"></mat-checkbox>
     </div>
-  </div> -->
+  
+
+    <div class="w-48 d-flex flex-column align-items-end" *ngIf="checking_base">
+      <label for="">قیمت چکین بیس</label>
+      <div class="inp-form mt-2 w-100">
+        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت چکین بیس"
+          [formControl]="offerPriceFC">
+      </div>
+    </div>
+  </div>
+
+
+
 
 
   <!-- <div class="d-flex mt-3 w-75 mx-auto align-items-center justify-content-evenly">

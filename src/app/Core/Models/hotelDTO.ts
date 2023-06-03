@@ -1,5 +1,5 @@
 import { CityResponseDTO } from "./cityDTO";
-import {  TourListResDTO, newTourPackageInfoDTO } from "./tourDTO";
+import { TourListResDTO, newTourPackageInfoDTO } from "./tourDTO";
 
 export interface HotelSetRequestDTO {
   name: string;
@@ -54,26 +54,26 @@ export interface hotelInfoDTO {
 }
 
 export interface hotelInfoV2DTO {
-address: null;
-body: string;
-city: CityResponseDTO;
-coordinate: {
-  lat: number;
-  lng: number;
-};
-images: string[];
-images_paths: string[]
-location: string
-mediaLink: MediaLinkDTO[]
-name: string;
-nameEn: string;
-packages: newTourPackageInfoDTO[];
-roomPrices: any[]
-services: ServicesDTO[];
-stars: string;
-status: string;
-thumbnail: string;
-thumbnail_paths:string;
+  address: null;
+  body: string;
+  city: CityResponseDTO;
+  coordinate: {
+    lat: number;
+    lng: number;
+  };
+  images: string[];
+  images_paths: string[]
+  location: string
+  mediaLink: MediaLinkDTO[]
+  name: string;
+  nameEn: string;
+  packages: newTourPackageInfoDTO[];
+  roomPrices: any[]
+  services: ServicesDTO[];
+  stars: string;
+  status: string;
+  thumbnail: string;
+  thumbnail_paths: string;
 }
 
 export interface HotelListRes {
@@ -195,10 +195,10 @@ export interface HotelRatesSetReqDTO {
   available_room_count: number
   extra_bed_count: number | null;
   type: number; // 0: standard 1:coefficient
-  price:number | null
+  price: number | null
   extra_price: number | null
-
-  // offer_price: number | null
+  checking_base: boolean;
+  offer_price: number | null
   // offer_extra_price: number | null
 
   currency_code: string | null

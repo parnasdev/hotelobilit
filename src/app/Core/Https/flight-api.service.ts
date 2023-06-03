@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { PublicService } from '../Services/public.service';
 import { environment } from 'src/environments/environment';
 import { SetTransferPageDTO, flightStoreDTO, transferRateListDTO } from '../Models/newTransferDTO';
+import { FilterDTO } from 'src/app/transfer-rate/filter-popup/filter-popup.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,9 @@ export class FlightApiService {
       this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
     }
 
-  getTransferRates(pageNum = 1): any {
-    const strUrl = pageNum ? this.serverControllerName + `flights?page=${pageNum}` : this.serverControllerName + `flights`;
-
+  getTransferRates(pageNum = 1,req: FilterDTO): any {
+    let str = `?page=${pageNum}&origin=${req.origin}&destination=${req.destination}&flightDate=${req.flightDate}`
+    const strUrl = this.serverControllerName + `flights` + str;
     return this.http.get<Result<transferRateListDTO[]>>(strUrl, this.publicService.getDefaultHeaders());
   }
 

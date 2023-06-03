@@ -1,10 +1,10 @@
 <div class="row-search">
     <div class="inp-form">
-    <prs-select-city class="w-100" [cities]="cities" [baseType]="false" [title]="'شهر مبدا'" [inCommingCity]="inCommingSearchObject?.origin"
+    <prs-select-city class="w-100" [cities]="originCities" [baseType]="false" [title]="'شهر مبدا'" [inCommingCity]="inCommingSearchObject?.origin"
       (citySelected)="originSelected($event)" ></prs-select-city>
     </div>
   <div class="inp-form">
-    <prs-select-city class="w-100" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'" [inCommingCity]="inCommingSearchObject?.dest"
+    <prs-select-city class="w-100" [cities]="destinationCities" [baseType]="true" [title]="'شهر مقصد'" [inCommingCity]="inCommingSearchObject?.dest"
     (citySelected)="destSelected($event)"></prs-select-city>
   </div>
     <div class="inp-form">

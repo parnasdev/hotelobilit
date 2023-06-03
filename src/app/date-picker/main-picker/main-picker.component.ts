@@ -113,13 +113,17 @@ export class MainPickerComponent implements OnInit, OnChanges {
   }
 
   isExistDateList(date: string) {
-    if (date) {
-      let result = this.dateLise.filter(x => x.date === date)
-      return result.length > 0;
-    } else {
-      return false
-    }
+    if (this.dateLise.length > 0) {
+      if (date) {
+        let result = this.dateLise.filter(x => x.date === date)
+        return result.length > 0;
+      } else {
+        return false
+      }
 
+    } else {
+      return true
+    }
   }
 
   isBefore(date: any) {

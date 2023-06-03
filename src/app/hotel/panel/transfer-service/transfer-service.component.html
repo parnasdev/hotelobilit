@@ -6,12 +6,12 @@
         (hotelSelected)="getAirportSelected($event)"></prs-select-search>
     </div>
     <div class="w-20 select-fly-city d-flex flex-column align-items-start">
-      <label for="">انتخاب خدمت</label>
+      <label for="">انتخاب ترانسفر</label>
       <prs-select-search *ngIf="show" [airports]="services"
         (hotelSelected)="getServiceSelected($event)"></prs-select-search>
     </div>
     <div class="d-flex w-25 flex-column">
-      <label for="">نرخ خدمت</label>
+      <label for="">نرخ ترانسفر</label>
       <input type="text" placeholder="نرخ ترانسفر" mask="separator" thousandSeparator=","  [(ngModel)]="price">
     </div>
     <div class="d-flex w-25 flex-column">

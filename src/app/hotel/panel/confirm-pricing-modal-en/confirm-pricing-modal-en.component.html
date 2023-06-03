@@ -50,6 +50,17 @@
           [formControl]="bedPriceFC">
       </div>
     </div>
+    <div class="w-48 mt-4 d-flex flex-column align-items-start">
+      <label for="">checking Base ?</label>
+      <mat-checkbox [(ngModel)]="checking_base"></mat-checkbox>
+      </div>
+    <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="checking_base">
+      <label for="">checking base price</label>
+      <div class="inp-form mt-2 w-100">
+        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="checking base price"
+          [formControl]="offerPriceFC">
+      </div>
+    </div>
     <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
       <label for="">قیمت تخفیف خورده تخت اضافه</label>
       <div class="inp-form mt-2 w-100">

@@ -1,1 +1,144 @@
-<p>reserve-info works!</p>
+<div class="p-info-trip">
+    <div class="d-flex w-100 p-search-agency justify-content-end">
+        <div class="inp-form w-25">
+            <select [formControl]="statusFC" name="" id="">
+                <option *ngFor="let s of statuses" [value]="s.name">{{ s.name }}</option>
+            </select>
+        </div>
+
+        <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
+    </div>
+    <div class="w-100  bg-info-trip">
+        <div class="title-profile w-100">
+            <i class="icon-circle"></i>
+            <h2 class="dana-bold">اطلاعات رزرو</h2>
+        </div>
+        <div class="box-top-agency-reserve mb-3">
+            <div class="d-flex align-items-center item-title justify-content-between w-100">
+                <h3 class=" bold-600">کد رفرنس :{{ info.ref_code }}</h3>
+                <span class="status">
+                    وضعیت:{{info.status.label}}
+                </span>
+            </div>
+            <div class="p-date my-3 e-100 d-flex align-items-center justify-content-between">
+                <div class="date">
+                    <span class="text-dark bold-600">تاریخ درخواست :</span>
+                    <span class="text-gray mr-2">{{ calendarService.convertDateAndTime(info.createdAt,'fa') }}</span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center item-title border-dashed-top justify-content-between w-100">
+                <h3 class=" bold-600">اطلاعات رزرو گیرنده </h3>
+            </div>
+
+            <div class="p-items">
+                <div class="item">
+                    <span>نام و نام خانوادگی :</span>
+                    <span class="mr-2 text-gray">{{info.reserver_full_name}}</span>
+                </div>
+                <div class="item">
+                    <span>شماره همراه :</span>
+                    <span class="mr-2 text-gray">{{info.reserver_phone}}</span>
+                </div>
+                <div class="item">
+                    <span>کد ملی :</span>
+                    <span class="mr-2 text-gray">{{ info.reserver_id_code }}</span>
+                </div>
+            </div>
+
+            <div class="p-price   d-flex align-items-center justify-content-between">
+                <div class="item  d-flex align-items-center px-2">
+                    <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
+                    <div class="d-flex">
+                        <span class="text mr-2">{{info.total_price | sperator}}</span>
+                        <span class="mr-1">تومان</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-top-box-reserve">
+            <div class="d-flex align-items-center title-top justify-content-between">
+                <h2 class="title-tour">---</h2>
+                <h2 class="title-tour">هتل انتخابی : {{info.hotel.title}}</h2>
+            </div>
+
+            <div class="set-request-tour">
+                <div class="info-from">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span>پرواز رفت:</span>
+                            <span style="margin-right: 4px" class="city-name">--- به ---</span>
+                        </div>
+                        <span>---</span>
+                    </div>
+                    <div class="item">
+                        <span class="title">تاریخ و ساعت پرواز رفت :</span>
+                        <span class="text" style="direction: ltr!important">---</span>
+                    </div>
+                    <div class="item">
+                        <span class="title">تاریخ ورود به هتل :</span>
+                        <span class="text" style="direction: ltr!important">{{info.details.checkin | convertDate}}</span>
+                    </div>
+                </div>
+                <div class="info-time">
+                    <span class="title">مدت اقامت:</span>
+                    <span class="text">--- روز و --- شب</span>
+                </div>
+                <div class="info-to">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span>پرواز برگشت:</span>
+                            <span style="margin-right: 4px" class="city-name">--- به ---</span>
+                        </div>
+                        <span>---</span>
+                    </div>
+
+                    <div class="item">
+                        <span class="title">تاریخ و ساعت پرواز برگشت :</span>
+                        <span class="text" style="direction: ltr!important">---</span>
+                    </div>
+                    <div class="item">
+                        <span class="title">تاریخ خروج از هتل :</span>
+                        <span class="text" style="direction: ltr!important">{{info.details.checkout | convertDate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-rooms" *ngFor="let item of [1,2,3]">
+            <div class="d-flex align-items-center item-title  justify-content-between w-100">
+                <h3 class=" bold-600">اتاق --- </h3>
+            </div>
+            <div *ngFor="let p of [1,2,3,4]" class="item-information-room">
+                <label for="" class="label-role">---</label>
+                <div class="item">
+                    <span>نام :</span>
+                    <span class="mr-2 text-gray">---</span>
+                </div>
+                <div class="item">
+                    <span>نام خانوادگی :</span>
+                    <span class="mr-2 text-gray">---</span>
+                </div>
+                <!-- <div class="item"  *ngIf="p.id_code">
+              <span>کد ملی :</span>
+              <span class="mr-2 text-gray">{{ p.id_code ?? '---' }}</span>
+            </div> -->
+                <!-- <div class="item" *ngIf="p.passport_number">
+              <span>شماره پاسپورت :</span>
+              <span class="mr-2 text-gray">{{ p.passport_number }}</span>
+            </div> -->
+                <!-- <div class="item" *ngIf="p.passport_expire">
+              <span>انقضا پاسپورت :</span>
+              <span class="mr-2 text-gray">{{calendarService.convertDate(p.passport_expire,'en') }}</span>
+            </div> -->
+                <div class="item">
+                    <span> تاریخ تولد :</span>
+                    <span class="mr-2 text-gray">---</span>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

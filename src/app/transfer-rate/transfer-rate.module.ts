@@ -22,6 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { HotelPanelModule } from '../hotel/panel/hotel-panel.module';
 import { SetServiceComponent } from './set-service/set-service.component';
 import { SingleEditComponent } from './single-edit/single-edit.component';
+import { FilterPopupComponent } from './filter-popup/filter-popup.component';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -35,7 +37,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     EditComponent,
     CopyComponent,
     SetServiceComponent,
-    SingleEditComponent
+    SingleEditComponent,
+    FilterPopupComponent
   ],
   imports: [
     CommonModule,
@@ -47,6 +50,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MaterialModule,
     CommonProjectModule,
     MatCheckboxModule,
+    MatIconModule,
     NgxPaginationModule,
     MatButtonToggleModule,
     MatInputModule,

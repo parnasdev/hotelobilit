@@ -24,7 +24,7 @@ export class ReserveApiService {
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
   showReserve(reference: string): any {
-    const strUrl = this.serverControllerName + '/'+ reference
+    const strUrl = this.serverControllerName + '/' + reference
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
   voucher(reference: string): any {
@@ -36,8 +36,11 @@ export class ReserveApiService {
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
   list(): any {
-    const strUrl =  environment.BACK_END_IP + 'panel/reserves'
+    const strUrl = environment.BACK_END_IP + 'panel/reserves'
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
-
-}
+  }
+  getReserve(id: number): any {
+    const strUrl = environment.BACK_END_IP + `panel/reserves/${id}/edit`
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
 }

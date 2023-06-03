@@ -2,6 +2,7 @@
   <div class="title">
     <h2>لیست مسیر پرواز ها</h2>
     <div class="d-flex search-box-hotel">
+      <button class="btn-base" (click)="openFilter()">فیلتر</button>
       <!-- <div class="item-info-2 w-48">
         <div class="select-info">
           <prs-select-city [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="citiesResponse"
@@ -33,7 +34,9 @@
       <span class="from-to">بزرگسال (تومان)</span>
       <span class="from-to">کودک (تومان)</span>
       <span class="from-to">نوزاد (تومان)</span>
+      <span class="from-to">آژانس</span>
       <span class="from-to">ظرفیت</span>
+
       <span class="setting">تنظیمات</span>
     </div>
     <div *ngIf="isLoading">
@@ -45,6 +48,9 @@
         <div class="item-shimmer"></div>
         <div class="item-shimmer"></div>
       </div>
+    </div>
+    <div class="body-list-tour d-flex justify-content-center align-items-center" *ngIf="transfers.length === 0">
+      <span class="p-5">موردی یافت نشد</span>
     </div>
     <div class="body-list-tour" *ngIf="transfers.length > 0">
       <div class="item" *ngFor="let transfer of transfers| paginate: paginateConfig; ;let i = index">
@@ -65,12 +71,12 @@
 
         </div>
         <div class="d-flex flex-column ">
-            <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }}</span>
-            <span class="title-tour">{{transfer.time}}</span>
-  
-            <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }}</span>
-            <span class="title-tour">{{transfer.flight.time}}</span>
-   
+          <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }}</span>
+          <span class="title-tour">{{transfer.time}}</span>
+
+          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }}</span>
+          <span class="title-tour">{{transfer.flight.time}}</span>
+
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.flight_number }}</span>
@@ -90,12 +96,16 @@
           <!-- <span class="title-tour">{{ transfer.flight.inf_price | sperator }}</span> -->
         </div>
         <div class="d-flex flex-column ">
-          <span class="title-tour">{{ transfer.capacity }}</span>
+          <span class="title-tour">---</span>
+          <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
+        </div>
+        <div class="d-flex flex-column">
+          <span class="title-tour">{{ transfer.capacity}}</span>
           <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
         </div>
         <div style="width: 50px !important;" class="button-setting d-flex flex-column align-items-center">
           <a style="width: 50px !important;" routerLink="/panel/transferRate/serviceRate/{{ transfer.id }}"
-          class="edit-btn">خدمات</a>
+            class="edit-btn">خدمات</a>
           <a style="width: 50px !important;" routerLink="/panel/transferRate/single-edit/{{ transfer.id }}"
             class="edit-btn">ویرایش</a>
           <a style="width: 50px !important;" routerLink="/panel/transferRate/copy/{{ transfer.id }}"

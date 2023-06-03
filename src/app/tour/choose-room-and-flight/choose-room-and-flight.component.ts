@@ -107,13 +107,25 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.isRoom = !this.isRoom
   }
 
-  getPrice(price: number, rates: RateDTO[]): number {
-    let roomPrices = 0;
-    rates.forEach(x => {
-      roomPrices += x.price;
-    })
-    return roomPrices + price;
-  }
+  // getPrice(price: number, rates: RateDTO[]): number {
+  //   let roomPrices = 0;
+  //   if (rates.length > 0) {
+  //     if (rates[0].checking_base) {
+  //       rates.forEach(x => {
+  //         roomPrices += x.offer_price;
+  //       })
+  //     } else {
+  //       rates.forEach(x => {
+  //         roomPrices += x.price;
+  //       })
+  //     }
+
+  //   }else {
+  //     roomPrices = 0
+  //   }
+
+  //   return roomPrices + price;
+  // }
 
 
   getRoomSelectedID() {
@@ -198,9 +210,22 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getRoomUniquePrice(rates: RateDTO[], roomIndex: number): number {
     let price = 0;
-    rates.forEach(rate => {
-      price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
-    })
+
+    if (rates.length > 0) {
+      if (rates[0].checking_base) {
+        rates.forEach(rate => {
+          price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        })
+      } else {
+        rates.forEach(rate => {
+          price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        })
+      }
+
+    } else {
+      price = 0;
+    }
+
     return price
   }
 
@@ -270,9 +295,20 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     let price = 0;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
     let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
-    rates.forEach(rate => {
-      price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
-    })
+    if (rates.length > 0) {
+      if (rates[0].checking_base) {
+        rates.forEach(rate => {
+          price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        })
+      }else {
+        rates.forEach(rate => {
+          price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        })
+      }
+    } else {
+      price = 0
+    }
+
     return price + flightPrice + this.getInsuransePrice(roomIndex) + this.getTransferPrice(roomIndex, flightID);
   }
 
@@ -364,18 +400,18 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     switch (ItemType) {
       case 'extra_count':
         if (item.extra_count < extra_bed_count) {
-          if(this.checkExtraPerson(flightIndex, roomId,roomIndex)) {
+          if (this.checkExtraPerson(flightIndex, roomId, roomIndex)) {
             item.extra_count += 1
-          }else {
+          } else {
             this.message.custom('به دلیل نبود ظرفیت امکان اضافه کردن وجود ندارد')
           }
         }
         break;
       case 'chd_count':
         if (item.chd_count < this.chd_count) {
-          if(this.checkExtraPerson(flightIndex, roomId,roomIndex)) {
+          if (this.checkExtraPerson(flightIndex, roomId, roomIndex)) {
             item.chd_count += 1
-          }else {
+          } else {
             this.message.custom('به دلیل نبود ظرفیت امکان اضافه کردن وجود ندارد')
           }
         }
@@ -390,8 +426,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
   }
 
-  checkExtraPerson(flightIndex: number, roomId: number ,roomIndex:number) {
-    let roomFiltered =  this.data[flightIndex].rooms.filter(x => x.id === roomId)
+  checkExtraPerson(flightIndex: number, roomId: number, roomIndex: number) {
+    let roomFiltered = this.data[flightIndex].rooms.filter(x => x.id === roomId)
     let total_extra_count = roomFiltered.length > 0 ? roomFiltered[0].total_extra_count : 0;
     let item = this.data[flightIndex].selectedRooms[roomIndex]
     let sum = item.extra_count + item.chd_count;
