@@ -75,7 +75,6 @@ export class SessionService {
   }
   getRole(): any {
     const user = localStorage.getItem('hotelobilit-user');
-    console.log(user ? JSON.parse(user).user.role : '')
     return user ? JSON.parse(user).user.role : '';
   }
   getIsManager(): any {

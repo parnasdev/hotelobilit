@@ -31,7 +31,7 @@ export class ConfirmPricingModalEnComponent implements OnInit {
   bedCountFC = new FormControl();
   chd_priceFC = new FormControl()
   bedPriceFC = new FormControl();
-  checking_base = false;
+  checkin_base = false;
   offerBedPriceFC = new FormControl();
   req!: HotelRatesSetReqDTO;
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalEnComponent>,
@@ -64,7 +64,7 @@ export class ConfirmPricingModalEnComponent implements OnInit {
       chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : 0,
       extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
-      checking_base: this.checking_base,
+      checkin_base: this.checkin_base,
       offer_price: this.offerPriceFC.value,
 
       // offer_extra_price: this.offerBedPriceFC.value,

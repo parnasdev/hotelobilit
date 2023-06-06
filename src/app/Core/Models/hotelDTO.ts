@@ -197,7 +197,7 @@ export interface HotelRatesSetReqDTO {
   type: number; // 0: standard 1:coefficient
   price: number | null
   extra_price: number | null
-  checking_base: boolean;
+  checkin_base: boolean;
   offer_price: number | null
   // offer_extra_price: number | null
 

@@ -47,11 +47,11 @@
   <div class="w-48 mt-4 d-flex align-items-start">
     <div class="d-flex flex-column">
       <label for="">چکین بیس شود ؟</label>
-      <mat-checkbox [(ngModel)]="checking_base"></mat-checkbox>
+      <mat-checkbox [(ngModel)]="checkin_base"></mat-checkbox>
     </div>
   
 
-    <div class="w-48 d-flex flex-column align-items-end" *ngIf="checking_base">
+    <div class="w-48 d-flex flex-column align-items-end" *ngIf="checkin_base">
       <label for="">قیمت چکین بیس</label>
       <div class="inp-form mt-2 w-100">
         <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت چکین بیس"

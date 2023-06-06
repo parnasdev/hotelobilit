@@ -110,7 +110,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   // getPrice(price: number, rates: RateDTO[]): number {
   //   let roomPrices = 0;
   //   if (rates.length > 0) {
-  //     if (rates[0].checking_base) {
+  //     if (rates[0].checkin_base) {
   //       rates.forEach(x => {
   //         roomPrices += x.offer_price;
   //       })
@@ -212,7 +212,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     let price = 0;
 
     if (rates.length > 0) {
-      if (rates[0].checking_base) {
+      if (rates[0].checkin_base) {
         rates.forEach(rate => {
           price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
         })
@@ -295,10 +295,13 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     let price = 0;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
     let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
+
     if (rates.length > 0) {
-      if (rates[0].checking_base) {
+      if (rates[0].checkin_base) {
+        let offer_price = rates[0].offer_price;
+        let offer_price_type = rates[0].currency_code
         rates.forEach(rate => {
-          price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+          price += offer_price * this.getCurrencyRate(offer_price_type, roomIndex);
         })
       }else {
         rates.forEach(rate => {
@@ -308,7 +311,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     } else {
       price = 0
     }
-
+    
     return price + flightPrice + this.getInsuransePrice(roomIndex) + this.getTransferPrice(roomIndex, flightID);
   }
 
