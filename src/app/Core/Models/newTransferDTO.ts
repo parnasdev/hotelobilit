@@ -42,6 +42,8 @@ export interface transferRateListDTO {
     capacity: number;
     is_close: number;
     description: string;
+    checkin: string;
+    checkout: string;
 }
 
 export interface SetTransferPageDTO {

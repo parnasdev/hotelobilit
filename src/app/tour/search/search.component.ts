@@ -169,7 +169,7 @@ export class SearchComponent implements OnInit, OnChanges {
   openPicker() {
     if (this.reservedDates.length > 0) {
       const dialog = this.dialog.open(PrsDatePickerComponent, {
-        width: '60%',
+        width: '70%',
         data: {
           dateList: this.reservedDates
         }
@@ -183,7 +183,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
       })
     } else {
-      this.message.custom('دیتایی موجود نیست')
+      this.message.custom('در این مبدا و مقصد تور تعریف نشده است')
     }
 
   }

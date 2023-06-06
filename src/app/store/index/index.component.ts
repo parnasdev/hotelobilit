@@ -1,104 +1,40 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
 import { HotelListResponseDTO } from 'src/app/Core/Models/hotelDTO';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
+import { MessageService } from 'src/app/Core/Services/message.service';
+import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 
 @Component({
   selector: 'prs-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit{
   isLoading = false;
   isMobile = false;
   isDesktop = false;
   isTablet = false;
   isMenu = false;
-  hotels: HotelListResponseDTO[] = [ {
-    id: 1,
-    name: 'هتل تست',
-    nameEn: 'hotel test',
-    slug: 'hotel-test',
-    keyword: '---',
-    slugEn: 'hotel-test',
-    stars: '',
-    thumbnail: 'assets/img/12123131.png',
-    city: '',
-    location: '',
-  }];
-  cities: CityResponseDTO[] = [
-  {
-    name: 'تهران',
-    id: 0,
-    type: 0,
-    image: 'assets/img/12123131.png',
-    slug: 'تهران-۲',
-    slugEn: 'tehran-2',
-    faq: [],
-    description: '',
-    images: [],
-    nameEn: '',
-  },  {
-      name: 'شیراز',
-      id: 0,
-      type: 0,
-      image: 'assets/img/12123131.png',
-      slug: 'تهران-۲',
-      slugEn: 'tehran-2',
-      faq: [],
-      description: '',
-      images: [],
-      nameEn: '',
-    },  {
-      name: 'اضفهان',
-      id: 0,
-      type: 0,
-      image: 'assets/img/12123131.png',
-      slug: 'تهران-۲',
-      slugEn: 'tehran-2',
-      faq: [],
-      description: '',
-      images: [],
-      nameEn: '',
-    },  {
-      name: 'تبریز',
-      id: 0,
-      type: 0,
-      image: 'assets/img/12123131.png',
-      slug: 'تهران-۲',
-      slugEn: 'tehran-2',
-      faq: [],
-      description: '',
-      images: [],
-      nameEn: '',
-    },  {
-      name: 'مشهد',
-      id: 0,
-      type: 0,
-      image: 'assets/img/12123131.png',
-      slug: 'تهران-۲',
-      slugEn: 'tehran-2',
-      faq: [],
-      description: '',
-      images: [],
-      nameEn: '',
-    },  {
-      name: 'کیش',
-      id: 0,
-      type: 0,
-      image: 'assets/img/12123131.png',
-      slug: 'تهران-۲',
-      slugEn: 'tehran-2',
-      faq: [],
-      description: '',
-      images: [],
-      nameEn: '',
-    }
-  ];
+  hotels: HotelSearchResDTO[] = []
+  req: TourSearchReqDTO = {
+    date: '',
+    destination: '',
+    origin: '',
+    stayCount: 0,
+    keywords: '',
+    stars: 0,
+    orderBy: 0,
+  }
+  cities : any[] = []
 
   constructor(
     public mobileService: ResponsiveService,
+    public message:MessageService,
+    public api: TourApiService,
     public router: Router,
   ) {
     this.isMobile = mobileService.isMobile()
@@ -106,6 +42,44 @@ export class IndexComponent {
 
     this.isTablet = mobileService.isTablet()
   }
+  ngOnInit(): void {
+    // this.getSearchData();
+  }
+
+  setReq() {
+  
+    this.req = {
+      date: null,
+      destination: null,
+      origin: null,
+      stayCount: 2,
+      keywords: null,
+      stars: null,
+      orderBy: null
+    }
+
+}
+
+  getSearchData(): void {
+    this.setReq();
+    this.isLoading = true
+    this.api.search('hotels', this.req).subscribe((res: any) => {
+      this.isLoading = false
+
+      if (res.isDone) {
+        this.hotels = res.data;
+
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false
+
+    }, (error: any) => {
+      this.isLoading = false
+      this.message.error()
+    })
+  }
+
 
   slideNext() {
     // @ts-ignore

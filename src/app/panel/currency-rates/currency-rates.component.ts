@@ -4,6 +4,7 @@ import { SettingApiService } from 'src/app/Core/Https/setting-api.service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import { SessionService } from 'src/app/Core/Services/session.service';
 
 @Component({
   selector: 'prs-currency-rates',
@@ -15,7 +16,7 @@ export class CurrencyRatesComponent implements OnInit {
   euroRateFC = new FormControl('');
   dollarRateFC = new FormControl('');
   AEDRateFC = new FormControl('');
-
+  adminCurrencies: any;
   objName = '';
 
   data: any;
@@ -25,12 +26,19 @@ export class CurrencyRatesComponent implements OnInit {
     public settingApi: SettingApiService,
     public checkErrorService: CheckErrorService,
     public message: MessageService,
+    public session: SessionService,
     public errorService: ErrorsService,
   ) {
   }
 
   ngOnInit() {
-    this.getCurrencies();
+    if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer') {
+      this.getAdminCurrencies()
+    } else {
+      this.getCurrencies();
+    }
+
+
   }
 
   getCurrencies() {
@@ -46,6 +54,31 @@ export class CurrencyRatesComponent implements OnInit {
       this.checkErrorService.check(error);
 
     })
+  }
+
+
+  getAdminCurrencies() {
+
+    let req = {
+      "names": ["currencies"]
+    }
+    this.settingApi.getSetting(req).subscribe((res: any) => {
+      if (res.isDone) {
+        this.adminCurrencies = res.data.currencies;
+        this.setAdminData();
+
+      } else {
+        this.message.custom(res.message);
+      }
+    }, (error: any) => {
+      this.message.error()
+    })
+  }
+
+  setAdminData() {
+    this.euroRateFC.setValue(this.adminCurrencies.euro);
+    this.dollarRateFC.setValue(this.adminCurrencies.dollar);
+    this.AEDRateFC.setValue(this.adminCurrencies.derham);
   }
 
   setData(name: string) {

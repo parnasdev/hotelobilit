@@ -4,29 +4,29 @@ import { transferRateListDTO } from "./newTransferDTO";
 import { ReserveRoomsReqDTO } from "./reserveDTO";
 
 export interface TourSearchReqDTO {
-    origin?: string
-    destination: string;
-    date: string;
-    stayCount: number;
-    keywords?: string | null
-    stars?: number | null
-    orderBy?: number | null
+  origin?: string | null
+  destination: string | null;
+  date: string | null;
+  stayCount: number | null;
+  keywords?: string | null
+  stars?: number | null
+  orderBy?: number | null
 }
 
 export interface HotelSearchResDTO {
-    id: number;
-    title: string;
-    titleEn: string;
-    slug: string
-    location: string;
-    address: string;
-    flights: transferRateListDTO[]
-    rooms: RoomDTO[];
+  id: number;
+  title: string;
+  titleEn: string;
+  slug: string
+  location: string;
+  address: string;
+  flights: transferRateListDTO[]
+  rooms: RoomDTO[];
   totalRoomPrice?: any
-    stars: number;
-    gallery: any[]
-    thumbnail: UploadResDTO
-    services: any[]
+  stars: number;
+  gallery: any[]
+  thumbnail: UploadResDTO
+  services: any[]
 }
 export interface ChooseTourListDTO {
   id: number;
@@ -49,4 +49,6 @@ export interface ChooseTourListDTO {
   description: string;
   rooms: RoomDTO[];
   selectedRooms: ReserveRoomsReqDTO[]
+  checkin: string;
+  checkout: string;
 }

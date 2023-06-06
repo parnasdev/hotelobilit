@@ -160,7 +160,16 @@ $gray-color: #646464;
                     color: $white-color;
                     transition: 0.3s all;
                 }
-
+                .p-icon-circle {
+                    position: absolute;
+                    right: 2px;
+                    bottom: 2px;
+                  }
+          
+                  .icon-circle {
+                    color: #ff0000
+                  }
+          
                 .price-day {
                     position: absolute;
                     transform: translateY(29px);

@@ -38,6 +38,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     validation: false,
   };
 };
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     AddComponent,
@@ -75,6 +77,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NgxPaginationModule,
     MatSelectModule,
     MatTabsModule,
+    MatTooltipModule
 
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction),
   ]

@@ -19,10 +19,11 @@ export class SettingApiService {
       environment.BACK_END_IP + this.serverControllerName;
   }
 
-  getSetting(): any {
+  getSetting(req:any): any {
     const strUrl = this.serverControllerName + 'setting';
-    return this.http.get<Result<SettingDTO>>(strUrl, this.publicService.getDefaultHeaders());
+    return this.http.post<Result<SettingDTO>>(strUrl,req, this.publicService.getDefaultHeaders());
   }
+
 
   changeSetting(settings: any): any {
     const strUrl = this.serverControllerName + 'setting';

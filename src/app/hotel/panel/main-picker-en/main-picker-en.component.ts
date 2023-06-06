@@ -313,6 +313,7 @@ export class MainPickerEnComponent implements OnInit {
           currency_code: result[0].currency_code,
           date: result[0].date,
           deleted_at: result[0].deleted_at,
+          checkin_base: result[0].checkin_base,
           extra_bed_count: result[0].extra_bed_count,
           extra_price: result[0].extra_price,
           id: result[0].id,

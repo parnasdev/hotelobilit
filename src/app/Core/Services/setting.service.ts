@@ -62,20 +62,7 @@ export class SettingService {
 
 
   getSetting(): void {
-    this.isLoading = true
-    this.settingApi.getSetting().subscribe((res: any) => {
-      this.isLoading = false
-      if (res.isDone) {
-        this.settings = res.data
-        this.setSiteSettings();
-        this.settingSub.next('true');
-      } else {
-        this.message.custom(res.message);
-      }
-    }, (error: any) => {
-      this.isLoading = true
-      this.message.error()
-    })
+
   }
 
   setMetaTags() {

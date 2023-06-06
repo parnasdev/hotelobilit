@@ -68,7 +68,7 @@
                   کنید</span>
               </div>
             </div>
-            <div class="top">
+            <!-- <div class="top">
               <div class="inp-form w-100-mobi">
                 <select name="" id="">
                   <option disabled selected value="">فیلتر مبدا</option>
@@ -76,95 +76,97 @@
                   <option>city.name</option>
                 </select>
               </div>
-            </div>
+            </div> -->
             <div class="bottom">
               <div class="border-right"></div>
               <div class="border-left"></div>
             </div>
           </div>
 
-          <div *ngIf="isTablet" class="thumbnail-flight-mobi">
-            <div class="title">
-              <h3>اطلاعات پرواز</h3>
+     <ng-template [ngIf]="isTablet">
+      <div  class="thumbnail-flight-mobi" *ngFor="let item of data;let flightIndex = index">
+        <div class="title">
+          <h3>اطلاعات پرواز</h3>
+        </div>
+        <div class="flight-from">
+          <div class="top">
+            <span>پرواز رفت</span>
+            <div class="airline-to">
+              <img width="40" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}" alt="">
+              <span>{{ item.airline_name }}</span>
             </div>
-            <div class="flight-from">
-              <div class="top">
-                <span>پرواز رفت</span>
-                <div class="airline-to">
-                  <img width="40" src="../../../assets/img/no-image-all.jpg" alt="">
-                  <span>تابان</span>
-                </div>
-
-              </div>
-              <div class="bottom">
-                <div class="location">
-                  تهران به کیش
-                </div>
-                <span class="date">
-                  21:00 و 1402/3/5
-                </span>
-
-              </div>
-            </div>
-            <div class="flight-to">
-              <div class="top">
-                <span>پرواز برگشت</span>
-                <div class="airline-to">
-                  <img width="25" src="../../../assets/img/no-image-all.jpg" alt="">
-                  <span>ماهان</span>
-                </div>
-
-              </div>
-              <div class="bottom">
-                <div class="location">
-                  تهران به کیش
-                </div>
-                <span class="date">
-                  21:00 و 1402/3/5
-                </span>
-
-              </div>
-            </div>
-            <div class="title mt-2">
-              <h3>اطلاعات اتاق</h3>
-            </div>
-            <div class="rooms">
-              <div *ngFor="let room of hotelInfo.rooms;let i = index" (click)="roomCollapse()"
-                class="item-room flex-wrap">
-                <span class="text w-50">{{ room.room_type }}</span>
-                <div class="p-count w-50">
-                  <button
-                    [ngClass]="{'btn-plus-off' : (room.count??0) === this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) <= this.getRoomCapacity(room.rates)}"
-                    (click)="plus(i,1)">+</button>
-                  <span>{{ room.count ?? 0 }}</span>
-                  <button class="btn-minus" (click)="minus(i,2)">-</button>
-                </div>
-                <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                  <strong>2,000.000</strong>
-                  <small>تومان</small>
-                </div>
-                <!-- <i class="icon-down-open"></i> -->
-                <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
-              </div>
-
-            </div>
-            <div class="box-end">
-              <div class="p-text">
-                <h4>قیمت هر نفر :</h4>
-                <!-- <h5>---</h5> -->
-              </div>
-              <div class="p-price">
-                <span>قیمت:</span>
-                <div class="price">
-                  <strong>2,000,000</strong>
-                  <small>تومان</small>
-                </div>
-              </div>
-              <a class="btn-base w-75 mt-4">رزرو تور</a>
-            </div>
-
 
           </div>
+          <div class="bottom">
+            <div class="location">
+              {{ item.origin_name }} به {{ item.destination_name }}
+            </div>
+            <span class="date">
+              {{ item.time.substring(0,5) }} و {{ item.date | convertDate }}
+            </span>
+
+          </div>
+        </div>
+        <div class="flight-to">
+          <div class="top">
+            <span>پرواز برگشت</span>
+            <div class="airline-to">
+              <img width="25" src="{{  item.flight.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}" alt="">
+              <span>{{ item.flight.airline_name }}</span>
+            </div>
+
+          </div>
+          <div class="bottom">
+            <div class="location">
+              {{ item.destination_name }} به {{ item.origin_name }}
+            </div>
+            <span class="date">
+              {{ item.flight.time.substring(0,5) }} و {{ item.flight.date | convertDate }}
+            </span>
+
+          </div>
+        </div>
+        <div class="title mt-2">
+          <h3>اطلاعات اتاق</h3>
+        </div>
+        <div class="rooms">
+          <div *ngFor="let room of getUniqueRooms(item.rooms,item.id);let roomIndex = index" (click)="roomCollapse()"
+            class="item-room flex-wrap">
+            <span class="text w-50">{{ room.room_type }}</span>
+            <div class="p-count w-50">
+              <button
+                [ngClass]="{'btn-plus-off' : (room.count??0) === this.getRoomCapacity(room.rates,flightIndex),'btn-plus' : (room.count?? 0) <= this.getRoomCapacity(room.rates,flightIndex)}"
+                (click)="plus(roomIndex,flightIndex)">+</button>
+              <span>{{ room.count ?? 0 }}</span>
+              <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
+            </div>
+            <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
+              <strong>{{ calculatePriceByRates(item.id, room.rates,roomIndex) | sperator }}</strong>
+              <small>تومان</small>
+            </div>
+            <!-- <i class="icon-down-open"></i> -->
+            <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
+          </div>
+
+        </div>
+        <div class="box-end">
+          <div class="p-text">
+            <h4>قیمت هر نفر :</h4>
+            <!-- <h5>---</h5> -->
+          </div>
+          <div class="p-price">
+            <span>قیمت:</span>
+            <div class="price">
+              <strong>{{ calculatePrice(item.id) | sperator}}</strong>
+              <small>تومان</small>
+            </div>
+          </div>
+          <a class="btn-base w-75 mt-4" (click)="submit(item.id,flightIndex)">رزرو تور</a>
+        </div>
+
+
+      </div>
+     </ng-template>
 
 
           <div class="d-flex flex-column w-100" *ngFor="let item of data;let flightIndex = index">
@@ -194,6 +196,9 @@
                       </div>
                       <div class="p-date">
                         <span>{{ item.time.substring(0,5) }} و {{ item.date | convertDate }}</span>
+                      </div>
+                      <div class="p-date">
+                        <span> ورود به هتل : {{ item.checkin}}</span>
                       </div>
                     </div>
                   </div>
@@ -231,17 +236,20 @@
                       <div class="p-date">
                         <span>{{ item.flight.time.substring(0,5) }} و {{ item.flight.date | convertDate }}</span>
                       </div>
+                      <div class="p-date">
+                        <span> خروج به هتل : {{ item.checkout }}</span>
+                      </div>
                     </div>
                   </div>
 
                 </div>
                 <div class="rooms">
-                  <div *ngFor="let room of getUniqueRooms(item.rooms);let roomIndex = index" (click)="roomCollapse()"
+                  <div *ngFor="let room of getUniqueRooms(item.rooms,item.id);let roomIndex = index" (click)="roomCollapse()"
                     class="item-room flex-wrap">
                     <span class="text w-50">{{ room.room_type }}</span>
                     <div class="p-count w-50">
                       <button
-                        [ngClass]="{'btn-plus-off' : (room.count ?? 0)=== this.getRoomCapacity(room.rates),'btn-plus' : (room.count?? 0) <= this.getRoomCapacity(room.rates)}"
+                        [ngClass]="{'btn-plus-off' : (room.count ?? 0)=== this.getRoomCapacity(room.rates,flightIndex),'btn-plus' : (room.count?? 0) <= this.getRoomCapacity(room.rates,flightIndex)}"
                         (click)="plus(roomIndex,flightIndex)">+</button>
                       <span>{{ room.count ?? 0 }}</span>
                       <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>

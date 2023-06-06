@@ -199,15 +199,15 @@
                 <div class="opacity-bg-parent">
                   <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
                   <div class="info-hotel">
-                    <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.name}}</h1>
+                    <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.title}}</h1>
                     <div class="footer-hotel-info">
                       <div class="location-hotel">
                         <img src="assets/img/Location-white.svg" width="17" alt="">
-                        <span>{{hotel.city}} - {{hotel.location ? (hotel.location.length > 10 ?
+                        <span>تهران - {{hotel.location ? (hotel.location.length > 10 ?
                           hotel.location.slice(0,10) + '...' :hotel.location ) : 'ثبت نشده'}}</span>
                       </div>
                       <div class="rate">
-                        <i class="icon-star" *ngFor="let star of getStars(hotel.stars)"></i>
+                        <i class="icon-star"></i>
                       </div>
                     </div>
                   </div>
