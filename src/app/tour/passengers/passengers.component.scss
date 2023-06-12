@@ -235,6 +235,11 @@
 }
 
 @media only screen and (max-width: 450px) {
+  .set-info-passengers{
+    :host::ng-deep .item-form{
+      width: 48% !important;
+    }
+  }
   .flex-column-mobi {
     flex-direction: column;
 
@@ -275,7 +280,7 @@
 
   .set-info-passengers {
     .item-form {
-      width: 100% !important;
+      width: 48% !important;
     }
   }
 

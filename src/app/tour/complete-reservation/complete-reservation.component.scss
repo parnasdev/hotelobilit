@@ -303,6 +303,12 @@
   }
 
   @media only screen and (max-width: 500px) {
+    .set-info-supervisor{
+      .item-form:not(:first-child){
+        width: 48% !important;
+      }
+    }
+
     .tour-items-room {
       grid-template-columns: 1fr !important;
       display: grid !important;
