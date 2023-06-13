@@ -156,7 +156,6 @@ export class SearchComponent implements OnInit, OnChanges {
         });
       }
       this.getDatesLoading = false;
-
     }, (error: any) => {
       this.getDatesLoading = false;
 
@@ -183,6 +182,9 @@ export class SearchComponent implements OnInit, OnChanges {
 
       })
     } else {
+      if(this.getDatesLoading ===true) {
+this.message.custom('در حال دریافت اطلاعات  لطفا صبر کنید')
+      }
       this.message.custom('در این مبدا و مقصد تور تعریف نشده است')
     }
 

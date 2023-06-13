@@ -8,7 +8,6 @@
     (citySelected)="destSelected($event)"></prs-select-city>
   </div>
     <div class="inp-form">
-
         <input class="w-100" type="text" [formControl]="stDateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
         <mat-spinner diameter="20" *ngIf="getDatesLoading">
         </mat-spinner>

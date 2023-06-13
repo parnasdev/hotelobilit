@@ -169,8 +169,7 @@
                   <div class="options-hotel">
                     <span class="font-size-14 bold-600">خدمات :</span>
                     <div class="d-flex align-items-center justify-content-start">
-                      <span class="font-size-13 m-right-12">BB</span>
-                      <span class="font-size-13 m-right-12">BB</span>
+                      <span class="font-size-13 m-right-12">ثبت نشده</span>
                     </div>
                   </div>
                   <div class="location-hotel">
@@ -186,7 +185,7 @@
                       </g>
                     </svg>
                     <span class="font-size-14 bold-600">منطقه :</span>
-                    <span class="font-size-13 m-right-12">4</span>
+                    <span class="font-size-13 m-right-12">{{ hotel.location !== '' ? hotel.location : 'ثبت نشده' }}</span>
 
                   </div>
                 </div>
