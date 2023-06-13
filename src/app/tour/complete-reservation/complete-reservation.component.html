@@ -59,6 +59,13 @@
               <strong class="font-size-16">{{ data.flight.time }}</strong>
             </div>
           </div>
+          <div class="w-100 mt-2 end-box d-flex align-items-center justify-content-center">
+            <div class="date">
+              <small class="title">تاریخ ورود به هتل :</small>
+              <strong class="font-size-16">{{ data.rooms[0].rates[0].date| convertDate}}</strong>
+            </div>
+       
+          </div>
 
         </div>
         <!--          <div class="item">-->
@@ -94,6 +101,12 @@
             <div class="time">
               <span class="title">ساعت :</span>
               <strong class="font-size-16">{{ data.flight.flight.time }}</strong>
+            </div>
+          </div>
+          <div class="w-100 mt-2 end-box d-flex align-items-center justify-content-center">
+            <div class="date">
+              <small class="title">تاریخ خروج از هتل :</small>
+              <strong class="font-size-16">{{ data.rooms[0].rates[data.rooms[0].rates.length -1].date | convertDate}}</strong>
             </div>
           </div>
         </div>
@@ -146,7 +159,7 @@
       <!-- <input type="checkbox" [(ngModel)]="isPrivacyCheck"> -->
       <p>ثبت درخواست به منزله پذیرش تمام
         <a style="color: var(--base-color)" (click)="openRulesPopup()">قوانین و مقررات</a>
-        قوانین و مقررات مرتبط با سایت اسنپ تریپ و پکیجهای این تور می باشد
+        قوانین و مقررات مرتبط با سایت هتل و بلیط و پکیجهای این تور می باشد
       </p>
     </div>
 

@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
   p = 1;
   paginateConfig: any;
   list: ReserveListResponseDTO[] = [];
-  
+
   constructor(public api: ReserveApiService,
     public route: ActivatedRoute,
     public checkErrorService: CheckErrorService,
@@ -60,6 +60,13 @@ export class ListComponent implements OnInit {
   onPageChanged(event: any) {
     this.p = event;
     this.getList();
+  }
+
+  getNights(checkin: string, checkout: string) {
+    let nights = this.calService.enumerateDaysBetweenDates(checkin, checkout);
+
+    return nights.length -1
+
   }
 
 }

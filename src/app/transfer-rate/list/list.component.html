@@ -35,6 +35,8 @@
       <span class="from-to">کودک (تومان)</span>
       <span class="from-to">نوزاد (تومان)</span>
       <span class="from-to">آژانس</span>
+      <span class="from-to">وضعیت</span>
+
       <span class="from-to">ظرفیت</span>
 
       <span class="setting">تنظیمات</span>
@@ -96,7 +98,13 @@
           <!-- <span class="title-tour">{{ transfer.flight.inf_price | sperator }}</span> -->
         </div>
         <div class="d-flex flex-column ">
-          <span class="title-tour">---</span>
+          <span class="title-tour">{{transfer.user.agency_name}}</span>
+          <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
+        </div>
+        <div class="d-flex flex-column ">
+          <span class="title-tour"
+            [style]="'color:'+ (transfer.is_close !== 0 ? '#ff0000;' : 'rgb(51 186 112);')">{{transfer.is_close == 0 ? 'فعال' :
+            'بسته'}}</span>
           <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
         </div>
         <div class="d-flex flex-column">

@@ -39,6 +39,7 @@ export interface transferRateListDTO {
     adl_price: number;
     chd_price: number;
     inf_price: number;
+    user?: any
     capacity: number;
     is_close: number;
     description: string;

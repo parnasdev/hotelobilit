@@ -36,7 +36,22 @@ export class CalenderServices {
       }
     }
 
-
+    enumerateDaysBetweenDates(startDate: string, endDate: string) {
+        if (startDate && endDate) {
+          var dates = [];
+          var currDate = moment(startDate).startOf('day');
+          var lastDate = moment(endDate).startOf('day');
+          dates.push(moment(currDate.clone().toDate()).format('jYYYY/jMM/jDD'));
+    
+          while (currDate.add(1, 'days').diff(lastDate) < 0) {
+            dates.push(moment(currDate.clone().toDate()).format('jYYYY/jMM/jDD'));
+          }
+          dates.push(moment(lastDate.clone().toDate()).format('jYYYY/jMM/jDD'));
+          return dates;
+        } else {
+          return [];
+        }
+      };
 
 
     convertDateAndTime(date: any, convertType: string): any {
