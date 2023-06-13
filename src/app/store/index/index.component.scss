@@ -84,6 +84,9 @@
 }
 
 @media only screen and (max-width: 868px) {
+  .s-search{
+    background: $white-color !important;
+  }
   :host::ng-deep prs-select-city {
     width: 98% !important;
   }

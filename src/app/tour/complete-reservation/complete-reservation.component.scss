@@ -236,6 +236,24 @@
   }
 
   @media only screen and (max-width: 868px) {
+     .p-item-count-room{
+       width: 100% !important;
+      h4{
+        width: 90%;
+      }
+      .inp-item{
+        width: 48% !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+        height: auto;
+        border-radius: 10px;
+        border: 1px solid #eee !important;
+        cursor: pointer;
+        position: relative;
+      }
+    }
     .p-detail-reservation{
       flex-wrap: wrap;
       padding:12px;
@@ -303,6 +321,16 @@
   }
 
   @media only screen and (max-width: 500px) {
+    .inp-form {
+      height: 45px !important;
+      .mat-mdc-form-field{
+        position: relative !important;
+        top: 12px !important;
+      }
+      input{
+        font-size: 12px !important;
+      }
+    }
     .set-info-supervisor{
       .item-form:not(:first-child){
         width: 48% !important;

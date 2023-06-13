@@ -235,6 +235,16 @@
 }
 
 @media only screen and (max-width: 450px) {
+  .inp-form {
+    height: 45px !important;
+    .mat-mdc-form-field{
+      position: relative !important;
+      top: 12px !important;
+    }
+    input{
+      font-size: 12px !important;
+    }
+  }
   .set-info-passengers{
     :host::ng-deep .item-form{
       width: 48% !important;
@@ -242,9 +252,11 @@
   }
   .flex-column-mobi {
     flex-direction: column;
+    align-items: flex-start !important;
 
     h2 {
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
     }
 
     .btn-mobile {

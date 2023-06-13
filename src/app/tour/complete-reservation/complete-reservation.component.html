@@ -106,7 +106,7 @@
       <div class="item-form">
         <label class="dana-bold" for="">نام و نام خانوادگی</label>
         <div class="inp-form mt-2">
-          <input type="text" [formControl]="fullNameFC" placeholder="اینجا بنویسید …">
+          <input type="text" [formControl]="fullNameFC" placeholder="نام و نام خانوادگی">
         </div>
         <ng-container *ngIf="getError('reserver_full_name')">
           <span class="text-error text-danger">نام و نام خانوادگی الزامی است</span>
@@ -117,7 +117,7 @@
           کد ملی
         </label>
         <div class="inp-form mt-2">
-          <input type="text" [formControl]="reserver_id_codeFC" placeholder="اینجا بنویسید …">
+          <input type="text" [formControl]="reserver_id_codeFC" placeholder="کد ملی">
         </div>
         <ng-container *ngIf="getError('reserver_id_code')">
           <span class="text-error text-danger">کدملی الزامی است</span>
@@ -128,7 +128,7 @@
           شماره همراه
         </label>
         <div class="inp-form mt-2">
-          <input type="text" [formControl]="reserver_phoneFC" placeholder="اینجا بنویسید …">
+          <input type="text" [formControl]="reserver_phoneFC" placeholder="شماره همراه">
         </div>
         <ng-container *ngIf="getError('reserver_phone')">
           <span class="text-error text-danger">شماره همراه الزامی است</span>

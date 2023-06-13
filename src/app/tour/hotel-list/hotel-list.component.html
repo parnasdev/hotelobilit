@@ -150,6 +150,9 @@
                 <img draggable="false"
                      [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
               </div>
+              <div *ngIf="isTablet" class="w-100 d-flex justify-content-end m-top-8 align-items-center">
+                <a  href="" class="btn-view-hotel text-danger bold-600 font-size-12">مشاهده جزییات هتل</a>
+              </div>
               <div class="info-thumbnail-hotel">
                 <div class="start-info">
                   <div class="d-flex flex-column align-items-start">
@@ -164,12 +167,11 @@
                     <i class="icon-star" *ngFor="let item of getStars(hotel.stars)"></i>
                   </div>
                   <div class="options-hotel">
-                    <div class="item-option-hotel" *ngFor="let s of hotel.services | slice:0:3;">
-                      <i class="icon-circle"></i>
-                      <span>{{ s.name }}</span>
+                    <span class="font-size-14 bold-600">خدمات :</span>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <span class="font-size-13 m-right-12">BB</span>
+                      <span class="font-size-13 m-right-12">BB</span>
                     </div>
-
-
                   </div>
                   <div class="location-hotel">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 24.26 26.857">
@@ -183,7 +185,9 @@
                                 stroke-width="2"/>
                       </g>
                     </svg>
-                    <span>{{ hotel.address ? hotel.address : 'ثبت نشده'}}</span>
+                    <span class="font-size-14 bold-600">منطقه :</span>
+                    <span class="font-size-13 m-right-12">4</span>
+
                   </div>
                 </div>
                 <div class="end-info">
@@ -192,7 +196,8 @@
                     <strong>{{ hotel.totalRoomPrice  | sperator}}</strong>
                     <small>تومان</small>
                   </div>
-                  <a (click)="selectHotel(hotel.slug)" style="cursor: pointer;" class="btn-base w-100">انتخاب هتل و رزرو</a>
+                  <a (click)="selectHotel(hotel.slug)" style="cursor: pointer;" class="btn-base-red  w-100">انتخاب هتل و
+                    رزرو</a>
                 </div>
               </div>
             </div>
