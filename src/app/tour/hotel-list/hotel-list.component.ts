@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ResponsiveService} from "../../Core/Services/responsive.service";
-import {ActivatedRoute, Router} from '@angular/router';
-import {HotelSearchResDTO, TourSearchReqDTO} from 'src/app/Core/Models/newTourDTO';
-import {MessageService} from 'src/app/Core/Services/message.service';
-import {TourApiService} from 'src/app/Core/Https/tour-api.service';
-import {CalenderServices} from 'src/app/Core/Services/calender-service';
-import {SearchObjectDTO} from 'src/app/Core/Models/newCityDTO';
-import {CityApiService} from 'src/app/Core/Https/city-api.service';
+import { Component, OnInit } from '@angular/core';
+import { ResponsiveService } from "../../Core/Services/responsive.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
+import { MessageService } from 'src/app/Core/Services/message.service';
+import { TourApiService } from 'src/app/Core/Https/tour-api.service';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
+import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import * as moment from 'jalali-moment';
-import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 
 @Component({
   selector: 'prs-hotel-list',
@@ -20,6 +20,7 @@ export class HotelListComponent implements OnInit {
   isDesktop = false;
   isTablet = false;
   isLoading = false;
+  isSearch = true
   isFiltering = false;
   req: TourSearchReqDTO = {
     date: '',
@@ -64,24 +65,31 @@ export class HotelListComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       this.routeDataParam = params;
     })
+    if(this.isMobile) {
+      this.isSearch = false;
+    }
     this.orderBy = this.expensive ? 2 : 1
   }
 
   ngOnInit() {
     this.getSearchData();
+
+    // window.scroll({
+    //   top: 500
+    // })
   }
 
   setReq() {
-  
-        this.req = {
-          date: moment(this.routeDataParam['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-          destination: this.routeDataParam['dest'],
-          origin: this.routeDataParam['origin'],
-          stayCount: this.routeDataParam['night'] ?? 1,
-          keywords: this.keyword ? this.keyword : null,
-          stars: this.star > 0 ? +this.star : null,
-          orderBy: this.orderBy
-        }
+
+    this.req = {
+      date: moment(this.routeDataParam['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+      destination: this.routeDataParam['dest'],
+      origin: this.routeDataParam['origin'],
+      stayCount: this.routeDataParam['night'] ?? 1,
+      keywords: this.keyword ? this.keyword : null,
+      stars: this.star > 0 ? +this.star : null,
+      orderBy: this.orderBy
+    }
 
   }
 
@@ -192,5 +200,8 @@ export class HotelListComponent implements OnInit {
 
   filteringOpen() {
     this.isFiltering = !this.isFiltering
+  }
+  searchBoxOpen() {
+    this.isSearch = !this.isSearch
   }
 }

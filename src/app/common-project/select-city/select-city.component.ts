@@ -65,7 +65,7 @@ export class SelectCityComponent implements OnInit, OnChanges {
         (c.id === this.inCommingCity) ||
         (c.code === this.inCommingCity) ||
         (c.slug === this.inCommingCity)).length > 0) {
-        this.cityFC.setValue(this.cities.filter(c => 
+        this.cityFC.setValue(this.cities.filter(c =>
           (c.id === +this.inCommingCity) ||
           (c.code === this.inCommingCity) ||
           (c.slug === this.inCommingCity))[0].name)
@@ -83,7 +83,8 @@ export class SelectCityComponent implements OnInit, OnChanges {
     const dialog = this.dialog.open(SelectCityPopupComponent, {
       data: {
         cities: this.cities
-      }
+      },
+      autoFocus: false
 
     })
     dialog.afterClosed().subscribe(Result => {

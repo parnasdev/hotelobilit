@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ActivatedRoute } from '@angular/router';
 import { BaseBirthDateComponent } from '../base-birth-date/base-birth-date.component';
 import { FormControl } from '@angular/forms';
