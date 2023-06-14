@@ -47,7 +47,7 @@
 <!-- <prs-special-tour></prs-special-tour> -->
 <!--end-->
 <!--sort-city-->
-<section class="sort-city">
+<!-- <section class="sort-city">
   <div class="prs-responsive">
     <div class="container-fluid">
       <div class="row">
@@ -84,9 +84,9 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!--end-->
-<section class="tour-special">
+<!-- <section class="tour-special">
   <div class="prs-responsive">
     <div class="container-fluid">
       <div class="row">
@@ -132,7 +132,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 
@@ -176,9 +176,7 @@
               <div class="new-tour">
                 <div class="text">
                   <h3>هتل های برگزیده شهر</h3>
-                  <select>
-                    <option>city</option>
-                  </select>
+               
                 </div>
               </div>
               <div class="parent-btn-slider">
@@ -194,22 +192,28 @@
           <swiper #swiper class="swiper-hotel"
             [slidesPerView]=" this.isMobile? (hotels.length===1?1:1.3) :(isTablet ? 2:4.3)" [spaceBetween]="30">
             <ng-template swiperSlide *ngFor="let hotel of hotels">
-              <div [style.background-image]="'url(' + hotel.thumbnail + ')'" routerLink="/hotels/{{hotel.slug}}"
+              <div [style.background-image]="'url(' + hotel.thumbnail.url + ')'" routerLink="/hotels/{{hotel.slug}}"
                 class="box-hotel">
+                <div class="box-white-hover">
+                  <div class="p-dates w-100 d-flex justify-content-between align-items-center" *ngFor="let flight of hotel.flights">
+                    <div class="r d-flex flex-column align-items-start">
+                      <span>رفت : {{ flight.date | convertDate }}</span>
+                      <span class="mt-2">برگشت : {{ flight.flight.date | convertDate }}</span>
+                  
+                    </div>
+                    <a (click)="selectHotel(hotel.slug,flight)" class="btn-reserve btn-danger rounded-2 px-4 py-2">
+                      رزرو
+                    </a>
+                  </div>
+                </div>
                 <div class="opacity-bg-parent">
-                  <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
+                <div class="info-img"><img src="assets/img/Information.svg" width="22" alt=""></div>
+                 
                   <div class="info-hotel">
                     <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.title}}</h1>
-                    <div class="footer-hotel-info">
-                      <div class="location-hotel">
-                        <img src="assets/img/Location-white.svg" width="17" alt="">
-                        <span>تهران - {{hotel.location ? (hotel.location.length > 10 ?
-                          hotel.location.slice(0,10) + '...' :hotel.location ) : 'ثبت نشده'}}</span>
-                      </div>
-                      <div class="rate">
-                        <i class="icon-star"></i>
-                      </div>
-                    </div>
+                    <h5 routerLink="/hotels/{{hotel.slug}}"> {{hotel.titleEn}}</h5>
+
+
                   </div>
                 </div>
               </div>

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PublicService } from '../Services/public.service';
 import { environment } from 'src/environments/environment';
-import { TourSearchDTO } from '../Models/newPostDTO';
 import { Result } from '../Models/result';
 import { TourSearchReqDTO } from '../Models/newTourDTO';
 
@@ -13,7 +12,7 @@ export class TourApiService {
   private serverControllerName = 'tour/';
 
   constructor(public http: HttpClient,
-              public publicService: PublicService) {
+    public publicService: PublicService) {
     this.serverControllerName =
       environment.BACK_END_IP + this.serverControllerName;
   }
@@ -26,6 +25,12 @@ export class TourApiService {
   searchHotelInfo(type: string, hotelSlug: string, req: TourSearchReqDTO): any {
     const strUrl = environment.BACK_END_IP + type + '/search/' + hotelSlug;
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  }
+
+  getHotelsForHome():any {
+    const strUrl = environment.BACK_END_IP + 'tours' + '/available';
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+
   }
 
 }

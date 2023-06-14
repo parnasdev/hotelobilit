@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { Component, OnInit } from '@angular/core';
+import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { HotelListResponseDTO } from 'src/app/Core/Models/hotelDTO';
 import { CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { Router } from '@angular/router';
@@ -7,13 +7,15 @@ import * as moment from 'moment';
 import { HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
+import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
 
 @Component({
   selector: 'prs-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit{
+export class IndexComponent implements OnInit {
   isLoading = false;
   isMobile = false;
   isDesktop = false;
@@ -29,12 +31,20 @@ export class IndexComponent implements OnInit{
     stars: 0,
     orderBy: 0,
   }
-  cities : any[] = []
+
+  routeDataParam: SearchObjectDTO = {
+    dest: '',
+    night: 0,
+    origin: '',
+    stDate: ''
+  }
+  cities: any[] = []
 
   constructor(
     public mobileService: ResponsiveService,
-    public message:MessageService,
+    public message: MessageService,
     public api: TourApiService,
+    public calendarService: CalenderServices,
     public router: Router,
   ) {
     this.isMobile = mobileService.isMobile()
@@ -43,27 +53,14 @@ export class IndexComponent implements OnInit{
     this.isTablet = mobileService.isTablet()
   }
   ngOnInit(): void {
-    // this.getSearchData();
+    this.getSearchData();
   }
 
-  setReq() {
-  
-    this.req = {
-      date: null,
-      destination: null,
-      origin: null,
-      stayCount: 2,
-      keywords: null,
-      stars: null,
-      orderBy: null
-    }
 
-}
 
   getSearchData(): void {
-    this.setReq();
     this.isLoading = true
-    this.api.search('hotels', this.req).subscribe((res: any) => {
+    this.api.getHotelsForHome().subscribe((res: any) => {
       this.isLoading = false
 
       if (res.isDone) {
@@ -95,10 +92,40 @@ export class IndexComponent implements OnInit{
     return Array.from(Array(+count).keys());
   }
 
-  search(result:any) {
+  search(result: any) {
     let city = result.origin + '-' + result.dest
     this.router.navigate([`/tour/` + city], {
       queryParams: result
     })
   }
+
+  getStar(star: string | number): any[] {
+    let list = []
+    for (let i = 0; i < +star; i++) {
+      list.push(i);
+    }
+    return list
+  }
+  
+
+  selectHotel(hotel_slug: string ,flight: any) {
+    this.routeDataParam = {
+      origin: flight.origin_code,
+      dest : flight.destination_code,
+      night : this.getNight(flight.date,flight.flight.date),
+      stDate: this.calendarService.convertDate(flight.date,'fa')
+    }
+    let city = this.routeDataParam.origin + '-' + this.routeDataParam.dest
+
+    this.router.navigate([`/tour/` + city + '/flight/' + hotel_slug], {
+      queryParams: this.routeDataParam
+    })
+  }
+
+getNight(originDate:string,destinationDate:string) {
+let list = this.calendarService.enumerateDaysBetweenDates(originDate,destinationDate);
+console.log(list.length) 
+return list.length -1
+}
+
 }
