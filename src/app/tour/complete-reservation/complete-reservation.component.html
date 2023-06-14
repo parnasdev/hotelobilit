@@ -65,7 +65,7 @@
               <small class="title">تاریخ ورود به هتل :</small>
               <strong class="font-size-16">{{ data.rooms[0].rates[0].date| convertDate}}</strong>
             </div>
-       
+
           </div>
 
         </div>
@@ -114,11 +114,16 @@
       </div>
 
 
-    <h2 style="font-size: 15px" class="title-tour text-danger mt-3">اطلاعات رزروگیرنده (این مشخصات به عنوان طرف
-      قرارداد درنظر گرفته می شود)</h2>
+    <h2 style="font-size: 15px" class="title-tour d-flex flex-column align-items-start text-danger mt-3">
+      <strong>اطلاعات رزروگیرنده</strong>
+
+    <span style="position: relative;top: -5px" class="font-size-13">
+       (این مشخصات به عنوان طرف
+      قرارداد درنظر گرفته می شود)
+    </span>
+    </h2>
     <div class="set-info-supervisor">
       <div class="item-form">
-        <label class="dana-bold" for="">نام و نام خانوادگی</label>
         <div class="inp-form mt-2">
           <input type="text" [formControl]="fullNameFC" placeholder="نام و نام خانوادگی">
         </div>
@@ -127,9 +132,6 @@
         </ng-container>
       </div>
       <div class="item-form">
-        <label class="dana-bold" for="">
-          کد ملی
-        </label>
         <div class="inp-form mt-2">
           <input type="text" [formControl]="reserver_id_codeFC" placeholder="کد ملی">
         </div>
@@ -138,9 +140,6 @@
         </ng-container>
       </div>
       <div class="item-form">
-        <label class="dana-bold" for="">
-          شماره همراه
-        </label>
         <div class="inp-form mt-2">
           <input type="text" [formControl]="reserver_phoneFC" placeholder="شماره همراه">
         </div>

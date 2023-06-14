@@ -14,115 +14,229 @@
   </div>
   <div style="position: relative;" [formGroup]="ReserveForm">
     <div formArrayName="passengers">
-      <div class="set-info-passengers posi-relative" *ngFor="let item of PassengerForm.controls; let i = index"
-           [formGroupName]="i">
-        <label *ngIf="i === 0" class="label-fix">سرپرست</label>
-        <div class="price-fix">
-          <strong>{{item.get('price')?.value|sperator }}</strong>
-          <small>تومان</small>
-        </div>
-        <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value,item.get('bed_type')?.value) }}</label>
-        <!-- gender -->
-        <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-6'}}">
-          <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
-          <div class="inp-form mt-2">
-            <select (change)="onChange()" formControlName="gender" name="" id="">
-              <option value="1">اقا</option>
-              <option value="0">خانم</option>
-            </select>
+      <ng-template [ngIf]="isDesktop">
+        <div  class="set-info-passengers posi-relative" *ngFor="let item of PassengerForm.controls; let i = index"
+              [formGroupName]="i">
+          <label *ngIf="i === 0" class="label-fix">سرپرست</label>
+          <div class="price-fix">
+            <strong>{{item.get('price')?.value|sperator }}</strong>
+            <small>تومان</small>
           </div>
-          <ng-container *ngIf="hasError(i, 'gender')">
-            <span class="text-error text-danger">{{ getError(i, 'gender') }}</span>
-          </ng-container>
-        </div>
-        <!-- نام  -->
-        <div class="item-form align-items-center w-18">
+          <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value,item.get('bed_type')?.value) }}</label>
+          <!-- gender -->
+          <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-6'}}">
+            <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <select (change)="onChange()" formControlName="gender" name="" id="">
+                <option value="1">اقا</option>
+                <option value="0">خانم</option>
+              </select>
+            </div>
+            <ng-container *ngIf="hasError(i, 'gender')">
+              <span class="text-error text-danger">{{ getError(i, 'gender') }}</span>
+            </ng-container>
+          </div>
+          <!-- نام  -->
+          <div class="item-form align-items-center w-18">
 
-          <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
-          <div class="inp-form mt-2">
-            <input type="text" (change)="onChange()" formControlName="name" placeholder="نام (لاتین)">
+            <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" formControlName="name" placeholder="نام (لاتین)">
+            </div>
+            <ng-container *ngIf="hasError(i, 'name')">
+              <span class="text-error text-danger">{{ getError(i, 'name') }}</span>
+            </ng-container>
           </div>
-          <ng-container *ngIf="hasError(i, 'name')">
-            <span class="text-error text-danger">{{ getError(i, 'name') }}</span>
-          </ng-container>
-        </div>
-        <!-- نام خانوادگی -->
-        <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-25' : 'w-22'}}">
-          <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
-          <div class="inp-form mt-2">
-            <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
+          <!-- نام خانوادگی -->
+          <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-25' : 'w-22'}}">
+            <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
+            </div>
+            <ng-container *ngIf="hasError(i, 'family')">
+              <span class="text-error text-danger">{{ getError(i, 'family') }}</span>
+            </ng-container>
           </div>
-          <ng-container *ngIf="hasError(i, 'family')">
-            <span class="text-error text-danger">{{ getError(i, 'family') }}</span>
-          </ng-container>
-        </div>
 
-        <!-- نشنالیتی -->
-        <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-7'}}">
-          <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
-          <div class="inp-form mt-2">
+          <!-- نشنالیتی -->
+          <div class="item-form {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-7'}}">
+            <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <select (change)="onChange()" formControlName="nationality" name="" id="">
+                <option value="0">ایرانی</option>
+                <option value="1">غیرایرانی</option>
+              </select>
+            </div>
+            <ng-container *ngIf="hasError(i, 'nationality')">
+              <span class="text-error text-danger">{{ getError(i, 'nationality') }}</span>
+            </ng-container>
+          </div>
+
+
+          <!-- کدملی -->
+          <div class="item-form w-15" *ngIf="tourType && item.get('nationality')?.value == '0'">
+            <!-- <label class="dana-bold" for="">
+              کد ملی
+            </label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" placeholder="کدملی" formControlName="id_code">
+
+            </div>
+            <ng-container *ngIf="hasError(i, 'id_code')">
+              <span class="text-error text-danger">{{ getError(i, 'id_code') }}</span>
+            </ng-container>
+          </div>
+          <!-- تاریخ تولد -->
+          <div class="item-form w-15">
+            <!-- <label class="dana-bold" for="">
+              تاریخ تولد
+            </label> -->
+            <div class="mt-2">
+              <prs-birth-date-picker [lang]="'fa'" (sendDate)="getbirthDate(i, $event)"></prs-birth-date-picker>
+            </div>
+            <ng-container *ngIf="hasError(i, 'birth_day')">
+              <span class="text-error text-danger">{{ getError(i, 'birth_day') }}</span>
+            </ng-container>
+          </div>
+
+          <!-- شماره پاسپورت -->
+          <div class="item-form w-10" *ngIf="!tourType || item.get('nationality')?.value == '1'">
+            <!-- <label class="dana-bold" for="">
+              شماره پاسپورت
+            </label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" placeholder="شماره پاسپورت" formControlName="passport">
+            </div>
+            <ng-container *ngIf="hasError(i, 'passport')">
+              <span class="text-error text-danger">{{ getError(i, 'passport') }}</span>
+            </ng-container>
+          </div>
+          <!-- تاریخ انقضای پاسپورت -->
+          <div class="item-form w-15">
+            <!-- <label class="dana-bold" for="">
+              تاریخ تولد
+            </label> -->
+            <div class="mt-2">
+              <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
+            </div>
+            <ng-container *ngIf="hasError(i, 'expired_passport')">
+              <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>
+            </ng-container>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="isTablet">
+        <div  class="set-info-passengers posi-relative" *ngFor="let item of PassengerForm.controls; let i = index"
+              [formGroupName]="i">
+          <label *ngIf="i === 0" class="label-fix">سرپرست</label>
+          <div class="price-fix">
+            <strong>{{item.get('price')?.value|sperator }}</strong>
+            <small>تومان</small>
+          </div>
+          <label class="label-fix-gray" *ngIf="i>0">{{ getPassebgerLabel(item.get('type')?.value,item.get('bed_type')?.value) }}</label>
+          <div class="inp-form w-48 mt-2">
             <select (change)="onChange()" formControlName="nationality" name="" id="">
               <option value="0">ایرانی</option>
               <option value="1">غیرایرانی</option>
             </select>
           </div>
-          <ng-container *ngIf="hasError(i, 'nationality')">
-            <span class="text-error text-danger">{{ getError(i, 'nationality') }}</span>
-          </ng-container>
-        </div>
+
+          <!-- gender -->
+          <div class="item-form mt-2 w-48 {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-6'}}">
+            <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <select (change)="onChange()" formControlName="gender" name="" id="">
+                <option value="1">اقا</option>
+                <option value="0">خانم</option>
+              </select>
+            </div>
+            <ng-container *ngIf="hasError(i, 'gender')">
+              <span class="text-error text-danger">{{ getError(i, 'gender') }}</span>
+            </ng-container>
+          </div>
+          <!-- نام  -->
+          <div class="item-form align-items-center mt-2 w-48">
+
+            <!-- <label class="dana-bold" for="">نام (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" formControlName="name" placeholder="نام (لاتین)">
+            </div>
+            <ng-container *ngIf="hasError(i, 'name')">
+              <span class="text-error text-danger">{{ getError(i, 'name') }}</span>
+            </ng-container>
+          </div>
+          <!-- نام خانوادگی -->
+          <div class="item-form w-48 {{tourType && item.get('nationality')?.value == '0' ? 'w-25' : 'w-22'}}">
+            <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" formControlName="family" placeholder="نام خانوادگی (لاتین)">
+            </div>
+            <ng-container *ngIf="hasError(i, 'family')">
+              <span class="text-error text-danger">{{ getError(i, 'family') }}</span>
+            </ng-container>
+          </div>
+
+          <!-- نشنالیتی -->
+          <div class="item-form w-48 mt-2 {{tourType && item.get('nationality')?.value == '0' ? 'w-10' : 'w-7'}}">
+            <!-- <label class="dana-bold" for="">نام خانوادگی (لاتین)</label> -->
+            <ng-container *ngIf="hasError(i, 'nationality')">
+              <span class="text-error text-danger">{{ getError(i, 'nationality') }}</span>
+            </ng-container>
+          </div>
 
 
-        <!-- کدملی -->
-        <div class="item-form w-15" *ngIf="tourType && item.get('nationality')?.value == '0'">
-          <!-- <label class="dana-bold" for="">
-            کد ملی
-          </label> -->
-          <div class="inp-form mt-2">
-            <input type="text" (change)="onChange()" placeholder="کدملی" formControlName="id_code">
+          <!-- کدملی -->
+          <div class="item-form w-100" *ngIf="tourType && item.get('nationality')?.value == '0'">
+            <!-- <label class="dana-bold" for="">
+              کد ملی
+            </label> -->
+            <div class="inp-form mt-2">
+              <input type="text" (change)="onChange()" placeholder="کدملی" formControlName="id_code">
 
+            </div>
+            <ng-container *ngIf="hasError(i, 'id_code')">
+              <span class="text-error text-danger">{{ getError(i, 'id_code') }}</span>
+            </ng-container>
           </div>
-          <ng-container *ngIf="hasError(i, 'id_code')">
-            <span class="text-error text-danger">{{ getError(i, 'id_code') }}</span>
-          </ng-container>
-        </div>
-        <!-- تاریخ تولد -->
-        <div class="item-form w-15">
-          <!-- <label class="dana-bold" for="">
-            تاریخ تولد
-          </label> -->
-          <div class="mt-2">
-            <prs-birth-date-picker [lang]="'fa'" (sendDate)="getbirthDate(i, $event)"></prs-birth-date-picker>
+          <!-- تاریخ تولد -->
+          <div style="width: 100% !important;" class="item-form w-100">
+            <!-- <label class="dana-bold" for="">
+              تاریخ تولد
+            </label> -->
+            <div class="mt-2 w-100">
+              <prs-birth-date-picker [lang]="'fa'" (sendDate)="getbirthDate(i, $event)"></prs-birth-date-picker>
+            </div>
+            <ng-container *ngIf="hasError(i, 'birth_day')">
+              <span class="text-error text-danger">{{ getError(i, 'birth_day') }}</span>
+            </ng-container>
           </div>
-          <ng-container *ngIf="hasError(i, 'birth_day')">
-            <span class="text-error text-danger">{{ getError(i, 'birth_day') }}</span>
-          </ng-container>
-        </div>
 
-        <!-- شماره پاسپورت -->
-        <div class="item-form w-10" *ngIf="!tourType || item.get('nationality')?.value == '1'">
-          <!-- <label class="dana-bold" for="">
-            شماره پاسپورت
-          </label> -->
-          <div class="inp-form mt-2">
-            <input type="text" (change)="onChange()" placeholder="شماره پاسپورت" formControlName="passport">
+          <!-- شماره پاسپورت -->
+          <div  style="width: 100% !important;" class="item-form w-100" *ngIf="!tourType || item.get('nationality')?.value == '1'">
+            <!-- <label class="dana-bold" for="">
+              شماره پاسپورت
+            </label> -->
+            <div style="width: 100% !important;" class="inp-form w-100 mt-2">
+              <input type="text" (change)="onChange()" placeholder="شماره پاسپورت" formControlName="passport">
+            </div>
+            <ng-container *ngIf="hasError(i, 'passport')">
+              <span class="text-error text-danger">{{ getError(i, 'passport') }}</span>
+            </ng-container>
           </div>
-          <ng-container *ngIf="hasError(i, 'passport')">
-            <span class="text-error text-danger">{{ getError(i, 'passport') }}</span>
-          </ng-container>
-        </div>
-        <!-- تاریخ انقضای پاسپورت -->
-        <div class="item-form w-15">
-          <!-- <label class="dana-bold" for="">
-            تاریخ تولد
-          </label> -->
-          <div class="mt-2">
-            <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
+          <!-- تاریخ انقضای پاسپورت -->
+          <div style="width: 100% !important;" class="item-form mt-2 w-100">
+            <!-- <label class="dana-bold" for="">
+              تاریخ تولد
+            </label> -->
+            <div class="mt-2 w-100">
+              <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
+            </div>
+            <ng-container *ngIf="hasError(i, 'expired_passport')">
+              <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>
+            </ng-container>
           </div>
-          <ng-container *ngIf="hasError(i, 'expired_passport')">
-            <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>
-          </ng-container>
         </div>
-      </div>
+      </ng-template>
 
     </div>
 

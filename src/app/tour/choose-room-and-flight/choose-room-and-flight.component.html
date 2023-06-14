@@ -134,8 +134,9 @@
 
           </div>
         </div>
-        <div class="title mt-2">
-          <h3>اطلاعات اتاق</h3>
+        <div class="title d-flex align-items-center justify-content-between mt-2">
+          <h3>انتخاب اتاق</h3>
+          <span *ngIf="isTablet" class="text-dark font-size-13 bold-600">قیمت بر اساس هر نفر در اتاق</span>
         </div>
         <div class="rooms">
           <div *ngFor="let room of getUniqueRooms(item.rooms,item.id);let roomIndex = index" (click)="roomCollapse()"

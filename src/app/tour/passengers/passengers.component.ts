@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
-import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
-import { ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
-import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { ErrorsService } from 'src/app/Core/Services/errors.service';
-import { MessageService } from 'src/app/Core/Services/message.service';
+import {ReserveHotelDTO} from 'src/app/Core/Models/newPostDTO';
+import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
+import {ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO} from 'src/app/Core/Models/reserveDTO';
+import {CalenderServices} from 'src/app/Core/Services/calender-service';
+import {ErrorsService} from 'src/app/Core/Services/errors.service';
+import {MessageService} from 'src/app/Core/Services/message.service';
+import {ResponsiveService} from "../../Core/Services/responsive.service";
 
 @Component({
   selector: 'prs-passengers',
@@ -19,12 +20,15 @@ export class PassengersComponent implements OnInit, OnChanges {
   @Input() RoomData!: ReserveRoomDTO;
   @Output() passengerResult = new EventEmitter();
   @Input() tourType: boolean = false;
-
+  isDesktop = false;
+  isTablet = false;
+  isMobile = false;
   @Input() data: ReserveInfoDTO = {
     flight: {} as transferRateListDTO,
     hotel: {} as ReserveHotelDTO,
     rooms: [],
     rooms_selected: [],
+
   };// false = 'تور خارجی'  // true = ' تور داخلی'
   @Input() inCommingPassengers: any = {
     capacity: 0,
@@ -38,10 +42,17 @@ export class PassengersComponent implements OnInit, OnChanges {
   infantMinDate = new Date();
   maxDate = new Date();
   show = false;
+
   constructor(public fb: FormBuilder,
-    public errorService: ErrorsService,
-    public calenderService: CalenderServices,
-    public message: MessageService) { }
+              public errorService: ErrorsService,
+              public mobileService: ResponsiveService,
+              public calenderService: CalenderServices,
+              public message: MessageService) {
+    this.isMobile = mobileService.isMobile()
+    this.isDesktop = mobileService.isDesktop()
+    this.isTablet = mobileService.isTablet()
+
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -61,9 +72,6 @@ export class PassengersComponent implements OnInit, OnChanges {
     }
     this.convertPassengerObject()
   }
-
-
-
 
 
   removeItem(index: number) {
@@ -116,11 +124,10 @@ export class PassengersComponent implements OnInit, OnChanges {
       expired_passport: !this.tourType ? ['', [Validators.required]] : [''],
       birth_day: ['', [Validators.required]],
       type: type,
-      price: this.getPrice(type,bed_type)
+      price: this.getPrice(type, bed_type)
     })
     this.PassengerForm.push(Passengers);
   }
-
 
 
   getPrice(type: string, bed_type = 'normal') {
@@ -129,10 +136,11 @@ export class PassengersComponent implements OnInit, OnChanges {
         if (bed_type === 'normal') {
           return (this.RoomData.totalPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();
         } else {
-          return (this.RoomData.totalExtraPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();;
+          return (this.RoomData.totalExtraPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();
+          ;
         }
-      case 'chd':     
-        return ((this.RoomData.totalPrice ?? 0)/2) + this.data.flight.chd_price
+      case 'chd':
+        return ((this.RoomData.totalPrice ?? 0) / 2) + this.data.flight.chd_price
       case 'inf':
         return this.data.flight.inf_price
       default:
@@ -140,11 +148,11 @@ export class PassengersComponent implements OnInit, OnChanges {
     }
   }
 
-  getbirthDate(i: number, date: string){
+  getbirthDate(i: number, date: string) {
     this.PassengerForm.controls[i].get('birth_day')?.setValue(date);
   }
 
-  getExpired_passport(i: number, date: string){
+  getExpired_passport(i: number, date: string) {
     this.PassengerForm.controls[i].get('expired_passport')?.setValue(date);
   }
 
@@ -252,6 +260,7 @@ export class PassengersComponent implements OnInit, OnChanges {
         return ''
     }
   }
+
   getRoomError() {
     return this.errorService.hasError('rooms.' + this.index + '.passengers')
   }
@@ -259,6 +268,7 @@ export class PassengersComponent implements OnInit, OnChanges {
   hasError(i: number, name: string) {
     return this.errorService.hasError('rooms.' + this.index + '.passengers.' + i + '.' + name)
   }
+
   getError(i: number, name: string) {
     return this.errorService.getError('rooms.' + this.index + '.passengers.' + i + '.' + name)
   }
