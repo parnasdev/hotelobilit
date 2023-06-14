@@ -34,6 +34,7 @@ export class CompleteReservationComponent implements OnInit {
   flightID = '';
   hotelID = '';
   showPassengers = true;
+  isLoading = false;
   req: ReserveCreateDTO = {
     hotel_id: 0,
     flight_id: 0,
@@ -124,6 +125,7 @@ export class CompleteReservationComponent implements OnInit {
 
   checking() {
     this.setCheckingReq()
+    this.isLoading = true;
     this.api.checking(this.checkingReq).subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
@@ -131,13 +133,18 @@ export class CompleteReservationComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false;
+
     }, (error: any) => {
+      this.isLoading = false;
+
       if (error.status === 400) {
         this.message.showMessageBig(error.error.message);
         this._location.back();
       }
     })
   }
+
 
   getCurrencyRate(code: string, roomIndex: number): number {
     let currencies = this.data.rooms[roomIndex].currencies;

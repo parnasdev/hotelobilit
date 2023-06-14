@@ -17,11 +17,11 @@ import { SessionService } from 'src/app/Core/Services/session.service';
   styleUrls: ['./reserve-info.component.scss']
 })
 export class ReserveInfoComponent {
-info:any;
-statusFC = new FormControl()
-statuses : any[] = []
-isLoading = false
-reserve:string =""
+  info: any;
+  statusFC = new FormControl()
+  statuses: any[] = []
+  isLoading = false
+  reserve: string = ""
   constructor(public api: ReserveApiService,
     public route: ActivatedRoute,
     public checkErrorService: CheckErrorService,
@@ -33,7 +33,7 @@ reserve:string =""
 
 
   ngOnInit(): void {
-    this.reserve = this.route.snapshot.paramMap.get('reserve')??'';
+    this.reserve = this.route.snapshot.paramMap.get('reserve') ?? '';
     this.getReserve()
   }
 
@@ -44,6 +44,11 @@ reserve:string =""
       if (res.isDone) {
         this.info = res.data
         this.statuses = res.statuses;
+        let statusFiltered = this.statuses.filter(x => x.name === this.info.status.label)
+        if(statusFiltered.length > 0) {
+          this.statusFC.setValue(statusFiltered[0].id)
+
+        }
       } else {
         this.message.custom(res.message);
       }
@@ -55,7 +60,27 @@ reserve:string =""
     });
   }
 
-  changeStatus(){
+  changeStatus() {
+    this.isLoading = true;
+    this.api.editReserve(+this.reserve, this.statusFC.value).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.custom(res.message);
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+    }, (error: any) => {
+      this.isLoading = false;
+      this.message.error();
+      this.checkErrorService.check(error);
+    });
+  }
+
+
+  getNight() {
+    let list = this.calendarService.enumerateDaysBetweenDates(this.info.details.checkin, this.info.details.checkout)
+    console.log(list.length - 1);
+    return list.length - 1
 
   }
 }

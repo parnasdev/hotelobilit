@@ -18,6 +18,7 @@ import { PassengersComponent } from './passengers/passengers.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { BirthDatePickerModule } from "../birth-date-picker/birth-date-picker.module";
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatDatepickerModule,
         MatFormFieldModule,
         ReactiveFormsModule,
+        BirthDatePickerModule
     ]
 })
 export class TourModule { }

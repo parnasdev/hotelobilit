@@ -86,23 +86,18 @@
           </ng-container>
         </div>
         <!-- تاریخ تولد -->
-        <div class="item-form w-12">
+        <div class="item-form w-15">
           <!-- <label class="dana-bold" for="">
             تاریخ تولد
           </label> -->
-          <div class="inp-form mt-2 ">
-            <!-- <input type="text" (change)="onChange()" placeholder="اینجا بنویسید …" formControlName="birthDate"> -->
-            <mat-form-field class="example-full-width" appearance="fill">
-              <input class="input-parent" readonly (dateChange)="onChange()" [max]="maxDate" matInput
-                     formControlName="birth_day" placeholder="تاریخ تولد" autocomplete="off" [matDatepicker]="picker4"
-                     (click)="picker4.open()">
-              <mat-datepicker startView="multi-year" #picker4></mat-datepicker>
-            </mat-form-field>
+          <div class="mt-2">
+            <prs-birth-date-picker [lang]="'fa'" (sendDate)="getbirthDate(i, $event)"></prs-birth-date-picker>
           </div>
           <ng-container *ngIf="hasError(i, 'birth_day')">
             <span class="text-error text-danger">{{ getError(i, 'birth_day') }}</span>
           </ng-container>
         </div>
+
         <!-- شماره پاسپورت -->
         <div class="item-form w-10" *ngIf="!tourType || item.get('nationality')?.value == '1'">
           <!-- <label class="dana-bold" for="">
@@ -116,20 +111,12 @@
           </ng-container>
         </div>
         <!-- تاریخ انقضای پاسپورت -->
-        <div class="item-form w-15" *ngIf="!tourType || item.get('nationality')?.value == '1'">
+        <div class="item-form w-15">
           <!-- <label class="dana-bold" for="">
-            تاریخ انقضای پاسپورت
+            تاریخ تولد
           </label> -->
-          <div class="inp-form mt-2">
-
-            <mat-form-field class="example-full-width" appearance="fill">
-              <input class="input-parent" (dateChange)="onChange()" readonly [min]="maxDate" matInput
-                     formControlName="expired_passport" placeholder="" autocomplete="off"
-                     placeholder="تاریخ انقضای پاسپورت"
-                     [matDatepicker]="picker3" (click)="picker3.open()">
-              <mat-datepicker #picker3></mat-datepicker>
-            </mat-form-field>
-
+          <div class="mt-2">
+            <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
           </div>
           <ng-container *ngIf="hasError(i, 'expired_passport')">
             <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>

@@ -2,7 +2,7 @@
     <div class="d-flex w-100 p-search-agency justify-content-end">
         <div class="inp-form w-25">
             <select [formControl]="statusFC" name="" id="">
-                <option *ngFor="let s of statuses" [value]="s.name">{{ s.name }}</option>
+                <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
             </select>
         </div>
 
@@ -45,12 +45,12 @@
                 </div>
             </div>
 
-            <div class="p-price   d-flex align-items-center justify-content-between">
-                <div class="item  d-flex align-items-center px-2">
+            <div class="p-price d-flex align-items-center justify-content-between">
+                <div class="item d-flex align-items-center justify-content-between w-100 px-2">
                     <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
                     <div class="d-flex">
-                        <span class="text mr-2">{{info.total_price | sperator}}</span>
-                        <span class="mr-1">تومان</span>
+                        <span class="text mr-2 font-size-20 bold-600">{{info.total_price | sperator}}</span>
+                        <span class="mr-1 m-right-8">تومان</span>
                     </div>
                 </div>
             </div>
@@ -66,78 +66,97 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <span>پرواز رفت:</span>
-                            <span style="margin-right: 4px" class="city-name">--- به ---</span>
+                            <span style="margin-right: 4px" class="city-name">{{ info.reserves[0].flight.origin_name }}
+                                به {{ info.reserves[0].flight.destination_name }}</span>
                         </div>
-                        <span>---</span>
+                        <span>{{info.reserves[0].flight.airline_name}}</span>
                     </div>
                     <div class="item">
                         <span class="title">تاریخ و ساعت پرواز رفت :</span>
-                        <span class="text" style="direction: ltr!important">---</span>
+                        <span class="text" style="direction: ltr!important">{{ info.reserves[0].flight.date |
+                            convertDate }} {{ info.reserves[0].flight.time }}</span>
                     </div>
                     <div class="item">
                         <span class="title">تاریخ ورود به هتل :</span>
-                        <span class="text" style="direction: ltr!important">{{info.details.checkin | convertDate}}</span>
+                        <span class="text" style="direction: ltr!important">{{info.details.checkin |
+                            convertDate}}</span>
                     </div>
                 </div>
                 <div class="info-time">
                     <span class="title">مدت اقامت:</span>
-                    <span class="text">--- روز و --- شب</span>
+                    <span class="text">{{getNight()}} شب و {{getNight() + 1}} روز</span>
                 </div>
                 <div class="info-to">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <span>پرواز برگشت:</span>
-                            <span style="margin-right: 4px" class="city-name">--- به ---</span>
+                            <span style="margin-right: 4px" class="city-name">{{
+                                info.reserves[0].flight.flight.origin_name }} به {{
+                                info.reserves[0].flight.flight.destination_name }}</span>
                         </div>
-                        <span>---</span>
+                        <span>{{info.reserves[0].flight.flight.airline_name}}</span>
                     </div>
-
                     <div class="item">
                         <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-                        <span class="text" style="direction: ltr!important">---</span>
+                        <span class="text" style="direction: ltr!important">{{ info.reserves[0].flight.flight.date |
+                            convertDate }} {{ info.reserves[0].flight.flight.time }}</span>
                     </div>
                     <div class="item">
                         <span class="title">تاریخ خروج از هتل :</span>
-                        <span class="text" style="direction: ltr!important">{{info.details.checkout | convertDate}}</span>
+                        <span class="text" style="direction: ltr!important">{{info.details.checkout |
+                            convertDate}}</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="box-rooms" *ngFor="let item of [1,2,3]">
-            <div class="d-flex align-items-center item-title  justify-content-between w-100">
-                <h3 class=" bold-600">اتاق --- </h3>
-            </div>
-            <div *ngFor="let p of [1,2,3,4]" class="item-information-room">
-                <label for="" class="label-role">---</label>
-                <div class="item">
-                    <span>نام :</span>
-                    <span class="mr-2 text-gray">---</span>
-                </div>
-                <div class="item">
-                    <span>نام خانوادگی :</span>
-                    <span class="mr-2 text-gray">---</span>
-                </div>
-                <!-- <div class="item"  *ngIf="p.id_code">
-              <span>کد ملی :</span>
-              <span class="mr-2 text-gray">{{ p.id_code ?? '---' }}</span>
-            </div> -->
-                <!-- <div class="item" *ngIf="p.passport_number">
-              <span>شماره پاسپورت :</span>
-              <span class="mr-2 text-gray">{{ p.passport_number }}</span>
-            </div> -->
-                <!-- <div class="item" *ngIf="p.passport_expire">
-              <span>انقضا پاسپورت :</span>
-              <span class="mr-2 text-gray">{{calendarService.convertDate(p.passport_expire,'en') }}</span>
-            </div> -->
-                <div class="item">
-                    <span> تاریخ تولد :</span>
-                    <span class="mr-2 text-gray">---</span>
-                </div>
 
+        <ng-template ngFor let-item [ngForOf]="info.reserves" let-index="index">
+            <div class="box-rooms" *ngIf="index> 0">
+                <div class="d-flex align-items-center item-title  justify-content-between w-100">
+                    <h3 class=" bold-600">اتاق {{item.room.room_type}} </h3>
+                </div>
+                <div *ngFor="let p of item.details.passengers" class="item-information-room">
+                    <label for="" class="label-role">{{p.type}}</label>
+                    <div class="item">
+                        <span class="text-gray">نام :</span>
+                        <span class="mr-2">{{p.name}}</span>
+                    </div>
+                    <div class="item">
+                        <span class="text-gray">نام خانوادگی :</span>
+                        <span class="mr-2">{{p.family}}</span>
+                    </div>
+                    <div class="item" *ngIf="p.id_code">
+                        <span class="text-gray">کد ملی :</span>
+                        <span class="mr-2">{{ p.id_code ?? '---' }}</span>
+                    </div>
+                    <div class="item">
+                        <span class="text-gray">ملیت :</span>
+                        <span class="mr-2">{{ p.nationality == 0 ? 'ایرانی' : 'غیرایرانی' }}</span>
+                    </div>
+                    <div class="item" *ngIf="p.passport">
+                        <span class="text-gray">شماره پاسپورت :</span>
+                        <span class="mr-2">{{ p.passport }}</span>
+                    </div>
+                    <div class="item" *ngIf="p.expired_passport">
+                        <span class="text-gray">انقضا پاسپورت :</span>
+                        <span class="mr-2">{{p.expired_passport }}</span>
+                    </div>
+                    <div class="item">
+                        <span class="text-gray"> تاریخ تولد :</span>
+                        <span class="mr-2" style="direction: rtl;">{{p.birth_day}}</span>
+                    </div>
+                    <div class="item">
+                        <span class="text-gray"> جنسیت :</span>
+                        <span class="mr-2">{{p.gender == 0 ? 'خانم' : 'آقا'}}</span>
+                    </div>
+                    <div class="item">
+                        <span class="text-gray"> قیمت :</span>
+                        <span class="mr-2">{{p.price | sperator}}</span>
+                    </div>
+                </div>
             </div>
-        </div>
-
+        </ng-template>
 
     </div>
 

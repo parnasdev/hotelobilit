@@ -35,7 +35,7 @@
     .p-items {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       column-gap: 14px;
       place-items: center;
       margin-top: 14px;
@@ -197,6 +197,9 @@
       .item {
         font-size: 13px !important;
         font-weight: 600 !important;
+        span {
+          color: #84620d!important;
+        }
   
         .mr-2 {
           color: var(--base-color-three) !important;

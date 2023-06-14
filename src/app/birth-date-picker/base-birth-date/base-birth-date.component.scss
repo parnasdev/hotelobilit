@@ -1,0 +1,80 @@
+.title-birthday {
+  margin: 0;
+  font-size: 17px;
+  color: #000;
+}
+
+.select-year {
+}
+
+.list-year{
+  width: 100%;
+  height: 85%;
+  li{
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    color: var(--dark);
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'IRANSans' !important;
+    border-bottom: 1px solid #ebebeb;
+    &:hover{
+      background: #575EFF;
+      color: #fff;
+      width: 100%;
+      border-radius: 4px;
+    }
+  }
+}
+.select-month{
+
+}
+
+.list-month{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  width: 100%;
+  column-gap: 8px;
+  .item-month{
+    width: 100%;
+    height: 50px;
+    color: rgba(4, 10, 31, 0.87);
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover{
+      background: #575EFF;
+      color: #fff;
+      border-radius: 4px;
+    }
+  }
+}
+
+.list-day{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  place-items: center;
+  width: 100%;
+  column-gap: 8px;
+  .item-day{
+    width: 100%;
+    height: 50px;
+    color: rgba(4, 10, 31, 0.87);
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover{
+      background: #575EFF;
+      color: #fff;
+      border-radius: 4px;
+    }
+  }
+}

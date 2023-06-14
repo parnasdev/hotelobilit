@@ -43,4 +43,12 @@ export class ReserveApiService {
     const strUrl = environment.BACK_END_IP + `panel/reserves/${id}/edit`
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
+
+  editReserve(id: number, statusId: number): any {
+    const strUrl = environment.BACK_END_IP + `panel/reserves/${id}`
+    const entity = {
+      status: statusId
+    }
+    return this.http.patch<Result<any>>(strUrl,entity, this.publicService.getDefaultHeaders());
+  }
 }
