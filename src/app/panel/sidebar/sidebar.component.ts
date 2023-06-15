@@ -104,6 +104,7 @@ export class SidebarComponent implements OnInit {
   }
 
   checkPermission(item: string) {
+    
     let permissions: any[] = this.session.getUserPermission();
     return permissions.find(x => x.split('.')[0] === item)
   }

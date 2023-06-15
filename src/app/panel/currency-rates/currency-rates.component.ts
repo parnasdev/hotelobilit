@@ -99,6 +99,41 @@ export class CurrencyRatesComponent implements OnInit {
     }
   }
 
+  setAdminReq() {
+    this.req = {
+      currencies: {
+        'toman': 1,
+        'euro': this.euroRateFC.value ? +this.euroRateFC.value : 0,
+        'dollar': this.dollarRateFC.value ? +this.dollarRateFC.value : 0,
+        'derham': this.AEDRateFC.value ? +this.AEDRateFC.value : 0,
+      }
+    }
+  }
+
+  updateAdminSetting() {
+    this.setAdminReq()
+    this.settingApi.changeSetting(this.req).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.showMessageBig(res.message);
+        // this.router.navigateByUrl('panel/hotel')
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.checkErrorService.check(error);
+
+      this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+    })
+  }
+
+  submit() {
+    if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer') {
+      this.updateAdminSetting()
+    } else {
+      this.updateSetting()
+    }
+  }
+
   updateSetting() {
     this.setReq()
     this.settingApi.changeSetting(this.req).subscribe((res: any) => {

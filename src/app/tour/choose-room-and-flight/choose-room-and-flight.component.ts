@@ -141,7 +141,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         this.hotelInfo = res.data;
         this.convertData(this.hotelInfo.flights);
         console.log(this.data);
-        
+
 
         // this.paginate = res.meta;
         // this.paginateConfig = {
@@ -183,7 +183,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         capacity: flight.capacity,
         is_close: flight.is_close,
         description: flight.description,
-        rooms: this.getFlightRooms(this.hotelInfo.rooms,flight.id,flight.flight.checkin_tomorrow?? false,flight.flight.checkout_yesterday ?? false),
+        rooms: this.getFlightRooms(this.hotelInfo.rooms, flight.id, flight.flight.checkin_tomorrow ?? false, flight.flight.checkout_yesterday ?? false),
         checkin: this.getCheckin(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.date),
         checkout: this.getCheckout(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.flight.date),
         selectedRooms: []
@@ -193,9 +193,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
 
-  getFlightRooms(rooms: RoomDTO[],flightID: number,checkin_tomorrow:boolean,checkout_yesterday:boolean): RoomDTO[]  {
+  getFlightRooms(rooms: RoomDTO[], flightID: number, checkin_tomorrow: boolean, checkout_yesterday: boolean): RoomDTO[] {
     rooms.forEach(x => {
-      x.rates = this.convertRates(x.rates,checkin_tomorrow,checkout_yesterday)
+      x.rates = this.convertRates(x.rates, checkin_tomorrow, checkout_yesterday)
 
     })
     return rooms;
@@ -204,7 +204,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   getCheckin(checkin: boolean, checkout: boolean, date: string): string {
     if (checkin && !checkout) {
       return moment(date, 'YYYY-MM-DD').add(1, 'days').format('jYYYY/jMM/jDD');
-
     } else if (!checkin && checkout) {
       return moment(date, 'YYYY-MM-DD').format('jYYYY/jMM/jDD');
     } else if (checkin && checkout) {
@@ -246,7 +245,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return newRooms
   }
 
-  convertRates(rates: RateDTO[], checkin_tomorrow:boolean,checkout_yesterday: boolean): RateDTO[] {
+  convertRates(rates: RateDTO[], checkin_tomorrow: boolean, checkout_yesterday: boolean): RateDTO[] {
 
     if (checkin_tomorrow && !checkout_yesterday) {
       rates.splice(0, 1)
@@ -357,12 +356,11 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return Array.from(Array(+count).keys());
   }
 
-  getRoomPrice(rates: RateDTO[], roomIndex: number, flightID: number): number {
-
+  getRoomPrice(rates: RateDTO[], roomIndex: number, flightID: number, type = 'adl'): number {
 
     let price = 0;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
-    let flightPrice = flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0;
+    let flightPrice = type === 'adl' ? (flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0) : (flightFiltred.length > 0 ? flightFiltred[0].chd_price : 0);
 
     if (rates.length > 0) {
       if (rates[0].checkin_base) {
@@ -379,6 +377,22 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     }
 
     return price + flightPrice + this.getInsuransePrice(roomIndex) + this.getTransferPrice(roomIndex, flightID);
+  }
+
+  getExtraBedPrice(flightIndex: number, roomSelectedIndex: number): number {
+    let price = 0;
+let roomIndex = 0
+    this.data[flightIndex].rooms.forEach((x, index) => {
+      if (x.id === this.data[flightIndex].selectedRooms[roomSelectedIndex].room_id) {
+        roomIndex = index;
+      }
+    })
+
+
+    this.data[flightIndex].rooms[roomIndex].rates.forEach((rate: any) => {
+      price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+    })
+    return price + this.data[flightIndex].adl_price + this.getTransferPrice(roomIndex, this.data[flightIndex].id)
   }
 
   getTransferPrice(roomIndex: number, flightID: number) {
@@ -398,10 +412,20 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return roomPrice
   }
 
-  calculatePriceByRates(flightID: number, rates: RateDTO[], roomIndex: number): number {
+  calculatePriceByRates(flightID: number, rates: RateDTO[], roomIndex: number, type = 'adl'): number {
     let roomPrice = 0;
 
-    roomPrice = this.getRoomPrice(rates, roomIndex, flightID)
+    roomPrice = this.getRoomPrice(rates, roomIndex, flightID, type)
+    return roomPrice
+  }
+
+  calculatePriceByName(flightID: number, flightIndex: number, roomSelectedIndex: number, type = 'adl') {
+    let roomPrice = 0;
+    this.data[flightIndex].rooms.forEach((x, index) => {
+      if (x.id === this.data[flightIndex].selectedRooms[roomSelectedIndex].room_id) {
+        roomPrice = this.getRoomPrice(x.rates, index, flightID, type)
+      }
+    })
     return roomPrice
   }
 

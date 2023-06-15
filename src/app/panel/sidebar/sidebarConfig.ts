@@ -18,8 +18,8 @@ export const Sidebar: SidebarDTO[] = [
     { name: 'گزارشات', icon: '', link: '/panel/reserves', show: true, permition: 'users', children: [] },
     { name: 'مالی', icon: '', link: '/panel/financial', show: true, permition: 'users', children: [] },
     { name: 'کاربران', icon: '', link: '/panel/user', show: true, permition: 'users', children: [] },
-    { name: 'امکانات پایه', icon: '', link: '', show: true, permition: 'settings', children: [
-            { name: 'نرخ گذاری ارز', permition: 'settings', link: '/panel/setCurrencyRate', show: true },
+    { name: 'امکانات پایه', icon: '', link: '', show: true, permition: 'users', children: [
+            { name: 'نرخ گذاری ارز', permition: 'users', link: '/panel/setCurrencyRate', show: true },
             // { name: 'نرخ گذاری خدمات', permition: 'settings', link: '/panel/setServiceRate', show: true },
             { name: 'اتاق ها', permition: 'RoomTypes', link: '/panel/rooms', show: true },
             { name: 'امکانات هتل', permition: 'RoomTypes', link: '/panel/facilities', show: true },
