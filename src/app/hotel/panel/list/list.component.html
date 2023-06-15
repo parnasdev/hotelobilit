@@ -13,7 +13,7 @@
       <input style="margin-right: 8px" [formControl]="keywordFC" (change)="filter()" placeholder="جستجو بر اساس نام هتل" type="text">
       <button class="ms-2 btn-base btn-search" (click)="filter()">جستجو</button>
     </div>
-    <a class="btn-add-tour btn-base" routerLink="/panel/hotel/add">اضافه</a>
+    <a *ngIf="permition.check('hotels.create')" class="btn-add-tour btn-base" routerLink="/panel/hotel/add">اضافه</a>
     <!-- <a *ngIf="session.checkItemPermission('posts.create')" class="btn-add-tour" routerLink="/panel/hotel/add">اضافه</a> -->
   </div>
   <div class="table-list-tour">
@@ -44,11 +44,11 @@
         <span class="title-tour">{{ hotel.user.full_name }}</span>
         <span class="title-tour">{{ hotel.visitCount }}</span>
         <div class="button-setting">
-          <a routerLink="/panel/hotel/edit/{{ hotel.id }}" class="edit-btn">ویرایش</a>
-          <a style="background: #dc3545 !important;" routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
+          <a routerLink="/panel/hotel/edit/{{ hotel.id }}" *ngIf="permition.check('hotels.edit')" class="edit-btn">ویرایش</a>
+          <a style="background: #dc3545 !important;" *ngIf="permition.check('rates.read')" routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
              class="edit-btn">قیمت گذاری</a>
           <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a>
-          <button *ngIf="session.checkItemPermission('Hotel.delete')" (click)="deleteClicked(hotel.slug)"
+          <button *ngIf="permition.check('hotels.delete')" (click)="deleteClicked(hotel.slug)"
                   class="delete-btn">حذف
           </button>
         </div>

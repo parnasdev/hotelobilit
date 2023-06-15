@@ -1,7 +1,7 @@
 <div class="list-tour">
   <div class="title">
     <h2>لیست ایرلاین ها</h2>
-    <a class="btn-add-tour" routerLink="/panel/transfer/add">اضافه</a>
+    <a class="btn-add-tour" *ngIf="permition.check('airlines.create')" routerLink="/panel/transfer/add">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
@@ -28,8 +28,8 @@
         <span class="title-tour">{{ airline.name }}</span>
         <span class="title-tour">{{ airline.useCount }}</span>
         <div class="button-setting">
-          <a routerLink="/panel/transfer/edit/{{ airline.id }}" class="edit-btn">ویرایش</a>
-          <button (click)="deleteTransfer(airline.id)" class="delete-btn">حذف</button>
+          <a routerLink="/panel/transfer/edit/{{ airline.id }}" *ngIf="permition.check('airlines.edit')" class="edit-btn">ویرایش</a>
+          <button (click)="deleteTransfer(airline.id)" *ngIf="permition.check('airlines.delete')" class="delete-btn">حذف</button>
         </div>
       </div>
     </div>

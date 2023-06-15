@@ -1,12 +1,11 @@
 <div class="list-tour">
   <div class="title">
     <h2>لیست امکانات ها</h2>
-    <a class="btn-add-tour" routerLink="/panel/service/add">اضافه</a>
+    <a class="btn-add-tour" *ngIf="permition.check('services.read')" routerLink="/panel/service/add">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
-      <!--      <span class="username">نام کاربر</span>-->
       <span class="title-tour">عنوان امکانات</span>
       <span class="from-to">ایکون</span>
       <span class="setting">تنظیمات</span>
@@ -26,12 +25,14 @@
         <span class="id">{{ i + 1 }}</span>
         <span class="title-tour bold-600">{{ service.name }}</span>
         <span class="title-tour">
-          <img draggable="false" width="50" [src]="service.thumbnail ? service.thumbnail.url : '../../../assets/img/nopicture.jpg'"
-            alt="">
+          <img draggable="false" width="50"
+            [src]="service.thumbnail ? service.thumbnail.url : '../../../assets/img/nopicture.jpg'" alt="">
         </span>
         <div class="button-setting">
-          <a routerLink="/panel/service/edit/{{ service.id }}" class="edit-btn">ویرایش</a>
-          <button (click)="deleteService(service.id)" class="delete-btn">حذف</button>
+          <a *ngIf="permition.check('services.edit')" routerLink="/panel/service/edit/{{ service.id }}"
+            class="edit-btn">ویرایش</a>
+          <button *ngIf="permition.check('services.delete')" (click)="deleteService(service.id)"
+            class="delete-btn">حذف</button>
         </div>
       </div>
     </div>

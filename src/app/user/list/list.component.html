@@ -4,7 +4,7 @@
     <mat-button-toggle-group *ngIf="session.getRole() === 'programmer' || session.getRole() === 'admin'" name="fontStyle" aria-label="Font Style" [(ngModel)]="roleSelected" (ngModelChange)="roleChanged()">
       <mat-button-toggle *ngFor="let item of roles" [value]="item.id">{{ item.label }}</mat-button-toggle>
     </mat-button-toggle-group>
-    <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
+    <a class="btn-add-tour"   routerLink="/panel/user/add">اضافه</a>
 
   </div>
   <div class="table-list-tour">
@@ -42,8 +42,8 @@
           '-' }}</span>
         <div class="button-setting">
           <a routerLink="/panel/user/{{user.id}}" class="edit-btn"  *ngIf="user.role === 'آژانس'">کاربران</a>
-          <a routerLink="/panel/user/edit/{{user.id}}" class="edit-btn">ویرایش</a>
-          <button (click)="deleteClicked(user.id)" class="delete-btn">حذف</button>
+          <a routerLink="/panel/user/edit/{{user.id}}" *ngIf="permition.check('users.edit')" class="edit-btn">ویرایش</a>
+          <button (click)="deleteClicked(user.id)" class="delete-btn" *ngIf="permition.check('users.delete')">حذف</button>
         </div>
       </div>
       <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"

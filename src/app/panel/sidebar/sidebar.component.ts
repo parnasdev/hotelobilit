@@ -8,6 +8,7 @@ import { UserApiService } from "../../Core/Https/user-api.service";
 import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { Sidebar } from './sidebarConfig';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 
 declare let $: any;
 
@@ -29,11 +30,12 @@ export class SidebarComponent implements OnInit {
     public userApi: UserApiService,
     public api: AuthApiService,
     public router: Router,
+    public permitionService: PermitionsService,
     public messageService: MessageService,
     public responsiveService: ResponsiveService,
     public errorService: ErrorsService,
     public checkError: CheckErrorService) {
-      
+
     this.isTablet = responsiveService.isTablet();
     $(document).ready(() => {
       $(
@@ -103,15 +105,6 @@ export class SidebarComponent implements OnInit {
     this.isMenu = false
   }
 
-  checkPermission(item: string) {
-    
-    let permissions: any[] = this.session.getUserPermission();
-    return permissions.find(x => x.split('.')[0] === item)
-  }
-
-  checkItemPermission(item: string) {
-    return !!this.session.userPermissions.find(x => x.name === item)
-  }
 
 
 

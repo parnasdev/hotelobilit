@@ -1,0 +1,625 @@
+[
+  {
+    "id": 1,
+    "name": "posts.read",
+    "label": "خواندن نوشته ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 2,
+    "name": "posts.create",
+    "label": "ایجاد نوشته ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 3,
+    "name": "posts.edit",
+    "label": "ویرایش نوشته ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 4,
+    "name": "posts.delete",
+    "label": "حذف نوشته ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 5,
+    "name": "posts.status",
+    "label": "تغییر وضعیت نوشته ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 6,
+    "name": "categories.read",
+    "label": "خواندن دسته بندی ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 7,
+    "name": "categories.create",
+    "label": "ایجاد دسته بندی ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 8,
+    "name": "categories.edit",
+    "label": "ویرایش دسته بندی ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 9,
+    "name": "categories.delete",
+    "label": "حذف دسته بندی ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 10,
+    "name": "cities.read",
+    "label": "خواندن شهر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 11,
+    "name": "cities.create",
+    "label": "ایجاد شهر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 12,
+    "name": "cities.edit",
+    "label": "ویرایش شهر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 13,
+    "name": "cities.delete",
+    "label": "حذف شهر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 14,
+    "name": "airlines.read",
+    "label": "خواندن ایرلاین ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 15,
+    "name": "airlines.create",
+    "label": "ایجاد ایرلاین ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 16,
+    "name": "airlines.edit",
+    "label": "ویرایش ایرلاین ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 17,
+    "name": "airlines.delete",
+    "label": "حذف ایرلاین ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 18,
+    "name": "files.read",
+    "label": "خواندن فایل ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 19,
+    "name": "files.create",
+    "label": "ایجاد فایل ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 20,
+    "name": "files.edit",
+    "label": "ویرایش فایل ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 21,
+    "name": "files.delete",
+    "label": "حذف فایل ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 22,
+    "name": "files.move",
+    "label": "انتقال فایل ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 23,
+    "name": "links.read",
+    "label": "خواندن منو ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 24,
+    "name": "links.create",
+    "label": "ایجاد منو ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 25,
+    "name": "links.edit",
+    "label": "ویرایش منو ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 26,
+    "name": "links.delete",
+    "label": "حذف منو ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 27,
+    "name": "pages.read",
+    "label": "خواندن صفحه ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 28,
+    "name": "pages.create",
+    "label": "ایجاد صفحه ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 29,
+    "name": "pages.edit",
+    "label": "ویرایش صفحه ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 30,
+    "name": "pages.delete",
+    "label": "حذف صفحه ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 31,
+    "name": "pages.status",
+    "label": "تغییر وضعیت صفحه ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 32,
+    "name": "roles.read",
+    "label": "خواندن مقام ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 33,
+    "name": "roles.create",
+    "label": "ایجاد مقام ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 34,
+    "name": "roles.edit",
+    "label": "ویرایش مقام ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 35,
+    "name": "roles.delete",
+    "label": "حذف مقام ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 36,
+    "name": "settings.read",
+    "label": "خواندن تنظیمات ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 37,
+    "name": "settings.edit",
+    "label": "ویرایش تنظیمات ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 38,
+    "name": "tags.read",
+    "label": "خواندن تگ ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 39,
+    "name": "tags.create",
+    "label": "ایجاد تگ ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 40,
+    "name": "tags.edit",
+    "label": "ویرایش تگ ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 41,
+    "name": "tags.delete",
+    "label": "حذف تگ ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 42,
+    "name": "users.read",
+    "label": "خواندن کاربر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 43,
+    "name": "users.create",
+    "label": "ایجاد کاربر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 44,
+    "name": "users.edit",
+    "label": "ویرایش کاربر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 45,
+    "name": "users.delete",
+    "label": "حذف کاربر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 46,
+    "name": "users.activate",
+    "label": "فعالسازی کاربر ها",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 47,
+    "name": "comments.read",
+    "label": "خواندن نظرات",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 48,
+    "name": "comments.approved",
+    "label": "تایید نظرات",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 49,
+    "name": "comments.reply",
+    "label": "پاسخ نظرات",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 50,
+    "name": "comments.delete",
+    "label": "حذف نظرات",
+    "created_at": "2023-05-22 13:43:33",
+    "updated_at": "2023-05-22 13:43:33"
+  },
+  {
+    "id": 51,
+    "name": "reserves.read",
+    "label": "خواندن رزرو ها",
+    "created_at": "2023-05-22 13:43:37",
+    "updated_at": "2023-05-22 13:43:37"
+  },
+  {
+    "id": 52,
+    "name": "reserves.create",
+    "label": "ایجاد رزرو ها",
+    "created_at": "2023-05-22 13:43:37",
+    "updated_at": "2023-05-22 13:43:37"
+  },
+  {
+    "id": 53,
+    "name": "reserves.edit",
+    "label": "ویرایش رزرو ها",
+    "created_at": "2023-05-22 13:43:37",
+    "updated_at": "2023-05-22 13:43:37"
+  },
+  {
+    "id": 54,
+    "name": "reserves.delete",
+    "label": "حذف رزرو ها",
+    "created_at": "2023-05-22 13:43:37",
+    "updated_at": "2023-05-22 13:43:37"
+  },
+  {
+    "id": 55,
+    "name": "reserves.status",
+    "label": "تغییر وضعیت رزرو ها",
+    "created_at": "2023-05-22 13:43:37",
+    "updated_at": "2023-05-22 13:43:37"
+  },
+  {
+    "id": 56,
+    "name": "flights.read",
+    "label": "خواندن پرواز ها",
+    "created_at": "2023-05-22 13:43:40",
+    "updated_at": "2023-05-22 13:43:40"
+  },
+  {
+    "id": 57,
+    "name": "flights.create",
+    "label": "ایجاد پرواز ها",
+    "created_at": "2023-05-22 13:43:40",
+    "updated_at": "2023-05-22 13:43:40"
+  },
+  {
+    "id": 58,
+    "name": "flights.edit",
+    "label": "ویرایش پرواز ها",
+    "created_at": "2023-05-22 13:43:40",
+    "updated_at": "2023-05-22 13:43:40"
+  },
+  {
+    "id": 59,
+    "name": "flights.delete",
+    "label": "حذف پرواز ها",
+    "created_at": "2023-05-22 13:43:40",
+    "updated_at": "2023-05-22 13:43:40"
+  },
+  {
+    "id": 60,
+    "name": "flights.status",
+    "label": "تغییر وضعیت پرواز ها",
+    "created_at": "2023-05-22 13:43:40",
+    "updated_at": "2023-05-22 13:43:40"
+  },
+  {
+    "id": 61,
+    "name": "hotels.read",
+    "label": "خواندن هتل ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 62,
+    "name": "hotels.create",
+    "label": "ایجاد هتل ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 63,
+    "name": "hotels.edit",
+    "label": "ویرایش هتل ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 64,
+    "name": "hotels.delete",
+    "label": "حذف هتل ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 65,
+    "name": "hotels.status",
+    "label": "تغییر وضعیت هتل ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 66,
+    "name": "rooms.read",
+    "label": "خواندن اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 67,
+    "name": "rooms.create",
+    "label": "ایجاد اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 68,
+    "name": "rooms.edit",
+    "label": "ویرایش اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 69,
+    "name": "rooms.delete",
+    "label": "حذف اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 70,
+    "name": "rooms.status",
+    "label": "تغییر وضعیت اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 71,
+    "name": "RoomTypes.read",
+    "label": "خواندن نوع اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 72,
+    "name": "RoomTypes.create",
+    "label": "ایجاد نوع اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 73,
+    "name": "RoomTypes.edit",
+    "label": "ویرایش نوع اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 74,
+    "name": "RoomTypes.delete",
+    "label": "حذف نوع اتاق ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 75,
+    "name": "services.read",
+    "label": "خواندن سرویس ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 76,
+    "name": "services.create",
+    "label": "ایجاد سرویس ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 77,
+    "name": "services.edit",
+    "label": "ویرایش سرویس ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 78,
+    "name": "services.delete",
+    "label": "حذف سرویس ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 79,
+    "name": "rates.read",
+    "label": "خواندن قیمت گذاری ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 80,
+    "name": "rates.create",
+    "label": "ایجاد قیمت گذاری ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 81,
+    "name": "rates.delete",
+    "label": "حذف قیمت گذاری ها",
+    "created_at": "2023-05-22 13:43:45",
+    "updated_at": "2023-05-22 13:43:45"
+  },
+  {
+    "id": 82,
+    "name": "service.read",
+    "label": "خواندن خدمات کارگزار ها",
+    "created_at": "2023-05-24 11:39:06",
+    "updated_at": "2023-05-24 11:39:06"
+  },
+  {
+    "id": 83,
+    "name": "service.create",
+    "label": "ایجاد خدمات کارگزار ها",
+    "created_at": "2023-05-24 11:39:06",
+    "updated_at": "2023-05-24 11:39:06"
+  },
+  {
+    "id": 84,
+    "name": "service.edit",
+    "label": "ویرایش خدمات کارگزار ها",
+    "created_at": "2023-05-24 11:39:06",
+    "updated_at": "2023-05-24 11:39:06"
+  },
+  {
+    "id": 85,
+    "name": "service.delete",
+    "label": "حذف خدمات کارگزار ها",
+    "created_at": "2023-05-24 11:39:06",
+    "updated_at": "2023-05-24 11:39:06"
+  },
+  {
+    "id": 86,
+    "name": "tourServices.read",
+    "label": "خواندن خدمات ها",
+    "created_at": "2023-05-30 12:04:29",
+    "updated_at": "2023-05-30 12:04:29"
+  },
+  {
+    "id": 87,
+    "name": "tourServices.create",
+    "label": "ایجاد خدمات ها",
+    "created_at": "2023-05-30 12:04:30",
+    "updated_at": "2023-05-30 12:04:30"
+  },
+  {
+    "id": 88,
+    "name": "tourServices.edit",
+    "label": "ویرایش خدمات ها",
+    "created_at": "2023-05-30 12:04:30",
+    "updated_at": "2023-05-30 12:04:30"
+  },
+  {
+    "id": 89,
+    "name": "tourServices.delete",
+    "label": "حذف خدمات ها",
+    "created_at": "2023-05-30 12:04:30",
+    "updated_at": "2023-05-30 12:04:30"
+  }
+]

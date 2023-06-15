@@ -4,6 +4,7 @@ import { UserApiService } from './Core/Https/user-api.service';
 import { SessionService } from './Core/Services/session.service';
 import { MessageService } from './Core/Services/message.service';
 import { CheckErrorService } from './Core/Services/check-error.service';
+import { PermitionsService } from './Core/Services/permitions.service';
 
 @Component({
   selector: 'prs-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
 
   constructor(public session: SessionService,
     public userApi: UserApiService,
+    public pemitionService: PermitionsService,
     public api: AuthApiService,
     public messageService: MessageService,
     public checkError: CheckErrorService) {
@@ -40,6 +42,7 @@ export class AppComponent implements OnInit {
       this.api.me().subscribe((res: any) => {
         if (res.isDone) {
           this.session.setUserToSession(res.data);
+          this.pemitionService.permissions = res.data.permissions;
           // this.session.getUserPermission();
         } else {
           this.messageService.custom(res.message);

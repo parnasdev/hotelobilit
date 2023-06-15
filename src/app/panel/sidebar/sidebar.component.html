@@ -1,9 +1,9 @@
 <div class="sidebar">
   <div class="header-sidebar">
-    <h1 class="name-panel">هتل و بلیط</h1>
+    <h1 class="name-panel" routerLink="/" style="cursor: pointer;">هتل و بلیط</h1>
     <button class="toggle-sidebar">
       <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828" viewBox="0 0 8.414 14.828">
+        <svg xmlns="http://www.w3.org/2000/svg"  width="8.414" height="14.828" viewBox="0 0 8.414 14.828">
           <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
             fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
         </svg>
@@ -17,7 +17,7 @@
     </div>
     <ul class="list-sidebar">
       <ng-template  ngFor let-item [ngForOf]="sideBarData" let-index="index">
-        <li class="item-menu" *ngIf="item.children.length == 0 && checkPermission(item.permition)">
+        <li class="item-menu" *ngIf="item.children.length == 0 && permitionService.check(item.permition)">
           <a href="{{ item.link }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
               <path id="Home"
@@ -28,7 +28,7 @@
             <span>{{ item.name }}</span>
           </a>
         </li>
-        <li class="item-menu-collapse" *ngIf="item.children.length > 0 && checkPermission(item.permition)">
+        <li class="item-menu-collapse" *ngIf="item.children.length > 0 && permitionService.check(item.permition)">
           <a class="" data-bs-toggle="collapse" [href]="'#collapseExample' + index" role="button" aria-expanded="false"
             aria-controls="collapseExample">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.028 24.09">
@@ -45,10 +45,11 @@
             </svg>
           </a>
           <div class="collapse" [id]="'collapseExample' + index">
-            <a *ngFor="let child of item.children"  href="{{ child.link }}" class="card card-body">
+            <ng-template  ngFor let-child [ngForOf]="item.children" let-childIndex="index">
+            <a *ngIf="permitionService.check(child.permition)"  href="{{ child.link }}" class="card card-body">
                 {{ child.name }}
             </a>
-
+          </ng-template>
           </div>
         </li>
       </ng-template>

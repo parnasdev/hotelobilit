@@ -2,16 +2,19 @@
   <div class="title">
     <div class="d-flex w-50">
       <h2 class="ml-3">لیست خدمات</h2>
-      <a class="btn-base w-10" routerLink="/panel/services" [queryParams]="{type: 'hotel'}" routerLinkActive="active">هتل</a>
-      <a class="btn-base w-10 mr-5" routerLink="/panel/services" [queryParams]="{type: 'flight'}" routerLinkActive="active">پرواز</a>
+      <a class="btn-base w-10" routerLink="/panel/services" [queryParams]="{type: 'hotel'}"
+        routerLinkActive="active">هتل</a>
+      <a class="btn-base w-10 mr-5" routerLink="/panel/services" [queryParams]="{type: 'flight'}"
+        routerLinkActive="active">پرواز</a>
     </div>
-
-    <a class="btn-add-tour" routerLink="/panel/services/add" [queryParams]="{type: serviceType }">اضافه</a>
+    <a class="btn-add-tour"
+     routerLink="/panel/services/add"
+     *ngIf="permition.check('tourServices.create')"
+      [queryParams]="{type: serviceType }">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
-      <!--      <span class="username">نام کاربر</span>-->
       <span class="title-tour">عنوان خدمت</span>
       <span class="from-to">ایکون</span>
       <span class="setting">تنظیمات</span>
@@ -31,12 +34,14 @@
         <span class="id">{{ i + 1 }}</span>
         <span class="title-tour bold-600">{{ service.name }}</span>
         <span class="title-tour">
-          <img draggable="false" width="50" [src]="service.thumbnail ? service.thumbnail.url : '../../../assets/img/nopicture.jpg'"
-            alt="">
+          <img draggable="false" width="50"
+            [src]="service.thumbnail ? service.thumbnail.url : '../../../assets/img/nopicture.jpg'" alt="">
         </span>
         <div class="button-setting">
-          <a routerLink="/panel/services/edit/{{ service.id }}" class="edit-btn">ویرایش</a>
-          <button (click)="deleteService(service.id)" class="delete-btn">حذف</button>
+          <a routerLink="/panel/services/edit/{{ service.id }}" *ngIf="permition.check('tourServices.edit')"
+            class="edit-btn">ویرایش</a>
+          <button (click)="deleteService(service.id)" *ngIf="permition.check('tourServices.delete')"
+            class="delete-btn">حذف</button>
         </div>
       </div>
     </div>

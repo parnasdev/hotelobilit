@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferAPIService } from "../../Core/Https/transfer-api.service";
 import { MessageService } from "../../Core/Services/message.service";
-import { TransferListDTO, TransferListRequestDTO } from "../../Core/Models/transferDTO";
+import {TransferListRequestDTO } from "../../Core/Models/transferDTO";
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
-import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 
 @Component({
   selector: 'prs-list',
@@ -22,6 +21,7 @@ export class ListComponent {
 
   constructor(public api: CategoryApiService,
     public checkError: CheckErrorService,
+    public permition: PermitionsService,
     public session: SessionService,
     public message: MessageService) {
   }

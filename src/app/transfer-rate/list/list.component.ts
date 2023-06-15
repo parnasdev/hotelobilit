@@ -9,6 +9,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { FilterDTO, FilterPopupComponent } from '../filter-popup/filter-popup.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 
 @Component({
   selector: 'prs-list',
@@ -33,6 +34,7 @@ export class ListComponent implements OnInit {
     public flightApi: FlightApiService,
     public session: SessionService,
     public dialog: MatDialog,
+    public permition: PermitionsService,
     public route: ActivatedRoute,
     public router: Router,
     public checkError: CheckErrorService,

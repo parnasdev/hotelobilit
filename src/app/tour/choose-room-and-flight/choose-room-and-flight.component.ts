@@ -38,6 +38,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     id: 0,
     title: '',
     slug: '',
+    is_domestic: false,
     flights: [],
     titleEn: '',
     location: '',

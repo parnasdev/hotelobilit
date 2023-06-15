@@ -1,10 +1,11 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from "../../Core/Services/message.service";
-import {  TransferListRequestDTO } from "../../Core/Models/transferDTO";
+import { TransferListRequestDTO } from "../../Core/Models/transferDTO";
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ActivatedRoute } from '@angular/router';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 
 @Component({
   selector: 'prs-list',
@@ -17,16 +18,15 @@ export class ListComponent {
   p = 1
   paginate: any;
   paginateConfig: any;
-  isLoading = false
-
+  isLoading = false;
   serviceType = 'hotel';
 
   constructor(public api: CategoryApiService,
     public route: ActivatedRoute,
+    public permition: PermitionsService,
     public checkError: CheckErrorService,
     public session: SessionService,
-    public message: MessageService) {
-  }
+    public message: MessageService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

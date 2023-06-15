@@ -9,6 +9,7 @@ import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 
 @Component({
@@ -27,6 +28,7 @@ export class ReserveInfoComponent {
     public checkErrorService: CheckErrorService,
     public calendarService: CalenderServices,
     public dialog: MatDialog,
+    public permition: PermitionsService,
     public session: SessionService,
     public errorService: ErrorsService,
     public message: MessageService) { }

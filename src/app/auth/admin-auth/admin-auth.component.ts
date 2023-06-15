@@ -6,6 +6,7 @@ import { LoginReqDTO } from 'src/app/Core/Models/AuthDTO';
 
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 @Component({
@@ -31,6 +32,7 @@ export class AdminAuthComponent implements OnInit {
   constructor(public router: Router,
     public route: ActivatedRoute,
     public api: AuthApiService,
+    public pemitionService: PermitionsService,
     public errorService: ErrorsService,
     public messageService: MessageService,
     public session: SessionService
@@ -55,6 +57,8 @@ export class AdminAuthComponent implements OnInit {
         if (res.isDone) {
           this.session.setUserToSession(res.data);
           this.router.navigateByUrl('/panel');
+          this.pemitionService.permissions = res.data.permissions;
+
           // this.session.getUserPermission();
         } else {
           this.messageService.custom(res.message);

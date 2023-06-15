@@ -164,11 +164,11 @@
               </div>
               <div class="info-thumbnail-hotel">
                 <div class="start-info">
-                  <div class="d-flex flex-column align-items-start">
+                  <div *ngIf="hotel.is_domestic" class="d-flex flex-column align-items-start">
                     <h2 class="name-hotel"><a href="">{{ hotel.title }}</a></h2>
                     <h2 class="name-hotel-en"><a href="">{{ hotel.titleEn }}</a></h2>
                   </div>
-                  <div *ngIf="false" class="d-flex flex-column align-items-start">
+                  <div *ngIf="!hotel.is_domestic" class="d-flex flex-column align-items-start">
                     <h2 class="name-hotel"><a href="">{{ hotel.titleEn }}</a></h2>
                     <h2 class="name-hotel-en"><a href="">{{ hotel.title }}</a></h2>
                   </div>

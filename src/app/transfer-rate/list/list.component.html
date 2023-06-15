@@ -12,7 +12,7 @@
       <!-- <input style="margin-right: 8px" [formControl]="keywordFC" (change)="filter()" placeholder="جستجو بر اساس نام هتل" type="text"> -->
       <!-- <button class="ms-2 btn-base btn-search" (click)="filter()">جستجو</button> -->
     </div>
-    <a class="btn-add-tour" routerLink="/panel/transferRate/add">اضافه</a>
+    <a class="btn-add-tour" *ngIf="permition.check('flights.create')" routerLink="/panel/transferRate/add">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
@@ -115,11 +115,11 @@
           <a style="width: 50px !important;" routerLink="/panel/transferRate/serviceRate/{{ transfer.id }}"
             class="edit-btn">خدمات</a>
           <a style="width: 50px !important;" routerLink="/panel/transferRate/single-edit/{{ transfer.id }}"
-            class="edit-btn">ویرایش</a>
+            class="edit-btn" *ngIf="permition.check('flights.edit')">ویرایش</a>
           <a style="width: 50px !important;" routerLink="/panel/transferRate/copy/{{ transfer.id }}"
-            class="copy-btn">کپی</a>
+            class="copy-btn" *ngIf="permition.check('flights.create')">کپی</a>
 
-          <button style="width: 50px !important;" (click)="removeTransferRate(transfer.id)"
+          <button *ngIf="permition.check('flights.delete')" style="width: 50px !important;" (click)="removeTransferRate(transfer.id)"
             class="delete-btn">حذف</button>
         </div>
       </div>

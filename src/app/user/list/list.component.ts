@@ -9,6 +9,7 @@ import { UserReqDTO, UserResDTO } from "../../Core/Models/UserDTO";
 import { AlertDialogComponent, AlertDialogDTO } from "../../common-project/alert-dialog/alert-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { SessionService } from 'src/app/Core/Services/session.service';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 declare var $: any;
 
 @Component({
@@ -35,6 +36,7 @@ export class ListComponent implements OnInit {
     public calService: CalenderServices,
     public dialog: MatDialog,
     public session: SessionService,
+    public permition: PermitionsService,
     public errorService: ErrorsService,
     public message: MessageService) {
   }

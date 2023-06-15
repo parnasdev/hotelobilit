@@ -1,5 +1,5 @@
 <div class="p-info-trip">
-    <div class="d-flex w-100 p-search-agency justify-content-end">
+    <div class="d-flex w-100 p-search-agency justify-content-end" *ngIf="permition.check('reserves.edit')">
         <div class="inp-form w-25">
             <select [formControl]="statusFC" name="" id="">
                 <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>

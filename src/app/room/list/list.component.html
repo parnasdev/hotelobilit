@@ -1,12 +1,11 @@
 <div class="list-tour">
     <div class="title">
       <h2>لیست اتاق ها</h2>
-      <a class="btn-add-tour" routerLink="/panel/rooms/add">اضافه</a>
+      <a class="btn-add-tour" *ngIf="permition.check('rooms.read')" routerLink="/panel/rooms/add">اضافه</a>
     </div>
     <div class="table-list-tour">
       <div class="header-list-tour">
         <span class="id">#</span>
-        <!--      <span class="username">نام کاربر</span>-->
         <span class="title-tour">عنوان اتاق</span>
         <span class="from-to">ظرفیت</span>
         <span class="setting">تنظیمات</span>
@@ -17,8 +16,8 @@
           <span class="title-tour bold-600">{{ room.name }}</span>
           <span class="title-tour">{{ room.Adl_capacity }}</span>
           <div class="button-setting">
-            <a routerLink="/panel/rooms/edit/{{ room.id }}" class="edit-btn">ویرایش</a>
-            <button (click)="deleteRoom(room.id)" class="delete-btn">حذف</button>
+            <a routerLink="/panel/rooms/edit/{{ room.id }}" *ngIf="permition.check('rooms.edit')" class="edit-btn">ویرایش</a>
+            <button *ngIf="permition.check('rooms.delete')" (click)="deleteRoom(room.id)" class="delete-btn">حذف</button>
           </div>
         </div>
       </div>

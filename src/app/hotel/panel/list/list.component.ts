@@ -12,6 +12,7 @@ import {PublicService} from "../../../Core/Services/public.service";
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { storeHotelReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 
 @Component({
   selector: 'prs-list',
@@ -31,7 +32,6 @@ export class ListComponent implements OnInit {
   cityType = false;
   keywordFC = new FormControl('');
   isLoading = false;
-
   paginateConfig: any;
   paginate: any;
   p = 1;
@@ -40,6 +40,7 @@ export class ListComponent implements OnInit {
               public hotelApi: PostApiService,
               public message: MessageService,
               public checkError: ErrorsService,
+              public permition: PermitionsService,
               public cityApiService: CityApiService,
               public commonApi: CommonApiService,
               public session: SessionService,

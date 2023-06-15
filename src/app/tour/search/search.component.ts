@@ -163,8 +163,6 @@ export class SearchComponent implements OnInit, OnChanges {
     })
   }
 
-
-
   openPicker() {
     if (this.reservedDates.length > 0) {
       const dialog = this.dialog.open(PrsDatePickerComponent, {
@@ -178,12 +176,15 @@ export class SearchComponent implements OnInit, OnChanges {
         let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
         if (itemFiltered.length > 0) {
           this.nightFC.setValue(itemFiltered[0].night)
+          this.nights = [];
+          this.nights.push(itemFiltered[0].night)
+
         }
 
       })
     } else {
-      if(this.getDatesLoading ===true) {
-this.message.custom('در حال دریافت اطلاعات  لطفا صبر کنید')
+      if (this.getDatesLoading === true) {
+        this.message.custom('در حال دریافت اطلاعات  لطفا صبر کنید')
       }
       this.message.custom('در این مبدا و مقصد تور تعریف نشده است')
     }

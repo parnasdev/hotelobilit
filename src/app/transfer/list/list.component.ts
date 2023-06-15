@@ -6,6 +6,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
+import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 
 @Component({
   selector: 'prs-list',
@@ -18,9 +19,10 @@ export class ListComponent implements OnInit {
   p = 1
   paginate: any;
   paginateConfig: any;
-isLoading = false;
+  isLoading = false;
   constructor(public api: CategoryApiService,
     public session: SessionService,
+    public permition: PermitionsService,
     public checkError: CheckErrorService,
     public message: MessageService) {
   }
@@ -45,7 +47,6 @@ isLoading = false;
         this.message.custom(res.message);
       }
       this.isLoading = false;
-
     }, (error: any) => {
       this.isLoading = false;
       this.message.error()
