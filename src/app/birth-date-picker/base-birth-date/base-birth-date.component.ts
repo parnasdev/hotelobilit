@@ -16,13 +16,13 @@ export class BaseBirthDateComponent implements OnInit {
   months: string[] = [];
   step = 1;
   constructor(private _bottomSheetRef: MatBottomSheetRef<BaseBirthDateComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public lang: any,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { lang: string, type: string },
     public service: BirthDateDataService) {
-    this.months = lang === 'fa' ? service.monthsFa : service.monthEn
+    this.months = data.lang === 'fa' ? service.monthsFa : service.monthEn
   }
 
   ngOnInit(): void {
-    this.service.generateYear(this.lang);
+    this.service.generateYear(this.data.lang, this.data.type);
     this.service.generateDay();
   }
 
@@ -37,7 +37,7 @@ export class BaseBirthDateComponent implements OnInit {
   onDaySelected(day: number): void {
     this.day = day
     this._bottomSheetRef.dismiss(this.year + '/' +
-      (this.lang === 'fa' ? this.service.getMonthFaNumber(this.month) : this.service.getMonthEnNumber(this.month) ) +
+      (this.data.lang === 'fa' ? this.service.getMonthFaNumber(this.month) : this.service.getMonthEnNumber(this.month)) +
       '/' + this.service.getDayLabel(this.day));
   }
 }

@@ -32,56 +32,70 @@ export class BirthDateDataService {
     'October',
     'November',
     'December'
-];
+  ];
 
-getMonthEnNumber(month: string) {
-  switch (month) {
-    case 'January':
-      return '01';
-    case 'February':
-      return '02';
-    case 'March':
-      return '03';
-    case 'April':
-      return '04';
-    case 'May':
-      return '05';
-    case 'June':
-      return '06';
-    case 'July':
-      return '07';
-    case 'August':
-      return '07';
-    case 'September':
-      return '09';
-    case 'October':
-      return '10';
-    case 'November':
-      return '11';
-    case 'December':
-      return '12';
-    default:
-      return '--'
+  getMonthEnNumber(month: string) {
+    switch (month) {
+      case 'January':
+        return '01';
+      case 'February':
+        return '02';
+      case 'March':
+        return '03';
+      case 'April':
+        return '04';
+      case 'May':
+        return '05';
+      case 'June':
+        return '06';
+      case 'July':
+        return '07';
+      case 'August':
+        return '07';
+      case 'September':
+        return '09';
+      case 'October':
+        return '10';
+      case 'November':
+        return '11';
+      case 'December':
+        return '12';
+      default:
+        return '--'
+    }
+
   }
 
-}
 
-
-  generateYear(lang = 'fa') {
+  generateYear(lang = 'fa', type: string = 'before') {
+    
     this.years = []
-    if (lang == 'fa') {
-      for (let i = 1299; i < 1402; i++) {
-        this.years.push(i);
+    if (type === 'before') {
+      if (lang == 'fa') {
+        for (let i = 1299; i < 1402; i++) {
+          this.years.push(i);
+        }
+      } else {
+        for (let i = 1900; i < 2023; i++) {
+          this.years.push(i);
+        }
       }
     } else {
-      for (let i = 1900; i < 2023; i++) {
-        this.years.push(i);
+      if (lang == 'fa') {
+        for (let i = 1402; i < 1450; i++) {
+          this.years.push(i);
+        }
+      } else {
+        for (let i = 2023; i < 2050; i++) {
+          this.years.push(i);
+        }
       }
     }
+
   }
 
   generateDay() {
-    this.days=[]
+    this.days = []
     for (let i = 1; i <= 31; i++) {
       this.days.push(i);
     }

@@ -117,7 +117,7 @@
               تاریخ تولد
             </label> -->
             <div class="mt-2">
-              <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
+              <prs-birth-date-picker [lang]="'en'" [type]="'after'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
             </div>
             <ng-container *ngIf="hasError(i, 'expired_passport')">
               <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>
@@ -229,7 +229,7 @@
               تاریخ تولد
             </label> -->
             <div class="mt-2 w-100">
-              <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
+              <prs-birth-date-picker [lang]="'en'" [name]="'انقضای پاسپورت'" [type]="'after'" (sendDate)="getExpired_passport(i, $event)"></prs-birth-date-picker>
             </div>
             <ng-container *ngIf="hasError(i, 'expired_passport')">
               <span class="text-error text-danger">{{ getError(i, 'expired_passport') }}</span>

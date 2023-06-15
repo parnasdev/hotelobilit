@@ -12,6 +12,8 @@ import { FormControl } from '@angular/forms';
 export class BirthDatePickerComponent implements OnInit {
   dateFC = new FormControl()
   @Input() lang = 'fa';
+  @Input() type = 'before';   // before of after
+
   @Input() name = 'تاریخ تولد'
   @Output() sendDate = new EventEmitter();
   constructor(public route: ActivatedRoute,
@@ -23,7 +25,10 @@ export class BirthDatePickerComponent implements OnInit {
 
   openBottomSheet(): void {
     this._bottomSheet.open(BaseBirthDateComponent,
-      { data: this.lang}
+      { data:{
+        lang: this.lang,
+        type: this.type
+      } }
     ).afterDismissed().subscribe((result) => {
       if (result) {
         this.sendDate.emit(result)
