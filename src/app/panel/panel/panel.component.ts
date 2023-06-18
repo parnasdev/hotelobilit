@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {SettingService} from "../../Core/Services/setting.service";
-import { SessionService } from 'src/app/Core/Services/session.service';
+import {SessionService} from 'src/app/Core/Services/session.service';
+import {ResponsiveService} from "../../Core/Services/responsive.service";
 
 declare let $: any;
 
@@ -12,10 +13,17 @@ declare let $: any;
 })
 export class PanelComponent implements OnInit {
   isDarkMode = false;
+  isLoading = false;
+  isTablet = false;
+  isDesktop = false;
+  isSidebarMobi = false;
 
   constructor(public title: Title,
-    public session: SessionService,
+              public session: SessionService,
+              public responsiveService: ResponsiveService,
               public setting: SettingService) {
+    this.isTablet = responsiveService.isTablet();
+    this.isDesktop = responsiveService.isDesktop();
   }
 
   ngOnInit(): void {
@@ -44,7 +52,11 @@ export class PanelComponent implements OnInit {
     this.title.setTitle('پنل کاربری هتل و بلیط')
   }
 
-  darkMode():any {
-    this.isDarkMode=!this.isDarkMode
+  darkMode(): any {
+    this.isDarkMode = !this.isDarkMode
+  }
+
+  sidebarMobi() {
+    this.isSidebarMobi = !this.isSidebarMobi
   }
 }

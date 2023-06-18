@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
 
   isLoading = false;
   isTablet = false;
+  isDesktop = false;
   userId = 0;
   isMenu = false;
   show = false;
@@ -37,6 +38,7 @@ export class SidebarComponent implements OnInit {
     public checkError: CheckErrorService) {
 
     this.isTablet = responsiveService.isTablet();
+    this.isDesktop = responsiveService.isDesktop();
     $(document).ready(() => {
       $(
         ".menu-main-1").click(() => {

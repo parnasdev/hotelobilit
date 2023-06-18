@@ -164,3 +164,11 @@
   }
 }
 
+@media only screen and (max-width: 868px){
+  .sidebar{
+    border-radius: 10px !important;
+  }
+  .toggle-sidebar{
+    display: none !important;
+  }
+}

@@ -1,7 +1,7 @@
 <section class="s-panel" style="background: #f2f2f2">
   <div class="p-panel">
     <div class="panel">
-      <button class="toggle-sidebar-open">
+      <button *ngIf="isDesktop" class="toggle-sidebar-open">
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" width="8.414" height="14.828" viewBox="0 0 8.414 14.828">
             <path id="Right_Arrow_1" data-name="Right Arrow 1" d="M1,1,7,7,1,13" transform="translate(0.414 0.414)"
@@ -10,7 +10,10 @@
         </span>
       </button>
 
-      <div class="p-sidebar">
+      <div *ngIf="isDesktop" class="p-sidebar">
+        <prs-sidebar></prs-sidebar>
+      </div>
+      <div *ngIf="isSidebarMobi" class="p-sidebar">
         <prs-sidebar></prs-sidebar>
       </div>
       <main class="main">
@@ -27,7 +30,7 @@
             <input type="text" placeholder="جستجو کنید....">
           </div>
           <div class="option-header">
-            <button (click)="darkMode()" class="dark-mode">
+            <button *ngIf="isDesktop"  (click)="darkMode()" class="dark-mode">
               <svg *ngIf="!isDarkMode" id="Moon_2" data-name="Moon 2" xmlns="http://www.w3.org/2000/svg" width="24"
                 height="24.998" viewBox="0 0 24 24.998">
                 <path id="Path_514" data-name="Path 514"
@@ -62,7 +65,7 @@
               </svg>
 
             </button>
-            <button class="notification">
+            <button *ngIf="isDesktop" class="notification">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="22.011" viewBox="0 0 25 22.011">
                 <g id="Megaphone" transform="translate(0 0.005)">
                   <path id="Path_1020" data-name="Path 1020"
@@ -81,7 +84,7 @@
               </div>
               <small>{{ session.getName() ?? '' }}</small>
             </div>
-
+            <a *ngIf="isTablet" (click)="sidebarMobi()"  class="btn-menu-sidebar"><i class="icon-menu text-dark f-18"></i></a>
           </div>
 
         </header>

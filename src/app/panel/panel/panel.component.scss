@@ -239,7 +239,7 @@ input {
     }
   }
 
-  .item-menu-collapse ,.item-menu {
+  .item-menu-collapse, .item-menu {
     &:hover {
       background: $base-color-two-dark !important;
 
@@ -247,27 +247,30 @@ input {
         color: $text-color-dark;
       }
     }
-    .card-body{
+
+    .card-body {
       background: $base-color-three;
       margin-top: 12px !important;
       color: $text-color-dark !important;
     }
   }
-  .btn-base{
+
+  .btn-base {
     background: unset !important;
     color: $white-color !important;
     border-radius: 4px !important;
   }
 
 }
-:host::ng-deep .card-body{
+
+:host::ng-deep .card-body {
   background: $base-color-three !important;
   margin-top: 12px !important;
   color: $white-color !important;
 }
 
 ::-webkit-scrollbar-track {
- display: none !important;
+  display: none !important;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -277,47 +280,53 @@ input {
 ::-webkit-scrollbar {
   display: none !important;
 }
-.shimmer-3{
+
+.shimmer-3 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-2{
+
+.shimmer-2 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-4{
+
+.shimmer-4 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-5{
+
+.shimmer-5 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.shimmer-6{
+
+.shimmer-6 {
   display: grid;
   place-items: center;
   gap: 20px;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  padding: 4px  8px;
+  padding: 4px 8px;
 }
-.item-shimmer{
+
+.item-shimmer {
   width: 100%;
   height: 50px;
   background: #c6c6c629;
@@ -325,18 +334,66 @@ input {
   border-radius: 2px;
 
 }
+
 @keyframes shimmers {
-  0%{
+  0% {
     background: #c6c6c629;
   }
-  25%{
+  25% {
     background: #c6c6c6;
   }
-  50%{
+  50% {
     background: #c6c6c629;
   }
-  100%{
+  100% {
     background: #c6c6c6;
   }
 }
 
+@media only screen and (max-width: 868px) {
+  .p-sidebar{
+    width: 93% !important;
+    right: unset !important;
+    top: 100px !important;
+  }
+  .option-header{
+    align-items: flex-start !important;
+  }
+  .btn-menu-sidebar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: $base-color;
+  }
+  .main {
+    width: 100% !important;
+    right: unset !important;
+    padding: 0 !important;
+
+    .header-panel {
+      padding: 0 14px !important;
+      margin-bottom: 1rem !important;
+    }
+  }
+  ::ng-deep .search-box-hotel {
+    display: grid !important;
+    width: 100% !important;
+    gap: 12px !important;
+    grid-template-columns: 1fr;
+
+    .item-info-2 {
+      width: 100% !important;
+    }
+
+    input {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .btn-search {
+      width: 100% !important;
+    }
+  }
+}
