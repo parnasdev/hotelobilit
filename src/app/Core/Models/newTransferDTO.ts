@@ -27,6 +27,7 @@ export interface transferRateListDTO {
     destination_name: string
     destination_id: number;
     airline_name: string;
+    reserve_capacity: number;
     airline_id: number;
     airline_thumb: any
     cities?: any

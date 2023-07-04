@@ -66,7 +66,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatDialogModule,
     MatButtonToggleModule,
     FormsModule,
-    MatButtonToggleModule,
     ReactiveFormsModule,
     MatCheckboxModule,
     PipesModule,

@@ -141,15 +141,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       if (res.isDone) {
         this.hotelInfo = res.data;
         this.convertData(this.hotelInfo.flights);
-        console.log(this.data);
-
-
-        // this.paginate = res.meta;
-        // this.paginateConfig = {
-        //   itemsPerPage: this.paginate.per_page,
-        //   totalItems: this.paginate.total,
-        //   currentPage: this.paginate.current_page
-        // }
 
       } else {
         this.message.custom(res.message);
@@ -358,7 +349,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   getRoomPrice(rates: RateDTO[], roomIndex: number, flightID: number, type = 'adl'): number {
-
     let price = 0;
     let flightFiltred = this.hotelInfo.flights.filter(x => x.id === flightID)
     let flightPrice = type === 'adl' ? (flightFiltred.length > 0 ? flightFiltred[0].adl_price : 0) : (flightFiltred.length > 0 ? flightFiltred[0].chd_price : 0);
