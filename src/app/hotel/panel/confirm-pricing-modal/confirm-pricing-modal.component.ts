@@ -33,7 +33,8 @@ export class ConfirmPricingModalComponent implements OnInit {
   bedPriceFC = new FormControl();
   offerBedPriceFC = new FormControl();
   checkin_base = false
-  req!: HotelRatesSetReqDTO;
+  not_checkin_base = false;
+  req!: any;
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmPriceReqDTO,
     public api: PostApiService,
@@ -43,8 +44,6 @@ export class ConfirmPricingModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data.currency_code
-    this.bedCountFC.setValue(this.data.bedCount)
   }
 
   submit() {
@@ -55,15 +54,22 @@ export class ConfirmPricingModalComponent implements OnInit {
     this.req = {
       date_from: moment(this.data.checkin.dateEn).format('YYYY-MM-DD'),
       date_to: moment(this.data.checkout.dateEn).format('YYYY-MM-DD'),
+      type: this.data.type,
+      checkin_base: this.not_checkin_base ? false : this.offerPriceFC.value ? true : null,
       available_room_count: this.capacityFC.value,
       extra_bed_count: this.bedCountFC.value ? +this.bedCountFC.value : null,
-      price: this.priceFC.value ? +this.priceFC.value : null,
-      type: this.data.type,
+      price: this.priceFC.value !== null ? +this.priceFC.value : null,
       chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : null,
-      extra_price: this.bedPriceFC.value ? +this.bedPriceFC.value : null,
+      extra_price: this.bedPriceFC.value !== null ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
-      checkin_base: this.checkin_base,
-      offer_price: this.checkin_base? this.offerPriceFC.value : null,
+      offer_price: this.checkin_base ? this.offerPriceFC.value : null,
+    }
+    this.req = {
+      ...Object.fromEntries(
+        Object.entries(this.req).filter(
+          ([key, value]) => (value != null)
+        )
+      )
     }
 
     this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {

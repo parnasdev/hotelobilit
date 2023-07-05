@@ -187,8 +187,8 @@ body {
       margin-top: 12px;
 
       .label-capacity {
-        width: 20px;
-        height: 20px;
+        width: 17px;
+        height: 17px;
         border-radius: 50%;
         display: grid;
         place-items: center;
@@ -197,8 +197,21 @@ body {
         color: var(--white);
         font-size: 13px;
         position: absolute;
-        left: -5px;
-        top: -5px;
+        left: 1px;
+        top: 1px;
+      }
+      .label-extra {
+        width: 30px;
+        height: 15px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        // background: #2d8874;
+        color: #2d8874;
+        font-size: 10px;
+        position: absolute;
+        left: 2px;
+        bottom: 2px;
       }
 
       .item {
@@ -219,6 +232,16 @@ body {
           background: $base-color;
           color: $white-color;
           transition: 0.3s all;
+        }
+
+        .p-icon-circle-extra {
+          position: absolute;
+          left: 2px;
+          bottom: 2px;
+        }
+
+        .icon-circle-extra {
+          color: #259548!important;
         }
 
         .p-icon-circle {

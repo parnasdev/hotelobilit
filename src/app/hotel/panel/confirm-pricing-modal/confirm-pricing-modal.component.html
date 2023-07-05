@@ -49,6 +49,11 @@
       <label for="">چکین بیس شود ؟</label>
       <mat-checkbox [(ngModel)]="checkin_base"></mat-checkbox>
     </div>
+
+    <div class="d-flex flex-column">
+      <label for="">چکین بیس نشود ؟</label>
+      <mat-checkbox [(ngModel)]="not_checkin_base"></mat-checkbox>
+    </div>
   
 
     <div class="w-48 d-flex flex-column align-items-end" *ngIf="checkin_base">

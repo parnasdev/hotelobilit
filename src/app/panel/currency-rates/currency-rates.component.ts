@@ -58,7 +58,6 @@ export class CurrencyRatesComponent implements OnInit {
 
 
   getAdminCurrencies() {
-
     let req = {
       "names": ["currencies"]
     }
@@ -66,7 +65,6 @@ export class CurrencyRatesComponent implements OnInit {
       if (res.isDone) {
         this.adminCurrencies = res.data.currencies;
         this.setAdminData();
-
       } else {
         this.message.custom(res.message);
       }
@@ -121,7 +119,6 @@ export class CurrencyRatesComponent implements OnInit {
       }
     }, (error: any) => {
       this.checkErrorService.check(error);
-
       this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
     })
   }

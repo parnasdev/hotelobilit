@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MessageService} from "../../Core/Services/message.service";
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
@@ -66,22 +66,27 @@ export class AddComponent {
   }
 
   submit(): void {
-    this.setReq()
-    this.api.storeCategory('airport', 'hotel', this.req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.router.navigateByUrl('/panel/airport');
-      }else {
-        this.message.custom(res.message);
-      }
-    },(error:any) => {
-      this.message.error()
-      this.checkError.check(error)
+    if(this.destCityFC.value) {
+      this.setReq()
+      this.api.storeCategory('airport', 'hotel', this.req).subscribe((res: any) => {
+        if (res.isDone) {
+          this.router.navigateByUrl('/panel/airport');
+        }else {
+          this.message.custom(res.message);
+        }
+      },(error:any) => {
+        this.message.error()
+        this.checkError.check(error)
+  
+      })
+    }else {
+      this.message.custom('لطفا شهر را وارد کنید');
+    }
 
-    })
   }
 
   setReq(): void {
-    debugger
+    
     this.req = {
       parent_id: this.destCityFC.value,
       code: this.codeFC.value,

@@ -64,6 +64,10 @@ export class AdminAuthComponent implements OnInit {
           this.messageService.custom(res.message);
         }
       }, (error: any) => {
+        if(error.status === 401) {
+          this.session.removeUser();
+          this.router.navigateByUrl('/auth');
+        }
       });
     }
   }

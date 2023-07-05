@@ -309,7 +309,6 @@ export class MainPickerComponent implements OnInit {
       const y: any = moment(item).format('YYYY/MM/DD')
       if (this.daysOfMonth.length > 0) {
         let result = this.pricesData.rates.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
-        console.log(result)
         return result.length > 0 ? {
           available_room_count: result[0].available_room_count,
           created_at: result[0].created_at,

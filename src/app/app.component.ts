@@ -5,6 +5,7 @@ import { SessionService } from './Core/Services/session.service';
 import { MessageService } from './Core/Services/message.service';
 import { CheckErrorService } from './Core/Services/check-error.service';
 import { PermitionsService } from './Core/Services/permitions.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'prs-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
     public userApi: UserApiService,
     public pemitionService: PermitionsService,
     public api: AuthApiService,
+    public router: Router,
     public messageService: MessageService,
     public checkError: CheckErrorService) {
   }
@@ -48,6 +50,10 @@ export class AppComponent implements OnInit {
           this.messageService.custom(res.message);
         }
       }, (error: any) => {
+        if(error.status === 401) {
+          this.session.removeUser();
+          this.router.navigateByUrl('/auth');
+        }
       });
     }
   }
