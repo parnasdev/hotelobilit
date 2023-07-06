@@ -102,11 +102,14 @@ export class HotelListComponent implements OnInit {
       if (res.isDone) {
         this.hotels = res.data;
         this.paginate = res.meta;
-        this.paginateConfig = {
-          itemsPerPage: this.paginate.per_page,
-          totalItems: this.paginate.total,
-          currentPage: this.paginate.current_page
+        if(this.paginate) {
+          this.paginateConfig = {
+            itemsPerPage: this.paginate.per_page,
+            totalItems: this.paginate.total,
+            currentPage: this.paginate.current_page
+          }
         }
+
       } else {
         this.message.custom(res.message);
       }

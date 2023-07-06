@@ -7,8 +7,13 @@ import * as moment from 'jalali-moment';
 export class ConvertDatePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    let MomentDate = moment(value, 'YYYY/MM/DD');
-    return MomentDate.locale('fa').format('YYYY/M/D');
+    if (value) {
+      let MomentDate = moment(value, 'YYYY/MM/DD');
+      return MomentDate.locale('fa').format('YYYY/M/D');
+    } else {
+      return '---'
+    }
+
   }
 
 }

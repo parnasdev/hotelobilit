@@ -86,23 +86,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     );
   }
 
-  // getSearchData(): void {
-  //   this.setReq();
-  //   this.api.search('flights', this.req).subscribe((res: any) => {
-  //     if (res.isDone) {
-  //       this.paginate = res.meta;
-  //       this.paginateConfig = {
-  //         itemsPerPage: this.paginate.per_page,
-  //         totalItems: this.paginate.total,
-  //         currentPage: this.paginate.current_page
-  //       }
-  //     } else {
-  //       this.message.custom(res.message);
-  //     }
-  //   }, (error: any) => {
-  //     this.message.error()
-  //   })
-  // }
 
   roomCollapse() {
     this.isRoom = !this.isRoom
@@ -121,10 +104,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   //       })
   //     }
 
-  //   }else {
+  //   } else {
   //     roomPrices = 0
   //   }
-
   //   return roomPrices + price;
   // }
 
@@ -140,7 +122,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     this.api.searchHotelInfo('hotels', this.slug, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.hotelInfo = res.data;
-        this.convertData(this.hotelInfo.flights);
+
+        this.convertData();
+
 
       } else {
         this.message.custom(res.message);
@@ -154,8 +138,9 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     })
   }
 
-  convertData(flights: transferRateListDTO[]) {
-    flights.forEach(flight => {
+  convertData() {
+    let rooms = this.hotelInfo.rooms;
+    this.hotelInfo.flights.forEach(flight => {
       let obj: ChooseTourListDTO = {
         id: flight.id,
         origin_name: flight.origin_name,
@@ -175,24 +160,40 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         capacity: flight.capacity,
         is_close: flight.is_close,
         description: flight.description,
-        rooms: this.hotelInfo.rooms,
+        rooms: rooms,
         checkin: this.getCheckin(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.date),
         checkout: this.getCheckout(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.flight.date),
         selectedRooms: []
       }
       this.data.push(obj)
     })
+
   }
 
-
-  getFlightRooms(rooms: RoomDTO[], flightID: number, checkin_tomorrow: boolean, checkout_yesterday: boolean): RoomDTO[] {
+  getFlightRooms(rooms: RoomDTO[], checkin_tomorrow: boolean, checkout_yesterday: boolean): RoomDTO[] {
     rooms.forEach(x => {
-      x.rates = x.rates
-
+      x.rates = this.convertRates(x.rates, checkin_tomorrow, checkout_yesterday)
     })
     return rooms;
   }
+  convertRates(rates: RateDTO[], checkin_tomorrow: boolean, checkout_yesterday: boolean): RateDTO[] {
+    // debugger
+    if (checkin_tomorrow && !checkout_yesterday) {
+      rates.splice(0, 1)
+      return rates;
+    } else if (!checkin_tomorrow && checkout_yesterday) {
+      rates.splice(rates.length - 1, 1)
+      return rates;
+    } else if (checkin_tomorrow && checkout_yesterday) {
+      rates.splice(0, 1)
+      rates.splice(rates.length - 1, 1)
+      return rates;
+    } else {
+      rates.splice(rates.length - 1, 1)
+      return rates
+    }
 
+  }
   getCheckin(checkin: boolean, checkout: boolean, date: string): string {
     if (checkin && !checkout) {
       return moment(date, 'YYYY-MM-DD').add(1, 'days').format('jYYYY/jMM/jDD');
@@ -250,6 +251,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     } else {
       price = 0;
     }
+
     return price
   }
 
@@ -257,14 +259,17 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getRatesPrice(rates: RateDTO[], type = 'price', roomIndex: number, flightID: number): any {
     let price = 0
-
     if (type === 'price') {
-      rates.forEach(rate => {
-        price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+      rates.forEach((rate, index) => {
+        if (index < rates.length - 1) {
+          price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        }
       })
     } else {
-      rates.forEach(rate => {
-        price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+      rates.forEach((rate, index) => {
+        if (index < rates.length - 1) {
+          price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        }
       })
     }
     return price;
@@ -272,7 +277,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
 
   plus(roomIndex: number, flightIndex: number) {
-
     if (this.checkFlightCapacity(flightIndex, roomIndex)) {
       let capacity = this.getRoomCapacity(this.data[flightIndex].rooms[roomIndex].rates, flightIndex);
       if ((this.data[flightIndex].rooms[roomIndex].count ?? 0) < capacity) {
