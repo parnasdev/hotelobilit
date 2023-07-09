@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, EventEmitter, Output, OnChanges, SimpleChanges} from '@angular/core';
-import {HotelListResponseDTO, HotelRequestDTO} from "../../Core/Models/hotelDTO";
+import {HotelListResponseDTO} from "../../Core/Models/hotelDTO";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
@@ -16,6 +16,7 @@ export class SelectSearchComponent {
   @Input() airports: any[] =  [];
   @Input() inCommingAirport : any
   @Input() isAdmin = false
+  @Input() placeHolder = 'انتخاب کنید'
   isLoading = false;
   constructor(
     public hotelApi: HotelApiService,

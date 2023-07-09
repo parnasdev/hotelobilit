@@ -24,6 +24,8 @@ export class TransferServiceComponent implements OnInit {
   show = false;
   airportId: number = 0;
   categoryId: number = 0;
+  categoryName: string = '';
+
   airportsSelected: serviceSetReq[] = []
   services: any[] = [];
   rateServices: any[] = [];
@@ -93,6 +95,7 @@ export class TransferServiceComponent implements OnInit {
 
   getServiceSelected(event: any){
     this.categoryId = event.id;
+    this.categoryName = event.name
   }
 
   submit() {
