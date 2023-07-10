@@ -146,23 +146,28 @@ export class CompleteReservationComponent implements OnInit {
   }
 
 
-  getCurrencyRate(code: string, roomIndex: number): number {
-    let currencies = this.data.rooms[roomIndex].currencies;
-    if (currencies) {
-      switch (code) {
-        case 'toman':
-          return currencies.toman;
-        case 'dollar':
-          return currencies.dollar;
-        case 'euro':
-          return currencies.euro;
-        case 'derham':
-          return currencies.derham;
-        default:
-          return 0
+  getCurrencyRate(code: string, roomId: number): number {
+    let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
+    if (roomFiltered.length > 0) {
+      let currencies = roomFiltered[0].currencies;
+      if (currencies) {
+        switch (code) {
+          case 'toman':
+            return currencies.toman;
+          case 'dollar':
+            return currencies.dollar;
+          case 'euro':
+            return currencies.euro;
+          case 'derham':
+            return currencies.derham;
+          default:
+            return 0
+        }
+      } else {
+        return 0;
       }
     } else {
-      return 0;
+      return 0
     }
   }
   getRoomCount() {
@@ -176,22 +181,30 @@ export class CompleteReservationComponent implements OnInit {
     })
     return count
   }
-  getRoomPrice(roomIndex: number): number {
+  getRoomPrice(roomId: number): number {
     let price = 0;
-    this.data.rooms[roomIndex].rates.forEach((rate: any) => {
-      price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
-    })
+    let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
+    if (roomFiltered.length > 0) {
+      roomFiltered[0].rates.forEach((rate: any) => {
+        price += rate.price * this.getCurrencyRate(rate.currency_code, roomId);
+      })
+    }
+
     return price
   }
 
 
 
 
-  getExtraBedPrice(roomIndex: number): number {
+  getExtraBedPrice(roomId: number): number {
     let price = 0;
-    this.data.rooms[roomIndex].rates.forEach((rate: any) => {
-      price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+    let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
+    if (roomFiltered.length > 0) {
+    
+    roomFiltered[0].rates.forEach((rate: any) => {
+      price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomId);
     })
+  }
     return price
   }
 
@@ -205,7 +218,7 @@ export class CompleteReservationComponent implements OnInit {
       if (x.length > 0) {
         for (let i = 0; i < room.count; i++) {
           x[0].options = room;
-          x[0].totalPrice = this.getRoomPrice(index)
+          x[0].totalPrice = this.getRoomPrice(room.room_id)
           x[0].totalExtraPrice = this.getExtraBedPrice(index)
           this.roomsSelected.push(x[0]);
         }
