@@ -144,7 +144,7 @@ export class EditComponent extends AddComponent implements OnInit {
       }
     }, (error: any) => {
       if (error.status == 422) {
-        this.errorService.recordError(error.error.data);
+        this.errorService.recordError(error.error.errors);
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
       } else {
         this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
