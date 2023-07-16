@@ -34,7 +34,7 @@
       </div>
     </div>
     <div style="background:#fff;border:1px solid #e0e0e0" class="info-tour-body">
-      <div class="top">
+      <div style="align-items: flex-start !important;" class="top ">
         <!-- title field -->
         <div class="item-info">
           <label for="">عنوان تور</label>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <!-- on field -->
-        <div class="item-info-2">
+        <div class="item-info-2 item-info-material">
           <div class="select-info">
 
             <label for="">شهر مبدا</label>
@@ -55,7 +55,7 @@
           </div>
         </div>
         <!-- destination field -->
-        <div class="item-info">
+        <div class="item-info item-info-material">
           <div class="select-info">
             <label for="">شهر مقصد</label>
             <prs-select-city [cities]="cities" (citySelected)="getEndCity($event)"></prs-select-city>
@@ -91,9 +91,9 @@
         </div>
 
         <!-- nightNum field -->
-        <div class="item-info-2">
+        <div style="transform: translateY(3px)" class="item-info">
           <div class="select-info">
-            <label for="">تعداد شب</label>
+            <label style="margin-bottom: 15px !important;" for="">تعداد شب</label>
             <span class="number-day-text">{{night_numFC.value}}</span>
             <div *ngIf="errorService.hasError('night_num')">
               <span class="text-danger">{{errorService.getError('night_num')}}</span>

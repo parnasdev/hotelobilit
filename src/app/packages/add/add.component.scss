@@ -1,5 +1,10 @@
 @import "src/assets/css/varible";
-
+mat-form-field{
+  width: 100% !important;
+}
+::ng-deep .mat-mdc-text-field-wrapper{
+  padding: 0 !important;
+}
 .add-tour {
   width: 100%;
   display: flex;
@@ -963,4 +968,15 @@ prs-select-hotel {
   // box-shadow: $box-shadow;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding:12px;
+}
+
+:host::ng-deep .item-info-material input{
+  border: 1px solid #e0e0e0 !important;
+  height: 40px !important;
+  position: relative;
+  top: -15px !important;
+}
+:host::ng-deep .item-info-material img{
+  left: 3px !important;
+  top: 17px !important;
 }
