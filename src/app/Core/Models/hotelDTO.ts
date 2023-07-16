@@ -1,5 +1,5 @@
 import { CityResponseDTO } from "./cityDTO";
-import { TourListResDTO, newTourPackageInfoDTO } from "./tourDTO";
+import { TourListResDTO, hotelRates, newTourPackageInfoDTO } from "./tourDTO";
 
 export interface HotelSetRequestDTO {
   name: string;
@@ -93,9 +93,14 @@ export interface HotelRequestDTO {
   paginate: boolean
   perPage?: number
   hasTour?: boolean;
-  category: number | string | null;
+  city: number | string | null;
   search: string | null;
+
+  withRate?: boolean;
+  fromDate?: string | null;
+  toDate?: string | null;
 }
+
 
 export interface SetHotelPackageDTO {
   title: string;
@@ -134,20 +139,22 @@ export interface PackageDTO {
 
 }
 
+
 export interface HotelListResponseDTO {
   id: number
   name: string
   nameEn: string
   slug: string
   keyword: string
+  hotelRates: hotelRates[]
   slugEn: string
   stars: string
+  isPricing?: boolean;
   thumbnail: string
   city: string
   location: string
-
+  rooms: RoomTypeDTO[]
 }
-
 export interface ServiceDTO {
   id: number;
   name: string;

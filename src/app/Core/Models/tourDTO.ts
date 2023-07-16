@@ -1,5 +1,5 @@
 import { CityDTO, CityResponseDTO } from "./cityDTO";
-import { ServicesDTO } from "./hotelDTO";
+import { RoomTypeDTO, ServicesDTO } from "./hotelDTO";
 import { RoomTypePriceDTO } from "./roomTypeDTO";
 import { UserResDTO } from "./UserDTO";
 
@@ -32,27 +32,24 @@ export interface TourRequestV2DTO {
 }
 
 export interface TourListResDTO {
-  title: string;
-  createdAt: string;
-  id?: number
-  dayNum: number;
-  defineTour?: Boolean;
-  endCity: CityTourInfoDTO;
-  expireDate: string;
-  minPrice: string;
-  nightNum: number;
-  offered: string;
-  slug: string;
-  transfers: TourTransferDTO[];
-  stCity: CityDTO;
-  status: string;
+  checkin: string;
+  checkout: string
+  day_num: number
+  destination_id: number
+  destination_name: string
+  expired_at: string
+  id: number
+  night_num: number
+  origin_id: number
+  origin_name: string
+  status: any
+  title: string
+  tour_type: boolean
   user: {
-    name: string;
-    family: string;
-    agency?: string;
-    phone?: string;
+    agency_name: string
+    full_name: string
+    id: number
   };
-  viewCount: 0;
 }
 
 export interface TourSetRequestDTO {
@@ -95,7 +92,6 @@ export interface TourInfoDTO {
   ADLFlightRate: string;
   transferType: string;
   dayNum: number;
-  minPrice: string
   defineTour: boolean;
   description: string;
   documents: string;
@@ -116,6 +112,7 @@ export interface TourInfoDTO {
   status: string;
   title: string;
   transfers: TourTransferDTO[];
+  newTransfers: [];
   transferPriceType: number;
   transferRate: number;
   type: boolean;
@@ -127,6 +124,8 @@ export interface TourInfoDTO {
   visaPriceType: number;
   visaRate: number;
   tours: TourListResDTO[];
+  minPrice: string;
+  viewCount: number;
 }
 
 export interface TourPackageDTO {
@@ -391,65 +390,50 @@ export interface RoomDTO {
 
 export interface TourSetDTO {
   title: string;
-  slug: string;
-  stCity_id: string;
-  endCity_id: string;
-  nightNum: string;
-  dayNum: string;
-  transferType: number;
-  transfers: any[]
-  offered: boolean;
-  TransferType: string;
-  transferIds: number[]
-  enDate: string;
-  stDate: string;
-  type: boolean;
-  expireDate: string;
-  CHDFlightRate: string;
-  ADLFlightRate: string;
-  defineTour: boolean;
-  euroRate: string;
-  dollarRate: string;
-  AEDRate: string;
-  visaRate: string;
-  visaPriceType: number;
-  insuranceRate: string;
-  transferPriceType: number
-  transferRate: string;
-  insurancePriceType: number
-  services: string;
-  documents: string;
-  description: string;
-  status: string;
-  packages: any[]
+  origin_id: number
+  destination_id: number
+  night_num: number
+  day_num: number
+  tour_type: number
+  checkin: string
+  checkout: string
+  expired_at: string
+  status_id: number
+  flights: number[]
+  packages: PackageTourDTO[]
+}
 
-  
+export interface PackageTourDTO {
+  hotel_id: number;
+  order_item: number;
+  id?: number;
+  offered: boolean
 }
 
 export interface newTourDTO {
-agency: string;
-dayNum: number;
-defineTour: boolean;
-enDate: string;
-endCity: CityResponseDTO; 
-stCity: CityResponseDTO;
-isTrash: number;
-newTransfers: newTransfersDTO[]
-nightNum: number;
-slug: string;
-stDate: string;
-status: string;
-title: string;
-transfers: any[];
-type: boolean;
+  agency: string;
+  dayNum: number;
+  defineTour: boolean;
+  enDate: string;
+  endCity: CityResponseDTO;
+  stCity: CityResponseDTO;
+  isTrash: number;
+  newTransfers: newTransfersDTO[]
+  nightNum: number;
+  slug: string;
+  stDate: string;
+  status: string;
+  title: string;
+  transfers: any[];
+  type: boolean;
 }
 
 export interface TransferDTO {
-id: number;
-logo: string;
-logo_path: string;
-name: string;
-type: {id: number, name: string}
+  id: number;
+  logo: string;
+  logo_path: string;
+  name: string;
+  type: { id: number, name: string }
 }
 
 export interface newTourPackageInfoDTO {
@@ -469,6 +453,7 @@ export interface newTourPackageDTO {
   hotel_id: number;
   order_item: number;
   offered: boolean;
+  hotel_slug: string;
   services: string;
   rate: number;
   prices: PricesDTO;
@@ -476,38 +461,35 @@ export interface newTourPackageDTO {
   tour?: newTourDTO;
 }
 
+
 export interface newTransfersDTO {
-adl_price: number
-capacity: number
-chd_price: number
-departure_date: string;
-departure_time: string;
-destination: CityDTO;
-destination_transfer: TransferDTO;
-destination_transfer_number: string;
-id: number
-inf_price: number
-is_close: boolean
-origin: CityDTO
-origin_transfer: TransferDTO;
-origin_transfer_number: string;
-return_date: string;
-return_time: string;
-user: null
+  adl_price: number
+  capacity: number
+  chd_price: number
+  departure_date: string;
+  departure_time: string;
+  destination: CityDTO;
+  destination_transfer: TransferDTO;
+  destination_transfer_number: string;
+  id: number
+  inf_price: number
+  is_close: boolean
+  origin: CityDTO
+  origin_transfer: TransferDTO;
+  origin_transfer_number: string;
+  return_date: string;
+  return_time: string;
+  user: null
 }
 
 export interface hotelRates {
   checkin: string;
   price: number
+  capacity: number
   rate: number
-  roomType: {
-    capacityPerson: number
-    id: number
-    isDefault: boolean
-    label: string
-    name: string;
-  }
+  roomType: RoomTypeDTO
 }
+
 
 export interface addRequestReserveDTO {
   origin: string;

@@ -39,6 +39,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   };
 };
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { PricingPopupComponent } from './pricing-popup/pricing-popup.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     PricingComponent,
     ConfirmPricingModalComponent,
     TransferServiceComponent,
+    PricingPopupComponent,
     UpdateTransferServicePopupComponent,
     SetRoomsAndCoefficientComponent,
     TabsComponent,

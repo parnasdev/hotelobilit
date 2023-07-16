@@ -1,0 +1,198 @@
+<div class="add-tour">
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">{{'تور'}}</label>
+          <h2 class="text-dark">اطلاعات تور</h2>
+        </div>
+
+        <div class="left d-flex align-items-center">
+          <div *ngIf="session.checkPermission('Status')">
+            <div class="selectdiv">
+              <label>
+                <select [formControl]="status_idFC">
+                  <option value="Show">انتشار</option>
+                  <option value="Draft" selected>پیش نویس</option>
+                  <option value="Accepted">تایید شده</option>
+                  <option value="NotAccepted">عدم تایید</option>
+                  <option value="Pending">در انتظار تایید</option>
+                  <option value="Suspended">معلق شده/منقضی شده</option>
+                  <option value="Completion">تکمیل شده</option>
+                </select>
+              </label>
+            </div>
+  
+          </div>
+          <div class="selectdiv me-2">
+            <label>
+              <select [formControl]="tour_typeFC">
+                <option [ngValue]="true">داخلی</option>
+                <option [ngValue]="false">خارجی</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="info-tour-body">
+        <div class="top">
+          <!-- title field -->
+          <div class="item-info">
+            <label for="">عنوان تور</label>
+            <input [formControl]="titleFC" type="text">
+            <div *ngIf="errorService.hasError('title')">
+              <span class="text-danger">{{errorService.getError('title')}}</span>
+            </div>
+          </div>
+          <!-- on field -->
+          <div class="item-info-2">
+            <div class="select-info">
+  
+              <label for="">شهر مبدا</label>
+              <prs-select-city [cities]="cities" [inCommingCity]="tourData.origin_id" (citySelected)="getStCity($event)"></prs-select-city>
+              <div *ngIf="errorService.hasError('stCity_id')">
+                <span class="text-danger">{{errorService.getError('stCity_id')}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- destination field -->
+          <div class="item-info">
+            <div class="select-info">
+              <label for="">شهر مقصد</label>
+              <prs-select-city [cities]="cities" [inCommingCity]="tourData.destination_id"  (citySelected)="getEndCity($event)"></prs-select-city>
+  
+              <div *ngIf="errorService.hasError('endCity_id')">
+                <span class="text-danger">{{errorService.getError('endCity_id')}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- stDate field -->
+          <div class="item-info">
+            <label for="">تاریخ ورود به هتل</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
+                [min]="minDate" (click)="picker1.open()">
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('checkin')">
+              <span class="text-danger">{{errorService.getError('checkin')}}</span>
+            </div>
+          </div>
+          <!-- enDate field -->
+          <div class="item-info">
+            <label for="">تاریخ خروج از هتل</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
+                [min]="minDate" (click)="picker2.open()">
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('checkout')">
+              <span class="text-danger">{{errorService.getError('checkout')}}</span>
+            </div>
+          </div>
+  
+          <!-- nightNum field -->
+          <div class="item-info-2">
+            <div class="select-info">
+              <label for="">تعداد شب</label>
+              <span class="number-day-text">{{night_numFC.value}}</span>
+              <div *ngIf="errorService.hasError('night_num')">
+                <span class="text-danger">{{errorService.getError('night_num')}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- dayNum field -->
+          <div class="item-info">
+            <div class="select-info">
+              <label for="">تعداد روز</label>
+            </div>
+            <span class="number-day-text">{{day_numFC.value}}</span>
+            <div *ngIf="errorService.hasError('day_num')">
+              <span class="text-danger">{{errorService.getError('day_num')}}</span>
+            </div>
+          </div>
+          <!-- expireDate field -->
+          <div class="item-info">
+            <label for="">تاریخ انقضا پکیج</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
+                (click)="picker3.open()">
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('expired_at')">
+              <span class="text-danger">{{errorService.getError('expired_at')}}</span>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+    <div class="p-list-fly">
+      <div class="info-tour-header">
+        <div class="right">
+          <h2 class="text-dark">اطلاعات پرواز</h2>
+        </div>
+      </div>
+      <div class="w-100 p-transfer">
+        <div class="item-header">
+          <span>#</span>
+          <span>مسیر رفت-برگشت</span>
+          <span>ایرلاین رفت-برگشت</span>
+          <span>تاریخ رفت</span>
+          <span>تاریخ برگشت</span>
+          <span>قیمت بزرگسال</span>
+          <span>قیمت کودک</span>
+          <span>قیمت نوزاد</span>
+          <span>ظرفیت</span>
+        </div>
+        <div class="info-tour-body-2">
+          <span class="empty-transfer" *ngIf="transferRates.length === 0">پروازی یافت نشد</span>
+          <div *ngIf="transferRates.length > 0">
+            <div class="item" *ngFor="let item of transferRates">
+              <mat-checkbox [(ngModel)]="item.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
+              <span>{{item.origin_name }} - {{ item.destination_name }}</span>
+              <span>{{ item.airline_name }} - {{ item.flight.airline_name }}</span>
+              <span>{{ calenderService.convertDate(item.date, 'fa') }}</span>
+              <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
+              <span>{{ item.adl_price | sperator }}</span>
+              <span>{{ item.chd_price | sperator }}</span>
+              <span>{{ item.inf_price | sperator }}</span>
+              <span>{{ item.capacity }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+  
+    <div class="w-100">
+      <button class="btn-base w-100-mobi m-top-20" (click)="addHotel()">اضافه کردن هتل</button>
+      <div class="package-box">
+        <div class="item-package" *ngFor="let item of packages;let i=index">
+  
+          <div class="w-100 p-title">
+            <h5>انتخاب هتل</h5>
+            <i class="icon-cancel" (click)="removePackage(i)"></i>
+          </div>
+          <div class="inp-form">
+          <select class="w-100" [(ngModel)]="item.hotel_id">
+            <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
+          </select>
+        </div>
+          <div class="d-flex checkbox-bottun-parent">
+  
+            <button class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
+            <div class="d-flex align-items-center justify-content-center">
+              <label>ویژه</label>
+            <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- <prs-detail-package class="w-100"></prs-detail-package> -->
+  
+    <button class="btn-base w-100-mobi" style="width: 15%;" (click)="submit()">ثبت تور</button>
+  
+  </div>

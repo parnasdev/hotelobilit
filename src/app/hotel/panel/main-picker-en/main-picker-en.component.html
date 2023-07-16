@@ -2,7 +2,7 @@
     <div class="d-flex p-loading align-items-center justify-content-center" *ngIf="isLoading">
         <div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div>
     </div>
-    <button class="next-month"  (click)="changeMonth(-1)">
+    <button class="next-month" (click)="changeMonth(-1)">
         <svg viewBox="0 0 32 32" width='30' height='30' xmlns="http://www.w3.org/2000/svg">
             <g data-name="Layer 2">
                 <path
@@ -26,14 +26,23 @@
         <div class="body-calender">
             <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
                 <div *ngIf="i < 42" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
-                    [class]="(item.isDisabled || !item.isValid) ? 'english-font item opacity3' : 'english-font item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
+                    [class]="(item.isDisabled || !item.isValid) ? 'english-font item opacity3' : 'english-font item opacity2'"
+                    [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
                     'background': getColorItem(item)}" id="dateInfo">
                     {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
                     <label class=" label-capacity english-font" *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
-                        <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator" *ngIf="item.data && item.data.checkin_base">
-                            <i class="icon-circle font-size-8" ></i>
-                        </div>
+
+
+                    <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : extra bed price : ' "
+                        *ngIf="item.data && item.data?.extra_price">
+                        <i class="icon-circle icon-circle-extra font-size-8"></i>
+                    </div>
+
+                    <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator"
+                        *ngIf="item.data && item.data.checkin_base">
+                        <i class="icon-circle font-size-8"></i>
+                    </div>
                     <small class="price-day english-font" *ngIf="!item.isDisabled && item.isValid">
                         {{getPriceLabel(item.data) }}
                     </small>
@@ -63,14 +72,23 @@
         <div class="body-calender">
             <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
                 <div *ngIf="i > 41" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
-                    [class]="(item.isDisabled || !item.isValid) ? 'english-font item opacity3' : 'english-font item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
+                    [class]="(item.isDisabled || !item.isValid) ? 'english-font item opacity3' : 'english-font item opacity2'"
+                    [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
                     'background': getColorItem(item)}" id="dateInfo">
                     {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
                     <label class="english-font label-capacity" *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
-                        <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator" *ngIf="item.data && item.data.checkin_base">
-                            <i class="icon-circle font-size-8" ></i>
-                        </div>
+
+                        <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : extra bed price : ' "
+                        *ngIf="item.data && item.data?.extra_price">
+                        <i class="icon-circle icon-circle-extra font-size-8"></i>
+                    </div>
+
+
+                    <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator"
+                        *ngIf="item.data && item.data.checkin_base">
+                        <i class="icon-circle font-size-8"></i>
+                    </div>
                     <small class="english-font price-day" *ngIf="!item.isDisabled && item.isValid">
                         {{getPriceLabel(item.data) }}
                     </small>
@@ -81,9 +99,9 @@
             </ng-template>
         </div>
     </div>
-  
 
-    <button class="prev-month " (click)="changeMonth(1)" >
+
+    <button class="prev-month " (click)="changeMonth(1)">
         <svg viewBox="0 0 32 32" width='30' height='30' xmlns="http://www.w3.org/2000/svg">
             <g data-name="Layer 2">
                 <path

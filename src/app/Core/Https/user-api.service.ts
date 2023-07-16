@@ -23,12 +23,15 @@ export class UserApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  getUser(role: number | null = null,parent: number| null = null): any {
+  getUser(role: number | null = null,parent: number| null = null,page: number | null = null): any {
     const strUrl = role ? this.serverControllerName +
      (parent ? `?role=${role}&parent=${parent}` : `?role=${role}`) :
      (parent ? this.serverControllerName +
       `?parent=${parent}` : this.serverControllerName);
-    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+
+      let finalStr = page ? parent ? strUrl + `&page=${page}` : strUrl + `?page=${page}` : strUrl;
+      return this.http.get<Result<any>>(finalStr, this.publicService.getDefaultHeaders());
+
   }
 
   getEditData(id: number): any {

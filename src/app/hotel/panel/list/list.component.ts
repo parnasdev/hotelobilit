@@ -21,7 +21,7 @@ import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 })
 export class ListComponent implements OnInit {
   cityFC = new FormControl('');
-  hotelReq: HotelRequestDTO = {
+  hotelReq: any = {
     isAdmin: true,
     paginate: true,
     category: null,

@@ -9,22 +9,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonProjectModule } from '../common-project/common-project.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SetPricePopupComponent } from './set-price-popup/set-price-popup.component';
+import { PipesModule } from "../common-project/pipes/pipes.module";
 
 
 @NgModule({
-  declarations: [
-    ListComponent,
-    AddComponent,
-    EditComponent
-  ],
-  imports: [
-    CommonModule,
-    RoomRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatDialogModule,
-    CommonProjectModule,
-    NgxPaginationModule,
-  ]
+    declarations: [
+        ListComponent,
+        AddComponent,
+        EditComponent,
+        SetPricePopupComponent
+    ],
+    imports: [
+        CommonModule,
+        RoomRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatDialogModule,
+        CommonProjectModule,
+        NgxPaginationModule,
+        PipesModule
+    ]
 })
 export class RoomModule { }

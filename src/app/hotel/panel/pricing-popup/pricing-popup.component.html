@@ -1,0 +1,31 @@
+<div class="bottom">
+  <div class="w-100 d-flex align-items-center justify-content-between">
+    <h2 class="title">قیمت گذاری هتل</h2>
+    <ul style="border: 1px solid #E0E0E0" class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+      <li *ngFor="let room of rooms" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"  (click)="changeTab(room.id,room.room_type_id)" class="nav-item d-flex flex-column align-items-center">
+        <a style="padding: 0 16px !important;" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
+          >
+          {{ room.room_type}}</a>
+        <span *ngIf="isCoefficient === '1'">ضریب :{{ room.coefficient }}</span>
+      </li>
+    </ul>
+  </div>
+  <mat-button-toggle-group name="fontStyle" [(ngModel)]="calendarLang" aria-label="Font Style">
+    <mat-button-toggle value="miladi">Miladi</mat-button-toggle>
+    <mat-button-toggle value="shamsi">شمسی</mat-button-toggle>
+  </mat-button-toggle-group>
+  <div class="tab-content" id="pills-tabContent">
+    <!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
+    <div class="w-100" *ngIf="rooms.length > 0">
+      <prs-main-picker *ngIf="showCalendar && calendarLang === 'shamsi'" [room]="getRoom()" [hotelID]="+data.hotelId"
+        [pricingType]="isCoefficient"></prs-main-picker>
+        <prs-main-picker-en *ngIf="showCalendar && calendarLang === 'miladi'" [room]="getRoom()" [hotelID]="+data.hotelId"
+        [pricingType]="isCoefficient"></prs-main-picker-en>
+    </div>
+    <div class="d-flex justify-content-center align-items-center" *ngIf="rooms.length == 0">
+      <p>لطفا برای قیمت گذاری ابتدا در بخش ویرایش هتل اتاق های خود را انتخاب کنید</p>
+    </div>
+  </div>
+</div>

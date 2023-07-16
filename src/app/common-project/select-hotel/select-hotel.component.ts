@@ -60,7 +60,7 @@ export class SelectHotelComponent implements OnInit,OnChanges {
 
   getHotels(): void {
     this.isLoading = true
-    const req: HotelRequestDTO = {
+    const req: any = {
       isAdmin: this.isAdmin,
       paginate: false,
       category: null,

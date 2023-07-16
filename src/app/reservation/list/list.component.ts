@@ -37,7 +37,7 @@ export class ListComponent implements OnInit {
   }
   getList(): void {
     this.isLoading = true;
-    this.api.list().subscribe((res: any) => {
+    this.api.list(this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.list = res.data
         this.paginate = res.meta;

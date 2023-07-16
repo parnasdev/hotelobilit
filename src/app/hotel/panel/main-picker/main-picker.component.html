@@ -43,6 +43,7 @@
                         *ngIf="item.data && item.data.checkin_base">
                         <i class="icon-circle font-size-8"></i>
                     </div>
+
                     <small class="price-day" *ngIf="!item.isDisabled && item.isValid">
                         {{getPriceLabel(item.data) }}
                     </small>
@@ -77,6 +78,12 @@
                     {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
                     <label class="label-capacity" *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
+
+                    <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : قیمت تخت اضافه' "
+                        *ngIf="item.data && item.data?.extra_price">
+                        <i class="icon-circle icon-circle-extra font-size-8"></i>
+                    </div>
+
                     <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator"
                         *ngIf="item.data && item.data.checkin_base">
                         <i class="icon-circle font-size-8"></i>

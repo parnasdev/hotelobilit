@@ -110,11 +110,10 @@
             </div>
         </div>
 
-
         <ng-template ngFor let-item [ngForOf]="info.reserves" let-index="index">
             <div class="box-rooms" *ngIf="index> 0">
                 <div class="d-flex align-items-center item-title  justify-content-between w-100">
-                    <h3 class=" bold-600">اتاق {{item.room.room_type}} </h3>
+                    <h3 class=" bold-600">اتاق {{item.room?.room_type}} </h3>
                 </div>
                 <div *ngFor="let p of item.details.passengers" class="item-information-room">
                     <label for="" class="label-role">{{p.type}}</label>

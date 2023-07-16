@@ -4,6 +4,17 @@ export interface CityListReq {
     hasHotel: number;
 }
 
+export interface CityListReqestDTO {
+    type: number | null;
+    perPage: number;
+    search: string | null;
+    hasOriginTour:boolean
+    hasDestTour:boolean
+    city?: number | null;
+    hasHotel: boolean;
+  }
+
+
 export interface CityListRes {
     id: number;
     name: string;

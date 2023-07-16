@@ -14,6 +14,8 @@ export interface SidebarDTO {
 export const Sidebar: SidebarDTO[] = [
     { name: 'داشبورد', icon: '', link: '/panel', show: true, permition: '', children: [] },
     { name: 'هتل ها', icon: '', link: '/panel/hotel', permition: 'hotels.read', show: true, children: []},
+    { name: 'پکیج ها', icon: '', link: '/panel/packages', permition: '', show: true, children: []},
+
     { name: 'پروازها', icon: '', link: '/panel/transferRate', permition: 'flights.read', show: true, children: []},
     { name: 'گزارشات', icon: '', link: '/panel/reserves', show: true, permition: 'reserves.read', children: [] },
     { name: 'مالی', icon: '', link: '/panel/financial', show: true, permition: 'users', children: [] },

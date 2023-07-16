@@ -1,0 +1,139 @@
+<!-- <prs-loading *ngIf="loading"></prs-loading> -->
+<div class="list-tour">
+  <div class="title">
+    <h2>تورها</h2>
+    <a class="btn-add-tour" routerLink="/panel/packages/add">اضافه</a>
+  </div>
+
+</div>
+<div class="table-list-tour table-list-tour-desktop">
+  <div class="header-list-tour">
+    <span class="id">#</span>
+    <span class="username">نام کاربر</span>
+    <span class="title-tour">عنوان تور</span>
+    <span class="from-to">مبدا-مقصد</span>
+    <span class="date-create">انقضا تور</span>
+    <span class="day">شب و روز</span>
+
+    
+    <span class="date-create">ورود به هتل</span>
+    <span class="date-create">خروج از هتل</span>
+    <span class="status">وضعیت</span>
+    <span class="setting">تنظیمات</span>
+  </div>
+  <ng-template [ngIf]="isLoading">
+    <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+      <div class="item-shimmer"></div>
+      <div class="item-shimmer"></div>
+      <div class="item-shimmer"></div>
+      <div class="item-shimmer"></div>
+      <div class="item-shimmer"></div>
+      <div class="item-shimmer"></div>
+    </div>
+  </ng-template>
+  <div class="body-list-tour" *ngIf="tours.length > 0">
+    <div class="item" *ngFor="let tour of tours| paginate: paginateConfig;let i = index">
+      <span class="id">{{ tour.id}}</span>
+      <span class="username">{{ tour.user.full_name + ' ('+ (tour.user.agency_name ? tour.user.agency_name :
+        '---')+')' }}</span>
+      <span class="title-tour">{{ tour.title }}</span>
+      <span class="from-to">{{ tour.origin_name + '-' + tour.destination_name }}</span>
+
+      <span class="date-create">{{ this.calService.isValidDate(tour.expired_at) ?
+        this.calService.convertDate(tour.expired_at, 'fa') : 'ثبت نشده' }}</span>
+
+
+      <span class="day">{{ tour.night_num + '-' + tour.day_num }}</span>
+
+ 
+      <span class="date-create">{{ this.calService.isValidDate(tour.checkin) ?
+        this.calService.convertDate(tour.checkin, 'fa') : 'ثبت نشده' }}</span>
+
+      <span class="date-create">{{ this.calService.isValidDate(tour.checkout) ?
+        this.calService.convertDate(tour.checkout, 'fa') : 'ثبت نشده' }}</span>
+
+
+      <span class="status">{{ getStatus(tour.status) }}</span>
+      <div class="button-setting">
+        <a routerLink="/panel/packages/edit/{{tour.id}}" class="edit-btn">ویرایش</a>
+        <!-- <a (click)="publicService.openPage('tours/' + tour.endCity.idEn + '/' + tour.id )"
+            class="view-btn">نمایش</a> -->
+        <a routerLink="/panel/packages/copy/{{ tour.id }}" class="copy-btn">کپی</a>
+        <button class="view-btn" (click)="exportTour(tour.id)">
+          PDF
+        </button>
+        <!-- <button (click)="openLogs(tour.id)" class="log-btn">لاگ ها</button> -->
+        <button (click)="deleteClicked(tour.id)" class="delete-btn">حذف</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
+      screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
+  </div>
+</div>
+
+<div class="table-list-tour-mobile" *ngIf="tours.length > 0">
+  <div class="list-tour-box"
+    *ngFor="let tour of tours | tourStatusFilter : status | paginate: paginateConfig; let i = index">
+    <label class="user-id" for="">شماره شناسه : {{ i + 1 }}</label>
+    <div class="item-list-tour mt-3">
+      <div class="item-tour">
+        <span class="title">نام کاربری :</span>
+        <span class="text">{{ tour.user.name + ' ' + tour.user.family }}</span>
+      </div>
+      <div class="item-tour">
+        <span class="title">عنوان تور :</span>
+        <span class="text">{{ tour.title }}</span>
+      </div>
+      <div class="item-tour">
+        <span class="title">مبدا-مقصد :</span>
+        <span class="text">{{ tour.stCity + '-' + tour.endCity }}</span>
+      </div>
+      <div class="item-tour">
+        <span class="title">تاریخ ایجاد :</span>
+        <span class="text">{{this.calService.convertDate1(tour.createdAt, 'fa') }}</span>
+      </div>
+    </div>
+    <a data-toggle="collapse" class="btn-details-more" href="#{{ i + 1 }}">جزییات بیشتر
+      <i class="icon-down-open"></i>
+    </a>
+    <div id="{{ i + 1 }}" class="box-details-more collapse">
+      <div class="item-list-tour">
+        <div class="item-tour">
+          <span class="title">شب و روز :</span>
+          <span class="text">{{ tour.nightNum + '-' + tour.dayNum }}</span>
+        </div>
+        <div class="item-tour">
+          <span class="title">تاریخ انقضا :</span>
+          <span class="text">{{ this.calService.convertDate(tour.expireDate, 'fa') }}</span>
+        </div>
+        <div class="item-tour">
+          <span class="title">بازدید :</span>
+          <span class="text">{{ tour.viewCount }}</span>
+        </div>
+        <div class="item-tour">
+          <span class="title">وضعیت :</span>
+          <span class="text text-danger">{{ getStatus(tour.status) }}</span>
+        </div>
+      </div>
+      <div class="operation">
+        <a routerLink="/panel/packages/edit/{{tour.slug}}" class="edit-btn">ویرایش</a>
+        <!-- <a (click)="publicService.openPage('tours/' + tour.endCity.slugEn + '/' + tour.slug )"
+            class="view-btn">نمایش</a> -->
+        <a routerLink="/panel/packages/copy/{{ tour.slug }}" class="copy-btn">کپی</a>
+        <!-- <button (click)="openLogs(tour.id)" class="log-btn">لاگ ها</button> -->
+        <button (click)="deleteClicked(tour.slug)" class="delete-btn">حذف</button>
+      </div>
+
+    </div>
+  </div>
+  <div>
+    <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
+      screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
+  </div>
+</div>

@@ -28,12 +28,12 @@ const routes: Routes = [
         // data: {permitions: ['Hotel']},
         loadChildren: () => import('../hotel/panel/hotel-panel.module').then(m => m.HotelPanelModule)
       },
-      // {
-      //   path: 'tour',
-      //   // canActivate: [PanelItemGuardService],
-      //   // data: {permitions: ['Tour']},
-      //   loadChildren: () => import('../tour/panel/tour-panel.module').then(m => m.TourPanelModule)
-      // },
+      {
+        path: 'packages',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Tour']},
+        loadChildren: () => import('../packages/packages.module').then(m => m.PackagesModule)
+      },
       {
         path: 'transfer',
         // canActivate: [PanelItemGuardService],
