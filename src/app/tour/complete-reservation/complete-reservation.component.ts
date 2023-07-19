@@ -117,8 +117,6 @@ export class CompleteReservationComponent implements OnInit {
         // item. = this.getRommTotalPrice(data.passengers, data.name)
       }
     })
-
-
   }
 
 

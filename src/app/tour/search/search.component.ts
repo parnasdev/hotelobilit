@@ -188,6 +188,5 @@ export class SearchComponent implements OnInit, OnChanges {
       }
       this.message.custom('در این مبدا و مقصد تور تعریف نشده است')
     }
-
   }
 }
