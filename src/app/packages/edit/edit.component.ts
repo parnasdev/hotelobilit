@@ -155,7 +155,6 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   setInfo() {
-    debugger
     this.titleFC.setValue(this.tourData.title);
     this.origin_idFC.setValue(this.tourData.origin_id);
     this.destination_idFC.setValue(this.tourData.destination_id);
@@ -173,7 +172,6 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   checkStatus(name: string){
-    debugger
     return this.statuses.find(x => x.name === name)?.id ?? 0
   }
 
