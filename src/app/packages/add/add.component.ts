@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HotelApiService } from 'src/app/Core/Https/hotel-api.service';
 import { PackageTourDTO, TourSetDTO } from 'src/app/Core/Models/tourDTO';
 import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
-import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
+import { categoriesDTO, statusesDTO } from 'src/app/Core/Models/newPostDTO';
 import * as moment from 'moment';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
 import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
@@ -29,12 +29,14 @@ import { RoomTypeSetDTO } from 'src/app/Core/Models/roomTypeDTO';
 })
 export class AddComponent implements OnInit {
   minDate = new Date()
+  isLoading = false;
   cities: categoriesDTO[] | CityListRes[] = []
   transferRates: TransferRateListDTO[] = [];
   packages: PackageTourDTO[] = [];
   hotels: any[] = [];
 
   flights: number[] = []
+  statuses: statusesDTO[] = [];
   req: TourSetDTO = {
     title: '',
     origin_id: 0,
@@ -58,7 +60,7 @@ export class AddComponent implements OnInit {
   checkinFC = new FormControl('', [Validators.required])
   checkoutFC = new FormControl('', [Validators.required])
   expired_atFC = new FormControl('', [Validators.required])
-  status_idFC = new FormControl('', [Validators.required])
+  status_idFC = new FormControl(0, [Validators.required])
   constructor(
     public cityApi: CityApiService,
     public commonApi: CommonApiService,
@@ -78,6 +80,24 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {
     this.getCities();
+    this.getPageData();
+  }
+
+  getPageData(): void {
+    this.isLoading = true;
+    this.tourApi.createPageTour().subscribe((res: any) => {
+      if (res.isDone) {
+        this.statuses = res.data.statuses;
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+
+    }, (error: any) => {
+      // this.message.error()
+      this.isLoading = false;
+
+    })
   }
 
   getCities(): void {

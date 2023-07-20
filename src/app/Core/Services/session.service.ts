@@ -67,11 +67,13 @@ export class SessionService {
   }
 
   checkPermission(item: string) {
-    return !!this.userPermissions.find(x => x.name.split('.')[0] === item)
+    let permissions = this.getUserPermission();
+    return !!permissions.find(x => x.split('.')[0] === item)
   }
 
   checkItemPermission(item: string) {
-    return !!this.userPermissions.find(x => x.name === item)
+    let permissions = this.getUserPermission();
+    return !!permissions.find(x => x === item)
   }
   getRole(): any {
     const user = localStorage.getItem('hotelobilit-user');

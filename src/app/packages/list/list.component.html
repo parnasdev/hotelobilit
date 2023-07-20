@@ -53,7 +53,7 @@
         this.calService.convertDate(tour.checkout, 'fa') : 'ثبت نشده' }}</span>
 
 
-      <span class="status">{{ getStatus(tour.status) }}</span>
+      <span class="status">{{ tour.status.label }}</span>
       <div class="button-setting">
         <a routerLink="/panel/packages/edit/{{tour.id}}" class="edit-btn">ویرایش</a>
         <!-- <a (click)="publicService.openPage('tours/' + tour.endCity.idEn + '/' + tour.id )"

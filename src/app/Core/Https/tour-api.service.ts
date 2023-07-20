@@ -56,10 +56,12 @@ export class TourApiService {
     const strUrl = this.serverControllerName + `export/${id}`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
+
   editTour(req: TourSetRequestDTO | TourSetDTO, tour: any): any {
     const strUrl = this.serverControllerName + `editTour/${tour}`;
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
+
   getTours(pageNum?: number): any {
     const address = pageNum ? `panel/tours?page=${pageNum}` : 'panel/tours'
     const strUrl = environment.BACK_END_IP + address;
@@ -82,6 +84,12 @@ export class TourApiService {
     const strUrl = environment.BACK_END_IP + `package/deletePackage/${package_id}`;
     return this.http.delete<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
+
+  createPageTour(): any {
+    const strUrl = environment.BACK_END_IP + 'panel/tours/create';
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
   createTour(req: any): any {
     const strUrl = environment.BACK_END_IP + 'panel/tours';
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
@@ -95,8 +103,8 @@ export class TourApiService {
   getTourInfo(id: number): any {
     const strUrl = environment.BACK_END_IP + `panel/tours/${id}/edit`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
-
   }
+
   update(id: number,req: any) {
     const strUrl = environment.BACK_END_IP + `panel/tours/${id}`;
     return this.http.patch<Result<any>>(strUrl,req, this.publicService.getDefaultHeaders());

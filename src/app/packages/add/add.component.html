@@ -7,17 +7,17 @@
       </div>
 
       <div class="left d-flex align-items-center">
-        <div *ngIf="session.checkPermission('Status')">
+        <div *ngIf="session.checkItemPermission('tours.status')">
           <div class="selectdiv">
             <label>
               <select [formControl]="status_idFC">
-                <option value="Show">انتشار</option>
-                <option value="Draft" selected>پیش نویس</option>
+                <option *ngFor="let status of this.statuses; let i = index" [value]="status.id">{{ status.name }}</option>
+                <!-- <option value="Draft" selected>پیش نویس</option>
                 <option value="Accepted">تایید شده</option>
                 <option value="NotAccepted">عدم تایید</option>
                 <option value="Pending">در انتظار تایید</option>
                 <option value="Suspended">معلق شده/منقضی شده</option>
-                <option value="Completion">تکمیل شده</option>
+                <option value="Completion">تکمیل شده</option> -->
               </select>
             </label>
           </div>

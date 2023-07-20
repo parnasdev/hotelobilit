@@ -14,7 +14,6 @@ declare var $: any;
 export class EditComponent extends AddComponent implements OnInit {
   tourData: any;
   id = ''
-  isLoading = false;
   override ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
     this.getCities();
@@ -25,6 +24,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.tourApi.getTourInfo(+this.id).subscribe((res: any) => {
       if (res.isDone) {
         this.tourData = res.data.tour;
+        this.statuses = res.data.statuses;
         this.setInfo();
       } else {
         this.message.custom(res.message);
@@ -155,7 +155,7 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   setInfo() {
-
+    debugger
     this.titleFC.setValue(this.tourData.title);
     this.origin_idFC.setValue(this.tourData.origin_id);
     this.destination_idFC.setValue(this.tourData.destination_id);
@@ -164,14 +164,17 @@ export class EditComponent extends AddComponent implements OnInit {
     this.tour_typeFC.setValue(!this.tourData.tour_type);
     this.checkinFC.setValue(this.tourData.checkin);
     this.checkoutFC.setValue(this.tourData.checkout);
-    this.status_idFC.setValue(this.tourData.status);
+    this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
     this.flights = this.tourData.flightIs;
     this.packages = this.tourData.packages
     this.getTransferRates();
     this.getHotels();
+  }
 
-
+  checkStatus(name: string){
+    debugger
+    return this.statuses.find(x => x.name === name)?.id ?? 0
   }
 
 
