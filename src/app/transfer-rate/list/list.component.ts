@@ -10,6 +10,10 @@ import { FilterDTO, FilterPopupComponent } from '../filter-popup/filter-popup.co
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
+import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
+import { CityListRes } from 'src/app/Core/Models/newCityDTO';
+import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
+import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
 @Component({
   selector: 'prs-list',
@@ -22,13 +26,15 @@ export class ListComponent implements OnInit {
   isLoading = false;
   paginate: any;
   paginateConfig: any;
-  filterObj: FilterDTO | null = {
+  filterObj: FilterDTO = {
     destination: null,
     origin: null,
     q: null,
     flightDate: null
   };
   p = 1;
+
+  cities: categoriesDTO[] | CityListRes[] = []
 
   constructor(public api: FlightApiService,
     public flightApi: FlightApiService,
@@ -37,6 +43,7 @@ export class ListComponent implements OnInit {
     public permition: PermitionsService,
     public route: ActivatedRoute,
     public router: Router,
+    public CategoryApi: CategoryApiService,
     public checkError: CheckErrorService,
     public calendarService: CalenderServices,
     public message: MessageService) {
@@ -44,7 +51,12 @@ export class ListComponent implements OnInit {
       if(!this.isEmpty(params)) {
         this.filterObj = params;
       } else {
-this.filterObj = null
+        this.filterObj = {
+          destination: null,
+          origin: null,
+          q: null,
+          flightDate: null
+        }
       }
     })
   }
@@ -60,7 +72,9 @@ this.filterObj = null
 
   ngOnInit(): void {
     this.getTransfers();
+    this.getTransfer();
   }
+
   setReq(): void {
     this.req = {
       origin: this.filterObj ? this.filterObj.origin : null,
@@ -93,6 +107,23 @@ this.filterObj = null
     })
   }
 
+  originSelected(city: CityListRes): void {
+    this.filterObj.origin = city.id
+  }
+
+  
+  getTransfer(): void {
+    this.CategoryApi.getCategoryList('airport', 'hotel',1).subscribe((res: any) => {
+      if (res.isDone) {
+        this.cities = res.data;
+
+      }
+    }, (error: any) => {
+
+      this.message.error()
+    })
+  }
+
 
 
   removeTransferRate(id: number) {
@@ -112,6 +143,10 @@ this.filterObj = null
     return !!this.session.userPermissions.find(x => x.name === item)
   }
 
+  destSelected(city: CityListRes): void {
+    this.filterObj.destination = city.id
+  }
+
 
   openFilter() {
     const dialog = this.dialog.open(FilterPopupComponent,
@@ -121,11 +156,7 @@ this.filterObj = null
       })
     dialog.afterClosed().subscribe(result => {
       if (result) {
-        this.filterObj = result;
-        this.router.navigate([`/panel/transferRate/`], {
-          queryParams: this.filterObj
-        })
-        this.getTransfers()
+        
       }
     })
   }
@@ -133,6 +164,40 @@ this.filterObj = null
   onPageChanged(event: any) {
     this.p = event;
     this.getTransfers();
+  }
+
+  submit() {
+    this.router.navigate([`/panel/transferRate/`], {
+      queryParams: this.filterObj
+    })
+    this.getTransfers()
+  }
+
+
+  removeFilter() {
+    this.filterObj = {
+      destination: null,
+      flightDate: null,
+      q: null,
+      origin: null
+    }
+    this.router.navigate([`/panel/transferRate/`], {
+      queryParams: this.filterObj
+    })
+    this.getTransfers()
+  }
+
+  openPicker() {
+    const dialog = this.dialog.open(PrsDatePickerComponent, {
+      width: '80%',
+      data: {
+        dateList: []
+      }
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      debugger
+      this.filterObj.flightDate = res.fromDate.dateEn
+    })
   }
 
 }

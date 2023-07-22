@@ -24,6 +24,7 @@ import { SetServiceComponent } from './set-service/set-service.component';
 import { SingleEditComponent } from './single-edit/single-edit.component';
 import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -60,6 +61,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NgxMaskPipe,
     MatSelectModule,
     HotelPanelModule,
+    MatTooltipModule
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class TransferRateModule { }

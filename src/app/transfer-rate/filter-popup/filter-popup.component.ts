@@ -55,20 +55,7 @@ export class FilterPopupComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.getTransfers()
-  }
-
-
-  getTransfers(): void {
-    this.api.getCategoryList('airport', 'hotel',1).subscribe((res: any) => {
-      if (res.isDone) {
-        this.cities = res.data;
-
-      }
-    }, (error: any) => {
-
-      this.message.error()
-    })
+    // this.getTransfers()
   }
 
   openPicker() {
@@ -81,16 +68,6 @@ export class FilterPopupComponent implements OnInit {
     dialog.afterClosed().subscribe((res: any) => {
       this.obj.flightDate = res.fromDate.dateEn
     })
-  }
-
-
-
-  originSelected(city: CityListRes): void {
-    this.obj.origin = city.id
-  }
-
-  destSelected(city: CityListRes): void {
-    this.obj.destination = city.id
   }
 
 

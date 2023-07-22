@@ -48,17 +48,18 @@
   }
 
   .header-list-tour {
-    height: 40px;
+    height: 50px;
     width: 100%;
     display: grid;
-    grid-template-columns: 0.3fr 1fr 0.4fr 0.5fr 0.5fr  0.5fr 0.5fr 0.5fr 0.3fr 0.3fr 0.3fr 0.3fr;
+    grid-template-columns: 0.2fr 0.5fr 0.2fr 0.5fr 0.3fr  0.3fr 0.3fr 0.3fr 0.3fr 0.3fr;
     background-color: #d5d5d5;
     border-bottom: 1px solid var(--light-color-two);
   }
 
   .header-list-tour span {
     margin: auto;
-    font-size: 13px !important;
+    font-size: 12px !important;
+    font-weight: 600;
   }
 
   .body-list-tour {
@@ -68,11 +69,19 @@
   }
 
   .body-list-tour .item {
-    height: 130px;
+    height: 80px;
     width: 100%;
     background: $white-color;
     display: grid;
-    grid-template-columns: 0.3fr 1fr 0.4fr 0.5fr 0.5fr  0.5fr 0.5fr 0.5fr 0.3fr 0.3fr 0.3fr 0.3fr;
+    grid-template-columns: 0.2fr 0.5fr 0.2fr 0.5fr 0.3fr  0.3fr 0.3fr 0.3fr 0.3fr 0.3fr;
+  }
+
+  .body-list-tour .item:nth-child(odd){
+    background: #f2f2f2;
+  }
+
+  .body-list-tour .item:nth-child(even){
+    background: #fff;
   }
 
   .body-list-tour .item:not(:last-child){
@@ -108,6 +117,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 12px;
   }
 .button-setting .copy-btn {
   width: 180px;
@@ -121,6 +131,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
 }
 
 .button-setting .view-btn {
@@ -132,6 +143,7 @@
     height: 30px;
     padding: 0 10px;
     border-radius: 4px;
+    font-size: 12px;
   }
   .button-setting .delete-btn {
     width: auto;
@@ -139,9 +151,11 @@
     color: var(--white);
     border: none;
     outline: none;
-    height: 30px;
+    height: 27px;
     padding: 0 10px;
     border-radius: 4px;
+    font-size: 12px;
+    margin-top: 8px;
   }
   .button-setting .copy-btn {
     width: auto;
@@ -149,9 +163,11 @@
     color: var(--white);
     border: none;
     outline: none;
-    height: 30px;
+    height: 27px;
     padding: 0 10px;
     border-radius: 4px;
+    font-size: 12px;
+    margin-top: 8px;
   }
 
   .date-create {
