@@ -150,10 +150,12 @@ export class PassengersComponent implements OnInit, OnChanges {
 
   getbirthDate(i: number, date: string) {
     this.PassengerForm.controls[i].get('birth_day')?.setValue(date);
+    this.onChange()
   }
 
   getExpired_passport(i: number, date: string) {
     this.PassengerForm.controls[i].get('expired_passport')?.setValue(date);
+    this.onChange()
   }
 
   getCurrencyRate(code: string, roomIndex: number): number {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'jalali-moment';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
@@ -75,8 +74,8 @@ export class AddComponent implements OnInit {
     checkout_yesterday: 0
   }
 
-  checkin_tomorrow:number = 0;
-  checkout_yesterday:number = 0;
+  checkin_tomorrow: boolean = false;
+  checkout_yesterday: boolean = false;
 
   show = false;
   type = 'add'
@@ -103,8 +102,6 @@ export class AddComponent implements OnInit {
     origin_flight_number: new FormControl('', Validators.required),
     destination_flight_number: new FormControl('', Validators.required),
     rates: this.fb.array([]),
-    checkin_tomorrow: new FormControl(0, Validators.required),
-    checkout_yesterday: new FormControl(0, Validators.required)
   });
 
   ngOnInit(): void {
@@ -214,7 +211,7 @@ export class AddComponent implements OnInit {
     })
   }
 
-  createRequest(type:string) {
+  createRequest(type: string) {
     this.type = type;
     this.setReq();
     this.createTransferRate();
@@ -256,5 +253,4 @@ export class AddComponent implements OnInit {
       checkout_yesterday: this.checkout_yesterday ? 1 : 0
     }
   }
-
 }

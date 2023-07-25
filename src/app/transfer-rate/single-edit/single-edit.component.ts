@@ -57,8 +57,8 @@ export class SingleEditComponent extends AddComponent implements OnInit {
     this.form.controls.destination_time.setValue(this.infoData.flight.time);
     this.form.controls.origin_flight_number.setValue(this.infoData.flight_number.toString());
     this.form.controls.destination_flight_number.setValue(this.infoData.flight.flight_number.toString());
-    this.checkin_tomorrow = this.infoData.checkin_tomorrow ? 1 : 0
-    this.checkout_yesterday = this.infoData.checkout_yesterday ? 1 : 0
+    this.checkin_tomorrow = this.infoData.checkin_tomorrow ?? false
+    this.checkout_yesterday = this.infoData.checkout_yesterday ?? false
 
     this.adl_priceFC.setValue(this.infoData.adl_price)
     this.originDateFC.setValue(this.infoData.date)
