@@ -34,6 +34,8 @@ export class ListComponent implements OnInit {
   };
   p = 1;
 
+  show = true;
+
   cities: categoriesDTO[] | CityListRes[] = []
 
   constructor(public api: FlightApiService,
@@ -49,7 +51,10 @@ export class ListComponent implements OnInit {
     public message: MessageService) {
     this.route.queryParams.subscribe((params: any) => {
       if(!this.isEmpty(params)) {
-        this.filterObj = params;
+        this.filterObj.destination = +params['destination']
+        this.filterObj.origin = +params['origin']
+        this.filterObj.q = params['q']
+        this.filterObj.flightDate = params['flightDate']
       } else {
         this.filterObj = {
           destination: null,
@@ -83,12 +88,12 @@ export class ListComponent implements OnInit {
       q: this.filterObj ? this.filterObj.q : null
     }
   }
+
   getTransfers(): void {
     this.setReq();
     this.isLoading = true
     this.api.getTransferRates(this.p,this.req).subscribe((res: any) => {
       this.isLoading = false
-
       if (res.isDone) {
         this.transfers = res.data;
         this.paginate = res.meta;
@@ -111,20 +116,20 @@ export class ListComponent implements OnInit {
     this.filterObj.origin = city.id
   }
 
-  
+  destSelected(city: CityListRes): void {
+    this.filterObj.destination = city.id
+  }
+
   getTransfer(): void {
     this.CategoryApi.getCategoryList('airport', 'hotel',1).subscribe((res: any) => {
       if (res.isDone) {
         this.cities = res.data;
-
       }
     }, (error: any) => {
 
       this.message.error()
     })
   }
-
-
 
   removeTransferRate(id: number) {
     this.flightApi.removeDataFlight(id).subscribe((res: any) => {
@@ -137,28 +142,8 @@ export class ListComponent implements OnInit {
     })
   }
 
-
-
   checkItemPermission(item: string) {
     return !!this.session.userPermissions.find(x => x.name === item)
-  }
-
-  destSelected(city: CityListRes): void {
-    this.filterObj.destination = city.id
-  }
-
-
-  openFilter() {
-    const dialog = this.dialog.open(FilterPopupComponent,
-      {
-        width: '50%',
-        data: this.filterObj
-      })
-    dialog.afterClosed().subscribe(result => {
-      if (result) {
-        
-      }
-    })
   }
 
   onPageChanged(event: any) {
@@ -184,6 +169,7 @@ export class ListComponent implements OnInit {
     this.router.navigate([`/panel/transferRate/`], {
       queryParams: this.filterObj
     })
+    this.reload();
     this.getTransfers()
   }
 
@@ -195,9 +181,13 @@ export class ListComponent implements OnInit {
       }
     })
     dialog.afterClosed().subscribe((res: any) => {
-      debugger
       this.filterObj.flightDate = res.fromDate.dateEn
     })
+  }
+
+  reload() {
+    this.show = false;
+    setTimeout(() => this.show = true);
   }
 
 }

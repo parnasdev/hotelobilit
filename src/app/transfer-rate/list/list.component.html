@@ -1,37 +1,39 @@
 <div class="list-tour">
-  <div class="title">
-    <h2>لیست مسیر پرواز ها</h2>
-    <div class="d-flex search-box-hotel">
-      <div class="d-flex w-100">
-        <div class="inp-form w-50 m-2">
-            <prs-select-city class="w-100" [cities]="cities" [baseType]="false" [title]="'شهر مبدا'"
-                [inCommingCity]="filterObj.origin ? filterObj.origin : 0" (citySelected)="originSelected($event)"></prs-select-city>
-        </div>
-        <div class="inp-form w-50 m-2">
-            <prs-select-city class="w-100" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'"
-                [inCommingCity]="filterObj.destination ? filterObj.destination : 0" (citySelected)="destSelected($event)"></prs-select-city>
-        </div>
+  <div class="d-flex search-box-hotel mb-3">
+    <div class="d-flex w-100">
+      <div class="inp-form w-50 m-2">
+        <prs-select-city class="w-100" *ngIf="show" [cities]="cities" [baseType]="false" [title]="'شهر مبدا'"
+          [inCommingCity]="filterObj.origin"
+          (citySelected)="originSelected($event)"></prs-select-city>
+      </div>
+      <div class="inp-form w-50 m-2">
+        <prs-select-city class="w-100" *ngIf="show" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'"
+          [inCommingCity]="filterObj.destination"
+          (citySelected)="destSelected($event)"></prs-select-city>
+      </div>
 
-        <div class="inp-form w-50">
-          <input class="w-100" type="text" value="{{ filterObj.flightDate | convertDate }}"
-              placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
-        </div>
+      <div class="inp-form w-50 m-2">
+        <input class="w-100" type="text" value="{{ filterObj.flightDate | convertDate }}"
+          placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+      </div>
 
-        <div class="d-flex w-100 align-items-center justify-content-center">
-          <button class="btn-base w-25" (click)="submit()">فیلتر</button>
-          <button class="btn-base-red m-2 w-20" (click)="removeFilter()">حذف فیلتر</button>
+      <div class="d-flex w-100 align-items-center justify-content-end">
+        <button class="btn-base w-25" (click)="submit()">فیلتر</button>
+        <button class="btn-base-red m-2 w-20" (click)="removeFilter()">حذف فیلتر</button>
       </div>
     </div>
-      <!-- <button class="btn-base" (click)="openFilter()">فیلتر</button> -->
-      <!-- <div class="item-info-2 w-48">
-        <div class="select-info">
-          <prs-select-city [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="citiesResponse"
-            (citySelected)="getCitySelected($event)"></prs-select-city>
-        </div>
-      </div> -->
-      <!-- <input style="margin-right: 8px" [formControl]="keywordFC" (change)="filter()" placeholder="جستجو بر اساس نام هتل" type="text"> -->
-      <!-- <button class="ms-2 btn-base btn-search" (click)="filter()">جستجو</button> -->
-    </div>
+    <!-- <button class="btn-base" (click)="openFilter()">فیلتر</button> -->
+    <!-- <div class="item-info-2 w-48">
+      <div class="select-info">
+        <prs-select-city [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="citiesResponse"
+          (citySelected)="getCitySelected($event)"></prs-select-city>
+      </div>
+    </div> -->
+    <!-- <input style="margin-right: 8px" [formControl]="keywordFC" (change)="filter()" placeholder="جستجو بر اساس نام هتل" type="text"> -->
+    <!-- <button class="ms-2 btn-base btn-search" (click)="filter()">جستجو</button> -->
+  </div>
+  <div class="title">
+    <h2>لیست مسیر پرواز ها</h2>
     <a class="btn-add-tour" *ngIf="permition.check('flights.create')" routerLink="/panel/transferRate/add">اضافه</a>
   </div>
   <div class="table-list-tour">
@@ -104,11 +106,10 @@
         </div>
 
         <div class="d-flex flex-column ">
-          <span class="title-tour">{{ transfer.adl_price | sperator }} 
-            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button
-            position="above"
-            matTooltip="{{ transfer.chd_price | sperator }} قیمت کودک"
-            aria-label="Button that displays a tooltip when focused or hovered over"></i>
+          <span class="title-tour">{{ transfer.adl_price | sperator }}
+            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+              matTooltip="{{ transfer.chd_price | sperator }} قیمت کودک"
+              aria-label="Button that displays a tooltip when focused or hovered over"></i>
           </span>
           <span class="text-danger">5 شب</span>
           <!-- <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span> -->
