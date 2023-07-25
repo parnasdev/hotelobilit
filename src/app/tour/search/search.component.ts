@@ -152,7 +152,6 @@ export class SearchComponent implements OnInit, OnChanges {
       }
       this.reservedDates.push(res)
     })
-    console.log(this.reservedDates);
     
   }
 

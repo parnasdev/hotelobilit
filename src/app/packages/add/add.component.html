@@ -20,6 +20,9 @@
                 <option value="Suspended">معلق شده/منقضی شده</option>
                 <option value="Completion">تکمیل شده</option> -->
               </select>
+              <div *ngIf="errorService.hasError('status_id')">
+                <span class="text-danger">{{errorService.getError('status_id')}}</span>
+              </div>
             </label>
           </div>
 
@@ -163,7 +166,11 @@
             <span>{{ item.capacity }}</span>
           </div>
         </div>
+        <div *ngIf="errorService.hasError('flights')">
+          <span class="text-danger">لطفا پرواز خود را انتخاب کنید</span>
+        </div>
       </div>
+
     </div>
 
   </div>
