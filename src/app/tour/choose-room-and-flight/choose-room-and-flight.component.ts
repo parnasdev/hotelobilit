@@ -6,7 +6,6 @@ import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 import { RateDTO, RoomDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 import { ChooseTourListDTO, HotelSearchResDTO, TourSearchReqDTO } from 'src/app/Core/Models/newTourDTO';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { ReserveRoomsReqDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -59,6 +58,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     public cityApi: CityApiService,
     public mobileService: ResponsiveService,
     public calendar: CalenderServices,
+    public calendarService: CalenderServices,
     public reserveApi: ReserveApiService,
     public router: Router,
     public route: ActivatedRoute,
@@ -138,34 +138,56 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     })
   }
 
+  getNight(date: string, returnDate: string, checkin_tomorrow: boolean, checkout_yesterday: boolean) {
+    let nights = 0;
+    if (!checkin_tomorrow && !checkout_yesterday) {
+      nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
+    } else if (checkin_tomorrow && !checkout_yesterday) {
+      date = moment(date).add(1, 'days').format('YYYY-MM-DD');
+      nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
+    } else if (!checkin_tomorrow && checkout_yesterday) {
+      returnDate = moment(date).add(-1, 'days').format('YYYY-MM-DD');
+      nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
+    } else {
+      date = moment(date).add(1, 'days').format('YYYY-MM-DD');
+      returnDate = moment(returnDate).add(-1, 'days').format('YYYY-MM-DD');
+      nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
+    }
+    return nights
+
+  }
+
   convertData() {
     let rooms = this.hotelInfo.rooms;
     this.hotelInfo.flights.forEach(flight => {
-      let obj: ChooseTourListDTO = {
-        id: flight.id,
-        origin_name: flight.origin_name,
-        origin_id: flight.origin_id,
-        destination_name: flight.destination_name,
-        destination_id: flight.destination_id,
-        airline_name: flight.airline_name,
-        airline_id: flight.airline_id,
-        airline_thumb: flight.airline_thumb,
-        flight: flight.flight,
-        date: flight.date,
-        time: flight.time,
-        adl_price: flight.adl_price,
-        flight_number: flight.flight_number,
-        chd_price: flight.chd_price,
-        inf_price: flight.inf_price,
-        capacity: flight.capacity,
-        is_close: flight.is_close,
-        description: flight.description,
-        rooms: rooms,
-        checkin: this.getCheckin(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.date),
-        checkout: this.getCheckout(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.flight.date),
-        selectedRooms: []
+      let night = this.getNight(flight.date, flight.flight.date, flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false)
+      if (night === +(this.req.stayCount ?? 0)) {
+        let obj: ChooseTourListDTO = {
+          id: flight.id,
+          origin_name: flight.origin_name,
+          origin_id: flight.origin_id,
+          destination_name: flight.destination_name,
+          destination_id: flight.destination_id,
+          airline_name: flight.airline_name,
+          airline_id: flight.airline_id,
+          airline_thumb: flight.airline_thumb,
+          flight: flight.flight,
+          date: flight.date,
+          time: flight.time,
+          adl_price: flight.adl_price,
+          flight_number: flight.flight_number,
+          chd_price: flight.chd_price,
+          inf_price: flight.inf_price,
+          capacity: flight.capacity,
+          is_close: flight.is_close,
+          description: flight.description,
+          rooms: rooms,
+          checkin: this.getCheckin(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight.date),
+          checkout: this.getCheckout(flight.checkin_tomorrow ?? false, flight.checkout_yesterday ?? false, flight?.flight?.date),
+          selectedRooms: []
+        }
+        this.data.push(obj)
       }
-      this.data.push(obj)
     })
 
   }
@@ -443,11 +465,12 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     return 0;
   }
 
-  submit(flightID: number, flightIndex: number) {
+  submit(flightID: number, flightIndex: number,checkin: string,checkout: string) {
     if (this.data[flightIndex].selectedRooms.length > 0) {
       this.router.navigate([`/tour/reserve/${this.hotelInfo.id}/${flightID}`], {
         queryParams: {
-          checkin: this.req.date,
+          checkin: checkin,
+          checkout: checkout,
           stayCount: this.req.stayCount,
           rooms: JSON.stringify(this.data[flightIndex].selectedRooms)
         }

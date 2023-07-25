@@ -161,6 +161,12 @@
           </div>
 
         </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center">
+          <label for="">سن کودک:</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <input class="w-50" type="number" [(ngModel)]="item.age_child">
+          </div>
+        </div>
         <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
           <label for="">ضریب:</label>
           <div class="d-flex align-items-center justify-content-end">

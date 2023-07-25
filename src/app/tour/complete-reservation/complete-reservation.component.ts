@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { RateDTO, ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import {
   ReserveCheckingReqDTO,
@@ -20,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPhoneComponent } from 'src/app/auth/confirm-phone/confirm-phone.component';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
+import * as moment from 'jalali-moment';
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -46,11 +47,14 @@ export class CompleteReservationComponent implements OnInit {
     reserver_phone: '',
     reserver_id_code: '',
     checkin: '',
+    checkout: '',
     stayCount: 0,
   }
   checkingReq!: ReserveCheckingReqDTO
   roomsSelected: ReserveRoomDTO[] = []
   data: ReserveInfoDTO = {
+    checkin:'',
+    checkout: '',
     flight: {} as transferRateListDTO,
     hotel: {} as ReserveHotelDTO,
     rooms: [],
@@ -97,7 +101,8 @@ export class CompleteReservationComponent implements OnInit {
   setCheckingReq() {
     this.route.queryParams.subscribe(params => {
       this.checkingReq = {
-        checkin: params['checkin'],
+        checkin: moment(params['checkin'],'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+        checkout: moment(params['checkout'],'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
         stayCount: params['stayCount'],
         hotel_id: +this.hotelID,
         flight_id: +this.flightID,
@@ -135,7 +140,6 @@ export class CompleteReservationComponent implements OnInit {
         this.message.custom(res.message);
       }
       this.isLoading = false;
-
     }, (error: any) => {
       this.isLoading = false;
 
@@ -145,7 +149,6 @@ export class CompleteReservationComponent implements OnInit {
       }
     })
   }
-
 
   getCurrencyRate(code: string, roomId: number): number {
     let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
@@ -193,8 +196,6 @@ export class CompleteReservationComponent implements OnInit {
 
     return price
   }
-
-
 
 
   getExtraBedPrice(roomId: number): number {
@@ -261,7 +262,8 @@ export class CompleteReservationComponent implements OnInit {
       reserver_full_name: this.fullNameFC.value,
       reserver_phone: this.reserver_phoneFC.value ?? '',
       reserver_id_code: this.reserver_id_codeFC.value,
-      checkin: this.checkingReq.checkin,
+      checkin: this.data.checkin,
+      checkout:this.data.checkout,
       stayCount: this.checkingReq.stayCount,
     }
   }

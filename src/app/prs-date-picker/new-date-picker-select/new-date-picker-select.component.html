@@ -1,0 +1,41 @@
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <div class="item-inp-special-date">
+    <label>{{ title }}</label>
+    <div class="date">
+
+      <mat-select class="select-birthday"
+       #select1 [placeholder]=" lang === 'fa' ? 'روز' : 'Day'"
+        (closed)="setPlaceHolder(select1 , lang === 'fa' ? 'روز' : 'Day')" 
+        floatPlaceholder="true"
+        [formControl]="dayFC"
+        name="" id=""
+         (selectionChange)="onDaySelected()">
+        <mat-option disabled="true" [value]="{title: 0,isDisabled: false}">{{ lang === 'fa' ? 'روز' : 'Day'
+          }}</mat-option>
+        <mat-option *ngFor="let day of days" [value]="day.title" [disabled]="day.isDisabled">
+          {{day.title}}</mat-option>
+      </mat-select>
+
+      <div class="border-date d-flex"></div>
+      <mat-select class="select-birthday" #select2 [placeholder]="lang === 'fa' ? 'ماه' : 'Month'"
+        (closed)="setPlaceHolder(select2 , lang === 'fa' ? 'ماه' : 'month')" floatPlaceholder="true"
+        [formControl]="monthFC" name="" id="" (selectionChange)="onMonthSelected()">
+        <mat-option disabled="true" [value]="0">{{ lang === 'fa' ? 'ماه' : 'Month'
+          }}</mat-option>
+        <mat-option *ngFor="let month of months" [value]="month.title" [disabled]="month.isDisabled">
+          {{month.title}}</mat-option>
+      </mat-select>
+
+      <div class="border-date"></div>
+      <mat-select class="select-birthday" #select3 [placeholder]="lang === 'fa' ? 'سال' : 'Year'"
+        (closed)="setPlaceHolder(select3 , lang === 'fa' ? 'سال' : 'year')"
+        floatPlaceholder="true"
+        [formControl]="yearFC"
+        name="" id="" (selectionChange)="onYearSelected()">
+        <mat-option disabled="true" selected [value]="0">{{ lang === 'fa' ? 'سال' : 'Year'
+          }}</mat-option>
+        <mat-option *ngFor="let year of years.slice()?.reverse()" [value]="year.title">{{year.title}}</mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>

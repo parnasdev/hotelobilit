@@ -1,0 +1,116 @@
+.title-birthday {
+    margin: 0;
+    font-size: 17px;
+    color: #000;
+  }
+
+  .select-year {
+  }
+
+  .list-year{
+    width: 100%;
+    overflow-y: scroll;
+    height: 85%;
+    .item-year{
+      width: 100%;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      color: var(--dark);
+      font-size: 17px;
+      font-weight: 700;
+      font-family: 'IRANSans' !important;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .item-year-disabled{
+      width: 100%;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      color: #a3a3a3;
+      font-size: 17px;
+      font-weight: 700;
+      font-family: 'IRANSans' !important;
+      border-bottom: 1px solid #ebebeb;
+    }
+  }
+  .select-month{
+
+  }
+
+  .list-month{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    width: 100%;
+    column-gap: 8px;
+    .item-month{
+      width: 100%;
+      height: 50px;
+      color: rgba(4, 10, 31, 0.87);
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover{
+        background: #575EFF;
+        color: #fff;
+        border-radius: 4px;
+      }
+    }
+    .item-month-disabled{
+      width: 100%;
+      height: 50px;
+      color: rgba(159, 159, 159, 0.87);
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover{
+        background: #d9d9d9;
+        color: #fff;
+        border-radius: 4px;
+      }
+    }
+  }
+
+
+  .list-day{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    place-items: center;
+    width: 100%;
+    column-gap: 8px;
+    .item-day{
+      width: 100%;
+      height: 50px;
+      color: rgba(4, 10, 31, 0.87);
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover{
+        background: #575EFF;
+        color: #fff;
+        border-radius: 4px;
+      }
+    }
+    .item-day-disabled{
+      width: 100%;
+      height: 50px;
+      color: rgba(155, 155, 155, 0.87);
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover{
+        background: #efefef;
+        color: #fff;
+        border-radius: 4px;
+      }
+    }
+  }

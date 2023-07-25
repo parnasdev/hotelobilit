@@ -1,13 +1,13 @@
-import {Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import {ReserveHotelDTO} from 'src/app/Core/Models/newPostDTO';
-import {transferRateListDTO} from 'src/app/Core/Models/newTransferDTO';
-import {ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO} from 'src/app/Core/Models/reserveDTO';
-import {CalenderServices} from 'src/app/Core/Services/calender-service';
-import {ErrorsService} from 'src/app/Core/Services/errors.service';
-import {MessageService} from 'src/app/Core/Services/message.service';
-import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { ErrorsService } from 'src/app/Core/Services/errors.service';
+import { MessageService } from 'src/app/Core/Services/message.service';
+import { ResponsiveService } from "../../Core/Services/responsive.service";
 
 @Component({
   selector: 'prs-passengers',
@@ -24,6 +24,8 @@ export class PassengersComponent implements OnInit, OnChanges {
   isTablet = false;
   isMobile = false;
   @Input() data: ReserveInfoDTO = {
+    checkin: '',
+    checkout: '',
     flight: {} as transferRateListDTO,
     hotel: {} as ReserveHotelDTO,
     rooms: [],
@@ -44,10 +46,10 @@ export class PassengersComponent implements OnInit, OnChanges {
   show = false;
 
   constructor(public fb: FormBuilder,
-              public errorService: ErrorsService,
-              public mobileService: ResponsiveService,
-              public calenderService: CalenderServices,
-              public message: MessageService) {
+    public errorService: ErrorsService,
+    public mobileService: ResponsiveService,
+    public calenderService: CalenderServices,
+    public message: MessageService) {
     this.isMobile = mobileService.isMobile()
     this.isDesktop = mobileService.isDesktop()
     this.isTablet = mobileService.isTablet()

@@ -171,7 +171,7 @@
                     <small>تومان</small>
                   </div>
                 </div>
-                <a class="btn-base-red w-75 mt-4" (click)="submit(item.id,flightIndex)">رزرو تور</a>
+                <a class="btn-base-red w-75 mt-4" (click)="submit(item.id,flightIndex,item.checkin,item.checkout)">رزرو تور</a>
               </div>
 
 
@@ -286,7 +286,7 @@
                     <small>تومان</small>
                   </div>
                 </div>
-                <a (click)="submit(item.id,flightIndex)" class="btn-base-red w-75 mt-4">رزرو تور</a>
+                <a (click)="submit(item.id,flightIndex,item.checkin,item.checkout)" class="btn-base-red w-75 mt-4">رزرو تور</a>
               </div>
             </div>
             <div class="p-count-room d-flex flex-column" *ngFor="let x of item.selectedRooms;let i=index">

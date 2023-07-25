@@ -9,6 +9,7 @@ import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import * as moment from 'jalali-moment';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { DatesResDTO } from 'src/app/Core/Models/tourDTO';
 
 @Component({
   selector: 'prs-hotel-list',
@@ -22,6 +23,8 @@ export class HotelListComponent implements OnInit {
   isLoading = false;
   isSearch = true
   isFiltering = false;
+  reservedDates: DatesResDTO[] = [];
+
   req: TourSearchReqDTO = {
     date: '',
     destination: '',
@@ -65,32 +68,63 @@ export class HotelListComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       this.routeDataParam = params;
     })
-    if(this.isMobile) {
+    if (this.isMobile) {
       this.isSearch = false;
     }
     this.orderBy = this.expensive ? 2 : 1
   }
 
   ngOnInit() {
-    this.getSearchData();
-
+    this.getReservedDates()
     // window.scroll({
     //   top: 500
     // })
   }
+    convertDates(item: DatesResDTO) {
+      if (!item.checkin_tomorrow && !item.checkout_yesterday) {
+      } else if (item.checkin_tomorrow && !item.checkout_yesterday) {
+        item.date = moment(item.date).add(1, 'days').format('YYYY-MM-DD');
+      } else if (!item.checkin_tomorrow && item.checkout_yesterday) {
+        item.night = item.night - 1
+      } else {
+        item.date = moment(item.date).add(1, 'days').format('YYYY-MM-DD');
+        item.night = item.night - 1
+      }
+      return item
+  }
 
   setReq() {
+    // let date = moment(this.routeDataParam['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD');
+    // let night = this.routeDataParam['night'] ?? 1;
+    // let listFiltred = this.reservedDates.filter(x => x.night === +night && x.date === date)
+    // let item:any = listFiltred.length > 0 ? listFiltred[0] : null;
+
+
 
     this.req = {
-      date: moment(this.routeDataParam['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-      destination: this.routeDataParam['dest'],
       origin: this.routeDataParam['origin'],
+      destination: this.routeDataParam['dest'],
+      date: moment(this.routeDataParam['stDate'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
       stayCount: this.routeDataParam['night'] ?? 1,
       keywords: this.keyword ? this.keyword : null,
       stars: this.star > 0 ? +this.star : null,
       orderBy: this.orderBy
     }
 
+  }
+
+
+  getReservedDates(): void {
+    let originCode = this.routeDataParam['origin']
+    let destCode = this.routeDataParam['dest']
+    this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
+      if (res.isDone) {
+        this.reservedDates = res.data
+        this.getSearchData();
+
+      }
+    }, (error: any) => {
+    })
   }
 
   getSearchData(): void {
@@ -102,7 +136,7 @@ export class HotelListComponent implements OnInit {
       if (res.isDone) {
         this.hotels = res.data;
         this.paginate = res.meta;
-        if(this.paginate) {
+        if (this.paginate) {
           this.paginateConfig = {
             itemsPerPage: this.paginate.per_page,
             totalItems: this.paginate.total,

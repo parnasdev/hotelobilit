@@ -1,0 +1,90 @@
+:host::ng-deep .mat-select-panel-wrap{
+  font-family: 'IRANSans' !important;
+
+}
+
+.select-birthday{
+  border: none;
+  height: 100%;
+  outline: none;
+  font-size: 14px;
+  width: 31%;
+  background: #fff;
+  option{
+    font-size: 14px;
+    width: 100% !important;
+    background: #f2f2f2 !important;
+    height: 30px !important;
+    &:hover{
+      background: #fff !important;
+
+    }
+  }
+}
+.item-inp-special-date {
+    width: 100%;
+    height: calc(3em + 2px);
+    margin: 14px 0 0 0;
+    padding: 0 12px;
+    border: 1px solid #9b9da9;
+    border-radius: 4px;
+    background: #fff;
+    resize: none;
+    outline: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    label{
+      background: var(--white);
+      padding: 2px;
+      position: absolute;
+      right: 21px;
+      top: -13px;
+      font-size: 12px !important;
+      color: rgba(4, 10, 31, 0.6);
+    }
+
+    .month, .year, .day {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        color: rgba(4, 10, 31, 0.6);
+      }
+    }
+
+    label {
+      position: absolute;
+    }
+
+    .date {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .border-date {
+        height: 35px;
+        width: 1px;
+        background: rgba(4, 10, 31, 0.38);
+        border-radius: 4px;
+        margin: 0 1rem;
+      }
+
+      button {
+        background: unset;
+        border: none;
+        outline: none;
+      }
+    }
+  }
+  .text-error{
+    font-size: 12px !important;
+    position: relative;
+  }
+.border-red {
+  border: 1px solid red!important;
+}

@@ -1,0 +1,39 @@
+<!--mobile-->
+<prs-new-date-picker-select *ngIf="isDesktop" [lang]="lang" [title]="title" [incommingDate]="incommingDate"
+  [minDate]="minDate" [maxDate]="maxDate" (sendDate)="sendDate.emit($event)">
+</prs-new-date-picker-select>
+
+
+
+<!--tablet-->
+<div *ngIf="isTablet">
+  <div class="item-inp-special-date" [ngClass]="{'border-red ':hasError()}" *ngIf="show">
+    <label>{{ title }}</label>
+    <div class="date">
+      <button class="day" (click)="openBottomSheet(3)">
+        <span>{{ day!== 0 ? day : 'روز' }}</span>
+        <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0L5 5L10 0H0Z" fill="#040A1F" fill-opacity="0.6" />
+        </svg>
+      </button>
+      <div class="border-date"></div>
+      <button class="month" (click)="openBottomSheet(2)">
+        <span>{{ month !== 0 ? month : 'ماه' }}</span>
+        <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0L5 5L10 0H0Z" fill="#040A1F" fill-opacity="0.6" />
+        </svg>
+      </button>
+      <div class="border-date"></div>
+      <button class="year" (click)="openBottomSheet(1)">
+        <span>{{ year !== 0 ? year : 'سال' }}</span>
+        <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0L5 5L10 0H0Z" fill="#040A1F" fill-opacity="0.6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="hasError()">
+  <span class="text-error text-danger">{{ getError() }}</span>
+</ng-container>

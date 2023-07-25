@@ -139,21 +139,21 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
 
-  convertDates(list: DatesResDTO[]) {
-    list.forEach(res => {
-      if (!res.checkin_tomorrow && !res.checkout_yesterday) {
-      } else if (res.checkin_tomorrow && !res.checkout_yesterday) {
-        res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
-      } else if (!res.checkin_tomorrow && res.checkout_yesterday) {
-        res.night = res.night - 1
-      } else {
-        res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
-        res.night = res.night - 1
-      }
-      this.reservedDates.push(res)
-    })
-    
-  }
+  // convertDates(list: DatesResDTO[]) {
+  //   list.forEach(res => {
+  //     if (!res.checkin_tomorrow && !res.checkout_yesterday) {
+  //     } else if (res.checkin_tomorrow && !res.checkout_yesterday) {
+  //       res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
+  //     } else if (!res.checkin_tomorrow && res.checkout_yesterday) {
+  //       res.night = res.night - 1
+  //     } else {
+  //       res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
+  //       res.night = res.night - 1
+  //     }
+  //     this.reservedDates.push(res)
+  //   })
+
+  // }
 
   getReservedDates(): void {
     let originCode = this.originFC.value ?? '';
@@ -161,7 +161,7 @@ export class SearchComponent implements OnInit, OnChanges {
     this.getDatesLoading = true;
     this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
       if (res.isDone) {
-        this.convertDates(res.data);
+        this.reservedDates = res.data
         if (this.inCommingSearchObject) {
           this.stDateFC.setValue(this.inCommingSearchObject.stDate)
         }
@@ -189,12 +189,18 @@ export class SearchComponent implements OnInit, OnChanges {
         }
       })
       dialog.afterClosed().subscribe(res => {
+
         this.stDateFC.setValue(res.fromDate.dateFa)
         let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
         if (itemFiltered.length > 0) {
-          this.nightFC.setValue(itemFiltered[0].night)
           this.nights = [];
-          this.nights.push(itemFiltered[0].night)
+          itemFiltered.forEach(x => {
+            let itemFiltered = this.nights.filter(y => x.night === y);
+            if (itemFiltered.length === 0) {
+              this.nights.push(x.night)
+            }
+          })
+          this.nightFC.setValue(itemFiltered[0].night)
 
         }
 
