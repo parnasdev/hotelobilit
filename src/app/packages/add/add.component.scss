@@ -1,10 +1,13 @@
 @import "src/assets/css/varible";
-mat-form-field{
+
+mat-form-field {
   width: 100% !important;
 }
-::ng-deep .mat-mdc-text-field-wrapper{
+
+::ng-deep .mat-mdc-text-field-wrapper {
   padding: 0 !important;
 }
+
 .add-tour {
   width: 100%;
   display: flex;
@@ -567,8 +570,8 @@ mat-form-field{
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -632,7 +635,7 @@ prs-select-hotel {
 
 }
 
-@media only screen and (min-width: 501px)and (max-width: 868px) {
+@media only screen and (min-width: 501px) and (max-width: 868px) {
 
   :host::ng-deep.top .item-info,
   .top .item-info-2 {
@@ -867,7 +870,6 @@ prs-select-hotel {
 }
 
 
-
 .info-tour-body-2 {
   width: 99%;
 
@@ -962,51 +964,70 @@ prs-select-hotel {
   width: 100%;
   margin-top: 14px;
 }
-.item-package{
-  border:1px solid #e0e0e0;
+
+.item-package {
+  border: 1px solid #e0e0e0;
   background: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 8px;
   border-radius: 12px;
-  padding:12px;
+  padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .p-title{
-    margin-bottom: 0;
-    width: 13% !important;
-    .icon-cancel{
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ff0000;
-      color: #fff;
-      cursor: pointer;
-    }
-    h5{
+
+  .icon-cancel {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ff0000;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .number {
+    background: $base-color;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white-color;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+
+  .checkbox-bottun-parent {
+    justify-content: flex-end !important;
+    margin-right: 16px;
+    width: auto !important;
+    transform: translateY(-10px);
+  }
+
+  .middle-item {
+    width: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h5 {
       font-size: 14px;
       font-weight: 600;
       color: #151515;
-      margin: 0 12px 0 0;
-      position: relative;
-      top: 7px;
+      margin: 0 0 0 12px;
+      white-space: nowrap;
     }
-  }
-  .checkbox-bottun-parent{
-    width: 25% !important;
-    justify-content: flex-end !important;
-  }
-  .middle-item{
-    width: 55%;
-    display: flex;
-    justify-content: center;
-    .inp-form{
+
+    .inp-form {
       width: 80% !important;
     }
-    .btn-base{
+
+    .btn-base {
       width: auto;
       padding: 0 9px;
       font-size: 13px !important;
@@ -1015,13 +1036,46 @@ prs-select-hotel {
   }
 }
 
-:host::ng-deep .item-info-material input{
+:host::ng-deep .item-info-material input {
   border: 1px solid #e0e0e0 !important;
   height: 40px !important;
   position: relative;
   top: -15px !important;
 }
-:host::ng-deep .item-info-material img{
+
+:host::ng-deep .item-info-material img {
   left: 3px !important;
   top: 17px !important;
+}
+
+.empty-transfer {
+  background: $white-color;
+  border: 2px dashed #e0e0e0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 0;
+  margin: 1.5rem 0;
+
+  span {
+    font-size: 14px;
+    color: $gray-color;
+    font-weight: 600;
+  }
+}
+
+
+.p-list-fly {
+  width: 100% !important;
+  margin-top: 1rem;
+  h2{
+    font-size: 16px !important;
+  }
+  .item-header{
+    background: $white-color;
+    span{
+      font-size: 13px !important;
+    }
+  }
 }
