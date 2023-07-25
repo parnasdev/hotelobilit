@@ -9,7 +9,8 @@
 
 .list-year{
   width: 100%;
-  height: 85%;
+  height: 250px;
+  overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 0;
@@ -40,6 +41,8 @@
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
   width: 100%;
+  height: 250px;
+  overflow-y: auto;
   column-gap: 8px;
   .item-month{
     width: 100%;
@@ -64,6 +67,8 @@
   place-items: center;
   width: 100%;
   column-gap: 8px;
+  height: 250px;
+  overflow-y: auto;
   .item-day{
     width: 100%;
     height: 50px;
