@@ -10,17 +10,19 @@
 .list-year{
   width: 100%;
   height: 85%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0;
   li{
     width: 100%;
     height: 50px;
     cursor: pointer;
     display: grid;
     place-items: center;
-    color: var(--dark);
-    font-size: 17px;
+    color: rgba(4, 10, 31, 0.87);
+    font-size: 14px;
     font-weight: 700;
     font-family: 'IRANSans' !important;
-    border-bottom: 1px solid #ebebeb;
     &:hover{
       background: #575EFF;
       color: #fff;
