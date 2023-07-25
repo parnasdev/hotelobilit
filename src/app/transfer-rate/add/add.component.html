@@ -34,7 +34,7 @@
           <div class="w-45 mt-3 d-flex align-items-center item-bg justify-content-between px-3">
             <div class="d-flex align-items-center">
               <mat-label>چکین فردا</mat-label>
-              <mat-checkbox [(ngModel)]="checkin_tomorrow"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="checkin_tomorrow" [ngModelOptions]="{standalone: true}"></mat-checkbox>
             </div>
 
             <div class="item-info-timer w-45">
@@ -46,7 +46,7 @@
           <div class="w-45 mt-3 d-flex align-items-center item-bg justify-content-between px-3">
             <div class="d-flex align-items-center">
               <mat-label>چک اوت دیروز</mat-label>
-              <mat-checkbox [(ngModel)]="checkout_yesterday"></mat-checkbox>
+              <mat-checkbox [(ngModel)]="checkout_yesterday" [ngModelOptions]="{standalone: true}"></mat-checkbox>
             </div>
             <div class="item-info-timer w-45">
               <label for="">ساعت پرواز برگشت</label>
