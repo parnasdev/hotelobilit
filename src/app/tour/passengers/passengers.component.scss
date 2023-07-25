@@ -314,7 +314,7 @@
   background: var(--base-color);
   color: var(--white);
   padding: 4px 10px;
-  border-radius: 4px;
+  border-radius: 0 0 0 13px;
   font-size: 13px !important;
 }
 
@@ -330,8 +330,8 @@
   background: #646464;
   color: var(--white);
   padding: 4px 10px;
-  border-radius: 4px;
   font-size: 13px !important;
+  border-radius: 0 0 0 13px;
 }
 
 
