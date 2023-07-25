@@ -35,6 +35,9 @@ export class CompleteReservationComponent implements OnInit {
   hotelID = '';
   showPassengers = true;
   isLoading = false;
+
+  isPrivacyCheck = false;
+
   req: ReserveCreateDTO = {
     hotel_id: 0,
     flight_id: 0,
@@ -231,18 +234,22 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   submit() {
-    this.setReq();
-    this.api.create(this.req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.custom(res.message)
-        this.router.navigateByUrl('/')
-      } else {
-        this.message.custom(res.message)
-      }
-    }, (error: any) => {
-      this.errorService.recordError(error.error.errors)
-      this.checkError.check(error)
-    })
+    if(this.isPrivacyCheck){
+      this.setReq();
+      this.api.create(this.req).subscribe((res: any) => {
+        if (res.isDone) {
+          this.message.custom(res.message)
+          this.router.navigateByUrl('/')
+        } else {
+          this.message.custom(res.message)
+        }
+      }, (error: any) => {
+        this.errorService.recordError(error.error.errors)
+        this.checkError.check(error)
+      })
+    }else {
+      this.message.custom('لطفا قوانین و مقررات سایت را بپذیرید')
+    }
   }
 
   setReq() {
