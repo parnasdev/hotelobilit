@@ -11,7 +11,8 @@
           <div class="selectdiv">
             <label>
               <select [formControl]="status_idFC">
-                <option *ngFor="let status of this.statuses; let i = index" [value]="status.id">{{ status.name }}</option>
+                <option *ngFor="let status of this.statuses; let i = index"
+                        [value]="status.id">{{ status.name }}</option>
                 <!-- <option value="Draft" selected>پیش نویس</option>
                 <option value="Accepted">تایید شده</option>
                 <option value="NotAccepted">عدم تایید</option>
@@ -70,7 +71,7 @@
           <label for="">تاریخ ورود به هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
-              [min]="minDate" (click)="picker1.open()">
+                   [min]="minDate" (click)="picker1.open()">
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkin')">
@@ -82,7 +83,7 @@
           <label for="">تاریخ خروج از هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
-              [min]="minDate" (click)="picker2.open()">
+                   [min]="minDate" (click)="picker2.open()">
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkout')">
@@ -115,7 +116,7 @@
           <label for="">تاریخ انقضا پکیج</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
-              (click)="picker3.open()">
+                   (click)="picker3.open()">
             <mat-datepicker #picker3></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('expired_at')">
@@ -167,25 +168,26 @@
 
   <div class="w-100">
     <button class="btn-base w-100-mobi m-top-20" (click)="addHotel()">اضافه کردن هتل</button>
-    <div class="package-box">
-      <div class="item-package" *ngFor="let item of packages;let i=index">
+    <div class="item-package" *ngFor="let item of packages;let i=index">
 
-        <div class="w-100 p-title">
-          <h5>انتخاب هتل</h5>
-          <i class="icon-cancel" (click)="removePackage(i)"></i>
-        </div>
-        <div class="inp-form">
-        <select class="w-100" [(ngModel)]="item.hotel_id">
-          <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
-        </select>
+      <div class=" p-title">
+        <i class="icon-cancel" (click)="removePackage(i)"></i>
+        <h5>انتخاب هتل</h5>
       </div>
-        <div class="d-flex checkbox-bottun-parent">
 
-          <button class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
-          <div class="d-flex align-items-center justify-content-center">
-            <label>ویژه</label>
+      <div class="d-flex middle-item">
+        <div class="inp-form">
+          <select class="w-100" [(ngModel)]="item.hotel_id">
+            <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
+          </select>
+        </div>
+        <button class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
+      </div>
+      <div class="d-flex checkbox-bottun-parent">
+
+        <div class="d-flex p-checkbox align-items-center justify-content-end">
+          <label>ویژه</label>
           <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
-          </div>
         </div>
       </div>
     </div>
