@@ -1,9 +1,9 @@
 .item-inp-special-date {
     width: 100%;
-    height: calc(3em + 2px);
+    height: calc(4em + 2px);
     margin: 14px 0 0 0;
     padding: 0 12px;
-    border: 1px solid #9b9da9;
+    border: 1px solid #e2e8f0;
     border-radius: 4px;
     background: #fff;
     resize: none;
@@ -21,28 +21,28 @@
       font-size: 12px !important;
       color: rgba(4, 10, 31, 0.6);
     }
-  
+
     .month, .year, .day {
       width: 30%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-  
+
       span {
         color: rgba(4, 10, 31, 0.6);
       }
     }
-  
+
     label {
       position: absolute;
     }
-  
+
     .date {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-  
+
       .border-date {
         height: 35px;
         width: 1px;
@@ -50,7 +50,7 @@
         border-radius: 4px;
         margin: 0 1rem;
       }
-  
+
       button {
         background: unset;
         border: none;
