@@ -20,6 +20,9 @@
                 <option value="Suspended">معلق شده/منقضی شده</option>
                 <option value="Completion">تکمیل شده</option> -->
               </select>
+              <div *ngIf="errorService.hasError('status_id')">
+                <span class="text-danger">{{errorService.getError('status_id')}}</span>
+              </div>
             </label>
           </div>
 
@@ -146,7 +149,10 @@
         <span>ظرفیت</span>
       </div>
       <div class="info-tour-body-2">
-        <span class="empty-transfer" *ngIf="transferRates.length === 0">پروازی یافت نشد</span>
+        <div class="empty-transfer">
+          <span  *ngIf="transferRates.length === 0">پروازی یافت نشد</span>
+
+        </div>
         <div *ngIf="transferRates.length > 0">
           <div class="item" *ngFor="let item of transferRates">
             <mat-checkbox [(ngModel)]="item.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
@@ -160,41 +166,43 @@
             <span>{{ item.capacity }}</span>
           </div>
         </div>
+        <div *ngIf="errorService.hasError('flights')">
+          <span class="text-danger">لطفا پرواز خود را انتخاب کنید</span>
+        </div>
       </div>
+
     </div>
 
   </div>
 
 
   <div class="w-100">
-    <button class="btn-base w-100-mobi m-top-20" (click)="addHotel()">اضافه کردن هتل</button>
+    <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     <div class="item-package" *ngFor="let item of packages;let i=index">
-
-      <div class=" p-title">
-        <i class="icon-cancel" (click)="removePackage(i)"></i>
-        <h5>انتخاب هتل</h5>
-      </div>
-
+      <span class="number">2</span>
       <div class="d-flex middle-item">
+        <h5>انتخاب هتل</h5>
         <div class="inp-form">
           <select class="w-100" [(ngModel)]="item.hotel_id">
             <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
           </select>
         </div>
-        <button class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
-      </div>
-      <div class="d-flex checkbox-bottun-parent">
+        <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
+        <div class="d-flex checkbox-bottun-parent">
 
-        <div class="d-flex p-checkbox align-items-center justify-content-end">
-          <label>ویژه</label>
-          <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
+          <div class="d-flex p-checkbox align-items-center justify-content-end">
+            <label>ویژه</label>
+            <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
+          </div>
         </div>
+
       </div>
+      <i class="icon-cancel" (click)="removePackage(i)"></i>
     </div>
   </div>
 
   <!-- <prs-detail-package class="w-100"></prs-detail-package> -->
 
-  <button class="btn-base w-100-mobi" style="width: 15%;" (click)="submit()">ثبت تور</button>
+  <button class="btn-base w-100-mobi m-top-12" style="width: 15%;" (click)="submit()">ثبت تور</button>
 
 </div>

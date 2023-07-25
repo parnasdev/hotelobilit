@@ -76,6 +76,7 @@ export class AddComponent implements OnInit {
     public dialog: MatDialog,
     public fb: FormBuilder,
     public tourApi: TourApiService) {
+      errorService.clear()
   }
 
   ngOnInit() {

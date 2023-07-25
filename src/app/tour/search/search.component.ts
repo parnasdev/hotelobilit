@@ -138,13 +138,30 @@ export class SearchComponent implements OnInit, OnChanges {
     this.getReservedDates();
   }
 
+
+  convertDates(list: DatesResDTO[]) {
+    list.forEach(res => {
+      if (!res.checkin_tomorrow && !res.checkout_yesterday) {
+      } else if (res.checkin_tomorrow && !res.checkout_yesterday) {
+        res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
+      } else if (!res.checkin_tomorrow && res.checkout_yesterday) {
+        res.night = res.night - 1
+      } else {
+        res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
+        res.night = res.night - 1
+      }
+      this.reservedDates.push(res)
+    })
+    
+  }
+
   getReservedDates(): void {
     let originCode = this.originFC.value ?? '';
     let destCode = this.destFC.value ?? '';
     this.getDatesLoading = true;
     this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
       if (res.isDone) {
-        this.reservedDates = res.data;
+        this.convertDates(res.data);
         if (this.inCommingSearchObject) {
           this.stDateFC.setValue(this.inCommingSearchObject.stDate)
         }

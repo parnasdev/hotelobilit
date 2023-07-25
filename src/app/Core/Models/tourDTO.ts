@@ -307,6 +307,8 @@ export interface Tour {
 export interface DatesResDTO {
   date: string;
   night: number;
+  checkin_tomorrow: boolean
+  checkout_yesterday: boolean
 }
 
 

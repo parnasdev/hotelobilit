@@ -58,8 +58,8 @@ export class EditComponent extends AddComponent implements OnInit {
     this.form.controls.origin_flight_number.setValue(this.infoData.origin_flight_number);
     this.form.controls.destination_flight_number.setValue(this.infoData.destination_flight_number);
     
-    this.checkin_tomorrow = this.infoData.checkin_tomorrow ? 1 : 0
-    this.checkout_yesterday = this.infoData.checkout_yesterday ? 1 : 0
+    this.checkin_tomorrow = this.infoData.checkin_tomorrow
+    this.checkout_yesterday = this.infoData.checkout_yesterday
     this.infoData.rates.forEach((item: any) => {
       this.addRow(item);
     });

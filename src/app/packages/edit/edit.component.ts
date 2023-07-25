@@ -16,7 +16,6 @@ export class EditComponent extends AddComponent implements OnInit {
   id = ''
   override ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
-    debugger
     this.getCities();
   }
 
@@ -26,7 +25,6 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
-        debugger
         this.setInfo();
       } else {
         this.message.custom(res.message);
@@ -42,7 +40,6 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   override getHotels(): void {
-    debugger
     if (this.destination_idFC.valid && this.checkinFC.valid && this.checkoutFC.valid) {
       this.isLoading = true;
       const req = {
@@ -121,7 +118,6 @@ export class EditComponent extends AddComponent implements OnInit {
     this.cityApi.getCities(req).subscribe((res: any) => {
       if (res.isDone) {
         this.cities = res.data;
-        debugger
         this.getInfo()
 
       }
@@ -157,7 +153,6 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   setInfo() {
-    debugger
     this.titleFC.setValue(this.tourData.title);
     this.origin_idFC.setValue(this.tourData.origin_id);
     this.destination_idFC.setValue(this.tourData.destination_id);
