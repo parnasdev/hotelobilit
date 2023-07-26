@@ -96,8 +96,7 @@
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }} - {{transfer.time}}</span>
-          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }} -
-            {{transfer.flight.time}}</span>
+          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }} - {{transfer.flight.time}}</span>
 
         </div>
         <div class="d-flex flex-column ">
@@ -109,9 +108,9 @@
           <span class="title-tour">{{ transfer.adl_price | sperator }}
             <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
               matTooltip="{{ transfer.chd_price | sperator }} قیمت کودک"
-              aria-label="Button that displays a tooltip when focused or hovered over"></i>
+              aria-label=""></i>
           </span>
-          <span class="text-danger">5 شب</span>
+          <span class="text-danger">{{ calculateDiff(transfer.date, transfer.flight.date) }} شب</span>
           <!-- <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span> -->
         </div>
         <!-- <div class="d-flex flex-column ">

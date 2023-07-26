@@ -190,4 +190,11 @@ export class ListComponent implements OnInit {
     setTimeout(() => this.show = true);
   }
 
+  
+  calculateDiff(stDate: any, enDate: any){
+    enDate = new Date(enDate);
+    stDate = new Date(stDate);
+    return Math.floor((Date.UTC(enDate.getFullYear(), enDate.getMonth(), enDate.getDate()) - Date.UTC(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()) ) /(1000 * 60 * 60 * 24));
+  }
+
 }
