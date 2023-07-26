@@ -151,7 +151,8 @@
                     <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
                   </div>
                   <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                    <strong>{{ calculatePriceByRates(item.id, room.rates,roomIndex) | sperator }}</strong>
+                    <strong>{{ calculatePriceByRates(item,room.rates,roomIndex,'adl') | sperator
+                      }}</strong>
                     <small>تومان</small>
                   </div>
                   <!-- <i class="icon-down-open"></i> -->
@@ -167,11 +168,12 @@
                 <div class="p-price">
                   <span>قیمت:</span>
                   <div class="price">
-                    <strong>{{ calculatePrice(item.id) | sperator}}</strong>
+                    <strong>{{ calculatePrice(item) | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                 </div>
-                <a class="btn-base-red w-75 mt-4" (click)="submit(item.id,flightIndex,item.checkin,item.checkout)">رزرو تور</a>
+                <a class="btn-base-red w-75 mt-4" (click)="submit(item.id,flightIndex,item.checkin,item.checkout)">رزرو
+                  تور</a>
               </div>
 
 
@@ -265,7 +267,8 @@
                       <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
                     </div>
                     <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                      <strong>{{ calculatePriceByRates(item.id, room.rates,roomIndex) | sperator }}</strong>
+                      <strong>{{ calculatePriceByRates(item,room.rates, roomIndex,'adl') | sperator
+                        }}</strong>
                       <small>تومان</small>
                     </div>
                     <!-- <i class="icon-down-open"></i> -->
@@ -282,11 +285,12 @@
                 <div class="p-price">
                   <span>قیمت:</span>
                   <div class="price">
-                    <strong>{{ calculatePrice(item.id) | sperator}}</strong>
+                    <strong>{{ calculatePrice(item) | sperator}}</strong>
                     <small>تومان</small>
                   </div>
                 </div>
-                <a (click)="submit(item.id,flightIndex,item.checkin,item.checkout)" class="btn-base-red w-75 mt-4">رزرو تور</a>
+                <a (click)="submit(item.id,flightIndex,item.checkin,item.checkout)" class="btn-base-red w-75 mt-4">رزرو
+                  تور</a>
               </div>
             </div>
             <div class="p-count-room d-flex flex-column" *ngFor="let x of item.selectedRooms;let i=index">
@@ -307,7 +311,7 @@
 
                 <div class="d-flex inp-item border-gray flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
-                  <small>{{ getExtraBedPrice(flightIndex,i) |sperator }} تومان</small>
+                  <small>{{ getExtraBedPrice(item,flightIndex,i) |sperator }} تومان</small>
                   <div class="p-count w-100 mt-2">
                     <button
                       [ngClass]="{'btn-plus-off' : x.extra_count == getExtraBedCount(x.room_id),'btn-plus' :x.extra_count <= getExtraBedCount(x.room_id)}"
@@ -319,7 +323,7 @@
 
                 <div class="d-flex inp-item border-gray flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد کودک </label>
-                  <small>{{ calculatePriceByName(item.id,flightIndex,i,'chd') | sperator }} تومان</small>
+                  <small>{{ calculatePriceByName(item,flightIndex,i,'chd') | sperator }} تومان</small>
 
                   <div class="p-count w-100 mt-2">
                     <button [ngClass]="{'btn-plus-off' : x.chd_count == chd_count,'btn-plus' :x.chd_count <= chd_count}"
