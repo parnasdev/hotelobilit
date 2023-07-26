@@ -247,6 +247,9 @@ export class CompleteReservationComponent implements OnInit {
     })
   }
 
+
+  
+
   reload() {
     this.showPassengers = false;
     setTimeout(() => this.showPassengers = true);

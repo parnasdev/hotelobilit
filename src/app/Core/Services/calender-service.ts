@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as moment from 'jalali-moment';
 
 
@@ -13,11 +13,11 @@ export class CalenderServices {
         return val.slice(0, 5);
     }
 
-    convertDateFormat(date: string){
+    convertDateFormat(date: string) {
         return date.split('/').join('-')
     }
 
-    convertDate(date: any, convertType: string,formatEn = "YYYY/MM/DD"): any {
+    convertDate(date: any, convertType: string, formatEn = "YYYY/MM/DD"): any {
         /* convertType : fa - en */
         // debugger;
         if (convertType === 'fa') {
@@ -27,31 +27,31 @@ export class CalenderServices {
         }
     }
     convertDateSpecial(date: any, convertType: string): any {
-      /* convertType : fa - en */
-      // debugger;
-      if (convertType === 'fa') {
-        return (moment(date).format('jYYYY/jMM/jDD')).split('/').join('-');
-      } else if (convertType === 'en') {
-        return (moment(date).locale('en').format('YYYY/MM/DD')).split('/').join('-');
-      }
+        /* convertType : fa - en */
+        // debugger;
+        if (convertType === 'fa') {
+            return (moment(date).format('jYYYY/jMM/jDD')).split('/').join('-');
+        } else if (convertType === 'en') {
+            return (moment(date).locale('en').format('YYYY/MM/DD')).split('/').join('-');
+        }
     }
 
-    enumerateDaysBetweenDates(startDate: string, endDate: string,format:string = 'jYYYY/jMM/jDD') {
+    enumerateDaysBetweenDates(startDate: string, endDate: string, format: string = 'jYYYY/jMM/jDD') {
         if (startDate && endDate) {
-          var dates = [];
-          var currDate = moment(startDate).startOf('day');
-          var lastDate = moment(endDate).startOf('day');
-          dates.push(moment(currDate.clone().toDate()).format(format));
-    
-          while (currDate.add(1, 'days').diff(lastDate) < 0) {
+            var dates = [];
+            var currDate = moment(startDate).startOf('day');
+            var lastDate = moment(endDate).startOf('day');
             dates.push(moment(currDate.clone().toDate()).format(format));
-          }
-          dates.push(moment(lastDate.clone().toDate()).format(format));
-          return dates;
+
+            while (currDate.add(1, 'days').diff(lastDate) < 0) {
+                dates.push(moment(currDate.clone().toDate()).format(format));
+            }
+            dates.push(moment(lastDate.clone().toDate()).format(format));
+            return dates;
         } else {
-          return [];
+            return [];
         }
-      };
+    };
 
 
     convertDateAndTime(date: any, convertType: string): any {
@@ -65,13 +65,13 @@ export class CalenderServices {
     }
 
     convertDate1(date: any, convertType: string): any {
-      /* convertType : fa - en */
-      // debugger;
-      if (convertType === 'fa') {
-        return (moment(date).format('jYYYY/jMM/jDD HH:mm:ss')).split('/').join('-');
-      } else if (convertType === 'en') {
-        return (moment(date).locale('en').format('YYYY-MM-DD HH:mm:ss')).split('/').join('-');
-      }
+        /* convertType : fa - en */
+        // debugger;
+        if (convertType === 'fa') {
+            return (moment(date).format('jYYYY/jMM/jDD HH:mm:ss')).split('/').join('-');
+        } else if (convertType === 'en') {
+            return (moment(date).locale('en').format('YYYY-MM-DD HH:mm:ss')).split('/').join('-');
+        }
     }
 
     convertFullDate(date: any, convertType: string): any {
@@ -147,9 +147,14 @@ export class CalenderServices {
         }
     }
 
-    isValidDate(date: string, format:string = "YYYY/MM/DD "){
+    isValidDate(date: string, format: string = "YYYY/MM/DD ") {
         return !isNaN(new Date(date).getDate());
         // return moment(date, format, true).isValid();
     }
+
+
+    // convertTime(time: string) {
+    //     return moment(time).format('hh:mm')
+    // }
 
 }

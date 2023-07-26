@@ -2,7 +2,7 @@
 
    <div class="w-100 my-4 d-flex align-items-center justify-content-between">
      <h2 class="title-birthday">انتخاب سال </h2>
-     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <svg (click)="_bottomSheetRef.dismiss()" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#040A1F" fill-opacity="0.6"/>
      </svg>
    </div>
@@ -16,7 +16,7 @@
 <div class="select-month" *ngIf="step == 2">
   <div class="w-100 my-4 d-flex align-items-center justify-content-between">
     <h2 class="title-birthday">انتخاب ماه </h2>
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="14" height="14" (click)="_bottomSheetRef.dismiss()" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#040A1F" fill-opacity="0.6"/>
     </svg>
   </div>
@@ -28,7 +28,7 @@
 <div class="select-day" *ngIf="step == 3">
   <div class="w-100 my-4 d-flex align-items-center justify-content-between">
     <h2 class="title-birthday">انتخاب روز </h2>
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="14" height="14" (click)="_bottomSheetRef.dismiss()" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#040A1F" fill-opacity="0.6"/>
     </svg>
   </div>
