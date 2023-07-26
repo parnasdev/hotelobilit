@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
+import { RateDTO, ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import {
   ReserveCheckingReqDTO,
@@ -21,6 +21,7 @@ import { ConfirmPhoneComponent } from 'src/app/auth/confirm-phone/confirm-phone.
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import * as moment from 'jalali-moment';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -80,6 +81,7 @@ export class CompleteReservationComponent implements OnInit {
     public dialog: MatDialog,
     public publicService: PublicService,
     public session: SessionService,
+    public calendarService: CalenderServices,
     public errorService: ErrorsService,
     public router: Router,
     public checkError: CheckErrorService,
@@ -189,12 +191,30 @@ export class CompleteReservationComponent implements OnInit {
     let price = 0;
     let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
     if (roomFiltered.length > 0) {
-      roomFiltered[0].rates.forEach((rate: any) => {
+      this.getComputableRateList(roomFiltered[0].rates).forEach((rate: any) => {
         price += rate.price * this.getCurrencyRate(rate.currency_code, roomId);
       })
     }
-
     return price
+  }
+
+
+  getComputableDateList() {
+    let dateList: any = this.calendarService.enumerateDaysBetweenDates(this.data.checkin, this.data.checkout, 'YYYY-MM-DD')
+    dateList.pop();
+    return dateList;
+  }
+
+  getComputableRateList(rates: RateDTO[]) {
+    let result: RateDTO[] = []
+ 
+    this.getComputableDateList().forEach((date: string) => {
+      let itemFiltered = rates.filter((item: RateDTO) => item.date === date)
+      if (itemFiltered.length > 0) {
+        result.push(itemFiltered[0]);
+      }
+    })
+    return result;
   }
 
 
@@ -202,8 +222,7 @@ export class CompleteReservationComponent implements OnInit {
     let price = 0;
     let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
     if (roomFiltered.length > 0) {
-    
-    roomFiltered[0].rates.forEach((rate: any) => {
+      this.getComputableRateList(roomFiltered[0].rates).forEach((rate: any) => {
       price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomId);
     })
   }
@@ -221,12 +240,11 @@ export class CompleteReservationComponent implements OnInit {
         for (let i = 0; i < room.count; i++) {
           x[0].options = room;
           x[0].totalPrice = this.getRoomPrice(room.room_id)
-          x[0].totalExtraPrice = this.getExtraBedPrice(index)
+          x[0].totalExtraPrice = this.getExtraBedPrice(room.room_id)
           this.roomsSelected.push(x[0]);
         }
       }
     })
-
   }
 
   reload() {

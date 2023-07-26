@@ -107,66 +107,61 @@
           <div class="w-100 mt-2 end-box d-flex align-items-center justify-content-center">
             <div class="date">
               <small class="title">تاریخ خروج از هتل :</small>
-              <strong class="font-size-16">{{ data.rooms[0].rates[data.rooms[0].rates.length -1].date | convertDate}}</strong>
+              <strong class="font-size-16">{{ data.rooms[0].rates[data.rooms[0].rates.length -1].date |
+                convertDate}}</strong>
             </div>
           </div>
         </div>
       </div>
 
 
-    <h2 style="font-size: 15px" class="title-tour d-flex flex-column align-items-start text-danger mt-3">
-      <strong>اطلاعات رزروگیرنده</strong>
+      <h2 style="font-size: 15px" class="title-tour d-flex flex-column align-items-start text-danger mt-3">
+        <strong>اطلاعات رزروگیرنده</strong>
 
-    <span style="position: relative;top: -5px" class="font-size-13">
-       (این مشخصات به عنوان طرف
-      قرارداد درنظر گرفته می شود)
-    </span>
-    </h2>
-    <div class="set-info-supervisor">
-      <div class="item-form">
-        <div class="inp-form mt-2">
-          <input type="text" [formControl]="fullNameFC" placeholder="نام و نام خانوادگی">
+        <span style="position: relative;top: -5px" class="font-size-13">
+          (این مشخصات به عنوان طرف
+          قرارداد درنظر گرفته می شود)
+        </span>
+      </h2>
+      <div class="set-info-supervisor">
+        <div class="item-form">
+          <div class="inp-form mt-2">
+            <input type="text" [formControl]="fullNameFC" placeholder="نام و نام خانوادگی">
+          </div>
+          <ng-container *ngIf="getError('reserver_full_name')">
+            <span class="text-error text-danger">نام و نام خانوادگی الزامی است</span>
+          </ng-container>
         </div>
-        <ng-container *ngIf="getError('reserver_full_name')">
-          <span class="text-error text-danger">نام و نام خانوادگی الزامی است</span>
-        </ng-container>
+        <div class="item-form">
+          <div class="inp-form mt-2">
+            <input type="text" [formControl]="reserver_id_codeFC" placeholder="کد ملی">
+          </div>
+          <ng-container *ngIf="getError('reserver_id_code')">
+            <span class="text-error text-danger">کدملی الزامی است</span>
+          </ng-container>
+        </div>
+        <div class="item-form">
+          <div class="inp-form mt-2">
+            <input type="text" [formControl]="reserver_phoneFC" placeholder="شماره همراه">
+          </div>
+          <ng-container *ngIf="getError('reserver_phone')">
+            <span class="text-error text-danger">شماره همراه الزامی است</span>
+          </ng-container>
+        </div>
       </div>
-      <div class="item-form">
-        <div class="inp-form mt-2">
-          <input type="text" [formControl]="reserver_id_codeFC" placeholder="کد ملی">
-        </div>
-        <ng-container *ngIf="getError('reserver_id_code')">
-          <span class="text-error text-danger">کدملی الزامی است</span>
-        </ng-container>
-      </div>
-      <div class="item-form">
-        <div class="inp-form mt-2">
-          <input type="text" [formControl]="reserver_phoneFC" placeholder="شماره همراه">
-        </div>
-        <ng-container *ngIf="getError('reserver_phone')">
-          <span class="text-error text-danger">شماره همراه الزامی است</span>
-        </ng-container>
+      <h2>اطلاعات مسافران</h2>
+      <ng-template [ngIf]="showPassengers">
+        <prs-passengers *ngFor="let room of roomsSelected;let i=index" [data]="data" [RoomData]="room" [index]="i"
+          [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
+      </ng-template>
+
+      <div class="rules mt-3">
+        <input type="checkbox" [(ngModel)]="isPrivacyCheck">
+        <p>ثبت درخواست به منزله پذیرش تمام
+          <a style="color: var(--base-color)" (click)="openRulesPopup()">قوانین و مقررات</a>
+          قوانین و مقررات مرتبط با سایت هتل و بلیط و پکیجهای این تور می باشد
+        </p>
       </div>
     </div>
-    <h2>اطلاعات مسافران</h2>
-    <ng-template [ngIf]="showPassengers">
 
-      <prs-passengers *ngFor="let room of roomsSelected;let i=index" [data]="data" [RoomData]="room" [index]="i"
-                      [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
-    </ng-template>
-
-    <div class="rules mt-3">
-      <input type="checkbox" [(ngModel)]="isPrivacyCheck">
-      <p>ثبت درخواست به منزله پذیرش تمام
-        <a style="color: var(--base-color)" (click)="openRulesPopup()">قوانین و مقررات</a>
-        قوانین و مقررات مرتبط با سایت هتل و بلیط و پکیجهای این تور می باشد
-      </p>
-    </div>
-
-
-    <!-- <div class="p-submit w-100 d-flex justify-content-center mt-4">
-      <button class="btn-base px-4" (click)="submit()">ثبت درخواست</button>
-    </div> -->
   </div>
-
-</div>
