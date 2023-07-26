@@ -35,10 +35,11 @@ export class SingleEditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.editData = res.data
         this.infoData = this.editData.flight;
+        this.cities = res.data.cities;
         this.setValue()
         this.show = true;
       }
-      this.isLoading = false
+      this.isLoading = false  
 
     }, (error: any) => {
       this.isLoading = false
@@ -59,6 +60,17 @@ export class SingleEditComponent extends AddComponent implements OnInit {
     this.form.controls.destination_flight_number.setValue(this.infoData.flight.flight_number.toString());
     this.checkin_tomorrow = this.infoData.checkin_tomorrow ?? false
     this.checkout_yesterday = this.infoData.checkout_yesterday ?? false
+
+    this.cities.forEach(item => {
+      item.isChecked = false
+    });
+
+    this.infoData.cities.forEach((item: number) => {
+      let cityItem = this.cities.filter(x => x.id === item)[0]
+      console.log(cityItem);
+      cityItem.isChecked = true;
+      this.selectedCities.push(cityItem)
+    })
 
     this.adl_priceFC.setValue(this.infoData.adl_price)
     this.originDateFC.setValue(this.infoData.date)

@@ -36,6 +36,7 @@ export interface CityResponseDTO {
   description?: string
   images?: string[]
   nameEn?: string
+  isChecked?: boolean;
 }
 
 

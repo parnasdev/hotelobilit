@@ -30,6 +30,8 @@ export class AddComponent implements OnInit {
 
   selectedCityFC = new FormControl('');
 
+  selectedCities: CityResponseDTO[] = []
+
   isMobile: any;
   isLoading = false;
   minDate = new Date(); //datepicker
@@ -79,6 +81,9 @@ export class AddComponent implements OnInit {
 
   show = false;
   type = 'add'
+
+  showBox = false;
+  searchFC = new FormControl('');
 
   constructor(public message: MessageService,
     public fb: FormBuilder,
@@ -167,6 +172,11 @@ export class AddComponent implements OnInit {
     this.flightApi.getFlightRatesSet().subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data
+        this.cities = res.data.cities
+        this.cities.forEach(item => {
+          item.isChecked = false;
+        })
+        console.log(this.cities)
         this.show = true;
       }
     }, (error: any) => {
@@ -237,6 +247,11 @@ export class AddComponent implements OnInit {
     return this.data.cities.find((y: any) => y.id === id)?.name
   }
 
+  changeChecked(city_id: any){
+    this.selectedCities = [];
+    this.selectedCities = this.selectedCities.concat(this.cities.filter(x => x.isChecked))
+  }
+
   setReq() {
     this.TransferRateRequest = {
       cities: this.selectedCityFC.value ?? [],
@@ -251,6 +266,15 @@ export class AddComponent implements OnInit {
       rates: this.convertDateList(),
       checkin_tomorrow: this.checkin_tomorrow ? 1 : 0,
       checkout_yesterday: this.checkout_yesterday ? 1 : 0
+    }
+  }
+
+  getCities(){
+    if(this.searchFC.value && this.searchFC.value !== ''){
+      let word = this.searchFC.value ?? ''
+      return this.cities.filter(x => x.name.includes(word))
+    } else {
+      return this.cities
     }
   }
 }

@@ -111,21 +111,33 @@
         <div class="top">
           <div class="address-hotel">
             <label for="address">شهر های موردنظر را انتخاب کنید</label>
-            <mat-form-field appearance="fill">
+            <!-- <mat-form-field appearance="fill">
               <mat-label>شهر ها</mat-label>
-              <mat-select [formControl]="selectedCityFC" multiple>
+              <mat-select [(value)]="selectedCities" multiple>
                 <mat-select-trigger>
                   <span>شهر های انتخاب شده</span>
-
                 </mat-select-trigger>
-                <mat-option *ngFor="let city of editData.cities" [value]="city.id">{{city.name}}</mat-option>
+                <input [formControl]="searchFC" type="text" placeholder="شهر موردنظر خود را جست و جو کنید" class="w-100">
+                <mat-option *ngFor="let city of filteredCities | async" [value]="city.id">{{city.name}}</mat-option>
               </mat-select>
-            </mat-form-field>
-            <div>
-              <span class="city-box" *ngFor="let city of selectedCityFC.value">
-                {{ getCity(+city) }}
+            </mat-form-field> -->
+            <div class="d-flex flex-column w-100">
+              <input type="text" (click)="showBox = !showBox" />
+              <div *ngIf="showBox" class="d-flex flex-column justify-content-start align-items-start" style="width: 100%; height: 300px; overflow:scroll">
+                <input [formControl]="searchFC" type="text" placeholder="شهر موردنظر خود را جست و جو کنید" class="w-100">
+                <div class="d-flex" *ngFor="let city of getCities()">
+                  <mat-checkbox [(ngModel)]="city.isChecked" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="changeChecked($event)"></mat-checkbox>
+                  <span>{{ city.name }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5">
+              <span class="city-box" *ngFor="let city of selectedCities">
+                {{ city.name }}
               </span>
             </div>
+
           </div>
         </div>
 

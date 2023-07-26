@@ -38,6 +38,7 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.editData = res.data
         this.infoData = this.editData.flights;
+        this.cities = res.data.cities;
         this.setValue()
         this.show = true;
       }
@@ -57,6 +58,12 @@ export class EditComponent extends AddComponent implements OnInit {
     this.form.controls.destination_time.setValue(this.infoData.destination_time);
     this.form.controls.origin_flight_number.setValue(this.infoData.origin_flight_number);
     this.form.controls.destination_flight_number.setValue(this.infoData.destination_flight_number);
+
+    this.infoData.cities.forEach((item: number) => {
+      let cityItem = this.cities.filter(x => x.id === item)[0]
+      cityItem.isChecked = true;
+      this.selectedCities.push(cityItem)
+    })
     
     this.checkin_tomorrow = this.infoData.checkin_tomorrow
     this.checkout_yesterday = this.infoData.checkout_yesterday
