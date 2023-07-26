@@ -54,7 +54,7 @@ export class CompleteReservationComponent implements OnInit {
   checkingReq!: ReserveCheckingReqDTO
   roomsSelected: ReserveRoomDTO[] = []
   data: ReserveInfoDTO = {
-    checkin:'',
+    checkin: '',
     checkout: '',
     flight: {} as transferRateListDTO,
     hotel: {} as ReserveHotelDTO,
@@ -64,13 +64,16 @@ export class CompleteReservationComponent implements OnInit {
 
   finalRoomSelected: ReserveReqRoomDTO[] = [];
 
-  fullNameFC = new FormControl();
+  nameFC = new FormControl();
+  familyFC = new FormControl();
+
   reserver_phoneFC = new FormControl('', Validators.required);
   reserver_id_codeFC = new FormControl();
   formGroup: FormGroup = this.fb.group({
     reserver_id_code: this.reserver_id_codeFC,
     reserver_phone: this.reserver_phoneFC,
-    fullName: this.fullNameFC,
+    nameFC: this.nameFC,
+    familyFC: this.familyFC
   })
 
   constructor(public api: ReserveApiService,
@@ -103,8 +106,8 @@ export class CompleteReservationComponent implements OnInit {
   setCheckingReq() {
     this.route.queryParams.subscribe(params => {
       this.checkingReq = {
-        checkin: moment(params['checkin'],'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-        checkout: moment(params['checkout'],'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+        checkin: moment(params['checkin'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+        checkout: moment(params['checkout'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
         stayCount: params['stayCount'],
         hotel_id: +this.hotelID,
         flight_id: +this.flightID,
@@ -207,7 +210,7 @@ export class CompleteReservationComponent implements OnInit {
 
   getComputableRateList(rates: RateDTO[]) {
     let result: RateDTO[] = []
- 
+
     this.getComputableDateList().forEach((date: string) => {
       let itemFiltered = rates.filter((item: RateDTO) => item.date === date)
       if (itemFiltered.length > 0) {
@@ -223,9 +226,9 @@ export class CompleteReservationComponent implements OnInit {
     let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
     if (roomFiltered.length > 0) {
       this.getComputableRateList(roomFiltered[0].rates).forEach((rate: any) => {
-      price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomId);
-    })
-  }
+        price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomId);
+      })
+    }
     return price
   }
 
@@ -248,7 +251,7 @@ export class CompleteReservationComponent implements OnInit {
   }
 
 
-  
+
 
   reload() {
     this.showPassengers = false;
@@ -256,7 +259,7 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   submit() {
-    if(this.isPrivacyCheck){
+    if (this.isPrivacyCheck) {
       this.setReq();
       this.api.create(this.req).subscribe((res: any) => {
         if (res.isDone) {
@@ -266,10 +269,18 @@ export class CompleteReservationComponent implements OnInit {
           this.message.custom(res.message)
         }
       }, (error: any) => {
-        this.errorService.recordError(error.error.errors)
-        this.checkError.check(error)
+        if (error.status === 422) {
+          window.scroll({
+            top: 400,
+            left: 0,
+            behavior: 'smooth'
+          });
+          this.errorService.recordError(error.error.errors)
+          this.checkError.check(error)
+        }
+
       })
-    }else {
+    } else {
       this.message.custom('لطفا قوانین و مقررات سایت را بپذیرید')
     }
   }
@@ -280,13 +291,17 @@ export class CompleteReservationComponent implements OnInit {
       hotel_id: +this.hotelID,
       flight_id: +this.flightID,
       rooms: this.finalRoomSelected,
-      reserver_full_name: this.fullNameFC.value,
+      reserver_full_name: this.nameFC.value + ' ' + this.familyFC.value,
       reserver_phone: this.reserver_phoneFC.value ?? '',
       reserver_id_code: this.reserver_id_codeFC.value,
       checkin: this.data.checkin,
-      checkout:this.data.checkout,
+      checkout: this.data.checkout,
       stayCount: this.checkingReq.stayCount,
     }
+  }
+
+  onChange(name: string) {
+    this.errorService.clear(name)
   }
 
 

@@ -1,22 +1,22 @@
 <!-- <input type="text" [formControl]="dateFC" > -->
-<div class="item-inp-special-date">
+<div class="item-inp-special-date" (click)="openBottomSheet()">
     <label>{{ name }}</label>
     <div class="date">
-      <button class="day" (click)="openBottomSheet()">
+      <button class="day" >
         <span>{{ dateFC.value ? dateFC.value.split('/')[2] : 'روز' }}</span>
         <!-- <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0L5 5L10 0H0Z" fill="#040A1F" fill-opacity="0.6"/>
         </svg> -->
       </button>
       <div class="border-date"></div>
-      <button class="month" (click)="openBottomSheet()">
+      <button class="month">
         <span>{{ dateFC.value ? dateFC.value.split('/')[1] : 'ماه' }}</span>
         <!-- <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0L5 5L10 0H0Z" fill="#040A1F" fill-opacity="0.6"/>
         </svg> -->
       </button>
       <div class="border-date"></div>
-      <button class="year" (click)="openBottomSheet()">
+      <button class="year">
         <span>{{ dateFC.value ? dateFC.value.split('/')[0] : 'سال' }}</span>
         <!-- <svg width="10" height="5" viewBox="0 0 10 5" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0L5 5L10 0H0Z" fill="#040A1F" fill-opacity="0.6"/>

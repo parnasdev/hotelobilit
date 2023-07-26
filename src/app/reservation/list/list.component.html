@@ -9,6 +9,10 @@
       <span class="username">رزروگیرنده</span>
       <span class="view">نام هتل</span>
       <div class="d-flex flex-column">
+        <span class="title-tour">تاریخ ورود</span>
+        <span class="title-tour">تاریخ خروج</span>
+      </div>
+      <div class="d-flex flex-column">
         <span class="title-tour">تاریخ رفت</span>
         <span class="title-tour">تاریخ برگشت</span>
       </div>
@@ -50,6 +54,10 @@
       <div class="d-flex flex-column">
         <span class="username">{{item.details.checkin | convertDate}}</span>
         <span class="username">{{item.details.checkout | convertDate}}</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span class="username">{{item.reserves[0].flight.date | convertDate}}</span>
+        <span class="username">{{item.reserves[0].flight.flight.date | convertDate}}</span>
       </div>
       <div class="d-flex flex-column">
         <span class="username">{{ item.reserves[0].flight.origin_name }}</span>

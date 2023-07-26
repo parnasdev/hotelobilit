@@ -39,7 +39,7 @@ export class ErrorsService {
         return Object.keys(this.errors).length > 0;
     }
 
-    clear(field = null): any {
+    clear(field:string|null = null): any {
         if (field) {
             // @ts-ignore
             delete this.errors[field];

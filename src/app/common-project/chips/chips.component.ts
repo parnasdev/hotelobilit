@@ -25,7 +25,7 @@ export class ChipsComponent implements OnInit, OnChanges {
   }
 
   add(): void {
-    debugger
+    
     if (this.textFC.valid) {
       // this.list.push(this.textFC.value);
       this.textFC.reset()

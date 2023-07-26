@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import * as jmoment from 'jalali-moment';
+
 import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
@@ -15,7 +17,7 @@ import { ResponsiveService } from "../../Core/Services/responsive.service";
   styleUrls: ['./passengers.component.scss']
 })
 export class PassengersComponent implements OnInit, OnChanges {
-  @Input() age = '0';
+  @Input() age = 0;
   @Input() index = 0
   @Input() RoomData!: ReserveRoomDTO;
   @Output() passengerResult = new EventEmitter();
@@ -40,10 +42,16 @@ export class PassengersComponent implements OnInit, OnChanges {
     price: 0,
     supply: 0
   }
-  minDate = new Date();
-  infantMinDate = new Date();
-  maxDate = new Date();
+
   show = false;
+
+  childMinDate = ''
+  minDate = ''
+  infantMinDate = ''
+  maxDate = ''
+  passportMinDate = ''
+  minDateTodayShamsi = '';
+  minDateTodayMiladi = ''
 
   constructor(public fb: FormBuilder,
     public errorService: ErrorsService,
@@ -72,7 +80,26 @@ export class PassengersComponent implements OnInit, OnChanges {
         this.addRow('adl', 'extra');
       }
     }
+    if (changes['age'].firstChange) {
+      this.childMinDate = this.calenderService.changeDate(new Date(), -(this.age), 'year');
+      this.minDate = '1300-01-01'
+      this.infantMinDate = this.calenderService.changeDate(new Date(), -(2), 'year');
+      this.maxDate = moment(new Date()).format('jYYYY-jM-jD')
+      this.passportMinDate = this.calenderService.changeMiladiDate(new Date(), 6, 'month')
+      this.show = true
+      this.minDateTodayShamsi = jmoment(new Date()).format('jYYYY-jM-jD');
+      this.minDateTodayMiladi = jmoment(new Date()).format('YYYY-MM-DD');
+    }
+
     this.convertPassengerObject()
+  }
+  getErrorItem(i: number, name: string) {
+    return { 'name': name, 'index': this.index, 'i': i }
+  }
+
+
+  getDate(i: number, name: string) {
+    return this.PassengerForm.controls[i].get(name)?.value
   }
 
 
@@ -101,12 +128,13 @@ export class PassengersComponent implements OnInit, OnChanges {
 
 
   getMinDate(item: any) {
-    if (this.getPassebgerLabel(item.get('type')) === 'سرپرست' || this.getPassebgerLabel(item.get('type')) === 'همراه') {
-      return null
-    } else if (this.getPassebgerLabel(item.get('type')) === 'نوزاد') {
+    let type= item.get('type').value
+    if (type === 'adl') {
+      return this.minDate
+    } else if (type === 'inf') {
       return this.infantMinDate
     } else {
-      return this.minDate
+      return this.childMinDate
     }
   }
 
@@ -141,7 +169,7 @@ export class PassengersComponent implements OnInit, OnChanges {
           return (this.RoomData.totalExtraPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();
         }
       case 'chd':
-        debugger
+
         return ((this.RoomData.totalPrice ?? 0) / 2) + this.data.flight.chd_price
       case 'inf':
         return this.data.flight.inf_price
@@ -152,12 +180,12 @@ export class PassengersComponent implements OnInit, OnChanges {
 
   getbirthDate(i: number, date: string) {
     this.PassengerForm.controls[i].get('birth_day')?.setValue(date);
-    this.onChange()
+    this.onChange(i, 'birth_day')
   }
 
   getExpired_passport(i: number, date: string) {
     this.PassengerForm.controls[i].get('expired_passport')?.setValue(date);
-    this.onChange()
+    this.onChange(i, 'expired_passport')
   }
 
   getCurrencyRate(code: string, roomIndex: number): number {
@@ -175,6 +203,7 @@ export class PassengersComponent implements OnInit, OnChanges {
         return 0
     }
   }
+
 
 
   getTransferPrice() {
@@ -209,18 +238,6 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
 
-  onChange(): void {
-    // if (this.PassengerForm.valid) {
-    this.convertPassengerObject()
-
-    // }else {
-    //   this.markFormGroupTouched()
-    // this.PassengerForm.controls.forEach(x => {
-    //   x.controls.forEach((control:FormControl) => {
-    //   })
-    //   this.markFormGroupTouched(control)
-    // })
-  }
 
 
   getRoomNameFa(roomName: string | undefined) {
@@ -263,6 +280,12 @@ export class PassengersComponent implements OnInit, OnChanges {
       default:
         return ''
     }
+  }
+  onChange(i: number, name: string): void {
+    let str: any = 'rooms.' + this.index + '.passengers.' + i + '.' + name;
+    this.errorService.clear(str)
+    this.convertPassengerObject()
+
   }
 
   getRoomError() {

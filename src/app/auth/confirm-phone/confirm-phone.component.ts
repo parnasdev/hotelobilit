@@ -107,7 +107,6 @@ export class ConfirmPhoneComponent implements OnInit {
     }, (error: any) => {
       this.isLoading = false;
       this.errorService.recordError(error.error.errors);
-      debugger
       this.checkError.check(error);
     });
   }
@@ -133,7 +132,6 @@ export class ConfirmPhoneComponent implements OnInit {
     }, (error: any) => {
       this.isLoading = false;
       this.errorService.recordError(error.error.errors);
-      debugger
       this.errorService.check(error);
     });
   }
