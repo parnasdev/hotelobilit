@@ -171,9 +171,27 @@
     <div class="w-100">
         <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
         <div class="item-package" *ngFor="let item of packages;let i=index">
-          <span class="number">2</span>
+          <span class="number">{{ i + 1 }}</span>
           <div class="d-flex middle-item">
             <h5>انتخاب هتل</h5>
+
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Number</mat-label>
+                <input type="text"
+                       placeholder="Pick one"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+
             <div class="inp-form">
               <select class="w-100" [(ngModel)]="item.hotel_id">
                 <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>

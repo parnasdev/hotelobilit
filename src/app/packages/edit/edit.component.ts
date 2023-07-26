@@ -3,6 +3,8 @@ import { AddComponent } from '../add/add.component';
 import { CityListReq } from 'src/app/Core/Models/newCityDTO';
 import * as moment from 'moment';
 import { PackageTourDTO } from 'src/app/Core/Models/tourDTO';
+import { Observable, map, startWith } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 declare var $: any;
 
@@ -14,7 +16,21 @@ declare var $: any;
 export class EditComponent extends AddComponent implements OnInit {
   tourData: any;
   id = ''
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.hotels.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  myControl = new FormControl('');
+  filteredOptions!: Observable<any[]>;
+
   override ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
     this.getCities();
   }
