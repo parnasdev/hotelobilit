@@ -19,6 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { BirthDatePickerModule } from "../birth-date-picker/birth-date-picker.module";
+import { PrsDatePickerModule } from "../prs-date-picker/prs-date-picker.module";
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { BirthDatePickerModule } from "../birth-date-picker/birth-date-picker.mo
         MatDatepickerModule,
         MatFormFieldModule,
         ReactiveFormsModule,
-        BirthDatePickerModule
+        BirthDatePickerModule,
+        PrsDatePickerModule
     ]
 })
 export class TourModule { }

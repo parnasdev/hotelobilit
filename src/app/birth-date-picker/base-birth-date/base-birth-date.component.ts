@@ -15,7 +15,7 @@ export class BaseBirthDateComponent implements OnInit {
   day: number = 0
   months: string[] = [];
   step = 1;
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BaseBirthDateComponent>,
+  constructor(public _bottomSheetRef: MatBottomSheetRef<BaseBirthDateComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: { lang: string, type: string },
     public service: BirthDateDataService) {
     this.months = data.lang === 'fa' ? service.monthsFa : service.monthEn

@@ -57,7 +57,7 @@
             </div>
             <div class="time">
               <span class="title">ساعت :</span>
-              <strong class="font-size-16">{{ data.flight.time }}</strong>
+              <strong class="font-size-16">{{ calendarService.convertTime(data.flight.time) }}</strong>
             </div>
           </div>
           <div class="w-100 mt-2 end-box d-flex align-items-center justify-content-center">
@@ -101,7 +101,7 @@
             </div>
             <div class="time">
               <span class="title">ساعت :</span>
-              <strong class="font-size-16">{{ data.flight.flight.time }}</strong>
+              <strong class="font-size-16">{{ calendarService.convertTime(data.flight.flight.time) }}</strong>
             </div>
           </div>
           <div class="w-100 mt-2 end-box d-flex align-items-center justify-content-center">
@@ -126,7 +126,7 @@
       <div class="set-info-supervisor">
         <div class="item-form">
           <div class="inp-form mt-2">
-            <input type="text" [formControl]="fullNameFC" placeholder="نام و نام خانوادگی">
+            <input type="text" [formControl]="nameFC" (change)="onChange('reserver_full_name')" placeholder="نام">
           </div>
           <ng-container *ngIf="getError('reserver_full_name')">
             <span class="text-error text-danger">نام و نام خانوادگی الزامی است</span>
@@ -134,7 +134,17 @@
         </div>
         <div class="item-form">
           <div class="inp-form mt-2">
-            <input type="text" [formControl]="reserver_id_codeFC" placeholder="کد ملی">
+            <input type="text" [formControl]="familyFC" (change)="onChange('reserver_full_name')"
+              placeholder=" نام خانوادگی">
+          </div>
+          <ng-container *ngIf="getError('reserver_full_name')">
+            <span class="text-error text-danger">نام و نام خانوادگی الزامی است</span>
+          </ng-container>
+        </div>
+        <div class="item-form">
+          <div class="inp-form mt-2">
+            <input type="text" [formControl]="reserver_id_codeFC" (change)="onChange('reserver_id_code')"
+              placeholder="کد ملی">
           </div>
           <ng-container *ngIf="getError('reserver_id_code')">
             <span class="text-error text-danger">کدملی الزامی است</span>
@@ -142,7 +152,8 @@
         </div>
         <div class="item-form">
           <div class="inp-form mt-2">
-            <input type="text" [formControl]="reserver_phoneFC" placeholder="شماره همراه">
+            <input type="text" [formControl]="reserver_phoneFC" (change)="onChange('reserver_phone')"
+              placeholder="شماره همراه">
           </div>
           <ng-container *ngIf="getError('reserver_phone')">
             <span class="text-error text-danger">شماره همراه الزامی است</span>
@@ -152,7 +163,7 @@
       <h2>اطلاعات مسافران</h2>
       <ng-template [ngIf]="showPassengers">
         <prs-passengers *ngFor="let room of roomsSelected;let i=index" [data]="data" [RoomData]="room" [index]="i"
-          [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
+          [age]="room.age_child" [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomData($event)"></prs-passengers>
       </ng-template>
 
       <div class="rules mt-3">
