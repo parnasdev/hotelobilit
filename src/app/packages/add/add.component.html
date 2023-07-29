@@ -149,9 +149,8 @@
         <span>ظرفیت</span>
       </div>
       <div class="info-tour-body-2">
-        <div class="empty-transfer">
-          <span  *ngIf="transferRates.length === 0">پروازی یافت نشد</span>
-
+        <div class="empty-transfer" *ngIf="transferRates.length === 0">
+          <span>پروازی یافت نشد</span>
         </div>
         <div *ngIf="transferRates.length > 0">
           <div class="item" *ngFor="let item of transferRates">
