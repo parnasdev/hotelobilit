@@ -23,6 +23,7 @@ export class MainPickerEnComponent implements OnInit {
   @Input() room: roomDTO | null = {
     Adl_capacity: 0,
     age_child: 0,
+    isDisable: false,
     chd_capacity: 0,
     room_type_id: 0,
     has_coefficient: false,
@@ -175,11 +176,15 @@ export class MainPickerEnComponent implements OnInit {
 
   onDateClicked(item: any) {
     if (this.pricingType === '0') {
-      this.normalClickType(item)
+      this.normalClickType(item,false)
     } else {
       if ((this.room ? this.room.room_type_id : 0) === this.standardTwinId) {
-        this.normalClickType(item)
+        this.normalClickType(item,false)
       } else {
+        if(!this.room?.is_twin_count) {
+          this.normalClickType(item,true)
+        }
+
         // this.coefficientClickType(item)
       }
     }
@@ -217,21 +222,21 @@ export class MainPickerEnComponent implements OnInit {
     }
   }
 
-  normalClickType(item: any) {
+  normalClickType(item: any,isJustRoomCount:boolean) {
     if (!this.stDate && !this.enDate) {
       this.stDate = item
     } else if (this.stDate && !this.enDate) {
 
       if (moment(item.dateFa).isBefore(moment(this.stDate.dateFa))) {
-        this.message.custom('The selected date is invalid')
+        this.message.custom('تاریخ انتخابی نامعتبر است')
         this.stDate = null
       } else {
         this.enDate = item
         this.getSelectedDates();
         if (this.selectedDates.length <= 30) {
-          this.confirmPricing()
+          this.confirmPricing(isJustRoomCount);
         } else {
-          this.message.custom('The number of selected days should not be more than 30 days')
+          this.message.custom('تعداد روزهای انتخابی نباید بیشتر از 30 روز باشد')
           this.clearParams()
         }
       }
@@ -241,6 +246,7 @@ export class MainPickerEnComponent implements OnInit {
       this.enDate = null
     }
   }
+
 
 
   getSelectedDates() {
@@ -277,8 +283,8 @@ export class MainPickerEnComponent implements OnInit {
     }
   }
 
-  confirmPricing(): void {
-    const dialog = this.dialog.open(ConfirmPricingModalEnComponent, {
+  confirmPricing(isJustRoomCount:boolean): void {
+    const dialog = this.dialog.open(ConfirmPricingModalComponent, {
       width: '60%',
       data: {
         checkin: this.stDate,
@@ -288,7 +294,8 @@ export class MainPickerEnComponent implements OnInit {
         hotelID: this.hotelID,
         type: +this.pricingType,
         bedCount: this.room?.extra_bed_count,
-        currency_code: this.pricesData.hotel.currency_code
+        currency_code: this.pricesData.hotel.currency_code,
+        isJustRoomCount : isJustRoomCount
       }
     })
     dialog.afterClosed().subscribe(result => {

@@ -94,6 +94,7 @@ export class EditComponent extends AddComponent implements OnInit {
         name: room?.name ?? item.name,
         room_type_id: room?.room_type_id ?? item.id,
         extra_bed_count: room?.extra_bed_count ?? item.extra_bed_count,
+        isDisable: room?.isDisable ?? item.isDisable,
         is_twin_count: room?.is_twin_count ?? item.is_twin_count,
         online_reservation: room?.online_reservation ?? item.online_reservation,
         coefficient: room?.coefficient ?? item.coefficient,
@@ -146,6 +147,8 @@ export class EditComponent extends AddComponent implements OnInit {
           coefficient: x.coefficient,
           is_twin_count: x.is_twin_count,
           extra_bed_count: x.extra_bed_count,
+          isDisable: x.isDisable,
+
           online_reservation: x.online_reservation,
           has_coefficient: x.has_coefficient,
           Adl_capacity: x.Adl_capacity,

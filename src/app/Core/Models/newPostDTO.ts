@@ -126,6 +126,7 @@ export interface roomDTO {
     room_type?: string;
     age_child: number;
     isSelected?: boolean
+    isDisable: false;
     total_extra_count?: number;
 }
 

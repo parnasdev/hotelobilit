@@ -1,4 +1,4 @@
-<prs-loading *ngIf="isLoading"></prs-loading>
+<!-- <prs-loading *ngIf="isLoading"></prs-loading> -->
 <div class="box-info-fly">
 
     <div class="info-tour-header">
@@ -60,6 +60,12 @@
           <label for="">موجودی از دوتخته</label>
           <div class="d-flex align-items-center justify-content-end">
             <mat-checkbox  color="primary" [(ngModel)]="item.is_twin_count"></mat-checkbox>
+          </div>
+        </div>
+        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+          <label for="">فروش بسته شود ؟</label>
+          <div class="d-flex align-items-center justify-content-end">
+            <mat-checkbox  color="primary" [(ngModel)]="item.isDisable"></mat-checkbox>
           </div>
         </div>
       </div>
