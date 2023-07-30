@@ -16,6 +16,7 @@ import { DatesResDTO } from 'src/app/Core/Models/tourDTO';
 export class MainPickerComponent implements OnInit, OnChanges {
   @Output() result = new EventEmitter()
   @Input() type = 'single';
+  @Input() selectCount = 14
   @Input() inCommingDate: any
   @Input() dateLise: DatesResDTO[] = []
   isLoading = false;
@@ -146,9 +147,9 @@ export class MainPickerComponent implements OnInit, OnChanges {
           this.enDate = item
           this.result.emit({ fromDate: this.stDate, toDate: this.enDate })
           this.getSelectedDates();
-          if (this.selectedDates.length <= 14) {
+          if (this.selectedDates.length <= this.selectCount) {
           } else {
-            this.message.custom('تعداد روزهای انتخابی نباید بیشتر از ۱۴ روز باشد')
+            this.message.custom(`تعداد روزهای انتخابی نباید بیشتر از ${this.selectCount} روز باشد`)
             this.clearParams()
           }
         }

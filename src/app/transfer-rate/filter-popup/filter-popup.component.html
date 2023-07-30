@@ -10,10 +10,13 @@
         </div> -->
     </div>
     <div class="inp-form w-50">
-        <input class="w-100" type="text" value="{{ obj.flightDate | convertDate }}"
-            placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
+        <input class="w-100" type="text" value="{{ obj.fromDate | convertDate }}"
+            placeholder="تاریخ شروع خود را انتخاب کنید" (click)="openPicker()">
     </div>
-
+    <div class="inp-form w-50">
+        <input class="w-100" type="text" value="{{ obj.toDate | convertDate }}"
+            placeholder="تاریخ پایان خود را انتخاب کنید" (click)="openPicker()">
+    </div>
     <div class="d-flex w-100 align-items-center justify-content-center">
         <button class="btn-base w-25" (click)="submit()">فیلتر</button>
         <button class="btn-base-red m-2 w-20" (click)="removeFilter()">حذف فیلتر</button>

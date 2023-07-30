@@ -6,7 +6,7 @@ import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
-import { FilterDTO, FilterPopupComponent } from '../filter-popup/filter-popup.component';
+import { FilterDTO } from '../filter-popup/filter-popup.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
@@ -30,7 +30,9 @@ export class ListComponent implements OnInit {
     destination: null,
     origin: null,
     q: null,
-    flightDate: null
+    status: null,
+    fromDate: null,
+    toDate: null
   };
   p = 1;
 
@@ -51,16 +53,20 @@ export class ListComponent implements OnInit {
     public message: MessageService) {
     this.route.queryParams.subscribe((params: any) => {
       if (!this.isEmpty(params)) {
-        this.filterObj.destination = +params['destination']
-        this.filterObj.origin = +params['origin']
-        this.filterObj.q = params['q']
-        this.filterObj.flightDate = params['flightDate']
+        this.filterObj.destination = params['destination'] ? +params['destination'] : null
+        this.filterObj.origin = params['origin'] ? +params['origin'] : null
+        this.filterObj.q = params['q'] ? params['q'] : null
+        this.filterObj.fromDate = params['fromDate']
+        this.filterObj.toDate = params['toDate']
+
       } else {
         this.filterObj = {
           destination: null,
           origin: null,
           q: null,
-          flightDate: null
+          status: null,
+          toDate: null,
+          fromDate: null
         }
       }
     })
@@ -84,7 +90,9 @@ export class ListComponent implements OnInit {
     this.req = {
       origin: this.filterObj ? this.filterObj.origin : null,
       destination: this.filterObj ? this.filterObj.destination : null,
-      flightDate: this.filterObj ? this.filterObj.flightDate ? moment(this.filterObj.flightDate).format('YYYY-MM-DD') : null : null,
+      status: 2,
+      toDate: this.filterObj ? this.filterObj.toDate ? moment(this.filterObj.toDate).format('YYYY-MM-DD') : null : null,
+      fromDate: this.filterObj ? this.filterObj.fromDate ? moment(this.filterObj.fromDate).format('YYYY-MM-DD') : null : null,
       q: this.filterObj ? this.filterObj.q : null
     }
   }
@@ -162,7 +170,9 @@ export class ListComponent implements OnInit {
   removeFilter() {
     this.filterObj = {
       destination: null,
-      flightDate: null,
+      fromDate: null,
+      toDate: null,
+      status: null,
       q: null,
       origin: null
     }
@@ -177,11 +187,14 @@ export class ListComponent implements OnInit {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
       width: '80%',
       data: {
-        dateList: []
+        dateList: [],
+        type: 'multiple',
+        selectCount: 60
       }
     })
     dialog.afterClosed().subscribe((res: any) => {
-      this.filterObj.flightDate = res.fromDate.dateEn
+      this.filterObj.fromDate = res.fromDate.dateEn
+      this.filterObj.toDate = res.toDate.dateEn;
     })
   }
 
@@ -207,6 +220,6 @@ export class ListComponent implements OnInit {
       checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
       checkout = moment(transfer.flight.date).add(-1, 'days').format('YYYY-MM-DD');
     }
-    return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length -1
+    return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
 }

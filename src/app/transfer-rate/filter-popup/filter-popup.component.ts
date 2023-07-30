@@ -15,7 +15,9 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
 export interface FilterDTO {
   origin: number | null;
   destination: number | null;
-  flightDate: string | null;
+  status: number | null
+  fromDate: string | null;
+  toDate: string | null;
   q: string | null
 }
 
@@ -27,7 +29,9 @@ export interface FilterDTO {
 export class FilterPopupComponent implements OnInit {
   obj: FilterDTO = {
     destination: null,
-    flightDate: null,
+    fromDate: null,
+    status: null,
+    toDate: null,
     q: null,
     origin: null
   }
@@ -45,7 +49,9 @@ export class FilterPopupComponent implements OnInit {
 
       this.obj = {
         destination: data.destination ? data.destination : null,
-        flightDate: data.flightDate ? data.flightDate : null,
+        fromDate: data.fromDate ? data.fromDate : null,
+        toDate: data.toDate ? data.toDate : null,
+        status: data.status ? data.status : null,
         origin: data.origin ? data.origin : null,
         q: data.q ? data.q : null,
       }
@@ -66,7 +72,9 @@ export class FilterPopupComponent implements OnInit {
       }
     })
     dialog.afterClosed().subscribe((res: any) => {
-      this.obj.flightDate = res.fromDate.dateEn
+      this.obj.fromDate = res.fromDate.dateEn
+      this.obj.toDate = res.toDate.dateEn
+
     })
   }
 
@@ -79,7 +87,9 @@ export class FilterPopupComponent implements OnInit {
   removeFilter() {
     this.obj = {
       destination: null,
-      flightDate: null,
+      fromDate: null,
+      toDate: null,
+      status: null,
       q: null,
       origin: null
     }
