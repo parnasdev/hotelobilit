@@ -252,9 +252,18 @@ export class AddComponent implements OnInit {
     this.selectedCities = this.selectedCities.concat(this.cities.filter(x => x.isChecked))
   }
 
+
+  getCitiesSelectedIds() {
+    let list: number[] = [];
+    this.selectedCities.forEach(city => {
+      list.push(city.id)
+    })
+    return list
+  }
+
   setReq() {
     this.TransferRateRequest = {
-      cities: this.selectedCityFC.value ?? [],
+      cities: this.getCitiesSelectedIds(),
       origin_id: this.form.value.origin_id ?? '',
       destination_id: this.form.value.destination_id ?? '',
       origin_airline_id: this.form.value.origin_airline_id ?? '',

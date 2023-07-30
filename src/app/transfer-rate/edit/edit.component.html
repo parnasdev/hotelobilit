@@ -110,16 +110,6 @@
 
         <div class="top">
           <div class="address-hotel">
-            <!-- <mat-form-field appearance="fill">
-              <mat-label>شهر ها</mat-label>
-              <mat-select [(value)]="selectedCities" multiple>
-                <mat-select-trigger>
-                  <span>شهر های انتخاب شده</span>
-                </mat-select-trigger>
-                <input [formControl]="searchFC" type="text" placeholder="شهر موردنظر خود را جست و جو کنید" class="w-100">
-                <mat-option *ngFor="let city of filteredCities | async" [value]="city.id">{{city.name}}</mat-option>
-              </mat-select>
-            </mat-form-field> -->
             <div class="d-flex align-items-start justify-content-between">
               <div class="w-35 d-flex flex-column">
                 <label for="address">شهر های موردنظر را انتخاب کنید</label>
@@ -140,11 +130,7 @@
                 {{ city.name }}
               </span>
               </div>
-
-
             </div>
-
-
           </div>
 
         </div>
