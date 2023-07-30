@@ -76,6 +76,7 @@ export interface ReserveRoomsReqDTO {
     count: number;
     adl_count: number;
     chd_count: number;
+    chd_capacity:number
     extra_count: number;
     inf_count: number;
 }

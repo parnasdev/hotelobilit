@@ -6,6 +6,7 @@ import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { CommonApiService } from 'src/app/Core/Https/common-api.service';
 import { MapApiService } from 'src/app/Core/Https/map-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
+import { RoomApiService } from 'src/app/Core/Https/room-api.service';
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
 import { InfoHotelDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
@@ -26,29 +27,12 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   rooms: roomDTO[] = []
   isLoading = false;
   removedRoomsIDs: number[] = []
-
+  errors:any = []
   selectedRooms: roomDTO[] = [];
 
-  req: storeHotelSetReqDTO = {
-    title: '',
-    titleEn: '',
-    slug: '',
-    status_id: 1,
-    description: '',
-    currency_code: '',
-    services: [],
-    body: '',
-    address: '',
-    stars: 0,
-    comment: 0,
-    use_api: 0,
-    city_id: 0,
+  req: any = {
+    del_rooms: [],
     rooms: [],
-    categories: [],
-    del_files: [],
-    files: [],
-    options: [],
-    pin: 0
   }
   hotelInfo: InfoHotelDTO = {
     statuses: [],
@@ -88,6 +72,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
+    public roomApi: RoomApiService,
     public hotelApi: PostApiService,
     public message: MessageService,
     public commonApi: CommonApiService,
@@ -156,25 +141,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     this.getRemovedRooms()
     this.setHasCoefficients()
     this.req = {
-      title: this.hotelInfo.post.title,
-      titleEn: this.hotelInfo.post.options?.titleEn,
-      address: this.hotelInfo.post.options?.address,
-      stars: this.hotelInfo.post.options.stars,
-      slug: this.hotelInfo.post.slug,
-      currency_code: this.hotelInfo.post.options?.currency_code,
-      status_id: this.hotelInfo.post.status_id,
-      description: this.hotelInfo.post.description,
-      body: this.hotelInfo.post.body,
-      categories: [],
-      services: this.hotelInfo.service_ids,
-      comment: 0,
-      del_files: [],
       del_rooms: this.removedRoomsIDs,
-      files: this.hotelInfo.files,
-      options: [],
-      pin: 0,
-      use_api: 0,
-      city_id: this.hotelInfo.city_id,
       rooms: this.selectedRooms
     }
   }
@@ -203,7 +170,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   }
   edit(): void {
     this.setEditReq();
-    this.hotelApi.updatePosts('hotel', this.req, this.hotel_id).subscribe((res: any) => {
+    this.roomApi.edit(this.hotel_id, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
       } else {
@@ -212,12 +179,19 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     }, (error: any) => {
       if (error.status == 422) {
         this.errorService.recordError(error.error.errors);
-        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+        this.message.custom(error.error.message)
+        this.errors = Object.values(error.error.errors)
+
+
       } else {
         this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
       }
       this.checkError.check(error);
     })
+
+
+
+
   }
   getRemovedRooms() {
     this.hotelInfo.rooms.forEach(sr => {
@@ -229,6 +203,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   }
 
   getSelectedRoomList() {
+    this.selectedRooms = [];
     this.rooms.forEach(x => {
       if (x.isSelected) {
         let obj = {
@@ -249,5 +224,13 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
         this.selectedRooms.push(obj)
       }
     })
+  }
+
+  hasError(i: number, name: string) {
+    return this.errorService.hasError('rooms.' + i + '.' + name)
+  }
+
+  getError(i: number, name: string) {
+    return this.errorService.getError('rooms.' + i + '.' + name)
   }
 }

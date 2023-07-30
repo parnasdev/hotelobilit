@@ -326,7 +326,7 @@
                   <small>{{ calculatePriceByName(item,flightIndex,i,'chd') | sperator }} تومان</small>
 
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="{'btn-plus-off' : x.chd_count == chd_count,'btn-plus' :x.chd_count <= chd_count}"
+                    <button [ngClass]="{'btn-plus-off' : x.chd_capacity === x.chd_count,'btn-plus' :x.chd_capacity > x.chd_count}"
                       (click)="plusCount('chd_count', x.room_id, flightIndex, i)">+</button>
                     <span>{{ x.chd_count }}</span>
                     <button class="btn-minus" (click)="minusCount('chd_count', x.room_id, flightIndex, i)">-</button>
