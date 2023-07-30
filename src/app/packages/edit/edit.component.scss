@@ -1,5 +1,4 @@
 @import "src/assets/css/varible";
-
 mat-form-field {
   width: 100% !important;
 }
@@ -104,6 +103,10 @@ mat-form-field {
 .info-tour-header .left select {
   width: 200px;
   background-color: var(--white);
+  border: none;
+  outline: none;
+  height: 34px;
+  border-radius: 4px;
 }
 
 .info-tour-body {
@@ -112,6 +115,7 @@ mat-form-field {
   border: 1px solid #eeeeee;
   padding: 1rem 2rem;
   width: 99%;
+  background: #fff;
 }
 
 .info-tour-body .top {
@@ -862,7 +866,8 @@ prs-select-hotel {
   width: 100%;
   display: grid;
   place-items: center;
-  margin-top: 7px;
+  margin-top: 24px;
+  background: #fff;
 }
 
 .parent-icon {
@@ -876,11 +881,12 @@ prs-select-hotel {
   .item {
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 50px;
     place-items: center;
     gap: 8px;
     border-top: 1px solid #ebebeb;
+    background: #f7f7f7;
 
     input {
       width: 28px;
@@ -890,7 +896,7 @@ prs-select-hotel {
     span {
       font-weight: 600;
       color: var(--text-color);
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 }
@@ -898,7 +904,7 @@ prs-select-hotel {
 .item-header {
   width: 99%;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 50px;
   place-items: center;
   gap: 8px;
