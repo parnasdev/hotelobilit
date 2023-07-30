@@ -17,6 +17,14 @@ export class CalenderServices {
         return date.split('/').join('-')
     }
 
+
+    changeMiladiDate(date: any, num: number | string, period: any): any {
+        /* period : days or year or month */
+        // date = this.convertDate(date, 'en');
+        return moment(date).add(num, period).format('YYYY-MM-DD');
+    }
+
+
     convertDate(date: any, convertType: string, formatEn = "YYYY/MM/DD"): any {
         /* convertType : fa - en */
         // debugger;

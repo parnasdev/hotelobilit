@@ -1,68 +1,81 @@
-<prs-loading *ngIf="isLoading"></prs-loading>
+<!-- <prs-loading *ngIf="isLoading"></prs-loading> -->
 <div class="box-info-fly">
 
-    <div class="info-tour-header">
-      <div class="right">
-        <h2>انتخاب اتاق ها</h2>
+  <div class="info-tour-header">
+    <div class="right">
+      <h2>انتخاب اتاق ها</h2>
+    </div>
+  </div>
+  <div class="d-flex align-items-center justify-content-end  w-75 mb-5 mt-3">
+    <span style="margin-left: 12px;" class="tip">اتاق مورد نظر برای
+      گذاری را انتخاب کنید</span>
+    <select style="width: 40%;" class="inp-form" [(ngModel)]="isCoefficient">
+      <option value="0">نرخ گذاری عادی</option>
+      <option value="1">نرخ گذاری ضریبی</option>
+    </select>
+  </div>
+  <div class="d-flex flex-wrap justify-content-between w-100">
+    <div *ngFor="let item of rooms;let i =index" class="room-box d-flex flex-column item-info w-24">
+      <div class="d-flex flex-wrap justify-content-between w-100">
+        <h3>{{ item.name }}</h3>
+        <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
       </div>
-    </div>
-    <div class="d-flex align-items-center justify-content-end  w-75 mb-5 mt-3">
-      <span style="margin-left: 12px;" class="tip">اتاق مورد نظر برای 
-         گذاری را انتخاب کنید</span>
-      <select style="width: 40%;" class="inp-form" [(ngModel)]="isCoefficient">
-        <option value="0">نرخ گذاری عادی</option>
-        <option value="1">نرخ گذاری ضریبی</option>
-      </select>
-    </div>
-    <div class="d-flex flex-wrap justify-content-between w-100">
-      <div *ngFor="let item of rooms" class="room-box d-flex flex-column item-info w-24">
-        <div class="d-flex flex-wrap justify-content-between w-100">
-          <h3>{{ item.name }}</h3>
-          <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
+      <div class="d-flex  w-100 justify-content-between align-items-center">
+        <label for="">تخت اضافه:</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <input [ngClass]="{'box-error' :hasError(i,'extra_bed_count')}" class="w-50" type="number" [(ngModel)]="item.extra_bed_count">
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center">
-          <label for="">تخت اضافه:</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <input class="w-50" type="number" [(ngModel)]="item.extra_bed_count">
-          </div>
+      </div>
+      <div class="d-flex  w-100 justify-content-between align-items-center">
+        <label for="">سن کودک:</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <input [ngClass]="{'box-error' :hasError(i,'age_child')}" class="w-50" type="number" [(ngModel)]="item.age_child">
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center">
-          <label for="">سن کودک:</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <input class="w-50" type="number" [(ngModel)]="item.age_child">
-          </div>
+      </div>
+      <div class="d-flex  w-100 justify-content-between align-items-center">
+        <label for="">تعداد کودک:</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <input [ngClass]="{'box-error' :hasError(i,'chd_capacity')}" class="w-50" type="number" [(ngModel)]="item.chd_capacity">
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center">
-          <label for="">تعداد کودک:</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <input class="w-50" type="number" [(ngModel)]="item.chd_capacity">
-          </div>
+      </div>
+      <div class="d-flex  w-100 justify-content-between align-items-center">
+        <label for="">تعداد افراد اضافه:</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <input [ngClass]="{'box-error' :hasError(i,'total_extra_count')}" class="w-50" type="number" [(ngModel)]="item.total_extra_count">
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center">
-          <label for="">تعداد افراد اضافه:</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <input class="w-50" type="number" [(ngModel)]="item.total_extra_count">
-          </div>
+      </div>
+      <div  class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+        <label for="">ضریب:</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <input [ngClass]="{'box-error' :hasError(i,'coefficient')}"  class="w-50" type="number" [(ngModel)]="item.coefficient">
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
-          <label for="">ضریب:</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <input class="w-50" type="number" [(ngModel)]="item.coefficient">
-          </div>
+      </div>
+      <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+        <label for="">رزرواسیون آنلاین</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <mat-checkbox color="primary" [(ngModel)]="item.online_reservation"></mat-checkbox>
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
-          <label for="">رزرواسیون آنلاین</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <mat-checkbox  color="primary" [(ngModel)]="item.online_reservation"></mat-checkbox>
-          </div>
+      </div>
+      <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+        <label for="">موجودی از دوتخته</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <mat-checkbox color="primary" [(ngModel)]="item.is_twin_count"></mat-checkbox>
         </div>
-        <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
-          <label for="">موجودی از دوتخته</label>
-          <div class="d-flex align-items-center justify-content-end">
-            <mat-checkbox  color="primary" [(ngModel)]="item.is_twin_count"></mat-checkbox>
-          </div>
+      </div>
+      <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+        <label for="">فروش بسته شود ؟</label>
+        <div class="d-flex align-items-center justify-content-end">
+          <mat-checkbox color="primary" [(ngModel)]="item.isDisable"></mat-checkbox>
         </div>
       </div>
     </div>
   </div>
-  <button class="btn-base w-25" (click)="edit()">ذخیره</button>
+  <div class="grid-4 gap-15 w-100 mb-2"  *ngIf="isLoading">
+    <div class="item-shimmer h-500 border-radius-10" *ngFor="let item of [0,1,2,3]"></div>
+
+  </div>
+</div>
+<div class="p-error">
+  <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
+</div>
+<button class="btn-base w-25" (click)="edit()">ذخیره</button>

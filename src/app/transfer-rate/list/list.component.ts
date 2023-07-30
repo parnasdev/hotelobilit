@@ -50,7 +50,7 @@ export class ListComponent implements OnInit {
     public calendarService: CalenderServices,
     public message: MessageService) {
     this.route.queryParams.subscribe((params: any) => {
-      if(!this.isEmpty(params)) {
+      if (!this.isEmpty(params)) {
         this.filterObj.destination = +params['destination']
         this.filterObj.origin = +params['origin']
         this.filterObj.q = params['q']
@@ -66,7 +66,7 @@ export class ListComponent implements OnInit {
     })
   }
 
-   isEmpty(obj:any) {
+  isEmpty(obj: any) {
     for (const prop in obj) {
       if (Object.hasOwn(obj, prop)) {
         return false;
@@ -83,8 +83,8 @@ export class ListComponent implements OnInit {
   setReq(): void {
     this.req = {
       origin: this.filterObj ? this.filterObj.origin : null,
-      destination: this.filterObj ? this.filterObj.destination: null,
-      flightDate: this.filterObj? this.filterObj.flightDate ? moment(this.filterObj.flightDate).format('YYYY-MM-DD') : null : null,
+      destination: this.filterObj ? this.filterObj.destination : null,
+      flightDate: this.filterObj ? this.filterObj.flightDate ? moment(this.filterObj.flightDate).format('YYYY-MM-DD') : null : null,
       q: this.filterObj ? this.filterObj.q : null
     }
   }
@@ -92,7 +92,7 @@ export class ListComponent implements OnInit {
   getTransfers(): void {
     this.setReq();
     this.isLoading = true
-    this.api.getTransferRates(this.p,this.req).subscribe((res: any) => {
+    this.api.getTransferRates(this.p, this.req).subscribe((res: any) => {
       this.isLoading = false
       if (res.isDone) {
         this.transfers = res.data;
@@ -121,7 +121,7 @@ export class ListComponent implements OnInit {
   }
 
   getTransfer(): void {
-    this.CategoryApi.getCategoryList('airport', 'hotel',1).subscribe((res: any) => {
+    this.CategoryApi.getCategoryList('airport', 'hotel', 1).subscribe((res: any) => {
       if (res.isDone) {
         this.cities = res.data;
       }
@@ -190,11 +190,23 @@ export class ListComponent implements OnInit {
     setTimeout(() => this.show = true);
   }
 
-  
-  calculateDiff(stDate: any, enDate: any){
-    enDate = new Date(enDate);
-    stDate = new Date(stDate);
-    return Math.floor((Date.UTC(enDate.getFullYear(), enDate.getMonth(), enDate.getDate()) - Date.UTC(stDate.getFullYear(), stDate.getMonth(), stDate.getDate()) ) /(1000 * 60 * 60 * 24));
-  }
 
+  calculate(transfer: transferRateListDTO) {
+    let checkin = '';
+    let checkout = ''
+    if (!transfer.checkin_tomorrow && !transfer.checkout_yesterday) {
+      checkin = transfer.date;
+      checkout = transfer.flight.date;
+    } else if (transfer.checkin_tomorrow && !transfer.checkout_yesterday) {
+      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = transfer.flight.date;
+    } else if (!transfer.checkin_tomorrow && transfer.checkout_yesterday) {
+      checkin = transfer.date;
+      checkout = moment(transfer.flight.date).add(-1, 'days').format('YYYY-MM-DD');
+    } else {
+      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = moment(transfer.flight.date).add(-1, 'days').format('YYYY-MM-DD');
+    }
+    return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length -1
+  }
 }

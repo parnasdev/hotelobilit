@@ -35,17 +35,17 @@
   }
   
   .header-list-tour {
-    height: 50px;
+    height: 60px;
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1.5fr 1fr 1fr 1fr 0.8fr 0.7fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr;
     background-color: var(--title-header);
     border-bottom: 1px solid var(--light-color-two);
   }
   
   .header-list-tour span {
     margin: auto;
-    font-size: 13px !important;
+    font-size: 11px !important;
   }
   
   .body-list-tour {
@@ -58,7 +58,7 @@
     height: 80px;
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1.5fr 1fr 1fr 1fr 0.8fr 0.7fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr;
   }
   .body-list-tour .item:not(:last-child){
     border-bottom: 1px solid var(--light-color-two);

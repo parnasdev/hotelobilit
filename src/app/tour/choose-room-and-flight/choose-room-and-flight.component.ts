@@ -24,7 +24,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   isTablet = false;
   isRoom = false
   slug = '';
-  chd_count = 2;
+  chd_count = 0;
   isLoading = false;
   req: TourSearchReqDTO = {
     origin: '',
@@ -303,6 +303,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
           let obj: ReserveRoomsReqDTO = {
             room_id: room.id,
             count: 1,
+            chd_capacity: room.chd_capacity,
             adl_count: room.Adl_capacity,
             chd_count: 0,
             inf_count: 0,
@@ -311,7 +312,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
           this.data[flightIndex].selectedRooms.push(obj)
         }
       }
-
     })
   }
 
@@ -492,7 +492,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
         }
         break;
       case 'chd_count':
-        if (item.chd_count < this.chd_count) {
+        if (item.chd_capacity >= this.chd_count) {
           if (this.checkExtraPerson(flightIndex, roomId, roomIndex)) {
             item.chd_count += 1
           } else {

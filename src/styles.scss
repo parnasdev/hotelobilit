@@ -611,3 +611,79 @@ mat-calendar{
 .mat-calendar-next-button::after {
   transform: translateX(2px) rotate(-137deg) !important;
 }
+// milad library
+
+.grid-1 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr;
+}
+
+.grid-2 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-3 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-4 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid-5 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.grid-6 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.grid-7 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.grid-8 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.grid-9 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.grid-10 {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+//----------------gap
+$gap: 50;
+@mixin gap {
+  @for $i from 0 to $gap {
+    $gapGrid: $i * 1px;
+    .gap-#{$i} {
+      gap: $gapGrid !important;
+    }
+  }
+}
+
+@include gap;
+//--------------gap-end
+
+// milad library

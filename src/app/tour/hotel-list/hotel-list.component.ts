@@ -117,6 +117,8 @@ export class HotelListComponent implements OnInit {
   getReservedDates(): void {
     let originCode = this.routeDataParam['origin']
     let destCode = this.routeDataParam['dest']
+    this.isLoading = true
+
     this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
       if (res.isDone) {
         this.reservedDates = res.data
@@ -124,6 +126,7 @@ export class HotelListComponent implements OnInit {
 
       }
     }, (error: any) => {
+      this.isLoading = false
     })
   }
 

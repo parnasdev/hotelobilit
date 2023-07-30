@@ -17,6 +17,8 @@ export interface ConfirmPriceReqDTO {
   bedCount: number;
   chd_price: number;
   currency_code: string;
+  isJustRoomCount:boolean
+  
 }
 @Component({
   selector: 'prs-confirm-pricing-modal',

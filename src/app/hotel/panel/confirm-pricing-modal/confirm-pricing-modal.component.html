@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="w-48 mt-4 d-flex flex-column align-items-start">
+  <div *ngIf="!data.isJustRoomCount" class="w-48 mt-4 d-flex flex-column align-items-start">
     <label for="">قیمت هر نفر در اتاق {{ data.room.room_type }} ({{ getCurrencyLabel() }})</label>
     <div class="inp-form mt-2 mt-2 w-100">
       <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت خود را وارد کنید"
@@ -37,26 +37,26 @@
 
 
 
-  <div class="w-48 mt-4 d-flex flex-column align-items-start">
+  <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
     <label for="">قیمت تخت اضافه({{ getCurrencyLabel() }})</label>
     <div class="inp-form mt-2 w-100">
       <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت تخت اضافه"
         [formControl]="bedPriceFC">
     </div>
   </div>
-  <div class="w-48 mt-4 d-flex align-items-start">
+  <div class="w-48 mt-4 d-flex align-items-start" *ngIf="!data.isJustRoomCount" >
     <div class="d-flex flex-column">
       <label for="">چکین بیس شود ؟</label>
       <mat-checkbox [(ngModel)]="checkin_base"></mat-checkbox>
     </div>
 
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column" *ngIf="!data.isJustRoomCount" >
       <label for="">چکین بیس نشود ؟</label>
       <mat-checkbox [(ngModel)]="not_checkin_base"></mat-checkbox>
     </div>
   
 
-    <div class="w-48 d-flex flex-column align-items-end" *ngIf="checkin_base">
+    <div class="w-48 d-flex flex-column align-items-end" *ngIf="checkin_base && !data.isJustRoomCount">
       <label for="">قیمت چکین بیس</label>
       <div class="inp-form mt-2 w-100">
         <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت چکین بیس"

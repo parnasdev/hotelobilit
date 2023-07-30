@@ -161,7 +161,7 @@ export class AddComponent implements OnInit {
       this.tourApi.gethotels(req).subscribe((res: any) => {
         if (res.isDone) {
           this.hotels = res.data;
-          this.addHotel();
+          // this.addHotel();
         } else {
           this.message.custom(res.message);
         }
@@ -219,8 +219,6 @@ export class AddComponent implements OnInit {
     }
     this.getTransferRates();
     this.getHotels()
-
-
   }
 
 

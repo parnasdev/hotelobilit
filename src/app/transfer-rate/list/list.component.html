@@ -3,13 +3,11 @@
     <div class="d-flex w-100">
       <div class="inp-form w-50 m-2">
         <prs-select-city class="w-100" *ngIf="show" [cities]="cities" [baseType]="false" [title]="'شهر مبدا'"
-          [inCommingCity]="filterObj.origin"
-          (citySelected)="originSelected($event)"></prs-select-city>
+          [inCommingCity]="filterObj.origin" (citySelected)="originSelected($event)"></prs-select-city>
       </div>
       <div class="inp-form w-50 m-2">
         <prs-select-city class="w-100" *ngIf="show" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'"
-          [inCommingCity]="filterObj.destination"
-          (citySelected)="destSelected($event)"></prs-select-city>
+          [inCommingCity]="filterObj.destination" (citySelected)="destSelected($event)"></prs-select-city>
       </div>
 
       <div class="inp-form w-50 m-2">
@@ -58,7 +56,10 @@
       <div class="d-flex flex-column">
         <span class="from-to">ظرفیت</span>
         <span class="from-to">فروخته شده</span>
-
+      </div>
+      <div class="d-flex flex-column">
+        <span class="from-to">checkin t</span>
+        <span class="from-to">checkout y</span>
       </div>
 
       <span class="setting">تنظیمات</span>
@@ -84,7 +85,6 @@
 
         </div>
         <div class="d-flex flex-column ">
-
           <span class="title-tour">{{ transfer.origin_name }} - {{ transfer.destination_name }}</span>
           <span class="title-tour">{{ transfer.flight.origin_name }} - {{ transfer.flight.destination_name }}</span>
 
@@ -96,21 +96,25 @@
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }} - {{transfer.time}}</span>
-          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }} - {{transfer.flight.time}}</span>
+          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }} -
+            {{transfer.flight.time}}</span>
 
         </div>
-        <div class="d-flex flex-column ">
+        <div class="d-flex flex-column">
           <span class="title-tour">{{ transfer.flight_number }}</span>
           <span class="title-tour">{{ transfer.flight.flight_number }}</span>
         </div>
 
         <div class="d-flex flex-column ">
           <span class="title-tour">{{ transfer.adl_price | sperator }}
+          <div class="">
             <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-              matTooltip="{{ transfer.chd_price | sperator }} قیمت کودک"
-              aria-label=""></i>
+            matTooltip="{{ transfer.chd_price | sperator }} قیمت کودک" aria-label=""></i>
+            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="bottom"
+            matTooltip="{{ transfer.inf_price | sperator }} قیمت نوزاد" aria-label=""></i>
+          </div>
           </span>
-          <span class="text-danger">{{ calculateDiff(transfer.date, transfer.flight.date) }} شب</span>
+          <span class="text-danger">{{ calculate(transfer) }} شب</span>
           <!-- <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span> -->
         </div>
         <!-- <div class="d-flex flex-column ">
@@ -133,6 +137,20 @@
         <div class="d-flex flex-column">
           <span class="title-tour">{{ transfer.capacity}}</span>
           <span class="title-tour">{{ transfer.reserve_capacity }}</span>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="title-tour">
+            <div
+              [ngClass]="{'icon-check-red' : !transfer.checkin_tomorrow , 'icon-check-green' :transfer.checkin_tomorrow}">
+            </div>
+
+          </span>
+          <span class="title-tour">
+
+            <div
+              [ngClass]="{'icon-check-red' : !transfer.checkout_yesterday , 'icon-check-green' :transfer.checkout_yesterday}">
+            </div>
+          </span>
         </div>
         <div style="width: 100% !important;" class="button-setting d-flex flex-column align-items-center">
           <div class="d-flex flex-wrap justify-content-between w-100">
