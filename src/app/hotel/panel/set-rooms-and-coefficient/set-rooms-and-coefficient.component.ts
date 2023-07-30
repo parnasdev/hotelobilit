@@ -8,7 +8,7 @@ import { MapApiService } from 'src/app/Core/Https/map-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { RoomApiService } from 'src/app/Core/Https/room-api.service';
 import { RoomTypeApiService } from 'src/app/Core/Https/room-type-api.service';
-import { InfoHotelDTO, roomDTO, storeHotelSetReqDTO } from 'src/app/Core/Models/newPostDTO';
+import { InfoHotelDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';

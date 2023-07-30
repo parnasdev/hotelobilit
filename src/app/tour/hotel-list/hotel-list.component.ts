@@ -125,8 +125,6 @@ export class HotelListComponent implements OnInit {
         this.getSearchData();
 
       }
-      this.isLoading = false
-
     }, (error: any) => {
       this.isLoading = false
     })

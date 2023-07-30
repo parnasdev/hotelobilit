@@ -151,7 +151,7 @@
               <span>هتلی یافت نشد</span>
             </div>
 
-            <div *ngIf="isLoading" class="shimmer-1 mt-5">
+            <div *ngIf="hotels.length === 0 &&  isLoading" class="shimmer-1 mt-5">
               <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
             </div>
       
