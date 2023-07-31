@@ -14,6 +14,8 @@ import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 import { CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
+import { FastEditPopupComponent } from '../fast-edit-popup/fast-edit-popup.component';
 
 @Component({
   selector: 'prs-list',
@@ -24,13 +26,17 @@ export class ListComponent implements OnInit {
   req!: FilterDTO;
   transfers: transferRateListDTO[] = [];
   isLoading = false;
+  airlines: AirlineListDTO[] = [];
+
   paginate: any;
   paginateConfig: any;
   filterObj: FilterDTO = {
     destination: null,
     origin: null,
     q: null,
-    status: null,
+    airlineDestination: null,
+    airlineOrigin: null,
+    status: 0,
     fromDate: null,
     toDate: null
   };
@@ -46,6 +52,7 @@ export class ListComponent implements OnInit {
     public dialog: MatDialog,
     public permition: PermitionsService,
     public route: ActivatedRoute,
+    public categoryApi: CategoryApiService,
     public router: Router,
     public CategoryApi: CategoryApiService,
     public checkError: CheckErrorService,
@@ -64,7 +71,9 @@ export class ListComponent implements OnInit {
           destination: null,
           origin: null,
           q: null,
-          status: null,
+          airlineDestination: null,
+          airlineOrigin: null,
+          status: 0,
           toDate: null,
           fromDate: null
         }
@@ -83,14 +92,17 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTransfers();
-    this.getTransfer();
+    this.getAirlines()
+    this.getCities();
   }
 
   setReq(): void {
     this.req = {
       origin: this.filterObj ? this.filterObj.origin : null,
       destination: this.filterObj ? this.filterObj.destination : null,
-      status: 2,
+      status: this.filterObj ? this.filterObj.status : 2,
+      airlineDestination: this.filterObj ? this.filterObj.airlineDestination : null,
+      airlineOrigin: this.filterObj ? this.filterObj.airlineOrigin : null,
       toDate: this.filterObj ? this.filterObj.toDate ? moment(this.filterObj.toDate).format('YYYY-MM-DD') : null : null,
       fromDate: this.filterObj ? this.filterObj.fromDate ? moment(this.filterObj.fromDate).format('YYYY-MM-DD') : null : null,
       q: this.filterObj ? this.filterObj.q : null
@@ -99,6 +111,7 @@ export class ListComponent implements OnInit {
 
   getTransfers(): void {
     this.setReq();
+    this.transfers = [];
     this.isLoading = true
     this.api.getTransferRates(this.p, this.req).subscribe((res: any) => {
       this.isLoading = false
@@ -128,7 +141,7 @@ export class ListComponent implements OnInit {
     this.filterObj.destination = city.id
   }
 
-  getTransfer(): void {
+  getCities(): void {
     this.CategoryApi.getCategoryList('airport', 'hotel', 1).subscribe((res: any) => {
       if (res.isDone) {
         this.cities = res.data;
@@ -160,6 +173,7 @@ export class ListComponent implements OnInit {
   }
 
   submit() {
+    this.p = 1
     this.router.navigate([`/panel/transferRate/`], {
       queryParams: this.filterObj
     })
@@ -172,7 +186,9 @@ export class ListComponent implements OnInit {
       destination: null,
       fromDate: null,
       toDate: null,
-      status: null,
+      airlineDestination: null,
+      airlineOrigin: null,
+      status: 0,
       q: null,
       origin: null
     }
@@ -189,7 +205,8 @@ export class ListComponent implements OnInit {
       data: {
         dateList: [],
         type: 'multiple',
-        selectCount: 60
+        selectCount: 60,
+        todayMin: false
       }
     })
     dialog.afterClosed().subscribe((res: any) => {
@@ -222,4 +239,42 @@ export class ListComponent implements OnInit {
     }
     return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
+
+
+
+  getAirlines(): void {
+    this.isLoading = true;
+    this.categoryApi.getCategoryList('airline', 'hotel', this.p).subscribe((res: any) => {
+      if (res.isDone) {
+        this.airlines = res.data;
+        this.paginate = res.meta;
+        this.paginateConfig = {
+          itemsPerPage: this.paginate.per_page,
+          totalItems: this.paginate.total,
+          currentPage: this.paginate.current_page
+        }
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+    }, (error: any) => {
+      this.isLoading = false;
+      this.message.error()
+    })
+  }
+
+
+  fastEdit(id: number) {
+    const dialog = this.dialog.open(FastEditPopupComponent, {
+      data: {
+        id: id
+      }
+    })
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.getTransfers();
+      }
+    })
+  }
+
 }

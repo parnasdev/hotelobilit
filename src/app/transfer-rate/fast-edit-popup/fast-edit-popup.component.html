@@ -1,0 +1,66 @@
+<!-- <prs-loading *ngIf="isLoading"></prs-loading> -->
+<div class="w-100 h-100 p-5" *ngIf="isLoading">
+    <span>در حال دریافت اطلاعات ...</span>
+    <span class="spinner-border spinner-border-sm" *ngIf="isLoading"></span>
+
+</div>
+<div class="box-info-fly" style="direction: rtl;" *ngIf="!isLoading">
+    <div class="box-info-package">
+        <div class="info-tour-header">
+            <div class="right">
+                <h2> تاریخ قابل ارائه</h2>
+            </div>
+        </div>
+        <div class="info-tour-body p-0">
+            <div class="w-100 d-flex flex-column mobile-package">
+                <form class="parent-package">
+                    <div class="item-package">
+                        <div class="package-item">
+                        </div>
+                        <div class="item-info-2 p-item-custom">
+                            <div class="select-info">
+                                <label style="position: relative;top: 17px" for="">تاریخ رفت</label>
+                                <mat-form-field appearance="fill">
+                                    <input matInput [matDatepicker]="picker6" autocomplete="off"
+                                        [formControl]="originDateFC" [min]="minDate" (click)="picker6.open()">
+                                    <mat-datepicker #picker6></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="select-info">
+                                <label style="position: relative;top: 17px" for="">تاریخ برگشت</label>
+                                <mat-form-field appearance="fill">
+                                    <input matInput [matDatepicker]="picker7" autocomplete="off"
+                                        [formControl]="destination_dateFC" [min]="minDate" (click)="picker7.open()">
+                                    <mat-datepicker #picker7></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="select-info">
+                                <label for="">نرخ بزرگسال (تومان)</label>
+                                <input type="text" placeholder="قیمت بزرگسال" mask="separator" thousandSeparator=","
+                                    [formControl]="adl_priceFC">
+                            </div>
+                            <div class="select-info">
+                                <label for="">نرخ کودک (تومان)</label>
+                                <input type="text" placeholder="قیمت کودک" mask="separator" thousandSeparator=","
+                                    [formControl]="chd_priceFC">
+                            </div>
+                            <div class="select-info">
+                                <label for="">نرخ نوزاد (تومان)</label>
+                                <input type="text" placeholder="قیمت نوزاد" mask="separator" thousandSeparator=","
+                                    [formControl]="inf_priceFC">
+                            </div>
+                            <div class="select-info">
+                                <label for="">موجودی</label>
+                                <input type="text" placeholder="ظرفیت" [formControl]="capacityFC">
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-end mt-3" *ngIf="!isLoading">
+    <button class="btn-base" (click)="updateRequest('edit')" style="width: 10%; margin: 5px">ثبت</button>
+</div>

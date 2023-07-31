@@ -1,21 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
-import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
+import { CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
-import { AlertDialogDTO } from 'src/app/common-project/alert-dialog/alert-dialog.component';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
 
 export interface FilterDTO {
   origin: number | null;
   destination: number | null;
-  status: number | null
+  status: number | null;
+  airlineDestination: number | null;
+  airlineOrigin: number | null;
   fromDate: string | null;
   toDate: string | null;
   q: string | null
@@ -30,6 +29,8 @@ export class FilterPopupComponent implements OnInit {
   obj: FilterDTO = {
     destination: null,
     fromDate: null,
+    airlineDestination: null,
+    airlineOrigin: null,
     status: null,
     toDate: null,
     q: null,
@@ -51,6 +52,8 @@ export class FilterPopupComponent implements OnInit {
         destination: data.destination ? data.destination : null,
         fromDate: data.fromDate ? data.fromDate : null,
         toDate: data.toDate ? data.toDate : null,
+        airlineDestination: data.airlineDestination ? data.airlineDestination : null,
+        airlineOrigin: data.airlineOrigin ? data.airlineOrigin : null,
         status: data.status ? data.status : null,
         origin: data.origin ? data.origin : null,
         q: data.q ? data.q : null,
@@ -89,6 +92,8 @@ export class FilterPopupComponent implements OnInit {
       destination: null,
       fromDate: null,
       toDate: null,
+      airlineDestination: null,
+      airlineOrigin: null,
       status: null,
       q: null,
       origin: null

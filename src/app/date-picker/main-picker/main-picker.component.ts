@@ -17,6 +17,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
   @Output() result = new EventEmitter()
   @Input() type = 'single';
   @Input() selectCount = 14
+  @Input() todayMin = true;
   @Input() inCommingDate: any
   @Input() dateLise: DatesResDTO[] = []
   isLoading = false;
@@ -105,12 +106,20 @@ export class MainPickerComponent implements OnInit, OnChanges {
         dateFa: moment(date).isValid() ? date : '',
         dateEn: moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY/MM/DD') : '',
         isHoliday: moment(date, 'jYYYY/jMM/jDD').weekday() === 5,
-        isDisabled: this.isBefore(date) || !this.isExistDateList(moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD') : ''),
+        isDisabled: this.getIsDisabled(date),
         isValid: moment(date).isValid(),
       }
       result.push(object);
     })
     return result;
+  }
+
+  getIsDisabled(date: string) {
+    if (this.todayMin) {
+      return this.isBefore(date) || !this.isExistDateList(moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD') : '')
+    } else {
+      return false
+    }
   }
 
   isExistDateList(date: string) {

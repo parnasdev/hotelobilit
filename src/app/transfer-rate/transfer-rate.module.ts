@@ -25,6 +25,7 @@ import { SingleEditComponent } from './single-edit/single-edit.component';
 import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { FastEditPopupComponent } from './fast-edit-popup/fast-edit-popup.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -39,7 +40,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CopyComponent,
     SetServiceComponent,
     SingleEditComponent,
-    FilterPopupComponent
+    FilterPopupComponent,
+    FastEditPopupComponent
   ],
   imports: [
     CommonModule,
