@@ -38,9 +38,9 @@
       </div>
     </div>
     <div style="background:#fff;border:1px solid #e0e0e0" class="info-tour-body">
-      <div style="align-items: flex-start !important;" class="top ">
+      <div style="align-items: center !important;" class="top ">
         <!-- title field -->
-        <div class="item-info">
+        <div style="margin-top: 0 !important;position: relative;top: -13px" class="item-info">
           <label for="">عنوان تور</label>
           <input [formControl]="titleFC" type="text">
           <div *ngIf="errorService.hasError('title')">
@@ -70,7 +70,7 @@
           </div>
         </div>
         <!-- stDate field -->
-        <div class="item-info">
+        <div class="item-info w-25">
           <label for="">تاریخ ورود به هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
@@ -82,7 +82,7 @@
           </div>
         </div>
         <!-- enDate field -->
-        <div class="item-info">
+        <div class="item-info w-25">
           <label for="">تاریخ خروج از هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
@@ -93,29 +93,7 @@
             <span class="text-danger">{{errorService.getError('checkout')}}</span>
           </div>
         </div>
-
-        <!-- nightNum field -->
-        <div style="transform: translateY(3px)" class="item-info">
-          <div class="select-info">
-            <label style="margin-bottom: 15px !important;" for="">تعداد شب</label>
-            <span class="number-day-text">{{night_numFC.value}}</span>
-            <div *ngIf="errorService.hasError('night_num')">
-              <span class="text-danger">{{errorService.getError('night_num')}}</span>
-            </div>
-          </div>
-        </div>
-        <!-- dayNum field -->
-        <div class="item-info">
-          <div class="select-info">
-            <label for="">تعداد روز</label>
-          </div>
-          <span class="number-day-text">{{day_numFC.value}}</span>
-          <div *ngIf="errorService.hasError('day_num')">
-            <span class="text-danger">{{errorService.getError('day_num')}}</span>
-          </div>
-        </div>
-        <!-- expireDate field -->
-        <div class="item-info">
+        <div class="item-info w-25">
           <label for="">تاریخ انقضا پکیج</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
@@ -126,6 +104,15 @@
             <span class="text-danger">{{errorService.getError('expired_at')}}</span>
           </div>
         </div>
+        <div class="item-info w-22">
+          <label style="margin-bottom: 14px;position: relative;top: -27px"  for="">تعداد شب و روز</label>
+                 <span style="border-bottom: 1px dashed #ededed;position: relative;top: -8px"  class="bold-600 w-100 text-center h-30  d-flex justify-content-center font-size-14" for="">
+           {{night_numFC.value}}شب
+          و
+                   {{day_numFC.value}} روز
+        </span>
+        </div>
+
 
       </div>
     </div>
@@ -175,28 +162,35 @@
   </div>
 
 
-  <div class="w-100">
+  <div style="position: relative" class="w-100">
     <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
-    <div class="item-package" *ngFor="let item of packages;let i=index">
-      <span class="number">{{ i + 1 }}</span>
-      <div class="d-flex middle-item">
-        <h5>انتخاب هتل</h5>
-        <div class="inp-form">
-          <select class="w-100" [(ngModel)]="item.hotel_id">
-            <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
-          </select>
-        </div>
-        <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
-        <div class="d-flex checkbox-bottun-parent">
-
-          <div class="d-flex p-checkbox align-items-center justify-content-end">
-            <label>ویژه</label>
-            <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
+    <div class="w-100">
+      <div class="item-package" *ngFor="let item of packages;let i=index">
+        <span class="number">{{ i + 1 }}</span>
+        <div class="d-flex middle-item">
+          <h5>انتخاب هتل</h5>
+          <div class="inp-form">
+            <select class="w-100" [(ngModel)]="item.hotel_id">
+              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
+            </select>
           </div>
-        </div>
+          <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت
+            گذاری
+          </button>
+          <div class="d-flex checkbox-bottun-parent">
 
+            <div class="d-flex p-checkbox align-items-center justify-content-end">
+              <label>ویژه</label>
+              <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
+            </div>
+          </div>
+
+        </div>
+        <i class="icon-cancel" (click)="removePackage(i)"></i>
       </div>
-      <i class="icon-cancel" (click)="removePackage(i)"></i>
+    </div>
+    <div class="w-100 d-flex justify-content-end">
+      <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     </div>
   </div>
 
