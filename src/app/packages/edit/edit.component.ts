@@ -81,6 +81,7 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   convertPackages() {
+    this.packages = [];
     this.tourData.packages.forEach((x: any) => {
       let item: PackageTourDTO = {
         hotel_id: x.hotel.id,
