@@ -147,6 +147,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   }
 
   createRooms() {
+    this.rooms = [];
     this.hotelInfo.roomTypes.forEach((item: any) => {
       let room = this.hotelInfo.rooms.find(x => x.room_type_id === item.id);
       let obj: roomDTO = {
@@ -168,11 +169,13 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
       this.rooms.push(obj)
     })
   }
+
   edit(): void {
     this.setEditReq();
     this.roomApi.edit(this.hotel_id, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
+        this.getInfo();
       } else {
         this.message.custom(res.message)
       }
@@ -193,6 +196,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
 
 
   }
+
   getRemovedRooms() {
     this.hotelInfo.rooms.forEach(sr => {
       let x = this.selectedRooms.find(y => y.id == sr.id);
