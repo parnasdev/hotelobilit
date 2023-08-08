@@ -171,7 +171,7 @@
   <div class="w-100">
     <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     <div class="item-package" *ngFor="let item of packages;let i=index">
-      <span class="number">2</span>
+      <span class="number">{{ i + 1 }}</span>
       <div class="d-flex middle-item">
         <h5>انتخاب هتل</h5>
         <div class="inp-form">
