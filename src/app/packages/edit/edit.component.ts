@@ -168,6 +168,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.checkoutFC.setValue(this.tourData.checkout);
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
+    this.onTitleGenerator(this.tourData.origin_name ??'' , this.tourData.destination_name);
     this.flights = this.tourData.flightIs;
     // this.packages = this.tourData.packages
     this.getTransferRates();

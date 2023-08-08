@@ -20,6 +20,7 @@ import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
 import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing-popup.component';
 import { SetPricePopupComponent } from 'src/app/room/set-price-popup/set-price-popup.component';
 import { RoomTypeSetDTO } from 'src/app/Core/Models/roomTypeDTO';
+import {months} from "moment";
 
 
 @Component({
@@ -34,7 +35,8 @@ export class AddComponent implements OnInit {
   transferRates: TransferRateListDTO[] = [];
   packages: PackageTourDTO[] = [];
   hotels: any[] = [];
-
+origin_city:any;
+destination_city:any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
   req: TourSetDTO = {
@@ -217,6 +219,8 @@ export class AddComponent implements OnInit {
       this.night_numFC.setValue((dates.length - 1).toString())
       this.day_numFC.setValue(dates.length.toString())
     }
+    this.onTitleGenerator()
+
     this.getTransferRates();
     this.getHotels()
   }
@@ -231,9 +235,33 @@ export class AddComponent implements OnInit {
     })
   }
 
+  onTitleGenerator(origin:string | null = null, destination: string | null = null) {
+    let month = ''
+    let monthSplits =[]
+    let monthNum = '0'
+    let monthDay  = '0'
+    if(this.checkinFC.value) {
+       month = this.calenderService.convertDate(this.checkinFC.value,'fa')
+       monthSplits = month.split('/')
+       monthNum = monthSplits.length > 0 ? monthSplits[1] : '0'
+       monthDay  = monthSplits.length > 2 ? monthSplits[2] : '0'
+    }
+
+    this.titleFC.setValue( 'تور' +  ' ' + (destination ? destination :this.destination_city?.name ??'') + ' ' +
+      monthDay + ' '+
+      (this.calenderService.getMonthFa(+monthNum) ?? '') + ' ' +
+      this.night_numFC.value + ' شب ' + 'از ' +  (origin ? origin : this.origin_city?.name ?? ''))
+  }
+
+
+
+
 
   getEndCity(cityItemSelected: any): void {
     this.destination_idFC.setValue(cityItemSelected.id);
+    this.origin_city = cityItemSelected
+    this.onTitleGenerator()
+
     this.getTransferRates();
     this.getHotels()
 
@@ -241,6 +269,9 @@ export class AddComponent implements OnInit {
 
   getStCity(cityItemSelected: any): void {
     this.origin_idFC.setValue(cityItemSelected.id);
+    this.destination_city = cityItemSelected
+    this.onTitleGenerator()
+
     this.getTransferRates();
 
 
