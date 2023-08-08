@@ -18,7 +18,7 @@ export interface ConfirmPriceReqDTO {
   chd_price: number;
   currency_code: string;
   isJustRoomCount:boolean
-  
+
 }
 @Component({
   selector: 'prs-confirm-pricing-modal',
@@ -49,7 +49,11 @@ export class ConfirmPricingModalComponent implements OnInit {
   }
 
   submit() {
-    this.addHotelRates()
+    if (this.data.currency_code && this.data.currency_code !== ''){
+      this.addHotelRates()
+    }else {
+      this.message.custom('نرخ ارز وارد نشده است')
+    }
   }
 
   addHotelRates() {

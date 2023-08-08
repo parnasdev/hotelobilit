@@ -17,20 +17,7 @@ export class EditComponent extends AddComponent implements OnInit {
   tourData: any;
   id = ''
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.hotels.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  myControl = new FormControl('');
-  filteredOptions!: Observable<any[]>;
-
   override ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
     this.getCities();
   }
@@ -66,6 +53,7 @@ export class EditComponent extends AddComponent implements OnInit {
       this.tourApi.gethotels(req).subscribe((res: any) => {
         if (res.isDone) {
           this.hotels = res.data;
+
           this.convertPackages();
         } else {
           this.message.custom(res.message);

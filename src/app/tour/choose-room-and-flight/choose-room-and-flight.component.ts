@@ -357,8 +357,13 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   getTransferPrice(roomIndex: number, flightID: number) {
     let destID = this.data.find(x => x.id === flightID)?.destination_id
-    let transfer = this.hotelInfo.rooms[roomIndex].services.find(transfer => transfer.airport_id === destID);
-    return (transfer?.rate ?? 0) * this.getCurrencyRate(transfer?.rate_type ?? '', roomIndex)
+    let transfers = this.hotelInfo.rooms[roomIndex].services.filter(transfer => transfer.airport_id === destID || transfer.airport_id === 0);
+
+    let price = 0;
+    transfers.forEach(x => {
+      price += (x?.rate ?? 0) * this.getCurrencyRate(x?.rate_type ?? '', roomIndex)
+    })
+    return price
   }
 
 

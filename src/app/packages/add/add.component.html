@@ -171,7 +171,7 @@
           <h5>انتخاب هتل</h5>
           <div class="inp-form">
             <select class="w-100" [(ngModel)]="item.hotel_id">
-              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
+              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>
             </select>
           </div>
           <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت

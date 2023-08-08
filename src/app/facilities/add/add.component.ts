@@ -77,7 +77,7 @@ export class AddComponent {
     this.setReq()
     this.api.storeCategory('service', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
-        this.router.navigateByUrl('/panel/service');
+        this.router.navigateByUrl('/panel/facilities');
       } else {
         this.message.custom(res.message);
       }

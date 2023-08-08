@@ -45,7 +45,7 @@ export class EditComponent {
     this.api.updateCategory(+this.service_id, 'service', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)
-        this.router.navigateByUrl('/panel/service');
+        this.router.navigateByUrl('/panel/facilities');
       } else {
         this.message.custom(res.message);
       }

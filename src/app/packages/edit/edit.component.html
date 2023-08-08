@@ -12,7 +12,7 @@
                         <label>
                             <select [formControl]="status_idFC">
                                 <option *ngFor="let status of this.statuses" [value]="status.id">{{ status.name }}</option>
-     
+
                             </select>
                             <div *ngIf="errorService.hasError('status_id')">
                                 <span class="text-danger">{{errorService.getError('status_id')}}</span>
@@ -57,7 +57,7 @@
                 <div class="item-info">
                     <div class="select-info">
                         <label for="">شهر مقصد</label>
-                        <prs-select-city [cities]="cities" 
+                        <prs-select-city [cities]="cities"
                         [inCommingCity]="tourData.destination_id"
                             (citySelected)="getEndCity($event)"></prs-select-city>
                         <div *ngIf="errorService.hasError('destination_id')">
@@ -175,7 +175,7 @@
           <div class="d-flex middle-item">
             <h5>انتخاب هتل</h5>
 
-<!-- 
+<!--
             <mat-form-field class="example-full-width">
                 <mat-label>Number</mat-label>
                 <input type="text"
@@ -194,18 +194,18 @@
 
             <div class="inp-form">
               <select class="w-100" [(ngModel)]="item.hotel_id">
-                <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
+                <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>
               </select>
             </div>
             <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
             <div class="d-flex checkbox-bottun-parent">
-    
+
               <div class="d-flex p-checkbox align-items-center justify-content-end">
                 <label>ویژه</label>
                 <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
               </div>
             </div>
-    
+
           </div>
           <i class="icon-cancel" (click)="removePackage(i)"></i>
         </div>

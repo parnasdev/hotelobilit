@@ -42,6 +42,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     post: {
       id: 0,
       user_id: 0,
+      location:'',
       address: '',
       titleEn: '',
       title: '',

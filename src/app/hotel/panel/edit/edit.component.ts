@@ -24,6 +24,7 @@ export class EditComponent extends AddComponent implements OnInit {
       id: 0,
       user_id: 0,
       address: '',
+      location: '',
       titleEn: '',
       title: '',
       slug: '',
@@ -116,6 +117,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.city_id.setValue(this.hotelInfo.city_id);
     this.hotelForm.controls.body.setValue(this.hotelInfo.post.body);
     this.hotelForm.controls.currency.setValue(this.hotelInfo.post.options?.currency_code);
+    this.hotelForm.controls.location.setValue(this.hotelInfo.post.options?.location);
 
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description);
     this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address);
@@ -255,6 +257,7 @@ export class EditComponent extends AddComponent implements OnInit {
       titleEn: this.hotelForm.controls.titleEn.value,
       address: this.hotelForm.controls.address.value,
       stars: this.currentStar,
+      location: this.hotelForm.controls.location.value,
       slug: this.hotelForm.controls.slug.value,
       currency_code: this.hotelForm.controls.currency.value ?? 'toman',
       status_id: 1,

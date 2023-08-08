@@ -11,6 +11,7 @@ export interface hotelDTO {
     description: string
     body: string;
     options: any;
+    location: string
     pin: boolean;
     comment: boolean;
     post_type: string;
@@ -85,6 +86,7 @@ export interface storeHotelSetReqDTO {
     status_id: number | null;
     del_rooms?: number[]
     address: string | null;
+    location: string | null
     stars: number
     currency_code: string;
     services: number[]

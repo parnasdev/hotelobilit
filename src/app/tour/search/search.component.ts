@@ -185,7 +185,8 @@ export class SearchComponent implements OnInit, OnChanges {
       const dialog = this.dialog.open(PrsDatePickerComponent, {
         width: '70%',
         data: {
-          dateList: this.reservedDates
+          dateList: this.reservedDates,
+          todayMin: true
         }
       })
       dialog.afterClosed().subscribe(res => {
