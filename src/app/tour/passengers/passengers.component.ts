@@ -128,7 +128,7 @@ export class PassengersComponent implements OnInit, OnChanges {
 
 
   getMinDate(item: any) {
-    let type= item.get('type').value
+    let type = item.get('type').value ?? ''
     if (type === 'adl') {
       return this.minDate
     } else if (type === 'inf') {
