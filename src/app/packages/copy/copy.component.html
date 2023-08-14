@@ -36,7 +36,7 @@
         <!-- title field -->
         <div style="margin-top: 0 !important;position: relative;top: -13px" class="item-info">
           <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
-          <input [formControl]="titleFC" readonly type="text">
+          <input [formControl]="titleFC"  type="text">
           <div *ngIf="errorService.hasError('title')">
             <span class="text-danger">{{errorService.getError('title')}}</span>
           </div>

@@ -130,13 +130,14 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       date = moment(date).add(1, 'days').format('YYYY-MM-DD');
       nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
     } else if (!checkin_tomorrow && checkout_yesterday) {
-      returnDate = moment(date).add(-1, 'days').format('YYYY-MM-DD');
+      returnDate = moment(returnDate).add(-1, 'days').format('YYYY-MM-DD');
       nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
     } else {
       date = moment(date).add(1, 'days').format('YYYY-MM-DD');
       returnDate = moment(returnDate).add(-1, 'days').format('YYYY-MM-DD');
       nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
     }
+    console.log(nights)
     return nights
 
   }

@@ -22,6 +22,7 @@ export class ReserveInfoComponent {
   statusFC = new FormControl()
   statuses: any[] = []
   isLoading = false
+  passengers: any[] = [];
   reserve: string = ""
   constructor(public api: ReserveApiService,
     public route: ActivatedRoute,
@@ -46,6 +47,9 @@ export class ReserveInfoComponent {
       if (res.isDone) {
         this.info = res.data
         this.statuses = res.statuses;
+        if( this.info.reserves.length > 0) {
+          this.passengers = this.info.reserves[0].details
+        }
         let statusFiltered = this.statuses.filter(x => x.name === this.info.status.label)
         if(statusFiltered.length > 0) {
           this.statusFC.setValue(statusFiltered[0].id)

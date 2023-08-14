@@ -84,7 +84,8 @@ export interface ReserveRoomsReqDTO {
 export interface ReserveListResponseDTO {
     details: {
         checkin: string;
-        checkout: string
+        checkout: string;
+        reserver_api: string;
     }
     hotel: ReserveHotelDTO
     id: number
@@ -94,6 +95,8 @@ export interface ReserveListResponseDTO {
         name: string
     }
     ref_code: string
+  reserver: string
+  ref_code_reserver:string;
     reserver_full_name: string
     reserver_id_code: string
     reserver_phone: string

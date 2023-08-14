@@ -40,9 +40,9 @@
     <div style="background:#fff;border:1px solid #e0e0e0" class="info-tour-body">
       <div class="top-title">
         <!-- title field -->
-        <div style="margin-top: 0 !important;position: relative;top: -13px" class="item-info">
+        <div style="margin-top: 0 !important;position: relative;top: -13px;width: 32% !important;" class="item-info">
           <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
-          <input [formControl]="titleFC" readonly type="text">
+          <input [formControl]="titleFC"  type="text">
           <div *ngIf="errorService.hasError('title')">
             <span class="text-danger">{{errorService.getError('title')}}</span>
           </div>
@@ -53,20 +53,20 @@
 
         <!-- on field -->
         <div class="item-info-2 item-info-material">
-          <div class="select-info">
+          <div class="select-info mt-3">
 
             <label for="">شهر مبدا</label>
-            <prs-select-city [cities]="cities" (citySelected)="getStCity($event)"></prs-select-city>
+            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" (citySelected)="getStCity($event)"></prs-select-city>
             <div *ngIf="errorService.hasError('origin_id')">
               <span class="text-danger">{{errorService.getError('origin_id')}}</span>
             </div>
           </div>
         </div>
         <!-- destination field -->
-        <div class="item-info item-info-material">
+        <div class="item-info item-info-material mt-3">
           <div class="select-info">
             <label for="">شهر مقصد</label>
-            <prs-select-city [cities]="cities" (citySelected)="getEndCity($event)"></prs-select-city>
+            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" (citySelected)="getEndCity($event)"></prs-select-city>
 
             <div *ngIf="errorService.hasError('destination_id')">
               <span class="text-danger">{{errorService.getError('destination_id')}}</span>

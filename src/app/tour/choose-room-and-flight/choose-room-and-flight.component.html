@@ -103,7 +103,6 @@
                     <img width="40" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}" alt="">
                     <span>{{ item.airline_name }}</span>
                   </div>
-
                 </div>
                 <div class="bottom">
                   <div class="location">
@@ -112,7 +111,6 @@
                   <span class="date">
                     {{ item.time.substring(0,5) }} و {{ item.date | convertDate }}
                   </span>
-
                 </div>
               </div>
               <div class="flight-to">
@@ -123,7 +121,6 @@
                       alt="">
                     <span>{{ item.flight.airline_name }}</span>
                   </div>
-
                 </div>
                 <div class="bottom">
                   <div class="location">
@@ -175,11 +172,8 @@
                 <a class="btn-base-red w-75 mt-4" (click)="submit(item.id,flightIndex,item.checkin,item.checkout)">رزرو
                   تور</a>
               </div>
-
-
-            </div>
+           </div>
           </ng-template>
-
 
           <div class="d-flex flex-column w-100" *ngFor="let item of data;let flightIndex = index">
 
@@ -217,7 +211,7 @@
                   <div class="line w-50">
                     <div class="airline-from">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="45" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
+                        <img width="60" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
                           alt="">
                         <span>{{ item.airline_name }}</span>
                       </div>
@@ -228,7 +222,7 @@
                     </div>
                     <div class="airline-to">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="45" src="{{ item.flight.airline_thumb.url?? '../../../assets/img/nopicture.jpg'  }}"
+                        <img width="60" src="{{ item.flight.airline_thumb.url?? '../../../assets/img/nopicture.jpg'  }}"
                           alt="">
                         <span>{{item.flight.airline_name}}</span>
                       </div>

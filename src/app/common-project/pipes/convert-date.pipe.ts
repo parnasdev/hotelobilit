@@ -11,7 +11,7 @@ export class ConvertDatePipe implements PipeTransform {
       let MomentDate = moment(value, 'YYYY/MM/DD');
       return MomentDate.locale('fa').format('YYYY/M/D');
     } else {
-      return 'تاریخ موردنظر را انتخاب کنید'
+      return '---'
     }
 
   }

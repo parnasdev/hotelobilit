@@ -142,7 +142,8 @@ export interface ReserveHotelDTO {
     is_domestic: boolean;
     stars: string
     thumbnail: string
-    title: string
+    title: string;
+    titleEn:string
 }
 
 export interface statusObjDTO {
