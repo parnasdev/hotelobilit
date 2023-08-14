@@ -96,7 +96,7 @@
             <div class="mt-2">
               <prs-date-picker-input [title]="'تاریخ تولد'" [lang]="'fa'"
                 [errorItem]="getErrorItem(i, 'birthDate')"
-                [minDate]="getMinDate(item) ??''" 
+                [minDate]="getMinDate(item)" 
                 [maxDate]="minDateTodayShamsi"
                 (sendDate)="getbirthDate(i,  $event)">
               </prs-date-picker-input>
@@ -217,7 +217,7 @@
             <div class="mt-2 w-100">
               <prs-date-picker-input [title]="'تاریخ تولد'" [lang]="!tourType ? 'en': 'fa'"
                 [errorItem]="getErrorItem(i, 'birthDate')" [incommingDate]="getDate(i, 'birthDate')"
-                [minDate]="getMinDate(item) ??''" [maxDate]="tourType ? minDateTodayShamsi : minDateTodayMiladi"
+                [minDate]="getMinDate(item)" [maxDate]="tourType ? minDateTodayShamsi : minDateTodayMiladi"
                 (sendDate)="getbirthDate(i,  $event)">
               </prs-date-picker-input>
             </div>

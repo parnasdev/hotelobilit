@@ -197,7 +197,7 @@
                     *ngFor="let flight of hotel.flights">
                     <div class="r d-flex flex-column align-items-start">
                       <span>رفت : {{ flight.date | convertDate }}</span>
-                      <span class="mt-2">برگشت : {{ flight.flight.date | convertDate }}</span>
+                      <span class="mt-2">برگشت : {{ flight.flight?.date | convertDate }}</span>
 
                     </div>
                     <a (click)="selectHotel(hotel.slug,flight)" class="btn-reserve btn-danger rounded-2 px-4 py-2">
