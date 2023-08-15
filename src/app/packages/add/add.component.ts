@@ -21,6 +21,7 @@ import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing
 import { SetPricePopupComponent } from 'src/app/room/set-price-popup/set-price-popup.component';
 import { RoomTypeSetDTO } from 'src/app/Core/Models/roomTypeDTO';
 import {months} from "moment";
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -64,6 +65,7 @@ destination_city:any;
   expired_atFC = new FormControl('', [Validators.required])
   status_idFC = new FormControl(0, [Validators.required])
   constructor(
+    public  title: Title,
     public cityApi: CityApiService,
     public commonApi: CommonApiService,
     public session: SessionService,
@@ -82,6 +84,8 @@ destination_city:any;
   }
 
   ngOnInit() {
+    this.title.setTitle('افزودن تور | هتل و بلیط')
+
     this.getCities();
     this.getPageData();
   }

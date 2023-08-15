@@ -7,6 +7,7 @@ import { RatingResDTO, RoomDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Mo
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -29,7 +30,9 @@ export class PricingComponent implements OnInit {
   calendarLang = 'shamsi'
   ratingData!: RatingResDTO;
   rooms: roomDTO[] = [];
-  constructor(public checkError: CheckErrorService,
+  constructor(
+    public title: Title,
+    public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
     public route: ActivatedRoute,
@@ -37,6 +40,8 @@ export class PricingComponent implements OnInit {
     public message: MessageService,) { }
 
   ngOnInit(): void {
+    this.title.setTitle('قیمت گذاری هتل | هتل و بلیط')
+
     // @ts-ignore
     this.slug = this.route.snapshot.paramMap.get('slug');
     // @ts-ignore

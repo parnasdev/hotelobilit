@@ -9,6 +9,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-list',
@@ -22,7 +23,9 @@ export class ListComponent implements OnInit {
   paginateConfig: any;
   list: ReserveListResponseDTO[] = [];
 
-  constructor(public api: ReserveApiService,
+  constructor(
+    public title: Title,
+    public api: ReserveApiService,
     public route: ActivatedRoute,
     public checkErrorService: CheckErrorService,
     public calService: CalenderServices,
@@ -33,6 +36,8 @@ export class ListComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.title.setTitle('رزرو ها | هتل و بلیط')
+
     this.getList()
   }
   getList(): void {

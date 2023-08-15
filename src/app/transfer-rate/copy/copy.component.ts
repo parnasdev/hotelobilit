@@ -8,4 +8,8 @@ import { EditComponent } from '../edit/edit.component';
 })
 export class CopyComponent extends EditComponent {
 
+
+  override ngOnInit() {
+    this.title.setTitle('کپی پرواز | هتل و بلیط')
+  }
 }

@@ -54,6 +54,8 @@ export class EditComponent extends AddComponent implements OnInit {
   removedImages: number[] = [];
 
   override ngOnInit(): void {
+    this.title.setTitle('ویرایش هتل | هتل و بلیط')
+
     this.errorService.clear();
     // @ts-ignore
     this.hotelId = this.route.snapshot.paramMap.get('id');

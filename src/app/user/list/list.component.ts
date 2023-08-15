@@ -10,6 +10,7 @@ import { AlertDialogComponent, AlertDialogDTO } from "../../common-project/alert
 import { MatDialog } from "@angular/material/dialog";
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
+import {Title} from "@angular/platform-browser";
 declare var $: any;
 
 @Component({
@@ -30,7 +31,9 @@ export class ListComponent implements OnInit {
   isLoading = false;
   city = '';
   roleSelected: number = 0;
-  constructor(public userApi: UserApiService,
+  constructor(
+    public title: Title,
+    public userApi: UserApiService,
     public route: ActivatedRoute,
     public checkErrorService: CheckErrorService,
     public calService: CalenderServices,
@@ -42,6 +45,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('کاربران | هتل و بلیط')
+
     $(document).ready(() => {
       $(".item:even").css('background', '#e6e6e6')
       $(".item:odd").css('background', '#f4f7fa')

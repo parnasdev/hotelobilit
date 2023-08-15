@@ -18,6 +18,8 @@ export class EditComponent extends AddComponent implements OnInit {
   id = ''
 
   override ngOnInit() {
+    this.title.setTitle('ویرایش تور | هتل و بلیط')
+
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
     this.getCities();
   }
@@ -26,6 +28,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.isLoading = true;
     this.tourApi.getTourInfo(+this.id).subscribe((res: any) => {
       if (res.isDone) {
+
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
         this.setInfo();

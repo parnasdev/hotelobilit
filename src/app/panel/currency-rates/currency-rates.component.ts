@@ -5,6 +5,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-currency-rates',
@@ -23,6 +24,7 @@ export class CurrencyRatesComponent implements OnInit {
   req: any;
 
   constructor(
+    public title: Title,
     public settingApi: SettingApiService,
     public checkErrorService: CheckErrorService,
     public message: MessageService,
@@ -32,6 +34,7 @@ export class CurrencyRatesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.title.setTitle('نرخ گذاری ارز | هتل و بلیط')
     if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer') {
       this.getAdminCurrencies()
     } else {

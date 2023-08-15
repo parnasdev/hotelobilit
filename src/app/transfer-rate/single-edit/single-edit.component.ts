@@ -23,6 +23,8 @@ export class SingleEditComponent extends AddComponent implements OnInit {
   inf_priceFC = new FormControl()
   capacityFC = new FormControl()
   override ngOnInit(): void {
+    this.title.setTitle('ویرایش پرواز | هتل و بلیط')
+
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
 
     this.getInfoData();
@@ -39,7 +41,7 @@ export class SingleEditComponent extends AddComponent implements OnInit {
         this.setValue()
         this.show = true;
       }
-      this.isLoading = false  
+      this.isLoading = false
 
     }, (error: any) => {
       this.isLoading = false
@@ -77,7 +79,7 @@ export class SingleEditComponent extends AddComponent implements OnInit {
     this.destination_dateFC.setValue(this.infoData.flight.date)
     this.chd_priceFC.setValue(this.infoData.chd_price)
     this.inf_priceFC.setValue(this.infoData.inf_price)
-    this.capacityFC.setValue(this.infoData.capacity)
+    this.capacityFC.setValue(this.infoData.all_capcity)
 
     this.showData = true
   }

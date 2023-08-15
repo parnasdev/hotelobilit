@@ -11,21 +11,22 @@
       <div class="d-flex w-100">
         <div class="inp-form w-20 m-1">
           <prs-select-city class="w-100" *ngIf="show" [cities]="cities" [baseType]="false" [title]="'شهر مبدا'"
-            [inCommingCity]="filterObj.origin" (citySelected)="originSelected($event)"></prs-select-city>
+                           [inCommingCity]="filterObj.origin" (citySelected)="originSelected($event)"></prs-select-city>
         </div>
         <div class="inp-form w-20 m-1">
           <prs-select-city class="w-100" *ngIf="show" [cities]="cities" [baseType]="true" [title]="'شهر مقصد'"
-            [inCommingCity]="filterObj.destination" (citySelected)="destSelected($event)"></prs-select-city>
+                           [inCommingCity]="filterObj.destination"
+                           (citySelected)="destSelected($event)"></prs-select-city>
         </div>
 
         <div style="background: white;" class="d-flex m-1 w-100">
           <div class="inp-form w-100">
             <input class="w-100" type="text" value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
-              placeholder="انتخاب بازه تاریخی" (click)="openPicker()">
+                   placeholder="انتخاب بازه تاریخی" (click)="openPicker()">
 
 
             <input class="w-100" type="text" value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
-              (click)="openPicker()">
+                   (click)="openPicker()">
           </div>
 
 
@@ -79,8 +80,18 @@
       <span class="from-to">آژانس</span>
       <span class="from-to">وضعیت</span>
       <div class="d-flex flex-column">
-        <span class="from-to">ظرفیت</span>
-        <span class="from-to">فروخته شده</span>
+        <div class="d-flex">
+          <span class="from-to"> کل</span>
+          <span class="from-to">در حال</span>
+        </div>
+        <div class="d-flex">
+          <span class="from-to"> مانده</span>
+          <span class="from-to">فروش</span>
+        </div>
+
+
+
+
       </div>
       <div class="d-flex flex-column">
         <span class="from-to">checkin t</span>
@@ -120,8 +131,8 @@
 
         </div>
         <div class="d-flex flex-column ">
-          <span class="title-tour">{{ calendarService.convertDate(transfer.date,'fa') }} - {{transfer.time}}</span>
-          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date,'fa') }} -
+          <span class="title-tour">{{ calendarService.convertDate(transfer.date, 'fa') }} - {{transfer.time}}</span>
+          <span class="title-tour">{{ calendarService.convertDate(transfer.flight.date, 'fa') }} -
             {{transfer.flight.time}}</span>
 
         </div>
@@ -134,8 +145,8 @@
           <span class="title-tour">{{ transfer.adl_price | sperator }}
             <div class="">
               <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-                matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
-                aria-label=""></i>
+                 matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
+                 aria-label=""></i>
               <i class="icon-pencil text-primary" (click)="fastEdit(transfer.id)"></i>
             </div>
           </span>
@@ -154,14 +165,25 @@
         </div>
         <div class="d-flex flex-column ">
           <span class="title-tour"
-            [style]="'color:'+ (transfer.is_close !== 0 ? '#ff0000;' : 'rgb(51 186 112);')">{{transfer.is_close == 0 ?
+                [style]="'color:'+ (transfer.is_close !== 0 ? '#ff0000;' : 'rgb(51 186 112);')">{{transfer.is_close == 0 ?
             'فعال' :
             'بسته'}}</span>
           <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
         </div>
         <div class="d-flex flex-column">
-          <span class="title-tour">{{ transfer.capacity}}</span>
-          <span class="title-tour">{{ transfer.reserve_capacity }}</span>
+          <div class="d-flex">
+            <span class="title-tour" style="color: #0a53be">{{ transfer.all_capcity}}</span>
+            <span class="title-tour" style="color: green">{{ transfer.reserved_capacity }}</span>
+
+          </div>
+          <div class="d-flex">
+            <span class="title-tour" style="color: red">{{ transfer.capacity}}</span>
+            <span class="title-tour" style="color: purple">{{ transfer.booked_capacity }}</span>
+
+
+          </div>
+
+
         </div>
         <div class="d-flex flex-column">
           <span class="title-tour">
@@ -180,14 +202,15 @@
         <div style="width: 100% !important;" class="button-setting d-flex flex-column align-items-center">
           <div class="d-flex flex-wrap justify-content-between w-100">
             <a style="width: 48% !important;" routerLink="/panel/transferRate/serviceRate/{{ transfer.id }}"
-              class="edit-btn">خدمات</a>
+               class="edit-btn">خدمات</a>
             <a style="width: 48% !important;" routerLink="/panel/transferRate/single-edit/{{ transfer.id }}"
-              class="edit-btn" *ngIf="permition.check('flights.edit')">ویرایش</a>
+               class="edit-btn" *ngIf="permition.check('flights.edit')">ویرایش</a>
             <a style="width: 48% !important;" routerLink="/panel/transferRate/copy/{{ transfer.id }}" class="copy-btn"
-              *ngIf="permition.check('flights.create')">کپی</a>
+               *ngIf="permition.check('flights.create')">کپی</a>
 
             <button *ngIf="permition.check('flights.delete')" style="width: 48% !important;"
-              (click)="removeTransferRate(transfer.id)" class="delete-btn">حذف</button>
+                    (click)="removeTransferRate(transfer.id)" class="delete-btn">حذف
+            </button>
           </div>
 
         </div>
@@ -196,8 +219,9 @@
   </div>
   <div>
     <pagination-controls *ngIf="paginate?.last_page > 1" class="pagination-control" (pageChange)="onPageChanged($event)"
-      previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
-      screenReaderCurrentLabel="شما در صفحه ی">
+                         previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
+                         screenReaderPageLabel="صفحه"
+                         screenReaderCurrentLabel="شما در صفحه ی">
     </pagination-controls>
   </div>
 

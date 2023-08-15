@@ -17,6 +17,7 @@ import { categoriesDTO, citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } 
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-add',
@@ -82,6 +83,7 @@ export class AddComponent implements OnInit {
   showCities = false;
 
   constructor(
+    public title: Title,
     public router: Router,
     public route: ActivatedRoute,
     public checkError: CheckErrorService,
@@ -116,6 +118,8 @@ export class AddComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.title.setTitle('افزودن هتل | هتل و بلیط')
+
     this.errorService.clear();
     this.getData();
   }

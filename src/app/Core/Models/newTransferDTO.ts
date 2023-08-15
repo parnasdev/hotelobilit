@@ -27,7 +27,7 @@ export interface transferRateListDTO {
     destination_name: string
     destination_id: number;
     airline_name: string;
-    reserve_capacity: number;
+  reserved_capacity: number;
     airline_id: number;
     airline_thumb: any
     cities?: any
@@ -42,6 +42,8 @@ export interface transferRateListDTO {
     inf_price: number;
     user?: any
     capacity: number;
+    all_capcity: number;
+  booked_capacity: number
     is_close: number;
     description: string;
     checkin: string;
@@ -78,7 +80,7 @@ export interface flightStoreDTO {
     destination_date?: string;
     chd_price?: number;
     inf_price?: number;
-    capacity?: number;
+  capacity?: number;
 }
 
 export interface flightRatesDTO {

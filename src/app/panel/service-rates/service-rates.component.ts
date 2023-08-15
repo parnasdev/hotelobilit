@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { SettingApiService } from 'src/app/Core/Https/setting-api.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-service-rates',
@@ -10,7 +11,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
   styleUrls: ['./service-rates.component.scss']
 })
 export class ServiceRatesComponent implements OnInit {
-  
+
   insuranceRate = new FormControl('');
   transferRateFC = new FormControl('');
   visaRateFC = new FormControl('');
@@ -20,13 +21,16 @@ export class ServiceRatesComponent implements OnInit {
   data: any;
   req: any;
 
-  constructor(    
+  constructor(
     public settingApi: SettingApiService,
     public message: MessageService,
+    public title: Title,
     public errorService: ErrorsService,) {
   }
 
-  ngOnInit() { 
+  ngOnInit() {
+    this.title.setTitle('نرخ گذاری ارز | هتل و بلیط')
+
     this.getServices();
   }
 

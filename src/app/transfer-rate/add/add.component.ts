@@ -11,6 +11,7 @@ import { flightStoreDTO } from 'src/app/Core/Models/newTransferDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-add',
@@ -88,6 +89,7 @@ export class AddComponent implements OnInit {
   constructor(public message: MessageService,
     public fb: FormBuilder,
     public router: Router,
+    public title: Title,
     public route: ActivatedRoute,
     public calenderServices: CalenderServices,
     public errorService: ErrorsService,
@@ -110,6 +112,8 @@ export class AddComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.title.setTitle('افزودن پرواز | هتل و بلیط')
+
     this.getData();
   }
 

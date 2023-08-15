@@ -9,6 +9,10 @@ import { EditComponent } from "../edit/edit.component";
 export class CopyComponent extends EditComponent implements OnInit {
 
 
+  override ngOnInit() {
+    this.title.setTitle('کپی تور | هتل و بلیط')
+
+  }
 
   override submit(): void {
     this.setReq()

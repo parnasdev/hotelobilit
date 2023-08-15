@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from "../../Core/Services/message.service";
 import { TransferListRequestDTO } from "../../Core/Models/transferDTO";
 import { SessionService } from 'src/app/Core/Services/session.service';
@@ -6,6 +6,7 @@ import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-list',
@@ -20,7 +21,9 @@ export class ListComponent {
   paginateConfig: any;
   isLoading = false
 
-  constructor(public api: CategoryApiService,
+  constructor(
+    public title: Title,
+    public api: CategoryApiService,
     public checkError: CheckErrorService,
     public permition: PermitionsService,
     public session: SessionService,
@@ -28,6 +31,8 @@ export class ListComponent {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('فرودگاه ها | هتل و بلیط')
+
     this.getTransfers();
   }
 

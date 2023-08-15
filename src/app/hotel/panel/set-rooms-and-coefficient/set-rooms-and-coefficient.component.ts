@@ -15,6 +15,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-set-rooms-and-coefficient',
@@ -68,6 +69,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   };
 
   constructor(
+    public title: Title,
     public router: Router,
     public route: ActivatedRoute,
     public checkError: CheckErrorService,
@@ -86,6 +88,8 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     public fb: FormBuilder) {
   }
   ngOnInit(): void {
+    this.title.setTitle('ضریب و اتاق | هتل و بلیط')
+
     this.getInfo();
   }
 

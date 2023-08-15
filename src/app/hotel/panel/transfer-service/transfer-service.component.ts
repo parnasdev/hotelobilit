@@ -7,6 +7,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { UpdateTransferServicePopupComponent } from '../update-transfer-service-popup/update-transfer-service-popup.component';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-transfer-service',
@@ -30,7 +31,9 @@ export class TransferServiceComponent implements OnInit {
   services: any[] = [];
   rateServices: any[] = [];
 
-  constructor(public checkError: CheckErrorService,
+  constructor(
+    public title: Title,
+    public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public route: ActivatedRoute,
     public dialog: MatDialog,
@@ -38,10 +41,12 @@ export class TransferServiceComponent implements OnInit {
     public message: MessageService) { }
 
   ngOnInit(): void {
+    this.title.setTitle('انتخاب سرویس | هتل و بلیط')
+
     this.getData();
     this.getList()
   }
-  
+
   getData(): void {
     this.isLoading = true;
     let id = this.catType === 'hotel' ? this.hotelId : this.flightId;
@@ -67,7 +72,7 @@ export class TransferServiceComponent implements OnInit {
   }
 
   getServiceName(id: number) {
-    return this.services.find(x => x.id === id)?.name 
+    return this.services.find(x => x.id === id)?.name
   }
 
 

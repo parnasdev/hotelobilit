@@ -14,6 +14,7 @@ import { PublicService } from 'src/app/Core/Services/public.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { SettingService } from 'src/app/Core/Services/setting.service';
 import { AlertDialogComponent, AlertDialogDTO } from 'src/app/common-project/alert-dialog/alert-dialog.component';
+import {Title} from "@angular/platform-browser";
 
 declare let $: any;
 
@@ -54,7 +55,9 @@ export class ListComponent implements OnInit {
   originFC = new FormControl(null);
   destFC = new FormControl(null);
 
-  constructor(public tourApiService: TourApiService,
+  constructor(
+    public title: Title,
+    public tourApiService: TourApiService,
     public setting: SettingService,
     public cityApi: CityApiService,
     public session: SessionService,
@@ -68,6 +71,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('تورها | هتل و بلیط')
+
     $(document).ready(() => {
       $(".item:even").css('background', '#e6e6e6')
       $(".item:odd").css('background', '#f4f7fa')
@@ -182,7 +187,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  
+
 
   getStatus(statusEn: string): string {
     switch (statusEn) {

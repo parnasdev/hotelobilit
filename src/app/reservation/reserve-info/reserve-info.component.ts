@@ -11,6 +11,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-reserve-info',
@@ -24,7 +25,9 @@ export class ReserveInfoComponent {
   isLoading = false
   passengers: any[] = [];
   reserve: string = ""
-  constructor(public api: ReserveApiService,
+  constructor(
+    public title: Title,
+    public api: ReserveApiService,
     public route: ActivatedRoute,
     public checkErrorService: CheckErrorService,
     public calendarService: CalenderServices,
@@ -37,6 +40,8 @@ export class ReserveInfoComponent {
 
   ngOnInit(): void {
     this.reserve = this.route.snapshot.paramMap.get('reserve') ?? '';
+    this.title.setTitle('جزییات رزرو | هتل و بلیط')
+
     this.getReserve()
   }
 

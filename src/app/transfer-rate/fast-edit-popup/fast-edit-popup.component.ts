@@ -11,6 +11,7 @@ import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
 import { FlightApiService } from 'src/app/Core/Https/flight-api.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-fast-edit-popup',
@@ -21,7 +22,7 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
     infoData!: transferRateListDTO
     editData: any;
     showData = false;
-  
+
     adl_priceFC = new FormControl()
     origin_dateFC = new FormControl()
     destination_dateFC = new FormControl()
@@ -29,7 +30,7 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
     inf_priceFC = new FormControl()
     capacityFC = new FormControl()
     override ngOnInit(): void {
-  
+
       this.getInfoData();
     }
 
@@ -41,6 +42,8 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
       public override route: ActivatedRoute,
       public override calenderServices: CalenderServices,
       public override errorService: ErrorsService,
+      public override title: Title,
+
       public override cityApi: CityApiService,
       public override checkError: ErrorsService,
       public override transferRateApi: TransferRateAPIService,
@@ -49,10 +52,10 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public override data: any,
               public dialog: MatDialog
   ) {
-      super(message, fb, router,route,calenderServices,errorService,cityApi,checkError,transferRateApi,flightApi);
+      super(message, fb, router,title,route,calenderServices,errorService,cityApi,checkError,transferRateApi,flightApi);
   }
-  
-  
+
+
     getInfoData(): void {
       this.isLoading = true
       this.flightApi.getFlightEditPage(+this.data.id).subscribe((res: any) => {
@@ -63,15 +66,15 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
           this.setValue()
           this.show = true;
         }
-        this.isLoading = false  
-  
+        this.isLoading = false
+
       }, (error: any) => {
         this.isLoading = false
         this.message.error()
         this.checkError.check(error);
       })
     }
-  
+
     setValue() {
       this.selectedCityFC.setValue(this.infoData.cities)
       this.form.controls.origin_id.setValue(this.infoData.origin_id.toString());
@@ -84,34 +87,34 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
       this.form.controls.destination_flight_number.setValue(this.infoData.flight.flight_number.toString());
       this.checkin_tomorrow = this.infoData.checkin_tomorrow ?? false
       this.checkout_yesterday = this.infoData.checkout_yesterday ?? false
-  
+
       this.cities.forEach(item => {
         item.isChecked = false
       });
-  
+
       this.infoData.cities.forEach((item: number) => {
         let cityItem = this.cities.filter(x => x.id === item)[0]
         console.log(cityItem);
         cityItem.isChecked = true;
         this.selectedCities.push(cityItem)
       })
-  
+
       this.adl_priceFC.setValue(this.infoData.adl_price)
       this.originDateFC.setValue(this.infoData.date)
       this.destination_dateFC.setValue(this.infoData.flight.date)
       this.chd_priceFC.setValue(this.infoData.chd_price)
       this.inf_priceFC.setValue(this.infoData.inf_price)
-      this.capacityFC.setValue(this.infoData.capacity)
-  
+      this.capacityFC.setValue(this.infoData.all_capcity)
+
       this.showData = true
     }
     getCity(id: number) {
       return this.editData.cities.find((y: any) => y.id === id).name
     }
-  
-  
-  
-  
+
+
+
+
     updateTransferRate() {
       this.isLoading = true
       this.flightApi.UpdateDataFlight(this.TransferRateRequest, +this.data.id).subscribe((res: any) => {
@@ -133,14 +136,14 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
         this.checkError.check(error);
       })
     }
-  
+
     updateRequest(type: string) {
       this.type = type;
       this.setUpdateReq();
       this.updateTransferRate();
     }
-  
-  
+
+
     removeTransferRate(id: number, index: number) {
       this.isLoading = true
       this.flightApi.removeDataFlight(id).subscribe((res: any) => {
@@ -154,7 +157,7 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
         this.checkError.check(error);
       })
     }
-  
+
     removeRates(i: any) {
       const id = this.RatesForm.controls[i].value.id
       if (id && id !== 0) {
@@ -163,7 +166,7 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
         this.RatesForm.removeAt(i);
       }
     }
-  
+
     setUpdateReq() {
       this.TransferRateRequest = {
         cities: this.getCitiesSelectedIds() ?? [],
@@ -187,7 +190,7 @@ export class FastEditPopupComponent extends AddComponent implements OnInit {
         capacity: this.capacityFC.value,
       }
     }
-  
-  
+
+
 
 }

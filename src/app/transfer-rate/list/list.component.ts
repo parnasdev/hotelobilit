@@ -16,6 +16,7 @@ import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { FastEditPopupComponent } from '../fast-edit-popup/fast-edit-popup.component';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-list',
@@ -51,6 +52,7 @@ export class ListComponent implements OnInit {
     public session: SessionService,
     public dialog: MatDialog,
     public permition: PermitionsService,
+    public title: Title,
     public route: ActivatedRoute,
     public categoryApi: CategoryApiService,
     public router: Router,
@@ -91,6 +93,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('پروازها | هتل و بلیط')
     this.getTransfers();
     this.getAirlines()
     this.getCities();

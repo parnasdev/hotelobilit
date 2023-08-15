@@ -13,6 +13,7 @@ import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { storeHotelReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-list',
@@ -38,6 +39,7 @@ export class ListComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               public hotelApi: PostApiService,
+              public title: Title,
               public message: MessageService,
               public checkError: ErrorsService,
               public permition: PermitionsService,
@@ -49,6 +51,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('هتل ها | هتل و بلیط')
+
     this.getList();
   }
 
