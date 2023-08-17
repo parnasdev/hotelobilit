@@ -31,103 +31,90 @@
                 </div>
             </div>
         </div>
-        <div class="info-tour-body">
-          <div class="top-title">
-            <!-- title field -->
-            <div style="margin-top: 0 !important;position: relative;top: -13px" class="item-info">
-              <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
-              <input [formControl]="titleFC" type="text">
-              <div *ngIf="errorService.hasError('title')">
-                <span class="text-danger">{{errorService.getError('title')}}</span>
+      <div style="background:#fff;border:1px solid #e0e0e0" class="info-tour-body">
+        <div class="top-title">
+          <!-- title field -->
+          <div style="margin-top: 0 !important;position: relative;top: -13px;width: 32% !important;" class="item-info">
+            <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
+            <input [formControl]="titleFC"  type="text">
+            <div *ngIf="errorService.hasError('title')">
+              <span class="text-danger">{{errorService.getError('title')}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="align-items: center !important;" class="top">
+
+          <!-- on field -->
+          <div class="item-info-2 item-info-material">
+            <div class="select-info mt-3">
+
+              <label for="">شهر مبدا</label>
+              <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" [inCommingCity]="tourData.origin_id" (citySelected)="getStCity($event)"></prs-select-city>
+              <div *ngIf="errorService.hasError('origin_id')">
+                <span class="text-danger">{{errorService.getError('origin_id')}}</span>
               </div>
             </div>
           </div>
-            <div class="top">
+          <!-- destination field -->
+          <div class="item-info item-info-material mt-3">
+            <div class="select-info">
+              <label for="">شهر مقصد</label>
+              <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" [inCommingCity]="tourData.destination_id" (citySelected)="getEndCity($event)"></prs-select-city>
 
-                <!-- on field -->
-                <div class="item-info-2">
-                    <div class="select-info">
-
-                        <label for="">شهر مبدا</label>
-                        <prs-select-city [cities]="cities" [inCommingCity]="tourData.origin_id"
-                            (citySelected)="getStCity($event)"></prs-select-city>
-                        <div *ngIf="errorService.hasError('origin_id')">
-                            <span class="text-danger">{{errorService.getError('origin_id')}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- destination field -->
-                <div class="item-info">
-                    <div class="select-info">
-                        <label for="">شهر مقصد</label>
-                        <prs-select-city [cities]="cities"
-                        [inCommingCity]="tourData.destination_id"
-                            (citySelected)="getEndCity($event)"></prs-select-city>
-                        <div *ngIf="errorService.hasError('destination_id')">
-                            <span class="text-danger">{{errorService.getError('destination_id')}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- stDate field -->
-                <div class="item-info">
-                    <label for="">تاریخ ورود به هتل</label>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
-                            [min]="minDate" (click)="picker1.open()">
-                        <mat-datepicker #picker1></mat-datepicker>
-                    </mat-form-field>
-                    <div *ngIf="errorService.hasError('checkin')">
-                        <span class="text-danger">{{errorService.getError('checkin')}}</span>
-                    </div>
-                </div>
-                <!-- enDate field -->
-                <div class="item-info">
-                    <label for="">تاریخ خروج از هتل</label>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()"
-                            [matDatepicker]="picker2" [min]="minDate" (click)="picker2.open()">
-                        <mat-datepicker #picker2></mat-datepicker>
-                    </mat-form-field>
-                    <div *ngIf="errorService.hasError('checkout')">
-                        <span class="text-danger">{{errorService.getError('checkout')}}</span>
-                    </div>
-                </div>
-
-                <!-- nightNum field -->
-                <div class="item-info-2">
-                    <div class="select-info">
-                        <label for="">تعداد شب</label>
-                        <span class="number-day-text">{{night_numFC.value}}</span>
-                        <div *ngIf="errorService.hasError('night_num')">
-                            <span class="text-danger">{{errorService.getError('night_num')}}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- dayNum field -->
-                <div class="item-info">
-                    <div class="select-info">
-                        <label for="">تعداد روز</label>
-                    </div>
-                    <span class="number-day-text">{{day_numFC.value}}</span>
-                    <div *ngIf="errorService.hasError('day_num')">
-                        <span class="text-danger">{{errorService.getError('day_num')}}</span>
-                    </div>
-                </div>
-                <!-- expireDate field -->
-                <div class="item-info">
-                    <label for="">تاریخ انقضا پکیج</label>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
-                            (click)="picker3.open()">
-                        <mat-datepicker #picker3></mat-datepicker>
-                    </mat-form-field>
-                    <div *ngIf="errorService.hasError('expired_at')">
-                        <span class="text-danger">{{errorService.getError('expired_at')}}</span>
-                    </div>
-                </div>
-
+              <div *ngIf="errorService.hasError('destination_id')">
+                <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+              </div>
             </div>
+          </div>
+          <!-- stDate field -->
+          <div class="item-info w-25">
+            <label for="">تاریخ ورود به هتل</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
+                     [min]="minDate" (click)="picker1.open()">
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('checkin')">
+              <span class="text-danger">{{errorService.getError('checkin')}}</span>
+            </div>
+          </div>
+          <!-- enDate field -->
+          <div class="item-info w-25">
+            <label for="">تاریخ خروج از هتل</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
+                     [min]="minDate" (click)="picker2.open()">
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('checkout')">
+              <span class="text-danger">{{errorService.getError('checkout')}}</span>
+            </div>
+          </div>
+          <div class="item-info w-25">
+            <label for="">تاریخ انقضا پکیج</label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
+                     (click)="picker3.open()">
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="errorService.hasError('expired_at')">
+              <span class="text-danger">{{errorService.getError('expired_at')}}</span>
+            </div>
+          </div>
+          <div class="item-info w-22">
+            <label style="margin-bottom: 14px;position: relative;top: -27px"  for="">تعداد شب و روز</label>
+            <span style="border-bottom: 1px dashed #ededed;position: relative;top: -8px"  class="bold-600 w-100 text-center h-30  d-flex justify-content-center font-size-14" for="">
+           {{night_numFC.value}}شب
+          و
+              {{day_numFC.value}} روز
+        </span>
+          </div>
+
+
         </div>
+      </div>
+
     </div>
     <div class="p-list-fly">
         <div class="info-tour-header">

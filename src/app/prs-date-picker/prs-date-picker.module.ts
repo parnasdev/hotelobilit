@@ -7,6 +7,7 @@ import { MatOptionModule } from "@angular/material/core";
 import { NewDatePickerSelectComponent } from './new-date-picker-select/new-date-picker-select.component';
 import { NewDatePickerMobileComponent } from './new-date-picker-mobile/new-date-picker-mobile.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { NewDatePickerPopupComponent } from './new-date-picker-popup/new-date-picker-popup.component';
 
 
 
@@ -15,6 +16,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     DatePickerInputComponent,
     NewDatePickerSelectComponent,
     NewDatePickerMobileComponent,
+    NewDatePickerPopupComponent,
   ],
   exports: [
     DatePickerInputComponent,

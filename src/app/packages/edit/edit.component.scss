@@ -1,4 +1,5 @@
 @import "src/assets/css/varible";
+
 mat-form-field {
   width: 100% !important;
 }
@@ -103,10 +104,6 @@ mat-form-field {
 .info-tour-header .left select {
   width: 200px;
   background-color: var(--white);
-  border: none;
-  outline: none;
-  height: 34px;
-  border-radius: 4px;
 }
 
 .info-tour-body {
@@ -115,7 +112,6 @@ mat-form-field {
   border: 1px solid #eeeeee;
   padding: 1rem 2rem;
   width: 99%;
-  background: #fff;
 }
 
 .info-tour-body .top {
@@ -123,6 +119,13 @@ mat-form-field {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin: 8px 0;
+}
+.info-tour-body .top-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 8px 0;
 }
 
@@ -465,11 +468,14 @@ mat-form-field {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 32%;
+  width: 15% !important;
 }
+.item-info{
+  width: 15% !important;
 
+}
 .item-info-2 .select-info {
-  width: 47%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -790,6 +796,8 @@ prs-select-hotel {
 .select-info prs-select-city {
   width: 100% !important;
 }
+
+
 .top-title {
   display: flex;
   align-items: center;
@@ -855,6 +863,7 @@ prs-select-hotel {
     }
   }
 
+
   .item-info-2 {
     width: 32%;
     margin-top: 14px !important;
@@ -903,8 +912,7 @@ prs-select-hotel {
   width: 100%;
   display: grid;
   place-items: center;
-  margin-top: 24px;
-  background: #fff;
+  margin-top: 7px;
 }
 
 .parent-icon {
@@ -918,12 +926,11 @@ prs-select-hotel {
   .item {
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 50px;
     place-items: center;
     gap: 8px;
     border-top: 1px solid #ebebeb;
-    background: #f7f7f7;
 
     input {
       width: 28px;
@@ -933,7 +940,7 @@ prs-select-hotel {
     span {
       font-weight: 600;
       color: var(--text-color);
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 }
@@ -941,7 +948,7 @@ prs-select-hotel {
 .item-header {
   width: 99%;
   display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 50px;
   place-items: center;
   gap: 8px;

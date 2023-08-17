@@ -1,11 +1,8 @@
 <div class="add-tour">
   <form class="w-100" [formGroup]="userForm">
     <div class="box-info-tour">
-      <div class="info-tour-header">
-        <div class="right">
-          <h2>ویرایش کاربر </h2>
-        </div>
-      </div>
+
+
       <div class="info-tour-body">
         <div class="top flex-wrap">
           <div class="item-info">
@@ -74,13 +71,6 @@
             </div>
           </div>
 
-          <div class="item-info">
-            <label for="">گذرواژه</label>
-            <input formControlName="password" type="text">
-            <div *ngIf="errorService.hasError('password')">
-              <span class="text-danger">{{errorService.getError('password')}}</span>
-            </div>
-          </div>
 
           <div class="item-info">
             <label for="">نقش</label>
@@ -151,9 +141,32 @@
         <div class="p-error">
           <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
         </div>
-        <button class="btn-base"  (click)="submit()" >ویرایش کاربر</button>
+        <button class="btn-base" (click)="submit('profile')">ویرایش کاربر</button>
 
       </div>
+      <div class="box-info-tour m-top-10">
+        <div class="info-tour-header">
+          <div class="right">
+            <h2>ویرایش کاربر </h2>
+          </div>
+        </div>
+        <div class="info-tour-body">
+          <div class="item-info">
+            <label for="">گذرواژه</label>
+            <input formControlName="password" type="text">
+            <div *ngIf="errorService.hasError('password')">
+              <span class="text-danger">{{errorService.getError('password')}}</span>
+            </div>
+          </div>
+          <div class="p-error">
+            <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
+          </div>
+          <button class="btn-base" (click)="submit('password')">ویرایش گذرواژه</button>
+
+        </div>
+      </div>
+
+
     </div>
   </form>
 

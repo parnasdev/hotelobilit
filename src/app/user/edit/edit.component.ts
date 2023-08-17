@@ -22,7 +22,7 @@ export class EditComponent implements OnInit {
   userId = '';
   userInfo: any;
   permissions: { id: number, label: string, isChecked?: boolean }[] = []
-
+  modeNM = 'profile'
   roles: { id: number; label: string }[] = [];
   userReq: UserCreateReq = {
     agency_name: '',
@@ -126,7 +126,9 @@ export class EditComponent implements OnInit {
         result.push(filteredItems[0].city.id)
       }
     })
-    return result
+    let unicList = Array.from(result.reduce((m, t) => m.set(t, t), new Map()).values());
+
+    return unicList
   }
 
   fillForm(): void {
@@ -149,7 +151,7 @@ export class EditComponent implements OnInit {
     })
 
   }
-  setReq() {
+  setReq(mode:string) {
     this.userReq = {
       agency_name: this.userForm.value.agency_name ?? '',
       agency_tell: this.userForm.value.agency_tell ?? '',
@@ -158,7 +160,7 @@ export class EditComponent implements OnInit {
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
-      edit_mode: 'profile',
+      edit_mode: mode,
       permissions: this.getPermissionsIDs(),
       parent_id: this.parent ? +this.parent : 0,
       password: this.userForm.value.password ?? '',
@@ -182,6 +184,13 @@ export class EditComponent implements OnInit {
   }
 
 
+  modeChanged(event: any) {
+    console.log(this.modeNM)
+    debugger
+
+  }
+
+
   selectionChange() {
     this.filteredHotel = [];
     this.selectedCity.value.forEach((city: any) => {
@@ -193,8 +202,8 @@ export class EditComponent implements OnInit {
     })
   }
 
-  submit() {
-    this.setReq();
+  submit(mode:string) {
+    this.setReq(mode);
     this.api.editUser(this.userReq, this.userId).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
@@ -230,7 +239,8 @@ export class EditComponent implements OnInit {
   }
 
   deleteItem(index: number) {
-    this.selectedhotelsFC.value?.splice(index, 1)
+   this.selectedhotelsFC.value?.splice(index, 1)
+    this.selectedhotelsFC.setValue(this.selectedhotelsFC.value)
   }
 
 }

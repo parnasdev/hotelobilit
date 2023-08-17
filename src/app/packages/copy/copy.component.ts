@@ -11,7 +11,8 @@ export class CopyComponent extends EditComponent implements OnInit {
 
   override ngOnInit() {
     this.title.setTitle('کپی تور | هتل و بلیط')
-
+    this.id = this.route.snapshot.paramMap.get('id') ?? ''
+    this.getCities();
   }
 
   override submit(): void {

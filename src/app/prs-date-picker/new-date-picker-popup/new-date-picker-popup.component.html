@@ -1,0 +1,43 @@
+<div class="select-year" *ngIf="data.step == 1">
+  <div class="w-100 my-4 d-flex align-items-center justify-content-between">
+    <h2 class="title-birthday">انتخاب سال {{ data.title }}</h2>
+
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="close()">
+      <path
+        d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+        fill="#040A1F" fill-opacity="0.6" />
+    </svg>
+  </div>
+  <ul class="list-year">
+    <li style="cursor: pointer;" [class]="{'item-year' : !year.isDisabled , 'item-year-disabled' : year.isDisabled}" *ngFor="let year of years.slice()?.reverse()" (click)="!year.isDisabled ?  onYearSelected(year) : ''">{{ year.title }}</li>
+  </ul>
+</div>
+<div class="select-month" *ngIf="data.step == 2">
+  <div class="w-100 my-4 d-flex align-items-center justify-content-between">
+    <h2 class="title-birthday">انتخاب ماه {{ data.title }}</h2>
+    <!-- <h2 class="title-birthday" *ngIf="data.lang === 'en'">Select Month </h2> -->
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="close()">
+      <path
+        d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+        fill="#040A1F" fill-opacity="0.6" />
+    </svg>
+  </div>
+
+  <ul class="list-month">
+    <li [class]="{'item-month' : !month.isDisabled , 'item-month-disabled' : month.isDisabled}" *ngFor="let month of months" (click)="!month.isDisabled ? onMonthSelected(month) : ''">{{ month.title }}</li>
+  </ul>
+</div>
+<div class="select-day" *ngIf="data.step == 3">
+  <div class="w-100 my-4 d-flex align-items-center justify-content-between">
+    <h2 class="title-birthday">انتخاب روز {{ data.title }}</h2>
+    <!-- <h2 class="title-birthday" *ngIf="data.lang === 'en'">Select Day</h2> -->
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="close()">
+      <path
+        d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+        fill="#040A1F" fill-opacity="0.6" />
+    </svg>
+  </div>
+  <ul class="list-day">
+    <li [class]="{'item-day' : !day.isDisabled , 'item-day-disabled' : day.isDisabled}" *ngFor="let day of days" (click)="!day.isDisabled ? onDaySelected(day) : ''">{{ day.title }}</li>
+  </ul>
+</div>

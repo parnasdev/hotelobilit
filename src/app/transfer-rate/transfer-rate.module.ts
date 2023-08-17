@@ -59,11 +59,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MatInputModule,
     MatFormFieldModule,
     PipesModule,
-    NgxMaskDirective,
-    NgxMaskPipe,
+
     MatSelectModule,
     HotelPanelModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class TransferRateModule { }

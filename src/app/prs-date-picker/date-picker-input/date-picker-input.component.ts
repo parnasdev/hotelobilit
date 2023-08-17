@@ -7,6 +7,8 @@ import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { NewDatePickerMobileComponent } from '../new-date-picker-mobile/new-date-picker-mobile.component';
 import * as moment from 'jalali-moment';
+import {NewDatePickerPopupComponent} from "../new-date-picker-popup/new-date-picker-popup.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'prs-date-picker-input',
@@ -36,6 +38,7 @@ export class DatePickerInputComponent implements OnInit, OnChanges {
     public calendarService: CalenderServices,
     public errorsService: ErrorsService,
     private _bottomSheet: MatBottomSheet,
+    public dialog: MatDialog,
     public responsiveService: ResponsiveService) {
     this.isMobile = responsiveService.isMobile();
     this.isTablet = responsiveService.isTablet();
@@ -84,6 +87,36 @@ export class DatePickerInputComponent implements OnInit, OnChanges {
     } else {
       return false
     }
+  }
+
+  openDialog(step: number): void {
+    this.dialog.open(NewDatePickerPopupComponent,
+      {
+        data: {
+          lang: this.lang,
+          title: this.title,
+          step: step,
+          minDate: this.minDate,
+          maxDate: this.maxDate
+        }
+      }
+    ).afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.step === 1) {
+          this.year = result.title;
+        } else if (result.step === 2) {
+          this.month = result.title;
+        } else {
+          this.day = result.title
+        }
+        if (this.day !== 0 && this.month !== 0 && this.year !== 0) {
+          this.dateFC.setValue(this.year + '-' + this.month + '-' + this.day)
+          this.sendDate.emit(this.dateFC.value)
+        }
+        let str:any = 'passengers.' + this.errorItem.index + '.passengers.' + this.errorItem.i + '.' + this.errorItem.name;
+        this.errorsService.clear(str)
+      }
+    });
   }
 
   openBottomSheet(step: number): void {
