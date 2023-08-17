@@ -92,6 +92,8 @@ export class DatePickerInputComponent implements OnInit, OnChanges {
   openDialog(step: number): void {
     this.dialog.open(NewDatePickerPopupComponent,
       {
+        width:'50%',
+        height: '50%',
         data: {
           lang: this.lang,
           title: this.title,

@@ -22,19 +22,17 @@
   }
 }
 .item-inp-special-date {
-    width: 100%;
-    height: calc(3em + 2px);
-    // margin: 14px 0 0 0;
-    // padding: 0 12px;
-    border: 1px solid #9b9da9;
-    border-radius: 4px;
-    background: #fff;
-    resize: none;
-    outline: none;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: calc(4em + 2px);
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background: #fff;
+  resize: none;
+  outline: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
     label{
       background: var(--white);
       padding: 2px;
