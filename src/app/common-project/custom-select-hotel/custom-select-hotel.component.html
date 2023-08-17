@@ -1,0 +1,29 @@
+<div [id]="name" class="input-custom input-customize  w-100 date-to">
+  <input (click)="openDropdown()" type="text" [name]="name" class="question" [id]="name" [formControl]="cityFC" required
+         autocomplete="off"/>
+  <label [for]="name">
+    <span>هتل خود را انتخاب کنید</span>
+  </label>
+  <!-- class = animated zoomIn -->
+  <div *ngIf="dd" class="dropDown-show">
+    <div *ngFor="let item of [1,2,3,4,5,6,7]" class="item">
+      <div class="name-hotel-fa">
+        <div class="r">
+          <img width="20" src="assets/img/icons8-location-30%20(1).png" alt="">
+          <h3 class="font-size-14 m-0 bold-500 text-gray">نام هتل</h3>
+        </div>
+        <div class="star">
+          <i class="icon-star"></i>
+          <i class="icon-star"></i>
+          <i class="icon-star"></i>
+          <i class="icon-star"></i>
+          <i class="icon-star"></i>
+        </div>
+      </div>
+      <div class="name-hotel-en">
+       <h4>name hotel en</h4>
+      </div>
+
+    </div>
+  </div>
+</div>
