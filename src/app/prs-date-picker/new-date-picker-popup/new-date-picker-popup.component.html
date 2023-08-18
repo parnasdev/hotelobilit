@@ -1,5 +1,5 @@
 <div class="select-year" style="direction: rtl" *ngIf="data.step == 1">
-  <div class="w-100 my-4 d-flex align-items-center justify-content-between">
+  <div class="w-100 item-title my-4 d-flex align-items-center justify-content-between">
     <h2 class="title-birthday">انتخاب سال {{ data.title }}</h2>
 
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="close()">
@@ -13,7 +13,7 @@
   </ul>
 </div>
 <div class="select-month" *ngIf="data.step == 2">
-  <div class="w-100 my-4 d-flex align-items-center justify-content-between">
+  <div class="w-100 item-title my-4 d-flex align-items-center justify-content-between">
     <h2 class="title-birthday">انتخاب ماه {{ data.title }}</h2>
     <!-- <h2 class="title-birthday" *ngIf="data.lang === 'en'">Select Month </h2> -->
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="close()">
@@ -28,7 +28,7 @@
   </ul>
 </div>
 <div class="select-day" *ngIf="data.step == 3">
-  <div class="w-100 my-4 d-flex align-items-center justify-content-between">
+  <div class="w-100 item-title my-4 d-flex align-items-center justify-content-between">
     <h2 class="title-birthday">انتخاب روز {{ data.title }}</h2>
     <!-- <h2 class="title-birthday" *ngIf="data.lang === 'en'">Select Day</h2> -->
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="close()">
