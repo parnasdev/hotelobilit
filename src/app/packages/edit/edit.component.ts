@@ -46,8 +46,8 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   override getHotels(): void {
+    this.hotelLoading = true;
     if (this.destination_idFC.valid && this.checkinFC.valid && this.checkoutFC.valid) {
-      this.isLoading = true;
       const req = {
         "destination_id": this.destination_idFC.value,
         "checkin": this.checkinFC.value ? moment(this.checkinFC.value).format('YYYY-MM-DD') : null,
@@ -56,15 +56,13 @@ export class EditComponent extends AddComponent implements OnInit {
       this.tourApi.gethotels(req).subscribe((res: any) => {
         if (res.isDone) {
           this.hotels = res.data;
-
           this.convertPackages();
         } else {
           this.message.custom(res.message);
         }
-        this.isLoading = false;
-
+        this.hotelLoading = false;
       }, (error: any) => {
-        this.isLoading = false;
+        this.hotelLoading = false;
         // this.message.error()
       })
     }

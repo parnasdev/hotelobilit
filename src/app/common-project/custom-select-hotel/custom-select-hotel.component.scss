@@ -10,12 +10,12 @@
   border: 1px solid $border-color;
   background: $white-color;
   border-radius: 17px;
-  height: 300px;
+  height: 400px;
   padding: 0 12px;
   overflow-y: auto;
   z-index: 999;
   .item{
-    height: 60px;
+    height: 80px;
     border-bottom: 1px solid $border-color;
     padding: 0 8px;
     display: flex;
@@ -35,7 +35,7 @@
         h3{
           margin-right: 8px !important;
           color: $gray-color;
-          font-size: 13px;
+          font-size: 11px;
         }
       }
       .star{
@@ -50,9 +50,10 @@
     .name-hotel-en{
       width: 100%;
       display: flex;
+      margin-top: 20px;
       justify-content: flex-end;
       h4{
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600 !important;
         color: $dark-color;
         margin: 0;

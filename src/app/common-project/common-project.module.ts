@@ -33,6 +33,7 @@ import { SelectCityLimitedComponent } from './select-city-limited/select-city-li
 import { SelectSearchComponent } from './select-search/select-search.component';
 import { LoadingComponent } from './loading/loading.component';
 import { CustomSelectHotelComponent } from './custom-select-hotel/custom-select-hotel.component';
+import {ClickOutsideDirective} from "./click-outside.directive";
 
 
 
@@ -61,7 +62,9 @@ import { CustomSelectHotelComponent } from './custom-select-hotel/custom-select-
     SelectCityLimitedComponent,
     SelectSearchComponent,
     LoadingComponent,
-    CustomSelectHotelComponent
+    CustomSelectHotelComponent,
+    ClickOutsideDirective
+
   ],
   exports: [
     UploadFileComponent,

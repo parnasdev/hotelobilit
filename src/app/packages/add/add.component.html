@@ -173,11 +173,13 @@
         <span class="number">{{ i + 1 }}</span>
         <div class="d-flex middle-item">
           <h5>انتخاب هتل</h5>
-          <div class="inp-form">
-            <select class="w-100" [(ngModel)]="item.hotel_id">
-              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>
-            </select>
-          </div>
+
+<!--            <select class="w-100" [(ngModel)]="item.hotel_id">-->
+<!--              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>-->
+<!--            </select>-->
+          <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>
+          <prs-custom-select-hotel class="hotel-input"  [hotels]="hotels" (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
+
           <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت
             گذاری
           </button>

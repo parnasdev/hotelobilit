@@ -158,16 +158,16 @@
 
 
   <div class="w-100">
-    <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
+    <div *ngIf="hotelLoading" class="shimmer-1 mt-5">
+      <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
+    </div>
+    <button *ngIf="!hotelLoading" class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     <div class="item-package" *ngFor="let item of packages;let i=index">
       <span class="number">{{ i + 1 }}</span>
       <div class="d-flex middle-item">
         <h5>انتخاب هتل</h5>
-        <div class="inp-form">
-          <select class="w-100" [(ngModel)]="item.hotel_id">
-            <option *ngFor="let item of hotels" [value]="item.id">{{ item.title }}</option>
-          </select>
-        </div>
+          <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>
+          <prs-custom-select-hotel class="hotel-input" [inCommingHotel]="item.hotel_id"  [hotels]="hotels" (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
         <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت گذاری</button>
         <div class="d-flex checkbox-bottun-parent">
 

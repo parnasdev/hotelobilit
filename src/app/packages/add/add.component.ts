@@ -32,6 +32,7 @@ import {Title} from "@angular/platform-browser";
 export class AddComponent implements OnInit {
   minDate = new Date()
   isLoading = false;
+  hotelLoading = false;
   cities: categoriesDTO[] | CityListRes[] = []
   transferRates: TransferRateListDTO[] = [];
   packages: PackageTourDTO[] = [];
@@ -158,6 +159,7 @@ destination_city:any;
 
 
   getHotels(): void {
+    this.hotelLoading = true
     if (this.destination_idFC.valid && this.checkinFC.valid && this.checkoutFC.valid) {
       const req = {
         "destination_id": this.destination_idFC.value,
@@ -171,7 +173,11 @@ destination_city:any;
         } else {
           this.message.custom(res.message);
         }
+        this.hotelLoading = false;
+
       }, (error: any) => {
+        this.hotelLoading = false
+
         // this.message.error()
       })
     }
@@ -227,6 +233,11 @@ destination_city:any;
 
     this.getTransferRates();
     this.getHotels()
+  }
+
+
+  getHotelSelected(hotel:any,index: number) {
+    this.packages[index].hotel_id = hotel.id
   }
 
 

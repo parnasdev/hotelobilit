@@ -497,6 +497,10 @@ mat-form-field {
   font-weight: 500;
 }
 
+.hotel-input {
+  width: 360px;
+}
+
 :host::ng-deep .mat-form-field {
   width: 100%;
 }

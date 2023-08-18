@@ -4,7 +4,6 @@ import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { MatDialog } from '@angular/material/dialog';
-import { SelectCityPopupComponent } from '../select-city-popup/select-city-popup.component';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
 
 declare let $: any;
@@ -24,16 +23,14 @@ export class CustomSelectHotelComponent {
   isTablet=false;
   isDesktop=false;
 
-  cityFC = new FormControl();
-
-  @Output() citySelected = new EventEmitter()
-  @Input() cities: categoriesDTO[] = []
-  @Input() inCommingCity: any;
+  hotelFC = new FormControl();
+  @Output() hotelSelected = new EventEmitter()
+  @Input() hotels: any[] = []
+  @Input() inCommingHotel: any;
   @Input() name= 'custom'
-  @Input() baseType: boolean = false;
-  @Input() title = 'شهر خود را وارد کنید';
+  @Input() title = 'هتل خود را انتخاب کنید';
 
-  filteredOptions!: Observable<categoriesDTO[]>;
+  filteredOptions!: Observable<any[]>;
 
   constructor(
     public mobileService: ResponsiveService,
@@ -45,50 +42,51 @@ export class CustomSelectHotelComponent {
   }
 
   ngOnInit() {
-    this.filteredOptions = this.cityFC.valueChanges.pipe(
+    this.filteredOptions = this.hotelFC.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
   }
 
   ngOnChanges() {
-    // if (this.inCommingCity && this.inCommingCity !== '') {
-    //   if (this.cities.filter(c => (c.id === +this.inCommingCity) ||
-    //     (c.id === this.inCommingCity) ||
-    //     (c.code === this.inCommingCity) ||
-    //     (c.standardCode === this.inCommingCity) ||
-    //     (c.slug === this.inCommingCity)).length > 0) {
-    //
-    //     let city = this.cities.filter(c =>
-    //       (c.id === +this.inCommingCity) ||
-    //       (c.code === this.inCommingCity) ||
-    //       (c.standardCode === this.inCommingCity) ||
-    //       (c.slug === this.inCommingCity))[0]
-    //     this.cityFC.setValue(city.name);
-    //     // this.title = city.name
-    //     // this.citySelected.emit(this.cities.filter(c => c.slugEn === this.inCommingCity)[0])
-    //   }
-    // }
-    // this.filteredOptions = this.cityFC.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value)),
-    // );
+    if (this.inCommingHotel && this.inCommingHotel !== '') {
+      if (this.hotels.filter(c => (c.id === +this.inCommingHotel) ||
+        (c.id === this.inCommingHotel) ||
+        (c.title === this.inCommingHotel) ||
+        (c.titleEn === this.inCommingHotel)).length > 0) {
+
+        let hotel = this.hotels.filter(c =>
+          (c.title === +this.inCommingHotel) ||
+          (c.titleEn === this.inCommingHotel) ||
+          (c.id === this.inCommingHotel))[0]
+        this.hotelFC.setValue(hotel.title);
+      }
+    }
+    this.filteredOptions = this.hotelFC.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
   }
 
-  private _filter(value: any): categoriesDTO[] {
+  private _filter(value: any): any[] {
     let filterValue = value
     if(filterValue !== '') {
       filterValue  = value;
     }
-    return this.cities.filter(city => city.name.includes(filterValue) || city.code?.includes(filterValue));
+    return this.hotels.filter(hotel => (hotel.title.includes(filterValue) || hotel.titleEn?.includes(filterValue.toUpperCase())));
+  }
+
+
+  getStars(count: string | number): number[] {
+    return Array.from(Array(+count).keys());
   }
 
   openDropdown() {
-    if(this.isMobile){
-      this.openSelectCity();
-    }else {
+    // if(this.isMobile){
+    //   this.openSelectCity();
+    // }else {
       this.dd = true;
-    }
+    // }
   }
 
   onClickedOutside(jmgg:any){
@@ -96,22 +94,23 @@ export class CustomSelectHotelComponent {
   }
 
   changed(item: any): void {
-    this.citySelected.emit(item)
+this.hotelFC.setValue(item.title);
+    this.hotelSelected.emit(item)
     this.dd = false
   }
 
-  openSelectCity() {
-    const dialog = this.dialog.open(SelectCityPopupComponent, {
-      data: {
-        cities: this.cities
-      }
-    })
-    dialog.afterClosed().subscribe(Result => {
-      if (Result) {
-        this.cityFC.setValue(Result.name)
-        this.citySelected.emit(Result);
-      }
-    })
-  }
+  // openSelectCity() {
+  //   const dialog = this.dialog.open(SelectCityPopupComponent, {
+  //     data: {
+  //       cities: this.cities
+  //     }
+  //   })
+  //   dialog.afterClosed().subscribe(Result => {
+  //     if (Result) {
+  //       this.hotelFC.setValue(Result.name)
+  //       this.citySelected.emit(Result);
+  //     }
+  //   })
+  // }
 
 }
