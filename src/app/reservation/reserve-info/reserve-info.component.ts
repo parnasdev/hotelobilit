@@ -3,8 +3,6 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { UserApiService } from 'src/app/Core/Https/user-api.service';
-import { ReserveListResponseDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
@@ -23,7 +21,7 @@ export class ReserveInfoComponent {
   statusFC = new FormControl()
   statuses: any[] = []
   isLoading = false
-  passengers: any[] = [];
+  rooms: any[] = [];
   reserve: string = ""
   constructor(
     public title: Title,
@@ -53,7 +51,12 @@ export class ReserveInfoComponent {
         this.info = res.data
         this.statuses = res.statuses;
         if( this.info.reserves.length > 0) {
-          this.passengers = this.info.reserves[0].details
+          this.info.reserves.forEach((x:any,index:number) => {
+            if(index > 0) {
+              this.rooms.push(x)
+            }
+          })
+          console.log(this.rooms)
         }
         let statusFiltered = this.statuses.filter(x => x.name === this.info.status.label)
         if(statusFiltered.length > 0) {

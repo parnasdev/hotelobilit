@@ -118,20 +118,17 @@
           </div>
           <div class="select-hotel">
             <label>هتل های موردنظر را انتخاب کنید</label>
-            <mat-form-field class="select-mat" appearance="fill">
-              <mat-label>هتل ها</mat-label>
-              <mat-select [formControl]="selectedhotelsFC" multiple>
-                <mat-select-trigger>
-                  <span>هتل های انتخاب شده</span>
 
-                </mat-select-trigger>
-                <mat-option *ngFor="let hotel of filteredHotel" [value]="hotel.id">{{hotel.title}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div class="d-flex justify-content-center align-items-center">
+              <prs-custom-select-hotel class="w-40" [hotels]="filteredHotel" *ngIf="hotels.length > 0" (hotelSelected)="getHotel($event)"></prs-custom-select-hotel>
+              <button class="btn-base w-25" (click)="addHotel()">افزودن</button>
+            </div>
+
+
             <div class="show-box">
-              <span class="city-box" *ngFor="let hotel of selectedhotelsFC.value; let i = index">
+              <span class="city-box" *ngFor="let hotel of selectedhotels; let i = index">
                 <i (click)="deleteItem(i)" class="text-danger">X</i>
-                {{ getHotelName(+hotel) }}
+                {{ hotel.title }}
               </span>
             </div>
 

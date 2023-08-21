@@ -44,7 +44,9 @@ export class EditComponent implements OnInit {
   parent: string | null = '0';
   cities: { id: number, name: string }[] = [];
   hotels: any[] = [];
-  selectedhotelsFC = new FormControl();
+  selectedhotels: any[] = []
+
+  hotelItem: any
   userForm = this.fb.group({
     agency_name: new FormControl(''),
     agency_tell: new FormControl(''),
@@ -117,7 +119,14 @@ export class EditComponent implements OnInit {
     this.selectedCity.setValue(this.getLastSelectedCities())
     this.setHotelSelection();
   }
+  getHotel(hotel: any) {
+    this.hotelItem = hotel
+  }
 
+
+  addHotel(){
+    this.selectedhotels.push(this.hotelItem)
+  }
   getLastSelectedCities(): number[] {
     let result: number[] = []
     this.userInfo.hotelIds.forEach((id: number) => {
@@ -166,12 +175,26 @@ export class EditComponent implements OnInit {
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: this.userForm.value.role_id ?? 0,
-      hotels: this.selectedhotelsFC.value
+      hotels: this.getHotelNumberArray()
     };
   }
+  getHotelNumberArray() {
+    let result: number[] = []
+    this.selectedhotels.forEach(x => {
+      result.push(x.id)
+    })
+    return result
+  }
+
   setHotelSelection() {
     this.selectionChange()
-    this.selectedhotelsFC.setValue(this.userInfo.hotelIds)
+    this.userInfo.hotelIds.forEach((x:number) => {
+      let itemFiltered = this.hotels.filter(hotel => hotel.id === x)
+      if(itemFiltered.length > 0) {
+        this.selectedhotels.push(itemFiltered[0]);
+      }
+    })
+
   }
   getPermissionsIDs() {
     let result: number[] = []
@@ -238,9 +261,8 @@ export class EditComponent implements OnInit {
     this.selectionChange();
   }
 
-  deleteItem(index: number) {
-   this.selectedhotelsFC.value?.splice(index, 1)
-    this.selectedhotelsFC.setValue(this.selectedhotelsFC.value)
-  }
 
+  deleteItem(index: number) {
+    this.selectedhotels.splice(index, 1)
+  }
 }

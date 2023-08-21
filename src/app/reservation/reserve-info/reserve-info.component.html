@@ -5,7 +5,6 @@
         <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
       </select>
     </div>
-
     <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
   </div>
   <div class="w-100  bg-info-trip">
@@ -50,7 +49,6 @@
           <span class="mr-2 text-gray">{{ info?.reserver_id_code }}</span>
         </div>
       </div>
-
       <div class="p-price d-flex align-items-center justify-content-between">
         <div class="item d-flex align-items-center justify-content-between w-100 px-2">
           <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
@@ -60,7 +58,6 @@
           </div>
         </div>
       </div>
-
       <div class="p-items">
         <div class="item">
           <span>قیمت پرواز بزرگسال :</span>
@@ -118,7 +115,6 @@
             </div>
             <span>{{info.reserves[0].flight?.flight.airline_name}}</span>
             <img width="25" height="25" [src]="info.reserves[0].flight?.flight.airline_thumb.url" alt="">
-
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
@@ -134,12 +130,13 @@
       </div>
     </div>
 
-    <ng-template ngFor let-item [ngForOf]="info.reserves" let-index="index">
-      <div class="box-rooms" *ngIf="index> 0">
+    <ng-template ngFor let-item [ngForOf]="rooms" let-index="index">
+      <div class="box-rooms">
         <div class="d-flex align-items-center item-title  justify-content-between w-100">
           <h3 class=" bold-600">اتاق {{item.room?.room_type}} </h3>
         </div>
-        <div *ngFor="let p of passengers" class="item-information-room">
+        <div class="empty-box" *ngIf="item.details.passengers.length == 0">مسافری ثبت نشده است</div>
+        <div *ngFor="let p of item.details.passengers" class="item-information-room">
           <label for="" class="label-role">{{p.type}}</label>
           <div class="item">
             <span class="text-gray">نام :</span>
@@ -180,7 +177,6 @@
         </div>
       </div>
     </ng-template>
-
   </div>
 
 </div>

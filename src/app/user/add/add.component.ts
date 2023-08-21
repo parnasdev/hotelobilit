@@ -24,7 +24,6 @@ export class AddComponent implements OnInit {
   isLoading = false;
   roles: { id: number; label: string }[] = [];
   hotels: any[] = [];
-  selectedhotelsFC = new FormControl();
   selectedCity = new FormControl();
   filteredHotel: any[] = [];
   permissions: { id: number, label: string, isChecked?: boolean }[] = []
@@ -46,6 +45,9 @@ export class AddComponent implements OnInit {
     role_id: 1,
     hotels: []
   }
+  selectedhotels: any[] = []
+
+  hotelItem: any
   setPermissions: string[] = [];
   constructor(public fb: FormBuilder,
     public api: UserApiService,
@@ -128,7 +130,13 @@ export class AddComponent implements OnInit {
       })
     })
   }
-
+getHotelNumberArray() {
+    let result: number[] = []
+  this.selectedhotels.forEach(x => {
+    result.push(x.id)
+  })
+  return result
+}
 
   setReq() {
     this.userReq = {
@@ -144,7 +152,7 @@ export class AddComponent implements OnInit {
       username: this.userForm.value.username ?? '',
       permissions: this.getPermissionsIDs(),
       role_id: this.userForm.value.role_id ?? 0,
-      hotels: this.selectedhotelsFC.value
+      hotels: this.getHotelNumberArray()
     };
   }
 
@@ -158,6 +166,15 @@ export class AddComponent implements OnInit {
     return result;
   }
 
+  getHotel(hotel: any) {
+    debugger
+this.hotelItem = hotel
+  }
+
+
+  addHotel(){
+    this.selectedhotels.push(this.hotelItem)
+  }
   submit() {
     this.setReq();
     this.api.createUser(this.userReq).subscribe((res: any) => {
@@ -196,7 +213,7 @@ export class AddComponent implements OnInit {
   }
 
   deleteItem(index: number) {
-    this.selectedhotelsFC.value.splice(index, 1)
+    this.selectedhotels.splice(index, 1)
   }
 
 }

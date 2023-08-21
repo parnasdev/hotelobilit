@@ -2,17 +2,18 @@ import { RateDTO, ReserveHotelDTO } from "./newPostDTO";
 import { transferRateListDTO } from "./newTransferDTO";
 
 export interface ReserveCreateDTO {
-    stayCount: number
-    hotel_id: number;
-    flight_id: number;
-    rooms: ReserveReqRoomDTO[];
-    reserver_full_name: string;
-    checkout: string
-    reserver_phone: string;
-    reserver_id_code: string;
-    checkin: string;
-
+  reserves: ReservePassengerCreateDTO[],
+  reserver_full_name: string;
+  reserver_phone: string
+  reserver_id_code: string
 }
+
+export interface ReservePassengerCreateDTO {
+  "reserve_id": number;
+  passengers: any[]
+}
+
+
 export interface ReserveReqRoomDTO {
     room_id: number,
     passengers: ReservePassengersDTO[]

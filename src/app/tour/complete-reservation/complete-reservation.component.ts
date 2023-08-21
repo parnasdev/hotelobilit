@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { RateDTO, ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
+import { RateDTO } from 'src/app/Core/Models/newPostDTO';
 import {
   ReserveCheckingReqDTO,
   ReserveCreateDTO,
-  ReserveInfoDTO,
-  ReserveReqRoomDTO,
-  ReserveRoomDTO
+  ReservePassengerCreateDTO,
 } from 'src/app/Core/Models/reserveDTO';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
@@ -37,32 +34,24 @@ export class CompleteReservationComponent implements OnInit {
   hotelID = '';
   showPassengers = true;
   isLoading = false;
-
+ref_code: string = ''
+  expired_time: string = ''
   isPrivacyCheck = false;
 
   req: ReserveCreateDTO = {
-    hotel_id: 0,
-    flight_id: 0,
-    rooms: [],
-    reserver_full_name: '',
-    reserver_phone: '',
-    reserver_id_code: '',
-    checkin: '',
-    checkout: '',
-    stayCount: 0,
+  reserves: [],
+  reserver_full_name: '',
+  reserver_phone: '',
+  reserver_id_code: ''
   }
+  flight:any;
   checkingReq!: ReserveCheckingReqDTO
-  roomsSelected: ReserveRoomDTO[] = []
-  data: ReserveInfoDTO = {
-    checkin: '',
-    checkout: '',
-    flight: {} as transferRateListDTO,
-    hotel: {} as ReserveHotelDTO,
-    rooms: [],
-    rooms_selected: [],
-  };
-
-  finalRoomSelected: ReserveReqRoomDTO[] = [];
+  data: any
+rooms: any[] = []
+  finalRoomSelected: ReservePassengerCreateDTO[] = [];
+  interval: any;
+  seconds = 0;
+  minutes = 20;
 
   nameFC = new FormControl();
   familyFC = new FormControl();
@@ -92,7 +81,6 @@ export class CompleteReservationComponent implements OnInit {
     this.isMobile = mobileService.isMobile()
     this.isTablet = mobileService.isTablet()
     this.isDesktop = mobileService.isDesktop()
-
   }
 
   ngOnInit(): void {
@@ -120,10 +108,9 @@ export class CompleteReservationComponent implements OnInit {
 
   getRoomData(result: any) {
     this.totalPrice = 0
-    this.roomsSelected.forEach(item => {
-      item.passengers?.forEach(pass => {
+    this.rooms.forEach(item => {
+      item.passengers?.forEach((pass:any) => {
         this.totalPrice += (pass.price ?? 0);
-
       })
       if (item.id === result.id) {
         item.passengers = result.passengers;
@@ -132,22 +119,45 @@ export class CompleteReservationComponent implements OnInit {
     })
   }
 
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.seconds > 0) {
+        this.seconds--;
+      } else if (this.minutes > 0) {
+        this.seconds = 59;
+        this.minutes--;
+      } else {
+        clearInterval(this.interval);
+        this.minutes = 0
+      }
 
+      if (this.minutes === 0 && this.seconds === 0) {
+        this.message.showMessageBig('زمان رزرو شما به اتمام رسید')
+        this.router.navigateByUrl('/')
+      }
+    }, 1000);
+  }
+  formatter(n: number): string {
+    return n > 9 ? ('' + n) : ('0' + n);
+  }
 
   checking() {
     this.setCheckingReq()
     this.isLoading = true;
     this.api.checking(this.checkingReq).subscribe((res: any) => {
       if (res.isDone) {
-        this.data = res.data;
-        this.setRoomSelected();
+        this.ref_code = res.data.ref_code;
+        this.expired_time = res.data.expired_in_minutes
+        this.minutes = +this.expired_time;
+        this.startTimer();
+
+        this.showReserve();
       } else {
         this.message.custom(res.message);
       }
       this.isLoading = false;
     }, (error: any) => {
       this.isLoading = false;
-
       if (error.status === 400) {
         this.message.showMessageBig(error.error.message);
         this._location.back();
@@ -155,10 +165,33 @@ export class CompleteReservationComponent implements OnInit {
     })
   }
 
-  getCurrencyRate(code: string, roomId: number): number {
-    let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
-    if (roomFiltered.length > 0) {
-      let currencies = roomFiltered[0].currencies;
+
+  showReserve() {
+    this.setCheckingReq()
+    this.isLoading = true;
+    this.api.showReserve(this.ref_code).subscribe((res: any) => {
+      if (res.isDone) {
+        this.data = res.data;
+        this.flight = this.data.reserves[0].flight;
+
+        this.setRoomSelected();
+
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+    }, (error: any) => {
+      this.isLoading = false;
+      if (error.status === 400) {
+        this.message.showMessageBig(error.error.message);
+        this._location.back();
+      }
+    })
+  }
+
+  getCurrencyRate(code: string, room: any): number {
+
+      let currencies = room.currencies;
       if (currencies) {
         switch (code) {
           case 'toman':
@@ -175,35 +208,42 @@ export class CompleteReservationComponent implements OnInit {
       } else {
         return 0;
       }
-    } else {
-      return 0
-    }
   }
   getRoomCount() {
-    return this.roomsSelected.length;
+    return this.rooms.length;
   }
 
   getPassengersCount() {
     let count = 0;
-    this.roomsSelected.forEach(x => {
+    this.rooms.forEach(x => {
       count += (x.passengers ?? []).length;
     })
     return count
   }
-  getRoomPrice(roomId: number): number {
+  getRoomPrice(room: any): number {
     let price = 0;
-    let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
-    if (roomFiltered.length > 0) {
-      this.getComputableRateList(roomFiltered[0].rates).forEach((rate: any) => {
-        price += rate.price * this.getCurrencyRate(rate.currency_code, roomId);
+      this.getComputableRateList(room.rates).forEach((rate: any) => {
+        price += rate.price * this.getCurrencyRate(rate.currency_code, room);
       })
-    }
+
+    return price + this.getTransferPrice()
+  }
+
+  getTransferPrice() {
+    let destID = this.data.reserves[0].flight.destination_id
+    let transfers = this.data.reserves[1].room.services.filter((transfer:any) => transfer.airport_id === destID || transfer.airport_id === 0);
+
+    let price = 0;
+    transfers.forEach((x:any) => {
+      price += (x?.rate ?? 0) * this.getCurrencyRate(x?.rate_type ?? '', this.data.reserves[1].room)
+    })
     return price
   }
 
 
+
   getComputableDateList() {
-    let dateList: any = this.calendarService.enumerateDaysBetweenDates(this.data.checkin, this.data.checkout, 'YYYY-MM-DD')
+    let dateList: any = this.calendarService.enumerateDaysBetweenDates(this.data.details.checkin, this.data.details.checkout, 'YYYY-MM-DD')
     dateList.pop();
     return dateList;
   }
@@ -221,15 +261,13 @@ export class CompleteReservationComponent implements OnInit {
   }
 
 
-  getExtraBedPrice(roomId: number): number {
+  getExtraBedPrice(room: any): number {
     let price = 0;
-    let roomFiltered = this.data.rooms.filter(x => x.id === roomId)
-    if (roomFiltered.length > 0) {
-      this.getComputableRateList(roomFiltered[0].rates).forEach((rate: any) => {
-        price += rate.extra_price * this.getCurrencyRate(rate.currency_code, roomId);
+      this.getComputableRateList(room.rates).forEach((rate: any) => {
+        price += rate.extra_price * this.getCurrencyRate(rate.currency_code, room);
       })
-    }
-    return price
+
+    return price  + this.getTransferPrice()
   }
 
   getError(name: string) {
@@ -237,17 +275,23 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   setRoomSelected() {
-    this.data.rooms_selected.forEach((room, index) => {
-      let x = this.data.rooms.filter(y => y.id === room.room_id)
-      if (x.length > 0) {
-        for (let i = 0; i < room.count; i++) {
-          x[0].options = room;
-          x[0].totalPrice = this.getRoomPrice(room.room_id)
-          x[0].totalExtraPrice = this.getExtraBedPrice(room.room_id)
-          this.roomsSelected.push(x[0]);
+    this.rooms = [];
+
+      this.data.reserves.forEach((room:any,index:number) => {
+        if(index > 0){
+          let item = {
+            request: this.data.details.request[index -1],
+            room: room,
+            passengers: [],
+            total_price:this.getRoomPrice(room.room),
+            totalExtraPrice:this.getExtraBedPrice(room.room)
+          }
+          this.rooms.push(item);
         }
-      }
-    })
+      })
+
+
+    this.reload()
   }
 
 
@@ -261,7 +305,7 @@ export class CompleteReservationComponent implements OnInit {
   submit() {
     if (this.isPrivacyCheck) {
       this.setReq();
-      this.api.create(this.req).subscribe((res: any) => {
+      this.api.create(this.req,this.ref_code).subscribe((res: any) => {
         if (res.isDone) {
           this.message.custom(res.message)
           this.router.navigateByUrl('/')
@@ -288,15 +332,11 @@ export class CompleteReservationComponent implements OnInit {
   setReq() {
     this.convertRooms()
     this.req = {
-      hotel_id: +this.hotelID,
-      flight_id: +this.flightID,
-      rooms: this.finalRoomSelected,
+      reserves : this.finalRoomSelected,
       reserver_full_name: this.nameFC.value + ' ' + this.familyFC.value,
       reserver_phone: this.reserver_phoneFC.value ?? '',
       reserver_id_code: this.reserver_id_codeFC.value,
-      checkin: this.data.checkin,
-      checkout: this.data.checkout,
-      stayCount: this.checkingReq.stayCount,
+
     }
   }
 
@@ -306,11 +346,11 @@ export class CompleteReservationComponent implements OnInit {
 
 
   convertRooms() {
-    this.finalRoomSelected = [];
-    this.roomsSelected.forEach(item => {
-      let obj: ReserveReqRoomDTO = {
+    this.finalRoomSelected= [];
+    this.rooms.forEach(item => {
+      let obj: ReservePassengerCreateDTO = {
         passengers: item.passengers ?? [],
-        room_id: item.id
+        reserve_id: item.room.id
       }
       this.finalRoomSelected.push(obj)
     })
@@ -340,8 +380,6 @@ export class CompleteReservationComponent implements OnInit {
       this.message.custom('لطفا تلفن همراه رزرو گیرنده را وارد کنید')
     }
   }
-
-
   openRulesPopup() {
 
   }

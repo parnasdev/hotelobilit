@@ -19,12 +19,13 @@ export class ReserveApiService {
   }
 
 
-  create(req: ReserveCreateDTO): any {
-    const strUrl = this.serverControllerName
+  create(req: ReserveCreateDTO,ref_code:string): any {
+    // const strUrl = this.serverControllerName
+    const strUrl = 'https://hotelobilit-api.iran.liara.run/api/v2/' + 'reserves/' + ref_code
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
   showReserve(reference: string): any {
-    const strUrl = this.serverControllerName + '/' + reference
+    const strUrl = 'https://hotelobilit-api.iran.liara.run/api/v2/' + 'reserves' + '/' + reference
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
   voucher(reference: string): any {
@@ -32,7 +33,7 @@ export class ReserveApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
   checking(req: ReserveCheckingReqDTO): any {
-    const strUrl = this.serverControllerName + '/checking'
+    const strUrl = 'https://hotelobilit-api.iran.liara.run/api/v2/' + 'reserves' + '/checking'
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
   list(page: number): any {

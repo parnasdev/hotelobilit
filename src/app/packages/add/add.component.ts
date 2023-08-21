@@ -262,10 +262,10 @@ destination_city:any;
        monthDay  = monthSplits.length > 2 ? monthSplits[2] : '0'
     }
 
-    this.titleFC.setValue( 'تور' +  ' ' + (origin ? origin : this.origin_city?.name ?? '') + ' ' +
+    this.titleFC.setValue( 'تور' +  ' ' + (destination ? destination : this.destination_city?.name ?? '') + ' ' +
       monthDay + ' '+
       (this.calenderService.getMonthFa(+monthNum) ?? '') + ' ' +
-      this.night_numFC.value + ' شب ' + 'از ' +  (destination ? destination :this.destination_city?.name ??''))
+      this.night_numFC.value + ' شب ' + 'از ' +  (origin ? origin :this.origin_city?.name ??''))
   }
 
 

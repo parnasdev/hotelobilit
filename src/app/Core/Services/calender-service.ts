@@ -106,10 +106,10 @@ export class CalenderServices {
         return moment(date).locale(convertType).from();
     }
 
-    changeDate(date: any, num: number | string, period: any): any {
+    changeDate(date: any, num: number | string, period: any,format:string = 'jYYYY/jMM/jDD'): any {
         /* period : days or year or month */
         // date = this.convertDate(date, 'en');
-        return moment(date).add(num, period).format('jYYYY/jMM/jDD');
+        return moment(date).add(num, period).format(format);
     }
 
     getWeekDay(date: string): any {

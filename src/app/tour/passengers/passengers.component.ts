@@ -2,10 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitte
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import * as jmoment from 'jalali-moment';
-
-import { ReserveHotelDTO } from 'src/app/Core/Models/newPostDTO';
-import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
-import { ReserveInfoDTO, ReservePassengersDTO, ReserveRoomDTO } from 'src/app/Core/Models/reserveDTO';
+import { ReservePassengersDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
@@ -19,21 +16,13 @@ import { ResponsiveService } from "../../Core/Services/responsive.service";
 export class PassengersComponent implements OnInit, OnChanges {
   @Input() age = 0;
   @Input() index = 0
-  @Input() RoomData!: ReserveRoomDTO;
+  @Input() RoomData!: { request: any;room: any;passengers: any[];totalExtraPrice: number;total_price: number };
   @Output() passengerResult = new EventEmitter();
   @Input() tourType: boolean = false;
   isDesktop = false;
   isTablet = false;
   isMobile = false;
-  @Input() data: ReserveInfoDTO = {
-    checkin: '',
-    checkout: '',
-    flight: {} as transferRateListDTO,
-    hotel: {} as ReserveHotelDTO,
-    rooms: [],
-    rooms_selected: [],
-
-  };// false = 'تور خارجی'  // true = ' تور داخلی'
+  @Input() data: any;// false = 'تور خارجی'  // true = ' تور داخلی'
   @Input() inCommingPassengers: any = {
     capacity: 0,
     id: 0,
@@ -65,26 +54,29 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes['RoomData'].firstChange) {
-      for (let i = 0; i < (this.RoomData?.Adl_capacity ?? []); i++) {
+      for (let i = 0; i < (this.RoomData?.room.room.Adl_capacity ?? []); i++) {
         this.addRow();
       }
-      for (let index = 0; index < (this.RoomData.options?.chd_count ?? 0); index++) {
+      for (let index = 0; index < (this.RoomData.request.chd_count ?? 0); index++) {
         this.addRow('chd');
       }
-      for (let index = 0; index < (this.RoomData.options?.inf_count ?? 0); index++) {
+      for (let index = 0; index < (this.RoomData?.request.inf_count ?? 0); index++) {
         this.addRow('inf');
       }
-      for (let index = 0; index < (this.RoomData.options?.extra_count ?? 0); index++) {
+      for (let index = 0; index < (this.RoomData?.request.extra_count ?? 0); index++) {
         this.addRow('adl', 'extra');
       }
     }
     if (changes['age'].firstChange) {
-      this.childMinDate = this.calenderService.changeDate(new Date(), -(this.age), 'year');
+      if(this.age === 0) {
+        this.childMinDate = this.calenderService.changeDate(new Date(), -(12), 'year','jYYYY-jMM-jDD');
+      } else {
+        this.childMinDate = this.calenderService.changeDate(new Date(), -(this.age), 'year','jYYYY-jMM-jDD');
+      }
       this.minDate = '1300-01-01'
-      this.infantMinDate = this.calenderService.changeDate(new Date(), -(2), 'year');
-      this.maxDate = moment(new Date()).format('jYYYY-jM-jD')
+      this.infantMinDate = this.calenderService.changeDate(new Date(), -(2), 'year','jYYYY-jMM-jDD');
+      this.maxDate = jmoment(new Date()).format('jYYYY-jM-jD')
       this.passportMinDate = this.calenderService.changeMiladiDate(new Date(), 6, 'month')
       this.show = true
       this.minDateTodayShamsi = jmoment(new Date()).format('jYYYY-jM-jD');
@@ -164,15 +156,14 @@ export class PassengersComponent implements OnInit, OnChanges {
     switch (type) {
       case 'adl':
         if (bed_type === 'normal') {
-          return (this.RoomData.totalPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();
+          return (this.RoomData.total_price ?? 0) + this.data.reserves[0].flight.adl_price + this.getTransferPrice();
         } else {
-          return (this.RoomData.totalExtraPrice ?? 0) + this.data.flight.adl_price + this.getTransferPrice();
+          return (this.RoomData.totalExtraPrice ?? 0) + this.data.reserves[0].flight.adl_price + this.getTransferPrice();
         }
       case 'chd':
-
-        return ((this.RoomData.totalPrice ?? 0) / 2) + this.data.flight.chd_price
+        return (this.RoomData.total_price ?? 0)  + this.data.reserves[0].flight.chd_price
       case 'inf':
-        return this.data.flight.inf_price
+        return this.data.reserves[0].flight.inf_price
       default:
         return 0
     }
@@ -189,7 +180,7 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
   getCurrencyRate(code: string, roomIndex: number): number {
-    let currencies = this.data.rooms[roomIndex].currencies;
+    let currencies = this.data.reserves[1].room.currencies;
     switch (code) {
       case 'toman':
         return currencies.toman;
@@ -207,8 +198,8 @@ export class PassengersComponent implements OnInit, OnChanges {
 
 
   getTransferPrice() {
-    let destID = this.data.flight.destination_id
-    let transfer = this.data.rooms[0].services.find(transfer => transfer.airport_id === destID);
+    let destID = this.data.reserves[0].flight.destination_id
+    let transfer = this.data.reserves[1].room.services.find((transfer:any) => transfer.airport_id === destID && transfer.airport_id === 0);
     return (transfer?.rate ?? 0) * this.getCurrencyRate(transfer?.rate_type ?? '', 0)
   }
 
@@ -289,14 +280,14 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
   getRoomError() {
-    return this.errorService.hasError('rooms.' + this.index + '.passengers')
+    return this.errorService.hasError('reserves.' + this.index + '.passengers')
   }
 
   hasError(i: number, name: string) {
-    return this.errorService.hasError('rooms.' + this.index + '.passengers.' + i + '.' + name)
+    return this.errorService.hasError('reserves.' + this.index + '.passengers.' + i + '.' + name)
   }
 
   getError(i: number, name: string) {
-    return this.errorService.getError('rooms.' + this.index + '.passengers.' + i + '.' + name)
+    return this.errorService.getError('reserves.' + this.index + '.passengers.' + i + '.' + name)
   }
 }

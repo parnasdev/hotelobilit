@@ -18,8 +18,8 @@ export class TourApiService {
       environment.BACK_END_IP + this.serverControllerName;
   }
 
-  search(type: string, req: TourSearchReqDTO): any {
-    const strUrl = environment.BACK_END_IP + type + '/search';
+  search(type: string, req: TourSearchReqDTO,page: number = 1): any {
+    const strUrl = environment.BACK_END_IP + type + `/search?page=${page}`;
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 

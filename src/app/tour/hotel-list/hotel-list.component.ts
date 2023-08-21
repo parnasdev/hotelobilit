@@ -11,6 +11,23 @@ import * as moment from 'jalali-moment';
 import { transferRateListDTO } from 'src/app/Core/Models/newTransferDTO';
 import { DatesResDTO } from 'src/app/Core/Models/tourDTO';
 
+
+export interface HotelListResDTO {
+  current_page:number
+  data: HotelSearchResDTO[]
+  first_page_url:number
+  from:number
+  last_page: number
+  last_page_url:string
+  links:any[]
+  next_page_url:string
+  path: string
+  per_page: number
+  prev_page_url: string | null
+  to:number
+  total: number
+}
+
 @Component({
   selector: 'prs-hotel-list',
   templateUrl: './hotel-list.component.html',
@@ -23,8 +40,9 @@ export class HotelListComponent implements OnInit {
   isLoading = false;
   isSearch = true
   isFiltering = false;
+  showData = false
   reservedDates: DatesResDTO[] = [];
-
+  p =1
   req: TourSearchReqDTO = {
     date: '',
     destination: '',
@@ -51,7 +69,21 @@ export class HotelListComponent implements OnInit {
   expensive: boolean = false
   cheapest: boolean = true;
   orderBy = 1
-
+data: HotelListResDTO = {
+  current_page:0,
+  data: [],
+  first_page_url:0,
+  from:0,
+  last_page: 0,
+  last_page_url:'',
+  links:[],
+  next_page_url:'',
+  path: '',
+  per_page: 0,
+  prev_page_url: null,
+  to:0,
+  total: 0,
+}
 
   constructor(
     public api: TourApiService,
@@ -130,21 +162,31 @@ export class HotelListComponent implements OnInit {
     })
   }
 
+  onPageChanged(event: any) {
+    this.p = event;
+    this.getSearchData();
+  }
+
+
   getSearchData(): void {
     this.setReq();
     this.isLoading = true
-    this.api.search('hotels', this.req).subscribe((res: any) => {
-      this.isLoading = false
+    this.showData = false
 
+    this.api.search('hotels', this.req,this.p).subscribe((res: any) => {
+      this.isLoading = false
       if (res.isDone) {
-        this.hotels = res.data;
-        this.paginate = res.meta;
+        this.data = res.data
+        this.hotels = res.data.data;
+        console.log(this.hotels)
+        this.paginate = res.data;
         if (this.paginate) {
           this.paginateConfig = {
-            itemsPerPage: this.paginate.per_page,
-            totalItems: this.paginate.total,
-            currentPage: this.paginate.current_page
+            itemsPerPage: this.data.per_page,
+            totalItems: this.data.total,
+            currentPage: this.data.current_page
           }
+          this.showData = true
         }
 
       } else {
@@ -153,6 +195,8 @@ export class HotelListComponent implements OnInit {
       this.isLoading = false
 
     }, (error: any) => {
+      this.showData = false
+
       this.isLoading = false
       this.message.error()
     })

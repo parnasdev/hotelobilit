@@ -145,17 +145,18 @@
             <h2>هتل تور خود را انتخاب کنید :</h2>
             <span>نتایج جستجو : {{ hotels.length }}</span>
           </div>
-          <div class="list-hotel">
+
+          <div *ngIf="isLoading" class="shimmer-1 mt-5">
+            <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
+          </div>
+          <div class="list-hotel" *ngIf="showData">
             <!--thumbnail-hotel-->
             <div class="empty-box bg-white" *ngIf="hotels.length === 0 && !isLoading">
               <span>هتلی یافت نشد</span>
             </div>
 
-            <div *ngIf="hotels.length === 0 &&  isLoading" class="shimmer-1 mt-5">
-              <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
-            </div>
-      
-            <div class="thumbnail-hotel" *ngFor="let hotel of hotels;let i = index">
+
+            <div class="thumbnail-hotel" *ngFor="let hotel of hotels | paginate: paginateConfig;let i = index">
               <div class="img">
                 <img draggable="false"
                   [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
@@ -210,7 +211,10 @@
                 </div>
               </div>
             </div>
-
+            <pagination-controls class="pagination-control" (pageChange)="onPageChanged($event)" previousLabel="قبلی"
+                                 nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+                                 screenReaderCurrentLabel="شما در صفحه ی">
+            </pagination-controls>
 
             <!--end-thumbnail-hotel-->
           </div>

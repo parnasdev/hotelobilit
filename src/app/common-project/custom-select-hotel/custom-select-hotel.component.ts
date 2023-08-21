@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, Output, forwardRef } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { MatDialog } from '@angular/material/dialog';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
 
-declare let $: any;
 
 @Component({
   selector: 'prs-custom-select-hotel',
@@ -14,7 +12,6 @@ declare let $: any;
   styleUrls: ['./custom-select-hotel.component.scss']
 })
 export class CustomSelectHotelComponent {
-
   value: string = '';
   disabled = false;
   public dd = false;
@@ -78,7 +75,12 @@ export class CustomSelectHotelComponent {
 
 
   getStars(count: string | number): number[] {
-    return Array.from(Array(+count).keys());
+    if(count) {
+      return Array.from(Array(+count).keys());
+
+    }else {
+     return []
+    }
   }
 
   openDropdown() {

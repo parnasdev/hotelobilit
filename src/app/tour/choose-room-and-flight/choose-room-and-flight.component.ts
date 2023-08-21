@@ -337,7 +337,8 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     } else {
       price = 0
     }
-    return price + flightPrice + this.getInsuransePrice(roomIndex) + this.getTransferPrice(roomIndex, flightID);
+
+    return price + flightPrice +  this.getTransferPrice(roomIndex, flightID);
   }
 
   getExtraBedPrice(flight: any, flightIndex: number, roomSelectedIndex: number): number {
