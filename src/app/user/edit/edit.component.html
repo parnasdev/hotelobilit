@@ -85,7 +85,7 @@
 
 
         </div>
-        <div class="info-tour-body">
+        <div class="info-tour-body" *ngIf="this.userInfo.user.role_id === 8">
           <div class="top flex-wrap">
             <div class="d-flex" *ngFor="let p of permissions">
               <label>{{ p.label }}</label>
