@@ -41,6 +41,11 @@ export class ReserveApiService {
     let publicURL = page ? strUrl + `?page=${page}` : strUrl
     return this.http.get<Result<any>>(publicURL, this.publicService.getDefaultHeaders());
   }
+
+  flightReserveList(page: number,flight:any,status: any): any {
+    const strUrl = environment.BACK_END_IP + `panel/reserves?flight=${flight}&status=${status}&page=${page}`
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
   getReserve(id: number): any {
     const strUrl = environment.BACK_END_IP + `panel/reserves/${id}/edit`
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());

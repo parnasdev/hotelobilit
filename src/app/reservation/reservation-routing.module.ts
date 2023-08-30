@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { ReserveInfoComponent } from './reserve-info/reserve-info.component';
+import {FlightReservationListComponent} from "../transfer-rate/flight-reservation-list/flight-reservation-list.component";
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   {
     path: ':reserve',
     component: ReserveInfoComponent
-  }
+  },
+
 ];
 
 @NgModule({

@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { CopyComponent } from './copy/copy.component';
 import { SetServiceComponent } from './set-service/set-service.component';
 import { SingleEditComponent } from './single-edit/single-edit.component';
+import {FlightReservationListComponent} from "./flight-reservation-list/flight-reservation-list.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'add',
     component: AddComponent
+  },
+  {
+    path: 'reserves',
+    component: FlightReservationListComponent
   },
   {
     path: 'edit/:id',
@@ -30,7 +35,8 @@ const routes: Routes = [
   {
     path: 'serviceRate/:id',
     component: SetServiceComponent
-  }
+  },
+
 ];
 
 @NgModule({

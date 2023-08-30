@@ -21,7 +21,7 @@ import { PipesModule } from "../common-project/pipes/pipes.module";
 @NgModule({
     declarations: [
         ListComponent,
-        ReserveInfoComponent
+        ReserveInfoComponent,
     ],
     imports: [
         CommonModule,

@@ -26,6 +26,7 @@ import { FilterPopupComponent } from './filter-popup/filter-popup.component';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { FastEditPopupComponent } from './fast-edit-popup/fast-edit-popup.component';
+import {FlightReservationListComponent} from "./flight-reservation-list/flight-reservation-list.component";
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
     validation: false,
@@ -41,7 +42,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SetServiceComponent,
     SingleEditComponent,
     FilterPopupComponent,
-    FastEditPopupComponent
+    FastEditPopupComponent,
+    FlightReservationListComponent
   ],
   imports: [
     CommonModule,
