@@ -110,7 +110,7 @@
         <div class="item-shimmer"></div>
       </div>
     </div>
-    <div class="body-list-tour d-flex justify-content-center align-items-center" *ngIf="transfers.length === 0">
+    <div class="body-list-tour d-flex justify-content-center align-items-center" *ngIf="!isLoading && transfers.length === 0">
       <span class="p-5">موردی یافت نشد</span>
     </div>
     <div class="body-list-tour" *ngIf="transfers.length > 0">

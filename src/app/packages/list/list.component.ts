@@ -39,6 +39,7 @@ export class ListComponent implements OnInit {
     perPage: 15,
     type: null
   };
+  statusNM = ''
   isLoading = false
   stDateFC = new FormControl(null);
   minDate = new Date()
@@ -54,7 +55,7 @@ export class ListComponent implements OnInit {
   printContent = '';
   originFC = new FormControl(null);
   destFC = new FormControl(null);
-
+statuses:any[] = []
   constructor(
     public title: Title,
     public tourApiService: TourApiService,
@@ -83,10 +84,11 @@ export class ListComponent implements OnInit {
 
   getTours(): void {
     this.isLoading = true;
-
-    this.tourApiService.getTours( this.p).subscribe((res: any) => {
+this.tours = []
+    this.tourApiService.getTours( this.p,this.statusNM).subscribe((res: any) => {
       if (res.isDone) {
         this.tours = res.data;
+        this.statuses = res.statuses
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,

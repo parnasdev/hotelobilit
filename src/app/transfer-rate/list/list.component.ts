@@ -117,7 +117,6 @@ export class ListComponent implements OnInit {
     this.transfers = [];
     this.isLoading = true
     this.api.getTransferRates(this.p, this.req).subscribe((res: any) => {
-      this.isLoading = false
       if (res.isDone) {
         this.transfers = res.data;
         this.paginate = res.meta;
@@ -129,6 +128,7 @@ export class ListComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false
     }, (error: any) => {
       this.isLoading = false
       this.checkError.check(error);
@@ -246,7 +246,7 @@ export class ListComponent implements OnInit {
 
 
   getAirlines(): void {
-    this.isLoading = true;
+    // this.isLoading = true;
     this.categoryApi.getCategoryList('airline', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.airlines = res.data;
@@ -259,9 +259,9 @@ export class ListComponent implements OnInit {
       } else {
         this.message.custom(res.message);
       }
-      this.isLoading = false;
+      // this.isLoading = false;
     }, (error: any) => {
-      this.isLoading = false;
+      // this.isLoading = false;
       this.message.error()
     })
   }
