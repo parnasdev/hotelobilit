@@ -44,7 +44,7 @@ export interface transferRateListDTO {
     capacity: number;
     all_capcity: number;
   booked_capacity: number
-    is_close: number;
+    is_close: any;
     description: string;
     checkin: string;
     checkout: string;

@@ -15,12 +15,11 @@ export class FlightApiService {
 
   constructor(
     public http: HttpClient,
-    public publicService: PublicService) 
-    {
-      this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
-    }
+    public publicService: PublicService) {
+    this.serverControllerName = environment.BACK_END_IP + this.serverControllerName;
+  }
 
-  getTransferRates(pageNum = 1,req: FilterDTO): any {
+  getTransferRates(pageNum = 1, req: FilterDTO): any {
     let str = `?page=${pageNum}&origin=${req.origin}&destination=${req.destination}&fromDate=${req.fromDate}&toDate=${req.toDate}&q=${req.q}&status=${req.status}&airlineDestination=${req.airlineDestination}&airlineOrigin=${req.airlineOrigin}`;
     const strUrl = this.serverControllerName + `flights` + str;
     return this.http.get<Result<transferRateListDTO[]>>(strUrl, this.publicService.getDefaultHeaders());
@@ -29,6 +28,14 @@ export class FlightApiService {
   getFlightRatesSet(): any {
     const strUrl = this.serverControllerName + `flights/create`;
     return this.http.get<Result<SetTransferPageDTO>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
+  flightChangeStatus(isClose: any, flight_id: number) {
+    const strUrl = this.serverControllerName + `flights/change/${flight_id}`;
+    const entity = {
+      is_close: isClose
+    }
+    return this.http.patch<Result<SetTransferPageDTO>>(strUrl,entity, this.publicService.getDefaultHeaders());
   }
 
   getFlightEditPage(flight_id: number): any {

@@ -16,7 +16,8 @@ import { CategoryApiService } from 'src/app/Core/Https/category-api.service';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 import { AirlineListDTO } from 'src/app/Core/Models/newAirlineDTO';
 import { FastEditPopupComponent } from '../fast-edit-popup/fast-edit-popup.component';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
+import { AlertDialogComponent, AlertDialogDTO } from 'src/app/common-project/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'prs-list',
@@ -265,7 +266,42 @@ export class ListComponent implements OnInit {
       this.message.error()
     })
   }
+  statusChanged(transfer: transferRateListDTO) {
+    
+    const alertObj: AlertDialogDTO = {
+      description: '',
+      icon: 'آیا وضعیت پرواز تغییر کند‌؟',
+      title: 'اطمینان دارید'
+    }
+    const dialog = this.dialog.open(AlertDialogComponent, {
+      data: alertObj
+    })
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.editStatus(transfer);
+      }else {
+        debugger
+        transfer.is_close =( transfer.is_close === 1 || transfer.is_close === '1') ? 0 : 1
+      }
+    })
+  }
 
+  editStatus(transfer: transferRateListDTO) {
+
+    this.isLoading = true
+    this.flightApi.flightChangeStatus(+transfer.is_close, transfer.id).subscribe((res: any) => {
+      if (res.isDone) {
+        this.isLoading = false;
+        this.message.showMessageBig(res.message);
+        this.getTransfers()
+
+      }
+    }, (error: any) => {
+      this.isLoading = false;
+      this.checkError.check(error);
+    })
+
+  }
 
   fastEdit(id: number) {
     const dialog = this.dialog.open(FastEditPopupComponent, {
