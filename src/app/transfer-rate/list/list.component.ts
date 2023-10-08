@@ -38,7 +38,7 @@ export class ListComponent implements OnInit {
     q: null,
     airlineDestination: null,
     airlineOrigin: null,
-    status: 1,
+    status: 0,
     fromDate: null,
     toDate: null
   };
@@ -76,7 +76,7 @@ export class ListComponent implements OnInit {
           q: null,
           airlineDestination: null,
           airlineOrigin: null,
-          status: 1,
+          status: 0,
           toDate: null,
           fromDate: null
         }
@@ -192,7 +192,7 @@ export class ListComponent implements OnInit {
       toDate: null,
       airlineDestination: null,
       airlineOrigin: null,
-      status: 1,
+      status: 0,
       q: null,
       origin: null
     }
