@@ -38,7 +38,7 @@ export class ListComponent implements OnInit {
     q: null,
     airlineDestination: null,
     airlineOrigin: null,
-    status: 0,
+    status: 1,
     fromDate: null,
     toDate: null
   };
@@ -76,7 +76,7 @@ export class ListComponent implements OnInit {
           q: null,
           airlineDestination: null,
           airlineOrigin: null,
-          status: 0,
+          status: 1,
           toDate: null,
           fromDate: null
         }
@@ -192,7 +192,7 @@ export class ListComponent implements OnInit {
       toDate: null,
       airlineDestination: null,
       airlineOrigin: null,
-      status: 0,
+      status: 1,
       q: null,
       origin: null
     }
@@ -280,7 +280,7 @@ export class ListComponent implements OnInit {
       if (result) {
         this.editStatus(transfer);
       }else {
-        debugger
+        
         transfer.is_close =( transfer.is_close === 1 || transfer.is_close === '1') ? 0 : 1
       }
     })
