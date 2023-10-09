@@ -14,6 +14,7 @@ import { storeHotelReqDTO } from 'src/app/Core/Models/newPostDTO';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import {Title} from "@angular/platform-browser";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'prs-list',
@@ -42,6 +43,7 @@ export class ListComponent implements OnInit {
               public title: Title,
               public message: MessageService,
               public checkError: ErrorsService,
+              public translate: TranslateService,
               public permition: PermitionsService,
               public cityApiService: CityApiService,
               public commonApi: CommonApiService,

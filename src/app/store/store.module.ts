@@ -11,6 +11,7 @@ import { StoreComponent } from './store/store.component';
 import { MaterialModule } from '../common-project/persianDatePickerAdapter/material.module';
 import { CommonProjectModule } from '../common-project/common-project.module';
 import { PipesModule } from "../common-project/pipes/pipes.module";
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { PipesModule } from "../common-project/pipes/pipes.module";
         MaterialModule,
         TourModule,
         CommonProjectModule,
+        TranslateModule,
         StoreRoutingModule,
         PipesModule
     ]

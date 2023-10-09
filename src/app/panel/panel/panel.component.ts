@@ -3,6 +3,7 @@ import {Title} from "@angular/platform-browser";
 import {SettingService} from "../../Core/Services/setting.service";
 import {SessionService} from 'src/app/Core/Services/session.service';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
+import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
 
@@ -20,6 +21,7 @@ export class PanelComponent implements OnInit {
 
   constructor(public title: Title,
               public session: SessionService,
+              public translate: TranslateService,
               public responsiveService: ResponsiveService,
               public setting: SettingService) {
     this.isTablet = responsiveService.isTablet();
@@ -58,5 +60,11 @@ export class PanelComponent implements OnInit {
 
   sidebarMobi() {
     this.isSidebarMobi = !this.isSidebarMobi
+  }
+
+
+  langChanged(value: any) {
+    localStorage.setItem('hotelobilit-lang',value)
+    this.translate.use(value)
   }
 }

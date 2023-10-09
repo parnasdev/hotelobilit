@@ -15,20 +15,20 @@
         <!-- <span>{{ ratingData?.hotel?. }}</span> -->
       </div>
     </div>
-    <a style="width: 100px !important;height: 40px !important;" routerLink="/panel/hotel/edit/{{id}}"  class="btn-base">ویرایش هتل</a>
+    <a style="width: 100px !important;height: 40px !important;" routerLink="/panel/hotel/edit/{{id}}"  class="btn-base">{{ 'hotelEditLabel' | translate }}</a>
   </div>
   <mat-tab-group>
-    <mat-tab label="قیمت گذاری هتل">
+    <mat-tab label="{{ 'hotelPricing' | translate }}">
       <ng-template matTabContent>
         <prs-pricing></prs-pricing>
       </ng-template>
     </mat-tab>
-    <mat-tab label="ضرایب هتل">
+    <mat-tab label="{{ 'hotelCoefficients' | translate }}">
       <ng-template matTabContent>
         <prs-set-rooms-and-coefficient [hotel_id]="+id"></prs-set-rooms-and-coefficient>
       </ng-template>
     </mat-tab>
-    <mat-tab label="سرویس ها">
+    <mat-tab label="{{ 'services' | translate}}">
       <ng-template matTabContent>
         <prs-transfer-service [hotelId]="+id"></prs-transfer-service>
       </ng-template>

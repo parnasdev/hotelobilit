@@ -1,52 +1,52 @@
 <div style="border: 1px solid #c6c6c6" class="p-4 m-top-20 border-radius-10">
   <div class="d-flex item-fly w-100">
     <div class="w-15 select-fly-city d-flex flex-column align-items-start">
-      <label for="">نوع سرویس</label>
+      <label for="">{{ 'serviceType' | translate }}</label>
       <prs-select-search *ngIf="show" [airports]="services"
         (hotelSelected)="getServiceSelected($event)"></prs-select-search>
     </div>
     <div class="w-15 select-fly-city d-flex flex-column align-items-start" *ngIf="this.catType === 'hotel' &&
      categoryName === 'ترانسفر'">
-      <label for="">انتخاب فرودگاه</label>
+      <label for="">{{ 'selectAirportLabel' | translate }}</label>
       <prs-select-search *ngIf="show" [airports]="airports"
         (hotelSelected)="getAirportSelected($event)"></prs-select-search>
     </div>
     <div class="d-flex w-15 flex-column">
-      <label for="">نرخ سرویس</label>
-      <input type="text" placeholder="نرخ سرویس" mask="separator" thousandSeparator="," [(ngModel)]="price">
+      <label for="">{{ 'ServiceRate' |translate }}</label>
+      <input type="text" placeholder="{{ 'ServiceRate' |translate }}" mask="separator" thousandSeparator="," [(ngModel)]="price">
     </div>
     <div class="d-flex w-20 flex-column">
-      <label for="">نوع ارز</label>
+      <label for="">{{ 'rateType' |translate }}</label>
       <select class="w-100" name="" id="" [(ngModel)]="rate">
-        <option disabled [value]="'all'">انتخاب کنید</option>
-        <option [value]="'toman'">تومان</option>
-        <option [value]="'dollar'">دلار</option>
-        <option [value]="'derham'">درهم</option>
-        <option [value]="'euro'">یورو</option>
+        <option disabled [value]="'all'">{{ 'choose'|translate }}</option>
+        <option [value]="'toman'">{{ 'toman' |translate }}</option>
+        <option [value]="'dollar'">{{ 'dollar' |translate }}</option>
+        <option [value]="'derham'">{{ 'dirham' |translate }}</option>
+        <option [value]="'euro'">{{ 'euro' |translate }}</option>
       </select>
     </div>
-    <button class="btn-base h-45 m-top-15 w-15" (click)="submit()">ذخیره</button>
+    <button class="btn-base h-45 m-top-15 w-15" (click)="submit()">{{ 'save' |translate }}</button>
   </div>
 
   <div class="d-flex item-fly w-100" *ngFor="let item of rateServices">
 
     <div class="d-flex w-25 flex-column">
-      <label for="">نام سرویس</label>
+      <label for="">{{ 'serviceName' |translate }}</label>
       <span class="font-size-13">{{ getServiceName(item.category_id) }}</span>
     </div>
     <div class="d-flex w-25 flex-column" *ngIf="this.catType === 'hotel'">
-      <label for="">نام فرودگاه</label>
+      <label for="">{{ 'airportName' | translate }}</label>
       <span class="font-size-13">{{ getAirportName(item.airport_id) }}</span>
     </div>
     <div class="d-flex w-25 flex-column">
-      <label for="">نرخ سرویس</label>
+      <label for="">{{ 'serviceRate' | translate }}</label>
       <span class="m-top-10">{{ item.rate | sperator }}</span>
     </div>
     <div class="d-flex w-25 flex-column">
-      <label for="">نوع ارز</label>
+      <label for="">{{ 'rateType' | translate }}</label>
       <span class="m-top-10">{{ item.rate_type }}</span>
     </div>
-    <div class="btn-base" (click)="edit(item.id)">ویرایش</div>
+    <div class="btn-base" (click)="edit(item.id)">{{ 'edit' | translate }}</div>
      <svg style="cursor: pointer;margin-right: 10px" (click)="remove(item.id)" width="30" height="30" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path fill="#ff0000" d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z"/></svg>
   </div>
 </div>

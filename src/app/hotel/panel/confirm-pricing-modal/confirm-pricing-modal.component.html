@@ -1,21 +1,21 @@
 <div class="p-4 d-flex w-100 flex-wrap justify-content-between">
   <div class="w-100">
-    <strong>قیمت گذاری</strong>
+    <strong>{{ 'pricing' | translate }}</strong>
 
   </div>
 
 
   <div class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">تعداد اتاق موجود</label>
+    <label for="">{{ 'NumberOfRoomsAvailable' | translate }}</label>
     <div class="inp-form mt-2  w-100">
-      <input class="input" type="text" placeholder="تعداد اتاق موجود" [formControl]="capacityFC">
+      <input class="input" type="text" placeholder="{{ 'NumberOfRoomsAvailable' | translate }}" [formControl]="capacityFC">
     </div>
   </div>
 
   <div *ngIf="!data.isJustRoomCount" class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">قیمت هر نفر در اتاق {{ data.room.room_type }} ({{ getCurrencyLabel() }})</label>
+    <label for="">{{ 'PricePerPersonInTheRoom'|translate }}{{ data.room.room_type }} ({{ getCurrencyLabel() }})</label>
     <div class="inp-form mt-2 mt-2 w-100">
-      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت خود را وارد کنید"
+      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'EnterPrice' |translate }}"
         [formControl]="priceFC">
     </div>
   </div>
@@ -38,28 +38,28 @@
 
 
   <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
-    <label for="">قیمت تخت اضافه({{ getCurrencyLabel() }})</label>
+    <label for="">{{ 'extraBedPrice' | translate }}({{ getCurrencyLabel() }})</label>
     <div class="inp-form mt-2 w-100">
-      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت تخت اضافه"
+      <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'extraBedPrice' | translate }}"
         [formControl]="bedPriceFC">
     </div>
   </div>
   <div class="w-48 mt-4 d-flex align-items-start" *ngIf="!data.isJustRoomCount" >
     <div class="d-flex flex-column">
-      <label for="">چکین بیس شود ؟</label>
+      <label for="">{{ 'checkinBase' |translate }}</label>
       <mat-checkbox [(ngModel)]="checkin_base"></mat-checkbox>
     </div>
 
     <div class="d-flex flex-column" *ngIf="!data.isJustRoomCount" >
-      <label for="">چکین بیس نشود ؟</label>
+      <label for="">{{ 'notCheckinBase'|translate }}</label>
       <mat-checkbox [(ngModel)]="not_checkin_base"></mat-checkbox>
     </div>
   
 
     <div class="w-48 d-flex flex-column align-items-end" *ngIf="checkin_base && !data.isJustRoomCount">
-      <label for="">قیمت چکین بیس</label>
+      <label for="">{{ 'checkinBasePrice' |translate }}</label>
       <div class="inp-form mt-2 w-100">
-        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="قیمت چکین بیس"
+        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'checkinBasePrice' |translate }}"
           [formControl]="offerPriceFC">
       </div>
     </div>

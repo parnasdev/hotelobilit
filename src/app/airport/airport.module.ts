@@ -9,6 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ListComponent } from './list/list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ListComponent } from './list/list.component';
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    TranslateModule,
     CommonProjectModule,
     NgxPaginationModule,
     CommonProjectModule,

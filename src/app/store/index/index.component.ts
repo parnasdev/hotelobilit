@@ -9,6 +9,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
 import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'prs-index',
@@ -44,6 +45,8 @@ export class IndexComponent implements OnInit {
     public mobileService: ResponsiveService,
     public message: MessageService,
     public api: TourApiService,
+    public translate: TranslateService,
+
     public calendarService: CalenderServices,
     public router: Router,
   ) {

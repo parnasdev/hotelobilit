@@ -29,6 +29,13 @@
             </svg>
             <input type="text" placeholder="جستجو کنید....">
           </div>
+
+          <div class="inp-base">
+            <select #langSelect (change)="langChanged(langSelect.value)">
+              <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                [selected]="lang === translate.currentLang">{{ lang }}</option>
+            </select>
+          </div>
           <div class="option-header">
             <button *ngIf="isDesktop"  (click)="darkMode()" class="dark-mode">
               <svg *ngIf="!isDarkMode" id="Moon_2" data-name="Moon 2" xmlns="http://www.w3.org/2000/svg" width="24"

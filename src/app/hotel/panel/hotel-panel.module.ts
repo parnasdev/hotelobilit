@@ -40,6 +40,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 };
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { PricingPopupComponent } from './pricing-popup/pricing-popup.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { PricingPopupComponent } from './pricing-popup/pricing-popup.component';
     PipesModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    TranslateModule,
     CommonProjectModule,
     BarRatingModule,
     NgxPaginationModule,

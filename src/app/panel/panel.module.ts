@@ -11,6 +11,7 @@ import { CurrencyRatesComponent } from './currency-rates/currency-rates.componen
 import { ServiceRatesComponent } from './service-rates/service-rates.component';
 import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { MaterialModule } from '../common-project/persianDatePickerAdapter/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
@@ -32,6 +33,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormsModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    TranslateModule,
     ReactiveFormsModule,
     MaterialModule
   ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],

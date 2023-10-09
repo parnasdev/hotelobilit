@@ -9,6 +9,7 @@ import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { Sidebar } from './sidebarConfig';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare let $: any;
 
@@ -31,6 +32,7 @@ export class SidebarComponent implements OnInit {
     public userApi: UserApiService,
     public api: AuthApiService,
     public router: Router,
+    public translate: TranslateService,
     public permitionService: PermitionsService,
     public messageService: MessageService,
     public responsiveService: ResponsiveService,
