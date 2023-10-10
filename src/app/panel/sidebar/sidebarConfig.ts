@@ -12,14 +12,14 @@ export interface SidebarDTO {
     }[]
 }
 export const Sidebar: SidebarDTO[] = [
-    { name: 'dashboard', icon: '', link: '/panel', show: true, permition: '', children: [] },
-    { name: 'hotels', icon: '', link: '/panel/hotel', permition: 'hotels.read', show: true, children: []},
-    { name: 'packages', icon: '', link: '/panel/packages', permition: '', show: true, children: []},
+    { name: 'dashboard', icon: '../../../assets/img/panel/icons/dashboard.png', link: '/panel', show: true, permition: '', children: [] },
+    { name: 'hotels', icon: '../../../assets/img/panel/icons/hotel.png', link: '/panel/hotel', permition: 'hotels.read', show: true, children: []},
+    { name: 'packages', icon: '../../../assets/img/panel/icons/pages.png', link: '/panel/packages', permition: '', show: true, children: []},
 
-    { name: 'flights', icon: '', link: '/panel/transferRate', permition: 'flights.read', show: true, children: []},
-    { name: 'reports', icon: '', link: '/panel/reserves', show: true, permition: 'reserves.read', children: [] },
+    { name: 'flights', icon: '../../../assets/img/panel/icons/airport2.png', link: '/panel/transferRate', permition: 'flights.read', show: true, children: []},
+    { name: 'reports', icon: '../../../assets/img/panel/icons/reserve.png', link: '/panel/reserves', show: true, permition: 'reserves.read', children: [] },
     { name: 'financial', icon: '', link: '/panel/financial', show: true, permition: 'users', children: [] },
-    { name: 'users', icon: '', link: '/panel/user', show: true, permition: 'users.read', children: [] },
+    { name: 'users', icon: '../../../assets/img/panel/icons/users.png', link: '/panel/user', show: true, permition: 'users.read', children: [] },
     { name: 'baseOptions', icon: '', link: '', show: true, permition: '', children: [
             { name: 'CurrencyPricing', permition: '', link: '/panel/setCurrencyRate', show: true },
             { name: 'rooms', permition: 'rooms.read', link: '/panel/rooms', show: true },

@@ -7,6 +7,8 @@
       <div class="header-list-tour">
         <span class="id">#</span>
         <span class="title-tour">عنوان اتاق</span>
+        <span class="title-tour">عنوان انگلیسی</span>
+
         <span class="from-to">ظرفیت</span>
         <span class="setting">تنظیمات</span>
       </div>
@@ -14,6 +16,8 @@
         <div class="item" *ngFor="let room of rooms | paginate: paginateConfig;let i = index">
           <span class="id">{{ i + 1 }}</span>
           <span class="title-tour bold-600">{{ room.name }}</span>
+          <span class="title-tour bold-600">{{ room.nameEn }}</span>
+
           <span class="title-tour">{{ room.Adl_capacity }}</span>
           <div class="button-setting">
             <a routerLink="/panel/rooms/edit/{{ room.id }}" *ngIf="permition.check('rooms.edit')" class="edit-btn">ویرایش</a>

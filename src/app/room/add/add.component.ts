@@ -18,12 +18,14 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 })
 export class AddComponent implements OnInit {
   nameFC = new FormControl();
+  nameEnFC = new FormControl()
   capacityFC = new FormControl();
   statusFC = new FormControl();
   req: RoomReqDTO = {
     Adl_capacity: 0,
     age_child: 0,
     chd_capacity:0,
+    nameEn: '',
     name: '',
     parent_id: null,
   }
@@ -84,6 +86,7 @@ export class AddComponent implements OnInit {
       age_child: 0,
       chd_capacity:0,
       name: this.nameFC.value,
+      nameEn: this.nameEnFC.value,
       parent_id: null,
     }
   }

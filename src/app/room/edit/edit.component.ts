@@ -17,6 +17,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 export class EditComponent {
   room_id = 0
   nameFC = new FormControl();
+  nameEnFC  =new FormControl()
   capacityFC = new FormControl();
   statusFC = new FormControl();
   destCityFC = new FormControl();
@@ -26,6 +27,7 @@ export class EditComponent {
     age_child: 0,
     chd_capacity:0,
     name: '',
+    nameEn: '',
     parent_id: null,
   }
   
@@ -89,6 +91,8 @@ export class EditComponent {
   setValue(): void {
     // this.logo = this.info.files.length > 0 ? this.info.files[0] : 0;
     this.nameFC.setValue(this.info.roomType.name)
+    this.nameEnFC.setValue(this.info.roomType.slug)
+
     this.capacityFC.setValue(this.info.roomType.description.Adl_capacity)
   }
 
@@ -99,6 +103,7 @@ export class EditComponent {
       age_child: 0,
       chd_capacity:0,
       name: this.nameFC.value,
+      nameEn: this.nameFC.value,
       parent_id: null,
     }
   }

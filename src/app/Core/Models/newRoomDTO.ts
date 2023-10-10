@@ -4,10 +4,12 @@ export interface RoomListDTO {
     chd_capacity: number;
     id: number;
     name: string;
+    nameEn: string;
 }
 
 export interface RoomReqDTO {
     name: string;
+    nameEn: string
     Adl_capacity: number;
     chd_capacity: number;  
     age_child: number;

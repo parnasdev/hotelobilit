@@ -5,7 +5,6 @@
       <mat-button-toggle *ngFor="let item of roles" [value]="item.id">{{ item.label }}</mat-button-toggle>
     </mat-button-toggle-group>
     <a class="btn-add-tour"   routerLink="/panel/user/add">اضافه</a>
-
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
@@ -16,7 +15,6 @@
       <span class="view">نقش</span>
       <span class="date-create">تاریخ ثبت شماره همراه</span>
       <span class="date-create">تاریخ آخرین فعالیت</span>
-
       <span class="setting">تنظیمات</span>
     </div>
     <div *ngIf="isLoading">

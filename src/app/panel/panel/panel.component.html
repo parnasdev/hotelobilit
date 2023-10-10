@@ -30,7 +30,7 @@
             <input type="text" placeholder="جستجو کنید....">
           </div>
 
-          <div class="inp-base">
+          <div class="item-info">
             <select #langSelect (change)="langChanged(langSelect.value)">
               <option *ngFor="let lang of translate.getLangs()" [value]="lang"
                 [selected]="lang === translate.currentLang">{{ lang }}</option>
