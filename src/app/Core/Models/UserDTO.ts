@@ -10,6 +10,8 @@ export interface UserResDTO {
   email_verified_at: string
   full_name: string
   gender: string
+  agency_name: string;
+  parent:any
   id: number
   image_profile: string
   last_viewed_at: string

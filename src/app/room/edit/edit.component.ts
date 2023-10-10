@@ -103,7 +103,7 @@ export class EditComponent {
       age_child: 0,
       chd_capacity:0,
       name: this.nameFC.value,
-      nameEn: this.nameFC.value,
+      nameEn: this.nameEnFC.value,
       parent_id: null,
     }
   }

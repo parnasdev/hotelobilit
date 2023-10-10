@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
   roles: any[] = []
   isLoading = false;
   city = '';
-  roleSelected: number = 0;
+  roleSelected: number = 5;
   constructor(
     public title: Title,
     public userApi: UserApiService,
@@ -46,7 +46,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('کاربران | هتل و بلیط')
-
     $(document).ready(() => {
       $(".item:even").css('background', '#e6e6e6')
       $(".item:odd").css('background', '#f4f7fa')
@@ -54,12 +53,14 @@ export class ListComponent implements OnInit {
     this.getUsers();
   }
 
-  getUsers(role = 0): void {
+  getUsers(): void {
     this.isLoading = true;
-    this.userApi.getUser(role,null,this.p).subscribe((res: any) => {
+    this.userApi.getUser(this.roleSelected,null,this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.users = res.data
-        this.roles = res.roles
+        if(this.roleSelected === 5) {
+          this.roles = res.roles
+        }
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
@@ -76,8 +77,8 @@ export class ListComponent implements OnInit {
       this.checkErrorService.check(error);
     });
   }
-  roleChanged() {
-    this.getUsers(this.roleSelected);
+  roleChanged() {    
+    this.getUsers();
   }
 
   onPageChanged(event: any) {

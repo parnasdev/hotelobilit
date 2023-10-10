@@ -24,8 +24,9 @@ export class AppComponent implements OnInit {
     public messageService: MessageService,
     public checkError: CheckErrorService) {
     translate.addLangs(['fa', 'tr', 'en']);
+    
     let currentLang = localStorage.getItem('hotelobilit-lang')
-    this.translate.use(currentLang ?? '')
+    this.translate.use(currentLang ?? 'fa')
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     // translate.use('fa');

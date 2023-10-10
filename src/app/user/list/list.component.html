@@ -1,18 +1,24 @@
 <div class="list-tour">
   <div class="title">
     <h2>کاربران</h2>
-    <mat-button-toggle-group *ngIf="session.getRole() === 'programmer' || session.getRole() === 'admin'" name="fontStyle" aria-label="Font Style" [(ngModel)]="roleSelected" (ngModelChange)="roleChanged()">
-      <mat-button-toggle *ngFor="let item of roles" [value]="item.id">{{ item.label }}</mat-button-toggle>
+    <mat-button-toggle-group *ngIf="session.getRole() === 'programmer' || session.getRole() === 'admin'"
+     name="fontStyle"
+     aria-label="Font Style" 
+     [(ngModel)]="roleSelected" 
+     (ngModelChange)="roleChanged()">
+      <mat-button-toggle *ngFor="let item of roles" [value]="item.id">
+        {{ item.label }}</mat-button-toggle>
     </mat-button-toggle-group>
-    <a class="btn-add-tour"   routerLink="/panel/user/add">اضافه</a>
+    <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
+      <span class="view">نقش</span>
+      <span class="view">نام آژانس</span>
       <span class="username">نام کامل کاربر</span>
       <span class="view">شماره همراه</span>
-      <span class="title-tour">نام کاربری</span>
-      <span class="view">نقش</span>
+      <!-- <span class="title-tour">نام کاربری</span> -->
       <span class="date-create">تاریخ ثبت شماره همراه</span>
       <span class="date-create">تاریخ آخرین فعالیت</span>
       <span class="setting">تنظیمات</span>
@@ -30,10 +36,12 @@
     <div class="body-list-tour" *ngIf="users.length > 0">
       <div class="item bg-white" *ngFor="let user of users| paginate: paginateConfig ; let i = index">
         <span class="id">{{ user.id }}</span>
+        <span class="view">{{ user.role ? user.role : '-' }}</span>
+        <span class="view">{{ user.agency_name ? user.agency_name : (user.parent ? user.parent.agency_name : '---') }}</span>
+
         <span class="username">{{ user.full_name }}</span>
         <span class="username">{{ user.phone ? user.phone : '-' }}</span>
-        <span class="username">{{ user.username ? user.username : '-' }}</span>
-        <span class="view">{{ user.role ? user.role : '-' }}</span>
+        <!-- <span class="username">{{ user.username ? user.username : '-' }}</span> -->
         <span class="date-create">{{ user.phone_verified_at ? calService.convertDate1(user.phone_verified_at, 'fa') :
           '-' }}</span>
         <span class="date-create">{{ user.last_viewed_at ? calService.convertDate1(user.last_viewed_at, 'fa') :
