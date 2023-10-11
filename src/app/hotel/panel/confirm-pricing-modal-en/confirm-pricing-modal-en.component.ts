@@ -43,8 +43,9 @@ export class ConfirmPricingModalEnComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger
     console.log(this.data);
-    
+
     this.data.currency_code
     this.bedCountFC.setValue(this.data.bedCount)
   }

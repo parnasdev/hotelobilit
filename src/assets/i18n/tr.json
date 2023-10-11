@@ -74,7 +74,9 @@
   "extraBedPrice" : "İlave yatak fiyatı",
   "checkinBase" : "checkin Base ?",
   "notCheckinBase" : "not checkin base",
-  "checkinBasePrice" : "İlave yatak fiyatı"
+  "checkinBasePrice" : "İlave yatak fiyatı",
 
+  "cancel": "iptal etmek",
+  "submit": "göndermek"
 
 }

@@ -5,7 +5,7 @@
       <li *ngFor="let room of rooms" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"  (click)="changeTab(room.id,room.room_type_id)" class="nav-item d-flex flex-column align-items-center">
         <a style="padding: 0 16px !important;" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
           >
-          {{ room.room_type}}</a>
+          {{ currentLang == 'fa' ?  room.room_type : room.room_type_en}}</a>
         <span *ngIf="isCoefficient === '1'">{{ 'coefficients' | translate }} :{{ room.coefficient }}</span>
       </li>
     </ul>

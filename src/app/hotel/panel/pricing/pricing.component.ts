@@ -28,6 +28,7 @@ export class PricingComponent implements OnInit {
   activedRoom = 0;
   roomTypeId = 0;
   calendarLang = 'shamsi'
+  currentLang = ''
   ratingData!: RatingResDTO;
   rooms: roomDTO[] = [];
   constructor(
@@ -37,7 +38,9 @@ export class PricingComponent implements OnInit {
     public cityApiService: CityApiService,
     public route: ActivatedRoute,
     public api: PostApiService,
-    public message: MessageService,) { }
+    public message: MessageService,) {
+     this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
+     }
 
   ngOnInit(): void {
     this.title.setTitle('قیمت گذاری هتل | هتل و بلیط')

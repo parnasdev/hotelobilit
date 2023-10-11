@@ -152,12 +152,12 @@ export class EditComponent implements OnInit {
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
 
-    this.permissions.forEach((item: any) => {
-      let result = this.userInfo.permissionIds.filter((x: number) => item.id === x);
-      if (result.length > 0) {
-        item.isChecked = true;
-      }
-    })
+    // this.permissions.forEach((item: any) => {
+    //   let result = this.userInfo.permissionIds.filter((x: number) => item.id === x);
+    //   if (result.length > 0) {
+    //     item.isChecked = true;
+    //   }
+    // })
 
   }
   setReq(mode:string) {
@@ -170,7 +170,7 @@ export class EditComponent implements OnInit {
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
       edit_mode: mode,
-      permissions: this.getPermissionsIDs(),
+      permissions: [],
       parent_id: this.parent ? +this.parent : 0,
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',

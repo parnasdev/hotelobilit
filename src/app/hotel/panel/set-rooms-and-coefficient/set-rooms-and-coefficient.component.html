@@ -18,7 +18,7 @@
   <div class="d-flex flex-wrap justify-content-between w-100" *ngIf="!isLoading">
     <div *ngFor="let item of rooms;let i =index" class="room-box d-flex flex-column item-info w-24">
       <div class="d-flex flex-wrap justify-content-between w-100">
-        <h3>{{ item.name }}</h3>
+        <h3>{{ currentLang === 'fa'  ? item.name  : item.nameEn }}</h3>
         <mat-checkbox [(ngModel)]="item.isSelected"></mat-checkbox>
       </div>
       <div class="d-flex  w-100 justify-content-between align-items-center">

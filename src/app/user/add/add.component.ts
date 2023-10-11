@@ -150,7 +150,7 @@ getHotelNumberArray() {
       phone: this.userForm.value.phone ?? '',
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
-      permissions: this.getPermissionsIDs(),
+      permissions: [],
       role_id: this.userForm.value.role_id ?? 0,
       hotels: this.getHotelNumberArray()
     };
@@ -167,7 +167,6 @@ getHotelNumberArray() {
   }
 
   getHotel(hotel: any) {
-    debugger
 this.hotelItem = hotel
   }
 

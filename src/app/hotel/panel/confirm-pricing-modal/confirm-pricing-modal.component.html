@@ -13,7 +13,7 @@
   </div>
 
   <div *ngIf="!data.isJustRoomCount" class="w-48 mt-4 d-flex flex-column align-items-start">
-    <label for="">{{ 'PricePerPersonInTheRoom'|translate }}{{ data.room.room_type }} ({{ getCurrencyLabel() }})</label>
+    <label for="">{{ 'PricePerPersonInTheRoom'|translate }}{{ currentLang === 'fa' ?  data.room.room_type : data.room.room_type_en }} ({{ currentLang === 'fa' ? getCurrencyLabel() : this.data.currency_code }})</label>
     <div class="inp-form mt-2 mt-2 w-100">
       <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'EnterPrice' |translate }}"
         [formControl]="priceFC">
@@ -38,7 +38,7 @@
 
 
   <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
-    <label for="">{{ 'extraBedPrice' | translate }}({{ getCurrencyLabel() }})</label>
+    <label for="">{{ 'extraBedPrice' | translate }}({{  currentLang === 'fa' ?  data.room.room_type : data.room.room_type_en }} ({{ currentLang === 'fa' ? getCurrencyLabel() : this.data.currency_code }})</label>
     <div class="inp-form mt-2 w-100">
       <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'extraBedPrice' | translate }}"
         [formControl]="bedPriceFC">
@@ -83,8 +83,8 @@
   </div> -->
 
   <div class="d-flex justify-content-between mx-auto align-items-center w-50 mt-5">
-    <button class="btn-base btn w-48 h-45" (click)="submit()">ثبت</button>
-    <button class="btn bg-danger text-white w-48 h-45" (click)="dialogRef.close(false)">انصراف</button>
+    <button class="btn-base btn w-48 h-45" (click)="submit()">{{ 'ثبت' | translate }}</button>
+    <button class="btn bg-danger text-white w-48 h-45" (click)="dialogRef.close(false)">{{ 'انصراف'  | translate}}</button>
   </div>
 
 </div>

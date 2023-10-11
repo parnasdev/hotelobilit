@@ -1,0 +1,111 @@
+<div class="d-flex w-100 justify-content-end pt-2">
+  <div class="d-flex returncontainer" (click)="return()" style="position: relative ; top:4px; margin-right: 5px">
+    <p>بازگشت</p>
+    <svg height="25" viewBox="0 0 48 48" width="25" xmlns="http://www.w3.org/2000/svg" fill="#0A246A">
+      <path d="M30.83 32.67l-9.17-9.17 9.17-9.17-2.83-2.83-12 12 12 12z" />
+      <path d="M0-.5h48v48h-48z" fill="none" />
+    </svg>
+  </div>
+</div>
+
+<div class="add-tour border-box">
+  <form class="w-100" [formGroup]="roleForm">
+    <div class="box-info-tour">
+      <div class="info-tour-header border-bottom">
+        <div class="right">
+          <img width="25" src="/assets/img/panel/icon-create.png" />
+          <h2 class="bold-600 font-size-16">ایجاد مقام جدید</h2>
+        </div>
+      </div>
+
+      <div class="info-tour-body">
+        <div class="top">
+          <div class="item-info m-top-15">
+            <label for="">نام انگلیسی</label>
+            <div [ngClass]="{'inp-base-error' : errorService.hasError('name')}" class="inp-base m-top-7 w-100 h-50">
+              <input formControlName="name" type="text">
+            </div>
+            <div *ngIf="errorService.hasError('name')">
+              <span class="text-danger">{{errorService.getError('name')}}</span>
+            </div>
+          </div>
+          <div class="item-info m-top-15">
+            <label for="">نام فارسی</label>
+            <div [ngClass]="{'inp-base-error' : errorService.hasError('label')}" class="inp-base m-top-7 w-100 h-50">
+              <input formControlName="label" type="text">
+            </div>
+            <div *ngIf="errorService.hasError('label')">
+              <span class="text-danger">{{errorService.getError('label')}}</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="top">
+          <div class="address-hotel">
+            <label for="address">دسترسی های موردنظر را انتخاب کنید</label>
+            <mat-form-field appearance="fill">
+              <mat-label>دسترسی ها</mat-label>
+              <mat-select [formControl]="permissionsFC" multiple>
+                <mat-select-trigger>
+                  <span>دسترسی های انتخاب شده</span>
+
+                </mat-select-trigger>
+                <mat-option *ngFor="let item of permissions" [value]="item.id">{{item.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <span class="city-box" *ngFor="let item of permissionsFC.value">
+                {{ getPermission(item) }}
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bottom">
+
+          <div class="p-radio d-flex justify-content-center align-items-center">
+            <label class="checkbox path">
+              <input type="checkbox" formControlName="see_all_post">
+     
+            </label>
+            نمایش همه پست ها
+          </div>
+
+          <div class="p-radio d-flex justify-content-center align-items-center">
+            <label class="checkbox path">
+              <input type="checkbox" formControlName="is_access_panel">
+            </label>
+            دسترسی به پنل
+          </div>
+
+          <div class="p-radio d-flex justify-content-center align-items-center">
+            <label class="checkbox path">
+              <input type="checkbox" formControlName="is_access_dashboard">
+            </label>
+            دسترسی به داشبورد
+          </div>
+
+          <!-- <div class="p-radio d-flex justify-content-center align-items-center">
+                      <label class="checkbox path">
+                        <input type="checkbox">
+                        <svg viewBox="0 0 21 21">
+                          <path
+                            d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                        </svg>
+                      </label>
+                      دسترسی به مسیر دیگر
+                  </div> -->
+
+        </div>
+
+        <div class="w-100 flex-x-end">
+          <button style="width: 15%" class="btn-base mt-3" (click)="submit()">ایجاد مقام</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+
+</div>

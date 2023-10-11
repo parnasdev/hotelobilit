@@ -37,22 +37,26 @@ export class ConfirmPricingModalComponent implements OnInit {
   checkin_base = false
   not_checkin_base = false;
   req!: any;
+  currentLang = 'fa'
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmPriceReqDTO,
     public api: PostApiService,
     public message: MessageService,
     public errorService: ErrorsService,
     public dialog: MatDialog) {
+      this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
+
   }
 
   ngOnInit(): void {
+
   }
 
   submit() {
     if (this.data.currency_code && this.data.currency_code !== ''){
       this.addHotelRates()
     }else {
-      this.message.custom('نرخ ارز وارد نشده است')
+      this.message.custom(this.currentLang === 'fa' ? 'نرخ ارز وارد نشده است' : 'The exchange rate has not been entered')
     }
   }
 

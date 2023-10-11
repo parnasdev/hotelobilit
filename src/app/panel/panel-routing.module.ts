@@ -29,6 +29,12 @@ const routes: Routes = [
         loadChildren: () => import('../hotel/panel/hotel-panel.module').then(m => m.HotelPanelModule)
       },
       {
+        path: 'roles',
+        // data: {permitions: ['User','User.list']},
+        // canActivate: [PanelItemGuardService],
+        loadChildren: () => import('../roles/roles.module').then(m => m.RolesModule)
+      },
+      {
         path: 'packages',
         // canActivate: [PanelItemGuardService],
         // data: {permitions: ['Tour']},

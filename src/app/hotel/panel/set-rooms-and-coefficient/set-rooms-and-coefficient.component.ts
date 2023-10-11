@@ -67,7 +67,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     city_id: 0,
 
   };
-
+  currentLang = 'fa'
   constructor(
     public title: Title,
     public router: Router,
@@ -86,6 +86,8 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     public publicServices: PublicService,
     public mapApi: MapApiService,
     public fb: FormBuilder) {
+      this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
+
   }
   ngOnInit(): void {
     this.title.setTitle('ضریب و اتاق | هتل و بلیط')
@@ -158,6 +160,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
       let obj: roomDTO = {
         id: room?.id ?? 0,
         name: room?.name ?? item.name,
+        nameEn: room?.nameEn ?? item.nameEn,
         room_type_id: room?.room_type_id ?? item.id,
         extra_bed_count: room?.extra_bed_count ?? item.extra_bed_count,
         is_twin_count: room?.is_twin_count ?? item.is_twin_count,
@@ -192,7 +195,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
 
 
       } else {
-        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+        this.message.showMessageBig(this.currentLang === 'fa' ? 'مشکلی رخ داده است لطفا مجددا تلاش کنید' : 'Server Error')
       }
       this.checkError.check(error);
     })

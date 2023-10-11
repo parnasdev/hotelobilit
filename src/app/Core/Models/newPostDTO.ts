@@ -117,6 +117,7 @@ export interface roomObjDTO {
 export interface roomDTO {
     id: number;
     name: string;
+    nameEn?: string
     room_type_id: number;
     coefficient: number;
     has_coefficient?: boolean
@@ -125,6 +126,7 @@ export interface roomDTO {
     is_twin_count?: boolean
     extra_bed_count?: number
     chd_capacity: number;
+    room_type_en?: string
     room_type?: string;
     age_child: number;
     isSelected?: boolean

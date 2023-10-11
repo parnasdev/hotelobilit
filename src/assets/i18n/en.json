@@ -73,5 +73,8 @@
   "extraBedPrice" : "extra Bed Price",
   "checkinBase" : "checkin Base ?",
   "notCheckinBase" : "not checkin base",
-  "checkinBasePrice" : "checkin Base Price"
+  "checkinBasePrice" : "checkin Base Price",
+
+  "cancel": "cancel",
+  "submit": "submit"
 }

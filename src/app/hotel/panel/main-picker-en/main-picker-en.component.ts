@@ -228,7 +228,7 @@ export class MainPickerEnComponent implements OnInit {
     } else if (this.stDate && !this.enDate) {
 
       if (moment(item.dateFa).isBefore(moment(this.stDate.dateFa))) {
-        this.message.custom('تاریخ انتخابی نامعتبر است')
+        this.message.custom('The selected date is invalid')
         this.stDate = null
       } else {
         this.enDate = item
@@ -236,7 +236,7 @@ export class MainPickerEnComponent implements OnInit {
         if (this.selectedDates.length <= 30) {
           this.confirmPricing(isJustRoomCount);
         } else {
-          this.message.custom('تعداد روزهای انتخابی نباید بیشتر از 30 روز باشد')
+          this.message.custom('The number of selected days should not be more than 30 days')
           this.clearParams()
         }
       }
