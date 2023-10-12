@@ -78,17 +78,20 @@ statuses:any[] = []
       $(".item:even").css('background', '#e6e6e6')
       $(".item:odd").css('background', '#f4f7fa')
     })
-    this.getTours();
+    this.getTours('first');
     // this.setting.getUserPermission();
   }
 
-  getTours(): void {
+  getTours(time: string): void {
     this.isLoading = true;
 this.tours = []
     this.tourApiService.getTours( this.p,this.statusNM).subscribe((res: any) => {
       if (res.isDone) {
         this.tours = res.data;
-        this.statuses = res.statuses
+
+        if(time === 'first'){ 
+          this.statuses = res.statuses
+        }
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
@@ -108,7 +111,7 @@ this.tours = []
 
 
   dateChanged() {
-    this.getTours()
+    this.getTours('second')
   }
 
   getOriginCities(): void {
@@ -142,11 +145,11 @@ this.tours = []
 
   originSelected(city: any): void {
     this.originFC.setValue(city.slugEn)
-    this.getTours()
+    this.getTours('second')
   }
   destSelected(city: any): void {
     this.destFC.setValue(city.slugEn)
-    this.getTours()
+    this.getTours('second')
 
   }
 
@@ -162,7 +165,7 @@ this.tours = []
       this.keyword = null
     }
     this.reload()
-    this.getTours()
+    this.getTours('second')
   }
 
 
@@ -177,7 +180,7 @@ this.tours = []
     this.tourApiService.deleteTour(id).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom('تور مورد نظر حذف شد');
-        this.getTours();
+        this.getTours('second');
       } else {
         this.message.custom(res.message);
       }
@@ -208,7 +211,7 @@ this.tours = []
 
   onPageChanged(event: any) {
     this.p = event;
-    this.getTours();
+    this.getTours('second');
   }
 
   deleteClicked(id:number) {

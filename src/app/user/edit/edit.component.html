@@ -1,9 +1,10 @@
+<prs-loading *ngIf="isLoading"></prs-loading>
 <div class="add-tour">
   <form class="w-100" [formGroup]="userForm">
     <div class="box-info-tour">
 
 
-      <div class="info-tour-body">
+      <div class="info-tour-body" *ngIf="+(userForm.get('role_id')?.value ?? '0') === 5">
         <div class="top flex-wrap">
           <div class="item-info">
             <label for="">نام آژانس</label>
@@ -78,6 +79,7 @@
             <select formControlName="role_id" name="" id="">
               <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
             </select>
+            <span>{{ agency }}</span>
             <div *ngIf="errorService.hasError('role_id')">
               <span class="text-danger">{{errorService.getError('role_id')}}</span>
             </div>

@@ -4,7 +4,7 @@
     <h2>تورها</h2>
 
 <div class="inp-form w-25">
-  <select name="" id="" [(ngModel)]="statusNM" (ngModelChange)="getTours()">
+  <select name="" id="" [(ngModel)]="statusNM" (ngModelChange)="getTours('second')">
     <option value="''">همه</option>
     <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
   </select>

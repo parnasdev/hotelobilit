@@ -10,8 +10,6 @@ import { RegisterResDTO, UserMeResDTO } from '../Models/AuthDTO';
   providedIn: 'root'
 })
 export class SessionService {
-
-
   user: RegisterResDTO = {
     expire_at: '',
     token: '',

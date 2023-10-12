@@ -11,7 +11,7 @@ import { PublicService } from "../../Core/Services/public.service";
 import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { MessageService } from "../../Core/Services/message.service";
 import { UserApiService } from "../../Core/Https/user-api.service";
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'prs-edit',
@@ -21,6 +21,7 @@ import {Location} from '@angular/common';
 export class EditComponent implements OnInit {
   userId = '';
   userInfo: any;
+  isLoading = false;
   permissions: { id: number, label: string, isChecked?: boolean }[] = []
   modeNM = 'profile'
   roles: { id: number; label: string }[] = [];
@@ -62,7 +63,7 @@ export class EditComponent implements OnInit {
 
   role: string = '';
   errors: any
-
+agency = ''
   constructor(public fb: FormBuilder,
     public api: UserApiService,
     public route: ActivatedRoute,
@@ -78,6 +79,9 @@ export class EditComponent implements OnInit {
     public calenderServices: CalenderServices,
     public mobileService: ResponsiveService,
     public publicServices: PublicService) {
+      this.route.queryParams.subscribe(params => {
+        this.agency = params['agency'];
+      })
   }
   ngOnInit(): void {
     // @ts-ignore
@@ -89,6 +93,7 @@ export class EditComponent implements OnInit {
   }
 
   getUser(): void {
+    this.isLoading = true
     this.api.getEditData(+this.userId).subscribe((res: any) => {
       if (res.isDone) {
         this.userInfo = res.data;
@@ -100,8 +105,11 @@ export class EditComponent implements OnInit {
         this.fillForm();
       } else {
         this.message.custom(res.message);
-      }
+      }    
+      this.isLoading = false
+
     }, (error: any) => {
+      this.isLoading = false
       this.message.error();
       this.checkErrorService.check(error);
     });
@@ -124,7 +132,7 @@ export class EditComponent implements OnInit {
   }
 
 
-  addHotel(){
+  addHotel() {
     this.selectedhotels.push(this.hotelItem)
   }
   getLastSelectedCities(): number[] {
@@ -160,7 +168,7 @@ export class EditComponent implements OnInit {
     // })
 
   }
-  setReq(mode:string) {
+  setReq(mode: string) {
     this.userReq = {
       agency_name: this.userForm.value.agency_name ?? '',
       agency_tell: this.userForm.value.agency_tell ?? '',
@@ -188,9 +196,9 @@ export class EditComponent implements OnInit {
 
   setHotelSelection() {
     this.selectionChange()
-    this.userInfo.hotelIds.forEach((x:number) => {
+    this.userInfo.hotelIds.forEach((x: number) => {
       let itemFiltered = this.hotels.filter(hotel => hotel.id === x)
-      if(itemFiltered.length > 0) {
+      if (itemFiltered.length > 0) {
         this.selectedhotels.push(itemFiltered[0]);
       }
     })
@@ -225,7 +233,7 @@ export class EditComponent implements OnInit {
     })
   }
 
-  submit(mode:string) {
+  submit(mode: string) {
     this.setReq(mode);
     this.api.editUser(this.userReq, this.userId).subscribe((res: any) => {
       if (res.isDone) {
