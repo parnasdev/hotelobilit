@@ -82,6 +82,7 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.parent = this.route.snapshot.paramMap.get('parent');
+    
     this.getData();
   }
 
@@ -89,6 +90,9 @@ export class AddComponent implements OnInit {
     this.api.getCreateData().subscribe((res: any) => {
       if (res.isDone) {
         this.roles = res.data.roles;
+        if(!this.parent) {
+          this.roles = this.roles.filter(x => x.label !== 'کارمند')
+        }
         this.permissions = res.data.permissions;
         this.hotels = res.data.hotels;
         this.getCities()
