@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PermissionDTO, UserCreateReq, UserReqDTO, UserRolesDTO } from "../../Core/Models/UserDTO";
+import { UserCreateReq } from "../../Core/Models/UserDTO";
 import { FormBuilder, FormControl } from "@angular/forms";
 import { CheckErrorService } from "../../Core/Services/check-error.service";
 import { ErrorsService } from "../../Core/Services/errors.service";
@@ -11,7 +11,7 @@ import { PublicService } from "../../Core/Services/public.service";
 import { ResponsiveService } from "../../Core/Services/responsive.service";
 import { MessageService } from "../../Core/Services/message.service";
 import { UserApiService } from "../../Core/Https/user-api.service";
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'prs-add',
@@ -82,7 +82,7 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.parent = this.route.snapshot.paramMap.get('parent');
-    
+
     this.getData();
   }
 
@@ -90,7 +90,7 @@ export class AddComponent implements OnInit {
     this.api.getCreateData().subscribe((res: any) => {
       if (res.isDone) {
         this.roles = res.data.roles;
-        if(!this.parent) {
+        if (!this.parent) {
           this.roles = this.roles.filter(x => x.label !== 'کارمند')
         }
         this.permissions = res.data.permissions;
@@ -124,6 +124,13 @@ export class AddComponent implements OnInit {
     });
   }
 
+  selectAll() {
+    this.selectedhotels = [];
+    this.filteredHotel.forEach(res => {
+      this.selectedhotels.push(res)
+    })
+  }
+
   selectionChange() {
     this.filteredHotel = [];
     this.selectedCity.value.forEach((city: any) => {
@@ -134,13 +141,13 @@ export class AddComponent implements OnInit {
       })
     })
   }
-getHotelNumberArray() {
+  getHotelNumberArray() {
     let result: number[] = []
-  this.selectedhotels.forEach(x => {
-    result.push(x.id)
-  })
-  return result
-}
+    this.selectedhotels.forEach(x => {
+      result.push(x.id)
+    })
+    return result
+  }
 
   setReq() {
     this.userReq = {
@@ -155,7 +162,7 @@ getHotelNumberArray() {
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       permissions: [],
-      role_id: this.userForm.value.role_id ?? 0,
+      role_id: !this.parent ? this.userForm.value.role_id ?? 0 : 8,
       hotels: this.getHotelNumberArray()
     };
   }
@@ -171,11 +178,11 @@ getHotelNumberArray() {
   }
 
   getHotel(hotel: any) {
-this.hotelItem = hotel
+    this.hotelItem = hotel
   }
 
 
-  addHotel(){
+  addHotel() {
     this.selectedhotels.push(this.hotelItem)
   }
   submit() {

@@ -10,7 +10,7 @@ import { AlertDialogComponent, AlertDialogDTO } from "../../common-project/alert
 import { MatDialog } from "@angular/material/dialog";
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 declare var $: any;
 
 @Component({
@@ -42,6 +42,11 @@ export class ListComponent implements OnInit {
     public permition: PermitionsService,
     public errorService: ErrorsService,
     public message: MessageService) {
+    if (session.getRole() === 'programmer' || session.getRole() === 'admin') {
+      this.roleSelected = 5
+    } else {
+      this.roleSelected = 0
+    }
   }
 
   ngOnInit(): void {
@@ -55,10 +60,10 @@ export class ListComponent implements OnInit {
 
   getUsers(): void {
     this.isLoading = true;
-    this.userApi.getUser(this.roleSelected,null,this.p).subscribe((res: any) => {
+    this.userApi.getUser(this.roleSelected, null, this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.users = res.data
-        if(this.roleSelected === 5) {
+        if (this.roleSelected === 5) {
           this.roles = res.roles
         }
         this.paginate = res.meta;
@@ -77,7 +82,7 @@ export class ListComponent implements OnInit {
       this.checkErrorService.check(error);
     });
   }
-  roleChanged() {    
+  roleChanged() {
     this.getUsers();
   }
 

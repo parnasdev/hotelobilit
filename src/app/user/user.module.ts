@@ -17,6 +17,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatSelectModule } from '@angular/material/select';
 import { AgencyUsersComponent } from './agency-users/agency-users.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { AgencyUsersComponent } from './agency-users/agency-users.component';
         MatFormFieldModule,
         MatNativeDateModule,
         MatInputModule,
+        MatTooltipModule,
         NgxPaginationModule,
         MaterialModule,
         CommonProjectModule,

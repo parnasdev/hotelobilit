@@ -72,7 +72,9 @@ export class CustomSelectHotelComponent {
     }
     return this.hotels.filter(hotel => (hotel.title.includes(filterValue) || hotel.titleEn?.includes(filterValue.toUpperCase())));
   }
-
+  selectAll() {
+    
+  }
 
   getStars(count: string | number): number[] {
     if(count) {

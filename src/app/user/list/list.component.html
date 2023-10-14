@@ -1,7 +1,7 @@
 <div class="list-tour">
   <div class="title">
     <h2>کاربران</h2>
-    <mat-button-toggle-group *ngIf="session.getRole() === 'programmer' || session.getRole() === 'admin'"
+    <mat-button-toggle-group 
      name="fontStyle"
      aria-label="Font Style" 
      [(ngModel)]="roleSelected" 
@@ -11,7 +11,6 @@
     </mat-button-toggle-group>
     <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
     <a class="btn-add-tour bg-info text-white" routerLink="/panel/roles">لیست مقام ها</a>
-
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
