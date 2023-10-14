@@ -22,7 +22,7 @@ export class AddComponent implements OnInit {
   //public Variable
   isMobile: any;
   isLoading = false;
-  roles: { id: number; label: string }[] = [];
+  roles: { id: number; label: string; permissions: number[] }[] = [];
   hotels: any[] = [];
   selectedCity = new FormControl();
   filteredHotel: any[] = [];
@@ -124,6 +124,22 @@ export class AddComponent implements OnInit {
     });
   }
 
+  checkPermissions() {
+
+    this.permissions.forEach(y => y.isChecked = false)
+    let role_id = this.userForm.controls['role_id'].value;
+    let roleFiltered:any = this.roles.filter(role => role.id === +(role_id ?? '0'));
+    if(roleFiltered.length > 0) {
+      this.permissions.forEach((item: any) => {
+        let result = roleFiltered[0].permissions.filter((x: number) => item.id === x);
+        if (result.length > 0) {
+          item.isChecked = true;
+        }
+      })
+    }
+
+  }
+
   selectAll() {
     this.selectedhotels = [];
     this.filteredHotel.forEach(res => {
@@ -161,7 +177,7 @@ export class AddComponent implements OnInit {
       phone: this.userForm.value.phone ?? '',
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
-      permissions: [],
+      permissions: this.getPermissionsIDs(),
       role_id: !this.parent ? this.userForm.value.role_id ?? 0 : 8,
       hotels: this.getHotelNumberArray()
     };

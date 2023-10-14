@@ -73,10 +73,10 @@
           </div>
 
 
-          <div class="item-info">
+          <div class="item-info" *ngIf="(session.getRole() === 'admin' || session.getRole() === 'programmer') && !parent">
             <label for="">نقش</label>
 
-            <select formControlName="role_id" name="" id="">
+            <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
               <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
             </select>
             <span>{{ agency }}</span>
@@ -87,14 +87,14 @@
 
 
         </div>
-        <!-- <div class="info-tour-body" *ngIf="this.userInfo.user.role_id === 8">
-          <div class="top flex-wrap">
+        <div class="info-tour-body">
+          <div class="permition-grid">
             <div class="d-flex" *ngFor="let p of permissions">
-              <label>{{ p.label }}</label>
               <mat-checkbox [(ngModel)]="p.isChecked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+              <label>{{ p.label }}</label>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <div class="selection-box" *ngIf="role === 'programmer' || 'admin'">
           <div class="select-city">

@@ -160,12 +160,12 @@ agency = ''
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
 
-    // this.permissions.forEach((item: any) => {
-    //   let result = this.userInfo.permissionIds.filter((x: number) => item.id === x);
-    //   if (result.length > 0) {
-    //     item.isChecked = true;
-    //   }
-    // })
+    this.permissions.forEach((item: any) => {
+      let result = this.userInfo.permissionIds.filter((x: number) => item.id === x);
+      if (result.length > 0) {
+        item.isChecked = true;
+      }
+    })
 
   }
   setReq(mode: string) {
@@ -178,14 +178,31 @@ agency = ''
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
       edit_mode: mode,
-      permissions: [],
+      permissions: this.getPermissionsIDs(),
       parent_id: this.parent ? +this.parent : 0,
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
-      role_id: this.userForm.value.role_id ?? 0,
+      role_id: !this.parent ? this.userForm.value.role_id ?? 0 : 8,
       hotels: this.getHotelNumberArray()
     };
   }
+
+  checkPermissions() {
+
+    this.permissions.forEach(y => y.isChecked = false)
+    let role_id = this.userForm.controls['role_id'].value;
+    let roleFiltered:any = this.roles.filter(role => role.id === +(role_id ?? '0'));
+    if(roleFiltered.length > 0) {
+      this.permissions.forEach((item: any) => {
+        let result = roleFiltered[0].permissions.filter((x: number) => item.id === x);
+        if (result.length > 0) {
+          item.isChecked = true;
+        }
+      })
+    }
+
+  }
+
   getHotelNumberArray() {
     let result: number[] = []
     this.selectedhotels.forEach(x => {
@@ -217,7 +234,6 @@ agency = ''
 
   modeChanged(event: any) {
     console.log(this.modeNM)
-    debugger
 
   }
 
