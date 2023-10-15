@@ -10,7 +10,7 @@
         {{ item.label }}</mat-button-toggle>
     </mat-button-toggle-group>
     <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
-    <a class="btn-add-tour bg-info text-white" routerLink="/panel/roles">لیست مقام ها</a>
+    <a *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer'" class="btn-add-tour bg-info text-white" routerLink="/panel/roles">لیست مقام ها</a>
   </div>
   <div class="table-list-tour">
     <div class="header-list-tour">
@@ -48,7 +48,8 @@
         <span class="date-create">{{ user.last_viewed_at ? calService.convertDate1(user.last_viewed_at, 'fa') :
           '-' }}</span>
         <div class="button-setting">
-          <a routerLink="/panel/user/{{user.id}}" class="edit-btn"  *ngIf="user.role === 'آژانس'">کاربران</a>
+          <a routerLink="/panel/user/{{user.id}}" class="edit-btn"  *ngIf="user.role !== 'نویسنده' && user.role !== 'کاربر' &&
+            user.role !== 'کارمند'">کاربران</a>
           <a routerLink="/panel/user/edit/{{user.id}}" [queryParams]="{agency:user.agency_name ? user.agency_name : (user.parent ? user.parent.agency_name : '---')}" *ngIf="permition.check('users.edit')" class="edit-btn">ویرایش</a>
           <button (click)="deleteClicked(user.id)" class="delete-btn" *ngIf="permition.check('users.delete')">حذف</button>
         </div>
