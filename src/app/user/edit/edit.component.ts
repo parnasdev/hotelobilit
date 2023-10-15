@@ -63,7 +63,7 @@ export class EditComponent implements OnInit {
 
   role: string = '';
   errors: any
-agency = ''
+  agency = ''
   constructor(public fb: FormBuilder,
     public api: UserApiService,
     public route: ActivatedRoute,
@@ -79,9 +79,9 @@ agency = ''
     public calenderServices: CalenderServices,
     public mobileService: ResponsiveService,
     public publicServices: PublicService) {
-      this.route.queryParams.subscribe(params => {
-        this.agency = params['agency'];
-      })
+    this.route.queryParams.subscribe(params => {
+      this.agency = params['agency'];
+    })
   }
   ngOnInit(): void {
     // @ts-ignore
@@ -105,7 +105,7 @@ agency = ''
         this.fillForm();
       } else {
         this.message.custom(res.message);
-      }    
+      }
       this.isLoading = false
 
     }, (error: any) => {
@@ -133,7 +133,17 @@ agency = ''
 
 
   addHotel() {
-    this.selectedhotels.push(this.hotelItem)
+    let isExist = false;
+    this.selectedhotels.forEach(hotel => {
+      if (hotel.title === this.hotelItem.title) {
+        isExist = true
+      }
+    })
+    if (!isExist) {
+      this.selectedhotels.push(this.hotelItem)
+    } else {
+      this.message.custom('هتل تکراری است')
+    }
   }
   getLastSelectedCities(): number[] {
     let result: number[] = []
@@ -191,8 +201,8 @@ agency = ''
 
     this.permissions.forEach(y => y.isChecked = false)
     let role_id = this.userForm.controls['role_id'].value;
-    let roleFiltered:any = this.roles.filter(role => role.id === +(role_id ?? '0'));
-    if(roleFiltered.length > 0) {
+    let roleFiltered: any = this.roles.filter(role => role.id === +(role_id ?? '0'));
+    if (roleFiltered.length > 0) {
       this.permissions.forEach((item: any) => {
         let result = roleFiltered[0].permissions.filter((x: number) => item.id === x);
         if (result.length > 0) {
