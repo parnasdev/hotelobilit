@@ -104,11 +104,11 @@
           </div>
         </div>
 
-        <div class="w-100 h-100">
-          <div class="selection-box">
-            <div class="select-city">
+        <div class="w-100">
+          <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
+            <div class="select-city w-40">
               <label>شهر های موردنظر را انتخاب کنید</label>
-              <mat-form-field class="select-mat" appearance="fill">
+              <mat-form-field class="select-mat w-100" appearance="fill">
                 <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()" multiple>
                   <mat-select-trigger>
                     <span>شهر های انتخاب شده</span>
@@ -125,25 +125,26 @@
                 </span>
               </div>
             </div>
-            <div class="select-hotel">
+            <div class="select-hotel w-60">
               <label>هتل های موردنظر را انتخاب کنید</label>
-  
+
               <div class="d-flex justify-content-center align-items-center my-4 gap-12">
                 <button class="btn-base-red" *ngIf="selectedhotels.length > 0" (click)="selectedhotels = []">حذف هتل ها</button>
                 <img src="/assets/img/panel/icons/select-all.png" width="25" height="25" [matTooltip]="'انتخاب همه'" (click)="selectAll()">
                 <prs-custom-select-hotel class="w-40" [hotels]="filteredHotel" *ngIf="hotels.length > 0" (hotelSelected)="getHotel($event)"></prs-custom-select-hotel>
                 <button class="btn-base px-4" (click)="addHotel()">افزودن</button>
               </div>
-  
-  
+
+
               <div class="show-box flex-wrap my-3 d-flex align-items-center justify-content-between">
                 <span style="font-size: 13px !important;font-weight: 500" class="city-box" *ngFor="let hotel of selectedhotels; let i = index">
                   <i (click)="deleteItem(i)" class="icon-cancel text-danger"></i>
                   {{ hotel.title }}
                 </span>
               </div>
-  
+
             </div>
+
           </div>
         </div>
 
