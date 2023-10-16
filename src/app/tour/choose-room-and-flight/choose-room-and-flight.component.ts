@@ -93,8 +93,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
 
-
-
   getRoomSelectedID() {
 
     return this.data.find(r => r.selectedRooms.length > 0)?.id ?? 0;
@@ -137,7 +135,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       returnDate = moment(returnDate).add(-1, 'days').format('YYYY-MM-DD');
       nights = this.calendarService.enumerateDaysBetweenDates(date, returnDate).length - 1;
     }
-    console.log(nights)
     return nights
 
   }
@@ -240,23 +237,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
 
 
-  getRatesPrice(rates: RateDTO[], type = 'price', roomIndex: number, flightID: number): any {
-    let price = 0
-    if (type === 'price') {
-      rates.forEach((rate, index) => {
-        // if (index < rates.length - 1) {
-        price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
-        // }
-      })
-    } else {
-      rates.forEach((rate, index) => {
-        // if (index < rates.length - 1) {
-        price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
-        // }
-      })
-    }
-    return price;
-  }
 
 
   plus(roomIndex: number, flightIndex: number) {
@@ -319,6 +299,28 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   getStars(count: string | number): number[] {
     return Array.from(Array(+count).keys());
   }
+  getRatesPrice(rates: RateDTO[], type = 'price', roomIndex: number, flightID: number): any {
+    let price = 0
+    if (type === 'price') {
+      rates.forEach((rate, index) => {
+        // if (index < rates.length - 1) {
+          console.log(rate.price + '*' + this.getCurrencyRate(rate.currency_code, roomIndex) + '=' + rate.price * this.getCurrencyRate(rate.currency_code, roomIndex) , 'price');
+        price += rate.price * this.getCurrencyRate(rate.currency_code, roomIndex);
+      
+      
+        // }
+      })
+    } else {
+      rates.forEach((rate, index) => {
+        // if (index < rates.length - 1) {
+        price += rate.offer_price * this.getCurrencyRate(rate.currency_code, roomIndex);
+        // }
+        console.log(price , 'offer_price');
+
+      })
+    }
+    return price;
+  }
 
   getRoomPrice(rates: RateDTO[], roomIndex: number, flightID: number, type = 'adl'): number {
     let price = 0;
@@ -337,7 +339,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     } else {
       price = 0
     }
-
     return price + flightPrice +  this.getTransferPrice(roomIndex, flightID);
   }
 
@@ -392,7 +393,6 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   calculatePriceByRates(flight: any, rates: RateDTO[], roomIndex: number, type = 'adl'): number {
-
     let finalRates = this.getComputableRateList(flight, rates);
     let roomPrice = 0;
 

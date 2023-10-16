@@ -272,23 +272,22 @@ destination_city:any;
 
 
 
-  getEndCity(cityItemSelected: any): void {
-    this.destination_idFC.setValue(cityItemSelected.id);
-    this.origin_city = cityItemSelected
-    this.onTitleGenerator()
-
-    this.getTransferRates();
-    this.getHotels()
-
-  }
-
   getStCity(cityItemSelected: any): void {
     this.origin_idFC.setValue(cityItemSelected.id);
+
+    this.origin_city = cityItemSelected
+    this.onTitleGenerator()
+ 
+  }
+
+  getEndCity(cityItemSelected: any): void {
+    this.destination_idFC.setValue(cityItemSelected.id);
+
     this.destination_city = cityItemSelected
     this.onTitleGenerator()
 
     this.getTransferRates();
-
+    this.getHotels()
 
   }
 

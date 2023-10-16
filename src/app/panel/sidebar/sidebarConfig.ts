@@ -20,7 +20,7 @@ export const Sidebar: SidebarDTO[] = [
     { name: 'financial', icon: '', link: '/panel/financial', show: true, permition: 'users', children: [] },
     { name: 'users', icon: '../../../assets/img/panel/icons/users.png', link: '/panel/user', show: true, permition: 'users.read', children: [] },
     { name: 'baseOptions', icon: '', link: '', show: true, permition: '', children: [
-            { name: 'CurrencyPricing', permition: '', link: '/panel/setCurrencyRate', show: true },
+            { name: 'CurrencyPricing', permition: 'settings.read', link: '/panel/setCurrencyRate', show: true },
             { name: 'rooms', permition: 'rooms.read', link: '/panel/rooms', show: true },
             { name: 'hotelOptions', permition: 'services.read', link: '/panel/facilities', show: true },
             { name: 'services', permition: 'service.read', link: '/panel/services', show: true },

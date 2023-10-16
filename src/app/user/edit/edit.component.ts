@@ -53,6 +53,7 @@ export class EditComponent implements OnInit {
     agency_tell: new FormControl(''),
     agency_address: new FormControl(''),
     agency_necessary_phone: new FormControl(''),
+    parent_id: new FormControl(''),
     name: new FormControl(''),
     family: new FormControl(''),
     username: new FormControl(''),
@@ -64,6 +65,8 @@ export class EditComponent implements OnInit {
   role: string = '';
   errors: any
   agency = ''
+  agencies: any[] = []
+  showAgencies = false;
   constructor(public fb: FormBuilder,
     public api: UserApiService,
     public route: ActivatedRoute,
@@ -92,6 +95,27 @@ export class EditComponent implements OnInit {
     this.role = this.session.getRole()
   }
 
+  getAgencies(): void {
+    this.isLoading = true;
+    this.api.getUser(5).subscribe((res: any) => {
+      if (res.isDone) {
+        this.agencies = res.data
+
+        if (this.agencies.length > 0) {
+          this.showAgencies = true
+        }
+        this.fillForm();
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+    }, (error: any) => {
+      this.isLoading = false;
+      this.message.error();
+      this.checkErrorService.check(error);
+    });
+  }
+
   getUser(): void {
     this.isLoading = true
     this.api.getEditData(+this.userId).subscribe((res: any) => {
@@ -99,10 +123,13 @@ export class EditComponent implements OnInit {
         this.userInfo = res.data;
         this.roles = res.data.roles;
         this.hotels = res.data.hotels;
+        this.agencies = res.data.agencies
+        this.getAgencies();
+
         this.getCities()
         this.permissions = res.data.permissions;
 
-        this.fillForm();
+
       } else {
         this.message.custom(res.message);
       }
@@ -163,12 +190,18 @@ export class EditComponent implements OnInit {
     this.userForm.controls.agency_address.setValue(this.userInfo.user.agency_address);
     this.userForm.controls.agency_tell.setValue(this.userInfo.user.agency_tell);
     this.userForm.controls.agency_necessary_phone.setValue(this.userInfo.user.agency_necessary_phone);
-
+    this.userForm.controls.name.setValue(this.userInfo.user.name);
     this.userForm.controls.name.setValue(this.userInfo.user.name);
     this.userForm.controls.family.setValue(this.userInfo.user.family);
     this.userForm.controls.phone.setValue(this.userInfo.user.phone);
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
+    let agencyFiltered = this.agencies.filter(a => a.agency_name === this.agency);
+    if (agencyFiltered.length > 0) {
+      this.userForm.controls.parent_id.setValue(agencyFiltered[0].id);
+
+    }
+
 
     this.permissions.forEach((item: any) => {
       let result = this.userInfo.permissionIds.filter((x: number) => item.id === x);
@@ -176,6 +209,10 @@ export class EditComponent implements OnInit {
         item.isChecked = true;
       }
     })
+
+    // if (this.userInfo.user.role_id === 8 && (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer')) {
+    //   this.permissions = this.permissions.filter(x => x.isChecked);
+    // }
 
   }
   setReq(mode: string) {
@@ -189,7 +226,7 @@ export class EditComponent implements OnInit {
       phone: this.userForm.value.phone ?? '',
       edit_mode: mode,
       permissions: this.getPermissionsIDs(),
-      parent_id: this.parent ? +this.parent : 0,
+      parent_id: +(this.userForm.value.parent_id ?? '0'),
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: !this.parent ? this.userForm.value.role_id ?? 0 : 8,
@@ -198,7 +235,6 @@ export class EditComponent implements OnInit {
   }
 
   checkPermissions() {
-
     this.permissions.forEach(y => y.isChecked = false)
     let role_id = this.userForm.controls['role_id'].value;
     let roleFiltered: any = this.roles.filter(role => role.id === +(role_id ?? '0'));
