@@ -248,6 +248,12 @@ export class EditComponent implements OnInit {
     }
 
   }
+  selectAll() {
+    this.selectedhotels = [];
+    this.filteredHotel.forEach(res => {
+      this.selectedhotels.push(res)
+    })
+  }
 
   getHotelNumberArray() {
     let result: number[] = []

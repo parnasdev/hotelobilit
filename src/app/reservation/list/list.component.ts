@@ -9,7 +9,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-list',
@@ -70,8 +70,21 @@ export class ListComponent implements OnInit {
   getNights(checkin: string, checkout: string) {
     let nights = this.calService.enumerateDaysBetweenDates(checkin, checkout);
 
-    return nights.length -1
+    return nights.length - 1
 
   }
+  getPassengersCount(item: ReserveListResponseDTO) {
+    if (item.reserves.length > 0) {
+      let flight: any = item.reserves[0];
 
+      if (flight.details.passengerCount) {
+        return flight.details.passengerCount
+      }else{ 
+        return flight.details.length
+      }
+    } else {
+      return '---'
+    }
+
+  }
 }

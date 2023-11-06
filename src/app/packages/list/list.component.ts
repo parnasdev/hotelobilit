@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
     perPage: 15,
     type: null
   };
-  statusNM = ''
+  statusNM = '1'
   isLoading = false
   stDateFC = new FormControl(null);
   minDate = new Date()

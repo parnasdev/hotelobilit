@@ -123,11 +123,13 @@
 
 
           </div>
-          <div class="select-hotel">
+          <div class="select-hotel w-60">
             <label>هتل های موردنظر را انتخاب کنید</label>
 
             <div class="d-flex justify-content-center align-items-center my-4 gap-12">
-              <prs-custom-select-hotel class="w-40" [hotels]="filteredHotel" *ngIf="hotels.length > 0" (hotelSelected)="getHotel($event)"></prs-custom-select-hotel>
+              <button class="btn-base-red" *ngIf="selectedhotels.length > 0" (click)="selectedhotels = []">حذف هتل ها</button>
+              <img src="/assets/img/panel/icons/select-all.png" width="25" height="25" [matTooltip]="'انتخاب همه'" (click)="selectAll()">
+              <prs-custom-select-hotel style="width: 70%" [hotels]="filteredHotel" *ngIf="hotels.length > 0" (hotelSelected)="getHotel($event)"></prs-custom-select-hotel>
               <button class="btn-base px-4" (click)="addHotel()">افزودن</button>
             </div>
 

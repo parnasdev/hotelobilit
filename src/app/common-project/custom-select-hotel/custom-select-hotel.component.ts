@@ -66,11 +66,12 @@ export class CustomSelectHotelComponent {
   }
 
   private _filter(value: any): any[] {
+    
     let filterValue = value
     if(filterValue !== '') {
       filterValue  = value;
     }
-    return this.hotels.filter(hotel => (hotel.title.includes(filterValue) || hotel.titleEn?.includes(filterValue.toUpperCase())));
+    return this.hotels.filter(hotel => (hotel.title.toLowerCase().includes(filterValue) || hotel.titleEn.toLowerCase()?.includes(filterValue.toLowerCase())));
   }
   selectAll() {
     

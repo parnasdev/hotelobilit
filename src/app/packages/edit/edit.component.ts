@@ -164,7 +164,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.destination_idFC.setValue(this.tourData.destination_id);
     this.night_numFC.setValue(this.tourData.night_num);
     this.day_numFC.setValue(this.tourData.day_num);
-    this.tour_typeFC.setValue(!this.tourData.tour_type);
+    this.tour_typeFC.setValue(this.tourData.tour_type);
     this.checkinFC.setValue(this.tourData.checkin);
     this.checkoutFC.setValue(this.tourData.checkout);
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
