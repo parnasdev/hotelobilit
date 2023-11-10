@@ -48,14 +48,14 @@ req: IFlightListReq = {
     isTrash:false,
     showTrash:true,
     buttons: [
-      { name: 'افزودن', permission: '', link: '/panel/users/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base-2 wpx-140 fs-13', show: true },
+      { name: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base-2 wpx-140 fs-13', show: true },
     ],
     filters: [
       // {value:'',type:'select',key:'trash', data:[],reqKey:'',label:'آشغال'},
       ],
     rowButtons: [
-      { name: 'حذف', permission: 'users.delete', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
-      { name: 'ویرایش', permission: 'users.edit', link: '/panel/users/edit', children: [], icon: 'assets/img/panel/edit.png', isLink: false, style: 'btn-base flex-x-center btn-edit fs-13 h-40 wpx-40', show: true }
+      { name: 'حذف', permission: '', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
+      { name: 'ویرایش', permission: '', link: '/panel/flight/edit', children: [], icon: 'assets/img/panel/edit.png', isLink: false, style: 'btn-base flex-x-center btn-edit fs-13 h-40 wpx-40', show: true }
     ],
     label: 'لیست پرواز ها',
     emptyBox: {
