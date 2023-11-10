@@ -1,4 +1,4 @@
-<div [id]="name" class="input-custom input-customize  w-100 date-to" clickOutside
+<div [id]="name" [ngClass]="{'input-custom input-customize  w-100 date-to' : hotelItemSelected?.is_rate ,'input-custom-error input-customize  w-100 date-to' : !hotelItemSelected?.is_rate}" clickOutside
      (clickOutside)="onClickedOutside($event)">
 
   <input (click)="openDropdown()" type="text" [name]="name" class="question" [id]="name" [formControl]="hotelFC" required

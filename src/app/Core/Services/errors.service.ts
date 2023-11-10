@@ -60,7 +60,7 @@ export class ErrorsService {
             break;
           }
           case 422: {
-            this.recordError(errorCode.error.data)
+            this.recordError(errorCode.error.errors);
             this.message.custom('اطلاعات ارسالی را مجددا بررسی کنید');
             break;
           }

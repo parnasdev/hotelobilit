@@ -1,0 +1,52 @@
+@import "src/assets/css/varible";
+
+.list-panels{
+  background: $white-color;
+}
+
+.header-list-panel{
+  border-radius: 15px;
+  background: #ffe;
+  height: 60px;
+  span{
+    font-size: 13px;
+    font-weight: 500;
+    color: $dark-color;
+  }
+}
+
+.body-list-panel{
+  padding-bottom: 12px;
+  .list-item-panel{
+    height: auto;
+    padding: 10px 0;
+    border-bottom: 2px dashed #ffe;
+    span{
+      font-size: 13px;
+      font-weight: 500;
+      color: $gray-color;
+    }
+
+  }
+
+}
+
+
+.btn-edit{
+  &:hover{
+    img{
+      filter: unset !important;
+    }
+  }
+}
+
+:host::ng-deep .btn-red{
+  svg{
+    top: 12px !important;
+  }
+  &:hover{
+    img{
+      filter: unset !important;
+    }
+  }
+}

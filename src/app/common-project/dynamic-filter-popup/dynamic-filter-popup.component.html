@@ -1,0 +1,25 @@
+<div class="container p-x-16 p-y-16">
+  <div class="title-filter border-bottom p-bottom-10 w-100">
+    <h2 class="m-y-0 fs-16 bold-600 text-dark">فیلترها</h2>
+  </div>
+  <div class="formcontainer w-100">
+    <ng-template ngFor let-item [ngForOf]="data.data" let-index="index">
+      <div *ngIf="item.type==='select'" class="w-100 item">
+        <select name="" id="" (change)="setValue($event,index)">
+          <option value="" *ngFor="let item of item.data.data"></option>
+        </select>
+      </div>
+      <div *ngIf="item.type==='input'" class="w-100 item">
+        <input type="text" [(ngModel)]="item.value">
+      </div>
+
+      <div *ngIf="item.type==='date'" class="w-100 item">
+
+      </div>
+    </ng-template>
+  </div>
+  <div class="flex-x-center m-top-16 w-100">
+
+    <button (click)="closeDialog()" class="btn-green h-45 w-50">جستجو</button>
+  </div>
+</div>

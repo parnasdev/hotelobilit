@@ -1,0 +1,41 @@
+<div class="list-tour">
+  <div class="title">
+    <h2>لیست هواپیما ها</h2>
+    <a class="btn-add-tour" *ngIf="permition.check('airlines.create')" routerLink="/panel/airplane/add">اضافه</a>
+  </div>
+  <div class="table-list-tour">
+    <div class="header-list-tour">
+      <span class="id">#</span>
+      <span class="title-tour">عنوان </span>
+      <span class="from-to">تعداد استفاده شده</span>
+      <span class="setting">تنظیمات</span>
+    </div>
+    <div *ngIf="isLoading">
+      <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+      </div>
+    </div>
+    <div class="body-list-tour" *ngIf="airports.length > 0">
+      <div class="item" *ngFor="let airport of airports | paginate: paginateConfig;let i = index">
+        <span class="id">{{ i + 1 }}</span>
+        <span class="title-tour bold-600">{{ airport.name }}</span>
+        <span class="title-tour">{{ airport.useCount }}</span>
+        <div class="button-setting">
+          <a routerLink="/panel/airplane/edit/{{ airport.id }}" *ngIf="permition.check('airlines.edit')" class="edit-btn">ویرایش</a>
+          <button *ngIf="permition.check('airlines.delete')" (click)="deleteAirplane(airport.id)" class="delete-btn">حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+      screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
+  </div>
+</div>

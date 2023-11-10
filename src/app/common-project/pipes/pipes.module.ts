@@ -9,11 +9,12 @@ import { CityKeywordPipe } from './city-keyword.pipe';
 import { OriginCityPipe } from './origin-city.pipe';
 import { ConvertDatePipe } from './convert-date.pipe';
 import { HotelListKeywordPipe } from './hotel-list-keyword.pipe';
+import { SeparatorPipe } from './separator.pipe';
 
 
 
 @NgModule({
-  declarations: [SperatorPipe,SafeHtmlPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe, ConvertDatePipe, HotelListKeywordPipe],
+  declarations: [SperatorPipe,SafeHtmlPipe,SeparatorPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe, ConvertDatePipe, HotelListKeywordPipe],
   exports: [
     SperatorPipe,
     SafeHtmlPipe,

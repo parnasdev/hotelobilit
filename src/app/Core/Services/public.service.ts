@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,12 @@ export class PublicService {
     };
   }
 
+  getApiUrl(isPanel: boolean, controller: string, endpoint: string) {
+    return environment.BACK_END_IP + (isPanel ? 'panel/' : '') + controller + endpoint
+  }
+  getApiUrlV2(isPanel: boolean, controller: string, endpoint: string) {
+    return environment.BACK_END_IP_V2 + (isPanel ? 'panel/' : '') + controller + endpoint
+  }
   substringText(count: number, str: string): string {
     if (str) {
       if (str.length > count) {

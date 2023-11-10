@@ -25,15 +25,15 @@ export class EditComponent extends AddComponent implements OnInit {
   };
   editData: any;
   showData = false;
-
+iseditLoading = false;
   override ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
-
     this.getInfoData();
   }
 
 
   getInfoData(): void {
+    this.iseditLoading=true
     this.flightApi.getFlightEditPage(+this.id).subscribe((res: any) => {
       if (res.isDone) {
         this.editData = res.data
@@ -42,7 +42,11 @@ export class EditComponent extends AddComponent implements OnInit {
         this.setValue()
         this.show = true;
       }
+      this.iseditLoading=false
+
     }, (error: any) => {
+      this.iseditLoading=false
+
       this.message.error()
       this.checkError.check(error);
     })

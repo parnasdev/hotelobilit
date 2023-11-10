@@ -1,0 +1,42 @@
+
+
+<div class="add-tour">
+  <form class="w-100">
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">اضافه کردن هواپیما جدید</label>
+          <h2 class="text-gray">اطلاعات هواپیما</h2>
+        </div>
+        <!-- <div class="left">
+          <div class="selectdiv">
+            <label>
+              <select [formControl]="statusFC">
+                <option value="hide" selected> منتشر نشود</option>
+                <option value="show">انتشار</option>
+              </select>
+            </label>
+          </div>
+        </div> -->
+      </div>
+      <div class="info-tour-body">
+        <div class="top">
+
+
+          <div class="item-info">
+            <label for="">عنوان هواپیما</label>
+            <input [formControl]="nameFC" type="text">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-parent-submit">
+
+      <button class="submit-tour" (click)="submit()">ثبت هواپیما</button>
+    </div>
+  </form>
+
+</div>
+

@@ -65,10 +65,22 @@ const routes: Routes = [
         loadChildren: () => import('../transfer-rate/transfer-rate.module').then(m => m.TransferRateModule)
       },
       {
+        path: 'flight',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../flight/flight.module').then(m => m.FlightModule)
+      },
+      {
         path: 'airport',
         // canActivate: [PanelItemGuardService],
         // data: {permitions: ['Transfer']},
         loadChildren: () => import('../airport/airport.module').then(m => m.AirportModule)
+      },
+      {
+        path: 'airplane',
+        // canActivate: [PanelItemGuardService],
+        // data: {permitions: ['Transfer']},
+        loadChildren: () => import('../airplane/airplane.module').then(m => m.AirplaneModule)
       },
       {
         path: 'facilities',

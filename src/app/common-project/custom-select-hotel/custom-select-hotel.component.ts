@@ -17,22 +17,22 @@ export class CustomSelectHotelComponent {
   public dd = false;
 
   isMobile = false;
-  isTablet=false;
-  isDesktop=false;
+  isTablet = false;
+  isDesktop = false;
 
   hotelFC = new FormControl();
   @Output() hotelSelected = new EventEmitter()
   @Input() hotels: any[] = []
   @Input() inCommingHotel: any;
-  @Input() name= 'custom'
+  @Input() name = 'custom'
   @Input() title = 'هتل خود را انتخاب کنید';
 
   filteredOptions!: Observable<any[]>;
-
+  hotelItemSelected: any;
   constructor(
     public mobileService: ResponsiveService,
     public dialog: MatDialog,
-  ){
+  ) {
     this.isMobile = mobileService.isMobile();
     this.isDesktop = mobileService.isDesktop();
     this.isTablet = mobileService.isTablet();
@@ -56,6 +56,7 @@ export class CustomSelectHotelComponent {
           (c.title === +this.inCommingHotel) ||
           (c.titleEn === this.inCommingHotel) ||
           (c.id === this.inCommingHotel))[0]
+          this.hotelItemSelected = hotel
         this.hotelFC.setValue(hotel.title);
       }
     }
@@ -66,23 +67,23 @@ export class CustomSelectHotelComponent {
   }
 
   private _filter(value: any): any[] {
-    
+
     let filterValue = value
-    if(filterValue !== '') {
-      filterValue  = value;
+    if (filterValue !== '') {
+      filterValue = value;
     }
     return this.hotels.filter(hotel => (hotel.title.toLowerCase().includes(filterValue) || hotel.titleEn.toLowerCase()?.includes(filterValue.toLowerCase())));
   }
   selectAll() {
-    
+
   }
 
   getStars(count: string | number): number[] {
-    if(count) {
+    if (count) {
       return Array.from(Array(+count).keys());
 
-    }else {
-     return []
+    } else {
+      return []
     }
   }
 
@@ -90,16 +91,17 @@ export class CustomSelectHotelComponent {
     // if(this.isMobile){
     //   this.openSelectCity();
     // }else {
-      this.dd = true;
+    this.dd = true;
     // }
   }
 
-  onClickedOutside(jmgg:any){
+  onClickedOutside(jmgg: any) {
     this.dd = false
   }
 
   changed(item: any): void {
-this.hotelFC.setValue(item.title);
+    this.hotelItemSelected = item;
+    this.hotelFC.setValue(item.title);
     this.hotelSelected.emit(item)
     this.dd = false
   }

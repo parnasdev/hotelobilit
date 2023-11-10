@@ -3,6 +3,8 @@
     "hotels": "هتل ها",
     "packages": "پکیج ها",
     "flights": "پرواز ها",
+    "new flights": "پرواز (جدید)",
+
     "reports": "گزارشات",
     "financial": "مالی",
     "users": "کاربران",
@@ -14,6 +16,8 @@
     "citiesAndCuntries": "شهر ها و کشورها",
     "airlines": "ایرلاین ها",
     "airports": "فرودگاه ها",
+    "airplanes": "هواپیما ها",
+
     "hotelList": "لیست هتل ها",
     "search": "جستجو",
     "add": "اضافه",

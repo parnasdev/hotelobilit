@@ -1,0 +1,19 @@
+<div [id]="name" class="input-custom input-customize w-100 date-to" clickOutside
+  (clickOutside)="onClickedOutside($event)">
+  <input (click)="openDropdown()" style="cursor: pointer;" type="text" [name]="name" class="question" [id]="name" [formControl]="inpFC" required
+    autocomplete="off" />
+  <label [for]="name">
+    <span>{{selectedItem?( selectedItem.label ? selectedItem.label : (selectedItem.name ? selectedItem.name : (selectedItem.full_name ? selectedItem.full_name : selectedItem.title))):title }}</span>
+  </label>
+  <!-- class = animated zoomIn -->
+  <div *ngIf="dd" class="dropDown-show">
+    <div class="item-city">
+      <div style="cursor: pointer;" *ngFor="let item of filteredOptions | async" class="item" (click)="changed(item)">
+        <div class="flex-x-start">
+          <img width="20" src="assets/img/icons8-location-30%20(1).png" alt="">
+          <span class="font-size-14 m-0 bold-500 text-gray">{{ ( item.label ? item.label : (item.name ? item.name : (item.full_name ? item.full_name : item.title)))}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

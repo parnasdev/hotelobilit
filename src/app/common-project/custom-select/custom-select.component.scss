@@ -1,0 +1,43 @@
+@import "src/assets/css/varible";
+
+.input-custom {
+  position: relative;
+}
+
+input {
+  width: 100% !important;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: unset;
+}
+
+label {
+  position: absolute;
+  font-size: 13px;
+  right: 0;
+  font-weight: 500;
+}
+
+.dropDown-show {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  width: 100%;
+  border: 1px solid $border-color;
+  background: $white-color;
+  border-radius: 17px;
+  height: auto;
+  padding: 0 12px;
+  overflow-y: auto;
+  z-index: 999;
+
+  .item {
+    height: 45px;
+    border-bottom: 1px solid $border-color;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

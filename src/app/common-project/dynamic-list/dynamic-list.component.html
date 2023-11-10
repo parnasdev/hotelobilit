@@ -1,0 +1,101 @@
+<div class="list-panels border-box p-x-12">
+  <div class="title">
+    <div class="flex-x-start">
+      <img class="m-top-8" src="assets/img/panel/list.png" width="25" alt="">
+      <h2 class="text-dark fs-16 m-bottom-0 bold-600 m-right-7">{{ data.label }}</h2>
+    </div>
+    <div class="flex-x-between m-y-20 w-100 gap-12">
+      <div class="flex-x-start gap-16">
+        <a style="cursor: pointer" class="fs-13 p-bottom-4 c-pointer flex-x-center "
+          style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;" (click)="deleteFilters()" *ngIf="isFilter">
+          حذف فیلتر
+        </a>
+        <a style="cursor: pointer" class="btn-base wpx-140 fs-13" *ngIf="data.filters.length > 0" (click)="openFilter()">
+          فیلترها
+          <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
+            xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+            <path fill="#fff"
+              d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
+          </svg>
+        </a>
+        <ng-template [ngIf]="data.showTrash">
+          <a style="cursor: pointer" *ngIf="!data.isTrash" class="btn-red wpx-140 flex-x-center fs-13" (click)="isTrash()">
+            زباله دان
+          </a>
+          <a style="cursor: pointer" *ngIf="data.isTrash" class="btn-base wpx-140 fs-13" (click)="isTrashne()">
+          بازگشت
+          <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
+               xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+            <path fill="#fff"
+                  d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
+          </svg>
+        </a>
+        </ng-template>
+
+      </div>
+      <div class="flex-x-end gap-12">
+        <ng-template  ngFor let-button [ngForOf]="data.buttons" let-index="index">
+          <a *ngIf="button.show && permition.check(button.permission)" [class]="button.style"
+            (click)="onButtonClicked(button)">
+            {{ button.name}}</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="table-list-tour">
+    <div class="header-list-panel  grid-dynamic grid-8 gap-10" [style]="'--col:' + cols">
+      <ng-template ngFor let-item let-i="index" [ngForOf]="data.props">
+        <div class="p-radio flex-x-between" *ngIf="i === 0">
+          <!-- <prs-checkbox></prs-checkbox> -->
+        </div>
+        <span class="username" *ngIf="i > 0">{{ item.label }}</span>
+      </ng-template>
+
+    </div>
+    <div *ngIf="isLoading">
+      <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+        <div class="item-shimmer"></div>
+      </div>
+    </div>
+    <div class="body-list-panel " *ngIf="data.props.length > 0">
+      <div class="list-item-panel grid-dynamic gap-20" [style]="'--col:' + cols"
+        *ngFor="let x of data.data;let i = index">
+        <ng-template ngFor let-prop let-i="index" [ngForOf]="data.props">
+
+          <div class="p-radio flex-x-between" *ngIf="i == 0">
+            <!-- <prs-checkbox></prs-checkbox> -->
+          </div>
+          <span class="title-tour" [matTooltipDisabled]="x[prop.name] && x[prop.name].length < 20"
+            [matTooltip]="x[prop.name]" *ngIf="i < (data.props.length -1) && i > 0">{{ getText(x , prop) ? getText(x ,
+            prop) :
+            '---' }}</span>
+          <div class="button-setting flex-x-center gap-5" *ngIf="i == (data.props.length -1)">
+            <ng-template ngFor let-btn [ngForOf]="data.rowButtons">
+              <div [class]="btn.style" *ngIf="permition.check(btn.permission) && btn.show">
+                <button class="btn-custom" (click)="onRowButtonClicked(btn,x)">
+                  <img style="filter: invert(1)" [src]="btn.icon" width="20" alt="">
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="box-empty" *ngIf="!isLoading && data.data.length === 0">
+    <span>{{ data.emptyBox.text }}</span>
+  </div>
+  <div>
+    <!-- <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
+      screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls> -->
+  </div>
+</div>

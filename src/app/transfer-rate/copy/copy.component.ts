@@ -11,5 +11,7 @@ export class CopyComponent extends EditComponent {
 
   override ngOnInit() {
     this.title.setTitle('کپی پرواز | هتل و بلیط')
+    this.id = this.route.snapshot.paramMap.get('id') ?? ''
+    this.getInfoData();
   }
 }
