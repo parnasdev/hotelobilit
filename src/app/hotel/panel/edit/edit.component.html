@@ -68,7 +68,7 @@
         </div>
         <div class="bottom">
 
-          <prs-select-city *ngIf="newCities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="newCities" [inCommingCity]="hotelInfo.city_id"
+          <prs-select-city *ngIf="hotelInfo.cities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="hotelInfo.cities" [inCommingCity]="hotelInfo.city_id"
             (citySelected)="getCitySelected($event)"></prs-select-city>
           <!-- <div class="item-info" *ngIf="hotelInfo.cities.length>0">
             <div class="selectdiv">

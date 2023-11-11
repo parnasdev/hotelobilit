@@ -69,7 +69,6 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.hotelInfo = res.data;
         this.roomTypes = this.hotelInfo.roomTypes;
-        this.getCities(this.hotelInfo.cities);
         this.showCities = true;
         this.createRooms()
         this.setData()

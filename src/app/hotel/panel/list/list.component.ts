@@ -96,7 +96,7 @@ export class ListComponent implements OnInit {
 
 
   deleteHotel(slug: string) {
-    // this.hotelApi.delete(slug).subscribe((res: any) => {
+    // this.hotelApi.(slug).subscribe((res: any) => {
     //   if (res.isDone) {
     //     this.message.custom(res.message);
     //     this.getList();

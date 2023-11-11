@@ -54,7 +54,7 @@
               </select>
             </div>
           </div>
-          <prs-select-city *ngIf="newCities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="newCities"
+          <prs-select-city *ngIf="data.cities.length>0" [title]="'شهر خود را انتخاب کنید'" [hasHotel]="true" [cities]="data.cities"
           (citySelected)="getCitySelected($event)"></prs-select-city>
           <!-- <div class="item-info" >
             <label for="">شهر </label>

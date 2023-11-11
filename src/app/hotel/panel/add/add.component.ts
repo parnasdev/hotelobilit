@@ -152,7 +152,6 @@ export class AddComponent implements OnInit {
     this.hotelApi.createPosts('hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
-        this.getCities(this.data.cities);
         this.createRoomsList()
       } else {
         this.message.custom(res.message);
@@ -368,11 +367,6 @@ export class AddComponent implements OnInit {
     this.hotelForm.value.slug = this.hotelForm.controls.title.value?.split(' ').join('-')
   }
 
-  getCities(cities: any[]) {
-    cities.forEach(item => {
-      this.newCities = this.newCities.concat(item.categories)
-    })
-  }
 
   getCitySelected(item: any): void {
     this.hotelForm.controls['city_id'].setValue(item.id);

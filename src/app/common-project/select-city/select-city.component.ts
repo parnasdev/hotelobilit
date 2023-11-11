@@ -3,14 +3,11 @@ import { MessageService } from "../../Core/Services/message.service";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
-import { CityListRequestDTO, CityResponseDTO } from "../../Core/Models/cityDTO";
 import { CityApiService } from "../../Core/Https/city-api.service";
 import { MatDialog } from '@angular/material/dialog';
 import { SelectCityPopupComponent } from '../select-city-popup/select-city-popup.component';
-import { Result } from 'src/app/Core/Models/result';
 import { ResponsiveService } from 'src/app/Core/Services/responsive.service';
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
-import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
 
 @Component({
   selector: 'prs-select-city',
@@ -46,8 +43,7 @@ export class SelectCityComponent implements OnInit, OnChanges {
 
   private _filter(value: string): categoriesDTO[] {
     const filterValue = value.toLowerCase();
-
-    return this.cities.filter(city => city.name.toLowerCase().includes(filterValue));
+    return this.cities.filter(city => city?.name.toLowerCase().includes(filterValue));
   }
 
   changed(item: any): void {
@@ -55,6 +51,8 @@ export class SelectCityComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.cities);
+    debugger
     this.filteredOptions = this.cityFC.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
