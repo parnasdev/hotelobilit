@@ -1,27 +1,34 @@
 @import "src/assets/css/varible";
 
-.list-panels{
+.list-panels {
   background: $white-color;
 }
 
-.header-list-panel{
+.header-list-panel {
   border-radius: 15px;
-  background: #ffe;
+  background: #F2F2F2;
   height: 60px;
-  span{
+  margin: 1rem auto 0 auto;
+  width: 98%;
+
+  span {
     font-size: 13px;
     font-weight: 500;
     color: $dark-color;
   }
 }
 
-.body-list-panel{
+.body-list-panel {
   padding-bottom: 12px;
-  .list-item-panel{
+  margin: 1rem auto 0 auto;
+  width: 98%;
+
+  .list-item-panel {
     height: auto;
     padding: 10px 0;
     border-bottom: 2px dashed #ffe;
-    span{
+
+    span {
       font-size: 13px;
       font-weight: 500;
       color: $gray-color;
@@ -32,21 +39,88 @@
 }
 
 
-.btn-edit{
-  &:hover{
-    img{
+.btn-edit {
+  &:hover {
+    img {
       filter: unset !important;
     }
   }
 }
 
-:host::ng-deep .btn-red{
-  svg{
+:host::ng-deep .btn-red {
+  background: #f30611;
+  color: #fff;
+  width: 120px;
+  padding: 13px 1.5rem;
+  border-radius: 5px;
+  font-weight: 500;
+  border: 2px solid #f30611;
+  outline: none;
+  margin: 1rem 0;
+
+  svg {
     top: 12px !important;
   }
-  &:hover{
-    img{
+
+  &:hover {
+    background: #fff;
+    color: #f30611;
+
+    img {
       filter: unset !important;
     }
+  }
+}
+
+.btn-add {
+  padding: 10px 1.5rem;
+  width: 120px !important;
+}
+
+.flex-x-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-x-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex-x-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-x-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.m-y-20 {
+  margin: 20px 0;
+}
+.fs-16{
+  font-size: 16px;
+}
+.p-x-12{
+  padding: 0 12px;
+}
+
+.box-empty{
+  width: 98%;
+  margin: 2rem auto;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed $border-color;
+  border-radius: 10px;
+  span{
+    color: $gray-color;
+    font-weight: 500;
+    font-size: 16px;
   }
 }
