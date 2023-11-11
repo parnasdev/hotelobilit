@@ -2,7 +2,7 @@
   (clickOutside)="onClickedOutside($event)">
   <input (click)="openDropdown()" style="cursor: pointer;" type="text" [name]="name" class="question" [id]="name" [formControl]="inpFC" required
     autocomplete="off" />
-  <label [for]="name">
+  <label (click)="openDropdown()" [for]="name">
     <span>{{selectedItem?( selectedItem.label ? selectedItem.label : (selectedItem.name ? selectedItem.name : (selectedItem.full_name ? selectedItem.full_name : selectedItem.title))):title }}</span>
   </label>
   <!-- class = animated zoomIn -->

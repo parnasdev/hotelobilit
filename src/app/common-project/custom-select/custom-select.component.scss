@@ -2,6 +2,9 @@
 
 .input-custom {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 input {
@@ -9,13 +12,19 @@ input {
   text-align: center;
   position: relative;
   z-index: 2;
-  background: unset;
+  background: $white-color;
+  border-radius: 15px;
+  height: 50px;
+  border: 1px solid $border-color;
+  outline: none;
 }
 
 label {
   position: absolute;
-  font-size: 13px;
-  right: 0;
+  font-size: 14px;
+  color: $gray-color;
+  z-index: 2;
+  background: $white-color;
   font-weight: 500;
 }
 

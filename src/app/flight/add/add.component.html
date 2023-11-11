@@ -1,167 +1,180 @@
 <span *ngIf="!showForm && isLoading">در حال دریافت اطلاعات ...</span>
 <div *ngIf="showForm">
-    <div class="d-flex flex-column">
-        <select>
-            <option value="">داخلی</option>
-            <option value="">خارجی</option>
-        </select>
-        <div class="d-flex">
-            <div class="item">
-                <span>مبدا</span>
-                <prs-custom-select (itemResult)="getOriginCity($event)" *ngIf="(data.cities ?? []).length > 0"
-                    [list]="data.cities"></prs-custom-select>
-            </div>
-            <div class="item">
-                <span>مقصد</span>
-                <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(data.cities ?? []).length > 0"
-                    [list]="data.cities"></prs-custom-select>
-            </div>
-            <div class="item">
-                <span>ایرلاین</span>
-                <prs-custom-select (itemResult)="getAirlines($event)" *ngIf="(data.airlines ?? []).length > 0"
-                    [list]="data.airlines"></prs-custom-select>
-            </div>
-            <div class="item">
-                <span>مدل هواپیما</span>
-                <prs-custom-select (itemResult)="getAirplanes($event)" *ngIf="(data.airplanes??[]).length > 0"
-                    [list]="data.airplanes"></prs-custom-select>
-            </div>
-        </div>
+  <div class="d-flex flex-column">
 
-        <div class="d-flex mt-5">
+    <div class="d-flex justify-content-end top-select w-100">
+      <select>
+        <option value="">داخلی</option>
+        <option value="">خارجی</option>
+      </select>
 
-
-            <div class="item">
-                <div style="background: white;" class="d-flex m-1 w-100">
-                    <div class="inp-form w-100">
-                        <input class="w-100" type="text" value="{{ req.dates[0] ? (req.dates[0] | convertDate) : '' }}"
-                            placeholder="انتخاب بازه تاریخی" (click)="openPicker()">
-
-                        <input class="w-100" type="text" value="{{ req.dates[1] ? (req.dates[1] | convertDate) : '' }}"
-                            (click)="openPicker()">
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="items-row">
+      <div class="item">
+        <span>مبدا</span>
+        <prs-custom-select (itemResult)="getOriginCity($event)" *ngIf="(data.cities ?? []).length > 0"
+                           [list]="data.cities"></prs-custom-select>
+      </div>
+      <div class="item">
+        <span>مقصد</span>
+        <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(data.cities ?? []).length > 0"
+                           [list]="data.cities"></prs-custom-select>
+      </div>
+      <div class="item">
+        <span>ایرلاین</span>
+        <prs-custom-select (itemResult)="getAirlines($event)" *ngIf="(data.airlines ?? []).length > 0"
+                           [list]="data.airlines"></prs-custom-select>
+      </div>
+      <div class="item">
+        <span>مدل هواپیما</span>
+        <prs-custom-select (itemResult)="getAirplanes($event)" *ngIf="(data.airplanes??[]).length > 0"
+                           [list]="data.airplanes"></prs-custom-select>
+      </div>
     </div>
 
+    <div class="d-flex mt-5">
+      <div class="item-calender">
+        <span>انتخاب بازه تاریخی</span>
+        <div style="background: white;" class="row-calender">
+          <input class="w-100" type="text" value="{{ req.dates[0] ? (req.dates[0] | convertDate) : '' }}"
+                 (click)="openPicker()">
+
+          <input class="w-100" type="text" value="{{ req.dates[1] ? (req.dates[1] | convertDate) : '' }}"
+                 (click)="openPicker()">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 d-flex justify-content-center">
     <mat-button-toggle-group [(ngModel)]="tab">
-        <mat-button-toggle value="normal">عادی</mat-button-toggle>
-        <mat-button-toggle value="week">هفتگی</mat-button-toggle>
-        <mat-button-toggle value="twoWay">دوطرفه</mat-button-toggle>
+      <mat-button-toggle value="normal">عادی</mat-button-toggle>
+      <mat-button-toggle value="week">هفتگی</mat-button-toggle>
+      <mat-button-toggle value="twoWay">دوطرفه</mat-button-toggle>
     </mat-button-toggle-group>
+  </div>
+
+  <div class="body-items-flight" *ngIf="tab === 'normal'">
+
+    <div class="item">
+      <span>شماره پرواز رفت</span>
+      <input type="text" [(ngModel)]="req.departure_flight_number">
+    </div>
+    <div class="item">
+      <span>شماره پرواز برگشت</span>
+      <input type="text" [(ngModel)]="req.return_flight_number">
+    </div>
+    <div class="item-two">
+      <span>ساعت پرواز رفت</span>
+      <prs-time-picker (result)="getDepartureTime($event)"></prs-time-picker>
+    </div>
+    <div class="item-two">
+      <span>ساعت پرواز برگشت</span>
+      <prs-time-picker (result)="getReturnTime($event)"></prs-time-picker>
+    </div>
+    <div class="item">
+      <span>فعال تا ... ساعت قبل</span>
+      <input type="text" [(ngModel)]="req.open_until">
+    </div>
+
+    <div class="d-flex  item-three">
+      <span>اطلاعات بیشتر</span>
+      <mat-checkbox [(ngModel)]="showMore"></mat-checkbox>
+    </div>
+    <div class="list-inp" *ngIf="showMore">
+      <div class="item">
+        <span>مدت زمان پرواز رفت</span>
+        <input type="text" [(ngModel)]="req.departure_duration">
+      </div>
+      <div class="item">
+        <span>مدت زمان پرواز برگشت</span>
+        <input type="text" [(ngModel)]="req.return_duration">
+      </div>
+      <div class="item">
+        <span>بار مجاز رفت</span>
+        <input [(ngModel)]="req.departure_baggage" type="text">
+      </div>
+      <div class="item">
+        <span>بار مجاز برگشت</span>
+        <input [(ngModel)]="req.return_baggage" type="text">
+      </div>
+      <div class="item-full">
+        <span>توضیحات</span>
+        <textarea type="text" [(ngModel)]="req.description"></textarea>
+      </div>
+    </div>
 
 
-    <div *ngIf="tab === 'normal'">
+    <div class="row-week">
+      <div class="item-day" *ngFor="let item of weekDays">
+        <span>{{ item.name }}</span>
+        <mat-checkbox [(ngModel)]="item.isChecked"></mat-checkbox>
+      </div>
+    </div>
 
-        <div class="item">
-            <span>شماره پرواز رفت</span>
-            <input type="text" [(ngModel)]="req.departure_flight_number">
-        </div>
-        <div class="item">
-            <span>شماره پرواز برگشت</span>
-            <input type="text" [(ngModel)]="req.return_flight_number">
-        </div>
-        <div class="item">
-            <span>ساعت پرواز رفت</span>
-            <prs-time-picker (result)="getDepartureTime($event)"></prs-time-picker>
-        </div>
-        <div class="item">
-            <span>ساعت پرواز برگشت</span>
-            <prs-time-picker (result)="getReturnTime($event)"></prs-time-picker>
-        </div>
-        <div class="item">
-            <span>فعال تا ... ساعت قبل</span>
-            <input type="text" [(ngModel)]="req.open_until">
-        </div>
+    <div class="d-flex w-100 flex-column align-items-center">
+      <form class="w-100 d-flex align-items-center flex-wrap justify-content-center" [formGroup]="form">
+        <button class=" add-row" (click)="addRow()">اضافه</button>
+        <ng-container formArrayName="prices">
+          <div class="example-list w-100">
+            <div *ngFor="let tabs of PriceForm.controls; let i = index">
+              <div class="item-room-form" [formGroupName]="i">
 
-        <div class="d-flex flex-column">
-            <span>اطلاعات بیشتر</span>
-            <mat-checkbox [(ngModel)]="showMore"></mat-checkbox>
-            <div *ngIf="showMore">
-                <div class="item">
-                    <span>مدت زمان پرواز رفت</span>
-                    <input type="text" [(ngModel)]="req.departure_duration">
-                </div>
-                <div class="item">
-                    <span>مدت زمان پرواز برگشت</span>
-                    <input type="text" [(ngModel)]="req.return_duration">
-                </div>
-                <div class="item">
-                    <span>بار مجاز رفت</span>
-                    <input [(ngModel)]="req.departure_baggage" type="text">
-                </div>
-                <div class="item">
-                    <span>بار مجاز برگشت</span>
-                    <input [(ngModel)]="req.return_baggage" type="text">
-                </div>
-                <div class="item">
-                    <span>توضیحات</span>
-                    <textarea type="text" [(ngModel)]="req.description"></textarea>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="d-flex">
-<div *ngFor="let item of weekDays">
-    <span>{{ item.name }}</span>
-    <mat-checkbox [(ngModel)]="item.isChecked"></mat-checkbox>
-</div>
-        </div>
-
-        <div class="d-flex flex-column">
-            <form [formGroup]="form">
-                <button class="btn-base" (click)="addRow()">اضافه</button>
-                <ng-container formArrayName="prices">
-                  <div class="example-list w-100">
-                    <div *ngFor="let tabs of PriceForm.controls; let i = index">
-                      <div class="item-room-form" [formGroupName]="i">
-            
-                        <div class="form form-top d-flex p-2 h-100">
-                          <label for="">کلاس</label>
-                          <div class="inp-base h-45 d-flex flex-column">
-                            <input type="text"  formControlName="cabin_type" placeholder="کلاس">
-                          </div>
-                          <label for="">ظرفیت</label>
-                          <div class="inp-base d-flex flex-column">
-                            <textarea type="text"  formControlName="capacity" placeholder="ظرفیت"></textarea>
-                          </div>
-                          <label for="">قیمت بزرگسال</label>
-                          <div class="inp-base d-flex flex-column">
-                            <textarea type="text"  formControlName="adl_price" placeholder="قیمت بزرگسال"></textarea>
-                          </div>
-                          <label for="">قیمت کودک</label>
-                          <div class="inp-base d-flex flex-column">
-                            <textarea type="text"  formControlName="chd_price" placeholder="قیمت کودک"></textarea>
-                          </div>
-                          <label for="">قیمت نوزاد</label>
-                          <div class="inp-base d-flex flex-column">
-                            <textarea type="text"  formControlName="inf_price" placeholder="قیمت نوزاد"></textarea>
-                          </div>
-                          <button (click)="removePrice(i)" class="btn w-50 mx-auto m-top-12 h-45 btn-danger">حذف</button>
-                        </div>
-                      </div>
+                <div class="form-end form-top d-flex p-2 h-100">
+                  <div class="item-row">
+                    <label for="">کلاس</label>
+                    <div class="inp-base h-45 d-flex flex-column">
+                      <input type="text" formControlName="cabin_type" placeholder="کلاس">
                     </div>
                   </div>
-                </ng-container>
-         
-            
-            
-              </form>
-        </div>
+                  <div class="item-row">
+                    <label for="">ظرفیت</label>
+                    <div class="inp-base d-flex flex-column">
+                      <textarea type="text" formControlName="capacity" placeholder="ظرفیت"></textarea>
+                    </div>
+                  </div>
+                  <div class="item-row">
+                    <label for="">قیمت بزرگسال</label>
+                    <div class="inp-base d-flex flex-column">
+                      <textarea type="text" formControlName="adl_price" placeholder="قیمت بزرگسال"></textarea>
+                    </div>
+                  </div>
+                  <div class="item-row">
+                    <label for="">قیمت کودک</label>
+                    <div class="inp-base d-flex flex-column">
+                      <textarea type="text" formControlName="chd_price" placeholder="قیمت کودک"></textarea>
+                    </div>
+                  </div>
+                  <div class="item-row">
+                    <label for="">قیمت نوزاد</label>
+                    <div class="inp-base d-flex flex-column">
+                      <textarea type="text" formControlName="inf_price" placeholder="قیمت نوزاد"></textarea>
+                    </div>
+                  </div>
+
+                  <button style="margin-bottom: 4px" (click)="removePrice(i)" class="btn-remove-row mx-auto"><i
+                    class="icon-cancel"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
 
 
-    </div>
-    <div *ngIf="tab === 'week'">
-        <span>هفتگی</span>
+      </form>
     </div>
 
-    <div *ngIf="tab === 'twoWay'">
-        <span>دوطرفه</span>
-    </div>
+
+  </div>
+  <div *ngIf="tab === 'week'">
+    <span>هفتگی</span>
+  </div>
+
+  <div *ngIf="tab === 'twoWay'">
+    <span>دوطرفه</span>
+  </div>
 
 
 </div>
-
-<button class="btn-base" (click)="submit()">ثبت</button>
+<div class="d-flex align-items-center justify-content-center w-100">
+  <button class="btn-submit" (click)="submit()">ثبت</button>
+</div>
