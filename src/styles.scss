@@ -137,7 +137,30 @@ $ml: 200;
 
 @include marginLeft;
 //--------------end-margin-left
+//----------------grid-template-columns
+$max: 15;
 
+@mixin gridTemplateColumns {
+  @for $i from 1 to $max {
+
+    .grid-#{$i} {
+      grid-template-columns: repeat($i, 1fr) !important;
+      display: grid;
+      place-items: center;
+    }
+  }
+}
+
+@include gridTemplateColumns;
+//-----------------end-gridTemplateColumns
+
+$cols: var(--col);
+
+.grid-dynamic {
+  grid-template-columns: $cols !important;
+  display: grid;
+  place-items: center;
+}
 
 body {
   direction: rtl;
