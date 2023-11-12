@@ -10,7 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from "../common-project/pipes/pipes.module";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
+const maskConfigFunction: () => Partial<IConfig> = () => {
+    return {
+      validation: false,
+    };
+  };
+  
 
 @NgModule({
     declarations: [
@@ -26,7 +32,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
         MatCheckboxModule,
         ReactiveFormsModule,
         PipesModule,
-        MatButtonToggleModule
-    ]
+        MatButtonToggleModule,
+        NgxMaskDirective,
+        NgxMaskPipe,
+    ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class FlightModule { }
