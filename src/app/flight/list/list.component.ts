@@ -35,13 +35,13 @@ req: IFlightListReq = {
     },
     props: [
       { name: '---', type: 'checkbox', col: '0.3fr', label: '---' },
-      { name: 'id', type: 'text', col: '0.3fr', label: 'مبدا' },
-      { name: 'full_name', type: 'text', col: '2fr', label: 'مقصد' },
-      { name: 'phone', type: 'text', col: '1fr', label: 'ایرلاین' },
-      { name: 'username', type: 'text', col: '1fr', label: 'هواپیما' },
-      { name: 'role', type: 'text', col: '1fr', label: 'تاریخ' },
-      { name: 'phone_verified_at', type: 'date', col: '1.5fr', label: 'ساعت' },
-      { name: 'last_viewed_at', type: 'date', col: '1.5fr', label: '' },
+      { name: 'origin_name', type: 'text', col: '0.3fr', label: 'مبدا' },
+      { name: 'destination_name', type: 'text', col: '2fr', label: 'مقصد' },
+      { name: 'airline_name', type: 'text', col: '1fr', label: 'ایرلاین' },
+      { name: 'airplane', type: 'text', col: '1fr', label: 'هواپیما' },
+      { name: 'date', type: 'date', col: '1fr', label: 'تاریخ' },
+      { name: 'time', type: 'text', col: '1.5fr', label: 'ساعت' },
+      { name: 'flight_number', type: 'text', col: '1.5fr', label: 'شماره پرواز' },
       { name: 'setting', type: 'buttons', col: '2fr', label: 'تنظیمات' },
     ],
     data: '',
@@ -51,7 +51,6 @@ req: IFlightListReq = {
       { name: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base-2 wpx-140 fs-13', show: true },
     ],
     filters: [
-      // {value:'',type:'select',key:'trash', data:[],reqKey:'',label:'آشغال'},
       ],
     rowButtons: [
       { name: 'حذف', permission: '', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
@@ -65,7 +64,7 @@ req: IFlightListReq = {
   }
 
   ngOnInit() {
-
+this.getData()
   }
 
   getData() {
@@ -76,8 +75,7 @@ req: IFlightListReq = {
         if (res.isDone) {
           this.data.data = res.data
         
-          this.data.filters[1].data=res.roles
-          this.data.filters[2].data=res.tenant
+
 
           this.data.pagination = {
             pageNumber: 1,
