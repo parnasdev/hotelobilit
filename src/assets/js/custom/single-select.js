@@ -19,7 +19,7 @@ $(function() {
   //
   var photo=null;
   function OnMessage(e){
-    // debugger
+    // 
     var event = e.originalEvent;
     // Make sure the sender of the event is trusted
     if(event.data.sender === 'responsivefilemanager'){

@@ -12,9 +12,11 @@ export class FlightApiService {
   constructor(public publicService:PublicService,
     public http: HttpClient) { }
 
-    list(req: IFlightListReq) {
-      let strUrl = this.publicService.getApiUrlV2(true,'flights',`?origin=${req.origin}&destination=${req.destination}&fromDate=${req.fromDate}&toDate=${req.toDate}&status=${req.status}`);
-      return this.http.get<Result<any>>(strUrl,this.publicService.getDefaultHeaders());
+    list(filters: any) {
+      let strUrl = this.publicService.getApiUrlV2(true,'flights',``);
+
+      let finalURL = this.publicService.insertQueryParamToURL(strUrl,filters);
+      return this.http.get<Result<any>>(finalURL,this.publicService.getDefaultHeaders());
     }
     create() {
       let strUrl = this.publicService.getApiUrlV2(true,'flights',`/create`);

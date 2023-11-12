@@ -12,32 +12,42 @@
         <div class="items-row">
             <div class="item">
                 <span>مبدا</span>
-                <prs-custom-select (itemResult)="getOriginCity($event)" *ngIf="(data.cities ?? []).length > 0"
-                    [list]="data.cities"></prs-custom-select>
+                <prs-custom-select (itemResult)="getOriginCity($event)" [inCommingItem]="req.origin_id"
+                    *ngIf="(data.cities ?? []).length > 0" [list]="data.cities"></prs-custom-select>
             </div>
             <div class="item">
                 <span>مقصد</span>
-                <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(data.cities ?? []).length > 0"
-                    [list]="data.cities"></prs-custom-select>
+                <prs-custom-select (itemResult)="getDestCity($event)" [inCommingItem]="req.destination_id"
+                    *ngIf="(data.cities ?? []).length > 0" [list]="data.cities"></prs-custom-select>
             </div>
             <div class="item">
                 <span>ایرلاین</span>
-                <prs-custom-select (itemResult)="getAirlines($event)" *ngIf="(data.airlines ?? []).length > 0"
-                    [list]="data.airlines"></prs-custom-select>
+                <prs-custom-select (itemResult)="getAirlines($event)" [inCommingItem]="req.airline_id"
+                    *ngIf="(data.airlines ?? []).length > 0" [list]="data.airlines"></prs-custom-select>
             </div>
             <div class="item">
                 <span>مدل هواپیما</span>
-                <prs-custom-select (itemResult)="getAirplanes($event)" *ngIf="(data.airplanes??[]).length > 0"
-                    [list]="data.airplanes"></prs-custom-select>
+                <prs-custom-select (itemResult)="getAirplanes($event)" [inCommingItem]="req.airplane_id"
+                    *ngIf="(data.airplanes??[]).length > 0" [list]="data.airplanes"></prs-custom-select>
             </div>
         </div>
 
         <div class="d-flex mt-5">
             <div class="item-calender">
-                <span>انتخاب بازه تاریخی</span>
+                <span>انتخاب تاریخ</span>
                 <div style="background: white;" class="row-calender">
-                    <input class="w-100" type="text" [value]="req.date" (click)="openPicker()">
+                    <input class="w-100" type="text" [value]="(req.date | convertDate)" (click)="openPicker()">
 
+                </div>
+            </div>
+            <div class="item-calender m-right-10">
+                <span>وضعیت</span>
+                <div style="background: white;" class="row-calender">
+                    <select name="" id="" [(ngModel)]="req.is_close">
+                        <option value="0">باز</option>
+                        <option value="1">بسته</option>
+
+                    </select>
                 </div>
             </div>
         </div>
@@ -53,7 +63,7 @@
 
         <div class="item-two">
             <span>ساعت پرواز </span>
-            <prs-time-picker (result)="getTime($event)"></prs-time-picker>
+            <prs-time-picker (result)="getTime($event)" [inCommingTime]="req.time"></prs-time-picker>
         </div>
 
 
@@ -77,34 +87,39 @@
                                 <div class="item-row">
                                     <label for="">کلاس</label>
                                     <div class="inp-base h-45 d-flex flex-column">
-                                        <input type="text" formControlName="cabin_type" placeholder="کلاس">
+                                        <input type="text" [(ngModel)]="req.cabin_type"
+                                            [ngModelOptions]="{standalone: true}" placeholder="کلاس">
                                     </div>
                                 </div>
                                 <div class="item-row">
                                     <label for="">ظرفیت</label>
                                     <div class="inp-base d-flex flex-column">
-                                        <textarea type="text" formControlName="capacity" placeholder="ظرفیت"></textarea>
+                                        <textarea type="text" [(ngModel)]="req.capacity"
+                                            [ngModelOptions]="{standalone: true}" placeholder="ظرفیت"></textarea>
                                     </div>
                                 </div>
                                 <div class="item-row">
                                     <label for="">قیمت بزرگسال</label>
                                     <div class="inp-base d-flex flex-column">
                                         <textarea type="text" mask="separator" thousandSeparator=","
-                                            formControlName="adl_price" placeholder="قیمت بزرگسال"></textarea>
+                                            [(ngModel)]="req.adl_price" [ngModelOptions]="{standalone: true}"
+                                            placeholder="قیمت بزرگسال"></textarea>
                                     </div>
                                 </div>
                                 <div class="item-row">
                                     <label for="">قیمت کودک</label>
                                     <div class="inp-base d-flex flex-column">
                                         <textarea type="text" mask="separator" thousandSeparator=","
-                                            formControlName="chd_price" placeholder="قیمت کودک"></textarea>
+                                            [(ngModel)]="req.chd_price" [ngModelOptions]="{standalone: true}"
+                                            placeholder="قیمت کودک"></textarea>
                                     </div>
                                 </div>
                                 <div class="item-row">
                                     <label for="">قیمت نوزاد</label>
                                     <div class="inp-base d-flex flex-column">
                                         <textarea type="text" mask="separator" thousandSeparator=","
-                                            formControlName="inf_price" placeholder="قیمت نوزاد"></textarea>
+                                            [(ngModel)]="req.inf_price" [ngModelOptions]="{standalone: true}"
+                                            placeholder="قیمت نوزاد"></textarea>
                                     </div>
                                 </div>
 

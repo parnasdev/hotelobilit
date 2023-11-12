@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
 import { Observable } from "rxjs";
@@ -15,11 +15,9 @@ declare let $: any;
 })
 
 export class CustomSelectComponent implements OnChanges {
-
   value: string = '';
   disabled = false;
   public dd = false;
-
   isMobile = false;
   isTablet=false;
   isDesktop=false;
@@ -55,6 +53,7 @@ export class CustomSelectComponent implements OnChanges {
       this.dd = true;
   }
   ngOnChanges() {
+    
     if (this.inCommingItem && this.inCommingItem !== '') {
       if (this.list.filter(c => (c.id === +this.inCommingItem) ||
         (c.id === this.inCommingItem) ||
@@ -69,7 +68,9 @@ export class CustomSelectComponent implements OnChanges {
             (c.name === this.inCommingItem) ||
             (c.full_name === this.inCommingItem) ||
             (c.slug === this.inCommingItem))[0]
+            
         this.inpFC.setValue(item.name ? item.name : (item.title ? item.full_name : item.title));
+        this.selectedItem = item
           // this.title = item.name
         // this.itemResult.emit(this.list.filter(c => c.slugEn === this.inCommingItem)[0])
       }

@@ -28,6 +28,7 @@ export class DynamicListComponent implements OnInit {
     isTrash: false,
     showTrash: false,
     buttons: [],
+    filterMode: 'popup',
     rowButtons: [],
     filters: [],
     pagination: {
@@ -61,26 +62,21 @@ export class DynamicListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data)
   }
 
   openFilter() {
     this.dialog.open(DynamicFilterPopupComponent, {
       width: '30%', height: '75%',
       data: {data:this.data.filters,isFilter:this.isFilter},
-
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.data.filters = result
-
-
-
-
-
-
+        this.data.filters = result.data
       }
-      this.onFilterClicked.emit(true)
     })
+  }
+
+  filterClicked(data:any) {
+    this.onFilterClicked.emit(data);
   }
 
   isTrash() {

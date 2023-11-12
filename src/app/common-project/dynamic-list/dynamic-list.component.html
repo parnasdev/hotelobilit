@@ -7,10 +7,29 @@
     <div class="flex-x-between px-3 m-y-20 w-100 gap-12">
       <div class="flex-x-start gap-16">
         <a style="cursor: pointer" class="fs-13 p-bottom-4 c-pointer flex-x-center "
-          style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;" (click)="deleteFilters()" *ngIf="isFilter">
+          style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;"
+          (click)="deleteFilters()" *ngIf="isFilter">
           حذف فیلتر
         </a>
-        <a style="cursor: pointer" class="btn-base wpx-140 fs-13" *ngIf="data.filters.length > 0" (click)="openFilter()">
+
+        <ng-template [ngIf]="data.showTrash">
+          <a style="cursor: pointer" *ngIf="!data.isTrash" (click)="isTrash()"
+            class="fs-13 p-bottom-4 c-pointer flex-x-center "
+            style="border-bottom: 2px dashed #f63333; color: black;color: #f63333;font-weight: 600;"
+            (click)="deleteFilters()" >
+            زباله دان
+          </a>
+          <a style="cursor: pointer" *ngIf="data.isTrash" class="btn-base wpx-140 fs-13" (click)="isTrashne()">
+            بازگشت
+            <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
+              xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+              <path fill="#fff"
+                d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
+            </svg>
+          </a>
+        </ng-template>
+        <a style="cursor: pointer" class="btn-base wpx-140 fs-13 w-100" *ngIf="data.filters.length > 0 && data.filterMode === 'popup'"
+          (click)="openFilter()">
           فیلترها
           <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
             xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
@@ -18,23 +37,12 @@
               d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
           </svg>
         </a>
-        <ng-template [ngIf]="data.showTrash">
-          <a style="cursor: pointer" *ngIf="!data.isTrash" class="btn-red  flex-x-center fs-13" (click)="isTrash()">
-            زباله دان
-          </a>
-          <a style="cursor: pointer" *ngIf="data.isTrash" class="btn-base wpx-140 fs-13" (click)="isTrashne()">
-          بازگشت
-          <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
-               xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
-            <path fill="#fff"
-                  d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
-          </svg>
-        </a>
-        </ng-template>
-
+      </div>
+      <div class="flex-x-center" *ngIf="data.filterMode === 'horizontal'">
+        <prs-dynamic-filter-horizontal [data]="data" (result)="filterClicked($event)"></prs-dynamic-filter-horizontal>
       </div>
       <div class="flex-x-end gap-12">
-        <ng-template  ngFor let-button [ngForOf]="data.buttons" let-index="index">
+        <ng-template ngFor let-button [ngForOf]="data.buttons" let-index="index">
           <a class="btn-add btn-base" *ngIf="button.show && permition.check(button.permission)" [class]="button.style"
             (click)="onButtonClicked(button)">
             {{ button.name}}</a>
@@ -93,9 +101,6 @@
     <span>{{ data.emptyBox.text }}</span>
   </div>
   <div>
-    <!-- <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control"
-      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
-      screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
-    </pagination-controls> -->
+
   </div>
 </div>

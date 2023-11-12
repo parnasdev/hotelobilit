@@ -52,7 +52,7 @@ export class SelectCityComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.cities);
-    debugger
+    
     this.filteredOptions = this.cityFC.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),

@@ -27,7 +27,7 @@ export class CalenderServices {
 
     convertDate(date: any, convertType: string, formatEn = "YYYY/MM/DD"): any {
         /* convertType : fa - en */
-        // debugger;
+        // ;
         if (convertType === 'fa') {
             return moment(date).format('jYYYY/jMM/jDD');
         } else if (convertType === 'en') {
@@ -36,7 +36,7 @@ export class CalenderServices {
     }
     convertDateSpecial(date: any, convertType: string): any {
         /* convertType : fa - en */
-        // debugger;
+        // ;
         if (convertType === 'fa') {
             return (moment(date).format('jYYYY/jMM/jDD')).split('/').join('-');
         } else if (convertType === 'en') {
@@ -64,7 +64,7 @@ export class CalenderServices {
 
     convertDateAndTime(date: any, convertType: string): any {
         /* convertType : fa - en */
-        // debugger;
+        // ;
         if (convertType === 'fa') {
             return moment(date).format('jYYYY/jMM/jDD HH:mm');
         } else if (convertType === 'en') {
@@ -74,7 +74,7 @@ export class CalenderServices {
 
     convertDate1(date: any, convertType: string): any {
         /* convertType : fa - en */
-        // debugger;
+        // ;
         if (convertType === 'fa') {
             return (moment(date).format('jYYYY/jMM/jDD HH:mm:ss')).split('/').join('-');
         } else if (convertType === 'en') {
@@ -84,7 +84,7 @@ export class CalenderServices {
 
     convertFullDate(date: any, convertType: string): any {
         /* convertType : fa - en */
-        // debugger;
+        // ;
         if (convertType === 'fa') {
             return moment(date).locale('fa').format('DD MMM  yyyy');
         } else if (convertType === 'en') {
@@ -94,7 +94,7 @@ export class CalenderServices {
 
     convertDateWithTime(date: any, convertType: string): any {
         /* convertType : fa - en */
-        // debugger;
+        // ;
         if (convertType === 'fa') {
             return moment(date).format('HH:MM jYYYY/jMM/jDD');
         } else if (convertType === 'en') {

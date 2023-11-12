@@ -1,0 +1,20 @@
+.container {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+    .formcontainer {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+  
+      .item:nth-child(2) {
+        position: relative;
+        top: 9px;
+      }
+    }
+  }
+  
+  

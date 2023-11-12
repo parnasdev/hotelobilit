@@ -126,7 +126,7 @@ export class NewDatePickerSelectComponent implements OnInit, OnChanges {
 
   emitDates() {
     if ((this.dayFC.value !== 0 && this.dayFC.value)&& (this.monthFC.value !== 0 && this.monthFC.value) && (this.yearFC.value !== 0 && this.yearFC.value)) {
-      // debugger
+      // 
       this.sendDate.emit(this.yearFC.value + '-' + this.monthFC.value + '-' + this.dayFC.value)
     }
   }

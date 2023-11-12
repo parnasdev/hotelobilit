@@ -39,6 +39,7 @@ import { DynamicListComponent } from './dynamic-list/dynamic-list.component';
 import { DynamicFilterPopupComponent } from './dynamic-filter-popup/dynamic-filter-popup.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DynamicFilterHorizontalComponent } from './dynamic-filter-horizontal/dynamic-filter-horizontal.component';
 
 
 
@@ -71,7 +72,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ClickOutsideDirective,
     CustomSelectComponent,
     DynamicListComponent,
-    DynamicFilterPopupComponent
+    DynamicFilterPopupComponent,
+    DynamicFilterHorizontalComponent
   ],
   exports: [
     UploadFileComponent,

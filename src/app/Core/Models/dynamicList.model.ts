@@ -26,8 +26,9 @@ export interface IListFilters {
     label: string;
     type: string;
     value: any;
-    key:string,
-  reqKey:string
+    keyValue?: string
+    keyOption?:string;
+  reqKey?:string
 }
 
 export interface IListModel {
@@ -37,6 +38,7 @@ export interface IListModel {
     filters: IListFilters[]
     label: string;
     isTrash:boolean;
+    filterMode:string
     showTrash:boolean;
     emptyBox: IListEmptyBox;
     rowButtons: IListButtons[]

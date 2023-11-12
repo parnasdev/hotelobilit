@@ -7,6 +7,7 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
 import { MatDialog } from '@angular/material/dialog';
 import { FormArray, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'prs-add',
@@ -56,6 +57,7 @@ export class AddComponent {
   constructor(public api: FlightApiService,
     public dialog: MatDialog,
     public fb: FormBuilder,
+    public router: Router,
     public message: MessageService,
     public error: ErrorsService) { }
 
@@ -106,6 +108,8 @@ export class AddComponent {
     this.api.store(this.req).subscribe({
       next: (res: any) => {
         this.message.custom(res.message);
+        this.router.navigateByUrl('/panel/flight')
+
       }, error: (error: any) => {
         this.error.check(error);
       }

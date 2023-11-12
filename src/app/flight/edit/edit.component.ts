@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { FlightApiService } from '../core/https/flight-api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
 @Component({
@@ -38,6 +38,7 @@ export class EditComponent {
   constructor(public api: FlightApiService,
     public dialog: MatDialog,
     public fb: FormBuilder,
+    public router:Router,
     public route: ActivatedRoute,
     public message: MessageService,
     public error: ErrorsService) { }
@@ -56,8 +57,9 @@ export class EditComponent {
     this.api.edit(+this.id).subscribe({
       next: (res: any) => {
         if (res.isDone) {
-          this.showForm = true
           this.data = res.data
+          this.setData()
+          this.showForm = true
 
         }
         this.isLoading = false
@@ -71,20 +73,20 @@ export class EditComponent {
 
   setData() {
     this.req = {
-      origin_id: this.data,
-      destination_id: 0,
-      airline_id: 0,
-      airplane_id: 0,
-      description: '',
-      adl_price: 0,
-      cabin_type: '',
-      capacity: 0,
-      chd_price: 0,
-      date: '',
-      flight_number: '',
-      inf_price: 0,
-      is_close: 0,
-      time: ''
+      origin_id: this.data.flight.origin_id,
+      destination_id: this.data.flight.destination_id,
+      airline_id: this.data.flight.airline_id,
+      airplane_id: this.data.flight.airplane_id,
+      description: this.data.flight.description,
+      adl_price: this.data.flight.adl_price,
+      cabin_type: this.data.flight.cabin_type,
+      capacity: this.data.flight.capacity,
+      chd_price: this.data.flight.chd_price,
+      date: this.data.flight.date,
+      flight_number: this.data.flight.flight_number,
+      inf_price: this.data.flight.inf_price,
+      is_close: this.data.flight.is_close,
+      time: this.data.flight.time
     }
   }
 
@@ -126,6 +128,13 @@ export class EditComponent {
   }
 
   submit(){ 
-
+    this.api.update(this.req,+this.id).subscribe({
+      next: (res: any) => {
+        this.message.custom(res.message);
+        this.router.navigateByUrl('/panel/flight')
+      }, error: (error: any) => {
+        this.error.check(error);
+      }
+    })
   }
 }
