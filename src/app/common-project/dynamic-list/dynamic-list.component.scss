@@ -124,3 +124,107 @@
     font-size: 16px;
   }
 }
+
+
+
+
+.list-panels {
+  background: $white-color;
+}
+
+
+
+.header-list-panel {
+  border-radius: 15px;
+  background: $light-color;
+  height: 60px;
+
+  span {
+    font-size: 13px;
+    font-weight: 500;
+    color: $dark-color;
+  }
+}
+
+.body-list-panel {
+  padding-bottom: 12px;
+
+  .list-item-panel {
+    height: auto;
+    padding: 16px 0;
+    border-bottom: 2px dashed $light-color;
+
+    span {
+      font-size: 13px;
+      font-weight: 500;
+      color: $gray-color;
+    }
+
+  }
+
+}
+
+
+.btn-edit {
+  &:hover {
+    img {
+      filter: unset !important;
+    }
+  }
+}
+
+:host::ng-deep .btn-red {
+  svg {
+    top: 12px !important;
+  }
+
+  &:hover {
+    img {
+      filter: unset !important;
+    }
+  }
+}
+.body-list-panel , .header-list-panel{
+  span{
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1400px) {
+  .body-list-panel {
+    .list-item-panel{
+      gap: 10px !important;
+    }
+    span {
+      font-size: 10px !important;
+      text-align: center;
+    }
+  }
+
+  .header-list-panel {
+    span {
+      font-size: 10px !important;
+      text-align: center;
+    }
+  }
+  .button-setting {
+    .btn-aquaria, .btn-edit {
+      width: 30px !important;
+      height: 30px !important;
+      img{
+        width: 17px !important;
+      }
+    }
+  }
+}
+.btn-custom{
+  border: none;
+  outline: none;
+  background: unset;
+}
+.btn-delete , .btn-edit{
+  width: 40px;
+  height: 40px;
+  border-radius: 8px !important;
+  padding: 0;
+}
