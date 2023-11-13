@@ -16,7 +16,7 @@
           <a style="cursor: pointer" *ngIf="!data.isTrash" (click)="isTrash()"
             class="fs-13 p-bottom-4 c-pointer flex-x-center "
             style="border-bottom: 2px dashed #f63333; color: black;color: #f63333;font-weight: 600;"
-            (click)="deleteFilters()" >
+            (click)="deleteFilters()">
             زباله دان
           </a>
           <a style="cursor: pointer" *ngIf="data.isTrash" class="btn-base wpx-140 fs-13" (click)="isTrashne()">
@@ -28,8 +28,9 @@
             </svg>
           </a>
         </ng-template>
-        <a style="cursor: pointer" class="btn-base wpx-140 fs-13 w-100" *ngIf="data.filters.length > 0 && data.filterMode === 'popup'"
-          (click)="openFilter()">
+
+        <a style="cursor: pointer" class="btn-base wpx-140 fs-13 w-100"
+          *ngIf="data.filters.length > 0 && data.filterMode === 'popup'" (click)="openFilter()">
           فیلترها
           <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
             xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">

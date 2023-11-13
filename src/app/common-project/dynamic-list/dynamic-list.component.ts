@@ -71,12 +71,16 @@ export class DynamicListComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result) {
         this.data.filters = result.data
+        this.isFilter =true;
       }
     })
   }
 
   filterClicked(data:any) {
+    this.isFilter =true
+
     this.onFilterClicked.emit(data);
+
   }
 
   isTrash() {
