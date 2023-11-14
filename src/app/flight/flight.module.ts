@@ -11,6 +11,7 @@ import { PipesModule } from "../common-project/pipes/pipes.module";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
+import { CompositionComponent } from './composition/composition.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
     return {
       validation: false,
@@ -22,7 +23,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     declarations: [
         ListComponent,
         AddComponent,
-        EditComponent
+        EditComponent,
+        CompositionComponent
     ],
     imports: [
         CommonModule,

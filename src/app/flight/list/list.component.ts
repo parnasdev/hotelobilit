@@ -48,7 +48,9 @@ export class ListComponent {
     isTrash: false,
     filterMode: 'horizontal',
     showTrash: true,
-    buttons: [{ name: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base-2 wpx-140 fs-13', show: true }],
+    buttons: [{ name: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base-2 wpx-140 fs-13', show: true },
+    { name: 'ترکیب', permission: '', link: '/panel/flight/composition', icon: 'assets/img/panel/add.png', children: [], isLink: true, style: 'btn-base wpx-140 fs-13', show: true }
+  ],
     filters: [
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'origin', label: 'شهر مبدا' },
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'destination', label: 'شهر مقصد' },
