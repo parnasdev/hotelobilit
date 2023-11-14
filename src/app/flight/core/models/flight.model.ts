@@ -88,7 +88,7 @@ export interface IFlightStoreReq {
     description: string
     open_until: any
     departure_baggage: number
-    return_baggage:number
+    return_baggage: number
     prices: IFlightStore[]
 }
 export interface IFlightStore {
@@ -101,5 +101,45 @@ export interface IFlightStore {
 
 export interface updateBulk {
     ids: number[];
-    capacity:number
+    capacity: number
+}
+
+export interface IMixStepOneReq {
+    request_type: string
+    origin: number
+    destination: number
+    airline: string | null
+    stay_count: string
+    start_date: string
+    end_date: null;
+    reset: false
+    checkout_yesterday?: false
+    checkin_tomorrow?: false;
+}
+export interface IMixStepTwoReq {
+    departure: {
+        origin: number
+        destination: number
+        airline: string | null
+        stay_count: string
+        start_date: string
+        end_date: string | null
+        checkin_tomorrow: boolean
+    }
+    return: {
+        origin: number
+        destination: number
+        airline: string | null
+        checkout_yesterday: boolean
+    }
+}
+
+export interface IMixedReq {
+    ids: IMixId[]
+}
+export interface IMixId {
+    departure_id: number
+    return_id: number
+    checkin_tomorrow: boolean
+    checkout_yesterday: boolean
 }

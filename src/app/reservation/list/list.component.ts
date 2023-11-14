@@ -42,6 +42,7 @@ export class ListComponent implements OnInit {
   }
   getList(): void {
     this.isLoading = true;
+    this.list = [];
     this.api.list(this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.list = res.data
@@ -79,7 +80,7 @@ export class ListComponent implements OnInit {
 
       if (flight.details.passengerCount) {
         return flight.details.passengerCount
-      }else{ 
+      } else {
         return flight.details.length
       }
     } else {
