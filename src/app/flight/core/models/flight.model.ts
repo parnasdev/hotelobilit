@@ -110,8 +110,8 @@ export interface IMixStepOneReq {
     destination: number
     airline: string | null
     stay_count: string
-    start_date: string
-    end_date: null;
+    start_date: string | null
+    end_date: string | null;
     reset: false
     checkout_yesterday?: false
     checkin_tomorrow?: false;
