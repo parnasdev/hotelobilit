@@ -5,6 +5,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { Router } from '@angular/router';
 import { IFlightListReq } from '../core/models/flight.model';
+import { PublicService } from 'src/app/Core/Services/public.service';
 
 @Component({
   selector: 'prs-list',
@@ -23,6 +24,7 @@ export class ListComponent {
   constructor(public api: FlightApiService,
     public error: ErrorsService,
     public router: Router,
+    public publicService: PublicService,
     public message: MessageService) {
 
   }
@@ -33,14 +35,14 @@ export class ListComponent {
       pageNumber: 1
     },
     props: [
-      { name: '---', type: 'checkbox', col: '0.3fr', label: '---' },
+      { name: 'checkbox', type: 'checkbox', col: '0.3fr', label: '---' },
       { name: 'origin_name', type: 'text', col: '1.5fr', label: 'مبدا' },
       { name: 'destination_name', type: 'text', col: '2fr', label: 'مقصد' },
       { name: 'airline_name', type: 'text', col: '1fr', label: 'ایرلاین' },
       { name: 'airplane', type: 'text', col: '1fr', label: 'هواپیما' },
       { name: 'date', type: 'date', col: '1fr', label: 'تاریخ' },
       { name: 'time', type: 'text', col: '1.5fr', label: 'ساعت' },
-      { name: 'is_close', type: 'text', col: '0.2fr', label: 'وضعیت' },
+      { name: 'is_close', type: 'boolean', col: '0.2fr', label: 'وضعیت' },
       { name: 'flight_number', type: 'text', col: '1.5fr', label: 'شماره پرواز' },
       { name: 'setting', type: 'buttons', col: '2fr', label: 'تنظیمات' },
     ],
@@ -48,19 +50,21 @@ export class ListComponent {
     isTrash: false,
     filterMode: 'horizontal',
     showTrash: true,
-    buttons: [{ name: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base-2 wpx-140 fs-13', show: true },
-    { name: 'ترکیب', permission: '', link: '/panel/flight/composition', icon: 'assets/img/panel/add.png', children: [], isLink: true, style: 'btn-base wpx-140 fs-13', show: true }
-  ],
+    buttons: [
+      { name: 'add', label: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base w-100 fs-13 cursor-pointer', show: true },
+      { name: 'mix', label: 'ترکیب', permission: '', link: '/panel/flight/composition', icon: 'assets/img/panel/add.png', children: [], isLink: true, style: 'btn-base w-100 fs-13 cursor-pointer', show: true }
+    ],
     filters: [
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'origin', label: 'شهر مبدا' },
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'destination', label: 'شهر مقصد' },
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'status', label: 'وضعیت' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'fromDate', label: 'تاریخ شروع' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'toDate', label: 'تاریخ پایان' },
+      { value: 1, type: '', key: 'page', data: [], reqKey: 'id', label: '' },
     ],
     rowButtons: [
-      { name: 'حذف', permission: '', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
-      { name: 'ویرایش', permission: '', link: '/panel/flight/edit', children: [], icon: 'assets/img/panel/edit.png', isLink: false, style: 'btn-base flex-x-center btn-edit fs-13 h-40 wpx-40', show: true }
+      { name: 'حذف', label: '', permission: '', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
+      { name: 'ویرایش', label: '', permission: '', link: '/panel/flight/edit', children: [], icon: 'assets/img/panel/edit.png', isLink: false, style: 'btn-base flex-x-center btn-edit fs-13 h-40 wpx-40', show: true }
     ],
     label: 'لیست پرواز ها',
     emptyBox: {
@@ -75,17 +79,17 @@ export class ListComponent {
 
   getData() {
     this.isLoading = true;
-    this.api.list(this.data.filters).subscribe({
+    let qparams = this.publicService.getFiltersString(this.data.filters)
+    this.api.list(qparams).subscribe({
       next: (res: any) => {
         if (res.isDone) {
           this.data.data = res.data
           this.data.filters[0].data = res.airports;
           this.data.filters[1].data = res.airports;
-          this.data.filters[2].data = [{id:0,name:'باز'},{id:1,name:'بسته'}]
+          this.data.filters[2].data = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }]
           // this.data.filters[4].data = res.airlines;
-
           this.data.pagination = {
-            pageNumber: 1,
+            pageNumber: this.data.filters.find(x => x.key === 'page')?.value ?? 1,
             meta: res.meta,
             confiq: {
               itemsPerPage: res.meta?.per_page ?? 10,
@@ -110,11 +114,6 @@ export class ListComponent {
     })
   }
 
-
-  onPageChanged(pageNum: number) {
-    this.getData();
-  }
-
   rowButtonClicked(event: { item: any, button: IListButtons }) {
     switch (event.button.name) {
       case 'حذف':
@@ -129,7 +128,7 @@ export class ListComponent {
 
   buttonClicked(event: IListButtons) {
     switch (event.name) {
-      case 'اضافه':
+      case 'add':
         return
     }
   }

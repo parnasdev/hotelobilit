@@ -21,7 +21,6 @@ import { Page404Component } from "./page404/page404.component";
 import { PopupVideoComponent } from './popup-video/popup-video.component';
 import { PipesModule } from "./pipes/pipes.module";
 import { ShowLocationComponent } from './show-location/show-location.component';
-// import {SelectCategoriesComponent} from './select-categories/select-categories.component';
 import { MatSelectModule } from "@angular/material/select";
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { FaqComponent } from './faq/faq.component';
@@ -40,6 +39,10 @@ import { DynamicFilterPopupComponent } from './dynamic-filter-popup/dynamic-filt
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DynamicFilterHorizontalComponent } from './dynamic-filter-horizontal/dynamic-filter-horizontal.component';
+import { GroupChangesComponent } from './group-changes/group-changes.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { IconsComponent } from './icons/icons.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -73,7 +76,10 @@ import { DynamicFilterHorizontalComponent } from './dynamic-filter-horizontal/dy
     CustomSelectComponent,
     DynamicListComponent,
     DynamicFilterPopupComponent,
-    DynamicFilterHorizontalComponent
+    DynamicFilterHorizontalComponent,
+    GroupChangesComponent,
+    CheckboxComponent,
+    IconsComponent,
   ],
   exports: [
     UploadFileComponent,
@@ -95,8 +101,10 @@ import { DynamicFilterHorizontalComponent } from './dynamic-filter-horizontal/dy
     CustomSelectHotelComponent,
     CustomSelectComponent,
     DynamicListComponent,
-    DynamicFilterPopupComponent
-
+    DynamicFilterPopupComponent,
+    GroupChangesComponent,
+    CheckboxComponent,
+    IconsComponent,
   ],
   imports: [
     CommonModule,
@@ -111,8 +119,13 @@ import { DynamicFilterHorizontalComponent } from './dynamic-filter-horizontal/dy
     PipesModule,
     MatTooltipModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
-  ], entryComponents: [UploadSingleComponent, AlertDialogComponent]
+    NgxMatSelectSearchModule,
+    NgxPaginationModule,
+  ],
+  entryComponents: [
+    UploadSingleComponent,
+    AlertDialogComponent
+  ]
 })
 export class CommonProjectModule {
 }

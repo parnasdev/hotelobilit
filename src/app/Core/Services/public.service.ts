@@ -22,22 +22,25 @@ export class PublicService {
   getApiUrl(isPanel: boolean, controller: string, endpoint: string) {
     return environment.BACK_END_IP + (isPanel ? 'panel/' : '') + controller + endpoint
   }
+
   getApiUrlV2(isPanel: boolean, controller: string, endpoint: string) {
     return environment.BACK_END_IP_V2 + (isPanel ? 'panel/' : '') + controller + endpoint
   }
 
-  insertQueryParamToURL(url: string,filters: any) {
-    let str = ''
-    filters.forEach((item: any, index:number) => {
-      if (index !== (filters.length - 1)) {
-        str += item.reqKey + '=' + item.value + '&'
-      } else {
-        str += item.reqKey + '=' + item.value
+  getFiltersString(filters: any){
+    let str=''
+    filters.forEach((item:any,index:number)=>{
+      if(index!==(filters.length-1)){
+      str+=item.key+'='+item.value+'&'
+      }else{
+        str+=item.key+'='+item.value
       }
-    })
-    str = url + '?' + str
-    return str
+    }
+    )
+    str='?'+str
+    return str;
   }
+
   substringText(count: number, str: string): string {
     if (str) {
       if (str.length > count) {

@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-start align-items-center mr-2" *ngIf="checkGroupChanges()">
+
+    <button (click)="showMenuGroup()" class="btn-change-group">
+        تغییرات گروهی
+        <div class="show-dd" *ngIf="checkGroupChangesShowDD()">
+            <a *ngFor="let button of groupChangesButton?.children" (click)="openGroupChangesPopup(button)" class="link-dd"></a>
+        </div>
+    </button>
+
+    <button (click)="deleteSelecteds()" *ngIf="selectedItems.length > 0" class="btn-delete-group">
+        حذف تمامی انتخاب ها
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M5.35962 5.88043L14.6404 15.1612L5.35962 5.88043ZM13.9775 5.21752C14.3436 4.8514 14.9372 4.8514 15.3033 5.21752C15.6694 5.58364 15.6694 6.17723 15.3033 6.54334L11.3255 10.5204L15.3033 14.4983C15.6694 14.8644 15.6694 15.458 15.3033 15.8241C14.9372 16.1902 14.3436 16.1902 13.9775 15.8241L9.99962 11.8463L6.02253 15.8241C5.68257 16.1641 5.14646 16.1884 4.77848 15.897L4.69671 15.8241C4.33059 15.458 4.33059 14.8644 4.69671 14.4983L8.67379 10.5204L4.69671 6.54334C4.33059 6.17723 4.33059 5.58364 4.69671 5.21752C5.06282 4.8514 5.65642 4.8514 6.02253 5.21752L9.99962 9.1946L13.9775 5.21752Z"
+                fill="#4A4A4A" />
+        </svg>
+    </button>
+
+</div>

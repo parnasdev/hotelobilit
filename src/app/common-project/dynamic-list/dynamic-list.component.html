@@ -1,25 +1,37 @@
-<div dir="rtl" class="list-panels border-box p-x-12">
-  <div class="title mt-3">
+<div class="list-panels border-box p-x-12">
+  <div class="title">
     <div class="flex-x-start">
       <img class="m-top-8" src="assets/img/panel/list.png" width="25" alt="">
       <h2 class="text-dark fs-16 m-bottom-0 bold-600 m-right-7">{{ data.label }}</h2>
     </div>
-    <div class="flex-x-between px-3 m-y-20 w-100 gap-12">
+    <div class="flex-x-between m-y-20 w-100 gap-12">
       <div class="flex-x-start gap-16">
         <a style="cursor: pointer" class="fs-13 p-bottom-4 c-pointer flex-x-center "
           style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;"
-          (click)="deleteFilters()" *ngIf="isFilter">
+          (click)="deleteFilters()" *ngIf="checkHasFilter()">
           حذف فیلتر
         </a>
+        <a *ngIf="checkShowFilter() && this.data.filterMode !== 'horizontal'"
+          class="btn-base w-100 fs-13 cursor-pointer" (click)="openFilter()">
+          فیلترها
+          <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
+            xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+            <path fill="#fff"
+              d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
+          </svg>
+        </a>
+
+        <prs-group-changes [groupChangesButton]="getGroupChangesButton()" (clearSelectedItems)="clearSelectedItems()"
+          (buttonClicked)="onButtonClicked($event)"></prs-group-changes>
 
         <ng-template [ngIf]="data.showTrash">
-          <a style="cursor: pointer" *ngIf="!data.isTrash" (click)="isTrash()"
-            class="fs-13 p-bottom-4 c-pointer flex-x-center "
-            style="border-bottom: 2px dashed #f63333; color: black;color: #f63333;font-weight: 600;"
-            (click)="deleteFilters()">
+          <a *ngIf="!data.isTrash" class="btn-red w-100 flex-x-center fs-13 cursor-pointer"
+            (click)="isTrash()">
+            <prs-icons class="icon-delete cursor-pointer" [width]="'25px'" [height]="'25px'" [name]="'delete'"
+              [color]="'#fff'"></prs-icons>
             زباله دان
           </a>
-          <a style="cursor: pointer" *ngIf="data.isTrash" class="btn-base wpx-140 fs-13" (click)="isTrashne()">
+          <a *ngIf="data.isTrash" class="btn-base wpx-140 fs-13 cursor-pointer" (click)="isTrashed()">
             بازگشت
             <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
               xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
@@ -29,37 +41,29 @@
           </a>
         </ng-template>
 
-        <a style="cursor: pointer" class="btn-base wpx-140 fs-13 w-100"
-          *ngIf="data.filters.length > 0 && data.filterMode === 'popup'" (click)="openFilter()">
-          فیلترها
-          <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
-            xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
-            <path fill="#fff"
-              d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
-          </svg>
-        </a>
-      </div>
-      <div class="flex-x-center" *ngIf="data.filterMode === 'horizontal'">
-        <prs-dynamic-filter-horizontal [data]="data" (result)="filterClicked($event)"></prs-dynamic-filter-horizontal>
       </div>
       <div class="flex-x-end gap-12">
         <ng-template ngFor let-button [ngForOf]="data.buttons" let-index="index">
-          <a class="btn-add btn-base" *ngIf="button.show && permition.check(button.permission)" [class]="button.style"
-            (click)="onButtonClicked(button)">
-            {{ button.name}}</a>
+          <a *ngIf="checkShowButtons(button)" [class]="button.style" (click)="onButtonClicked(button)">
+            {{ button.label }}</a>
         </ng-template>
       </div>
     </div>
+
+    <div class="filter-horizontal flex-x-center w-100" *ngIf="checkShowFilter() && data.filterMode === 'horizontal'">
+      <prs-dynamic-filter-horizontal [data]="data" (result)="sendFilters()"></prs-dynamic-filter-horizontal>
+    </div>
+
   </div>
 
 
   <div class="table-list-tour">
-    <div class="header-list-panel  grid-dynamic grid-8 gap-10" [style]="'--col:' + cols">
+    <div class="header-list-panel grid-dynamic gap-10" [style]="'--col:' + cols">
       <ng-template ngFor let-item let-i="index" [ngForOf]="data.props">
-        <div class="p-radio flex-x-between" *ngIf="i === 0">
-          <!-- <prs-checkbox></prs-checkbox> -->
+        <div class="p-radio flex-x-between" *ngIf="item.name === 'checkbox'">
+          <prs-checkbox></prs-checkbox>
         </div>
-        <span class="username" *ngIf="i > 0">{{ item.label }}</span>
+        <span class="username" *ngIf="item.name !== 'checkbox'">{{ item.label }}</span>
       </ng-template>
 
     </div>
@@ -74,20 +78,22 @@
       </div>
     </div>
     <div class="body-list-panel " *ngIf="data.props.length > 0">
-      <div class="list-item-panel grid-dynamic gap-20" [style]="'--col:' + cols"
+      <div class="list-item-panel grid-dynamic gap-10" [style]="'--col:' + cols"
         *ngFor="let x of data.data;let i = index">
-        <ng-template ngFor let-prop let-i="index" [ngForOf]="data.props">
-
-          <div class="p-radio flex-x-between" *ngIf="i == 0">
-            <!-- <prs-checkbox></prs-checkbox> -->
+        <ng-template ngFor let-prop let-i="index" [ngForOf]="data.props | paginate: data.pagination.confiq">
+          <div class="p-radio flex-x-between" *ngIf="prop.name === 'checkbox'">
+            <prs-checkbox></prs-checkbox>
           </div>
-          <span class="title-tour" [matTooltipDisabled]="x[prop.name] && x[prop.name].length < 20"
-            [matTooltip]="x[prop.name]" *ngIf="i < (data.props.length -1) && i > 0">{{ getText(x , prop) ? getText(x ,
-            prop) :
-            '---' }}</span>
-          <div class="button-setting flex-x-center gap-5" *ngIf="i == (data.props.length -1)">
+          <span class="title-tour"
+            [matTooltipDisabled]="prop.type !== 'text' || (x[prop.name] && x[prop.name].length < 20)"
+            [matTooltip]="x[prop.name]"
+            *ngIf="prop.name !== 'setting' && prop.type !== 'checkbox' && prop.type !== 'img'">
+            {{ getValue(x , prop) }}</span>
+          <img *ngIf="prop.type === 'img'" [src]="getImage(x[prop.name])" [alt]="x[prop.name] ? x[prop.name].name : ''"
+            width="20" alt="" />
+          <div class="button-setting flex-x-center gap-5" *ngIf="prop.name === 'setting'">
             <ng-template ngFor let-btn [ngForOf]="data.rowButtons">
-              <div [class]="btn.style" *ngIf="permition.check(btn.permission) && btn.show">
+              <div [class]="btn.style" *ngIf="permission.checkSubItem(btn.permission) && btn.show">
                 <button class="btn-custom" (click)="onRowButtonClicked(btn,x)">
                   <img style="filter: invert(1)" [src]="btn.icon" width="20" alt="">
                 </button>
@@ -102,6 +108,9 @@
     <span>{{ data.emptyBox.text }}</span>
   </div>
   <div>
-
+    <pagination-controls *ngIf="data.pagination && data.pagination.meta.last_page > 1" class="pagination-control"
+      (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی"
+      screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
   </div>
 </div>

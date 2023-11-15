@@ -16,9 +16,6 @@ export class DynamicFilterHorizontalComponent {
   }
 
   ngOnChanges() {
-    debugger
-    console.log(this.data);
-    
   }
 
   openPicker(index: number) {

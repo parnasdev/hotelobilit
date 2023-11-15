@@ -16,4 +16,12 @@ export class PermitionsService {
     }
   }
 
+  checkSubItem(item: string) {
+    if (item === '') {
+      return true
+    } else {
+      return this.permissions.find(x => x === item)
+    }
+  }
+
 }
