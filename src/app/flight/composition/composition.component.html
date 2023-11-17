@@ -19,6 +19,11 @@
       <label for="">انتخاب بازه</label>
       <span >{{ (departureObj.end_date | convertDate) + '-' +  (departureObj.start_date | convertDate)}}</span>
     </div>
+    <div class="item-inp m-top-16 w-48">
+      <label for="">تعداد شب</label>
+      <input [(ngModel)]="departureObj.stay_count" />
+      <!-- <span >{{ (departureObj.end_date | convertDate) + '-' +  (departureObj.start_date | convertDate)}}</span> -->
+    </div>
     <div class="w-48 grid-2 gap-10">
       <div class="d-flex flex-column align-items-center">
         <label class="font-size-13 bold-600" for="">checkin tomorrow</label>
@@ -30,30 +35,37 @@
       </div>
     </div>
     <div class="w-100 m-top-16 d-flex justify-content-end">
-      <a (click)="getDepartureFlights()" class="btn-base h-40 w-20">ثبت</a>
+      <a (click)="getFlights('departure')" class="btn-base h-40 w-20">ثبت</a>
     </div>
   </div>
   <div class="end">
     <div class="item-inp w-48">
       <label for="">مبدا</label>
-      <input type="text">
+      <prs-custom-select (itemResult)="getReturnOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
+        [list]="data.airports"></prs-custom-select>
     </div>
     <div class="item-inp w-48">
       <label for="">مقصد</label>
-      <input type="text">
+      <prs-custom-select (itemResult)="getReturnDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
+        [list]="data.airports"></prs-custom-select>
     </div>
     <div class="item-inp m-top-16 w-48">
       <label for="">ایرلاین</label>
-      <input type="text">
+      <prs-custom-select (itemResult)="getReturnAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
+        [list]="data.airlines"></prs-custom-select>
+    </div>
+    <div class="item-inp m-top-16 w-48" (click)="openPicker()">
+      <label for="">انتخاب بازه</label>
+      <span >{{ (ReturnObj.end_date | convertDate) + '-' +  (ReturnObj.start_date | convertDate)}}</span>
     </div>
     <div class="w-48 grid-2 gap-10">
       <div class="d-flex flex-column align-items-center">
-        <label class="font-size-13 bold-600" for="">checkin tomorrow</label>
-        <input class="m-top-20" type="checkbox">
+        <label class="font-size-13 bold-600" for="">checkout yesterday</label>
+        <prs-checkbox [(ngModel)]="departureObj.checkout_yesterday"></prs-checkbox>
       </div>
     </div>
     <div class="w-100 m-top-16 d-flex justify-content-end">
-      <a href="" class="btn-base h-40 w-20">ثبت</a>
+      <a (click)="getFlights('return')" class="btn-base h-40 w-20">ثبت</a>
     </div>
   </div>
 </div>
@@ -66,7 +78,7 @@
       <span>ساعت</span>
       <span>شماره پرواز</span>
     </div>
-    <div class="item-body">
+    <div class="item-body" *ngFor="let item of departureList">
       <div class="d-flex flex-column align-items-center">
         <span>تهران-کیش</span>
         <span>کیش- تهران</span>
@@ -85,7 +97,7 @@
       <span>ساعت</span>
       <span>شماره پرواز</span>
     </div>
-    <div class="item-body">
+    <div class="item-body" *ngFor="let item of returnList">
       <div class="d-flex flex-column align-items-center">
         <span>تهران-کیش</span>
         <span>کیش- تهران</span>

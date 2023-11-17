@@ -6,6 +6,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { IMixStepOneReq } from '../core/models/flight.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
 
 @Component({
   selector: 'prs-composition',
@@ -48,6 +49,7 @@ export class CompositionComponent {
     public message: MessageService,
     public error: ErrorsService,
     public dialog: MatDialog,
+    public calendar: CalenderServices,
     public publicService: PublicService) { }
 
 
@@ -70,28 +72,28 @@ export class CompositionComponent {
   }
 
   getDepartureOriginCity(city: any) {
-    this.departureObj.origin = city
+    this.departureObj.origin = city.id
   }
 
   getDepartureDestCity(city: any) {
-    this.departureObj.destination = city
+    this.departureObj.destination = city.id
 
   }
 
   getDepartureAirline(airline: any) {
-    this.departureObj.airline = airline
+    this.departureObj.airline = airline.id
   }
 
   getReturnOriginCity(city: any) {
-    this.ReturnObj.origin = city
+    this.ReturnObj.origin = city.id
   }
 
   getReturnDestCity(city: any) {
-    this.ReturnObj.destination = city
+    this.ReturnObj.destination = city.id
   }
 
   getReturnAirline(airline: any) {
-    this.ReturnObj.airline = airline
+    this.ReturnObj.airline = airline.id
   }
   openPicker() {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
@@ -105,7 +107,7 @@ export class CompositionComponent {
     })
     dialog.afterClosed().subscribe((result: any) => {
       if (result) {
-        debugger
+        // debugger
         // (result.fromDate.dateEn)
         this.departureObj.start_date = result.fromDate.dateEn
         this.departureObj.end_date = result.toDate.dateEn
@@ -113,9 +115,15 @@ export class CompositionComponent {
     })
   }
 
-  getDepartureFlights(req:IMixStepOneReq,type ='departure') {
-    this.api.mixStepOne(req).subscribe({
+  getFlights(type ='departure') {
+    this.departureObj.request_type = type;
+    this.api.mixStepOne(this.departureObj).subscribe({
       next: (res: any) => {
+        if(type=== 'departure'){
+          this.departureList = res.data;
+        }else {
+          this.returnList = res.data
+        }
 
       },error: (error:any) => {
 

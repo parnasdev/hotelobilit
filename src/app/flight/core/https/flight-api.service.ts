@@ -40,14 +40,17 @@ export class FlightApiService {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/bulk-destroy`);
     return this.http.post<Result<any>>(strUrl, ids, this.publicService.getDefaultHeaders());
   }
+
   mixStepOne(req: IMixStepOneReq) {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/mix/step1`);
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
+
   mixStepTwo(req: IMixStepTwoReq) {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/mix/step2`);
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
+  
   mixed(req: IMixedReq) {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/mix/mixed`);
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
