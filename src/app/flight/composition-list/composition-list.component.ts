@@ -49,7 +49,7 @@ export class CompositionListComponent {
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'status', label: 'وضعیت' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'fromDate', label: 'تاریخ شروع' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'toDate', label: 'تاریخ پایان' },
-      // { value: 1, type: '', key: 'page', data: [], reqKey: 'id', label: '' },
+      { value: 1, type: '', key: 'page', data: [], reqKey: 'id', label: '' },
       { value: true, type: '', key: 'name', data: [], reqKey: 'mixed', label: '' },
 
     ],

@@ -84,7 +84,7 @@ export class DynamicListComponent implements OnInit {
 
   sendFilters() {
     this.router.navigate([], { queryParams: this.getQParames() });
-    this.onFilterClicked.emit(true)
+    this.onFilterClicked.emit(this.data);
   }
 
   getQParames() {

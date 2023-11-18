@@ -3,7 +3,7 @@ import { IListButtons, IListModel } from 'src/app/Core/Models/dynamicList.model'
 import { FlightApiService } from '../core/https/flight-api.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IFlightListReq } from '../core/models/flight.model';
 import { PublicService } from 'src/app/Core/Services/public.service';
 
@@ -24,8 +24,15 @@ export class ListComponent {
   constructor(public api: FlightApiService,
     public error: ErrorsService,
     public router: Router,
+    public route: ActivatedRoute,
     public publicService: PublicService,
     public message: MessageService) {
+
+      route.queryParams.subscribe(params => {
+        console.log(params);
+        
+this.data.filters[5].value = params['page'];
+      })
 
   }
   data: IListModel = {
@@ -61,7 +68,7 @@ export class ListComponent {
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'status', label: 'وضعیت' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'fromDate', label: 'تاریخ شروع' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'toDate', label: 'تاریخ پایان' },
-      { value: 1, type: '', key: 'page', data: [], reqKey: 'id', label: '' },
+      { value: 1, type: '', key: 'page', data: [], reqKey: 'page', label: '' },
     ],
     rowButtons: [
       { name: 'حذف', label: '', permission: '', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
@@ -78,8 +85,14 @@ export class ListComponent {
     this.getData()
   }
 
+  getFilterClicked(event: any) {
+    this.data = event;
+    this.getData()
+  }
+
   getData() {
     this.isLoading = true;
+    this.data.data = [];
     let qparams = this.publicService.getFiltersString(this.data.filters)
     this.api.list(qparams).subscribe({
       next: (res: any) => {
