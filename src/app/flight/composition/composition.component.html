@@ -15,7 +15,7 @@
       <prs-custom-select (itemResult)="getDepartureAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
         [list]="data.airlines"></prs-custom-select>
     </div>
-    <div class="item-inp m-top-16 w-48" (click)="openPicker('departure')">
+    <div style="position: relative;top: 10px" class="item-inp-date m-top-16 w-48" (click)="openPicker('departure')">
       <label for="">انتخاب بازه</label>
       <span>{{ (departureObj.end_date | convertDate) + '-' + (departureObj.start_date | convertDate)}}</span>
     </div>
@@ -56,8 +56,8 @@
       <prs-custom-select (itemResult)="getReturnAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
         [list]="data.airlines"></prs-custom-select>
     </div>
- 
-    <div class="item-inp m-top-16 w-48" (click)="openPicker('return')">
+
+    <div style="position: relative;top: 10px" class="item-inp-date  m-top-16 w-48" (click)="openPicker('return')">
       <label for="">انتخاب بازه</label>
       <span>{{ (ReturnObj.end_date | convertDate) + '-' + (ReturnObj.start_date | convertDate)}}</span>
     </div>
@@ -128,40 +128,41 @@
 <div class="d-flex justify-content-center align-items-center">
   <button class="btn-base-purple w-25 mt-3 cursor-pointer" (click)="composition()">نمایش ترکیب ها</button>
 </div>
-<div class="body-list-tour">
-  <div class="item" *ngFor="let transfer of compositionData ;let i = index">
+<div style="padding: 1rem" class="body-list-tour">
+  <div class="item-two" *ngFor="let transfer of compositionData ;let i = index">
     <span>
       <mat-checkbox [(ngModel)]="transfer.isChecked"></mat-checkbox>
     </span>
     <div class="d-flex flex-column ">
       <span class="id">{{ transfer.departure.id }}</span>
-      <span class="id">{{ transfer.return.id }}</span>
+      <span style="margin-top: 6px" class="id">{{ transfer.return.id }}</span>
 
     </div>
     <div class="d-flex flex-column ">
       <span class="title-tour">{{ transfer.departure.origin_name }} - {{ transfer.departure.destination_name }}</span>
-      <span class="title-tour">{{ transfer.return.origin_name }} - {{ transfer.return.destination_name }}</span>
+      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.origin_name }} - {{ transfer.return.destination_name }}</span>
 
     </div>
     <div class="d-flex flex-column ">
       <span class="title-tour">{{ transfer.departure.airline_name }}</span>
-      <span class="title-tour">{{ transfer.return.airline_name }}</span>
+      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.airline_name }}</span>
 
     </div>
     <div class="d-flex flex-column ">
       <span class="title-tour">{{ transfer.departure.date | convertDate}} - {{transfer.departure.time}}</span>
-      <span class="title-tour">{{ transfer.return.date | convertDate}} -
+      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.date | convertDate}} -
         {{transfer.return.time}}</span>
 
     </div>
     <div class="d-flex flex-column">
       <span class="title-tour">{{ transfer.departure.flight_number }}</span>
-      <span class="title-tour">{{ transfer.return.flight_number }}</span>
+      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.flight_number }}</span>
     </div>
 
     <div class="d-flex flex-column ">
 
       <span class="text-danger">{{calculateStayCount(transfer)}} شب</span>
+      <span style="margin-top: 6px" class="text-danger">{{calculateStayCount(transfer)}} شب</span>
       <!-- <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span> -->
     </div>
 

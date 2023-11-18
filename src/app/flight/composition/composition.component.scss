@@ -161,3 +161,35 @@
   width: 50px;
   height: 50px;
 }
+
+.item-inp-date{
+  width: 40%;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 15px;
+  height: 50px;
+  border: 1px solid #E0E0E0;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 12px;
+}
+prs-custom-select{
+  width: 100%;
+}
+.item-two{
+  background: $white-color;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  height: 80px;
+  width: 100%;
+  background: $white-color;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 0 14px;
+  place-items: center;
+  margin-top: 12px;
+}
