@@ -137,7 +137,7 @@
   background: $light-color;
   height: 60px;
   display: grid;
-  grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.2fr 2fr 0.5fr 1.5fr 0.5fr 1fr 0.3fr 0.5fr 1fr 1.5fr 1fr !important;
   place-items: center;
 
   span {
@@ -147,10 +147,10 @@
   }
 }
 .body-list-panel:nth-child(odd){
-  background: #d4d4d4;
+  background: #f5f5f5;
 }
 .body-list-panel:nth-child(even){
-  background: #faf2f2;
+  background: #fdf8fd;
 }
 .body-list-panel {
   display: flex;
@@ -161,7 +161,7 @@
 
   .list-item-panel {
     display: grid;
-    grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
+    grid-template-columns: 0.2fr 2fr 0.5fr 1.5fr 0.5fr 1fr 0.3fr 0.5fr 1fr 1.5fr 1fr !important;
     place-items: center;
     width: 100%;
 

@@ -108,7 +108,7 @@ export class AddComponent {
     this.api.store(this.req).subscribe({
       next: (res: any) => {
         this.message.custom(res.message);
-        this.router.navigateByUrl('/panel/flight')
+        this.router.navigateByUrl('/panel/flight/composition-list')
 
       }, error: (error: any) => {
         this.error.check(error);

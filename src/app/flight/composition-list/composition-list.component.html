@@ -2,39 +2,25 @@
   <div class="title">
     <div class="flex-x-start">
       <img class="m-top-8" src="assets/img/panel/list.png" width="25" alt="">
-      <h2 class="text-dark fs-16 m-bottom-0 bold-600 m-right-7">-----</h2>
+      <h2 class="text-dark fs-16 m-bottom-0 bold-600 m-right-7">پرواز های ترکیب شده</h2>
     </div>
     <div class="flex-x-between m-y-20 w-100 gap-12">
       <div class="flex-x-start gap-16">
-        <a class="fs-13 p-bottom-4 c-pointer flex-x-center "
-           style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;white-space: nowrap"
-        >
-          حذف فیلتر
-        </a>
-        <a style="width: 150px !important;" class="btn-base flex-x-center fs-13 cursor-pointer">
-          فیلترها
-          <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
-               xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
-            <path fill="#fff"
-                  d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z"/>
-          </svg>
-        </a>
 
-        <!--        <prs-group-changes [groupChangesButton]="getGroupChangesButton()" (clearSelectedItems)="clearSelectedItems()"-->
-        <!--                           (buttonClicked)="onButtonClicked($event)"></prs-group-changes>-->
+
 
         <ng-template>
           <a class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer">
             <prs-icons class="icon-delete cursor-pointer" [width]="'25px'" [height]="'25px'" [name]="'delete'"
-                       [color]="'#fff'"></prs-icons>
+              [color]="'#fff'"></prs-icons>
             زباله دان
           </a>
           <a class="btn-base wpx-140 fs-13 cursor-pointer">
             بازگشت
             <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
-                 xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+              xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
               <path fill="#fff"
-                    d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z"/>
+                d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
             </svg>
           </a>
         </ng-template>
@@ -49,7 +35,8 @@
     </div>
 
     <div class="filter-horizontal flex-x-center w-100">
-      <prs-dynamic-filter-horizontal class="w-100"></prs-dynamic-filter-horizontal>
+      <prs-dynamic-filter-horizontal class="w-100" [data]="data"
+        (result)="getFilterResult($event)"></prs-dynamic-filter-horizontal>
     </div>
 
   </div>
@@ -59,15 +46,18 @@
     <div class="header-list-panel  gap-10">
       <prs-checkbox></prs-checkbox>
       <span>رفت - برگشت</span>
-      <span>مبدا - مقصد</span>
       <span>ایرلاین</span>
       <span>تاریخ - ساعت</span>
       <span>شماره پرواز</span>
+      <span>هواپیما</span>
+      <span>کلاس</span>
+      <span>ظرفیت</span>
+
       <span>بزرگسال (تومان)</span>
-      <span>آژانس</span>
+      <span>کاربر</span>
       <span>وضعیت</span>
     </div>
-    <div *ngIf="false">
+    <div *ngIf="isLoading">
       <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
         <div class="item-shimmer"></div>
         <div class="item-shimmer"></div>
@@ -77,109 +67,39 @@
         <div class="item-shimmer"></div>
       </div>
     </div>
-    <div class="body-list-panel">
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
+    <ng-template ngFor let-item [ngForOf]="data.data" let-index="index">
+      <div class="body-list-panel">
 
-    </div>
-    <div class="body-list-panel">
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
+        <div class="list-item-panel grid-dynamic gap-10">
+          <prs-checkbox></prs-checkbox>
+          <span>{{ item.origin_name }} - {{ item.destination_name }}</span>
+          <span>{{ item.airline_name }}</span>
+          <span>{{ item.date | convertDate }} - {{ item.time }}</span>
+          <span>{{ item.flight_number }}</span>
+          <span>{{ item.airplane }}</span>
+          <span>{{ item.cabin_type }}</span>
+          <span>{{ item.capacity }}</span>
+          <span>{{ item.adl_price | sperator }} (تومان)</span>
+          <span>{{ item.user?.full_name ?? '' }}</span>
+          <span>{{ item.is_close ? 'بسته' : 'باز' }}</span>
+        </div>
+        <div class="list-item-panel grid-dynamic gap-10" *ngFor="let returnItem of item.return_flights;let i =index">
+          <prs-checkbox></prs-checkbox>
+          <span>{{ returnItem.origin_name }} - {{ returnItem.destination_name }}</span>
+          <span>{{ returnItem.airline_name }}</span>
+          <span>{{ returnItem.date | convertDate }} - {{ returnItem.time }}</span>
+          <span>{{ returnItem.flight_number }}</span>
+          <span>{{ returnItem.airplane }}</span>
+          <span>{{ returnItem.cabin_type }}</span>
+          <span>{{ returnItem.capacity }}</span>
+          <span>{{ returnItem.adl_price | sperator }} (تومان)</span>
+          <span>{{ returnItem.user?.full_name ?? '' }}</span>
+          <span>{{ returnItem.is_close ? 'بسته' : 'باز' }}</span>
+        </div>
       </div>
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
-
-    </div>
-    <div class="body-list-panel">
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
-
-    </div>
-    <div class="body-list-panel">
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
-      <div class="list-item-panel grid-dynamic gap-10">
-        <prs-checkbox></prs-checkbox>
-        <span>رفت - برگشت</span>
-        <span>مبدا - مقصد</span>
-        <span>ایرلاین</span>
-        <span>تاریخ - ساعت</span>
-        <span>شماره پرواز</span>
-        <span>بزرگسال (تومان)</span>
-        <span>آژانس</span>
-        <span>وضعیت</span>
-      </div>
-
-    </div>
-
+    </ng-template>
   </div>
-  <div class="box-empty">
+  <div class="box-empty" *ngIf="data.data.length === 0 && !isLoading">
     <span>متن باکس خالی</span>
   </div>
   <div>
