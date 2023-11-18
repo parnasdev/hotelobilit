@@ -1,4 +1,4 @@
-<div class="container p-x-16 p-y-16" *ngIf="data.data.length > 0">
+<div class="container p-x-16 p-y-16 w-100" *ngIf="data.data.length > 0">
     <div class="formcontainer w-100">
       <ng-template ngFor let-item [ngForOf]="data.filters" let-index="index">
         <div *ngIf="item.type==='select'" class="w-100 item">
@@ -11,9 +11,9 @@
           <input type="text" [(ngModel)]="item.value">
         </div>
         <div *ngIf="item.type==='date'" class="w-100 item">
-          <div class="d-flex mt-5">
+          <div class="d-flex">
             <div class="item-calender">
-              <span>{{ item.label }}</span>
+              <span class="font-size-13">{{ item.label }}</span>
               <div style="background: white;" class="row-calender" (click)="openPicker(index)">
                 <span>{{ (item.value | convertDate) }}</span>
               </div>
@@ -21,6 +21,6 @@
           </div>
         </div>
       </ng-template>
-      <button (click)="closeDialog()" class="btn-base-2 h-45 w-50">جستجو</button>
+      <button (click)="closeDialog()" class="btn-base h-53 w-50">جستجو</button>
     </div>
   </div>

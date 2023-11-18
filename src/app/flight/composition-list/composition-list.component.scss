@@ -1,0 +1,241 @@
+@import "src/assets/css/varible";
+
+.list-panels {
+  background: $white-color;
+}
+
+.header-list-panel {
+  border-radius: 15px;
+  background: #F2F2F2;
+  height: 60px;
+  margin: 1rem auto 0 auto;
+  width: 98%;
+
+  span {
+    font-size: 13px;
+    font-weight: 500;
+    color: $dark-color;
+  }
+}
+
+.body-list-panel {
+  padding: 12px 0;
+  margin: 1rem auto 0 auto;
+  width: 98%;
+
+  .list-item-panel {
+    height: auto;
+    padding: 10px 0;
+    span {
+      font-size: 13px;
+      font-weight: 500;
+      color: $gray-color;
+    }
+
+  }
+
+}
+
+
+.btn-edit {
+  &:hover {
+    img {
+      filter: unset !important;
+    }
+  }
+}
+
+:host::ng-deep .btn-red {
+  background: #f30611;
+  color: #fff;
+  width: 120px;
+  padding: 13px 1.5rem;
+  border-radius: 5px;
+  font-weight: 500;
+  border: 2px solid #f30611;
+  outline: none;
+  margin: 1rem 0;
+
+  svg {
+    top: 12px !important;
+  }
+
+  &:hover {
+    background: #fff;
+    color: #f30611;
+
+    img {
+      filter: unset !important;
+    }
+  }
+}
+
+.btn-add {
+  padding: 10px 1.5rem;
+  width: 120px !important;
+}
+
+.flex-x-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-x-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex-x-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-x-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.m-y-20 {
+  margin: 20px 0;
+}
+.fs-16{
+  font-size: 16px;
+}
+.p-x-12{
+  padding: 0 12px;
+}
+
+.box-empty{
+  width: 98%;
+  margin: 2rem auto;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed $border-color;
+  border-radius: 10px;
+  span{
+    color: $gray-color;
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+
+
+
+.list-panels {
+  background: $white-color;
+}
+
+
+
+.header-list-panel {
+  border-radius: 15px;
+  background: $light-color;
+  height: 60px;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  place-items: center;
+
+  span {
+    font-size: 13px;
+    font-weight: 500;
+    color: $dark-color;
+  }
+}
+.body-list-panel:nth-child(odd){
+  background: #d4d4d4;
+}
+.body-list-panel:nth-child(even){
+  background: #faf2f2;
+}
+.body-list-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98%;
+  border-radius: 10px;
+
+  .list-item-panel {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
+    place-items: center;
+    width: 100%;
+
+    span {
+      font-size: 13px;
+      font-weight: 500;
+      color: $gray-color;
+    }
+
+  }
+
+}
+
+
+.btn-edit {
+  &:hover {
+    img {
+      filter: unset !important;
+    }
+  }
+}
+
+:host::ng-deep .btn-red {
+  svg {
+    top: 12px !important;
+  }
+
+  &:hover {
+    img {
+      filter: unset !important;
+    }
+  }
+}
+.body-list-panel , .header-list-panel{
+  span{
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1400px) {
+  .body-list-panel {
+    .list-item-panel{
+      gap: 10px !important;
+    }
+    span {
+      font-size: 10px !important;
+      text-align: center;
+    }
+  }
+
+  .header-list-panel {
+    span {
+      font-size: 10px !important;
+      text-align: center;
+    }
+  }
+  .button-setting {
+    .btn-aquaria, .btn-edit {
+      width: 30px !important;
+      height: 30px !important;
+      img{
+        width: 17px !important;
+      }
+    }
+  }
+}
+.btn-custom{
+  border: none;
+  outline: none;
+  background: unset;
+}
+.btn-delete , .btn-edit{
+  width: 40px;
+  height: 40px;
+  border-radius: 8px !important;
+  padding: 0;
+}

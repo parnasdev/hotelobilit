@@ -6,8 +6,8 @@
     </div>
     <div class="flex-x-between m-y-20 w-100 gap-12">
       <div class="flex-x-start gap-16">
-        <a style="cursor: pointer" class="fs-13 p-bottom-4 c-pointer flex-x-center "
-          style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;"
+        <a  class="fs-13 p-bottom-4 c-pointer flex-x-center "
+          style="border-bottom: 2px dashed #f68b33; color: black;color: #f68b33;font-weight: 600;white-space: nowrap"
           (click)="deleteFilters()" *ngIf="checkHasFilter()">
           حذف فیلتر
         </a>
@@ -25,7 +25,7 @@
           (buttonClicked)="onButtonClicked($event)"></prs-group-changes>
 
         <ng-template [ngIf]="data.showTrash">
-          <a *ngIf="!data.isTrash" class="btn-red w-100 flex-x-center fs-13 cursor-pointer"
+          <a *ngIf="!data.isTrash" class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer"
             (click)="isTrash()">
             <prs-icons class="icon-delete cursor-pointer" [width]="'25px'" [height]="'25px'" [name]="'delete'"
               [color]="'#fff'"></prs-icons>
@@ -44,14 +44,14 @@
       </div>
       <div class="flex-x-end gap-12">
         <ng-template ngFor let-button [ngForOf]="data.buttons" let-index="index">
-          <a *ngIf="checkShowButtons(button)" [class]="button.style" (click)="onButtonClicked(button)">
+          <a style="width: auto;white-space: nowrap;padding: 0 12px" class=" font-size-13  h-45" *ngIf="checkShowButtons(button)" [class]="button.style" (click)="onButtonClicked(button)">
             {{ button.label }}</a>
         </ng-template>
       </div>
     </div>
 
     <div class="filter-horizontal flex-x-center w-100" *ngIf="checkShowFilter() && data.filterMode === 'horizontal'">
-      <prs-dynamic-filter-horizontal [data]="data" (result)="sendFilters()"></prs-dynamic-filter-horizontal>
+      <prs-dynamic-filter-horizontal class="w-100" [data]="data" (result)="sendFilters()"></prs-dynamic-filter-horizontal>
     </div>
 
   </div>

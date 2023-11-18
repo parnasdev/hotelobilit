@@ -1,20 +1,32 @@
+@import "src/assets/css/varible";
 .container {
     direction: rtl;
     display: flex;
     flex-direction: column;
     justify-content: center;
-  
+
     .formcontainer {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-      gap: 14px;
-  
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+
       .item:nth-child(2) {
         position: relative;
         top: 9px;
       }
     }
   }
-  
-  
+
+  input , select , .item-calender{
+    height: 55px;
+    width: 100%;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    padding: 0 8px;
+  }
+
+  label{
+    margin-bottom: 5px;
+    color: $dark-color;
+    font-weight: 500;
+  }
