@@ -21,8 +21,24 @@ export class CompositionComponent {
     airports: []
   }
 
+
+  departureLoading = false;
+  returnLoading = false;
+
   departureList: any[] = []
   returnList: any[] = []
+
+  stayCountList = [
+    { id: 1, name: ' ۱ شب' },
+    { id: 2, name: ' ۲ شب' },
+    { id: 3, name: ' ۳ شب' },
+    { id: 4, name: ' ۴ شب' },
+    { id: 5, name: ' ۵ شب' },
+    { id: 6, name: ' ۶ شب' },
+    { id: 7, name: ' ۷ شب' },
+    { id: 8, name: ' ۸ شب' },
+    { id: 9, name: ' ۹ شب' },
+  ]
 
   departureObj: IMixStepOneReq = {
     request_type: '',
@@ -63,7 +79,7 @@ export class CompositionComponent {
       checkout_yesterday: false,
     }
   }
-  compositionData: any
+  compositionData: any;
   constructor(public api: FlightApiService,
     public message: MessageService,
     public error: ErrorsService,
@@ -112,6 +128,10 @@ export class CompositionComponent {
     this.ReturnObj.destination = city.id
   }
 
+  getStayCount(stay: any) {
+    this.departureObj.stay_count = stay.id
+  }
+
   getReturnAirline(airline: any) {
     this.ReturnObj.airline = airline.id
   }
@@ -132,6 +152,7 @@ export class CompositionComponent {
         if (type === 'departure') {
           this.departureObj.start_date = result.fromDate.dateEn
           this.departureObj.end_date = result.toDate.dateEn
+          
         } else {
           this.ReturnObj.start_date = result.fromDate.dateEn
           this.ReturnObj.end_date = result.toDate.dateEn
@@ -144,9 +165,14 @@ export class CompositionComponent {
   getFlights(type = 'departure') {
     let objReq: any;
     if (type === 'departure') {
+      this.departureLoading = true
+      this.departureList = [];
       this.departureObj.request_type = type;
       objReq = this.departureObj
     } else {
+      this.returnLoading = true
+      this.returnList = []
+      this.ReturnObj.stay_count = this.departureObj.stay_count;
       this.ReturnObj.request_type = type;
       objReq = this.ReturnObj
     }
@@ -158,7 +184,14 @@ export class CompositionComponent {
           this.returnList = res.data
         }
 
+        this.returnLoading = false;
+        this.departureLoading = false
+
+
       }, error: (error: any) => {
+        this.returnLoading = false;
+        this.departureLoading = false;
+        this.error.check(error);
       }
     })
   }
@@ -184,14 +217,21 @@ export class CompositionComponent {
   }
 
   composition() {
-    this.setCompositionReq()
-    this.api.mixStepTwo(this.compositionReq).subscribe({
-      next: (res: any) => {
-        this.compositionData = res.data
-      }, error: (error: any) => {
-        this.error.check(error)
-      }
-    })
+
+    if (this.returnList.length > 0 && this.departureList.length > 0) {
+      this.setCompositionReq()
+      this.api.mixStepTwo(this.compositionReq).subscribe({
+        next: (res: any) => {
+          this.compositionData = res.data
+        }, error: (error: any) => {
+          this.error.check(error)
+        }
+      })
+    } else {
+      this.message.custom('امکان ترکیب وجود ندارد')
+    }
+
+
   }
 
   calculateStayCount(transfer: any) {

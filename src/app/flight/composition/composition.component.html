@@ -21,7 +21,9 @@
     </div>
     <div class="item-inp m-top-16 w-48">
       <label for="">تعداد شب</label>
-      <input [(ngModel)]="departureObj.stay_count" />
+
+      <prs-custom-select (itemResult)="getStayCount($event)" *ngIf="(stayCountList ?? []).length > 0"
+        [list]="stayCountList"></prs-custom-select>
       <!-- <span >{{ (departureObj.end_date | convertDate) + '-' +  (departureObj.start_date | convertDate)}}</span> -->
     </div>
     <div class="w-48 grid-2 gap-10">
@@ -35,7 +37,7 @@
       </div>
     </div>
     <div class="w-100 m-top-16 d-flex justify-content-end">
-      <a (click)="getFlights('departure')" class="btn-base h-40 w-20">ثبت</a>
+      <a (click)="getFlights('departure')" class="btn-base h-40 w-20 cursor-pointer">ثبت</a>
     </div>
   </div>
   <div class="end">
@@ -54,11 +56,7 @@
       <prs-custom-select (itemResult)="getReturnAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
         [list]="data.airlines"></prs-custom-select>
     </div>
-    <div class="item-inp m-top-16 w-48">
-      <label for="">تعداد شب</label>
-      <input [(ngModel)]="ReturnObj.stay_count" />
-      <!-- <span >{{ (departureObj.end_date | convertDate) + '-' +  (departureObj.start_date | convertDate)}}</span> -->
-    </div>
+ 
     <div class="item-inp m-top-16 w-48" (click)="openPicker('return')">
       <label for="">انتخاب بازه</label>
       <span>{{ (ReturnObj.end_date | convertDate) + '-' + (ReturnObj.start_date | convertDate)}}</span>
@@ -69,8 +67,12 @@
         <prs-checkbox [(ngModel)]="departureObj.checkout_yesterday"></prs-checkbox>
       </div>
     </div>
+    <div class="d-flex flex-column align-items-center">
+      <label class="font-size-13 bold-600" for="">Reset</label>
+      <prs-checkbox [(ngModel)]="ReturnObj.reset"></prs-checkbox>
+    </div>
     <div class="w-100 m-top-16 d-flex justify-content-end">
-      <a (click)="getFlights('return')" class="btn-base h-40 w-20">ثبت</a>
+      <a (click)="getFlights('return')" class="btn-base h-40 w-20 cursor-pointer">ثبت</a>
     </div>
   </div>
 </div>
@@ -83,6 +85,11 @@
       <span>ساعت</span>
       <span>شماره پرواز</span>
     </div>
+    <div class="empty-box mt-3" *ngIf="departureList.length === 0 && !departureLoading">
+    <span >موردی یافت نشد</span>
+    </div>
+    <span class="spinner-border spinner-border-sm spinner-loading mt-3" *ngIf="departureLoading"></span>
+
     <div class="item-body" *ngFor="let item of departureList">
       <div class="d-flex flex-column align-items-center">
         <span>{{item.origin_name}}-{{item.destination_name}}</span>
@@ -102,6 +109,10 @@
       <span>ساعت</span>
       <span>شماره پرواز</span>
     </div>
+    <span class="spinner-border spinner-border-sm mt-5 spinner-loading " *ngIf="returnLoading"></span>
+    <div class="empty-box mt-3" *ngIf="returnList.length === 0 && !returnLoading">
+      <span >موردی یافت نشد</span>
+      </div>
     <div class="item-body" *ngFor="let item of returnList">
       <div class="d-flex flex-column align-items-center">
         <span>{{item.origin_name}}-{{item.destination_name}}</span>
@@ -115,7 +126,7 @@
   </div>
 </div>
 <div class="d-flex justify-content-center align-items-center">
-  <button class="btn-base-purple w-25 mt-3" (click)="composition()">نمایش ترکیب ها</button>
+  <button class="btn-base-purple w-25 mt-3 cursor-pointer" (click)="composition()">نمایش ترکیب ها</button>
 </div>
 <div class="body-list-tour">
   <div class="item" *ngFor="let transfer of compositionData ;let i = index">

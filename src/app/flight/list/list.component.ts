@@ -88,8 +88,7 @@ export class ListComponent {
           this.data.data = res.data
           this.data.filters[0].data = res.airports;
           this.data.filters[1].data = res.airports;
-          this.data.filters[2].data = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }]
-          // this.data.filters[4].data = res.airlines;
+          this.data.filters[2].data = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
           this.data.pagination = {
             pageNumber: this.data.filters.find(x => x.key === 'page')?.value ?? 1,
             meta: res.meta,
