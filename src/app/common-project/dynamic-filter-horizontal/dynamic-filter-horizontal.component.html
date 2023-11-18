@@ -1,4 +1,4 @@
-<div class="container p-x-16 p-y-16 w-100" *ngIf="data.data.length > 0">
+<div class="container p-x-16 p-y-16 w-100" *ngIf="data.filters.length > 0">
     <div class="formcontainer w-100">
       <ng-template ngFor let-item [ngForOf]="data.filters" let-index="index">
         <div *ngIf="item.type==='select'" class="w-100 item">

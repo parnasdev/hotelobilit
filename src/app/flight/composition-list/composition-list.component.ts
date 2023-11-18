@@ -76,6 +76,7 @@ export class CompositionListComponent {
 
   getData() {
     this.isLoading = true;
+    this.data.data = []
     let qparams = this.publicService.getFiltersString(this.data.filters)
     this.api.list(qparams).subscribe({
       next: (res: any) => {
