@@ -4,6 +4,7 @@ import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { CompositionComponent } from './composition/composition.component';
+import { CompositionListComponent } from './composition-list/composition-list.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'composition',
     component: CompositionComponent
+  },
+  {
+    path: 'composition-list',
+    component: CompositionListComponent
   }
 ];
 

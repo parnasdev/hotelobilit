@@ -52,7 +52,7 @@ export class FlightApiService {
   }
   
   mixed(req: IMixedReq) {
-    let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/mix/mixed`);
+    let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/mixed`);
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 

@@ -12,19 +12,23 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { CompositionComponent } from './composition/composition.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {NgxPaginationModule} from "ngx-pagination";
+import { CompositionListComponent } from './composition-list/composition-list.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
     return {
       validation: false,
     };
   };
-  
+
 
 @NgModule({
     declarations: [
         ListComponent,
         AddComponent,
         EditComponent,
-        CompositionComponent
+        CompositionComponent,
+        CompositionListComponent
     ],
     imports: [
         CommonModule,
@@ -37,6 +41,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
         MatButtonToggleModule,
         NgxMaskDirective,
         NgxMaskPipe,
+        MatTooltipModule,
+        NgxPaginationModule,
     ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
 })
 export class FlightModule { }

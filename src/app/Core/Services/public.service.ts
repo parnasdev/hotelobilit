@@ -31,9 +31,9 @@ export class PublicService {
     let str=''
     filters.forEach((item:any,index:number)=>{
       if(index!==(filters.length-1)){
-      str+=item.key+'='+item.value+'&'
+      str+=item.reqKey+'='+item.value+'&'
       }else{
-        str+=item.key+'='+item.value
+        str+=item.reqKey+'='+item.value
       }
     }
     )

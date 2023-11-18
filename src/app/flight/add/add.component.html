@@ -12,13 +12,13 @@
     <div class="items-row">
       <div class="item">
         <span>مبدا</span>
-        <prs-custom-select (itemResult)="getOriginCity($event)" *ngIf="(data.cities ?? []).length > 0"
-                           [list]="data.cities"></prs-custom-select>
+        <prs-custom-select (itemResult)="getOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
+                           [list]="data.airports"></prs-custom-select>
       </div>
       <div class="item">
         <span>مقصد</span>
-        <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(data.cities ?? []).length > 0"
-                           [list]="data.cities"></prs-custom-select>
+        <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
+                           [list]="data.airports"></prs-custom-select>
       </div>
       <div class="item">
         <span>ایرلاین</span>
