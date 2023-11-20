@@ -1,3 +1,185 @@
-<prs-dynamic-list (onFilterClicked)="getFilterClicked($event)" [data]="data" [isLoading]="isLoading"
-    (buttonClicked)="buttonClicked($event)" (rowButtonClicked)="rowButtonClicked($event)"
-    (onFilterClicked)="onFilterClicked($event)"></prs-dynamic-list>
+<div class="list-tour">
+    <div class="title mb-3">
+        <h2>لیست مسیر پرواز ها</h2>
+        <a class="btn-add-tour" *ngIf="permition.check('flights.create')" routerLink="/panel/flight/add">اضافه</a>
+        <a class="btn-base-custom w-25" *ngIf="permition.check('flights.create')" routerLink="/panel/flight/composition-list">پرواز های ترکیب شده</a>
+
+        <a class="btn-base-custom2" *ngIf="permition.check('flights.create')" routerLink="/panel/flight/composition">ترکیب</a>
+
+    </div>
+    <div class="d-flex search-box-hotel mb-3">
+        <div class="border-box d-flex flex-column p-2">
+            <div class="w-100">
+                <h4>فیلترها</h4>
+            </div>
+            <div class="d-flex w-100">
+                <div class="inp-form w-20 m-1">
+                    <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="false"
+                        [title]="'فرودگاه مبدا'" [inCommingCity]="filterObj.origin"
+                        (citySelected)="originSelected($event)"></prs-select-city>
+                </div>
+                <div class="inp-form w-20 m-1">
+                    <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="true"
+                        [title]="'فرودگاه مقصد'" [inCommingCity]="filterObj.destination"
+                        (citySelected)="destSelected($event)"></prs-select-city>
+                </div>
+
+                <div style="background: white;" class="d-flex m-1 w-100">
+                    <div class="inp-form w-100">
+                        <input class="w-100" type="text"
+                            value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
+                            placeholder="انتخاب  تاریخ" (click)="openPicker()">
+
+                        <input class="w-100" type="text"
+                            value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
+                            (click)="openPicker()">
+                    </div>
+
+                </div>
+                <div class="inp-form w-50 m-1">
+                    <select name="" id="" [(ngModel)]="filterObj.status">
+                        <option value="2">همه</option>
+                        <option value="0">فعال</option>
+                        <option value="1">غیرفعال</option>
+                    </select>
+                </div>
+                <div class="inp-form w-70 m-1">
+                    <select name="" id="" [(ngModel)]="filterObj.airlineOrigin">
+                        <option disabled [value]="null">ایرلاین رفت</option>
+                        <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
+                    </select>
+                </div>
+                <div class="inp-form w-70 m-1">
+                    <select name="" id="" [(ngModel)]="filterObj.airlineDestination">
+                        <option disabled [value]="null">ایرلاین برگشت</option>
+
+                        <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
+                    </select>
+                </div>
+                <div class="d-flex w-100 align-items-center justify-content-end">
+                    <button class="btn-base w-75" (click)="submit()">فیلتر</button>
+                    <i class="icon-cancel text-danger" style="font-size: 25px; cursor: pointer;"
+                        (click)="removeFilter()"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn-base w-25" (click)="openGroupChange()" *ngIf="itemsChecked.length > 0">اعمال تغییر</button>
+    <div class="table-list-tour">
+        <div class="header-list-tour">
+            <div class="d-flex flex-column ">
+               <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+            </div>
+            <div class="d-flex flex-column ">
+                <span>شناسه</span>
+            </div>
+            <span class="title-tour">مبدا - مقصد</span>
+            <span class="title-tour">ایرلاین</span>
+
+            <div class="d-flex flex-column">
+                <span class="from-to"> تاریخ - ساعت</span>
+            </div>
+            <span class="from-to">شماره پرواز</span>
+            <span class="from-to">بزرگسال (تومان)</span>
+            <span class="from-to">کلاس</span>
+
+            <span class="from-to">وضعیت</span>
+
+
+            <span class="from-to"> کل</span>
+            <span class="from-to">در حال</span>
+            <span class="from-to"> مانده</span>
+            <span class="from-to">فروش</span>
+
+
+            <span class="setting">تنظیمات</span>
+        </div>
+        <div *ngIf="isLoading">
+            <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+                <div class="item-shimmer"></div>
+                <div class="item-shimmer"></div>
+                <div class="item-shimmer"></div>
+                <div class="item-shimmer"></div>
+                <div class="item-shimmer"></div>
+                <div class="item-shimmer"></div>
+            </div>
+        </div>
+        <div class="body-list-tour d-flex justify-content-center align-items-center"
+            *ngIf="!isLoading && data.length === 0">
+            <span class="p-5">موردی یافت نشد</span>
+        </div>
+        <div class="body-list-tour" *ngIf="data.length > 0">
+            <div class="item" *ngFor="let transfer of data| paginate: paginateConfig; ;let i = index">
+                <div class="d-flex flex-column ">
+                    <mat-checkbox [(ngModel)]="transfer.isChecked" (ngModelChange)="checkItemChanged()"></mat-checkbox>
+                 </div>
+                <div class="d-flex flex-column ">
+                    <span class="id">{{ transfer.id }}</span>
+
+                </div>
+                <div class="d-flex flex-column ">
+                    <span class="title-tour">{{ transfer.origin_name }} - {{ transfer.destination_name }}</span>
+
+                </div>
+                <div class="d-flex flex-column ">
+                    <span class="title-tour">{{ transfer.airline_name }}</span>
+
+                </div>
+                <div class="d-flex flex-column ">
+                    <span class="title-tour">{{ transfer.date | convertDate }} - {{transfer.time}}</span>
+
+
+                </div>
+                <div class="d-flex flex-column">
+                    <span class="title-tour">{{ transfer.flight_number }}</span>
+                </div>
+
+                <div class="d-flex flex-column ">
+                    <span class="title-tour">{{ transfer.adl_price | sperator }}
+                        <div class="">
+                            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+                                matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
+                                aria-label=""></i>
+                        </div>
+                    </span>
+                </div>
+                <div class="d-flex flex-column ">
+                    <span class="title-tour">{{ transfer.cabin_type }}
+                    </span>
+                </div>
+                <div class="d-flex flex-column ">
+                    <span class="title-tour"
+                        [style]="'color:'+ (transfer.is_close !== 0 ? '#ff0000;' : 'rgb(51 186 112);')">
+
+                        {{transfer.is_close == 0 ? 'فعال' :'بسته'}}
+
+                    </span>
+                </div>
+                <span class="title-tour" style="color: #0a53be">{{ transfer.all_capacity}}</span>
+                <span class="title-tour" style="color: green;cursor: pointer" routerLink="/panel/transferRate/reserves"
+                    [queryParams]="{flight: transfer.id,status: 501}">{{ transfer.reserved_capacity }}</span>
+
+                <span class="title-tour" style="color: red">{{ transfer.capacity}}</span>
+                <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
+                    [queryParams]="{flight: transfer.id,status: 472}">{{ transfer.booked_capacity }}</span>
+
+                <div style="width: 100% !important;" class="button-setting d-flex flex-column align-items-center">
+                    <div class="d-flex flex-wrap justify-content-between w-100">
+                        <a style="width: 48% !important;" routerLink="/panel/flight/edit/{{ transfer.id }}"
+                            class="edit-btn" *ngIf="permition.check('flights.edit')">ویرایش</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <pagination-controls *ngIf="paginate?.last_page > 1" class="pagination-control"
+            (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+            screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+            screenReaderCurrentLabel="شما در صفحه ی">
+        </pagination-controls>
+    </div>
+
+</div>

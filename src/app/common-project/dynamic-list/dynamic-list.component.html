@@ -20,7 +20,6 @@
               d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
           </svg>
         </a>
-
         <prs-group-changes [groupChangesButton]="getGroupChangesButton()" (clearSelectedItems)="clearSelectedItems()"
           (buttonClicked)="onButtonClicked($event)"></prs-group-changes>
 
@@ -61,7 +60,7 @@
     <div class="header-list-panel grid-dynamic gap-10" [style]="'--col:' + cols">
       <ng-template ngFor let-item let-i="index" [ngForOf]="data.props">
         <div class="p-radio flex-x-between" *ngIf="item.name === 'checkbox'">
-          <prs-checkbox></prs-checkbox>
+          <prs-checkbox [(ngModel)]="isSelectedAllChecked" (ngModelChange)="checkAll()"></prs-checkbox>
         </div>
         <span class="username" *ngIf="item.name !== 'checkbox'">{{ item.label }}</span>
       </ng-template>
@@ -82,7 +81,7 @@
         *ngFor="let x of data.data;let i = index">
         <ng-template ngFor let-prop let-i="index" [ngForOf]="data.props | paginate: data.pagination.confiq">
           <div class="p-radio flex-x-between" *ngIf="prop.name === 'checkbox'">
-            <prs-checkbox></prs-checkbox>
+            <prs-checkbox [(ngModel)]="x.isChecked" (ngModelChange)="handleSelected()"></prs-checkbox>
           </div>
           <span class="title-tour"
             [matTooltipDisabled]="prop.type !== 'text' || (x[prop.name] && x[prop.name].length < 20)"

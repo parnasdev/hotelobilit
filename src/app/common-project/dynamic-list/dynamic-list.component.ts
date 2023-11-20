@@ -226,15 +226,16 @@ export class DynamicListComponent implements OnInit {
     if (this.isSelectedAllChecked) {
       this.selectedItems = []
       this.data.data.forEach((item: any) => {
-        item.selected = true
-        this.selectedItems.push(item.id)
+        item.isChecked = true
+        this.selectedItems.push(item)
       })
     } else {
       this.data.data.forEach((item: any) => {
-        item.selected = false
+        item.isChecked = false
       })
       this.selectedItems = []
     }
+    console.log(this.selectedItems)
   }
 
   clearSelectedItems() {
@@ -245,13 +246,16 @@ export class DynamicListComponent implements OnInit {
     this.selectedItems = []
   }
 
-  handleSelected(itemData: any) {
-    if (this.selectedItems.find((x: number) => x === itemData.id)) {
-      let item_index = this.selectedItems.findIndex((x: number) => x === itemData.id)
-      this.selectedItems.splice(item_index, 1)
-    } else {
-      this.selectedItems.push(itemData.id)
-    }
+  handleSelected() {
+    this.selectedItems = []
+    this.data.data.forEach((item:any) => item.isChecked ? this.selectedItems.push(item): null)
+    console.log(this.selectedItems)
+    // if (this.selectedItems.find((x: number) => x === itemData.id)) {
+    //   let item_index = this.selectedItems.findIndex((x: number) => x === itemData.id)
+    //   this.selectedItems.splice(item_index, 1)
+    // } else {
+    //   this.selectedItems.push(itemData.id)
+    // }
   }
 
   setIsselectedToData() {

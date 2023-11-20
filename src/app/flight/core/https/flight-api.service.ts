@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PublicService } from 'src/app/Core/Services/public.service';
-import { IFlightCreate, IFlightEditReq, IFlightListReq, IFlightStoreReq, IMixStepOneReq, IMixStepTwoReq, IMixedReq, updateBulk } from '../models/flight.model';
+import { IFlightCreate, IFlightEditReq, IFlightListReq, IFlightStoreReq, IMixStepOneReq, IMixStepTwoReq, IMixedReq, IUpdateBulk } from '../models/flight.model';
 import { Result } from 'src/app/Core/Models/result';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class FlightApiService {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', ``);
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
-  bulkUpdate(req: updateBulk) {
+  bulkUpdate(req: IUpdateBulk) {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/bulk-update`);
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }

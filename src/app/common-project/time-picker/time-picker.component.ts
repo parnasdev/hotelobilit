@@ -20,7 +20,6 @@ export class TimePickerComponent implements OnInit,OnChanges {
   }
 
   ngOnInit(): void {
-    this.result.emit({hour: this.hourFC.value, minute: this.minuteFC.value})
   }
 
 
@@ -30,6 +29,8 @@ export class TimePickerComponent implements OnInit,OnChanges {
       this.hour = +this.inCommingTime.split(':')[0]
       this.minuteFC.setValue(this.inCommingTime.split(':')[1])
       this.minute = +this.inCommingTime.split(':')[1]
+    this.result.emit({hour: this.hourFC.value, minute: this.minuteFC.value})
+
     }
   }
 

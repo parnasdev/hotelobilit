@@ -1,0 +1,89 @@
+<div class="d-flex flex-column w-100 direction-rtl">
+    <div class="items-row">
+        <div class="item">
+            <span>مبدا</span>
+            <prs-custom-select (itemResult)="getOriginCity($event)" [inCommingItem]="req.origin_id"
+                *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
+        </div>
+        <div class="item">
+            <span>مقصد</span>
+            <prs-custom-select (itemResult)="getDestCity($event)" [inCommingItem]="req.destination_id"
+                *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
+        </div>
+        <div class="item">
+            <span>ایرلاین</span>
+            <prs-custom-select (itemResult)="getAirlines($event)" [inCommingItem]="req.airline_id"
+                *ngIf="(data.airline ?? []).length > 0" [list]="data.airline"></prs-custom-select>
+        </div>
+        <div class="item">
+            <span>مدل هواپیما</span>
+            <prs-custom-select (itemResult)="getAirplanes($event)" [inCommingItem]="req.airplane_id"
+                *ngIf="(data.airplanes??[]).length > 0" [list]="data.airplanes"></prs-custom-select>
+        </div>
+    </div>
+    <div class="d-flex mt-5">
+        <div class="item-calender">
+            <span>انتخاب تاریخ</span>
+            <div style="background: white;" class="row-calender">
+                <input class="w-100" type="text" [value]="(req.date | convertDate)" (click)="openPicker()">
+            </div>
+        </div>
+        <div class="item-two">
+            <span>ساعت پرواز </span>
+            <prs-time-picker (result)="getTime($event)"></prs-time-picker>
+        </div>
+        <div class="item-calender m-right-10">
+            <span>وضعیت</span>
+            <div style="background: white;" class="row-calender">
+                <select name="" id="" [(ngModel)]="req.is_close">
+                    <option value="0">باز</option>
+                    <option value="1">بسته</option>
+
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="items-row">
+        <div class="item">
+            <span>شماره پرواز</span>
+            <input type="text" [(ngModel)]="req.flight_number">
+        </div>
+        <div class="item">
+            <span>کلاس پروازی</span>
+            <input type="text" [(ngModel)]="req.cabin_type">
+
+        </div>
+        <div class="item">
+            <span>ظرفیت</span>
+            <input type="text" [(ngModel)]="req.capacity">
+
+        </div>
+        <div class="item">
+            <span>توضیحات</span>
+            <textarea [(ngModel)]="req.description"></textarea>
+        </div>
+    </div>
+    <div class="items-row">
+        <div class="item">
+            <span>قیمت بزرگسال</span>
+            <input type="text" [(ngModel)]="req.adl_price">
+        </div>
+        <div class="item">
+            <span>قیمت کودک</span>
+            <input type="text" [(ngModel)]="req.chd_price">
+
+        </div>
+        <div class="item">
+            <span>قیمت نوزاد</span>
+            <input type="text" [(ngModel)]="req.inf_price">
+
+        </div>
+
+    </div>
+
+
+    <div class="d-flex w-100 align-items-center justify-content-end">
+        <button class="btn-base w-75" (click)="submit()">تغییر</button>
+
+    </div>
+</div>

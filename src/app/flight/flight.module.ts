@@ -15,6 +15,7 @@ import { CompositionComponent } from './composition/composition.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxPaginationModule} from "ngx-pagination";
 import { CompositionListComponent } from './composition-list/composition-list.component';
+import { GroupChangePopupComponent } from './group-change-popup/group-change-popup.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
     return {
       validation: false,
@@ -28,7 +29,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
         AddComponent,
         EditComponent,
         CompositionComponent,
-        CompositionListComponent
+        CompositionListComponent,
+        GroupChangePopupComponent
     ],
     imports: [
         CommonModule,

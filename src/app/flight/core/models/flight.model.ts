@@ -99,9 +99,23 @@ export interface IFlightStore {
     inf_price: number
 }
 
-export interface updateBulk {
-    ids: number[];
-    capacity: number
+export interface IUpdateBulk {
+    ids?: number[];
+    origin_id?: number,
+    destination_id?: number,
+    airline_id?: number,
+    date?: string
+    time?: string
+    flight_number?: number
+    adl_price?: number
+    chd_price?: number
+    inf_price?: number
+    capacity?: number
+    is_close?: number
+    description?: string
+    airplane_id?: number
+    cabin_type?: string
+    
 }
 
 export interface IMixStepOneReq {

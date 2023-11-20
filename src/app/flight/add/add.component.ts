@@ -39,7 +39,7 @@ export class AddComponent {
     departure_duration: '',
     return_duration: '',
     description: '',
-    open_until: 12,
+    open_until: 240,
     prices: [],
   }
 
@@ -177,5 +177,13 @@ export class AddComponent {
         this.req.dates.push(moment(result.toDate.dateEn).format('YYYY-MM-DD'))
       }
     })
+  }
+
+
+  setChildPrice(i:number) {
+    debugger
+    console.log(this.PriceForm);
+    // @ts-ignore
+    this.PriceForm.controls[i].controls['chd_price'].setValue(this.PriceForm.controls[i].controls['adl_price'].value)
   }
 }

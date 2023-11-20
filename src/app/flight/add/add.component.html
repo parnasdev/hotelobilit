@@ -34,7 +34,7 @@
 
     <div class="d-flex mt-5">
       <div class="item-calender">
-        <span>انتخاب بازه تاریخی</span>
+        <span>انتخاب بازه ایجاد پرواز</span>
         <div style="background: white;" class="row-calender">
           <input class="w-100" type="text" value="{{ req.dates[0] ? (req.dates[0] | convertDate) : '' }}"
                  (click)="openPicker()">
@@ -82,11 +82,11 @@
     </div>
     <div class="list-inp" *ngIf="showMore">
       <div class="item">
-        <span>مدت زمان پرواز رفت</span>
+        <span>مدت زمان پرواز رفت(ساعت)</span>
         <input type="text" [(ngModel)]="req.departure_duration">
       </div>
       <div class="item">
-        <span>مدت زمان پرواز برگشت</span>
+        <span>مدت زمان پرواز برگشت(ساعت)</span>
         <input type="text" [(ngModel)]="req.return_duration">
       </div>
       <div class="item">
@@ -133,19 +133,19 @@
                     </div>
                   </div>
                   <div class="item-row">
-                    <label for="">قیمت بزرگسال</label>
+                    <label for="">قیمت بزرگسال (تومان)</label>
                     <div class="inp-base d-flex flex-column">
-                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="adl_price" placeholder="قیمت بزرگسال"></textarea>
+                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="adl_price" (keyup)="setChildPrice(i)" placeholder="قیمت بزرگسال"></textarea>
                     </div>
                   </div>
                   <div class="item-row">
-                    <label for="">قیمت کودک</label>
+                    <label for="">قیمت کودک (تومان)</label>
                     <div class="inp-base d-flex flex-column">
                       <textarea type="text" mask="separator" thousandSeparator="," formControlName="chd_price" placeholder="قیمت کودک"></textarea>
                     </div>
                   </div>
                   <div class="item-row">
-                    <label for="">قیمت نوزاد</label>
+                    <label for="">قیمت نوزاد (تومان)</label>
                     <div class="inp-base d-flex flex-column">
                       <textarea type="text" mask="separator" thousandSeparator="," formControlName="inf_price" placeholder="قیمت نوزاد"></textarea>
                     </div>
