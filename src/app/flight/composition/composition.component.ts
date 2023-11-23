@@ -20,7 +20,7 @@ export class CompositionComponent {
     airlines: [],
     airports: []
   }
-
+  compositionLoading = false
 
   departureLoading = false;
   returnLoading = false;
@@ -84,6 +84,7 @@ export class CompositionComponent {
     public message: MessageService,
     public error: ErrorsService,
     public dialog: MatDialog,
+    
     public calendar: CalenderServices,
     public router: Router,
     public publicService: PublicService) { }
@@ -220,10 +221,17 @@ export class CompositionComponent {
 
     if (this.returnList.length > 0 && this.departureList.length > 0) {
       this.setCompositionReq()
+      this.compositionLoading = true
       this.api.mixStepTwo(this.compositionReq).subscribe({
         next: (res: any) => {
-          this.compositionData = res.data
+          if(res.isDone) {
+            this.compositionData = res.data
+          }
+          this.compositionLoading = false
+
         }, error: (error: any) => {
+          this.compositionLoading = false
+
           this.error.check(error)
         }
       })
@@ -237,7 +245,7 @@ export class CompositionComponent {
   calculateStayCount(transfer: any) {
     let checkin = '';
     let checkout = ''
-    if (!transfer.departure.checkin_tomorrow && !transfer.departure.checkout_yesterday) {
+    if (!transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
       checkin = transfer.departure.date;
       checkout = transfer.return.date;
     } else if (transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {

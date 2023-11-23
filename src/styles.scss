@@ -781,3 +781,24 @@ $gap: 50;
 .direction-rtl {
   direction: rtl;
 }
+.btn-base-custom {
+  background-color: #992d2d;
+  color: var(--white);
+  width: 120px;
+  height: 38px;
+  border-radius: var(--radius-btn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-base-custom2 {
+  background-color: #15b67b;
+  color: var(--white);
+  width: 120px;
+  height: 38px;
+  border-radius: var(--radius-btn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

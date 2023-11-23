@@ -14,6 +14,7 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
 import { MatDialog } from '@angular/material/dialog';
 import { CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { GroupChangePopupComponent } from '../group-change-popup/group-change-popup.component';
+import { EditFastPopupComponent } from '../edit-fast-popup/edit-fast-popup.component';
 
 @Component({
   selector: 'prs-list',
@@ -151,11 +152,14 @@ export class ListComponent {
 
     this.api.list(qparams).subscribe({
       next: (res: any) => {
+        this.isLoading = false;
+
         if (res.isDone) {
           this.data = res.data
           this.airports = res.airports;
           this.airlines = res.airlines
           this.airplanes = res.airplanes
+          // debugger
           this.paginate = res.meta;
           this.paginateConfig = {
             itemsPerPage: this.paginate.per_page,
@@ -165,7 +169,6 @@ export class ListComponent {
         } else {
           this.message.custom(res.message)
         }
-        this.isLoading = false;
       },
       error: (error: any) => {
         // console.log('error');
@@ -186,19 +189,20 @@ export class ListComponent {
     this.getData()
   }
 
-  setCheckAll() {this.itemsChecked = []
-    
-    if(this.checkAll) {
+  setCheckAll() {
+    this.itemsChecked = []
+
+    if (this.checkAll) {
       this.data.forEach(x => {
         x.isChecked = this.checkAll
         this.itemsChecked.push(x)
       })
-    }else{ 
+    } else {
       this.data.forEach(x => {
         x.isChecked = this.checkAll
       })
     }
-   
+
   }
 
   checkItemChanged() {
@@ -272,6 +276,19 @@ export class ListComponent {
     this.getData()
   }
 
+  fastEdit(id: number) {
+    const dialog = this.dialog.open(EditFastPopupComponent, {
+      data: id,
+      width: '80%',
+      height: '80%'
+    })
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.getData();
+      }
+    })
+  }
+
   reload() {
     this.show = false;
     setTimeout(() => this.show = true);
@@ -287,11 +304,11 @@ export class ListComponent {
       }
     })
     dialog.afterClosed().subscribe((res: any) => {
-      if(res) {
-    this.filterObj.fromDate = res.fromDate.dateEn
-      this.filterObj.toDate = res.toDate.dateEn;
+      if (res) {
+        this.filterObj.fromDate = res.fromDate.dateEn
+        this.filterObj.toDate = res.toDate.dateEn;
       }
-  
+
     })
   }
 

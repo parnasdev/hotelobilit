@@ -1,5 +1,5 @@
 <span *ngIf="!showForm && isLoading">در حال دریافت اطلاعات ...</span>
-<div *ngIf="showForm">
+<div *ngIf="showForm" class="direction-rtl p-3">
     <div class="d-flex flex-column">
 
         <div class="d-flex justify-content-end top-select w-100">
@@ -14,21 +14,35 @@
                 <span>مبدا</span>
                 <prs-custom-select (itemResult)="getOriginCity($event)" [inCommingItem]="req.origin_id"
                     *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
+                <div class="mt-2" *ngIf="error.hasError('origin') || error.hasError('origin') ">
+                    <span class="text-danger">{{error.getError('origin')}} {{error.getError('origin') }}</span>
+                </div>
             </div>
             <div class="item">
                 <span>مقصد</span>
                 <prs-custom-select (itemResult)="getDestCity($event)" [inCommingItem]="req.destination_id"
                     *ngIf="(airports ?? []).length > 0" [list]="airports"></prs-custom-select>
+                <div class="mt-2" *ngIf="error.hasError('destination_id') || error.hasError('destination_id') ">
+                    <span class="text-danger">{{error.getError('destination_id')}} {{error.getError('destination_id')
+                        }}</span>
+                </div>
             </div>
             <div class="item">
                 <span>ایرلاین</span>
                 <prs-custom-select (itemResult)="getAirlines($event)" [inCommingItem]="req.airline_id"
                     *ngIf="(data.airlines ?? []).length > 0" [list]="data.airlines"></prs-custom-select>
+                <div class="mt-2" *ngIf="error.hasError('airline_id') || error.hasError('airline_id') ">
+                    <span class="text-danger">{{error.getError('airline_id')}} {{error.getError('airline_id') }}</span>
+                </div>
             </div>
             <div class="item">
                 <span>مدل هواپیما</span>
                 <prs-custom-select (itemResult)="getAirplanes($event)" [inCommingItem]="req.airplane_id"
                     *ngIf="(data.airplanes??[]).length > 0" [list]="data.airplanes"></prs-custom-select>
+                <div class="mt-2" *ngIf="error.hasError('airplane_id') || error.hasError('airplane_id') ">
+                    <span class="text-danger">{{error.getError('airplane_id')}} {{error.getError('airplane_id')
+                        }}</span>
+                </div>
             </div>
         </div>
 
@@ -37,7 +51,9 @@
                 <span>انتخاب تاریخ</span>
                 <div style="background: white;" class="row-calender">
                     <input class="w-100" type="text" [value]="(req.date | convertDate)" (click)="openPicker()">
-
+                    <div class="mt-2" *ngIf="error.hasError('date') || error.hasError('date') ">
+                        <span class="text-danger">{{error.getError('date')}}</span>
+                    </div>
                 </div>
             </div>
             <div class="item-calender m-right-10">
@@ -59,11 +75,17 @@
         <div class="item">
             <span>شماره پرواز </span>
             <input type="text" [(ngModel)]="req.flight_number">
+            <div class="mt-2" *ngIf="error.hasError('flight_number') || error.hasError('flight_number') ">
+                <span class="text-danger">{{error.getError('flight_number')}}</span>
+            </div>
         </div>
 
         <div class="item-two">
             <span>ساعت پرواز </span>
             <prs-time-picker (result)="getTime($event)" [inCommingTime]="req.time"></prs-time-picker>
+            <div class="mt-2" *ngIf="error.hasError('time') || error.hasError('time') ">
+                <span class="text-danger">{{error.getError('time')}}</span>
+            </div>
         </div>
 
 
@@ -71,6 +93,9 @@
             <div class="item-full">
                 <span>توضیحات</span>
                 <textarea type="text" [(ngModel)]="req.description"></textarea>
+                <div class="mt-2" *ngIf="error.hasError('description') || error.hasError('description') ">
+                    <span class="text-danger">{{error.getError('description')}}</span>
+                </div>
             </div>
         </div>
 
@@ -89,6 +114,10 @@
                                     <div class="inp-base h-45 d-flex flex-column">
                                         <input type="text" [(ngModel)]="req.cabin_type"
                                             [ngModelOptions]="{standalone: true}" placeholder="کلاس">
+                                        <div class="mt-2"
+                                            *ngIf="error.hasError('cabin_type') || error.hasError('cabin_type') ">
+                                            <span class="text-danger">{{error.getError('cabin_type')}}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -96,6 +125,10 @@
                                     <div class="inp-base d-flex flex-column">
                                         <textarea type="text" [(ngModel)]="req.capacity"
                                             [ngModelOptions]="{standalone: true}" placeholder="ظرفیت"></textarea>
+                                        <div class="mt-2"
+                                            *ngIf="error.hasError('capacity') || error.hasError('capacity') ">
+                                            <span class="text-danger">{{error.getError('capacity')}}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -104,6 +137,10 @@
                                         <textarea type="text" mask="separator" thousandSeparator=","
                                             [(ngModel)]="req.adl_price" [ngModelOptions]="{standalone: true}"
                                             placeholder="قیمت بزرگسال"></textarea>
+                                        <div class="mt-2"
+                                            *ngIf="error.hasError('adl_price') || error.hasError('adl_price') ">
+                                            <span class="text-danger">{{error.getError('adl_price')}}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -112,6 +149,10 @@
                                         <textarea type="text" mask="separator" thousandSeparator=","
                                             [(ngModel)]="req.chd_price" [ngModelOptions]="{standalone: true}"
                                             placeholder="قیمت کودک"></textarea>
+                                        <div class="mt-2"
+                                            *ngIf="error.hasError('chd_price') || error.hasError('chd_price') ">
+                                            <span class="text-danger">{{error.getError('chd_price')}}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="item-row">
@@ -120,6 +161,10 @@
                                         <textarea type="text" mask="separator" thousandSeparator=","
                                             [(ngModel)]="req.inf_price" [ngModelOptions]="{standalone: true}"
                                             placeholder="قیمت نوزاد"></textarea>
+                                        <div class="mt-2"
+                                            *ngIf="error.hasError('inf_price') || error.hasError('inf_price') ">
+                                            <span class="text-danger">{{error.getError('inf_price')}}</span>
+                                        </div>
                                     </div>
                                 </div>
 

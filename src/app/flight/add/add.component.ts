@@ -18,8 +18,9 @@ export class AddComponent {
   showForm = false
   isLoading = false
   showMore = false
+  airports:any[] = []
   tab = 'normal'
-
+  isDomestic = false;
   form = this.fb.group({
     prices: this.fb.array([]),
   });
@@ -74,6 +75,8 @@ export class AddComponent {
         if (res.isDone) {
           this.showForm = true
           this.data = res.data
+          this.airports = this.data.airports;
+          this.changeCityType()
           this.data.dayOfWeeks.forEach(x => {
             this.weekDays.push({ isChecked: false, name: x })
           })
@@ -85,6 +88,12 @@ export class AddComponent {
         this.isLoading = false
       }
     })
+  }
+
+  changeCityType() {
+    this.airports = []
+    this.airports = this.data.airports.filter((x:any) => x.is_domestic === this.isDomestic)
+
   }
 
   getWeek() {

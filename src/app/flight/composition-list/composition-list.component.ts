@@ -4,6 +4,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { IListFilters, IListModel } from 'src/app/Core/Models/dynamicList.model';
 import { PublicService } from 'src/app/Core/Services/public.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'prs-composition-list',
@@ -65,6 +66,7 @@ export class CompositionListComponent {
   }
   constructor(public api: FlightApiService,
     public error: ErrorsService,
+    public router:Router,
     public publicService: PublicService,
     public message: MessageService) { }
 
@@ -104,5 +106,9 @@ export class CompositionListComponent {
   getFilterResult(data: any) {
     this.data = data
     this.getData()
+  }
+  edit(id:number) {
+    this.router.navigateByUrl(`/panel/flight/edit/${id}`)
+
   }
 }

@@ -42,7 +42,7 @@ export class ListComponent implements OnInit {
     public permition: PermitionsService,
     public errorService: ErrorsService,
     public message: MessageService) {
-    if (session.getRole() === 'programmer' || session.getRole() === 'admin') {
+    if (session.getRole() === 'programmer' || session.getRole() === 'admin' || session.getRole() === 'admin1') {
       this.roleSelected = 5
     } else {
       this.roleSelected = 0

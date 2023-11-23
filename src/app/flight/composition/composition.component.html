@@ -4,27 +4,41 @@
       <label for="">مبدا</label>
       <prs-custom-select (itemResult)="getDepartureOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
         [list]="data.airports"></prs-custom-select>
+      <div *ngIf="error.hasError('origin')">
+        <span class="text-danger">{{error.getError('origin')}}</span>
+      </div>
     </div>
     <div class="item-inp w-48">
       <label for="">مقصد</label>
       <prs-custom-select (itemResult)="getDepartureDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
         [list]="data.airports"></prs-custom-select>
+      <div *ngIf="error.hasError('destination')">
+        <span class="text-danger">{{error.getError('destination')}}</span>
+      </div>
     </div>
     <div class="item-inp m-top-16 w-48">
       <label for="">ایرلاین</label>
       <prs-custom-select (itemResult)="getDepartureAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
         [list]="data.airlines"></prs-custom-select>
+        <div *ngIf="error.hasError('airline')">
+          <span class="text-danger">{{error.getError('airline')}}</span>
+        </div>
     </div>
     <div style="position: relative;top: 10px" class="item-inp-date m-top-16 w-48" (click)="openPicker('departure')">
       <label for="">انتخاب بازه</label>
       <span>{{ (departureObj.end_date | convertDate) + '-' + (departureObj.start_date | convertDate)}}</span>
+      <div class="mt-2" *ngIf="error.hasError('start_date') || error.hasError('end_date') ">
+        <span class="text-danger">{{error.getError('start_date')}} {{error.getError('end_date')  }}</span>
+      </div>
     </div>
+
     <div class="item-inp m-top-16 w-48">
       <label for="">تعداد شب</label>
-
       <prs-custom-select (itemResult)="getStayCount($event)" *ngIf="(stayCountList ?? []).length > 0"
         [list]="stayCountList"></prs-custom-select>
-      <!-- <span >{{ (departureObj.end_date | convertDate) + '-' +  (departureObj.start_date | convertDate)}}</span> -->
+      <div *ngIf="error.hasError('stay_count')">
+        <span class="text-danger">{{error.getError('stay_count')}}</span>
+      </div>
     </div>
     <div class="w-48 grid-2 gap-10">
       <div class="d-flex flex-column align-items-center">
@@ -45,26 +59,38 @@
       <label for="">مبدا</label>
       <prs-custom-select (itemResult)="getReturnOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
         [list]="data.airports"></prs-custom-select>
+        <div *ngIf="error.hasError('origin')">
+          <span class="text-danger">{{error.getError('origin')}}</span>
+        </div>
     </div>
     <div class="item-inp w-48">
       <label for="">مقصد</label>
       <prs-custom-select (itemResult)="getReturnDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
         [list]="data.airports"></prs-custom-select>
+        <div *ngIf="error.hasError('destination')">
+          <span class="text-danger">{{error.getError('destination')}}</span>
+        </div>
     </div>
     <div class="item-inp m-top-16 w-48">
       <label for="">ایرلاین</label>
       <prs-custom-select (itemResult)="getReturnAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
         [list]="data.airlines"></prs-custom-select>
+        <div *ngIf="error.hasError('airline')">
+          <span class="text-danger">{{error.getError('airline')}}</span>
+        </div>
     </div>
 
     <div style="position: relative;top: 10px" class="item-inp-date  m-top-16 w-48" (click)="openPicker('return')">
       <label for="">انتخاب بازه</label>
       <span>{{ (ReturnObj.end_date | convertDate) + '-' + (ReturnObj.start_date | convertDate)}}</span>
+      <div class="mt-2" *ngIf="error.hasError('start_date') || error.hasError('end_date') ">
+        <span class="text-danger">{{error.getError('start_date')}} {{error.getError('end_date')  }}</span>
+      </div>
     </div>
     <div class="w-48 grid-2 gap-10">
       <div class="d-flex flex-column align-items-center">
         <label class="font-size-13 bold-600" for="">checkout yesterday</label>
-        <prs-checkbox [(ngModel)]="departureObj.checkout_yesterday"></prs-checkbox>
+        <prs-checkbox [(ngModel)]="ReturnObj.checkout_yesterday"></prs-checkbox>
       </div>
     </div>
     <div class="d-flex flex-column align-items-center">
@@ -86,7 +112,7 @@
       <span>شماره پرواز</span>
     </div>
     <div class="empty-box mt-3" *ngIf="departureList.length === 0 && !departureLoading">
-    <span >موردی یافت نشد</span>
+      <span>موردی یافت نشد</span>
     </div>
     <span class="spinner-border spinner-border-sm spinner-loading mt-3" *ngIf="departureLoading"></span>
 
@@ -97,7 +123,7 @@
       </div>
       <span>{{item.airline_name}}</span>
       <span>{{item.date | convertDate}}</span>
-      <span>{{item.time}}</span>
+      <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>
     </div>
   </div>
@@ -111,8 +137,8 @@
     </div>
     <span class="spinner-border spinner-border-sm mt-5 spinner-loading " *ngIf="returnLoading"></span>
     <div class="empty-box mt-3" *ngIf="returnList.length === 0 && !returnLoading">
-      <span >موردی یافت نشد</span>
-      </div>
+      <span>موردی یافت نشد</span>
+    </div>
     <div class="item-body" *ngFor="let item of returnList">
       <div class="d-flex flex-column align-items-center">
         <span>{{item.origin_name}}-{{item.destination_name}}</span>
@@ -120,13 +146,16 @@
       </div>
       <span>{{item.airline_name}}</span>
       <span>{{item.date | convertDate}}</span>
-      <span>{{item.time}}</span>
+      <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>
     </div>
   </div>
 </div>
 <div class="d-flex justify-content-center align-items-center">
-  <button class="btn-base-purple w-25 mt-3 cursor-pointer" (click)="composition()">نمایش ترکیب ها</button>
+  <button class="btn-base-purple w-25 mt-3 cursor-pointer" (click)="composition()">نمایش ترکیب ها
+    <span class="spinner-border spinner-border-sm" *ngIf="compositionLoading"></span>
+
+  </button>
 </div>
 <div style="padding: 1rem" class="body-list-tour">
   <div class="item-two" *ngFor="let transfer of compositionData ;let i = index">
@@ -134,13 +163,14 @@
       <mat-checkbox [(ngModel)]="transfer.isChecked"></mat-checkbox>
     </span>
     <div class="d-flex flex-column ">
-      <span >{{ transfer.departure.id }}</span>
-      <span style="margin-top: 6px" >{{ transfer.return.id }}</span>
+      <span>{{ transfer.departure.id }}</span>
+      <span style="margin-top: 6px">{{ transfer.return.id }}</span>
 
     </div>
     <div class="d-flex flex-column ">
       <span class="title-tour">{{ transfer.departure.origin_name }} - {{ transfer.departure.destination_name }}</span>
-      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.origin_name }} - {{ transfer.return.destination_name }}</span>
+      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.origin_name }} - {{
+        transfer.return.destination_name }}</span>
 
     </div>
     <div class="d-flex flex-column ">
@@ -149,9 +179,9 @@
 
     </div>
     <div class="d-flex flex-column ">
-      <span class="title-tour">{{ transfer.departure.date | convertDate}} - {{transfer.departure.time}}</span>
+      <span class="title-tour">{{ transfer.departure.date | convertDate}} - {{transfer.departure.time | timeFixer}}</span>
       <span style="margin-top: 6px" class="title-tour">{{ transfer.return.date | convertDate}} -
-        {{transfer.return.time}}</span>
+        {{transfer.return.time | timeFixer}}</span>
 
     </div>
     <div class="d-flex flex-column">
@@ -162,7 +192,7 @@
     <div class="d-flex flex-column ">
 
       <span class="text-danger">{{calculateStayCount(transfer)}} شب</span>
-      <span style="margin-top: 6px" class="text-danger">{{calculateStayCount(transfer)}} شب</span>
+      <!-- <span style="margin-top: 6px" class="text-danger">{{calculateStayCount(transfer)}} شب</span> -->
       <!-- <span class="title-tour">{{ transfer.flight.adl_price | sperator }}</span> -->
     </div>
 

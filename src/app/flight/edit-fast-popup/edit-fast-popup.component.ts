@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { IFlightCategory, IFlightEditReq } from '../core/models/flight.model';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
-import { FlightApiService } from '../core/https/flight-api.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import { FlightApiService } from '../core/https/flight-api.service';
+import { IFlightEditReq, IFlightCategory } from '../core/models/flight.model';
 
 @Component({
-  selector: 'prs-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  selector: 'prs-edit-fast-popup',
+  templateUrl: './edit-fast-popup.component.html',
+  styleUrls: ['./edit-fast-popup.component.scss']
 })
-export class EditComponent {
-  id = '0'
+export class EditFastPopupComponent {
   data: any;
   isDomestic = false;
   showForm = false
@@ -39,6 +38,8 @@ export class EditComponent {
 
   constructor(public api: FlightApiService,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<EditFastPopupComponent>,
+              @Inject(MAT_DIALOG_DATA) public id: number,
     public fb: FormBuilder,
     public router:Router,
     public route: ActivatedRoute,
@@ -47,7 +48,6 @@ export class EditComponent {
 
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id') ?? '0'
     this.getData();
   }
 

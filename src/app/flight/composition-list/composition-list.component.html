@@ -74,7 +74,7 @@
           <prs-checkbox></prs-checkbox>
           <span>{{ item.origin_name }} - {{ item.destination_name }}</span>
           <span>{{ item.airline_name }}</span>
-          <span>{{ item.date | convertDate }} - {{ item.time }}</span>
+          <span>{{ item.date | convertDate }} - {{ item.time | timeFixer }}</span>
           <span>{{ item.flight_number }}</span>
           <span>{{ item.airplane }}</span>
           <span>{{ item.cabin_type }}</span>
@@ -82,19 +82,24 @@
           <span>{{ item.adl_price | sperator }} (تومان)</span>
           <span>{{ item.user?.full_name ?? '' }}</span>
           <span>{{ item.is_close ? 'بسته' : 'باز' }}</span>
+          <div class="d-flex flex-column">
+            <button class="btn-base-custom2" (click)="edit(item.id)">ویرایش</button>
+            <span class="mt-4">{{(item.return_flight.adl_price + item.adl_price )| sperator }} (تومان)</span>
+          </div>
         </div>
-        <div class="list-item-panel grid-dynamic gap-10" *ngFor="let returnItem of item.return_flights;let i =index">
+        <div class="list-item-panel grid-dynamic gap-10" >
           <prs-checkbox></prs-checkbox>
-          <span>{{ returnItem.origin_name }} - {{ returnItem.destination_name }}</span>
-          <span>{{ returnItem.airline_name }}</span>
-          <span>{{ returnItem.date | convertDate }} - {{ returnItem.time }}</span>
-          <span>{{ returnItem.flight_number }}</span>
-          <span>{{ returnItem.airplane }}</span>
-          <span>{{ returnItem.cabin_type }}</span>
-          <span>{{ returnItem.capacity }}</span>
-          <span>{{ returnItem.adl_price | sperator }} (تومان)</span>
-          <span>{{ returnItem.user?.full_name ?? '' }}</span>
-          <span>{{ returnItem.is_close ? 'بسته' : 'باز' }}</span>
+          <span>{{ item.return_flight.origin_name }} - {{ item.return_flight.destination_name }}</span>
+          <span>{{ item.return_flight.airline_name }}</span>
+          <span>{{ item.return_flight.date | convertDate }} - {{ item.return_flight.time| timeFixer  }}</span>
+          <span>{{ item.return_flight.flight_number }}</span>
+          <span>{{ item.return_flight.airplane }}</span>
+          <span>{{ item.return_flight.cabin_type }}</span>
+          <span>{{ item.return_flight.capacity }}</span>
+          <span>{{ item.return_flight.adl_price | sperator }} (تومان)</span>
+          <span>{{ item.return_flight.user?.full_name ?? '' }}</span>
+          <span>{{ item.return_flight.is_close ? 'بسته' : 'باز' }}</span>
+          <button class="btn-base-custom2" (click)="edit(item.return_flight.id)">ویرایش</button>
         </div>
       </div>
     </ng-template>

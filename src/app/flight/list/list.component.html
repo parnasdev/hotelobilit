@@ -2,9 +2,11 @@
     <div class="title mb-3">
         <h2>لیست مسیر پرواز ها</h2>
         <a class="btn-add-tour" *ngIf="permition.check('flights.create')" routerLink="/panel/flight/add">اضافه</a>
-        <a class="btn-base-custom w-25" *ngIf="permition.check('flights.create')" routerLink="/panel/flight/composition-list">پرواز های ترکیب شده</a>
+        <a class="btn-base-custom w-25" *ngIf="permition.check('flights.create')"
+            routerLink="/panel/flight/composition-list">پرواز های ترکیب شده</a>
 
-        <a class="btn-base-custom2" *ngIf="permition.check('flights.create')" routerLink="/panel/flight/composition">ترکیب</a>
+        <a class="btn-base-custom2" *ngIf="permition.check('flights.create')"
+            routerLink="/panel/flight/composition">ترکیب</a>
 
     </div>
     <div class="d-flex search-box-hotel mb-3">
@@ -13,12 +15,12 @@
                 <h4>فیلترها</h4>
             </div>
             <div class="d-flex w-100">
-                <div class="inp-form w-20 m-1">
+                <div class="inp-form w-15 m-1">
                     <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="false"
                         [title]="'فرودگاه مبدا'" [inCommingCity]="filterObj.origin"
                         (citySelected)="originSelected($event)"></prs-select-city>
                 </div>
-                <div class="inp-form w-20 m-1">
+                <div class="inp-form w-15 m-1">
                     <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="true"
                         [title]="'فرودگاه مقصد'" [inCommingCity]="filterObj.destination"
                         (citySelected)="destSelected($event)"></prs-select-city>
@@ -26,11 +28,11 @@
 
                 <div style="background: white;" class="d-flex m-1 w-100">
                     <div class="inp-form w-100">
-                        <input class="w-100" type="text"
+                        <input class="w-50" type="text"
                             value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
                             placeholder="انتخاب  تاریخ" (click)="openPicker()">
 
-                        <input class="w-100" type="text"
+                        <input class="w-50" type="text"
                             value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
                             (click)="openPicker()">
                     </div>
@@ -52,7 +54,6 @@
                 <div class="inp-form w-70 m-1">
                     <select name="" id="" [(ngModel)]="filterObj.airlineDestination">
                         <option disabled [value]="null">ایرلاین برگشت</option>
-
                         <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
                     </select>
                 </div>
@@ -68,18 +69,24 @@
     <div class="table-list-tour">
         <div class="header-list-tour">
             <div class="d-flex flex-column ">
-               <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
             </div>
             <div class="d-flex flex-column ">
                 <span>شناسه</span>
             </div>
             <span class="title-tour">مبدا - مقصد</span>
-            <span class="title-tour">ایرلاین</span>
+
+            <div class="d-flex flex-column ">
+                <span class="title-tour">ایرلاین</span>
+                <span class="from-to">شماره پرواز</span>
+            </div>
 
             <div class="d-flex flex-column">
-                <span class="from-to"> تاریخ - ساعت</span>
+                <span class="from-to"> تاریخ</span>
             </div>
-            <span class="from-to">شماره پرواز</span>
+            <div class="d-flex flex-column">
+                <span class="from-to"> روز-ساعت</span>
+            </div>
             <span class="from-to">بزرگسال (تومان)</span>
             <span class="from-to">کلاس</span>
 
@@ -88,8 +95,8 @@
 
             <span class="from-to"> کل</span>
             <span class="from-to">در حال</span>
-            <span class="from-to"> مانده</span>
             <span class="from-to">فروش</span>
+            <span class="from-to"> مانده</span>
 
 
             <span class="setting">تنظیمات</span>
@@ -106,13 +113,13 @@
         </div>
         <div class="body-list-tour d-flex justify-content-center align-items-center"
             *ngIf="!isLoading && data.length === 0">
-            <span class="p-5">موردی یافت نشد</span>
+            <span class="p-5">جهت مشاهده پرواز اطلاعات خود را وارد و سپس دکمه فیلتر را بزنید</span>
         </div>
         <div class="body-list-tour" *ngIf="data.length > 0">
             <div class="item" *ngFor="let transfer of data| paginate: paginateConfig; ;let i = index">
                 <div class="d-flex flex-column ">
                     <mat-checkbox [(ngModel)]="transfer.isChecked" (ngModelChange)="checkItemChanged()"></mat-checkbox>
-                 </div>
+                </div>
                 <div class="d-flex flex-column ">
                     <span class="id">{{ transfer.id }}</span>
 
@@ -123,16 +130,20 @@
                 </div>
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.airline_name }}</span>
+                    <span class="title-tour">{{ transfer.flight_number }}</span>
 
                 </div>
                 <div class="d-flex flex-column ">
-                    <span class="title-tour">{{ transfer.date | convertDate }} - {{transfer.time}}</span>
-
-
+                    <span class="title-tour">{{ transfer.date | convertDate }}</span>
                 </div>
-                <div class="d-flex flex-column">
-                    <span class="title-tour">{{ transfer.flight_number }}</span>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="title-tour" style="color: #0a53be">{{
+                        calendarService.getWeekDay(transfer.date)}}</span>
+
+                    <span class="title-tour">{{transfer.time | timeFixer}}</span>
                 </div>
+
 
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.adl_price | sperator }}
@@ -141,6 +152,8 @@
                                 matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
                                 aria-label=""></i>
                         </div>
+                        <i class="icon-pencil text-primary" (click)="fastEdit(transfer.id)"></i>
+
                     </span>
                 </div>
                 <div class="d-flex flex-column ">
@@ -158,14 +171,15 @@
                 <span class="title-tour" style="color: #0a53be">{{ transfer.all_capacity}}</span>
                 <span class="title-tour" style="color: green;cursor: pointer" routerLink="/panel/transferRate/reserves"
                     [queryParams]="{flight: transfer.id,status: 501}">{{ transfer.reserved_capacity }}</span>
-
-                <span class="title-tour" style="color: red">{{ transfer.capacity}}</span>
                 <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
                     [queryParams]="{flight: transfer.id,status: 472}">{{ transfer.booked_capacity }}</span>
+                <span class="title-tour" style="color: red">{{ transfer.capacity}}</span>
+
+
 
                 <div style="width: 100% !important;" class="button-setting d-flex flex-column align-items-center">
                     <div class="d-flex flex-wrap justify-content-between w-100">
-                        <a style="width: 48% !important;" routerLink="/panel/flight/edit/{{ transfer.id }}"
+                        <a style="width: 100% !important;" routerLink="/panel/flight/edit/{{ transfer.id }}"
                             class="edit-btn" *ngIf="permition.check('flights.edit')">ویرایش</a>
 
                     </div>

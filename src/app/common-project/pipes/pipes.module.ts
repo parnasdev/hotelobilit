@@ -10,11 +10,12 @@ import { OriginCityPipe } from './origin-city.pipe';
 import { ConvertDatePipe } from './convert-date.pipe';
 import { HotelListKeywordPipe } from './hotel-list-keyword.pipe';
 import { SeparatorPipe } from './separator.pipe';
+import { TimeFixerPipe } from './time-fixer.pipe';
 
 
 
 @NgModule({
-  declarations: [SperatorPipe,SafeHtmlPipe,SeparatorPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe, ConvertDatePipe, HotelListKeywordPipe],
+  declarations: [SperatorPipe,SafeHtmlPipe,SeparatorPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe, ConvertDatePipe, HotelListKeywordPipe, TimeFixerPipe],
   exports: [
     SperatorPipe,
     SafeHtmlPipe,
@@ -22,6 +23,8 @@ import { SeparatorPipe } from './separator.pipe';
     RoundPipe,
     OrderingPipe,
     CityKeywordPipe,
+
+    TimeFixerPipe,
     OriginCityPipe,ConvertDatePipe
   ],
   imports: [

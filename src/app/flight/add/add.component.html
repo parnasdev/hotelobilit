@@ -3,11 +3,10 @@
   <div class="d-flex flex-column">
 
     <div class="d-flex justify-content-end top-select w-100">
-      <select>
-        <option value="">داخلی</option>
-        <option value="">خارجی</option>
+      <select [(ngModel)]="isDomestic" (ngModelChange)="changeCityType()">
+        <option [ngValue]="true">داخلی</option>
+        <option [ngValue]="false">خارجی</option>
       </select>
-
     </div>
     <div class="items-row">
       <div class="item">
@@ -17,8 +16,8 @@
       </div>
       <div class="item">
         <span>مقصد</span>
-        <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
-                           [list]="data.airports"></prs-custom-select>
+        <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(airports ?? []).length > 0"
+                           [list]="airports"></prs-custom-select>
       </div>
       <div class="item">
         <span>ایرلاین</span>
@@ -113,7 +112,7 @@
 
     <div class="d-flex w-100 flex-column align-items-center">
       <form class="w-100 d-flex align-items-center flex-wrap justify-content-center" [formGroup]="form">
-        <button class=" add-row" (click)="addRow()">اضافه</button>
+        <button class=" add-row" (click)="addRow()">ایجاد کلاس پروازی و قیمت گذاری</button>
         <ng-container formArrayName="prices">
           <div class="example-list w-100">
             <div *ngFor="let tabs of PriceForm.controls; let i = index">

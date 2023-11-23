@@ -21,6 +21,8 @@ import { Location } from '@angular/common';
 export class EditComponent implements OnInit {
   userId = '';
   userInfo: any;
+
+
   isLoading = false;
   permissions: { id: number, label: string, isChecked?: boolean }[] = []
   modeNM = 'profile'
@@ -196,11 +198,13 @@ export class EditComponent implements OnInit {
     this.userForm.controls.phone.setValue(this.userInfo.user.phone);
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
-    let agencyFiltered = this.agencies.filter(a => a.agency_name === this.agency);
-    if (agencyFiltered.length > 0) {
-      this.userForm.controls.parent_id.setValue(agencyFiltered[0].id);
+    this.userForm.controls.parent_id.setValue(this.userInfo.user.parent_id);
 
-    }
+    // let agencyFiltered = this.agencies.filter(a => a.agency_name === this.agency);
+    // if (agencyFiltered.length > 0) {
+    //   this.userForm.controls.parent_id.setValue(agencyFiltered[0].id);
+
+    // }
 
 
     this.permissions.forEach((item: any) => {
