@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="w-100 m-top-16 d-flex justify-content-end">
-      <a (click)="getFlights('departure')" class="btn-base h-40 w-20 cursor-pointer">ثبت</a>
+      <a (click)="getFlights('departure')" class="btn-base h-40 w-20 cursor-pointer">نمایش پرواز ها</a>
     </div>
   </div>
   <div class="end">
@@ -98,7 +98,7 @@
       <prs-checkbox [(ngModel)]="ReturnObj.reset"></prs-checkbox>
     </div>
     <div class="w-100 m-top-16 d-flex justify-content-end">
-      <a (click)="getFlights('return')" class="btn-base h-40 w-20 cursor-pointer">ثبت</a>
+      <a (click)="getFlights('return')" class="btn-base h-40 w-20 cursor-pointer">نمایش پرواز ها</a>
     </div>
   </div>
 </div>
@@ -182,7 +182,15 @@
       <span class="title-tour">{{ transfer.departure.date | convertDate}} - {{transfer.departure.time | timeFixer}}</span>
       <span style="margin-top: 6px" class="title-tour">{{ transfer.return.date | convertDate}} -
         {{transfer.return.time | timeFixer}}</span>
+    </div>
 
+    <div class="d-flex flex-column ">
+      <span class="title-tour">{{ calendar.getWeekDay(transfer.departure.date)  }}</span>
+      <span style="margin-top: 6px" class="title-tour">{{ calendar.getWeekDay(transfer.return.date)  }}</span>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="title-tour">{{ transfer.departure.cabin_type }}</span>
+      <span style="margin-top: 6px" class="title-tour">{{ transfer.return.cabin_type }}</span>
     </div>
     <div class="d-flex flex-column">
       <span class="title-tour">{{ transfer.departure.flight_number }}</span>

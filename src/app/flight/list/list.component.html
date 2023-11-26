@@ -147,13 +147,15 @@
 
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.adl_price | sperator }}
-                        <div class="">
-                            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-                                matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
-                                aria-label=""></i>
-                        </div>
-                        <i class="icon-pencil text-primary" (click)="fastEdit(transfer.id)"></i>
+               <div class="d-flex">
+                <div class="">
+                    <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+                        matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
+                        aria-label=""></i>
+                </div>
+                <i class="icon-pencil text-primary" (click)="fastEdit(transfer.id)"></i>
 
+               </div>
                     </span>
                 </div>
                 <div class="d-flex flex-column ">

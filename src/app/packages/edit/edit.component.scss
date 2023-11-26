@@ -497,6 +497,10 @@ mat-form-field {
   font-weight: 500;
 }
 
+.hotel-input {
+  width: 360px;
+}
+
 :host::ng-deep .mat-form-field {
   width: 100%;
 }
@@ -926,7 +930,7 @@ prs-select-hotel {
   .item {
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 50px;
     place-items: center;
     gap: 8px;
@@ -948,7 +952,7 @@ prs-select-hotel {
 .item-header {
   width: 99%;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 50px;
   place-items: center;
   gap: 8px;
@@ -1115,9 +1119,7 @@ prs-select-hotel {
   }
 }
 
-.hotel-input {
-  width: 360px;
-}
+
 .p-list-fly {
   width: 100% !important;
   margin-top: 1rem;

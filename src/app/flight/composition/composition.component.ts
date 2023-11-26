@@ -267,8 +267,8 @@ export class CompositionComponent {
     this.compositionData.forEach((element: any) => {
       if (element.isChecked) {
         let obj: IMixId = {
-          checkin_tomorrow: element.departure.checkin_tomorrow,
-          checkout_yesterday: element.return.checkout_yesterday,
+          checkin_tomorrow: this.departureObj.checkin_tomorrow ?? false,
+          checkout_yesterday: this.ReturnObj.checkout_yesterday ?? false,
           departure_id: element.departure.id,
           return_id: element.return.id
         }

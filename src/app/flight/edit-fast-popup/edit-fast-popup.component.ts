@@ -44,7 +44,9 @@ export class EditFastPopupComponent {
     public router:Router,
     public route: ActivatedRoute,
     public message: MessageService,
-    public error: ErrorsService) { }
+    public error: ErrorsService) {
+      error.clear();
+     }
 
 
   ngOnInit() {

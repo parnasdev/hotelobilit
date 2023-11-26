@@ -44,6 +44,7 @@ export interface TransferRateListDTO {
   id: number
   inf_price: number
   is_close: number
+  return_flight:any
   origin_id: number
   origin_name: string
   reserve_capacity: number

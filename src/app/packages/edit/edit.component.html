@@ -142,9 +142,9 @@
                         <mat-checkbox [(ngModel)]="item.isChecked"
                             (ngModelChange)="changeTransferRates()"></mat-checkbox>
                         <span>{{item.origin_name }} - {{ item.destination_name }}</span>
-                        <span>{{ item.airline_name }} - {{ item.flight.airline_name }}</span>
+                        <span>{{ item.airline_name }} - {{ item.return_flight.airline_name }}</span>
                         <span>{{ calenderService.convertDate(item.date, 'fa') }}</span>
-                        <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
+                        <span>{{ calenderService.convertDate(item.return_flight.date, 'fa') }}</span>
                         <span>{{ item.adl_price | sperator }}</span>
                         <span>{{ item.chd_price | sperator }}</span>
                         <span>{{ item.inf_price | sperator }}</span>
