@@ -27,7 +27,7 @@ import { PrsDatePickerModule } from "../prs-date-picker/prs-date-picker.module";
         ChooseRoomAndFlightComponent,
         SearchComponent,
         PassengersComponent,
-        CompleteReservationComponent
+        CompleteReservationComponent,
     ],
     exports: [SearchComponent],
     imports: [

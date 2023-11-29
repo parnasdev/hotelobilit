@@ -20,6 +20,8 @@ export class CompositionComponent {
     airlines: [],
     airports: []
   }
+
+  mixedLoading = false;
   compositionLoading = false
 
   departureLoading = false;
@@ -84,7 +86,7 @@ export class CompositionComponent {
     public message: MessageService,
     public error: ErrorsService,
     public dialog: MatDialog,
-    
+
     public calendar: CalenderServices,
     public router: Router,
     public publicService: PublicService) { }
@@ -153,7 +155,7 @@ export class CompositionComponent {
         if (type === 'departure') {
           this.departureObj.start_date = result.fromDate.dateEn
           this.departureObj.end_date = result.toDate.dateEn
-          
+
         } else {
           this.ReturnObj.start_date = result.fromDate.dateEn
           this.ReturnObj.end_date = result.toDate.dateEn
@@ -280,14 +282,17 @@ export class CompositionComponent {
 
 
   compositionSubmit() {
+    this.mixedLoading = true
     let req: IMixedReq = {
       ids: this.getCompositionIds()
     }
     this.api.mixed(req).subscribe({
       next: (res: any) => {
         this.message.custom(res.message);
-        this.router.navigateByUrl('/panel/flight')
+        this.router.navigateByUrl('/panel/flight/composition-list')
+        this.mixedLoading = false
       }, error: (error: any) => {
+        this.mixedLoading = false
         this.error.check(error)
       }
     })

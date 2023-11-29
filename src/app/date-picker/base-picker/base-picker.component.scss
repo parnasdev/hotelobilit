@@ -1,0 +1,298 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+body {
+  font-family: 'IRANSans' !important;
+  direction: rtl;
+}
+
+
+.p-calender {
+  height: auto;
+  background: #fff;
+  width: 100%;
+  padding: 1rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  position: relative;
+
+  .prev-month {
+background: unset!important;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+
+
+    svg {
+      transition: 0.3s all;
+
+      &:hover {
+        transform: translateX(3px);
+        transition: 0.3s all;
+      }
+
+      path {
+        fill: #444;
+      }
+    }
+  }
+
+  .next-month {
+    width: 45px;
+    background: unset!important;
+
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+
+    svg {
+      transition: 0.3s all;
+      transform: rotate(180deg);
+
+      &:hover {
+        transform: translateX(-3px) rotate(180deg);
+        transition: 0.3s all;
+      }
+
+      path {
+        fill: #444;
+      }
+    }
+  }
+
+  .box-calender {
+    border-radius: 12px;
+    width: 43%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+
+    .header-month {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 14px 0;
+
+      h3 {
+        margin: 0;
+        color: #000;
+        font-weight: 600 !important;
+        font-size: 15px;
+
+
+      }
+    }
+
+    .header-week {
+      width: 97%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      column-gap: 12px;
+      place-items: center;
+      border-bottom: 1px solid #ebebeb;
+      padding-bottom: 8px;
+
+      span {
+        font-size: 13px;
+        color: #646464;
+        font-weight: 700;
+      }
+    }
+
+    .body-calender {
+      width: 97%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      row-gap: 20px;
+      column-gap: 12px;
+      place-items: center;
+      margin-top: 12px;
+
+      .label-capacity {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: #646464;
+        padding: 1px;
+        color: var(--white);
+        font-size: 13px;
+        position: absolute;
+        left: -5px;
+        top: -5px;
+      }
+
+      .item {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #eedede;
+        color: #000;
+        font-size: 20px;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+        transition: 0.3s all;
+
+        &:hover {
+          background: #f2f2f2;
+          color: #000;
+          transition: 0.3s all;
+        }
+
+        .price-day {
+          position: absolute;
+          transform: translateY(29px);
+          margin-top: 8px;
+          font-size: 12px;
+          color: #d4d4d4;
+        }
+      }
+    }
+  }
+}
+
+.opacity3 {
+  opacity: 0.3;
+}
+
+@media only screen and (min-width: 901px) {
+  .p-calender{
+    .item{
+
+    }
+  }
+  #dateInfo {
+    width: 47px !important;
+    height: 47px !important;
+    font-size: 15px !important;
+    transition: 0.5s all;
+    &:hover{
+      transition: 0.5s all;
+      transform: scale(1.1);
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .p-calender{
+    height: auto !important;
+    flex-direction: column;
+    padding: 0 !important;
+    .box-calender{
+      width: 100% !important;
+      height: auto;
+      margin-top: 12px !important;
+      .header-month{
+        h3{
+          font-size: 14px !important;
+        }
+      }
+      .body-calender{
+        gap: 8px !important;
+        .item{
+          width: 30px !important;
+          height: 30px !important;
+          font-size: 12px !important;
+          .price-day{
+            transform: unset !important;
+            margin-top: 8px !important;
+            font-size: 9px !important;
+            top: 7px;
+          }
+        }
+      }
+    }
+    .prev-month{
+      transform: unset !important;
+      svg{
+        width: 20px !important;
+      }
+    }
+    .next-month{
+      transform: unset !important;
+      margin-top: 12px;
+      svg{
+        width: 20px !important;
+      }
+    }
+  }
+
+
+  .inp-base{
+    width: 100% !important;
+  }
+  .prev-month , .next-month{
+    height: 38px !important;
+    svg{
+      width: 21px !important;
+    }
+  }
+  .p-calender {
+    flex-direction: column;
+    height: auto !important;
+    padding: 0 !important;
+
+    .box-calender:nth-child(3) {
+      display: none !important;
+    }
+
+    .box-calender {
+      width: 100% !important;
+    }
+  }
+  .p-calender .box-calender .body-calender {
+    column-gap: 6px !important;
+    row-gap: 12px !important;
+
+    .item {
+      width: 100% !important;
+      height: 35px !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+    }
+  }
+  .prev-month {
+    transform: unset !important;
+    top: 13px;
+  }
+  .next-month {
+    transform: unset !important;
+  }
+}
+
+
+.p-calender .box-calender .body-calender {
+  gap: 6px !important;
+
+
+}
+.box-calender{
+  height: auto !important;
+  width: 49% !important;
+}
+
+
+

@@ -1,13 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { CalenderServices } from './calender-service';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { MessageService } from './message.service';
+import { SessionService } from './session.service';
+import { ErrorsService } from './errors.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicService {
-
-  constructor() {
+  isMobile = false;
+  isTablet = false;
+  isDesktop = false
+  isTv = false
+  constructor(
+    public calendar: CalenderServices,
+    public message: MessageService,
+    public error: ErrorsService,
+    public session: SessionService,
+    public title: Title,
+    public route: ActivatedRoute,
+  ) {
+    this.isMobile = window.innerWidth <= 430;
+    this.isTablet = window.innerWidth < 867;
+    this.isDesktop = window.innerWidth > 868
+    this.isTv = window.innerWidth > 3200
   }
 
   getDefaultHeaders(): any {

@@ -166,7 +166,7 @@
         <div class="d-flex flex-column ">
           <span class="title-tour"
             [style]="'color:'+ (transfer.is_close !== 0 ? '#ff0000;' : 'rgb(51 186 112);')">
-          
+
             <!-- {{transfer.is_close == 0 ? 'فعال' :'بسته'}} -->
             <div class="inp-form">
               <select name="" id="" [(ngModel)]="transfer.is_close" (ngModelChange)="statusChanged(transfer)">
@@ -187,11 +187,7 @@
             <span class="title-tour" style="color: red">{{ transfer.capacity}}</span>
             <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
               [queryParams]="{flight: transfer.id,status: 472}">{{ transfer.booked_capacity }}</span>
-
-
           </div>
-
-
         </div>
         <div class="d-flex flex-column">
           <span class="title-tour">

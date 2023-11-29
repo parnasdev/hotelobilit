@@ -1,225 +1,223 @@
 <section class="s-list-hotel mt-2">
-  <div class="prs-responsive">
-    <div class="p-list-hotel">
-      <prs-search *ngIf="isSearch" [inCommingSearchObject]="routeDataParam" (onSubmit)="search($event)"></prs-search>
-      <div class="p-list-hotel-bottom">
-        <div class="d-flex justify-content-between align-items-center w-100" *ngIf="isTablet">
-          <button (click)="filteringOpen()"  class="btn-filter w-48">
-            فیلتر
-          </button>
-          <button (click)="searchBoxOpen()" class="btn-filter w-48">
-            جستجوی مجدد
-          </button>
-        </div>
-        <div *ngIf="isFiltering" class="filtering w-100 mt-2">
-          <div class="title-filtering">
-            <h3>فیلتر ها :</h3>
-            <a style="cursor: pointer;" (click)="removeFilters()">پاک کردن فیلتر ها</a>
+    <div class="prs-responsive">
+      <div class="p-list-hotel">
+        <!-- <prs-search *ngIf="isSearch" [inCommingSearchObject]="req" (onSubmit)="search($event)"></prs-search> -->
+        <div class="p-list-hotel-bottom">
+          <div class="d-flex justify-content-between align-items-center w-100" *ngIf="publicService.isTablet">
+            <button (click)="filteringOpen()"  class="btn-filter w-48">
+              فیلتر
+            </button>
+            <button (click)="searchBoxOpen()" class="btn-filter w-48">
+              جستجوی مجدد
+            </button>
           </div>
-          <div class="box-filtering">
-            <div class="p-search">
-              <h3>جستجوی نام هتل یا اقامتگاه</h3>
-              <div class="inp-form w-100">
-                <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..."
-                  (change)="filterSubmit()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
-                  <g id="Search..." transform="translate(0 0)">
-                    <path id="Path_1136" data-name="Path 1136"
-                      d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
-                      fill="none" stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                    <path id="Path_1137" data-name="Path 1137" d="M27.668,27.668l-7.32-7.32" fill="none"
-                      stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                  </g>
-                </svg>
-              </div>
+          <div *ngIf="isFiltering" class="filtering w-100 mt-2">
+            <div class="title-filtering">
+              <h3>فیلتر ها :</h3>
+              <a style="cursor: pointer;" (click)="removeFilters()">پاک کردن فیلتر ها</a>
             </div>
-            <div class="p-star">
-              <h3>ستاره های هتل </h3>
-              <div class="inp-form">
-                <select name="" id="" [(ngModel)]="star" (ngModelChange)="filterSubmit()">
-                  <option [value]="0">همه</option>
-
-                  <option [value]="1">1 ستاره</option>
-                  <option [value]="2">2 ستاره</option>
-                  <option [value]="3">3 ستاره</option>
-                  <option [value]="4">4 ستاره</option>
-                  <option [value]="5">5 ستاره</option>
-                </select>
-              </div>
-            </div>
-            <div class="p-sort">
-              <h3>مرتب سازی بر اساس</h3>
-              <div class="item-sort">
-                <label class="checkbox path">
-                  <input type="checkbox" [checked]="orderBy === 1" (click)="orderClicked('cheapest',$event)">
-                  <svg viewBox="0 0 21 21">
-                    <path
-                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
-                    </path>
+            <div class="box-filtering">
+              <div class="p-search">
+                <h3>جستجوی نام هتل یا اقامتگاه</h3>
+                <div class="inp-form w-100">
+                  <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..."
+                    (change)="getData()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
+                    <g id="Search..." transform="translate(0 0)">
+                      <path id="Path_1136" data-name="Path 1136"
+                        d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
+                        fill="none" stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                      <path id="Path_1137" data-name="Path 1137" d="M27.668,27.668l-7.32-7.32" fill="none"
+                        stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </g>
                   </svg>
-                </label>
-                <span>ارزان ترین ها</span>
+                </div>
               </div>
-              <div class="item-sort">
-                <label class="checkbox path">
-                  <input type="checkbox" [checked]="orderBy === 2" (click)="orderClicked('expensive' , $event)">
-                  <svg viewBox="0 0 21 21">
-                    <path
-                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
-                    </path>
+              <div class="p-star">
+                <h3>ستاره های هتل </h3>
+                <div class="inp-form">
+                  <select name="" id="" [(ngModel)]="star" (ngModelChange)="getData()">
+                    <option [value]="0">همه</option>
+  
+                    <option [value]="1">1 ستاره</option>
+                    <option [value]="2">2 ستاره</option>
+                    <option [value]="3">3 ستاره</option>
+                    <option [value]="4">4 ستاره</option>
+                    <option [value]="5">5 ستاره</option>
+                  </select>
+                </div>
+              </div>
+              <div class="p-sort">
+                <h3>مرتب سازی بر اساس</h3>
+                <div class="item-sort">
+                  <label class="checkbox path">
+                    <input type="checkbox" [checked]="orderBy === 1" (click)="orderClicked('cheapest',$event)">
+                    <svg viewBox="0 0 21 21">
+                      <path
+                        d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
+                      </path>
+                    </svg>
+                  </label>
+                  <span>ارزان ترین ها</span>
+                </div>
+                <div class="item-sort">
+                  <label class="checkbox path">
+                    <input type="checkbox" [checked]="orderBy === 2" (click)="orderClicked('expensive' , $event)">
+                    <svg viewBox="0 0 21 21">
+                      <path
+                        d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
+                      </path>
+                    </svg>
+                  </label>
+                  <span>گران ترین ها</span>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+          <div *ngIf="publicService.isDesktop" class="filtering">
+            <div class="title-filtering">
+              <h3>فیلتر ها :</h3>
+              <a style="cursor: pointer;" (click)="removeFilters()">پاک کردن فیلتر ها</a>
+            </div>
+            <div class="box-filtering">
+              <div class="p-search">
+                <h3>جستجوی نام هتل یا اقامتگاه</h3>
+                <div class="inp-form w-100">
+                  <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..."
+                    (change)="getData()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
+                    <g id="Search..." transform="translate(0 0)">
+                      <path id="Path_1136" data-name="Path 1136"
+                        d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
+                        fill="none" stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                      <path id="Path_1137" data-name="Path 1137" d="M27.668,27.668l-7.32-7.32" fill="none"
+                        stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </g>
                   </svg>
-                </label>
-                <span>گران ترین ها</span>
+                </div>
               </div>
-
+              <div class="p-star">
+                <h3>ستاره های هتل </h3>
+                <div class="inp-form">
+                  <select name="" id="" [(ngModel)]="star" (ngModelChange)="getData()">
+                    <option [value]="0">همه</option>
+  
+                    <option [value]="1">1 ستاره</option>
+                    <option [value]="2">2 ستاره</option>
+                    <option [value]="3">3 ستاره</option>
+                    <option [value]="4">4 ستاره</option>
+                    <option [value]="5">5 ستاره</option>
+                  </select>
+                </div>
+              </div>
+              <div class="p-sort">
+                <h3>مرتب سازی بر اساس</h3>
+                <div class="item-sort">
+                  <label class="checkbox path">
+                    <input type="checkbox" [checked]="orderBy === 1" (click)="orderClicked('cheapest',$event)">
+                    <svg viewBox="0 0 21 21">
+                      <path
+                        d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
+                      </path>
+                    </svg>
+                  </label>
+                  <span>ارزان ترین ها</span>
+                </div>
+                <div class="item-sort">
+                  <label class="checkbox path">
+                    <input type="checkbox" [checked]="orderBy === 2" (click)="orderClicked('expensive' , $event)">
+                    <svg viewBox="0 0 21 21">
+                      <path
+                        d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
+                      </path>
+                    </svg>
+                  </label>
+                  <span>گران ترین ها</span>
+                </div>
+  
+              </div>
             </div>
           </div>
-        </div>
-
-        <div *ngIf="isDesktop" class="filtering">
-          <div class="title-filtering">
-            <h3>فیلتر ها :</h3>
-            <a style="cursor: pointer;" (click)="removeFilters()">پاک کردن فیلتر ها</a>
-          </div>
-          <div class="box-filtering">
-            <div class="p-search">
-              <h3>جستجوی نام هتل یا اقامتگاه</h3>
-              <div class="inp-form w-100">
-                <input type="text" [(ngModel)]="keyword" placeholder="نام هتل خود را وارد کنید ..."
-                  (change)="filterSubmit()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 29.082 29.082">
-                  <g id="Search..." transform="translate(0 0)">
-                    <path id="Path_1136" data-name="Path 1136"
-                      d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
-                      fill="none" stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                    <path id="Path_1137" data-name="Path 1137" d="M27.668,27.668l-7.32-7.32" fill="none"
-                      stroke="#212135" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                  </g>
-                </svg>
-              </div>
+          <div class="end">
+            <div class="title">
+              <h2>هتل تور خود را انتخاب کنید :</h2>
+              <span>نتایج جستجو : {{ data.length }}</span>
             </div>
-            <div class="p-star">
-              <h3>ستاره های هتل </h3>
-              <div class="inp-form">
-                <select name="" id="" [(ngModel)]="star" (ngModelChange)="filterSubmit()">
-                  <option [value]="0">همه</option>
-
-                  <option [value]="1">1 ستاره</option>
-                  <option [value]="2">2 ستاره</option>
-                  <option [value]="3">3 ستاره</option>
-                  <option [value]="4">4 ستاره</option>
-                  <option [value]="5">5 ستاره</option>
-                </select>
-              </div>
+  
+            <div *ngIf="isLoading" class="shimmer-1 mt-5">
+              <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
             </div>
-            <div class="p-sort">
-              <h3>مرتب سازی بر اساس</h3>
-              <div class="item-sort">
-                <label class="checkbox path">
-                  <input type="checkbox" [checked]="orderBy === 1" (click)="orderClicked('cheapest',$event)">
-                  <svg viewBox="0 0 21 21">
-                    <path
-                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
-                    </path>
-                  </svg>
-                </label>
-                <span>ارزان ترین ها</span>
+            <div class="list-hotel" *ngIf="showData">
+              <!--thumbnail-hotel-->
+              <div class="empty-box bg-white" *ngIf="data.length === 0 && !isLoading">
+                <span>هتلی یافت نشد</span>
               </div>
-              <div class="item-sort">
-                <label class="checkbox path">
-                  <input type="checkbox" [checked]="orderBy === 2" (click)="orderClicked('expensive' , $event)">
-                  <svg viewBox="0 0 21 21">
-                    <path
-                      d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
-                    </path>
-                  </svg>
-                </label>
-                <span>گران ترین ها</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="end">
-          <div class="title">
-            <h2>هتل تور خود را انتخاب کنید :</h2>
-            <span>نتایج جستجو : {{ hotels.length }}</span>
-          </div>
-
-          <div *ngIf="isLoading" class="shimmer-1 mt-5">
-            <div *ngFor="let item of [1,2,3,4,5,6]" class="item-shimmer"></div>
-          </div>
-          <div class="list-hotel" *ngIf="showData">
-            <!--thumbnail-hotel-->
-            <div class="empty-box bg-white" *ngIf="hotels.length === 0 && !isLoading">
-              <span>هتلی یافت نشد</span>
-            </div>
-
-
-            <div class="thumbnail-hotel" *ngFor="let hotel of hotels | paginate: paginateConfig;let i = index">
-              <div class="img">
-                <img draggable="false"
-                  [src]="hotel.thumbnail ? hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
-              </div>
-              <div *ngIf="isTablet" class="w-100 d-flex justify-content-end m-top-8 align-items-center">
-                <a href="" class="btn-view-hotel text-danger bold-600 font-size-12">مشاهده جزییات هتل</a>
-              </div>
-              <div class="info-thumbnail-hotel">
-                <div class="start-info">
-                  <div *ngIf="hotel.is_domestic" class="d-flex flex-column align-items-start">
-                    <h2 class="name-hotel"><a href="">{{ hotel.title }}</a></h2>
-                    <h2 class="name-hotel-en"><a href="">{{ hotel.titleEn }}</a></h2>
-                  </div>
-                  <div *ngIf="!hotel.is_domestic" class="d-flex flex-column align-items-start">
-                    <h2 class="name-hotel"><a href="">{{ hotel.titleEn }}</a></h2>
-                    <h2 class="name-hotel-en"><a href="">{{ hotel.title }}</a></h2>
-                  </div>
-                  <div class="star-hotel">
-                    <i class="icon-star" *ngFor="let item of getStars(hotel.stars)"></i>
-                  </div>
-                  <div class="options-hotel">
-                    <span class="font-size-14 bold-600">خدمات :</span>
-                    <div class="d-flex align-items-center justify-content-start">
-                      <span class="font-size-13 m-right-12">ثبت نشده</span>
+  
+  
+              <div class="thumbnail-hotel" *ngFor="let item of data;let i = index">
+                <div class="img">
+                  <img draggable="false"
+                    [src]="item.hotel.thumbnail ? item.hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
+                </div>
+                <div *ngIf="publicService.isTablet" class="w-100 d-flex justify-content-end m-top-8 align-items-center">
+                  <a href="" class="btn-view-hotel text-danger bold-600 font-size-12">مشاهده جزییات هتل</a>
+                </div>
+                <div class="info-thumbnail-hotel">
+                  <div class="start-info">
+                    <div *ngIf="item.hotel.is_domestic" class="d-flex flex-column align-items-start">
+                      <h2 class="name-hotel"><a href="">{{ item.hotel.title }}</a></h2>
+                      <h2 class="name-hotel-en"><a href="">{{ item.hotel.titleEn }}</a></h2>
+                    </div>
+                    <div *ngIf="!item.hotel.is_domestic" class="d-flex flex-column align-items-start">
+                      <h2 class="name-hotel"><a href="">{{ item.hotel.titleEn }}</a></h2>
+                      <h2 class="name-hotel-en"><a href="">{{ item.hotel.title }}</a></h2>
+                    </div>
+                    <div class="star-hotel">
+                      <i class="icon-star" *ngFor="let item of getStars(item.hotel.stars)"></i>
+                    </div>
+                    <div class="options-hotel">
+                      <span class="font-size-14 bold-600">خدمات :</span>
+                      <div class="d-flex align-items-center justify-content-start">
+                        <span class="font-size-13 m-right-12">ثبت نشده</span>
+                      </div>
+                    </div>
+                    <div class="location-hotel">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 24.26 26.857">
+                        <g id="Location" transform="translate(1.029 1)">
+                          <path id="Path_1011" data-name="Path 1011"
+                            d="M1.158,13.384a15.1,15.1,0,0,0,4.272,7.8,26.585,26.585,0,0,0,5.657,4.367,1.977,1.977,0,0,0,2.028,0,26.585,26.585,0,0,0,5.657-4.367,15.1,15.1,0,0,0,4.272-7.8,11.21,11.21,0,0,0-1.713-8.1C19.672,2.885,16.754,1,12.1,1S4.529,2.885,2.87,5.288A11.21,11.21,0,0,0,1.158,13.384Z"
+                            transform="translate(-1 -1)" fill="none" stroke="#4b4b4b" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" />
+                          <circle id="Ellipse_49" data-name="Ellipse 49" cx="3.028" cy="3.028" r="3.028"
+                            transform="translate(14.129 12.11) rotate(180)" fill="none" stroke="#4b4b4b"
+                            stroke-width="2" />
+                        </g>
+                      </svg>
+                      <span class="font-size-14 bold-600">منطقه :</span>
+                      <span class="font-size-13 m-right-12">{{ item.hotel.location !== '' ? item.hotel.location : 'ثبت نشده'
+                        }}</span>
                     </div>
                   </div>
-                  <div class="location-hotel">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 24.26 26.857">
-                      <g id="Location" transform="translate(1.029 1)">
-                        <path id="Path_1011" data-name="Path 1011"
-                          d="M1.158,13.384a15.1,15.1,0,0,0,4.272,7.8,26.585,26.585,0,0,0,5.657,4.367,1.977,1.977,0,0,0,2.028,0,26.585,26.585,0,0,0,5.657-4.367,15.1,15.1,0,0,0,4.272-7.8,11.21,11.21,0,0,0-1.713-8.1C19.672,2.885,16.754,1,12.1,1S4.529,2.885,2.87,5.288A11.21,11.21,0,0,0,1.158,13.384Z"
-                          transform="translate(-1 -1)" fill="none" stroke="#4b4b4b" stroke-linecap="round"
-                          stroke-linejoin="round" stroke-width="2" />
-                        <circle id="Ellipse_49" data-name="Ellipse 49" cx="3.028" cy="3.028" r="3.028"
-                          transform="translate(14.129 12.11) rotate(180)" fill="none" stroke="#4b4b4b"
-                          stroke-width="2" />
-                      </g>
-                    </svg>
-                    <span class="font-size-14 bold-600">منطقه :</span>
-                    <span class="font-size-13 m-right-12">{{ hotel.location !== '' ? hotel.location : 'ثبت نشده'
-                      }}</span>
+                  <div class="end-info">
+                    <span *ngIf="publicService.isDesktop">قیمت تور برای هر نفر {{ this.req.stayCount }} شب از :</span>
+                    <div class="price">
+                      <strong>{{ item.total_price | sperator}}</strong>
+                      <small>تومان</small>
+                    </div>
+                    <a (click)="selectHotel(item.hotel.slug)" style="cursor: pointer;" class="btn-base-red  w-100">انتخاب هتل و
+                      رزرو</a>
                   </div>
-                </div>
-                <div class="end-info">
-                  <span *ngIf="isDesktop">قیمت تور برای هر نفر {{ this.req.stayCount }} شب از :</span>
-                  <div class="price">
-                    <strong>{{ hotel.totalRoomPrice | sperator}}</strong>
-                    <small>تومان</small>
-                  </div>
-                  <a (click)="selectHotel(hotel.slug)" style="cursor: pointer;" class="btn-base-red  w-100">انتخاب هتل و
-                    رزرو</a>
                 </div>
               </div>
+  
+  
+              <!--end-thumbnail-hotel-->
             </div>
-            <pagination-controls class="pagination-control" (pageChange)="onPageChanged($event)" previousLabel="قبلی"
-                                 nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
-                                 screenReaderCurrentLabel="شما در صفحه ی">
-            </pagination-controls>
-
-            <!--end-thumbnail-hotel-->
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  

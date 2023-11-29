@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { AuthApiService } from "../Https/auth-api.service";
-import { UserApiService } from '../Https/user-api.service';
 import { PermissionDTO } from '../Models/UserDTO';
-import { MessageService } from './message.service';
 import { RegisterResDTO, UserMeResDTO } from '../Models/AuthDTO';
 
 @Injectable({
@@ -27,10 +24,7 @@ export class SessionService {
   userPermissions: PermissionDTO[] = [];
   checkUserSubject = new BehaviorSubject('');
   checkUser$ = this.checkUserSubject.asObservable();
-  constructor(public authApi: AuthApiService,
-    public message: MessageService,
-    public userApi: UserApiService) {
-  }
+
 
   setTokenToSession(tokenObj: any): void {
     this.user = {

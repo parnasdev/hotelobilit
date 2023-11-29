@@ -5,6 +5,8 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { IListFilters, IListModel } from 'src/app/Core/Models/dynamicList.model';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { Router } from '@angular/router';
+import {CalenderServices} from "../../Core/Services/calender-service";
+import * as moment from "moment/moment";
 
 @Component({
   selector: 'prs-composition-list',
@@ -14,8 +16,13 @@ import { Router } from '@angular/router';
 export class CompositionListComponent {
   isLoading = false;
   list: any[] = []
-
-
+  paginate: any;
+  paginateConfig = {
+    itemsPerPage: 20,
+    totalItems: 20,
+    currentPage: 1
+  };
+p =1
 
   data: IListModel = {
     pagination: {
@@ -67,6 +74,7 @@ export class CompositionListComponent {
   constructor(public api: FlightApiService,
     public error: ErrorsService,
     public router:Router,
+    public calendarService: CalenderServices,
     public publicService: PublicService,
     public message: MessageService) { }
 
@@ -80,6 +88,7 @@ export class CompositionListComponent {
     this.isLoading = true;
     this.data.data = []
     let qparams = this.publicService.getFiltersString(this.data.filters)
+    qparams = qparams + `&page=${parent}`
     this.api.list(qparams).subscribe({
       next: (res: any) => {
         if (res.isDone) {
@@ -87,6 +96,15 @@ export class CompositionListComponent {
           this.data.filters[0].data = res.airports;
           this.data.filters[1].data = res.airports;
           this.data.filters[2].data = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
+          if(res.meta) {
+            this.paginate = res.meta;
+            this.paginateConfig = {
+              itemsPerPage: this.paginate.per_page,
+              totalItems: this.paginate.total,
+              currentPage: this.paginate.current_page
+            }
+          }
+
         } else {
           this.message.custom(res.message)
         }
@@ -101,6 +119,31 @@ export class CompositionListComponent {
         // console.log('complete');
       }
     })
+  }
+
+
+
+  calculateStayCount(transfer: any) {
+    let checkin = '';
+    let checkout = ''
+    if (!transfer.checkin_tomorrow && !transfer.return_flight.checkout_yesterday) {
+      checkin = transfer.date;
+      checkout = transfer.return_flight.date;
+    } else if (transfer.checkin_tomorrow && !transfer.return_flight.checkout_yesterday) {
+      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = transfer.return_flight.date;
+    } else if (!transfer.checkin_tomorrow && transfer.return_flight.checkout_yesterday) {
+      checkin = transfer.date;
+      checkout = moment(transfer.return_flight.date).add(-1, 'days').format('YYYY-MM-DD');
+    } else {
+      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = moment(transfer.return_flight.date).add(-1, 'days').format('YYYY-MM-DD');
+    }
+    return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
+  }
+  onPageChanged(event: any) {
+    this.p = event;
+    this.getData();
   }
 
   getFilterResult(data: any) {

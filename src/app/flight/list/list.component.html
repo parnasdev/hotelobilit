@@ -116,7 +116,7 @@
             <span class="p-5">جهت مشاهده پرواز اطلاعات خود را وارد و سپس دکمه فیلتر را بزنید</span>
         </div>
         <div class="body-list-tour" *ngIf="data.length > 0">
-            <div class="item" *ngFor="let transfer of data| paginate: paginateConfig; ;let i = index">
+            <div class="item" *ngFor="let transfer of data| paginate: paginateConfig;let i = index">
                 <div class="d-flex flex-column ">
                     <mat-checkbox [(ngModel)]="transfer.isChecked" (ngModelChange)="checkItemChanged()"></mat-checkbox>
                 </div>

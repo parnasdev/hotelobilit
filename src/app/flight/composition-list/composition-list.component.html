@@ -6,21 +6,18 @@
     </div>
     <div class="flex-x-between m-y-20 w-100 gap-12">
       <div class="flex-x-start gap-16">
-
-
-
         <ng-template>
           <a class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer">
             <prs-icons class="icon-delete cursor-pointer" [width]="'25px'" [height]="'25px'" [name]="'delete'"
-              [color]="'#fff'"></prs-icons>
+                       [color]="'#fff'"></prs-icons>
             زباله دان
           </a>
           <a class="btn-base wpx-140 fs-13 cursor-pointer">
             بازگشت
             <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
-              xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+                 xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
               <path fill="#fff"
-                d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
+                    d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z"/>
             </svg>
           </a>
         </ng-template>
@@ -36,7 +33,7 @@
 
     <div class="filter-horizontal flex-x-center w-100">
       <prs-dynamic-filter-horizontal class="w-100" [data]="data"
-        (result)="getFilterResult($event)"></prs-dynamic-filter-horizontal>
+                                     (result)="getFilterResult($event)"></prs-dynamic-filter-horizontal>
     </div>
 
   </div>
@@ -45,17 +42,38 @@
   <div class="table-list-tour">
     <div class="header-list-panel  gap-10">
       <prs-checkbox></prs-checkbox>
-      <span>رفت - برگشت</span>
-      <span>ایرلاین</span>
-      <span>تاریخ - ساعت</span>
-      <span>شماره پرواز</span>
-      <span>هواپیما</span>
-      <span>کلاس</span>
-      <span>ظرفیت</span>
-
+      <div class="d-flex flex-column">
+        <span>رفت - برگشت</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span>ایرلاین</span>
+        <span>ش.پ</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span>تاریخ - ساعت</span>
+        <span>روز</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span>هواپیما</span>
+        <span>کلاس</span>
+      </div>
+      <div class="d-flex flex-column">
+        <div class="d-flex gap-20">
+          <span>کل</span>
+          <span>در حال</span>
+        </div>
+        <div class="d-flex gap-20">
+          <span>فروش</span>
+          <span>مانده</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column">
+        <span>کاربر</span>
+        <span>وضعیت</span>
+      </div>
       <span>بزرگسال (تومان)</span>
-      <span>کاربر</span>
-      <span>وضعیت</span>
+      <span>تنظیمات</span>
+
     </div>
     <div *ngIf="isLoading">
       <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
@@ -67,42 +85,103 @@
         <div class="item-shimmer"></div>
       </div>
     </div>
-    <ng-template ngFor let-item [ngForOf]="data.data" let-index="index">
+    <div *ngFor="let item of data.data| paginate: paginateConfig">
       <div class="body-list-panel">
-
         <div class="list-item-panel grid-dynamic gap-10">
           <prs-checkbox></prs-checkbox>
-          <span>{{ item.origin_name }} - {{ item.destination_name }}</span>
-          <span>{{ item.airline_name }}</span>
-          <span>{{ item.date | convertDate }} - {{ item.time | timeFixer }}</span>
-          <span>{{ item.flight_number }}</span>
-          <span>{{ item.airplane }}</span>
-          <span>{{ item.cabin_type }}</span>
-          <span>{{ item.capacity }}</span>
-          <span>{{ item.adl_price | sperator }} (تومان)</span>
-          <span>{{ item.user?.full_name ?? '' }}</span>
-          <span>{{ item.is_close ? 'بسته' : 'باز' }}</span>
+          <div class="d-flex flex-column">
+            <span>{{ item.origin_name }} - {{ item.destination_name }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.airline_name }}</span>
+            <span>{{ item.flight_number }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.date | convertDate }} - {{ item.time | timeFixer }}</span>
+            <span>{{calendarService.getWeekDay((item.date))}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.airplane }}</span>
+            <span>{{ item.cabin_type }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="d-flex gap-20">
+              <span  style="color: #0a53be">{{ item.all_capacity}}</span>
+              <span style="color: green;cursor: pointer">{{ item.reserved_capacity }}</span>
+            </div>
+            <div class="d-flex gap-20">
+              <span style="color: red">{{ item.booked_capacity}}</span>
+              <span style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
+                    [queryParams]="{flight: item.id,status: 472}">{{ item.capacity }}</span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.is_close ? 'close' : 'open' }}</span>
+            <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
+                 [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
+          </div>
+          <div class="d-flex">
+            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+               matTooltip="{{ 'قیمت کودک' + (item.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.inf_price | sperator)}}"
+               aria-label=""></i>
+            <span>{{ item.adl_price | sperator }} (تومان)</span>
+          </div>
           <div class="d-flex flex-column">
             <button class="btn-base-custom2" (click)="edit(item.id)">ویرایش</button>
-            <span class="mt-4">{{(item.return_flight.adl_price + item.adl_price )| sperator }} (تومان)</span>
+            <span>{{calculateStayCount(item) + ' شب '}}</span>
+            <span class="mt-4">{{(item.return_flight.adl_price + item.adl_price)| sperator }} (تومان)</span>
           </div>
         </div>
-        <div class="list-item-panel grid-dynamic gap-10" >
+        <div class="list-item-panel grid-dynamic gap-10">
           <prs-checkbox></prs-checkbox>
-          <span>{{ item.return_flight.origin_name }} - {{ item.return_flight.destination_name }}</span>
-          <span>{{ item.return_flight.airline_name }}</span>
-          <span>{{ item.return_flight.date | convertDate }} - {{ item.return_flight.time| timeFixer  }}</span>
-          <span>{{ item.return_flight.flight_number }}</span>
-          <span>{{ item.return_flight.airplane }}</span>
-          <span>{{ item.return_flight.cabin_type }}</span>
-          <span>{{ item.return_flight.capacity }}</span>
-          <span>{{ item.return_flight.adl_price | sperator }} (تومان)</span>
-          <span>{{ item.return_flight.user?.full_name ?? '' }}</span>
-          <span>{{ item.return_flight.is_close ? 'بسته' : 'باز' }}</span>
-          <button class="btn-base-custom2" (click)="edit(item.return_flight.id)">ویرایش</button>
+          <div class="d-flex flex-column">
+            <span>{{ item.return_flight.origin_name }} - {{ item.return_flight.destination_name }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.return_flight.airline_name }}</span>
+            <span>{{ item.return_flight.flight_number }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.return_flight.date | convertDate }} - {{ item.return_flight.time | timeFixer }}</span>
+            <span>{{calendarService.getWeekDay((item.return_flight.date))}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.return_flight.airplane }}</span>
+            <span>{{ item.return_flight.cabin_type }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="d-flex gap-20">
+              <span class="title-tour" style="color: #0a53be">{{ item.return_flight.all_capacity}}</span>
+              <span class="title-tour" style="color: green;cursor: pointer">{{ item.return_flight.reserved_capacity }}</span>
+            </div>
+            <div class="d-flex gap-20">
+              <span class="title-tour" style="color: red">{{ item.return_flight.booked_capacity}}</span>
+              <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
+                    [queryParams]="{flight: item.return_flight.id,status: 472}">{{ item.return_flight.capacity }}</span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <span>{{ item.is_close ? 'close' : 'open' }}</span>
+            <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
+                 [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
+          </div>
+          <div class="d-flex">
+            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+               matTooltip="{{ 'قیمت کودک' + (item.return_flight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.return_flight.inf_price | sperator)}}"
+               aria-label=""></i>
+            <span>{{ item.return_flight.adl_price | sperator }} (تومان)</span>
+          </div>
+          <div class="d-flex flex-column">
+            <button class="btn-base-custom2" (click)="edit(item.id)">ویرایش</button>
+          </div>
         </div>
       </div>
-    </ng-template>
+    </div>
+    <pagination-controls *ngIf="paginate?.last_page > 1" class="pagination-control"
+                         (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+                         screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+                         screenReaderCurrentLabel="شما در صفحه ی">
+    </pagination-controls>
   </div>
   <div class="box-empty" *ngIf="data.data.length === 0 && !isLoading">
     <span>متن باکس خالی</span>

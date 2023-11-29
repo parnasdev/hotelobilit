@@ -211,6 +211,7 @@
 
   </div>
   <div class="d-flex justify-content-center align-items-center" *ngIf="compositionData && compositionData.length > 0">
+    <span class="spinner-border spinner-border-sm" *ngIf="mixedLoading"></span>
     <button class="btn-base-purple w-25 mt-3" (click)="compositionSubmit()">ذخیره ترکیب ها</button>
   </div>
 </div>

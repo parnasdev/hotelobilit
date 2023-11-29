@@ -1,0 +1,72 @@
+    <div class="p-calender" style="direction:rtl">
+        <button class="prev-month" (click)="changeMonth(-1)">
+            <svg viewBox="0 0 32 32" width='30' height='30' xmlns="http://www.w3.org/2000/svg">
+                <g data-name="Layer 2">
+                    <path
+                    fill="#999"
+                        d="M22,9a1,1,0,0,0,0,1.42l4.6,4.6H3.06a1,1,0,1,0,0,2H26.58L22,21.59A1,1,0,0,0,22,23a1,1,0,0,0,1.41,0l6.36-6.36a.88.88,0,0,0,0-1.27L23.42,9A1,1,0,0,0,22,9Z" />
+                </g>
+            </svg>
+        </button>
+        <div class="box-calender">
+            <div class="header-month">
+                <h3>{{month[currentMonths[0] - 1] + currentYears[0]}}</h3>
+            </div>
+            <div class="header-week">
+              <span tooltip="شنبه">ش</span>
+              <span tooltip="یک شنبه">ی</span>
+              <span tooltip="دو شنبه">د</span>
+              <span tooltip="سه شنبه">س</span>
+              <span tooltip="چهار شنبه">چ</span>
+              <span tooltip="پنج شنبه">پ</span>
+              <span tooltip="جمعه">ج</span>
+            </div>
+            <div class="body-calender">
+                <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
+                    <div *ngIf="i < 42" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
+                        [class]="(item.isDisabled || !item.isValid) ? 'item opacity3' : 'item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
+                    'background': getColorItem(item)}" id="dateInfo">
+                        {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
+                    </div>
+
+                </ng-template>
+
+            </div>
+        </div>
+        <div class="box-calender">
+            <div class="header-month">
+                <h3>{{month[currentMonths[1] - 1] +currentYears[1]}}</h3>
+            </div>
+            <div class="header-week">
+                <span tooltip="شنبه">ش</span>
+                <span tooltip="یک شنبه">ی</span>
+                <span tooltip="دو شنبه">د</span>
+                <span tooltip="سه شنبه">س</span>
+                <span tooltip="چهار شنبه">چ</span>
+                <span tooltip="پنج شنبه">پ</span>
+                <span tooltip="جمعه">ج</span>
+            </div>
+            <div class="body-calender">
+                <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
+                    <div *ngIf="i > 41" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
+                        [class]="(item.isDisabled || !item.isValid) ? 'item opacity3' : 'item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
+                    'background': getColorItem(item)}" id="dateInfo">
+                        {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
+                    </div>
+
+
+
+                </ng-template>
+            </div>
+
+        </div>
+        <button class="next-month" (click)="changeMonth(1)">
+            <svg viewBox="0 0 32 32" width='30' height='30' xmlns="http://www.w3.org/2000/svg">
+                <g data-name="Layer 2">
+                    <path
+                        d="M22,9a1,1,0,0,0,0,1.42l4.6,4.6H3.06a1,1,0,1,0,0,2H26.58L22,21.59A1,1,0,0,0,22,23a1,1,0,0,0,1.41,0l6.36-6.36a.88.88,0,0,0,0-1.27L23.42,9A1,1,0,0,0,22,9Z" />
+                </g>
+            </svg>
+        </button>
+
+    </div>

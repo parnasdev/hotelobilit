@@ -1,216 +1,160 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
+import * as jmoment from 'jalali-moment';
+
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
-import { CityListReq, CityListRes, SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
-import { categoriesDTO } from 'src/app/Core/Models/newPostDTO';
-import { DatesResDTO } from 'src/app/Core/Models/tourDTO';
-import { CalenderServices } from 'src/app/Core/Services/calender-service';
-import { ErrorsService } from 'src/app/Core/Services/errors.service';
-import { MessageService } from 'src/app/Core/Services/message.service';
-import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
+import { IDatesRes, ISearchDataRes } from '../core/models/tour.model';
+import { Router } from '@angular/router';
+import { TourApiService } from '../core/https/tour-api.service';
+import { PublicService } from 'src/app/Core/Services/public.service';
+import { PrsDateDialogPickerComponent } from 'src/app/date-picker/prs-date-dialog-picker/prs-date-dialog-picker.component';
 
 @Component({
   selector: 'prs-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, OnChanges {
+export class SearchComponent implements OnInit {
   @Output() onSubmit = new EventEmitter();
   @Input() inCommingSearchObject?: SearchObjectDTO;
-  getDatesLoading = false;
-  dateFC = new FormControl();
-  isLoading = false;
-  hasFlight = 1
-  hasHotel = 1
-  originCities: categoriesDTO[] | CityListRes[] = []
-  destinationCities: categoriesDTO[] | CityListRes[] = []
-  reservedDates: DatesResDTO[] = [];
-
+  isLoading = false
+  isMobile = false;
+  searchData: ISearchDataRes[] = [];
+  isRefresh = true
   originFC = new FormControl('', Validators.required);
   destFC = new FormControl('', Validators.required);
-  nightFC = new FormControl(0, Validators.required);
+  nightFC = new FormControl(1, Validators.required);
   stDateFC = new FormControl('', Validators.required);
-  nights: number[] = []
-  originID: number | null = null;
+  reservedDates: IDatesRes[] = [];
+  destinations: ISearchDataRes[] = []
 
-  minDate = new Date();
 
-  fg: FormGroup = this.fb.group({
-    origin: this.originFC,
-    dest: this.destFC,
-    night: this.nightFC,
-    stDate: this.stDateFC,
-  })
+  originCityObj: ISearchDataRes = {
+    destinations: [],
+    id: 0,
+    name: '',
+    code: '',
+  }
+  destCityObj: ISearchDataRes = {
+    dates: [],
+    id: 0,
+    name: '',
+    code: '',
+  }
 
-  constructor(
-    public dialog: MatDialog,
-    public error: ErrorsService,
+  isError = false;
+  isOriginEmpty = false;
+  isDestEmpty = false
+  constructor(public cityApiService: CityApiService,
+    public router: Router,
+    public api: TourApiService,
+    public publicService: PublicService,
     public cityApi: CityApiService,
-    public fb: FormBuilder,
-    public calendarService: CalenderServices,
-    public message: MessageService,
-  ) {
-
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['inCommingSearchObject']) {
-      this.originFC.setValue(this.inCommingSearchObject?.origin ?? '')
-      this.destFC.setValue(this.inCommingSearchObject?.dest ?? '')
-      this.nightFC.setValue(this.inCommingSearchObject?.night ?? 1)
-      this.stDateFC.setValue(this.inCommingSearchObject?.stDate ?? '')
-      this.getReservedDates()
-    }
+    public dialog: MatDialog) {
   }
 
-  ngOnInit() {
-    this.getOriginCities();
-    this.getDestinationCities()
+  nights: number[] = []
+
+  ngOnInit(): void {
+    this.getSearchData()
   }
+  getSearchData() {
+    this.isLoading = true;
+    this.isError = false;
+    this.isOriginEmpty = false;
+    this.isDestEmpty = false;
 
-  search() {
-    if (this.fg.invalid) {
-      this.message.custom('جهت جستجو ورود اطلاعات الزامی است')
-    } else {
-      this.onSubmit.emit({
-        origin: this.originFC.value,
-        dest: this.destFC.value,
-        stDate: this.stDateFC.value,
-        night: this.nightFC.value
-      })
-    }
-
-  }
-
-  getOriginCities(): void {
-    this.isLoading = true
-    const req: CityListReq = {
-      hasHotel: 0,
-      hasFlight: 1,
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      this.isLoading = false
-      if (res.isDone) {
-        this.originCities = res.data;
-        // this.cities = this.cities.sort(function(x, y) {
-        //   return Number(y.type) - Number(x.type);
-        // })
-      }
-    }, (error: any) => {
-      this.isLoading = false
-      this.message.error()
-    })
-  }
-
-  getDestinationCities(): void {
-    this.isLoading = true
-    const req: CityListReq = {
-      hasHotel: 1,
-      hasFlight: 0,
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      this.isLoading = false
-      if (res.isDone) {
-        this.destinationCities = res.data;
-        // this.cities = this.cities.sort(function(x, y) {
-        //   return Number(y.type) - Number(x.type);
-        // })
-      }
-    }, (error: any) => {
-      this.isLoading = false
-      this.message.error()
-    })
-  }
-
-  originSelected(city: CityListRes): void {
-    this.originFC.setValue(city.code)
-    this.originID = city.id;
-    if (this.destFC.valid) {
-      this.getReservedDates();
-    }
-  }
-
-  destSelected(city: CityListRes): void {
-    this.destFC.setValue(city.code)
-    this.reservedDates = [];
-    this.inCommingSearchObject = undefined
-    this.getReservedDates();
-  }
-
-
-  // convertDates(list: DatesResDTO[]) {
-  //   list.forEach(res => {
-  //     if (!res.checkin_tomorrow && !res.checkout_yesterday) {
-  //     } else if (res.checkin_tomorrow && !res.checkout_yesterday) {
-  //       res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
-  //     } else if (!res.checkin_tomorrow && res.checkout_yesterday) {
-  //       res.night = res.night - 1
-  //     } else {
-  //       res.date = moment(res.date).add(1, 'days').format('YYYY-MM-DD');
-  //       res.night = res.night - 1
-  //     }
-  //     this.reservedDates.push(res)
-  //   })
-
-  // }
-
-  getReservedDates(): void {
-    let originCode = this.originFC.value ?? '';
-    let destCode = this.destFC.value ?? '';
-    this.getDatesLoading = true;
-    this.cityApi.getDates(originCode, destCode).subscribe((res: any) => {
-      if (res.isDone) {
-        this.reservedDates = res.data
-        if (this.inCommingSearchObject) {
-          this.stDateFC.setValue(this.inCommingSearchObject.stDate)
-        }
-        this.nights = [];
-        this.reservedDates.forEach(x => {
-          if (this.nights.filter(item => item === x.night).length === 0) {
-            this.nights.push(x.night);
+    this.api.getActiveRoute().subscribe({
+      next: (res: any) => {
+        if (res.isDone) {
+          this.searchData = res.data;
+          if (this.searchData.length === 0) {
+            this.isOriginEmpty = true;
           }
-        });
-      }
-      this.getDatesLoading = false;
-    }, (error: any) => {
-      this.getDatesLoading = false;
+        } else {
+          this.isError = true
+        }
+      }, error: (error: any) => {
+        this.isLoading = false;
+        this.isError = true
 
-      this.error.check(error)
+        this.publicService.error.check(error)
+      }
     })
+
   }
+  tryAgain() {
+    this.getSearchData();
+  }
+
+  originSelected(city: ISearchDataRes): void {
+    this.originFC.setValue(city.name)
+    this.originCityObj = city
+
+    this.destCityObj = {
+      dates: [],
+      id: 0,
+      name: '',
+      code: '',
+    }
+    this.destFC.setValue(null)
+    this.destinations = city.destinations ?? [];
+    if (this.destinations.length === 0) {
+      this.isDestEmpty = true
+    }
+  }
+
+  reload() {
+    this.isRefresh = false;
+    setTimeout(() => this.isRefresh = true);
+  }
+  destinationSelected(city: ISearchDataRes): void {
+    this.destFC.setValue(city.name)
+    this.destCityObj = city
+    this.stDateFC.setValue(null)
+    this.reservedDates = city.dates ?? [];
+
+
+  }
+
+
+  myFilter = (d: Date | null): boolean => {
+    let list = this.reservedDates.filter(x => moment(x.date, 'YYYY-MM-DD').isSame(moment(d, 'YYYY-MM-DD')))
+    if (list.length > 0) {
+      this.nights = list[0].nights;
+      this.nightFC.setValue(this.nights[0])
+    }
+    return list.length > 0;
+  };
 
   openPicker() {
-    if (this.reservedDates.length > 0) {
-      const dialog = this.dialog.open(PrsDatePickerComponent, {
-        width: '70%',
-        data: {
-          dateList: this.reservedDates,
-          todayMin: true
-        }
-      })
-      dialog.afterClosed().subscribe(res => {
-
-        this.stDateFC.setValue(res.fromDate.dateFa)
-        let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
-        if (itemFiltered.length > 0) {
-          this.nights = [];
-          itemFiltered.forEach(x => {
-            let itemFiltered = this.nights.filter(y => x.night === y);
-            if (itemFiltered.length === 0) {
-              this.nights.push(x.night)
-            }
-          })
-          this.nightFC.setValue(itemFiltered[0].night)
-
-        }
-
-      })
-    } else {
-      if (this.getDatesLoading === true) {
-        this.message.custom('در حال دریافت اطلاعات  لطفا صبر کنید')
+    const dialog = this.dialog.open(PrsDateDialogPickerComponent, {
+      width: this.isMobile ? '90%' : '70%',
+      data: {
+        dateList: this.reservedDates
       }
-      this.message.custom('در این مبدا و مقصد تور تعریف نشده است')
-    }
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      this.stDateFC.setValue(res.fromDate.dateFa)
+      let itemFiltered = this.reservedDates.filter(x => x.date === (moment(res.fromDate.dateEn, 'YYYY/MM/DD').format('YYYY-MM-DD')))
+      if (itemFiltered.length > 0) {
+        this.nightFC.setValue(itemFiltered[0].nights[0])
+        this.nights = [];
+        this.nights = itemFiltered[0].nights;
+      }
+    })
+  }
+
+
+  search() {
+    this.onSubmit.emit({
+      origin: this.originCityObj.code,
+      dest: this.destCityObj.code,
+      stDate: jmoment(this.stDateFC.value??'','jYYYY-jMM-jDD').format('YYYY-MM-DD'),
+      night: this.nightFC.value
+    })
   }
 }

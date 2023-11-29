@@ -1,16 +1,15 @@
 <div class="row-search">
     <div class="inp-form">
-    <prs-select-city class="w-100" [cities]="originCities" [baseType]="false" [title]="'شهر مبدا'" [inCommingCity]="inCommingSearchObject?.origin"
+    <prs-select-city class="w-100" [cities]="searchData" [baseType]="false" [title]="'شهر مبدا'" [inCommingCity]="inCommingSearchObject?.origin"
       (citySelected)="originSelected($event)" ></prs-select-city>
     </div>
   <div class="inp-form">
-    <prs-select-city class="w-100" [cities]="destinationCities" [baseType]="true" [title]="'شهر مقصد'" [inCommingCity]="inCommingSearchObject?.dest"
-    (citySelected)="destSelected($event)"></prs-select-city>
+    <prs-select-city class="w-100" [cities]="destinations" [baseType]="true" [title]="'شهر مقصد'" [inCommingCity]="inCommingSearchObject?.dest"
+    (citySelected)="destinationSelected($event)"></prs-select-city>
   </div>
     <div class="inp-form">
         <input class="w-100" type="text" readonly [formControl]="stDateFC" placeholder="تاریخ خود را انتخاب کنید" (click)="openPicker()">
-        <mat-spinner diameter="20" *ngIf="getDatesLoading">
-        </mat-spinner>
+
     </div>
 
     <div class="inp-form">

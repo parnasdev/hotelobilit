@@ -1,7 +1,5 @@
 <prs-loading *ngIf="isLoading"></prs-loading>
 
-<!--<prs-address-bar [path]="'هتل'" [path2]="hotelInfo.name ? hotelInfo.name : ''"></prs-address-bar>-->
-<!--select-fly-->
 <section>
   <div class="prs-responsive">
     <div class="container-fluid">
@@ -9,7 +7,7 @@
         <div class="col-md-12 m-auto">
           <div class="thumbnail-hotel">
             <div class="img-hotel">
-              <img [src]="hotelInfo.thumbnail ? hotelInfo.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
+              <img [src]="data.hotel.thumbnail ? data.hotel.thumbnail.url : '../../../assets/img/12123131.png'" alt="">
             </div>
             <div class="detail-hotel">
               <div class="r">
@@ -20,11 +18,11 @@
                   <i class="icon-star"></i>
                   <i class="icon-star"></i>
                 </div>
-                <h2 class="name-hotel">{{ hotelInfo.title }}</h2>
-                <h3>{{ hotelInfo.titleEn }}</h3>
+                <h2 class="name-hotel">{{ data.hotel.title }}</h2>
+                <h3>{{ data.hotel.titleEn }}</h3>
                 <div *ngIf="false" class="box-end-title">
-                  <h2>{{ hotelInfo.titleEn }}</h2>
-                  <h3 class="name-hotel">{{ hotelInfo.title }}</h3>
+                  <h2>{{ data.hotel.titleEn }}</h2>
+                  <h3 class="name-hotel">{{ data.hotel.title }}</h3>
                 </div>
                 <div class="service">
                   <span class="font-size-14 text-dark bold-600">خدمات :</span>
@@ -32,24 +30,15 @@
                 </div>
 
                 <div class="address d-flex justify-content-start align-items-center">
-                  <!-- <img src="assets/img/location2.svg" width="15" alt=""> -->
                   <span class="font-size-14 text-dark bold-600">منطقه : </span>
-                  <span class="font-size-13">{{ hotelInfo.location !== '' ? hotelInfo.location : 'ثبت نشده' }}</span>
+                  <span class="font-size-13">{{ data.hotel.location !== '' ? data.hotel.location : 'ثبت نشده' }}</span>
                 </div>
               </div>
-              <!-- <div class="l">
-                <div class="p-price" *ngIf="hotelInfo.packages.length > 0">
-                  <span class="title">شروع قیمت :</span>
-                  <div class="price d-flex align-items-center">
-                    <strong>{{ getStarterPrice() | round| sperator }}</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-              </div> -->
+
 
             </div>
           </div>
-          <div class="title-tour-special-swiper mt-3" *ngIf="this.isDesktop">
+          <div class="title-tour-special-swiper mt-3" *ngIf="publicService.isDesktop">
             <div class="top">
               <div class="new-tour">
                 <div class="text  d-flex align-items-center">
@@ -57,17 +46,11 @@
                     کنید</h3>
                 </div>
               </div>
-              <!-- <div class="inp-form w-25">
-                <select name="">
-                  <option disabled selected value="">فیلتر مبدا</option>
-                  <option value="all">همه</option>
-                  <option>city.name</option>
-                </select>
-              </div> -->
+
             </div>
           </div>
 
-          <div class="title-tour-special-swiper mt-3" *ngIf="this.isMobile">
+          <div class="title-tour-special-swiper mt-3" *ngIf="publicService.isMobile">
             <div class="new-tour d-flex w-100-mobi mb-3">
               <img src="assets/img/Bookmark.svg" width="17" alt="">
               <div class="text pr12-mobi mr-2">
@@ -76,23 +59,15 @@
                   کنید</span>
               </div>
             </div>
-            <!-- <div class="top">
-              <div class="inp-form w-100-mobi">
-                <select name="" id="">
-                  <option disabled selected value="">فیلتر مبدا</option>
-                  <option value="all">همه</option>
-                  <option>city.name</option>
-                </select>
-              </div>
-            </div> -->
+
             <div class="bottom">
               <div class="border-right"></div>
               <div class="border-left"></div>
             </div>
           </div>
 
-          <ng-template [ngIf]="isTablet">
-            <div class="thumbnail-flight-mobi" *ngFor="let item of data;let flightIndex = index">
+          <ng-template [ngIf]="publicService.isTablet">
+            <div class="thumbnail-flight-mobi" *ngFor="let item of data.flights;let flightIndex = index">
               <div class="title">
                 <h3>اطلاعات پرواز</h3>
               </div>
@@ -100,16 +75,16 @@
                 <div class="top">
                   <span>پرواز رفت</span>
                   <div class="airline-to">
-                    <img width="40" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}" alt="">
-                    <span>{{ item.airline_name }}</span>
+                    <img width="40" src="../../../assets/img/nopicture.jpg" alt="">
+                    <span>زاگرس</span>
                   </div>
                 </div>
                 <div class="bottom">
                   <div class="location">
-                    {{ item.origin_name }} به {{ item.destination_name }}
+                    تهران به کیش
                   </div>
                   <span class="date">
-                    {{ item.time.substring(0,5) }} و {{ item.date | convertDate }}
+                    ۱۲:۰۰ و ۰۲/۰۸/۱۳
                   </span>
                 </div>
               </div>
@@ -117,39 +92,35 @@
                 <div class="top">
                   <span>پرواز برگشت</span>
                   <div class="airline-to">
-                    <img width="25" src="{{  item.flight.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
+                    <img width="25" src="../../../assets/img/nopicture.jpg"
                       alt="">
-                    <span>{{ item.flight.airline_name }}</span>
+                    <span>آتا</span>
                   </div>
                 </div>
                 <div class="bottom">
                   <div class="location">
-                    {{ item.destination_name }} به {{ item.origin_name }}
+                    تهران به کیش
                   </div>
                   <span class="date">
-                    {{ item.flight.time.substring(0,5) }} و {{ item.flight.date | convertDate }}
+                    ۲۱:۳۰ و ۰۲/۰۸/۱۲
                   </span>
 
                 </div>
               </div>
               <div class="title d-flex align-items-center justify-content-between mt-2">
                 <h3>انتخاب اتاق</h3>
-                <span *ngIf="isTablet" class="text-dark font-size-13 bold-600">قیمت بر اساس هر نفر در اتاق</span>
+                <span *ngIf="publicService.isTablet" class="text-dark font-size-13 bold-600">قیمت بر اساس هر نفر در اتاق</span>
               </div>
               <div class="rooms">
-                <div *ngFor="let room of getUniqueRooms(item.rooms,item.id);let roomIndex = index"
-                  (click)="roomCollapse()" class="item-room flex-wrap">
-                  <span class="text w-50">{{ room.room_type }}</span>
+                <div  class="item-room flex-wrap">
+                  <span class="text w-50">دوتخته</span>
                   <div class="p-count w-50">
-                    <button
-                      [ngClass]="{'btn-plus-off' : (room.count??0) === this.getRoomCapacity(room.rates,flightIndex),'btn-plus' : (room.count?? 0) <= this.getRoomCapacity(room.rates,flightIndex)}"
-                      (click)="plus(roomIndex,flightIndex)">+</button>
-                    <span>{{ room.count ?? 0 }}</span>
-                    <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
+                    <button class="btn-plus">+</button>
+                    <span>0</span>
+                    <button class="btn-minus">-</button>
                   </div>
                   <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                    <strong>{{ calculatePriceByRates(item,room.rates,roomIndex,'adl') | sperator
-                      }}</strong>
+                    <strong>2,000,000</strong>
                     <small>تومان</small>
                   </div>
                   <!-- <i class="icon-down-open"></i> -->
@@ -165,25 +136,24 @@
                 <div class="p-price">
                   <span>قیمت:</span>
                   <div class="price">
-                    <strong>{{ calculatePrice(item) | sperator}}</strong>
+                    <strong>3,000,000</strong>
                     <small>تومان</small>
                   </div>
                 </div>
-                <a class="btn-base-red w-75 mt-4" (click)="submit(item.id,flightIndex,item.checkin,item.checkout)">رزرو
+                <a class="btn-base-red w-75 mt-4">رزرو
                   تور</a>
               </div>
            </div>
           </ng-template>
 
-          <div class="d-flex flex-column w-100" *ngFor="let item of data;let flightIndex = index">
+          <div class="d-flex flex-column w-100">
 
             <div style="position: relative;"
-              [ngClass]="{'focus-thumbnail' :(getRoomSelectedID() === item.id && data.length > 1)}"
-              class="thumbnail-flight ">
-              <div class="blur"
+              class="focus-thumbnail"
+              class="thumbnail-flight" *ngFor="let flight of data.flights;let flightIndex = index">
+              <!-- <div class="blur"
                 *ngIf="getRoomSelectedID() == 0 ? false : (getRoomSelectedID() === item.id ? false : true)">
-                <!-- <span>تغییر پرواز</span> -->
-              </div>
+              </div> -->
               <div class="title">
                 <h3>اطلاعات پرواز</h3>
                 <h3>اطلاعات اتاق</h3>
@@ -198,33 +168,33 @@
                         <h5>پرواز رفت</h5>
                       </div>
                       <div class="location">
-                        {{ item.origin_name }} به {{ item.destination_name }}
+                        {{ flight.departure.origin_name }} به {{ flight.departure.destination_name }}
                       </div>
                       <div class="p-date">
-                        <span>{{ item.time.substring(0,5) }} و {{ item.date | convertDate }}</span>
+                        <span>{{ flight.departure.time |timeFixer }} و {{ flight.departure.date | convertDate }}</span>
                       </div>
                       <div class="p-date">
-                        <span> ورود به هتل : {{ item.checkin}}</span>
+                        <span> ورود به هتل : ---</span>
                       </div>
                     </div>
                   </div>
                   <div class="line w-50">
                     <div class="airline-from">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="60" src="{{  item.airline_thumb?.url ?? '../../../assets/img/nopicture.jpg' }}"
+                        <img width="60" src="'../../../assets/img/nopicture.jpg"
                           alt="">
-                        <span>{{ item.airline_name }}</span>
+                        <span>{{ flight.departure.airline_name }}</span>
                       </div>
                     </div>
                     <div class="line-between">
 
-                      <span>تعداد موجودی پرواز :{{ item.capacity }}</span>
+                      <span>تعداد موجودی پرواز :{{ flight.departure.capacity }}</span>
                     </div>
                     <div class="airline-to">
                       <div class="d-flex flex-column align-items-center">
-                        <img width="60" src="{{ item.flight.airline_thumb.url?? '../../../assets/img/nopicture.jpg'  }}"
+                        <img width="60" src="../../../assets/img/nopicture.jpg"
                           alt="">
-                        <span>{{item.flight.airline_name}}</span>
+                        <span>{{ flight.return.airline_name }}</span>
                       </div>
                     </div>
 
@@ -237,32 +207,29 @@
                         <h5>پرواز برگشت</h5>
                       </div>
                       <div class="location">
-                        {{ item.flight.origin_name }} به {{ item.flight.destination_name }}
+                        {{ flight.return.origin_name }} به {{ flight.return.destination_name }}
                       </div>
                       <div class="p-date">
-                        <span>{{ item.flight.time.substring(0,5) }} و {{ item.flight.date | convertDate }}</span>
+                        <span>{{ flight.return.time | timeFixer }} و {{ flight.return.date |convertDate }}</span>
                       </div>
                       <div class="p-date">
-                        <span> خروج از هتل : {{ item.checkout }}</span>
+                        <span> خروج از هتل : ---</span>
                       </div>
                     </div>
                   </div>
 
                 </div>
                 <div class="rooms">
-                  <div *ngFor="let room of getUniqueRooms(item.rooms,item.id);let roomIndex = index"
-                    (click)="roomCollapse()" class="item-room flex-wrap">
+                  <div (click)="roomCollapse()" *ngFor="let room of data.rooms;let roomIndex = index" class="item-room flex-wrap">
                     <span class="text w-50">{{ room.room_type }}</span>
                     <div class="p-count w-50">
                       <button
-                        [ngClass]="{'btn-plus-off' : (room.count ?? 0)=== this.getRoomCapacity(room.rates,flightIndex),'btn-plus' : (room.count?? 0) <= this.getRoomCapacity(room.rates,flightIndex)}"
-                        (click)="plus(roomIndex,flightIndex)">+</button>
-                      <span>{{ room.count ?? 0 }}</span>
-                      <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
+                        class="btn-plus" (click)="plus(roomIndex,flightIndex)">+</button>
+                      <span>0</span>
+                      <button class="btn-minus">-</button>
                     </div>
                     <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                      <strong>{{ calculatePriceByRates(item,room.rates, roomIndex,'adl') | sperator
-                        }}</strong>
+                      <strong>{{ room.rate.price |sperator}}</strong>
                       <small>تومان</small>
                     </div>
                     <!-- <i class="icon-down-open"></i> -->
@@ -279,64 +246,61 @@
                 <div class="p-price">
                   <span>قیمت:</span>
                   <div class="price">
-                    <strong>{{ calculatePrice(item) | sperator}}</strong>
+                    <strong>---</strong>
                     <small>تومان</small>
                   </div>
                 </div>
-                <a (click)="submit(item.id,flightIndex,item.checkin,item.checkout)" class="btn-base-red w-75 mt-4">رزرو
+                <a class="btn-base-red w-75 mt-4">رزرو
                   تور</a>
               </div>
             </div>
-            <div class="p-count-room d-flex flex-column" *ngFor="let x of item.selectedRooms;let i=index">
+            <div class="p-count-room d-flex flex-column">
               <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
-                <svg (click)="removeSelectedRoom(x,i,flightIndex)" style="cursor: pointer" width="30" height="30"
+                <svg  style="cursor: pointer" width="30" height="30"
                   viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#ff0000"
                     d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
                 </svg>
-                <h4 class="m-bottom-0 bold-600 font-size-15">اتاق {{getRoomName(x.room_id)}}</h4>
+                <h4 class="m-bottom-0 bold-600 font-size-15">اتاق سه تخته</h4>
 
                 <div class="d-flex inp-item flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
                   <div class="p-count w-100 mt-2">
-                    <span>{{ x.adl_count }}</span>
+                    <span>۱</span>
                   </div>
                 </div>
 
                 <div class="d-flex inp-item border-gray flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
-                  <small>{{ getExtraBedPrice(item,flightIndex,i) |sperator }} تومان</small>
+                  <small>2,000,000 تومان</small>
                   <div class="p-count w-100 mt-2">
                     <button
-                      [ngClass]="{'btn-plus-off' : x.extra_count == getExtraBedCount(x.room_id),'btn-plus' :x.extra_count <= getExtraBedCount(x.room_id)}"
-                      (click)="plusCount('extra_count', x.room_id, flightIndex, i)">+</button>
-                    <span>{{ x.extra_count }}</span>
-                    <button class="btn-minus" (click)="minusCount('extra_count', x.room_id, flightIndex, i)">-</button>
+                      class="btn-plus">+</button>
+                    <span>1</span>
+                    <button class="btn-minus">-</button>
                   </div>
                 </div>
 
                 <div class="d-flex inp-item border-gray flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد کودک </label>
-                  <small>{{ calculatePriceByName(item,flightIndex,i,'chd') | sperator }} تومان</small>
+                  <small>200,000 تومان</small>
 
                   <div class="p-count w-100 mt-2">
-                    <button [ngClass]="{'btn-plus-off' : x.chd_capacity === x.chd_count,'btn-plus' :x.chd_capacity > x.chd_count}"
-                      (click)="plusCount('chd_count', x.room_id, flightIndex, i)">+</button>
-                    <span>{{ x.chd_count }}</span>
-                    <button class="btn-minus" (click)="minusCount('chd_count', x.room_id, flightIndex, i)">-</button>
+                    <button class="btn-plus">+</button>
+                    <span>1</span>
+                    <button class="btn-minus">-</button>
                   </div>
                 </div>
 
                 <div class="d-flex inp-item border-gray flex-column">
                   <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
-                  <small>{{ item.inf_price | sperator }} تومان</small>
+                  <small>2000 تومان</small>
 
                   <div class="p-count w-100 mt-2">
                     <button
-                      [ngClass]="{'btn-plus-off' : x.inf_count == x.adl_count,'btn-plus' :x.inf_count <= x.adl_count}"
-                      (click)="plusCount('inf_count', x.room_id, flightIndex, i)">+</button>
-                    <span>{{ x.inf_count }}</span>
-                    <button class="btn-minus" (click)="minusCount('inf_count', x.room_id, flightIndex, i)">-</button>
+                      class="btn-plus">+</button>
+                    <span>1</span>
+                    <button class="btn-minus">-</button>
                   </div>
                 </div>
               </div>
@@ -344,7 +308,7 @@
 
           </div>
 
-          <div class="empty-box bg-white" *ngIf="hotelInfo.flights.length === 0">
+          <div class="empty-box bg-white" *ngIf="data.flights.length === 0">
             <span>پروازی برای این هتل یافت نشد</span>
           </div>
         </div>
@@ -353,100 +317,3 @@
   </div>
 </section>
 
-<!--end-->
-
-<!--
-<section class="info-hotel">
-  <div class="prs-responsive">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-10 m-auto parent-info-hotel">
-          <div class="title-info-hotel">
-            <div class="right">
-              <img src="assets/img/Tag.svg" width="35" alt="">
-              <div class="text">
-                <h2 class="title-fa">{{ hotelInfo.name }}</h2>
-                <h2 class="title-en">{{ hotelInfo.nameEn }}</h2>
-              </div>
-            </div>
-          </div>
-          <div class="box-info-hotel">
-            <div class="title-hotel">
-              <div class="name-city-country">
-                <img src="assets/img/Location.svg" width="20" alt="">
-                <span class="title-small-fa"> منطقه :</span>
-                <span class="title-fa mr-2">{{ hotelInfo.city.name }}, </span>
-                <span class="title-fa mr-2">{{ hotelInfo.location }}</span>
-              </div>
-              <div class="rate-star">
-                <span class="title-small-fa">درجه هتل :</span>
-                <i class="icon-star text-warning" *ngFor="let star of getStars(hotelInfo.stars)"></i>
-              </div>
-            </div>
-
-            <div class="parent-gallery" *ngIf="hotelInfo.images && hotelInfo.images.length > 0">
-              <div class="right-gallery">
-                <img class="top-right" [lightbox]="0" [gallery]="galleryId" [src]="hotelInfo.images[0]" alt="">
-                <img class="left-right" [lightbox]="1" [gallery]="galleryId" [src]="hotelInfo.images[1]" alt="">
-                <img class="bottom-right" [lightbox]="2" [gallery]="galleryId" [src]="hotelInfo.images[2]" alt="">
-                <img class="bottom-left" [lightbox]="3" [gallery]="galleryId" [src]="hotelInfo.images[3]" alt="">
-              </div>
-              <div class="left-gallery" [style.background-image]="'url(' + hotelInfo.thumbnail.split(' ').join('%20') + ')'">
-                <div class="parent-view-all-photo">
-                  <a class="btn-photos ml-2" *ngIf="hotelInfo.mediaLink && (hotelInfo.mediaLink[0].link && hotelInfo.mediaLink[1].link)" (click)="openMedia(hotelInfo.mediaLink)">
-                    <img src="assets/img/video-camera.png" width="25" alt="">
-                    <span>مشاهده ویدیو</span>
-                  </a>
-                  <a class="btn-photos" [lightbox]="0" [gallery]="galleryId">
-                    <img src="assets/img/Menu-hotel.svg" width="20" alt="">
-                    <span>مشاهده همه عکس ها</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="about-hotel">
-              <div class="map">
-                <div class="no-map" *ngIf="hotelInfo?.coordinate?.lat === 0 && hotelInfo?.coordinate?.lng === 0" >
-                  <span>نقشه موجود نیست</span>
-                </div>
-                <prs-show-location *ngIf="hotelInfo.coordinate.lat !== 0 && hotelInfo.coordinate.lng !== 0"  [inCommingLatLng]="hotelInfo.coordinate"></prs-show-location>
-
-                <a class="btn-map" *ngIf="hotelInfo.coordinate.lat !== 0">مسیریابی از مبدا شما !</a>
-                <div class="address">
-                  <img src="assets/img/008-maps.svg" width="20" alt="">
-                  <p class="text-en">{{ hotelInfo.address }}</p>
-                </div>
-                <div class="telephone">
-                  <img src="assets/img/003-telephone.svg" width="20" alt="">
-                  <p>{{ '-' }}</p>
-                </div>
-              </div>
-              <div class="info-about-hotel">
-                <div class="scrollbar" id="style-1"></div>
-                <h2>درباره  {{hotelInfo.name}} بیشتر بدانید :</h2>
-                <p *ngIf="hotelInfo.body" [innerHTML]="hotelInfo.body | safeHtml"></p>
-                <p *ngIf="!hotelInfo.body">توضیحاتی ثبت نشده است</p>
-              </div>
-            </div>
-
-            <div class="notes-hotel">
-              <div class="option">
-                <h2>امکانات هتل ، اتاق ها و خدمات دیگر در یک نگاه</h2>
-                <div class="parent-item-option" *ngIf="hotelInfo.services.length > 0">
-                  <div class="item" *ngFor="let service of hotelInfo.services[0].services">
-                    <span>{{service.name}}</span>
-                  </div>
-                </div>
-                <div class="parent-item-option" *ngIf="hotelInfo.services.length === 0">
-                  امکاناتی برای این هتل وجود ندارد.
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section> -->
