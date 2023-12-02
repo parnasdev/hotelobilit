@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { RateDTO } from 'src/app/Core/Models/newPostDTO';
 import {
   ReserveCheckingReqDTO,
   ReserveCreateDTO,
@@ -17,8 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmPhoneComponent } from 'src/app/auth/confirm-phone/confirm-phone.component';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
-import * as moment from 'jalali-moment';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
+import { ITourShowReserve } from '../core/models/tour.model';
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -30,25 +29,26 @@ export class CompleteReservationComponent implements OnInit {
   isDesktop = false;
   totalPrice = 0;
   isTablet = false;
-  flightID = '';
-  hotelID = '';
+  flightID = '0';
+  returnFlightID = '0'
+  hotelID = '0';
   showPassengers = true;
   isLoading = false;
-ref_code: string = ''
+  ref_code: string = ''
   expired_time: string = ''
   isPrivacyCheck = false;
 
   req: ReserveCreateDTO = {
-  reserves: [],
-  reserver_full_name: '',
-  reserver_phone: '',
-  reserver_id_code: ''
+    reserves: [],
+    reserver_full_name: '',
+    reserver_phone: '',
+    reserver_id_code: ''
   }
-  flight:any;
+
+
   checkingReq!: ReserveCheckingReqDTO
-  data: any
-rooms: any[] = []
-  finalRoomSelected: ReservePassengerCreateDTO[] = [];
+  data!: ITourShowReserve
+
   interval: any;
   seconds = 0;
   minutes = 20;
@@ -86,6 +86,8 @@ rooms: any[] = []
   ngOnInit(): void {
     this.hotelID = this.route.snapshot.paramMap.get('hotel') ?? ''
     this.flightID = this.route.snapshot.paramMap.get('flight') ?? ''
+    this.returnFlightID = this.route.snapshot.paramMap.get('returnFlight') ?? ''
+
 
     this.checking();
   }
@@ -94,11 +96,12 @@ rooms: any[] = []
   setCheckingReq() {
     this.route.queryParams.subscribe(params => {
       this.checkingReq = {
-        checkin: moment(params['checkin'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
-        checkout: moment(params['checkout'], 'jYYYY/jMM/jDD').format('YYYY-MM-DD'),
+        checkin: params['checkin'],
+        checkout: params['checkout'],
         stayCount: params['stayCount'],
         hotel_id: +this.hotelID,
         flight_id: +this.flightID,
+        return_flight_id: +this.returnFlightID,
         rooms: JSON.parse(params['rooms'])
       }
     }
@@ -106,18 +109,6 @@ rooms: any[] = []
   }
 
 
-  getRoomData(result: any) {
-    this.totalPrice = 0
-    this.rooms.forEach(item => {
-      item.passengers?.forEach((pass:any) => {
-        this.totalPrice += (pass.price ?? 0);
-      })
-      if (item.id === result.id) {
-        item.passengers = result.passengers;
-        // item. = this.getRommTotalPrice(data.passengers, data.name)
-      }
-    })
-  }
 
   startTimer() {
     this.interval = setInterval(() => {
@@ -147,9 +138,6 @@ rooms: any[] = []
     this.api.checking(this.checkingReq).subscribe((res: any) => {
       if (res.isDone) {
         this.ref_code = res.data.ref_code;
-        this.expired_time = res.data.expired_in_minutes
-        this.minutes = +this.expired_time;
-        this.startTimer();
 
         this.showReserve();
       } else {
@@ -172,10 +160,8 @@ rooms: any[] = []
     this.api.showReserve(this.ref_code).subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
-        this.flight = this.data.reserves[0].flight;
-
-        this.setRoomSelected();
-
+        this.minutes = +this.data.information.expired_in_minutes;
+        // this.startTimer();
       } else {
         this.message.custom(res.message);
       }
@@ -191,110 +177,28 @@ rooms: any[] = []
 
   getCurrencyRate(code: string, room: any): number {
 
-      let currencies = room.currencies;
-      if (currencies) {
-        switch (code) {
-          case 'toman':
-            return currencies.toman;
-          case 'dollar':
-            return currencies.dollar;
-          case 'euro':
-            return currencies.euro;
-          case 'derham':
-            return currencies.derham;
-          default:
-            return 0
-        }
-      } else {
-        return 0;
+    let currencies = room.currencies;
+    if (currencies) {
+      switch (code) {
+        case 'toman':
+          return currencies.toman;
+        case 'dollar':
+          return currencies.dollar;
+        case 'euro':
+          return currencies.euro;
+        case 'derham':
+          return currencies.derham;
+        default:
+          return 0
       }
-  }
-  getRoomCount() {
-    return this.rooms.length;
-  }
-
-  getPassengersCount() {
-    let count = 0;
-    this.rooms.forEach(x => {
-      count += (x.passengers ?? []).length;
-    })
-    return count
-  }
-  getRoomPrice(room: any): number {
-    let price = 0;
-      this.getComputableRateList(room.rates).forEach((rate: any) => {
-        price += rate.price * this.getCurrencyRate(rate.currency_code, room);
-      })
-
-    return price + this.getTransferPrice()
-  }
-
-  getTransferPrice() {
-    let destID = this.data.reserves[0].flight.destination_id
-    let transfers = this.data.reserves[1].room.services.filter((transfer:any) => transfer.airport_id === destID || transfer.airport_id === 0);
-
-    let price = 0;
-    transfers.forEach((x:any) => {
-      price += (x?.rate ?? 0) * this.getCurrencyRate(x?.rate_type ?? '', this.data.reserves[1].room)
-    })
-    return price
-  }
-
-
-
-  getComputableDateList() {
-    let dateList: any = this.calendarService.enumerateDaysBetweenDates(this.data.details.checkin, this.data.details.checkout, 'YYYY-MM-DD')
-    dateList.pop();
-    return dateList;
-  }
-
-  getComputableRateList(rates: RateDTO[]) {
-    let result: RateDTO[] = []
-
-    this.getComputableDateList().forEach((date: string) => {
-      let itemFiltered = rates.filter((item: RateDTO) => item.date === date)
-      if (itemFiltered.length > 0) {
-        result.push(itemFiltered[0]);
-      }
-    })
-    return result;
-  }
-
-
-  getExtraBedPrice(room: any): number {
-    let price = 0;
-      this.getComputableRateList(room.rates).forEach((rate: any) => {
-        price += rate.extra_price * this.getCurrencyRate(rate.currency_code, room);
-      })
-
-    return price  + this.getTransferPrice()
+    } else {
+      return 0;
+    }
   }
 
   getError(name: string) {
     return this.errorService.hasError(name)
   }
-
-  setRoomSelected() {
-    this.rooms = [];
-
-      this.data.reserves.forEach((room:any,index:number) => {
-        if(index > 0){
-          let item = {
-            request: this.data.details.request[index -1],
-            room: room,
-            passengers: [],
-            total_price:this.getRoomPrice(room.room),
-            totalExtraPrice:this.getExtraBedPrice(room.room)
-          }
-          this.rooms.push(item);
-        }
-      })
-
-
-    this.reload()
-  }
-
-
 
 
   reload() {
@@ -305,7 +209,7 @@ rooms: any[] = []
   submit() {
     if (this.isPrivacyCheck) {
       this.setReq();
-      this.api.create(this.req,this.ref_code).subscribe((res: any) => {
+      this.api.create(this.req, this.ref_code).subscribe((res: any) => {
         if (res.isDone) {
           this.message.custom(res.message)
           this.router.navigateByUrl('/')
@@ -330,9 +234,8 @@ rooms: any[] = []
   }
 
   setReq() {
-    this.convertRooms()
     this.req = {
-      reserves : this.finalRoomSelected,
+      reserves: this.getRooms(),
       reserver_full_name: this.nameFC.value + ' ' + this.familyFC.value,
       reserver_phone: this.reserver_phoneFC.value ?? '',
       reserver_id_code: this.reserver_id_codeFC.value,
@@ -340,22 +243,24 @@ rooms: any[] = []
     }
   }
 
+  getRooms() {
+    let list:any[] = [];
+    this.data.selected_rooms.forEach(x => {
+      let obj = {
+        reserve_id: x.reserve_id,
+        passengers: x.passengers
+      }
+      list.push(obj)
+    })
+    return list;
+  }
+
   onChange(name: string) {
     this.errorService.clear(name)
   }
 
 
-  convertRooms() {
-    this.finalRoomSelected= [];
-    this.rooms.forEach(item => {
-      let obj: ReservePassengerCreateDTO = {
-        passengers: item.passengers ?? [],
-        reserve_id: item.room.id
-      }
-      this.finalRoomSelected.push(obj)
-    })
 
-  }
 
   checkAuth() {
     if (this.session.isLoggedIn()) {
@@ -381,6 +286,11 @@ rooms: any[] = []
     }
   }
   openRulesPopup() {
+
+  }
+
+
+  getRoomPassengers(event: any) {
 
   }
 }

@@ -10,6 +10,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import {Title} from "@angular/platform-browser";
+import * as moment from 'moment';
 
 @Component({
   selector: 'prs-reserve-info',
@@ -21,7 +22,6 @@ export class ReserveInfoComponent {
   statusFC = new FormControl()
   statuses: any[] = []
   isLoading = false
-  rooms: any[] = [];
   reserve: string = ""
   constructor(
     public title: Title,
@@ -50,15 +50,8 @@ export class ReserveInfoComponent {
       if (res.isDone) {
         this.info = res.data
         this.statuses = res.statuses;
-        if( this.info.reserves.length > 0) {
-          this.info.reserves.forEach((x:any,index:number) => {
-            if(index > 0) {
-              this.rooms.push(x)
-            }
-          })
-          console.log(this.rooms)
-        }
-        let statusFiltered = this.statuses.filter(x => x.name === this.info.status.label)
+
+        let statusFiltered = this.statuses.filter(x => x.name === this.info.information.status.label)
         if(statusFiltered.length > 0) {
           this.statusFC.setValue(statusFiltered[0].id)
 
@@ -72,6 +65,18 @@ export class ReserveInfoComponent {
       this.message.error();
       this.checkErrorService.check(error);
     });
+  }
+
+
+  getPrices(item:any) {
+    let list:any[] =[]
+    for (var key in item.prices) {
+      if (item.prices.hasOwnProperty(key)) {
+          console.log(key + " -> " + item.prices[key]);
+          list.push({name: key,value:item.prices[key]})
+      }
+  }
+  return list
   }
 
   changeStatus() {
@@ -91,10 +96,24 @@ export class ReserveInfoComponent {
   }
 
 
-  getNight() {
-    let list = this.calendarService.enumerateDaysBetweenDates(this.info.details.checkin, this.info.details.checkout)
-    console.log(list.length - 1);
-    return list.length - 1
-
+  getNight(item: any) {
+    let checkin = '';
+    let checkout = ''
+    let transfer = item.flights;
+    if (!transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
+      checkin = transfer.departure.date;
+      checkout = transfer.return.date;
+    } else if (transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
+      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = transfer.flight.date;
+    } else if (!transfer.departure.checkin_tomorrow && transfer.return.checkout_yesterday) {
+      checkin = transfer.date;
+      checkout = moment(transfer.departure.date).add(-1, 'days').format('YYYY-MM-DD');
+    } else {
+      checkin = moment(transfer.departure.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = moment(transfer.return.date).add(-1, 'days').format('YYYY-MM-DD');
+    }
+    return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
+
 }

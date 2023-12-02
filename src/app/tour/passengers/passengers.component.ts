@@ -2,11 +2,11 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitte
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import * as jmoment from 'jalali-moment';
-import { ReservePassengersDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ResponsiveService } from "../../Core/Services/responsive.service";
+import { IPassenger, ISelectedRoom } from '../core/models/tour.model';
 
 @Component({
   selector: 'prs-passengers',
@@ -16,7 +16,7 @@ import { ResponsiveService } from "../../Core/Services/responsive.service";
 export class PassengersComponent implements OnInit, OnChanges {
   @Input() age = 0;
   @Input() index = 0
-  @Input() RoomData!: { request: any;room: any;passengers: any[];totalExtraPrice: number;total_price: number };
+  @Input() RoomData!: ISelectedRoom
   @Output() passengerResult = new EventEmitter();
   @Input() tourType: boolean = false;
   isDesktop = false;
@@ -55,19 +55,12 @@ export class PassengersComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['RoomData'].firstChange) {
-      for (let i = 0; i < (this.RoomData?.room.room.Adl_capacity ?? []); i++) {
-        this.addRow();
+      for (let i = 0; i < (this.RoomData.passengers.length ?? []); i++) {
+        this.addRow(this.RoomData.passengers[i]);
       }
-      for (let index = 0; index < (this.RoomData.request.chd_count ?? 0); index++) {
-        this.addRow('chd');
-      }
-      for (let index = 0; index < (this.RoomData?.request.inf_count ?? 0); index++) {
-        this.addRow('inf');
-      }
-      for (let index = 0; index < (this.RoomData?.request.extra_count ?? 0); index++) {
-        this.addRow('adl', 'extra');
-      }
+
     }
+    debugger
     if (changes['age'].firstChange) {
       if(this.age === 0) {
         this.childMinDate = this.calenderService.changeDate(new Date(), -(12), 'year','jYYYY-jMM-jDD');
@@ -134,40 +127,24 @@ export class PassengersComponent implements OnInit, OnChanges {
     return this.ReserveForm.get('passengers') as FormArray;
   }
 
-  addRow(type = 'adl', bed_type = 'normal') {
+  addRow(passenger:IPassenger | null = null) {
     const Passengers = this.fb.group({
-      name: ['', [Validators.required]],
-      family: ['', [Validators.required]],
-      gender: ['0', [Validators.required]],
-      bed_type: bed_type,
-      nationality: ['0', [Validators.required]],
-      id_code: this.tourType ? ['', [Validators.required]] : [''],
-      passport: !this.tourType ? ['', [Validators.required]] : [''],
-      expired_passport: !this.tourType ? ['', [Validators.required]] : [''],
-      birth_day: ['', [Validators.required]],
-      type: type,
-      price: this.getPrice(type, bed_type)
+      name: [passenger?.name, [Validators.required]],
+      family: [passenger?.family, [Validators.required]],
+      gender: [passenger?.gender, [Validators.required]],
+      bed_type: 'normal',
+      nationality: [passenger?.nationality, [Validators.required]],
+      id_code: this.tourType ? [passenger?.id_code, [Validators.required]] : [''],
+      passport: !this.tourType ? [passenger?.passport, [Validators.required]] : [''],
+      expired_passport: !this.tourType ? [passenger?.expired_passport, [Validators.required]] : [''],
+      birth_day: [passenger?.birth_day, [Validators.required]],
+      type: passenger?.type,
+      price: passenger?.total_room_price
     })
     this.PassengerForm.push(Passengers);
   }
 
 
-  getPrice(type: string, bed_type = 'normal') {
-    switch (type) {
-      case 'adl':
-        if (bed_type === 'normal') {
-          return (this.RoomData.total_price ?? 0) + this.data.reserves[0].flight.adl_price + this.getTransferPrice();
-        } else {
-          return (this.RoomData.totalExtraPrice ?? 0) + this.data.reserves[0].flight.adl_price + this.getTransferPrice();
-        }
-      case 'chd':
-        return (this.RoomData.total_price ?? 0)  + this.data.reserves[0].flight.chd_price
-      case 'inf':
-        return this.data.reserves[0].flight.inf_price
-      default:
-        return 0
-    }
-  }
 
   getbirthDate(i: number, date: string) {
     this.PassengerForm.controls[i].get('birth_day')?.setValue(date);
@@ -180,7 +157,7 @@ export class PassengersComponent implements OnInit, OnChanges {
   }
 
   getCurrencyRate(code: string, roomIndex: number): number {
-    let currencies = this.data.reserves[1].room.currencies;
+    let currencies = this.data.reserves[2].room.currencies;
     switch (code) {
       case 'toman':
         return currencies.toman;
@@ -199,12 +176,12 @@ export class PassengersComponent implements OnInit, OnChanges {
 
   getTransferPrice() {
     let destID = this.data.reserves[0].flight.destination_id
-    let transfer = this.data.reserves[1].room.services.find((transfer:any) => transfer.airport_id === destID && transfer.airport_id === 0);
+    let transfer = this.data.reserves[2].room.services.find((transfer:any) => transfer.airport_id === destID && transfer.airport_id === 0);
     return (transfer?.rate ?? 0) * this.getCurrencyRate(transfer?.rate_type ?? '', 0)
   }
 
   convertPassengerObject() {
-    let passengers: ReservePassengersDTO[] = [];
+    let passengers: IPassenger[] = [];
     this.PassengerForm.controls.forEach((item, index) => {
       item.value.birth_day = moment(item.value.birth_day).format('YYYY-MM-DD');
       passengers.push(item.value)

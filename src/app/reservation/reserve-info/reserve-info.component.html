@@ -14,20 +14,19 @@
     </div>
     <div class="box-top-agency-reserve mb-3">
       <div class="d-flex align-items-center item-title justify-content-between w-100">
-        <h3 class=" bold-600">کد رفرنس :{{ info?.ref_code }}</h3>
-                         <span class="status">
-                    کد رفرنس مرجع:{{info?.ref_code_reserver}}
-                </span>
+        <span class="status">
+          مرجع:{{info?.information.partner_name}}
+        </span>
       </div>
       <div class="p-date my-3 e-100 d-flex align-items-center justify-content-between">
         <div class="date">
           <span class="text-dark bold-600">تاریخ درخواست :</span>
-          <span class="text-gray mr-2">{{ calendarService.convertDateAndTime(info?.createdAt, 'fa') }}</span>
+          <span class="text-gray mr-2">{{ calendarService.convertDateAndTime(info?.information.createdAt, 'fa')
+            }}</span>
         </div>
-        <span class="status">مرجع : {{info?.reserver}}</span>
       </div>
       <div class="d-flex align-items-center item-title justify-content-between w-100">
-        <h3 class=" bold-600"> وضعیت : {{ info?.status.label }}</h3>
+        <h3 class=" bold-600"> وضعیت : {{ info?.information.status.label }}</h3>
 
 
       </div>
@@ -38,39 +37,41 @@
       <div class="p-items">
         <div class="item">
           <span>نام و نام خانوادگی :</span>
-          <span class="mr-2 text-gray">{{info?.reserver_full_name}}</span>
+          <span class="mr-2 text-gray">{{info?.information.reserver.full_name}}</span>
         </div>
         <div class="item">
           <span>شماره همراه :</span>
-          <span class="mr-2 text-gray">{{info?.reserver_phone}}</span>
+          <span class="mr-2 text-gray">{{info?.information.reserver.phone}}</span>
         </div>
         <div class="item">
           <span>کد ملی :</span>
-          <span class="mr-2 text-gray">{{ info?.reserver_id_code }}</span>
+          <span class="mr-2 text-gray">{{ info?.information.reserver.id_code }}</span>
         </div>
       </div>
       <div class="p-price d-flex align-items-center justify-content-between">
         <div class="item d-flex align-items-center justify-content-between w-100 px-2">
           <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
           <div class="d-flex">
-            <span class="text mr-2 font-size-20 bold-600">{{info?.total_price | sperator}}</span>
+            <span class="text mr-2 font-size-20 bold-600">{{info?.prices.total_price | sperator}}</span>
             <span class="mr-1 m-right-8">تومان</span>
           </div>
         </div>
       </div>
       <div class="p-items">
         <div class="item">
-          <span>قیمت پرواز بزرگسال :</span>
-          <span class="mr-2 text-gray">{{info?.reserves[0].flight.adl_price | sperator}}</span>
+          <span>قیمت پرواز رفت :</span>
+          <span class="mr-2 text-gray">{{info?.prices.departure_total_price | sperator}}</span>
         </div>
         <div class="item">
-          <span>قیمت پرواز کودک :</span>
-          <span class="mr-2 text-gray">{{info?.reserves[0].flight.chd_price| sperator}}</span>
+          <span>قیمت پرواز برگشت :</span>
+          <span class="mr-2 text-gray">{{info?.prices.return_total_price| sperator}}</span>
         </div>
-        <div class="item">
-          <span>قیمت پرواز نوزاد :</span>
-          <span class="mr-2 text-gray">{{ info?.reserves[0].flight.inf_price| sperator}}</span>
-        </div>
+        <ng-template ngFor let-x [ngForOf]="getPrices(info)" let-index="index">
+          <div class="item" *ngIf="index > 2">
+            <span>{{ x.name }}:</span>
+            <span class="mr-2 text-gray">{{ x.value| sperator}}</span>
+          </div>
+        </ng-template>
       </div>
     </div>
     <div class="box-top-box-reserve">
@@ -79,71 +80,71 @@
         <h2 class="title-tour">هتل انتخابی : {{info?.hotel?.title}}</h2>
       </div>
 
-      <div class="set-request-tour" *ngIf="info?.reserves.length > 0">
+      <div class="set-request-tour">
         <div class="info-from">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <span>پرواز رفت:</span>
-              <span style="margin-right: 4px" class="city-name">{{ info?.reserves[0].flight?.origin_name }}
-                به {{ info?.reserves[0].flight?.destination_name }}</span>
+              <span style="margin-right: 4px" class="city-name">{{ info?.flights.departure.origin_name }}
+                به {{ info?.flights?.departure.destination_name }}</span>
             </div>
-            <span>{{info.reserves[0].flight?.airline_name}}</span>
-            <img width="25" height="25" [src]="info.reserves[0].flight?.airline_thumb.url" alt="">
+            <span>{{info.flights.departure.airline_name}}</span>
+            <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">{{ info.reserves[0].flight?.date |
-              convertDate }} {{ info.reserves[0].flight?.time.substring(1,5) }}</span>
+            <span class="text" style="direction: ltr!important">{{ info.flights.departure.date |
+              convertDate }} {{ info.flights.departure.time.substring(1,5) }}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ ورود به هتل :</span>
-            <span class="text" style="direction: ltr!important">{{info?.details?.checkin |
+            <span class="text" style="direction: ltr!important">{{info?.hotel?.checkin |
               convertDate}}</span>
           </div>
         </div>
         <div class="info-time">
           <span class="title">مدت اقامت:</span>
-          <span class="text">{{getNight()}} شب و {{getNight() + 1}} روز</span>
+          <span class="text">{{getNight(info)}} شب و {{getNight(info) + 1}} روز</span>
         </div>
         <div class="info-to">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <span>پرواز برگشت:</span>
               <span style="margin-right: 4px" class="city-name">{{
-                info.reserves[0].flight?.flight?.origin_name }} به {{
-                info.reserves[0].flight?.flight?.destination_name }}</span>
+                info.flights.return.origin_name }} به {{
+                info.flights.return.destination_name }}</span>
             </div>
-            <span>{{info.reserves[0].flight?.flight.airline_name}}</span>
-            <img width="25" height="25" [src]="info.reserves[0].flight?.flight.airline_thumb.url" alt="">
+            <span>{{info.flights.return.airline_name}}</span>
+            <img width="25" height="25" [src]="info.flights.return.airline_logo.url" alt="">
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{ info.reserves[0].flight?.flight.date |
-              convertDate }} {{ info.reserves[0].flight?.flight?.time.substring(1,5) }}</span>
+            <span class="text" style="direction: ltr!important">{{ info.flights.return.date |
+              convertDate }} {{ info.flights.return.time.substring(1,5) }}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ خروج از هتل :</span>
-            <span class="text" style="direction: ltr!important">{{info.details.checkout |
+            <span class="text" style="direction: ltr!important">{{info.hotel.checkout |
               convertDate}}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <ng-template ngFor let-item [ngForOf]="rooms" let-index="index">
+    <ng-template ngFor let-item [ngForOf]="info.selected_rooms" let-index="index">
       <div class="box-rooms">
         <div class="d-flex align-items-center item-title  justify-content-between w-100">
-          <h3 class=" bold-600">اتاق {{item.room?.room_type}} </h3>
+          <h3 class=" bold-600">اتاق {{item.info_room?.room_type}} </h3>
         </div>
-        <div class="empty-box" *ngIf="item.details.passengers.length == 0">مسافری ثبت نشده است</div>
-        <div *ngFor="let p of item.details.passengers" class="item-information-room">
+        <div class="empty-box" *ngIf="item.passengers.length == 0">مسافری ثبت نشده است</div>
+        <div *ngFor="let p of item.passengers" class="item-information-room">
           <label for="" class="label-role">{{p.type}}</label>
           <div class="item">
             <span class="text-gray">نام :</span>
             <span class="mr-2">{{p.name}}</span>
           </div>
           <div class="item">
-            <span class="text-gray">نام خانوادگی :</span>
+            <span class="text-gray">خانوادگی :</span>
             <span class="mr-2">{{p.family}}</span>
           </div>
           <div class="item" *ngIf="p.id_code">
@@ -155,7 +156,7 @@
             <span class="mr-2">{{ p.nationality == 0 ? 'ایرانی' : 'غیرایرانی' }}</span>
           </div>
           <div class="item" *ngIf="p.passport">
-            <span class="text-gray">شماره پاسپورت :</span>
+            <span class="text-gray">پاسپورت :</span>
             <span class="mr-2">{{ p.passport }}</span>
           </div>
           <div class="item" *ngIf="p.expired_passport">
@@ -163,17 +164,23 @@
             <span class="mr-2">{{p.expired_passport }}</span>
           </div>
           <div class="item">
-            <span class="text-gray"> تاریخ تولد :</span>
-            <span class="mr-2" style="direction: rtl;">{{p.birth_day}}</span>
+            <span class="text-gray"> تولد :</span>
+            <span class="mr-2">{{p.birth_day}}</span>
           </div>
           <div class="item">
             <span class="text-gray"> جنسیت :</span>
             <span class="mr-2">{{p.gender == 0 ? 'خانم' : 'آقا'}}</span>
           </div>
           <div class="item">
-            <span class="text-gray"> قیمت :</span>
-            <span class="mr-2">{{(p.price ?? 0)| sperator }}</span>
+            <span class="text-gray"> قیمت اتاق :</span>
+            <span class="mr-2">{{(p.room_price ?? 0)| sperator }}</span>
           </div>
+          <div class="item">
+            <span class="text-gray"> مجموع (هر نفر):</span>
+            <span class="mr-2">{{(p.total_room_price ?? 0)| sperator }}</span>
+          </div>
+
+
         </div>
       </div>
     </ng-template>

@@ -2,15 +2,15 @@ import { RateDTO, ReserveHotelDTO } from "./newPostDTO";
 import { transferRateListDTO } from "./newTransferDTO";
 
 export interface ReserveCreateDTO {
-  reserves: ReservePassengerCreateDTO[],
-  reserver_full_name: string;
-  reserver_phone: string
-  reserver_id_code: string
+    reserves: ReservePassengerCreateDTO[],
+    reserver_full_name: string;
+    reserver_phone: string
+    reserver_id_code: string
 }
 
 export interface ReservePassengerCreateDTO {
-  "reserve_id": number;
-  passengers: any[]
+    reserve_id: number;
+    passengers: any[]
 }
 
 
@@ -34,6 +34,7 @@ export interface ReserveCheckingReqDTO {
     hotel_id: number
     flight_id: number;
     checkout: string;
+    return_flight_id: number
     checkin: string;
     stayCount: number
     rooms: ReserveRoomsReqDTO[]
@@ -77,7 +78,7 @@ export interface ReserveRoomsReqDTO {
     count: number;
     adl_count: number;
     chd_count: number;
-    chd_capacity:number
+    chd_capacity: number
     extra_count: number;
     inf_count: number;
 }
@@ -96,10 +97,11 @@ export interface ReserveListResponseDTO {
         name: string
     }
     ref_code: string
-  reserver: string
-  ref_code_reserver:string;
+    reserver: string
+    ref_code_reserver: string;
     reserver_full_name: string
-    reserver_id_code: string
+    reserver_id_code: string;
+    partner_name: string;
     reserver_phone: string
     reserves: ReserveListChildDTO[]
     total_price: number

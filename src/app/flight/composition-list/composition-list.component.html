@@ -4,7 +4,10 @@
       <img class="m-top-8" src="assets/img/panel/list.png" width="25" alt="">
       <h2 class="text-dark fs-16 m-bottom-0 bold-600 m-right-7">پرواز های ترکیب شده</h2>
     </div>
+
     <div class="flex-x-between m-y-20 w-100 gap-12">
+      <a class="btn-base-custom2"
+      routerLink="/panel/flight/composition">ترکیب</a>
       <div class="flex-x-start gap-16">
         <ng-template>
           <a class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer">
@@ -73,7 +76,6 @@
       </div>
       <span>بزرگسال (تومان)</span>
       <span>تنظیمات</span>
-
     </div>
     <div *ngIf="isLoading">
       <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">

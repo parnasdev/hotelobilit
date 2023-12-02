@@ -36,7 +36,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
     public api: PostApiService,
     public message: MessageService,) { }
   ngOnChanges(changes: SimpleChanges): void {
-
+debugger
     if (changes['incommingDates']) {
       if (this.type === 'multiple') {
         this.stDate = this.inCommingDate.fromDate;

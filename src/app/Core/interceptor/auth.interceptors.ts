@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
       token = 'Bearer ' + token;
       headers = new HttpHeaders(
         {
-          'AppKey': 'AdVNS4mEeLSyIHy640hNHVDsrAOvKmsJ',
+          'x-app-key': 'hxeiYbFgBadgpWJF8f1LTZSRfsJ21a8aFnBjRUqb',
           Authorization: token
         });
       let authReq = req.clone({headers});

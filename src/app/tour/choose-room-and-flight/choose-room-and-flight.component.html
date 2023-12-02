@@ -66,246 +66,252 @@
             </div>
           </div>
 
-          <ng-template [ngIf]="publicService.isTablet">
-            <div class="thumbnail-flight-mobi" *ngFor="let item of data.flights;let flightIndex = index">
-              <div class="title">
-                <h3>اطلاعات پرواز</h3>
-              </div>
-              <div class="flight-from">
-                <div class="top">
-                  <span>پرواز رفت</span>
-                  <div class="airline-to">
-                    <img width="40" src="../../../assets/img/nopicture.jpg" alt="">
-                    <span>زاگرس</span>
-                  </div>
-                </div>
-                <div class="bottom">
-                  <div class="location">
-                    تهران به کیش
-                  </div>
-                  <span class="date">
-                    ۱۲:۰۰ و ۰۲/۰۸/۱۳
-                  </span>
+      <ng-template [ngIf]="publicService.isTablet">
+        <ng-template ngFor let-flight [ngForOf]="data.flights" let-flightIndex="index">
+          <div class="thumbnail-flight-mobi">
+            <div class="title">
+              <h3>اطلاعات پرواز</h3>
+            </div>
+            <div class="flight-from">
+              <div class="top">
+                <span>پرواز رفت</span>
+                <div class="airline-to">
+                  <img width="40" [src]="flight.departure.airline_logo.url" alt="">
+                  <span>{{ flight.departure.airline_name }}</span>
                 </div>
               </div>
-              <div class="flight-to">
-                <div class="top">
-                  <span>پرواز برگشت</span>
-                  <div class="airline-to">
-                    <img width="25" src="../../../assets/img/nopicture.jpg"
-                      alt="">
-                    <span>آتا</span>
-                  </div>
+              <div class="bottom">
+                <div class="location">
+                  {{ flight.departure.origin_name }} به {{ flight.departure.destination_name }}
                 </div>
-                <div class="bottom">
-                  <div class="location">
-                    تهران به کیش
-                  </div>
-                  <span class="date">
-                    ۲۱:۳۰ و ۰۲/۰۸/۱۲
-                  </span>
-
+                <span class="date">
+                  {{ flight.departure.time }} و {{ flight.departure.date | convertDate }}
+                </span>
+              </div>
+            </div>
+            <div class="flight-to">
+              <div class="top">
+                <span>پرواز برگشت</span>
+                <div class="airline-to">
+                  <img width="25" [src]="flight.return.airline_logo.url" alt="">
+                  <span>{{ flight.return.airline_name }}</span>
                 </div>
               </div>
-              <div class="title d-flex align-items-center justify-content-between mt-2">
-                <h3>انتخاب اتاق</h3>
-                <span *ngIf="publicService.isTablet" class="text-dark font-size-13 bold-600">قیمت بر اساس هر نفر در اتاق</span>
-              </div>
-              <div class="rooms">
-                <div  class="item-room flex-wrap">
-                  <span class="text w-50">دوتخته</span>
-                  <div class="p-count w-50">
-                    <button class="btn-plus">+</button>
-                    <span>0</span>
-                    <button class="btn-minus">-</button>
-                  </div>
-                  <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                    <strong>2,000,000</strong>
-                    <small>تومان</small>
-                  </div>
-                  <!-- <i class="icon-down-open"></i> -->
-                  <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
+              <div class="bottom">
+                <div class="location">
+                  {{ flight.return.origin_name }} به {{ flight.return.destination_name }}
                 </div>
+                <span class="date">
+                  {{ flight.return.time }} و {{ flight.return.date | convertDate }}
+                </span>
 
               </div>
-              <div class="box-end">
-                <div class="p-text">
-                  <h4>قیمت هر نفر :</h4>
-                  <!-- <h5>---</h5> -->
+            </div>
+            <div class="title d-flex align-items-center justify-content-between mt-2">
+              <h3>انتخاب اتاق</h3>
+              <span *ngIf="publicService.isTablet" class="text-dark font-size-13 bold-600">قیمت بر اساس هر نفر در
+                اتاق</span>
+            </div>
+            <div class="rooms">
+              <div class="item-room flex-wrap" *ngFor="let room of flight.rooms;let roomIndex = index">
+                <span class="text w-50">{{ room.room_type }}</span>
+                <div class="p-count w-50">
+                  <button class="btn-plus" (click)="plus(roomIndex,flightIndex)">+</button>
+                  <span>{{ (room.count ?? 0) }}</span>
+                  <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
                 </div>
-                <div class="p-price">
-                  <span>قیمت:</span>
-                  <div class="price">
-                    <strong>3,000,000</strong>
-                    <small>تومان</small>
-                  </div>
+                <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
+                  <strong>{{ getRoomTotalPrice('adl',room,flight) |sperator}}</strong>
+                  <small>تومان</small>
                 </div>
-                <a class="btn-base-red w-75 mt-4">رزرو
-                  تور</a>
+                <!-- <i class="icon-down-open"></i> -->
+                <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
               </div>
-           </div>
-          </ng-template>
+
+            </div>
+            <div class="box-end">
+              <div class="p-text">
+                <h4>قیمت هر نفر :</h4>
+                <!-- <h5>---</h5> -->
+              </div>
+              <div class="p-price">
+                <span>قیمت:</span>
+                <div class="price">
+                  <strong>{{getRoomTotalPrice('adl',flight.rooms[0],data.flights[0]) | sperator}}</strong>
+                  <small>تومان</small>
+                </div>
+              </div>
+              <a class="btn-base-red w-75 mt-4" (click)="submit(flight.departure.id,flight.return.id,flightIndex)">رزرو
+                تور</a>
+            </div>
+          </div>
+          <div class="p-count-room d-flex flex-xcolumn"
+          *ngFor="let childRoom of (flight.selectedRooms ?? []);let childIndex = index">
+          <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
+            <svg style="cursor: pointer" width="30" height="30"
+              (click)="removeSelectedRoom(childRoom,flightIndex,childIndex)" viewBox="0 0 576 512"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill="#ff0000"
+                d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
+            </svg>
+            <h4 class="m-bottom-0 bold-600 font-size-15">{{ childRoom.room_type }}</h4>
+
+            <div class="d-flex inp-item flex-column">
+              <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
+              <div class="p-count w-100 mt-2">
+                <span>{{ childRoom.Adl_capacity }}</span>
+              </div>
+            </div>
+            <div class="d-flex inp-item border-gray flex-column">
+              <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
+              <small> {{ getRoomTotalPrice('extra',childRoom,flight) |sperator}} تومان</small>
+              <div class="p-count w-100 mt-2">
+                <button
+                  [ngClass]="{'btn-plus-off' : childRoom.extra_count == getExtraBedCount(childRoom.room_type_id),'btn-plus' : (childRoom.extra_count ?? 0) <= getExtraBedCount(childRoom.room_type_id)}"
+                  (click)="plusCount('extra_count',childIndex,flightIndex)">+</button>
+                <span>{{ (childRoom.extra_count ?? 0) }}</span>
+                <button class="btn-minus" (click)="minusCount('extra_count', childIndex, flightIndex)">-</button>
+              </div>
+            </div>
+
+            <div class="d-flex inp-item border-gray flex-column">
+              <label class="font-size-13 bold-600" for="">تعداد کودک </label>
+              <small>{{ getRoomTotalPrice('chd',childRoom,flight) | sperator }} تومان</small>
+
+              <div class="p-count w-100 mt-2">
+                <button
+                  [ngClass]="{'btn-plus-off' : childRoom.chd_capacity === childRoom.chd_count,'btn-plus' :childRoom.chd_capacity > (childRoom.chd_count??0)}"
+                  (click)="plusCount('chd_count',childIndex,flightIndex)">+</button>
+                <span>{{ (childRoom.chd_count ?? 0) }}</span>
+                <button class="btn-minus" (click)="minusCount('chd_count', childIndex, flightIndex)">-</button>
+              </div>
+            </div>
+
+            <div class="d-flex inp-item border-gray flex-column">
+              <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
+              <small>{{ (flight.departure.inf_price + flight.return.inf_price) | sperator }} تومان</small>
+
+              <div class="p-count w-100 mt-2">
+                <button
+                  [ngClass]="{'btn-plus-off' : childRoom.inf_count == childRoom.Adl_capacity,'btn-plus' :(childRoom.inf_count ?? 0) <= childRoom.Adl_capacity}"
+                  (click)="plusCount('inf_count',childIndex,flightIndex)">+</button>
+                <span>{{ (childRoom.inf_count ?? 0) }}</span>
+                <button class="btn-minus" (click)="minusCount('inf_count', childIndex, flightIndex)">-</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </ng-template>
+        
+      </ng-template>
 
           <div class="d-flex flex-column w-100">
 
-            <div style="position: relative;"
-              class="focus-thumbnail"
-              class="thumbnail-flight" *ngFor="let flight of data.flights;let flightIndex = index">
-              <!-- <div class="blur"
-                *ngIf="getRoomSelectedID() == 0 ? false : (getRoomSelectedID() === item.id ? false : true)">
-              </div> -->
-              <div class="title">
-                <h3>اطلاعات پرواز</h3>
-                <h3>اطلاعات اتاق</h3>
-              </div>
-              <div class="middle">
-                <div class="p-flight">
-                  <div class="from">
-                    <img src="" alt="">
-                    <div class="detail">
-                      <div class="d-flex align-items-center">
-                        <i class="icon-circle"></i>
-                        <h5>پرواز رفت</h5>
-                      </div>
-                      <div class="location">
-                        {{ flight.departure.origin_name }} به {{ flight.departure.destination_name }}
-                      </div>
-                      <div class="p-date">
-                        <span>{{ flight.departure.time |timeFixer }} و {{ flight.departure.date | convertDate }}</span>
-                      </div>
-                      <div class="p-date">
-                        <span> ورود به هتل : ---</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="line w-50">
-                    <div class="airline-from">
-                      <div class="d-flex flex-column align-items-center">
-                        <img width="60" src="'../../../assets/img/nopicture.jpg"
-                          alt="">
-                        <span>{{ flight.departure.airline_name }}</span>
-                      </div>
-                    </div>
-                    <div class="line-between">
-
-                      <span>تعداد موجودی پرواز :{{ flight.departure.capacity }}</span>
-                    </div>
-                    <div class="airline-to">
-                      <div class="d-flex flex-column align-items-center">
-                        <img width="60" src="../../../assets/img/nopicture.jpg"
-                          alt="">
-                        <span>{{ flight.return.airline_name }}</span>
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="to">
-                    <img src="" alt="">
-                    <div class="detail">
-                      <div class="d-flex align-items-center">
-                        <i class="icon-circle"></i>
-                        <h5>پرواز برگشت</h5>
-                      </div>
-                      <div class="location">
-                        {{ flight.return.origin_name }} به {{ flight.return.destination_name }}
-                      </div>
-                      <div class="p-date">
-                        <span>{{ flight.return.time | timeFixer }} و {{ flight.return.date |convertDate }}</span>
-                      </div>
-                      <div class="p-date">
-                        <span> خروج از هتل : ---</span>
-                      </div>
-                    </div>
-                  </div>
-
+            <ng-template ngFor let-flight [ngForOf]="data.flights" let-flightIndex="index">
+              <div style="position: relative;" class="focus-thumbnail" class="thumbnail-flight">
+                <!-- <div class="blur"
+            *ngIf="getRoomSelectedID() == 0 ? false : (getRoomSelectedID() === flight.id ? false : true)">
+          </div> -->
+                <div class="title">
+                  <h3>اطلاعات پرواز</h3>
+                  <h3>اطلاعات اتاق</h3>
                 </div>
-                <div class="rooms">
-                  <div (click)="roomCollapse()" *ngFor="let room of data.rooms;let roomIndex = index" class="item-room flex-wrap">
-                    <span class="text w-50">{{ room.room_type }}</span>
-                    <div class="p-count w-50">
-                      <button
-                        class="btn-plus" (click)="plus(roomIndex,flightIndex)">+</button>
-                      <span>0</span>
-                      <button class="btn-minus">-</button>
+                <div class="middle">
+                  <div class="p-flight">
+                    <div class="from">
+                      <img src="" alt="">
+                      <div class="detail">
+                        <div class="d-flex align-items-center">
+                          <i class="icon-circle"></i>
+                          <h5>پرواز رفت</h5>
+                        </div>
+                        <div class="location">
+                          {{ flight.departure.origin_name }} به {{ flight.departure.destination_name }}
+                        </div>
+                        <div class="p-date">
+                          <span>{{ flight.departure.time |timeFixer }} و {{ flight.departure.date | convertDate
+                            }}</span>
+                        </div>
+                        <div class="p-date">
+                          <span> ورود به هتل : {{data.hotel.checkin | convertDate}}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
-                      <strong>{{ room.rate.price |sperator}}</strong>
+                    <div class="line w-50">
+                      <div class="airline-from">
+                        <div class="d-flex flex-column align-items-center">
+                          <img width="60" [src]="flight.departure.airline_logo.url ?flight.departure.airline_logo.url : '../../../assets/img/nopicture.jpg'" alt="">
+                          <span>{{ flight.departure.airline_name }}</span>
+                        </div>
+                      </div>
+                      <div class="line-between">
+
+                        <span>تعداد موجودی پرواز :{{ flight.departure.capacity }}</span>
+                      </div>
+                      <div class="airline-to">
+                        <div class="d-flex flex-column align-items-center">
+                          <img width="60" [src]="flight.return.airline_logo.url ?flight.return.airline_logo.url : '../../../assets/img/nopicture.jpg'"  alt="">
+                          <span>{{ flight.return.airline_name }}</span>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="to">
+                      <img src="" alt="">
+                      <div class="detail">
+                        <div class="d-flex align-items-center">
+                          <i class="icon-circle"></i>
+                          <h5>پرواز برگشت</h5>
+                        </div>
+                        <div class="location">
+                          {{ flight.return.origin_name }} به {{ flight.return.destination_name }}
+                        </div>
+                        <div class="p-date">
+                          <span>{{ flight.return.time | timeFixer }} و {{ flight.return.date |convertDate }}</span>
+                        </div>
+                        <div class="p-date">
+                          <span> خروج از هتل : {{data.hotel.checkout | convertDate}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rooms">
+                    <div (click)="roomCollapse()" *ngFor="let room of flight.rooms;let roomIndex = index"
+                      class="item-room flex-wrap">
+                      <span class="text w-50">{{ room.room_type }}</span>
+                      <div class="p-count w-50">
+                        <button [ngClass]="{'btn-plus-off' : (room.count ?? 0)=== room.rate.available_room_count ,'btn-plus' : (room.count?? 0) <= room.rate.available_room_count}"
+                        (click)="plus(roomIndex,flightIndex)">+</button>
+                        <span>{{ (room.count ?? 0) }}</span>
+                        <button class="btn-minus" (click)="minus(roomIndex,flightIndex)">-</button>
+                      </div>
+                      <div style="margin-top: 8px" class="price d-flex justify-content-center align-items-center w-100">
+                        <strong>{{ getRoomTotalPrice('adl',room,flight) |sperator}}</strong>
+                        <small>تومان</small>
+                      </div>
+                      <!-- <i class="icon-down-open"></i> -->
+                      <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="box-end">
+                  <div class="p-text">
+                    <h4>قیمت هر نفر :</h4>
+                    <!-- <h5>---</h5> -->
+                  </div>
+                  <div class="p-price">
+                    <span>قیمت:</span>
+                    <div class="price">
+                      <strong>{{getRoomTotalPrice('adl',flight.rooms[0],data.flights[0]) | sperator}}</strong>
                       <small>تومان</small>
                     </div>
-                    <!-- <i class="icon-down-open"></i> -->
-                    <!-- <div *ngIf="isRoom" class="option-room animated fadeIn"></div> -->
                   </div>
-
+                  <a class="btn-base-red w-75 mt-4" (click)="submit(flight.departure.id,flight.return.id,flightIndex)">رزرو
+                    تور</a>
                 </div>
               </div>
-              <div class="box-end">
-                <div class="p-text">
-                  <h4>قیمت هر نفر :</h4>
-                  <!-- <h5>---</h5> -->
-                </div>
-                <div class="p-price">
-                  <span>قیمت:</span>
-                  <div class="price">
-                    <strong>---</strong>
-                    <small>تومان</small>
-                  </div>
-                </div>
-                <a class="btn-base-red w-75 mt-4">رزرو
-                  تور</a>
-              </div>
-            </div>
-            <div class="p-count-room d-flex flex-column">
-              <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
-                <svg  style="cursor: pointer" width="30" height="30"
-                  viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#ff0000"
-                    d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
-                </svg>
-                <h4 class="m-bottom-0 bold-600 font-size-15">اتاق سه تخته</h4>
-
-                <div class="d-flex inp-item flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
-                  <div class="p-count w-100 mt-2">
-                    <span>۱</span>
-                  </div>
-                </div>
-
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
-                  <small>2,000,000 تومان</small>
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      class="btn-plus">+</button>
-                    <span>1</span>
-                    <button class="btn-minus">-</button>
-                  </div>
-                </div>
-
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد کودک </label>
-                  <small>200,000 تومان</small>
-
-                  <div class="p-count w-100 mt-2">
-                    <button class="btn-plus">+</button>
-                    <span>1</span>
-                    <button class="btn-minus">-</button>
-                  </div>
-                </div>
-
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
-                  <small>2000 تومان</small>
-
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      class="btn-plus">+</button>
-                    <span>1</span>
-                    <button class="btn-minus">-</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+          
+            </ng-template>
           </div>
 
           <div class="empty-box bg-white" *ngIf="data.flights.length === 0">
@@ -316,4 +322,3 @@
     </div>
   </div>
 </section>
-

@@ -10,6 +10,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { Title } from "@angular/platform-browser";
+import * as moment from 'moment';
 
 @Component({
   selector: 'prs-list',
@@ -21,7 +22,7 @@ export class ListComponent implements OnInit {
   paginate: any;
   p = 1;
   paginateConfig: any;
-  list: ReserveListResponseDTO[] = [];
+  list: any[] = [];
 
   constructor(
     public title: Title,
@@ -68,21 +69,34 @@ export class ListComponent implements OnInit {
     this.getList();
   }
 
-  getNights(checkin: string, checkout: string) {
-    let nights = this.calService.enumerateDaysBetweenDates(checkin, checkout);
-
-    return nights.length - 1
-
+  getNights(item: any) {
+    let checkin = '';
+    let checkout = ''
+    let transfer = item.flights;
+    if (!transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
+      checkin = transfer.departure.date;
+      checkout = transfer.return.date;
+    } else if (transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
+      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = transfer.flight.date;
+    } else if (!transfer.departure.checkin_tomorrow && transfer.return.checkout_yesterday) {
+      checkin = transfer.date;
+      checkout = moment(transfer.departure.date).add(-1, 'days').format('YYYY-MM-DD');
+    } else {
+      checkin = moment(transfer.departure.date).add(1, 'days').format('YYYY-MM-DD');
+      checkout = moment(transfer.return.date).add(-1, 'days').format('YYYY-MM-DD');
+    }
+    return this.calService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
-  getPassengersCount(item: ReserveListResponseDTO) {
-    if (item.reserves.length > 0) {
-      let flight: any = item.reserves[0];
 
-      if (flight.details.passengerCount) {
-        return flight.details.passengerCount
-      } else {
-        return flight.details.length
-      }
+  getPassengersCount(item: any) {
+    let result = 0;
+    if (item.selected_rooms.length > 0) {
+
+    item.selected_rooms.forEach((x:any )=> {
+      result += x.passengers.length
+    })
+    return result
     } else {
       return '---'
     }

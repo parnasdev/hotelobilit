@@ -20,7 +20,7 @@ export class CompositionComponent {
     airlines: [],
     airports: []
   }
-
+  selectAll = false
   mixedLoading = false;
   compositionLoading = false
 
@@ -226,7 +226,7 @@ export class CompositionComponent {
       this.compositionLoading = true
       this.api.mixStepTwo(this.compositionReq).subscribe({
         next: (res: any) => {
-          if(res.isDone) {
+          if (res.isDone) {
             this.compositionData = res.data
           }
           this.compositionLoading = false
@@ -279,7 +279,11 @@ export class CompositionComponent {
     });
     return result
   }
-
+  selectAllChanged() {
+    this.compositionData.forEach((x: any) => {
+      x.isChecked = this.selectAll
+    })
+  }
 
   compositionSubmit() {
     this.mixedLoading = true

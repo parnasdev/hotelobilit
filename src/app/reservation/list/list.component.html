@@ -31,9 +31,13 @@
       <div class="d-flex flex-column">
         <span class="title-tour">ایرلاین رفت</span>
         <span class="title-tour">ایرلاین برگشت</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span class="title-tour">تاریخ ایجاد</span>
+        <span class="title-tour">وضعیت</span>
 
       </div>
-      <span class="title-tour">وضعیت</span>
+
       <div class="d-flex flex-column">
         <span class="title-tour">رفرنس</span>
       <span class="title-tour">مرجع</span>
@@ -56,44 +60,54 @@
       <div class="item bg-white" *ngFor="let item of list| paginate: paginateConfig ; let i = index">
         <span class="id">{{ item.id }}</span>
         <div class="d-flex flex-column">
-        <span class="username">{{ item.reserver_phone }}</span>
-          <span class="username">{{ item.reserver ?item.reserver  : 'hotel o bilit'}}</span>
+        <span class="username">{{ item.information.reserver.phone }}</span>
+          <span class="username">{{ item.information.partner_name ?item.information.partner_name  : 'ثبت نشده'}}</span>
         </div>
         <div class="d-flex flex-column">
           <span class="username font-size-11">{{item.hotel.title}}</span>
         <span class="username font-size-11">{{item.hotel.titleEn}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{item.details.checkin | convertDate}}</span>
-          <span class="username">{{item.details.checkout | convertDate}}</span>
+          <span class="username">{{item.hotel.checkin | convertDate}}</span>
+          <span class="username">{{ item.hotel.checkout | convertDate }}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{item.reserves[0].flight?.date | convertDate}}</span>
-          <span class="username">{{item.reserves[0].flight?.flight?.date | convertDate}}</span>
+          <span class="username">{{item.flights.departure.date | convertDate}}</span>
+          <span class="username">{{item.flights.return.date | convertDate}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.reserves[0].flight?.origin_name }}</span>
-          <span class="username">{{ item.reserves[0].flight?.destination_name }}</span>
+          <span class="username">{{ item.flights.departure.origin_name }}</span>
+          <span class="username">{{ item.flights.return.destination_name }}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{getNights(item.details.checkin, item.details.checkout) + ' ' + 'شب'}}</span>
+          <span class="username">{{getNights(item) + ' ' + 'شب'}}</span>
           <span class="username">{{getPassengersCount(item) + ' نفر'}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.reserves[0].flight?.airline_name }}</span>
-          <span class="username">{{ item.reserves[0].flight?.flight?.airline_name}}</span>
+          <span class="username">{{ item.flights.departure.airline_name }}</span>
+          <span class="username">{{ item.flights.return?.airline_name}}</span>
 
         </div>
-        <span class="username">{{item.status.label}}</span>
+
         <div class="d-flex flex-column">
-        <span class="username">{{ item.ref_code }}</span>
-          <span class="username">{{ item.ref_code_reserver ?item.ref_code_reserver: '---'  }}</span>
+          <span class="username">{{item.information.created_at| convertDateTime}}</span>
+          <span class="username">{{item.information.status.label}}</span>
 
         </div>
+        <div class="d-flex flex-column">
+        <span class="username">{{ item.information.ref_code }}</span>
+          <span class="username">{{ item.information.ref_code_reserver ?item.ref_code_reserver: '---'  }}</span>
 
-        <span class="view">{{ item.total_price | sperator }}</span>
+        </div>
+<div class="d-flex flex-column">
+  <!-- <span class="view">{{ item.prices.departure_total_price | sperator }}</span>
+  <span class="view">{{ item.prices.return_total_price | sperator }}</span>
+  <span class="view">{{ item.prices.single_1_total_price | sperator }}</span> -->
+  <span class="view">{{ item.prices.total_price | sperator }}</span>
+
+</div>
         <div class="button-setting">
-          <a class="edit-btn" routerLink="/panel/reserves/{{ item.id }}">نمایش</a>
+          <a class="edit-btn" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
         </div>
       </div>
       <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
