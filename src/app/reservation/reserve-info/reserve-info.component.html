@@ -59,11 +59,11 @@
       </div>
       <div class="p-items">
         <div class="item">
-          <span>قیمت پرواز رفت :</span>
+          <span>مجموع قیمت پروازهای رفت :</span>
           <span class="mr-2 text-gray">{{info?.prices.departure_total_price | sperator}}</span>
         </div>
         <div class="item">
-          <span>قیمت پرواز برگشت :</span>
+          <span>مجموع قیمت پرواز های برگشت</span>
           <span class="mr-2 text-gray">{{info?.prices.return_total_price| sperator}}</span>
         </div>
         <ng-template ngFor let-x [ngForOf]="getPrices(info)" let-index="index">
@@ -94,7 +94,7 @@
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
             <span class="text" style="direction: ltr!important">{{ info.flights.departure.date |
-              convertDate }} {{ info.flights.departure.time.substring(1,5) }}</span>
+              convertDate }} {{ info.flights.departure.time | timeFixer }}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ ورود به هتل :</span>
@@ -120,7 +120,7 @@
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
             <span class="text" style="direction: ltr!important">{{ info.flights.return.date |
-              convertDate }} {{ info.flights.return.time.substring(1,5) }}</span>
+              convertDate }} {{ info.flights.return.time| timeFixer}}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ خروج از هتل :</span>
@@ -137,7 +137,8 @@
           <h3 class=" bold-600">اتاق {{item.info_room?.room_type}} </h3>
         </div>
         <div class="empty-box" *ngIf="item.passengers.length == 0">مسافری ثبت نشده است</div>
-        <div *ngFor="let p of item.passengers" class="item-information-room">
+       <div class="d-flex flex-column" *ngFor="let p of item.passengers" >
+        <div class="item-information-room">
           <label for="" class="label-role">{{p.type}}</label>
           <div class="item">
             <span class="text-gray">نام :</span>
@@ -171,18 +172,41 @@
             <span class="text-gray"> جنسیت :</span>
             <span class="mr-2">{{p.gender == 0 ? 'خانم' : 'آقا'}}</span>
           </div>
-          <div class="item">
-            <span class="text-gray"> قیمت اتاق :</span>
-            <span class="mr-2">{{(p.room_price ?? 0)| sperator }}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray"> مجموع (هر نفر):</span>
-            <span class="mr-2">{{(p.total_room_price ?? 0)| sperator }}</span>
-          </div>
 
 
         </div>
+        <div  class="item-information-room">
+          <div class="item">
+            <span class="text-gray">قیمت پرواز رفت :</span>
+            <span class="mr-2">{{p.departure_flight_rate | sperator}}</span>
+          </div>
+          <div class="item">
+            <span class="text-gray">قیمت پرواز برگشت :</span>
+            <span class="mr-2">{{p.return_flight_rate | sperator}}</span>
+          </div>
+          <div class="item">
+            <span class="text-gray">قیمت اتاق :</span>
+            <span class="mr-2">{{ p.room_price |sperator}}</span>
+          </div>
+          <div class="item">
+            <span class="text-gray">قیمت سرویس :</span>
+            <span class="mr-2">{{ getServicePrices(item.info_room) | sperator }}</span>
+          </div>
+          <div class="item">
+            <span class="text-gray">مجموع قیمت :</span>
+            <span class="mr-2">{{ p.total_room_price | sperator}}</span>
+          </div>
+
+        </div>
+       </div>
+        <div class="d-flex flex-column">
+          <div class="d-flex" *ngFor="let s of item.info_room?.services">
+            <span>{{ s.category + ' : ' }}</span>
+            <span>{{ s.rate | sperator }}</span>
+          </div>
+        </div>
       </div>
+   
     </ng-template>
   </div>
 

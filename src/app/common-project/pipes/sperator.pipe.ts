@@ -6,7 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SperatorPipe implements PipeTransform {
 
   transform(value: any): any {
-    return new Intl.NumberFormat('en').format(value);
+    if (value) {
+      return new Intl.NumberFormat('en').format(value);
+
+    } else {
+      return 0
+    }
   }
 
 }

@@ -13,10 +13,10 @@
           </div>
           <div class="count-p">
             <div class="total">
-              <span>تعداد کل(نفرات) : 0 + 'نفر' </span>
+              <span>تعداد کل(نفرات) : {{ getRoomPassengers() }} + نفر </span>
             </div>
             <div class="room">
-              <span>تعداد اتاق انتخابی : 0</span>
+              <span>تعداد اتاق انتخابی : {{ getRoomsCount() }}</span>
             </div>
           </div>
           <button class="btn-base btn-box-fix" (click)="checkAuth()">پرداخت آنلاین</button>
@@ -164,7 +164,7 @@
       <h2>اطلاعات مسافران</h2>
       <ng-template [ngIf]="showPassengers">
         <prs-passengers *ngFor="let room of data.selected_rooms;let i=index" [age]="0" [data]="data" [RoomData]="room" [index]="i"
-           [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomPassengers($event)"></prs-passengers>
+           [tourType]="data.hotel.is_domestic" (passengerResult)="getRoomPassengers()"></prs-passengers>
       </ng-template>
 
       <div class="rules mt-3">

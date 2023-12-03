@@ -190,7 +190,7 @@ export interface Information {
     id: number;
     ref_code: string;
     reserver: IReserverInfo;
-    expired_in_minutes: Date;
+    expired_in_minutes: string;
     status: IStatus;
 }
 

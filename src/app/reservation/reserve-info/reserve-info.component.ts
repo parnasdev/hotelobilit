@@ -116,4 +116,21 @@ export class ReserveInfoComponent {
     return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
 
+  getPassengerCount() {
+    let count:number = 0
+   this.info.selected_rooms.forEach((x:any) => {
+    count += x.passengers.length
+   })
+   return count
+  }
+
+
+  getServicePrices(room:any) {
+    let servicePrice: number = 0;
+    room.services.forEach((x:any) => {
+      servicePrice += x.rate
+    })
+    return servicePrice
+  }
+
 }

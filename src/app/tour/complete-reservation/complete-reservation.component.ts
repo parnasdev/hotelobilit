@@ -88,8 +88,6 @@ export class CompleteReservationComponent implements OnInit {
     this.hotelID = this.route.snapshot.paramMap.get('hotel') ?? ''
     this.flightID = this.route.snapshot.paramMap.get('flight') ?? ''
     this.returnFlightID = this.route.snapshot.paramMap.get('returnFlight') ?? ''
-
-
     this.checking();
   }
 
@@ -116,7 +114,6 @@ export class CompleteReservationComponent implements OnInit {
     this.api.checking(this.checkingReq).subscribe((res: any) => {
       if (res.isDone) {
         this.ref_code = res.data.ref_code;
-
         this.showReserve();
       } else {
         this.message.custom(res.message);
@@ -138,8 +135,10 @@ export class CompleteReservationComponent implements OnInit {
     this.api.showReserve(this.ref_code).subscribe((res: any) => {
       if (res.isDone) {
         this.data = res.data;
-        this.minutes = +this.data.information.expired_in_minutes;
-        // this.startTimer();
+        let d: string = this.data.information.expired_in_minutes;
+        this.minutes = this.getTime(d).minute
+        this.seconds = this.getTime(d).second
+        this.startTimer();
       } else {
         this.message.custom(res.message);
       }
@@ -210,7 +209,34 @@ export class CompleteReservationComponent implements OnInit {
       this.message.custom('لطفا قوانین و مقررات سایت را بپذیرید')
     }
   }
+  ngOnDestroy() {
 
+  }
+
+  getTime(expired_at: string) {
+    let duration = moment.duration(moment(expired_at).diff(new Date()));
+    return { minute: duration.get('minutes'), second: duration.get('seconds') };
+  }
+
+  startTimer() {
+    let id = setInterval(() => {
+      if (this.seconds > 0) {
+        this.seconds--;
+      } else if (this.minutes > 0) {
+        this.seconds = 59;
+        this.minutes--;
+      } else {
+        this.message.custom('زمان شما به اتمام رسید');
+        this.router.navigateByUrl('/')
+        clearInterval(id);
+
+      }
+    }, 1000);
+  }
+
+  formatter(n: number): string {
+    return n > 9 ? ('' + n) : ('0' + n);
+  }
   setReq() {
     this.req = {
       reserves: this.getRooms(),
@@ -221,27 +247,6 @@ export class CompleteReservationComponent implements OnInit {
     }
   }
 
-
-  getTime(expired_at: string) {
-    let duration = moment.duration(moment(expired_at).diff(new Date()));
-    return { minute: duration.get('minutes'), second: duration.get('seconds') };
-  }
-  startTimer() {
-    return setInterval(() => {
-      if (this.seconds > 0) {
-        this.seconds--;
-      } else if (this.minutes > 0) {
-        this.seconds = 59;
-        this.minutes--;
-      } else {
-        this.router.navigateByUrl('/')
-        this.message.custom('زمان شما به اتمام رسید')
-      }
-    }, 1000);
-  }
-  formatter(n: number): string {
-    return n > 9 ? ('' + n) : ('0' + n);
-  }
 
   getRooms() {
     let list: any[] = [];
@@ -290,7 +295,16 @@ export class CompleteReservationComponent implements OnInit {
   }
 
 
-  getRoomPassengers(event: any) {
-
+  getRoomPassengers() {
+    let count: number = 0
+    this.data.selected_rooms.forEach(x => {
+      count += x.passengers.length
+    })
+  }
+  getRoomsCount() {
+    let count: number = 0
+    this.data.selected_rooms.forEach(x => {
+      count += 1
+    })
   }
 }
