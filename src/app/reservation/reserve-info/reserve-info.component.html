@@ -137,7 +137,7 @@
           <h3 class=" bold-600">اتاق {{item.info_room?.room_type}} </h3>
         </div>
         <div class="empty-box" *ngIf="item.passengers.length == 0">مسافری ثبت نشده است</div>
-       <div class="d-flex flex-column" *ngFor="let p of item.passengers" >
+       <div class="d-flex flex-column mt-4" *ngFor="let p of item.passengers" >
         <div class="item-information-room">
           <label for="" class="label-role">{{p.type}}</label>
           <div class="item">
@@ -199,14 +199,14 @@
 
         </div>
        </div>
-        <div class="d-flex flex-column">
-          <div class="d-flex" *ngFor="let s of item.info_room?.services">
+        <div class="  w-100 grid-10">
+          <div class="d-flex item-bimeh" *ngFor="let s of item.info_room?.services">
             <span>{{ s.category + ' : ' }}</span>
             <span>{{ s.rate | sperator }}</span>
           </div>
         </div>
       </div>
-   
+
     </ng-template>
   </div>
 

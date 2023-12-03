@@ -1,5 +1,5 @@
 <div class="d-flex flex-column w-100 direction-rtl p-3">
-    <div class="items-row">
+    <div style="border-top: none !important;" class="items-row">
         <div class="item">
             <span>مبدا</span>
             <prs-custom-select (itemResult)="getOriginCity($event)" [inCommingItem]="req.origin_id"
@@ -21,14 +21,14 @@
                 *ngIf="(data.airplanes??[]).length > 0" [list]="data.airplanes"></prs-custom-select>
         </div>
     </div>
-    <div class="d-flex mt-5">
+    <div class="d-flex gap-12 mt-5">
         <div class="item-calender">
             <span>انتخاب تاریخ</span>
             <div style="background: white;" class="row-calender">
                 <input class="w-100" type="text" [value]="(req.date | convertDate)" (click)="openPicker()">
             </div>
         </div>
-        <div class="item-two">
+        <div class="item-two d-flex flex-column align-items-center w-50">
             <span>ساعت پرواز </span>
             <prs-time-picker (result)="getTime($event)"></prs-time-picker>
         </div>
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="items-row">
+    <div style="border-top: none !important;" class="items-row item-row-two">
         <div class="item">
             <span>شماره پرواز</span>
             <input type="text" [(ngModel)]="req.flight_number">
@@ -58,12 +58,12 @@
             <input type="text" [(ngModel)]="req.capacity">
 
         </div>
-        <div class="item">
-            <span>توضیحات</span>
-            <textarea [(ngModel)]="req.description"></textarea>
-        </div>
+      <div class="item-full">
+        <span>توضیحات</span>
+        <textarea [(ngModel)]="req.description"></textarea>
+      </div>
     </div>
-    <div class="items-row">
+    <div style="border-top: none !important;" class="item-row-two">
         <div class="item">
             <span>قیمت بزرگسال</span>
             <input type="text" [(ngModel)]="req.adl_price">
@@ -82,8 +82,8 @@
     </div>
 
 
-    <div class="d-flex w-100 align-items-center justify-content-end">
-        <button class="btn-base w-75" (click)="submit()">تغییر</button>
+    <div class="d-flex w-100 align-items-center mt-4 justify-content-center">
+        <button class="btn-base w-25" (click)="submit()">تغییر</button>
 
     </div>
 </div>
