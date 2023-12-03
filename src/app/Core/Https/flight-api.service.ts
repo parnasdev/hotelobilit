@@ -20,7 +20,7 @@ export class FlightApiService {
   }
 
   getTransferRates(pageNum = 1, req: FilterDTO): any {
-    let str = `?page=${pageNum}&origin=${req.origin}&destination=${req.destination}&fromDate=${req.fromDate}&toDate=${req.toDate}&q=${req.q}&status=${req.status}&airlineDestination=${req.airlineDestination}&airlineOrigin=${req.airlineOrigin}`;
+    let str = `?page=${pageNum}&origin=${req.origin}&destination=${req.destination}&fromDate=${req.fromDate}&toDate=${req.toDate}&q=${req.q}&status=${req.status}`;
     const strUrl = this.serverControllerName + `flights` + str;
     return this.http.get<Result<transferRateListDTO[]>>(strUrl, this.publicService.getDefaultHeaders());
   }

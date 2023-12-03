@@ -18,6 +18,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { ITourShowReserve } from '../core/models/tour.model';
+import * as moment from 'jalali-moment';
 
 @Component({
   selector: 'prs-complete-reservation',
@@ -108,29 +109,6 @@ export class CompleteReservationComponent implements OnInit {
     );
   }
 
-
-
-  startTimer() {
-    this.interval = setInterval(() => {
-      if (this.seconds > 0) {
-        this.seconds--;
-      } else if (this.minutes > 0) {
-        this.seconds = 59;
-        this.minutes--;
-      } else {
-        clearInterval(this.interval);
-        this.minutes = 0
-      }
-
-      if (this.minutes === 0 && this.seconds === 0) {
-        this.message.showMessageBig('زمان رزرو شما به اتمام رسید')
-        this.router.navigateByUrl('/')
-      }
-    }, 1000);
-  }
-  formatter(n: number): string {
-    return n > 9 ? ('' + n) : ('0' + n);
-  }
 
   checking() {
     this.setCheckingReq()
@@ -243,8 +221,30 @@ export class CompleteReservationComponent implements OnInit {
     }
   }
 
+
+  getTime(expired_at: string) {
+    let duration = moment.duration(moment(expired_at).diff(new Date()));
+    return { minute: duration.get('minutes'), second: duration.get('seconds') };
+  }
+  startTimer() {
+    return setInterval(() => {
+      if (this.seconds > 0) {
+        this.seconds--;
+      } else if (this.minutes > 0) {
+        this.seconds = 59;
+        this.minutes--;
+      } else {
+        this.router.navigateByUrl('/')
+        this.message.custom('زمان شما به اتمام رسید')
+      }
+    }, 1000);
+  }
+  formatter(n: number): string {
+    return n > 9 ? ('' + n) : ('0' + n);
+  }
+
   getRooms() {
-    let list:any[] = [];
+    let list: any[] = [];
     this.data.selected_rooms.forEach(x => {
       let obj = {
         reserve_id: x.reserve_id,

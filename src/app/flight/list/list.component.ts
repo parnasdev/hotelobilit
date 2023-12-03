@@ -36,8 +36,7 @@ export class ListComponent {
     destination: null,
     origin: null,
     q: null,
-    airlineDestination: null,
-    airlineOrigin: null,
+    airline: null,
     status: 0,
     fromDate: null,
     toDate: null
@@ -63,6 +62,11 @@ export class ListComponent {
     public publicService: PublicService,
     public message: MessageService) {
 
+    this.setFilterFromRoute()
+
+  }
+
+  setFilterFromRoute() {
     this.route.queryParams.subscribe((params: any) => {
       if (!this.isEmpty(params)) {
         this.filterObj.destination = params['destination'] ? +params['destination'] : null
@@ -70,21 +74,19 @@ export class ListComponent {
         this.filterObj.q = params['q'] ? params['q'] : null
         this.filterObj.fromDate = params['fromDate']
         this.filterObj.toDate = params['toDate']
-
+        this.filterObj.airline = +params['airline']
       } else {
         this.filterObj = {
           destination: null,
           origin: null,
           q: null,
-          airlineDestination: null,
-          airlineOrigin: null,
+          airline: null,
           status: 0,
           toDate: null,
           fromDate: null
         }
       }
     })
-
   }
 
   isEmpty(obj: any) {
@@ -153,19 +155,18 @@ export class ListComponent {
     this.api.list(qparams).subscribe({
       next: (res: any) => {
         this.isLoading = false;
-
         if (res.isDone) {
           this.data = res.data
           this.airports = res.airports;
           this.airlines = res.airlines
           this.airplanes = res.airplanes
-          // debugger
           this.paginate = res.meta;
           this.paginateConfig = {
             itemsPerPage: this.paginate.per_page,
             totalItems: this.paginate.total,
             currentPage: this.paginate.current_page
           }
+          this.setFilterFromRoute()
         } else {
           this.message.custom(res.message)
         }
@@ -221,7 +222,9 @@ export class ListComponent {
         airline: this.airlines,
         airports: this.airports,
         airplanes: this.airplanes
-      }
+      },
+      width: '90%',
+      height: '80%'
     }).afterClosed().subscribe(result => {
       if (result) {
 
@@ -263,8 +266,7 @@ export class ListComponent {
       destination: null,
       fromDate: null,
       toDate: null,
-      airlineDestination: null,
-      airlineOrigin: null,
+      airline: null,
       status: 0,
       q: null,
       origin: null

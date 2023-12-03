@@ -8,6 +8,10 @@
     <div class="flex-x-between m-y-20 w-100 gap-12">
       <a class="btn-base-custom2"
       routerLink="/panel/flight/composition">ترکیب</a>
+      <a class="btn-base-custom"
+      routerLink="/panel/flight">لیست پرواز ها</a>
+      <a class="btn-base-custom2"
+      routerLink="/panel/flight/add">اضافه کردن پرواز</a>
       <div class="flex-x-start gap-16">
         <ng-template>
           <a class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer">
@@ -87,7 +91,7 @@
         <div class="item-shimmer"></div>
       </div>
     </div>
-    <div *ngFor="let item of data.data| paginate: paginateConfig">
+    <div *ngFor="let item of data.data| paginate: data.pagination.confiq">
       <div class="body-list-panel">
         <div class="list-item-panel grid-dynamic gap-10">
           <prs-checkbox></prs-checkbox>
@@ -153,13 +157,13 @@
           </div>
           <div class="d-flex flex-column">
             <div class="d-flex gap-20">
-              <span class="title-tour" style="color: #0a53be">{{ item.return_flight.all_capacity}}</span>
-              <span class="title-tour" style="color: green;cursor: pointer">{{ item.return_flight.reserved_capacity }}</span>
+              <!-- <span class="title-tour" style="color: #0a53be">{{ item.return_flight.all_capacity}}</span>
+              <span class="title-tour" style="color: green;cursor: pointer">{{ item.return_flight.reserved_capacity }}</span> -->
             </div>
             <div class="d-flex gap-20">
-              <span class="title-tour" style="color: red">{{ item.return_flight.booked_capacity}}</span>
+              <!-- <span class="title-tour" style="color: red">{{ item.return_flight.booked_capacity}}</span>
               <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
-                    [queryParams]="{flight: item.return_flight.id,status: 472}">{{ item.return_flight.capacity }}</span>
+                    [queryParams]="{flight: item.return_flight.id,status: 472}">{{ item.return_flight.capacity }}</span> -->
             </div>
           </div>
           <div class="d-flex flex-column">
@@ -179,14 +183,16 @@
         </div>
       </div>
     </div>
-    <pagination-controls *ngIf="paginate?.last_page > 1" class="pagination-control"
+    <pagination-controls *ngIf="data.pagination && data.pagination.meta.last_page > 1" class="pagination-control"
                          (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
                          screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
                          screenReaderCurrentLabel="شما در صفحه ی">
     </pagination-controls>
   </div>
   <div class="box-empty" *ngIf="data.data.length === 0 && !isLoading">
-    <span>متن باکس خالی</span>
+    <span>موردی یافت نشد
+      
+    </span>
   </div>
   <div>
   </div>

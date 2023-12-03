@@ -13,8 +13,8 @@ export interface FilterDTO {
   origin: number | null;
   destination: number | null;
   status: number | null;
-  airlineDestination: number | null;
-  airlineOrigin: number | null;
+  airline: any
+
   fromDate: string | null;
   toDate: string | null;
   q: string | null
@@ -29,8 +29,7 @@ export class FilterPopupComponent implements OnInit {
   obj: FilterDTO = {
     destination: null,
     fromDate: null,
-    airlineDestination: null,
-    airlineOrigin: null,
+    airline: null,
     status: null,
     toDate: null,
     q: null,
@@ -52,8 +51,8 @@ export class FilterPopupComponent implements OnInit {
         destination: data.destination ? data.destination : null,
         fromDate: data.fromDate ? data.fromDate : null,
         toDate: data.toDate ? data.toDate : null,
-        airlineDestination: data.airlineDestination ? data.airlineDestination : null,
-        airlineOrigin: data.airlineOrigin ? data.airlineOrigin : null,
+        airline: data.airline ? data.airline : null,
+
         status: data.status ? data.status : null,
         origin: data.origin ? data.origin : null,
         q: data.q ? data.q : null,
@@ -92,8 +91,7 @@ export class FilterPopupComponent implements OnInit {
       destination: null,
       fromDate: null,
       toDate: null,
-      airlineDestination: null,
-      airlineOrigin: null,
+      airline:null,
       status: null,
       q: null,
       origin: null

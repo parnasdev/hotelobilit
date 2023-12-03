@@ -46,17 +46,17 @@
                     </select>
                 </div>
                 <div class="inp-form w-70 m-1">
-                    <select name="" id="" [(ngModel)]="filterObj.airlineOrigin">
+                    <select name="" id="" [(ngModel)]="filterObj.airline">
                         <option disabled [value]="null">ایرلاین رفت</option>
                         <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
                     </select>
                 </div>
-                <div class="inp-form w-70 m-1">
+                <!-- <div class="inp-form w-70 m-1">
                     <select name="" id="" [(ngModel)]="filterObj.airlineDestination">
                         <option disabled [value]="null">ایرلاین برگشت</option>
                         <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="d-flex w-100 align-items-center justify-content-end">
                     <button class="btn-base w-75" (click)="submit()">فیلتر</button>
                     <i class="icon-cancel text-danger" style="font-size: 25px; cursor: pointer;"
@@ -147,15 +147,21 @@
 
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.adl_price | sperator }}
-               <div class="d-flex">
-                <div class="">
-                    <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-                        matTooltip="{{ 'قیمت کودک' + (transfer.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (transfer.inf_price | sperator)}}"
-                        aria-label=""></i>
-                </div>
-                <i class="icon-pencil text-primary" (click)="fastEdit(transfer.id)"></i>
+                        <div class="d-flex">
+                            <div class="">
+                                <i style="font-size: 20px !important;" class="icon-info" mat-raised-button
+                                    position="above" matTooltip="{{ 'قیمت کودک :' + (transfer.chd_price | sperator)}}"
+                                    aria-label=""></i>
 
-               </div>
+
+                                <i style="font-size: 20px !important;" class="icon-info" mat-raised-button
+                                    position="above" matTooltip="{{  'قیمت نوزاد :' + (transfer.inf_price | sperator)}}"
+                                    aria-label=""></i>
+
+                            </div>
+                            <i class="icon-pencil text-primary" (click)="fastEdit(transfer.id)"></i>
+
+                        </div>
                     </span>
                 </div>
                 <div class="d-flex flex-column ">

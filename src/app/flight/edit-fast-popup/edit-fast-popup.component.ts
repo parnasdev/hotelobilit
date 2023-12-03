@@ -19,6 +19,7 @@ export class EditFastPopupComponent {
   showForm = false
   airports:any[] = []
   isLoading = false
+  submitLoading = false;
   req: IFlightEditReq = {
     origin_id: 0,
     destination_id: 0,
@@ -144,11 +145,15 @@ export class EditFastPopupComponent {
   }
 
   submit(){ 
+    this.submitLoading = true
     this.api.update(this.req,+this.id).subscribe({
       next: (res: any) => {
+        this.submitLoading = false;
+
         this.message.custom(res.message);
-        this.router.navigateByUrl('/panel/flight')
+        this.dialogRef.close(true);
       }, error: (error: any) => {
+        this.submitLoading = false;
         this.error.check(error);
       }
     })

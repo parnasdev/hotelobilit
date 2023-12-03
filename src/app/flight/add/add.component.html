@@ -12,22 +12,35 @@
       <div class="item">
         <span>مبدا</span>
         <prs-custom-select (itemResult)="getOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
-                           [list]="data.airports"></prs-custom-select>
+          [list]="data.airports"></prs-custom-select>
+          <div *ngIf="error.hasError('origin_id')">
+            <span class="text-danger">{{error.getError('origin_id')}}</span>
+          </div>
       </div>
+  
       <div class="item">
         <span>مقصد</span>
         <prs-custom-select (itemResult)="getDestCity($event)" *ngIf="(airports ?? []).length > 0"
-                           [list]="airports"></prs-custom-select>
+          [list]="airports"></prs-custom-select>
+          <div *ngIf="error.hasError('destination_id')">
+            <span class="text-danger">{{error.getError('destination_id')}}</span>
+          </div>
       </div>
       <div class="item">
         <span>ایرلاین</span>
         <prs-custom-select (itemResult)="getAirlines($event)" *ngIf="(data.airlines ?? []).length > 0"
-                           [list]="data.airlines"></prs-custom-select>
+          [list]="data.airlines"></prs-custom-select>
+          <div *ngIf="error.hasError('airline_id')">
+            <span class="text-danger">{{error.getError('airline_id')}}</span>
+          </div>
       </div>
       <div class="item">
         <span>مدل هواپیما</span>
         <prs-custom-select (itemResult)="getAirplanes($event)" *ngIf="(data.airplanes??[]).length > 0"
-                           [list]="data.airplanes"></prs-custom-select>
+          [list]="data.airplanes"></prs-custom-select>
+          <div *ngIf="error.hasError('airplane_id')">
+            <span class="text-danger">{{error.getError('airplane_id')}}</span>
+          </div>
       </div>
     </div>
 
@@ -36,12 +49,15 @@
         <span>انتخاب بازه ایجاد پرواز</span>
         <div style="background: white;" class="row-calender">
           <input class="w-100" type="text" value="{{ req.dates[0] ? (req.dates[0] | convertDate) : '' }}"
-                 (click)="openPicker()">
+            (click)="openPicker()">
 
           <input class="w-100" type="text" value="{{ req.dates[1] ? (req.dates[1] | convertDate) : '' }}"
-                 (click)="openPicker()">
+            (click)="openPicker()">
         </div>
       </div>
+    </div>
+    <div *ngIf="error.hasError('dates')">
+      <span class="text-danger">{{error.getError('dates')}}</span>
     </div>
   </div>
   <div class="w-100 d-flex justify-content-center">
@@ -57,18 +73,30 @@
     <div class="item">
       <span>شماره پرواز رفت</span>
       <input type="text" [(ngModel)]="req.departure_flight_number">
+      <div *ngIf="error.hasError('departure_flight_number')">
+        <span class="text-danger">{{error.getError('departure_flight_number')}}</span>
+      </div>
     </div>
     <div class="item">
       <span>شماره پرواز برگشت</span>
       <input type="text" [(ngModel)]="req.return_flight_number">
+      <div *ngIf="error.hasError('return_flight_number')">
+        <span class="text-danger">{{error.getError('return_flight_number')}}</span>
+      </div>
     </div>
     <div class="item-two">
       <span>ساعت پرواز رفت</span>
       <prs-time-picker (result)="getDepartureTime($event)"></prs-time-picker>
+      <div *ngIf="error.hasError('departure_time')">
+        <span class="text-danger">{{error.getError('departure_time')}}</span>
+      </div>
     </div>
     <div class="item-two">
       <span>ساعت پرواز برگشت</span>
       <prs-time-picker (result)="getReturnTime($event)"></prs-time-picker>
+      <div *ngIf="error.hasError('return_time')">
+        <span class="text-danger">{{error.getError('return_time')}}</span>
+      </div>
     </div>
     <div class="item">
       <span>فعال تا ... دقیقه قبل</span>
@@ -83,29 +111,44 @@
       <div class="item">
         <span>مدت زمان پرواز رفت(ساعت)</span>
         <input type="text" [(ngModel)]="req.departure_duration">
+        <div *ngIf="error.hasError('departure_duration')">
+          <span class="text-danger">{{error.getError('departure_duration')}}</span>
+        </div>
       </div>
       <div class="item">
         <span>مدت زمان پرواز برگشت(ساعت)</span>
         <input type="text" [(ngModel)]="req.return_duration">
+        <div *ngIf="error.hasError('return_duration')">
+          <span class="text-danger">{{error.getError('return_duration')}}</span>
+        </div>
       </div>
       <div class="item">
         <span>بار مجاز رفت</span>
         <input [(ngModel)]="req.departure_baggage" type="text">
+        <div *ngIf="error.hasError('departure_baggage')">
+          <span class="text-danger">{{error.getError('departure_baggage')}}</span>
+        </div>
       </div>
       <div class="item">
         <span>بار مجاز برگشت</span>
         <input [(ngModel)]="req.return_baggage" type="text">
+        <div *ngIf="error.hasError('return_baggage')">
+          <span class="text-danger">{{error.getError('return_baggage')}}</span>
+        </div>
       </div>
       <div class="item-full">
         <span>توضیحات</span>
         <textarea type="text" [(ngModel)]="req.description"></textarea>
+        <div *ngIf="error.hasError('description')">
+          <span class="text-danger">{{error.getError('description')}}</span>
+        </div>
       </div>
     </div>
 
 
     <div class="row-week">
       <div class="item-day" *ngFor="let item of weekDays">
-        <span>{{ item.name }}</span>
+        <span>{{calendarService.getPersianWeekday(item.name) }}</span>
         <mat-checkbox [(ngModel)]="item.isChecked"></mat-checkbox>
       </div>
     </div>
@@ -123,35 +166,53 @@
                     <label for="">کلاس</label>
                     <div class="inp-base h-45 d-flex flex-column">
                       <input type="text" formControlName="cabin_type" placeholder="کلاس">
+                      <div *ngIf="checkError('cabin_type',i)">
+                        <span class="text-danger">{{checkError('cabin_type',i)}}</span>
+                      </div>
                     </div>
                   </div>
                   <div class="item-row">
                     <label for="">ظرفیت</label>
                     <div class="inp-base d-flex flex-column">
                       <textarea type="text" formControlName="capacity" placeholder="ظرفیت"></textarea>
+                      <div *ngIf="checkError('capacity',i)">
+                        <span class="text-danger">{{checkError('capacity',i)}}</span>
+                      </div>
                     </div>
                   </div>
                   <div class="item-row">
                     <label for="">قیمت بزرگسال (تومان)</label>
                     <div class="inp-base d-flex flex-column">
-                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="adl_price" (keyup)="setChildPrice(i)" placeholder="قیمت بزرگسال"></textarea>
+                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="adl_price"
+                        (keyup)="setChildPrice(i)" placeholder="قیمت بزرگسال"></textarea>
+                        <div *ngIf="checkError('adl_price',i)">
+                          <span class="text-danger">{{checkError('adl_price',i)}}</span>
+                        </div>
                     </div>
                   </div>
                   <div class="item-row">
                     <label for="">قیمت کودک (تومان)</label>
                     <div class="inp-base d-flex flex-column">
-                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="chd_price" placeholder="قیمت کودک"></textarea>
+                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="chd_price"
+                        placeholder="قیمت کودک"></textarea>
+                        <div *ngIf="checkError('chd_price',i)">
+                          <span class="text-danger">{{checkError('chd_price',i)}}</span>
+                        </div>
                     </div>
                   </div>
                   <div class="item-row">
                     <label for="">قیمت نوزاد (تومان)</label>
                     <div class="inp-base d-flex flex-column">
-                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="inf_price" placeholder="قیمت نوزاد"></textarea>
+                      <textarea type="text" mask="separator" thousandSeparator="," formControlName="inf_price"
+                        placeholder="قیمت نوزاد"></textarea>
+                        <div *ngIf="checkError('inf_price',i)">
+                          <span class="text-danger">{{checkError('inf_price',i)}}</span>
+                        </div>
                     </div>
                   </div>
 
                   <button style="margin-bottom: 4px" (click)="removePrice(i)" class="btn-remove-row mx-auto"><i
-                    class="icon-cancel"></i></button>
+                      class="icon-cancel"></i></button>
                 </div>
               </div>
             </div>
@@ -160,6 +221,10 @@
 
 
       </form>
+
+      <div *ngIf="error.hasError('prices')">
+        <span class="text-danger">{{error.getError('prices')}}</span>
+      </div>
     </div>
 
 
@@ -175,5 +240,8 @@
 
 </div>
 <div class="d-flex align-items-center justify-content-center w-100">
-  <button class="btn-submit" (click)="submit()">ثبت</button>
+  <button class="btn-submit" (click)="submit()" [disabled]="submitLoading">
+    <span class="spinner-border spinner-border-sm" *ngIf="submitLoading"></span>
+
+    ثبت</button>
 </div>

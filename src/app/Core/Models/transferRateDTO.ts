@@ -34,6 +34,7 @@ export interface TransferRateListDTO {
   chd_price: number
   checkin_tomorrow: boolean
   checkout_yesterday: boolean
+  cabin_type:string
   cities: number[]
   date: string;
   description: null | string

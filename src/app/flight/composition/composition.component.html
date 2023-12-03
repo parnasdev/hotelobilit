@@ -107,6 +107,7 @@
     <div class="header">
       <span>مبدا - مقصد</span>
       <span>ایرلاین</span>
+      <span>کلاس</span>
       <span>تاریخ</span>
       <span>ساعت</span>
       <span>شماره پرواز</span>
@@ -122,6 +123,8 @@
         <!--        <span>{{item.destination_name}} - {{item.origin_name}}</span>-->
       </div>
       <span>{{item.airline_name}}</span>
+      <span>{{ item.cabin_type }}</span>
+
       <span>{{item.date | convertDate}}</span>
       <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>
@@ -131,6 +134,7 @@
     <div class="header">
       <span>مبدا - مقصد</span>
       <span>ایرلاین</span>
+      <span>کلاس</span>
       <span>تاریخ</span>
       <span>ساعت</span>
       <span>شماره پرواز</span>
@@ -145,6 +149,7 @@
         <!--        <span>کیش- تهران</span>-->
       </div>
       <span>{{item.airline_name}}</span>
+      <span>{{ item.cabin_type }}</span>
       <span>{{item.date | convertDate}}</span>
       <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>
@@ -154,16 +159,15 @@
 <div class="d-flex justify-content-center align-items-center">
   <button class="btn-base-purple w-25 mt-3 cursor-pointer" (click)="composition()">نمایش ترکیب ها
     <span class="spinner-border spinner-border-sm" *ngIf="compositionLoading"></span>
-
   </button>
 </div>
 <div class="d-flex" *ngIf="compositionData && compositionData.length > 0">
   <span>انتخاب همه</span>
   <mat-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></mat-checkbox>
-
 </div>
 <div style="padding: 1rem" class="body-list-tour">
   <div class="item-two" *ngFor="let transfer of compositionData ;let i = index">
+    <span>{{ i + 1 }}</span>
     <span>
       <mat-checkbox [(ngModel)]="transfer.isChecked"></mat-checkbox>
     </span>
@@ -218,6 +222,6 @@
   </div>
   <div class="d-flex justify-content-center align-items-center" *ngIf="compositionData && compositionData.length > 0">
     <span class="spinner-border spinner-border-sm" *ngIf="mixedLoading"></span>
-    <button class="btn-base-purple w-25 mt-3" (click)="compositionSubmit()">ذخیره ترکیب ها</button>
+    <button class="btn-base-purple w-25 mt-3" [disabled]="mixedLoading" (click)="compositionSubmit()">ذخیره ترکیب ها</button>
   </div>
 </div>

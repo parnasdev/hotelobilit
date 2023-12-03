@@ -145,7 +145,7 @@ export class CompositionComponent {
         dateList: [],
         type: 'multiple',
         selectCount: 60,
-        todayMin: false
+        todayMin: true
       }
     })
     dialog.afterClosed().subscribe((result: any) => {
@@ -266,6 +266,7 @@ export class CompositionComponent {
 
   getCompositionIds() {
     let result: IMixId[] = []
+    let pivots: IMixId[] = []
     this.compositionData.forEach((element: any) => {
       if (element.isChecked) {
         let obj: IMixId = {
@@ -276,7 +277,15 @@ export class CompositionComponent {
         }
         result.push(obj);
       }
+
     });
+
+    this.compositionData.forEach((x: any) => {
+      if (x.mixed_pivot) {
+        pivots.push(x.mixed_pivot);
+      }
+    })
+    result = result.concat(pivots)
     return result
   }
   selectAllChanged() {

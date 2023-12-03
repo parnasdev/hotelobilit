@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormArray, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { CalenderServices } from 'src/app/Core/Services/calender-service';
 
 @Component({
   selector: 'prs-add',
@@ -17,8 +18,9 @@ import { Router } from '@angular/router';
 export class AddComponent {
   showForm = false
   isLoading = false
+  submitLoading = false;
   showMore = false
-  airports:any[] = []
+  airports: any[] = []
   tab = 'normal'
   isDomestic = false;
   form = this.fb.group({
@@ -34,7 +36,7 @@ export class AddComponent {
     departure_time: '',
     return_time: '',
     departure_baggage: 0,
-    return_baggage:0,
+    return_baggage: 0,
     dates: [],
     dayOfWeeks: [],
     departure_duration: '',
@@ -58,6 +60,7 @@ export class AddComponent {
   constructor(public api: FlightApiService,
     public dialog: MatDialog,
     public fb: FormBuilder,
+    public calendarService: CalenderServices,
     public router: Router,
     public message: MessageService,
     public error: ErrorsService) { }
@@ -92,7 +95,7 @@ export class AddComponent {
 
   changeCityType() {
     this.airports = []
-    this.airports = this.data.airports.filter((x:any) => x.is_domestic === this.isDomestic)
+    this.airports = this.data.airports.filter((x: any) => x.is_domestic === this.isDomestic)
 
   }
 
@@ -112,14 +115,19 @@ export class AddComponent {
   }
 
   submit() {
-
+    this.submitLoading = true
     this.setReq()
     this.api.store(this.req).subscribe({
       next: (res: any) => {
         this.message.custom(res.message);
-        this.router.navigateByUrl('/panel/flight/composition-list')
+        this.router.navigateByUrl('/panel/flight')
+        this.submitLoading = false
 
       }, error: (error: any) => {
+        this.submitLoading = false
+        if (error.status === 422) {
+          this.showMore = true
+        }
         this.error.check(error);
       }
     })
@@ -176,7 +184,7 @@ export class AddComponent {
         dateList: [],
         type: 'multiple',
         selectCount: 60,
-        todayMin: false
+        todayMin: true
       }
     })
     dialog.afterClosed().subscribe((result: any) => {
@@ -189,10 +197,17 @@ export class AddComponent {
   }
 
 
-  setChildPrice(i:number) {
-    debugger
-    console.log(this.PriceForm);
+  setChildPrice(i: number) {
+
     // @ts-ignore
     this.PriceForm.controls[i].controls['chd_price'].setValue(this.PriceForm.controls[i].controls['adl_price'].value)
   }
+
+  checkError(field: string, index: number) {
+    let x = 'prices.' + index + '.' + field
+    if (this.error.hasError(x)) {
+     return this.error.getError(x);
+    }
+  }
+
 }

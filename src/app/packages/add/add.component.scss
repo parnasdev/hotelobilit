@@ -121,6 +121,7 @@ mat-form-field {
   justify-content: space-between;
   margin: 8px 0;
 }
+
 .info-tour-body .top-title {
   width: 100%;
   display: flex;
@@ -470,10 +471,12 @@ mat-form-field {
   justify-content: space-between;
   width: 15% !important;
 }
-.item-info{
+
+.item-info {
   width: 15% !important;
 
 }
+
 .item-info-2 .select-info {
   width: 100%;
   display: flex;
@@ -584,8 +587,8 @@ mat-form-field {
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -930,7 +933,7 @@ prs-select-hotel {
   .item {
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 50px;
     place-items: center;
     gap: 8px;
@@ -952,7 +955,7 @@ prs-select-hotel {
 .item-header {
   width: 99%;
   display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 50px;
   place-items: center;
   gap: 8px;
@@ -1123,12 +1126,15 @@ prs-select-hotel {
 .p-list-fly {
   width: 100% !important;
   margin-top: 1rem;
-  h2{
+
+  h2 {
     font-size: 16px !important;
   }
-  .item-header{
+
+  .item-header {
     background: $white-color;
-    span{
+
+    span {
       font-size: 13px !important;
     }
   }

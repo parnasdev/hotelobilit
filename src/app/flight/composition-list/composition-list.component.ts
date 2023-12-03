@@ -5,7 +5,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { IListFilters, IListModel } from 'src/app/Core/Models/dynamicList.model';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { Router } from '@angular/router';
-import {CalenderServices} from "../../Core/Services/calender-service";
+import { CalenderServices } from "../../Core/Services/calender-service";
 import * as moment from "moment/moment";
 
 @Component({
@@ -22,11 +22,15 @@ export class CompositionListComponent {
     totalItems: 20,
     currentPage: 1
   };
-p =1
+  p = 1
 
   data: IListModel = {
     pagination: {
-      confiq: '',
+      confiq: {
+        itemsPerPage: 10,
+        totalItems: 0,
+        currentPage: 1
+      },
       meta: '',
       pageNumber: 1
     },
@@ -57,8 +61,10 @@ p =1
       { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'status', label: 'وضعیت' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'fromDate', label: 'تاریخ شروع' },
       { value: '', type: 'date', keyOption: '', data: [], reqKey: 'toDate', label: 'تاریخ پایان' },
-      { value: 1, type: '', key: 'page', data: [], reqKey: 'id', label: '' },
+      { value: 1, type: '', key: 'page', data: [], reqKey: 'page', label: '' },
       { value: true, type: '', key: 'name', data: [], reqKey: 'mixed', label: '' },
+      { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'stay_count', label: 'تعداد شب' },
+
 
     ],
     rowButtons: [
@@ -73,7 +79,7 @@ p =1
   }
   constructor(public api: FlightApiService,
     public error: ErrorsService,
-    public router:Router,
+    public router: Router,
     public calendarService: CalenderServices,
     public publicService: PublicService,
     public message: MessageService) { }
@@ -88,7 +94,7 @@ p =1
     this.isLoading = true;
     this.data.data = []
     let qparams = this.publicService.getFiltersString(this.data.filters)
-    qparams = qparams + `&page=${parent}`
+    // qparams = qparams + `&page=${parent}`
     this.api.list(qparams).subscribe({
       next: (res: any) => {
         if (res.isDone) {
@@ -96,14 +102,21 @@ p =1
           this.data.filters[0].data = res.airports;
           this.data.filters[1].data = res.airports;
           this.data.filters[2].data = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
-          if(res.meta) {
-            this.paginate = res.meta;
-            this.paginateConfig = {
-              itemsPerPage: this.paginate.per_page,
-              totalItems: this.paginate.total,
-              currentPage: this.paginate.current_page
-            }
+          this.data.filters[7].data = [
+            { id: 1, name: '۱ شب' },
+            { id: 2, name: '۲ شب' },
+            { id: 3, name: '۳ شب' },
+            { id: 4, name: '۴ شب' },
+            { id: 5, name: '۵ شب' },
+            { id: 6, name: '۶ شب' },
+            { id: 7, name: '۷ شب' },
+            { id: 8, name: '۸ شب' },
+            { id: 9, name: '۹ شب' },
+          ];
+          if (res.data.length > 0) {
+            this.setPagination(res.meta);
           }
+
 
         } else {
           this.message.custom(res.message)
@@ -141,7 +154,20 @@ p =1
     }
     return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
+  setPagination(meta: any) {
+    this.data.pagination = {
+      pageNumber: this.data.filters.find(x => x.key === 'page')?.value ?? 1,
+      meta: meta,
+      confiq: {
+        itemsPerPage: meta?.per_page ?? 10,
+        totalItems: meta?.total ?? 0,
+        currentPage: meta?.current_page ?? 1
+      }
+    }
+  }
   onPageChanged(event: any) {
+    this.data.pagination.pageNumber = event
+    this.data.filters.filter(x => x.key === 'page')[0].value = event
     this.p = event;
     this.getData();
   }
@@ -150,7 +176,7 @@ p =1
     this.data = data
     this.getData()
   }
-  edit(id:number) {
+  edit(id: number) {
     this.router.navigateByUrl(`/panel/flight/edit/${id}`)
 
   }

@@ -36,8 +36,7 @@ export class ListComponent implements OnInit {
     destination: null,
     origin: null,
     q: null,
-    airlineDestination: null,
-    airlineOrigin: null,
+    airline: null,
     status: 0,
     fromDate: null,
     toDate: null
@@ -74,8 +73,8 @@ export class ListComponent implements OnInit {
           destination: null,
           origin: null,
           q: null,
-          airlineDestination: null,
-          airlineOrigin: null,
+          airline: null,
+          
           status: 0,
           toDate: null,
           fromDate: null
@@ -105,8 +104,7 @@ export class ListComponent implements OnInit {
       origin: this.filterObj ? this.filterObj.origin : null,
       destination: this.filterObj ? this.filterObj.destination : null,
       status: this.filterObj ? this.filterObj.status : 2,
-      airlineDestination: this.filterObj ? this.filterObj.airlineDestination : null,
-      airlineOrigin: this.filterObj ? this.filterObj.airlineOrigin : null,
+      airline: this.filterObj ? this.filterObj.airline : null,
       toDate: this.filterObj ? this.filterObj.toDate ? moment(this.filterObj.toDate).format('YYYY-MM-DD') : null : null,
       fromDate: this.filterObj ? this.filterObj.fromDate ? moment(this.filterObj.fromDate).format('YYYY-MM-DD') : null : null,
       q: this.filterObj ? this.filterObj.q : null
@@ -190,8 +188,7 @@ export class ListComponent implements OnInit {
       destination: null,
       fromDate: null,
       toDate: null,
-      airlineDestination: null,
-      airlineOrigin: null,
+      airline: null,
       status: 0,
       q: null,
       origin: null

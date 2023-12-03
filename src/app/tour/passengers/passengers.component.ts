@@ -60,7 +60,6 @@ export class PassengersComponent implements OnInit, OnChanges {
       }
 
     }
-    debugger
     if (changes['age'].firstChange) {
       if(this.age === 0) {
         this.childMinDate = this.calenderService.changeDate(new Date(), -(12), 'year','jYYYY-jMM-jDD');

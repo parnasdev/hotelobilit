@@ -86,11 +86,10 @@ mat-button-toggle {
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin: 2rem auto 0 auto;
-  background: $white-color;
+  margin: 1rem auto 0 auto;
+  background: #fff;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  padding: 1rem;
-  width: 85%;
+  width: 100%;
   border-radius: 20px;
 
   .item {
