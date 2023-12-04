@@ -39,6 +39,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   not_checkin_base = false;
   req!: any;
   currentLang = 'fa'
+  submitLoading = false;
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmPriceReqDTO,
     public api: PostApiService,
@@ -83,8 +84,10 @@ export class ConfirmPricingModalComponent implements OnInit {
         )
       )
     }
-
+this.submitLoading = true;
     this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {
+      this.submitLoading = false;
+
       if (res.isDone) {
         this.message.custom(res.message)
         this.dialogRef.close(true)
@@ -92,6 +95,7 @@ export class ConfirmPricingModalComponent implements OnInit {
         this.message.custom(res.message)
       }
     }, (error: any) => {
+      this.submitLoading = false;
       this.errorService.check(error)
     })
   }
