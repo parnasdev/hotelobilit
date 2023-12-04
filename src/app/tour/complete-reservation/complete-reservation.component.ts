@@ -30,15 +30,13 @@ export class CompleteReservationComponent implements OnInit {
   isDesktop = false;
   totalPrice = 0;
   isTablet = false;
-  flightID = '0';
-  returnFlightID = '0'
-  hotelID = '0';
+
   showPassengers = true;
   isLoading = false;
   ref_code: string = ''
   expired_time: string = ''
   isPrivacyCheck = false;
-
+  stay_count = 0
   req: ReserveCreateDTO = {
     reserves: [],
     reserver_full_name: '',
@@ -47,7 +45,6 @@ export class CompleteReservationComponent implements OnInit {
   }
 
 
-  checkingReq!: ReserveCheckingReqDTO
   data!: ITourShowReserve
 
   interval: any;
@@ -85,52 +82,12 @@ export class CompleteReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.hotelID = this.route.snapshot.paramMap.get('hotel') ?? ''
-    this.flightID = this.route.snapshot.paramMap.get('flight') ?? ''
-    this.returnFlightID = this.route.snapshot.paramMap.get('returnFlight') ?? ''
-    this.checking();
-  }
-
-
-  setCheckingReq() {
-    this.route.queryParams.subscribe(params => {
-      this.checkingReq = {
-        checkin: params['checkin'],
-        checkout: params['checkout'],
-        stayCount: params['stayCount'],
-        hotel_id: +this.hotelID,
-        flight_id: +this.flightID,
-        return_flight_id: +this.returnFlightID,
-        rooms: JSON.parse(params['rooms'])
-      }
-    }
-    );
-  }
-
-
-  checking() {
-    this.setCheckingReq()
-    this.isLoading = true;
-    this.api.checking(this.checkingReq).subscribe((res: any) => {
-      if (res.isDone) {
-        this.ref_code = res.data.ref_code;
-        this.showReserve();
-      } else {
-        this.message.custom(res.message);
-      }
-      this.isLoading = false;
-    }, (error: any) => {
-      this.isLoading = false;
-      if (error.status === 400) {
-        this.message.showMessageBig(error.error.message);
-        this._location.back();
-      }
-    })
+    this.ref_code = this.route.snapshot.paramMap.get('ref_code') ?? ''
+    this.showReserve();
   }
 
 
   showReserve() {
-    this.setCheckingReq()
     this.isLoading = true;
     this.api.showReserve(this.ref_code).subscribe((res: any) => {
       if (res.isDone) {
@@ -138,6 +95,7 @@ export class CompleteReservationComponent implements OnInit {
         let d: string = this.data.information.expired_in_minutes;
         this.minutes = this.getTime(d).minute
         this.seconds = this.getTime(d).second
+        this.getStayCount()
         this.startTimer();
       } else {
         this.message.custom(res.message);
@@ -150,6 +108,11 @@ export class CompleteReservationComponent implements OnInit {
         this._location.back();
       }
     })
+  }
+
+
+  getStayCount() {
+    this.stay_count = this.calendarService.enumerateDaysBetweenDates(this.data.hotel.checkin, this.data.hotel.checkout).length - 1
   }
 
   getCurrencyRate(code: string, room: any): number {
@@ -177,7 +140,6 @@ export class CompleteReservationComponent implements OnInit {
     return this.errorService.hasError(name)
   }
 
-
   reload() {
     this.showPassengers = false;
     setTimeout(() => this.showPassengers = true);
@@ -188,8 +150,7 @@ export class CompleteReservationComponent implements OnInit {
       this.setReq();
       this.api.create(this.req, this.ref_code).subscribe((res: any) => {
         if (res.isDone) {
-          this.message.custom(res.message)
-          this.router.navigateByUrl('/')
+          this.confirm()
         } else {
           this.message.custom(res.message)
         }
@@ -202,12 +163,30 @@ export class CompleteReservationComponent implements OnInit {
           });
           this.errorService.recordError(error.error.errors)
           this.checkError.check(error)
+        } else if (error.status === 400) {
+          this.message.custom(error.error.message);
+          this.router.navigateByUrl('/')
         }
 
       })
     } else {
       this.message.custom('لطفا قوانین و مقررات سایت را بپذیرید')
     }
+  }
+
+  confirm() {
+    this.setReq();
+    this.api.confirm(this.ref_code).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.custom(res.message)
+        this.router.navigateByUrl('/')
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.errorService.check(error);
+    })
+
   }
   ngOnDestroy() {
 

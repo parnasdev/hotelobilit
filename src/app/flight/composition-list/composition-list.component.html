@@ -113,12 +113,13 @@
           <div class="d-flex flex-column">
             <div class="d-flex gap-20">
               <span  style="color: #0a53be">{{ item.all_capacity}}</span>
-              <span style="color: green;cursor: pointer">{{ item.reserved_capacity }}</span>
+              <span style="color: green;cursor: pointer" routerLink="/panel/flight/reserves"
+              [queryParams]="{flight: item.id,status: 501}">{{ item.reserved_capacity }}</span>
             </div>
             <div class="d-flex gap-20">
-              <span style="color: red">{{ item.booked_capacity}}</span>
-              <span style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
-                    [queryParams]="{flight: item.id,status: 472}">{{ item.capacity }}</span>
+              <span style="color: red" routerLink="/panel/flight/reserves"
+              [queryParams]="{flight: item.id,status: 472}">{{ item.booked_capacity}}</span>
+              <span style="color: purple;cursor: pointer">{{ item.capacity }}</span>
             </div>
           </div>
           <div class="d-flex flex-column">

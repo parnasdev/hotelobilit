@@ -146,64 +146,65 @@
                     تور</a>
                 </div>
               </div>
-             <ng-template [ngIf]="publicService.isTablet">
-              <div class="p-count-room d-flex flex-xcolumn"
-              *ngFor="let childRoom of (flight.selectedRooms ?? []);let childIndex = index">
-              <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
-                <svg style="cursor: pointer" width="30" height="30"
-                  (click)="removeSelectedRoom(childRoom,flightIndex,childIndex)" viewBox="0 0 576 512"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#ff0000"
-                    d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
-                </svg>
-                <h4 class="m-bottom-0 bold-600 font-size-15">{{ childRoom.room_type }}</h4>
+              <ng-template [ngIf]="publicService.isTablet">
+                <div class="p-count-room d-flex flex-xcolumn"
+                  *ngFor="let childRoom of (flight.selectedRooms ?? []);let childIndex = index">
+                  <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
+                    <svg style="cursor: pointer" width="30" height="30"
+                      (click)="removeSelectedRoom(childRoom,flightIndex,childIndex)" viewBox="0 0 576 512"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#ff0000"
+                        d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
+                    </svg>
+                    <h4 class="m-bottom-0 bold-600 font-size-15">{{ childRoom.room_type }}</h4>
 
-                <div class="d-flex inp-item flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
-                  <div class="p-count w-100 mt-2">
-                    <span>{{ childRoom.Adl_capacity }}</span>
+                    <div class="d-flex inp-item flex-column">
+                      <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
+                      <div class="p-count w-100 mt-2">
+                        <span>{{ childRoom.Adl_capacity }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex inp-item border-gray flex-column">
+                      <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
+                      <small> {{ getRoomTotalPrice('extra',childRoom,flight) |sperator}} تومان</small>
+                      <div class="p-count w-100 mt-2">
+                        <button
+                          [ngClass]="{'btn-plus-off' : childRoom.extra_count == getExtraBedCount(childRoom.room_type_id),'btn-plus' : (childRoom.extra_count ?? 0) <= getExtraBedCount(childRoom.room_type_id)}"
+                          (click)="plusCount('extra_count',childIndex,flightIndex)">+</button>
+                        <span>{{ (childRoom.extra_count ?? 0) }}</span>
+                        <button class="btn-minus"
+                          (click)="minusCount('extra_count', childIndex, flightIndex)">-</button>
+                      </div>
+                    </div>
+
+                    <div class="d-flex inp-item border-gray flex-column">
+                      <label class="font-size-13 bold-600" for="">تعداد کودک </label>
+                      <small>{{ getRoomTotalPrice('chd',childRoom,flight) | sperator }} تومان</small>
+
+                      <div class="p-count w-100 mt-2">
+                        <button
+                          [ngClass]="{'btn-plus-off' : childRoom.chd_capacity === childRoom.chd_count,'btn-plus' :childRoom.chd_capacity > (childRoom.chd_count??0)}"
+                          (click)="plusCount('chd_count',childIndex,flightIndex)">+</button>
+                        <span>{{ (childRoom.chd_count ?? 0) }}</span>
+                        <button class="btn-minus" (click)="minusCount('chd_count', childIndex, flightIndex)">-</button>
+                      </div>
+                    </div>
+
+                    <div class="d-flex inp-item border-gray flex-column">
+                      <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
+                      <small>{{ (flight.departure.inf_price + flight.return.inf_price) | sperator }} تومان</small>
+
+                      <div class="p-count w-100 mt-2">
+                        <button
+                          [ngClass]="{'btn-plus-off' : childRoom.inf_count == childRoom.Adl_capacity,'btn-plus' :(childRoom.inf_count ?? 0) <= childRoom.Adl_capacity}"
+                          (click)="plusCount('inf_count',childIndex,flightIndex)">+</button>
+                        <span>{{ (childRoom.inf_count ?? 0) }}</span>
+                        <button class="btn-minus" (click)="minusCount('inf_count', childIndex, flightIndex)">-</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
-                  <small> {{ getRoomTotalPrice('extra',childRoom,flight) |sperator}} تومان</small>
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      [ngClass]="{'btn-plus-off' : childRoom.extra_count == getExtraBedCount(childRoom.room_type_id),'btn-plus' : (childRoom.extra_count ?? 0) <= getExtraBedCount(childRoom.room_type_id)}"
-                      (click)="plusCount('extra_count',childIndex,flightIndex)">+</button>
-                    <span>{{ (childRoom.extra_count ?? 0) }}</span>
-                    <button class="btn-minus" (click)="minusCount('extra_count', childIndex, flightIndex)">-</button>
-                  </div>
-                </div>
-
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد کودک </label>
-                  <small>{{ getRoomTotalPrice('chd',childRoom,flight) | sperator }} تومان</small>
-
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      [ngClass]="{'btn-plus-off' : childRoom.chd_capacity === childRoom.chd_count,'btn-plus' :childRoom.chd_capacity > (childRoom.chd_count??0)}"
-                      (click)="plusCount('chd_count',childIndex,flightIndex)">+</button>
-                    <span>{{ (childRoom.chd_count ?? 0) }}</span>
-                    <button class="btn-minus" (click)="minusCount('chd_count', childIndex, flightIndex)">-</button>
-                  </div>
-                </div>
-
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
-                  <small>{{ (flight.departure.inf_price + flight.return.inf_price) | sperator }} تومان</small>
-
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      [ngClass]="{'btn-plus-off' : childRoom.inf_count == childRoom.Adl_capacity,'btn-plus' :(childRoom.inf_count ?? 0) <= childRoom.Adl_capacity}"
-                      (click)="plusCount('inf_count',childIndex,flightIndex)">+</button>
-                    <span>{{ (childRoom.inf_count ?? 0) }}</span>
-                    <button class="btn-minus" (click)="minusCount('inf_count', childIndex, flightIndex)">-</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-             </ng-template>
+              </ng-template>
             </ng-template>
 
           </ng-template>
@@ -251,7 +252,8 @@
                       </div>
                       <div class="line-between">
 
-                        <span>تعداد موجودی پرواز :{{ flight.departure.capacity > 9 ? '9+' : flight.departure.capacity }}</span>
+                        <span>تعداد موجودی پرواز :{{ flight.departure.capacity > 9 ? '9+' : flight.departure.capacity
+                          }}</span>
                       </div>
                       <div class="airline-to">
                         <div class="d-flex flex-column align-items-center">
@@ -314,67 +316,70 @@
                       <small>تومان</small>
                     </div>
                   </div>
-                  <a class="btn-base-red w-75 mt-4"
-                    (click)="submit(flight.departure.id,flight.return.id,flightIndex)">رزرو
-                    تور</a>
+                  <button class="btn-base-red w-75 mt-4" [disabled]="checkingLoading"
+                    (click)="submit(flight.departure.id,flight.return.id,flightIndex)">
+                    <span class="spinner-border spinner-border-sm" *ngIf="checkingLoading"></span>
+
+                    رزرو
+                    تور</button>
                 </div>
               </div>
               <div class="p-count-room d-flex flex-xcolumn"
-              *ngFor="let childRoom of (flight.selectedRooms ?? []);let childIndex = index">
-              <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
-                <svg style="cursor: pointer" width="30" height="30"
-                  (click)="removeSelectedRoom(childRoom,flightIndex,childIndex)" viewBox="0 0 576 512"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#ff0000"
-                    d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
-                </svg>
-                <h4 class="m-bottom-0 bold-600 font-size-15">{{ childRoom.room_type }}</h4>
+                *ngFor="let childRoom of (flight.selectedRooms ?? []);let childIndex = index">
+                <div class="p-item-count-room d-flex w-75 h-110 mx-auto justify-content-between">
+                  <svg style="cursor: pointer" width="30" height="30"
+                    (click)="removeSelectedRoom(childRoom,flightIndex,childIndex)" viewBox="0 0 576 512"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#ff0000"
+                      d="M512 64H205.3C188.3 64 172 70.75 160 82.75L9.375 233.4c-12.5 12.5-12.5 32.75 0 45.25L160 429.3C172 441.3 188.3 448 205.3 448H512c35.38 0 64-28.62 64-64V128C576 92.63 547.4 64 512 64zM432.1 303c9.375 9.375 9.375 24.56 0 33.94c-9.381 9.381-24.56 9.373-33.94 0L352 289.9l-47.03 47.03c-9.381 9.381-24.56 9.373-33.94 0c-9.375-9.375-9.375-24.56 0-33.94l47.03-47.03L271 208.1c-9.375-9.375-9.375-24.56 0-33.94s24.56-9.375 33.94 0L352 222.1l47.03-47.03c9.375-9.375 24.56-9.375 33.94 0s9.375 24.56 0 33.94l-47.03 47.03L432.1 303z" />
+                  </svg>
+                  <h4 class="m-bottom-0 bold-600 font-size-15">{{ childRoom.room_type }}</h4>
 
-                <div class="d-flex inp-item flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
-                  <div class="p-count w-100 mt-2">
-                    <span>{{ childRoom.Adl_capacity }}</span>
+                  <div class="d-flex inp-item flex-column">
+                    <label class="font-size-13 bold-600" for="">تعداد بزرگسال</label>
+                    <div class="p-count w-100 mt-2">
+                      <span>{{ childRoom.Adl_capacity }}</span>
+                    </div>
                   </div>
-                </div>
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
-                  <small> {{ getRoomTotalPrice('extra',childRoom,flight) |sperator}} تومان</small>
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      [ngClass]="{'btn-plus-off' : childRoom.extra_count == getExtraBedCount(childRoom.room_type_id),'btn-plus' : (childRoom.extra_count ?? 0) <= getExtraBedCount(childRoom.room_type_id)}"
-                      (click)="plusCount('extra_count',childIndex,flightIndex)">+</button>
-                    <span>{{ (childRoom.extra_count ?? 0) }}</span>
-                    <button class="btn-minus" (click)="minusCount('extra_count', childIndex, flightIndex)">-</button>
+                  <div class="d-flex inp-item border-gray flex-column">
+                    <label class="font-size-13 bold-600" for="">تعداد تخت اضافه</label>
+                    <small> {{ getRoomTotalPrice('extra',childRoom,flight) |sperator}} تومان</small>
+                    <div class="p-count w-100 mt-2">
+                      <button
+                        [ngClass]="{'btn-plus-off' : childRoom.extra_count == getExtraBedCount(childRoom.room_type_id),'btn-plus' : (childRoom.extra_count ?? 0) <= getExtraBedCount(childRoom.room_type_id)}"
+                        (click)="plusCount('extra_count',childIndex,flightIndex)">+</button>
+                      <span>{{ (childRoom.extra_count ?? 0) }}</span>
+                      <button class="btn-minus" (click)="minusCount('extra_count', childIndex, flightIndex)">-</button>
+                    </div>
                   </div>
-                </div>
 
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد کودک </label>
-                  <small>{{ getRoomTotalPrice('chd',childRoom,flight) | sperator }} تومان</small>
+                  <div class="d-flex inp-item border-gray flex-column">
+                    <label class="font-size-13 bold-600" for="">تعداد کودک </label>
+                    <small>{{ getRoomTotalPrice('chd',childRoom,flight) | sperator }} تومان</small>
 
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      [ngClass]="{'btn-plus-off' : childRoom.chd_capacity === childRoom.chd_count,'btn-plus' :childRoom.chd_capacity > (childRoom.chd_count??0)}"
-                      (click)="plusCount('chd_count',childIndex,flightIndex)">+</button>
-                    <span>{{ (childRoom.chd_count ?? 0) }}</span>
-                    <button class="btn-minus" (click)="minusCount('chd_count', childIndex, flightIndex)">-</button>
+                    <div class="p-count w-100 mt-2">
+                      <button
+                        [ngClass]="{'btn-plus-off' : childRoom.chd_capacity === childRoom.chd_count,'btn-plus' :childRoom.chd_capacity > (childRoom.chd_count??0)}"
+                        (click)="plusCount('chd_count',childIndex,flightIndex)">+</button>
+                      <span>{{ (childRoom.chd_count ?? 0) }}</span>
+                      <button class="btn-minus" (click)="minusCount('chd_count', childIndex, flightIndex)">-</button>
+                    </div>
                   </div>
-                </div>
 
-                <div class="d-flex inp-item border-gray flex-column">
-                  <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
-                  <small>{{ (flight.departure.inf_price + flight.return.inf_price) | sperator }} تومان</small>
+                  <div class="d-flex inp-item border-gray flex-column">
+                    <label class="font-size-13 bold-600" for="">تعداد نوزاد</label>
+                    <small>{{ (flight.departure.inf_price + flight.return.inf_price) | sperator }} تومان</small>
 
-                  <div class="p-count w-100 mt-2">
-                    <button
-                      [ngClass]="{'btn-plus-off' : childRoom.inf_count == childRoom.Adl_capacity,'btn-plus' :(childRoom.inf_count ?? 0) <= childRoom.Adl_capacity}"
-                      (click)="plusCount('inf_count',childIndex,flightIndex)">+</button>
-                    <span>{{ (childRoom.inf_count ?? 0) }}</span>
-                    <button class="btn-minus" (click)="minusCount('inf_count', childIndex, flightIndex)">-</button>
+                    <div class="p-count w-100 mt-2">
+                      <button
+                        [ngClass]="{'btn-plus-off' : childRoom.inf_count == childRoom.Adl_capacity,'btn-plus' :(childRoom.inf_count ?? 0) <= childRoom.Adl_capacity}"
+                        (click)="plusCount('inf_count',childIndex,flightIndex)">+</button>
+                      <span>{{ (childRoom.inf_count ?? 0) }}</span>
+                      <button class="btn-minus" (click)="minusCount('inf_count', childIndex, flightIndex)">-</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </ng-template>
           </div>
 

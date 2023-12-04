@@ -5,6 +5,8 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { CompositionComponent } from './composition/composition.component';
 import { CompositionListComponent } from './composition-list/composition-list.component';
+import { FlightReservationListComponent } from '../transfer-rate/flight-reservation-list/flight-reservation-list.component';
+import { ReserveFlightListComponent } from './reserve-flight-list/reserve-flight-list.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,10 @@ const routes: Routes = [
   {
     path: 'composition-list',
     component: CompositionListComponent
+  },
+  {
+    path: 'reserves',
+    component: ReserveFlightListComponent
   }
 ];
 

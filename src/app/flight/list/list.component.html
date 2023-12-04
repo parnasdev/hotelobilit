@@ -177,9 +177,9 @@
                     </span>
                 </div>
                 <span class="title-tour" style="color: #0a53be">{{ transfer.all_capacity}}</span>
-                <span class="title-tour" style="color: green;cursor: pointer" routerLink="/panel/transferRate/reserves"
-                    [queryParams]="{flight: transfer.id,status: 501}">{{ transfer.reserved_capacity }}</span>
-                <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
+                <span class="title-tour" style="color: green;cursor: pointer" routerLink="/panel/flight/reserves"
+                    [queryParams]="{flight: transfer.id,status: '501|502'}">{{ transfer.reserved_capacity }}</span>
+                <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/flight/reserves"
                     [queryParams]="{flight: transfer.id,status: 472}">{{ transfer.booked_capacity }}</span>
                 <span class="title-tour" style="color: red">{{ transfer.capacity}}</span>
 

@@ -5,7 +5,8 @@ import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { TourApiService } from '../core/https/tour-api.service';
-import { IFile, IFlight, IFlights, IRoom, ITourInfoRes, ITourListReq } from '../core/models/tour.model';
+import { IFlights, IRoom, ITourInfoRes, ITourListReq } from '../core/models/tour.model';
+import { ReserveCheckingReqDTO } from 'src/app/Core/Models/reserveDTO';
 
 @Component({
   selector: 'prs-choose-room-and-flight',
@@ -13,6 +14,7 @@ import { IFile, IFlight, IFlights, IRoom, ITourInfoRes, ITourListReq } from '../
   styleUrls: ['./choose-room-and-flight.component.scss']
 })
 export class ChooseRoomAndFlightComponent implements OnInit {
+  checkingReq!: ReserveCheckingReqDTO
 
   isRoom = false
   slug = '';
@@ -54,7 +56,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
   paginate: any;
   paginateConfig: any;
-
+  checkingLoading = false;
 
   constructor(
     public api: TourApiService,
@@ -240,18 +242,10 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   submit(flightID: number, returnFlightID: number, flightIndex: number) {
     if ((this.data.flights[flightIndex].selectedRooms ?? []).length > 0) {
-      this.router.navigate([`/tour/reserve/${this.data.hotel.id}/${flightID}/${returnFlightID}`], {
-        queryParams: {
-          checkin: this.data.hotel.checkin,
-          checkout: this.data.hotel.checkout,
-          stayCount: this.req.stayCount,
-          rooms: JSON.stringify(this.data.flights[flightIndex].selectedRooms)
-        }
-      })
+      this.checking(flightID, returnFlightID, flightIndex)
     } else {
       this.publicService.message.custom('لطفا برای رزرو حداقل یک اتاق انتخاب کنید')
     }
-
   }
 
 
@@ -333,24 +327,26 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   getRoomTotalPrice(type: string, room: IRoom, flight: IFlights) {
     let roomPrice = 0;
     let flightPrice = 0
-
+    let servicePrice: number = 0;
+    room.services.forEach(x => {
+      servicePrice += x.rate
+    })
     switch (type) {
       case 'adl':
         roomPrice = room.rate.price
         flightPrice = flight.departure.adl_price + flight.return.adl_price
+        servicePrice = servicePrice * room.Adl_capacity
         break
       case 'chd':
         roomPrice = room.rate.chd_price;
         flightPrice = flight.departure.chd_price + flight.return.chd_price
+
         break
       case 'extra':
         roomPrice = room.rate.extra_price
         flightPrice = flight.departure.adl_price + flight.return.adl_price
     }
-    let servicePrice: number = 0;
-    room.services.forEach(x => {
-      servicePrice += x.rate
-    })
+
     return roomPrice + flightPrice + servicePrice
   }
 
@@ -366,4 +362,50 @@ export class ChooseRoomAndFlightComponent implements OnInit {
     let extra_bed_countFiltered = this.data.rooms.filter(x => x.room_type_id === roomId)
     return extra_bed_countFiltered.length > 0 ? extra_bed_countFiltered[0].extra_bed_count : 0;
   }
+
+
+
+  setCheckingReq(flightID: number, returnFlightID: number,flightIndex:number) {
+    this.route.queryParams.subscribe(params => {
+      this.checkingReq = {
+        checkin: this.data.hotel.checkin,
+        checkout: this.data.hotel.checkout,
+        stayCount: this.req.stayCount,
+        hotel_id: +this.data.hotel.id,
+        flight_id: flightID,
+        return_flight_id: returnFlightID,
+        rooms: this.data.flights[flightIndex].selectedRooms ?? []
+      }
+    }
+    );
+  }
+
+
+  checking(flightID: number, returnFlightID: number, flightIndex: number) {
+    this.checkingLoading = true;
+    this.setCheckingReq(flightID, returnFlightID,flightIndex)
+    this.reserveApi.checking(this.checkingReq).subscribe((res: any) => {
+      this.checkingLoading = false;
+
+      if (res.isDone) {
+        this.router.navigate([`/tour/reserve/${res.data.ref_code}`], {
+          queryParams: {
+            checkin: this.data.hotel.checkin,
+            checkout: this.data.hotel.checkout,
+            stayCount: this.req.stayCount,
+            rooms: JSON.stringify(this.data.flights[flightIndex].selectedRooms)
+          }
+        })
+      } else {
+        this.publicService.message.custom(res.message);
+      }
+    }, (error: any) => {
+      this.checkingLoading = false;
+
+      if (error.status === 400) {
+        this.publicService.message.showMessageBig(error.error.message);
+      }
+    })
+  }
+
 }

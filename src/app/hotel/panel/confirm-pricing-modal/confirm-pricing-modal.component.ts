@@ -7,6 +7,7 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 import * as moment from 'jalali-moment';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { roomDTO } from 'src/app/Core/Models/newPostDTO';
+import { PublicService } from 'src/app/Core/Services/public.service';
 export interface ConfirmPriceReqDTO {
   checkin: any;
   checkout: any;
@@ -41,6 +42,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ConfirmPricingModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmPriceReqDTO,
     public api: PostApiService,
+    public publicService: PublicService,
     public message: MessageService,
     public errorService: ErrorsService,
     public dialog: MatDialog) {
@@ -66,8 +68,8 @@ export class ConfirmPricingModalComponent implements OnInit {
       date_to: moment(this.data.checkout.dateEn).format('YYYY-MM-DD'),
       type: this.data.type,
       checkin_base: this.not_checkin_base ? false : this.offerPriceFC.value ? true : null,
-      available_room_count: this.capacityFC.value,
-      extra_bed_count: this.bedCountFC.value ? +this.bedCountFC.value : null,
+      available_room_count:this.publicService.fixNumbers(+this.capacityFC.value),
+      extra_bed_count: this.publicService.fixNumbers(this.bedCountFC.value) ? +this.bedCountFC.value : null,
       price: this.priceFC.value !== null ? +this.priceFC.value : null,
       chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : null,
       extra_price: this.bedPriceFC.value !== null ? +this.bedPriceFC.value : null,

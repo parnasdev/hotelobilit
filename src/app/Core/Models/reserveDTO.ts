@@ -1,3 +1,4 @@
+import { IRoom } from "src/app/tour/core/models/tour.model";
 import { RateDTO, ReserveHotelDTO } from "./newPostDTO";
 import { transferRateListDTO } from "./newTransferDTO";
 
@@ -37,7 +38,7 @@ export interface ReserveCheckingReqDTO {
     return_flight_id: number
     checkin: string;
     stayCount: number
-    rooms: ReserveRoomsReqDTO[]
+    rooms: IRoom[]
 }
 
 

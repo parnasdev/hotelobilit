@@ -1,0 +1,108 @@
+<div class="list-tour">
+    <div class="title">
+  
+  <h2>{{status === 501 ? 'در حال رزرو' : 'رزرو های تکمیل شده'}}</h2>
+    </div>
+    <div class="empty-box" *ngIf="list.length === 0">
+        <span>موردی یافت نشد</span>
+    </div>
+    <div class="table-list-tour" *ngIf="list.length > 0">
+      <div class="header-list-tour">
+        <span class="id">#</span>
+        <div class="d-flex flex-column">
+          <span class="username">رزروگیرنده</span>
+          <span class="username">مرجع</span>
+        </div>
+        <span class="view">نام هتل</span>
+        <div class="d-flex flex-column">
+          <span class="title-tour">تاریخ ورود</span>
+          <span class="title-tour">تاریخ خروج</span>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="title-tour">تاریخ رفت</span>
+          <span class="title-tour">تاریخ برگشت</span>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="title-tour">مبدا</span>
+          <span class="title-tour">مقصد</span>
+        </div>
+  
+        <div class="d-flex flex-column">
+          <span class="title-tour">شب</span>
+          <span class="title-tour">مسافرین</span>
+        </div>
+        <div class="d-flex flex-column">
+          <span class="title-tour">ایرلاین رفت</span>
+          <span class="title-tour">ایرلاین برگشت</span>
+  
+        </div>
+        <span class="title-tour">وضعیت</span>
+        <div class="d-flex flex-column">
+          <span class="title-tour">رفرنس</span>
+        </div>
+  
+        <span class="title-tour">قیمت</span>
+        <span class="title-tour">تنظیمات</span>
+      </div>
+      <div *ngIf="isLoading">
+        <div class="shimmer-6" *ngFor="let x of [1,2,3,4,5,6]">
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+          <div class="item-shimmer"></div>
+        </div>
+      </div>
+      <div class="body-list-tour" *ngIf="list.length > 0">
+        <div class="item bg-white" *ngFor="let item of list| paginate: paginateConfig ; let i = index">
+          <span class="id">{{ item.id }}</span>
+          <div class="d-flex flex-column">
+            <span class="username">{{ item.information.reserver.phone }}</span>
+            <span class="username">{{ item.information ?item.information.partner_name  : 'ثبت نشده'}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="username font-size-11">{{item.hotel.title}}</span>
+            <span class="username font-size-11">{{item.hotel.titleEn}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="username">{{item.hotel.checkin | convertDate}}</span>
+            <span class="username">{{item.hotel.checkout | convertDate}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="username">{{item.flights.departure?.date | convertDate}}</span>
+            <span class="username">{{item.flights.return.date | convertDate}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="username">{{ item.flights.departure.origin_name }}</span>
+            <span class="username">{{ item.flights.departure.destination_name }}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="username">{{getNights(item.hotel.checkin, item.hotel.checkout) + ' ' + 'شب'}}</span>
+            <span class="username">{{0 + ' نفر'}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <span class="username">{{ item.flights.departure.airline_name }}</span>
+            <span class="username">{{ item.flights.return?.airline_name}}</span>
+  
+          </div>
+          <span class="username">{{item.information.status.label}}</span>
+          <div class="d-flex flex-column">
+            <span class="username">{{ item.information.ref_code }}</span>
+  
+          </div>
+  
+          <span class="view">{{ item.prices.total_price | sperator }}</span>
+          <div class="button-setting">
+            <a class="edit-btn" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
+          </div>
+        </div>
+        <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
+                             (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+                             screenReaderPaginationLabel="صفحه بندی"
+                             screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+  

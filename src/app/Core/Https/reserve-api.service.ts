@@ -19,7 +19,7 @@ export class ReserveApiService {
   }
 
 
-  create(req: ReserveCreateDTO,ref_code:string): any {
+  create(req: ReserveCreateDTO, ref_code: string): any {
     // const strUrl = this.serverControllerName
     const strUrl = 'https://hotelobilit-api.iran.liara.run/api/v2/' + 'reserves/' + ref_code
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
@@ -42,7 +42,7 @@ export class ReserveApiService {
     return this.http.get<Result<any>>(publicURL, this.publicService.getDefaultHeaders());
   }
 
-  flightReserveList(page: number,flight:any,status: any): any {
+  flightReserveList(page: number, flight: any, status: any): any {
     const strUrl = environment.BACK_END_IP + `panel/reserves?flight=${flight}&status=${status}&page=${page}`
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
@@ -56,6 +56,11 @@ export class ReserveApiService {
     const entity = {
       status: statusId
     }
-    return this.http.patch<Result<any>>(strUrl,entity, this.publicService.getDefaultHeaders());
+    return this.http.patch<Result<any>>(strUrl, entity, this.publicService.getDefaultHeaders());
+  }
+  confirm(ref_code: string) {
+    const strUrl = environment.BACK_END_IP_V2 + `reserves/confirm/${ref_code}`
+    return this.http.post<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+
   }
 }

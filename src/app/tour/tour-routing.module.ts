@@ -11,7 +11,7 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
-    path: 'reserve/:hotel/:flight/:returnFlight',
+    path: 'reserve/:ref_code',
     component: CompleteReservationComponent
   },
   {
