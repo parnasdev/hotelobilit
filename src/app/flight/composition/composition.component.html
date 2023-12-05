@@ -169,7 +169,8 @@
   <div class="item-two" *ngFor="let transfer of compositionData ;let i = index">
     <span>{{ i + 1 }}</span>
     <span>
-      <mat-checkbox [(ngModel)]="transfer.isChecked"></mat-checkbox>
+      <mat-checkbox *ngIf="!transfer.is_mix" [(ngModel)]="transfer.isChecked"></mat-checkbox>
+      <span *ngIf="transfer.is_mix" class="text-green">ترکیب موجود</span>
     </span>
     <div class="d-flex flex-column ">
       <span>{{ transfer.departure.id }}</span>

@@ -114,9 +114,11 @@ export class ChooseRoomAndFlightComponent implements OnInit {
   }
 
   setRoomsToFlights() {
-    this.data.flights.forEach(x => {
-      x.rooms = this.data.rooms;
-    })
+    if (this.data.rooms.length > 0) {
+      this.data.flights.forEach(x => {
+        x.rooms = this.data.rooms;
+      })
+    }
   }
 
   getNight(date: string, returnDate: string, checkin_tomorrow: boolean, checkout_yesterday: boolean) {
@@ -365,7 +367,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
 
 
-  setCheckingReq(flightID: number, returnFlightID: number,flightIndex:number) {
+  setCheckingReq(flightID: number, returnFlightID: number, flightIndex: number) {
     this.route.queryParams.subscribe(params => {
       this.checkingReq = {
         checkin: this.data.hotel.checkin,
@@ -383,7 +385,7 @@ export class ChooseRoomAndFlightComponent implements OnInit {
 
   checking(flightID: number, returnFlightID: number, flightIndex: number) {
     this.checkingLoading = true;
-    this.setCheckingReq(flightID, returnFlightID,flightIndex)
+    this.setCheckingReq(flightID, returnFlightID, flightIndex)
     this.reserveApi.checking(this.checkingReq).subscribe((res: any) => {
       this.checkingLoading = false;
 

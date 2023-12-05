@@ -113,7 +113,10 @@
                     اتاق</span>
                 </div>
                 <div class="rooms">
-                  <div class="item-room flex-wrap" *ngFor="let room of flight.rooms;let roomIndex = index">
+                  <div class="empty-box w-100" *ngIf="data.rooms.length === 0">
+                    <span>اتاقی یافت نشد</span>
+                  </div>
+                  <div class="item-room flex-wrap" *ngFor="let room of (flight.rooms ?? []);let roomIndex = index">
                     <span class="text w-50">{{ room.room_type }}</span>
                     <div class="p-count w-50">
                       <button class="btn-plus" (click)="plus(roomIndex,flightIndex)">+</button>
@@ -134,7 +137,7 @@
                     <h4>قیمت هر نفر :</h4>
                     <!-- <h5>---</h5> -->
                   </div>
-                  <div class="p-price">
+                  <div class="p-price" *ngIf="data.rooms.length > 0">
                     <span>قیمت:</span>
                     <div class="price">
                       <strong>{{getRoomTotalPrice('adl',flight.rooms[0],data.flights[0]) | sperator}}</strong>
@@ -311,7 +314,7 @@
                   </div>
                   <div class="p-price">
                     <span>قیمت:</span>
-                    <div class="price">
+                    <div class="price" *ngIf="data.rooms.length > 0">
                       <strong>{{getRoomTotalPrice('adl',flight.rooms[0],data.flights[0]) | sperator}}</strong>
                       <small>تومان</small>
                     </div>

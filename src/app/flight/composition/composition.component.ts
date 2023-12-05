@@ -266,9 +266,9 @@ export class CompositionComponent {
 
   getCompositionIds() {
     let result: IMixId[] = []
-    let pivots: IMixId[] = []
+    // let pivots: IMixId[] = []
     this.compositionData.forEach((element: any) => {
-      if (element.isChecked) {
+      if (element.isChecked && !element.is_mix) {
         let obj: IMixId = {
           checkin_tomorrow: this.departureObj.checkin_tomorrow ?? false,
           checkout_yesterday: this.ReturnObj.checkout_yesterday ?? false,
@@ -280,17 +280,19 @@ export class CompositionComponent {
 
     });
 
-    this.compositionData.forEach((x: any) => {
-      if (x.mixed_pivot) {
-        pivots.push(x.mixed_pivot);
-      }
-    })
-    result = result.concat(pivots)
+    // this.compositionData.forEach((x: any) => {
+    //   if (x.mixed_pivot) {
+    //     pivots.push(x.mixed_pivot);
+    //   }
+    // })
+    // result = result.concat(pivots)
     return result
   }
   selectAllChanged() {
     this.compositionData.forEach((x: any) => {
-      x.isChecked = this.selectAll
+      if(!x.is_mix) {
+        x.isChecked = this.selectAll
+      }
     })
   }
 
