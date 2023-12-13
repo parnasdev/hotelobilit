@@ -138,19 +138,21 @@ export class CompositionListComponent {
 
   calculateStayCount(transfer: any) {
     let checkin = '';
-    let checkout = ''
-    if (!transfer.checkin_tomorrow && !transfer.return_flight.checkout_yesterday) {
-      checkin = transfer.date;
-      checkout = transfer.return_flight.date;
-    } else if (transfer.checkin_tomorrow && !transfer.return_flight.checkout_yesterday) {
-      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
-      checkout = transfer.return_flight.date;
-    } else if (!transfer.checkin_tomorrow && transfer.return_flight.checkout_yesterday) {
-      checkin = transfer.date;
-      checkout = moment(transfer.return_flight.date).add(-1, 'days').format('YYYY-MM-DD');
-    } else {
-      checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
-      checkout = moment(transfer.return_flight.date).add(-1, 'days').format('YYYY-MM-DD');
+    let checkout = '';
+    if (transfer.return_flight) {
+      if (!transfer.checkin_tomorrow && !transfer.return_flight.checkout_yesterday) {
+        checkin = transfer.date;
+        checkout = transfer.return_flight.date;
+      } else if (transfer.checkin_tomorrow && !transfer.return_flight.checkout_yesterday) {
+        checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+        checkout = transfer.return_flight.date;
+      } else if (!transfer.checkin_tomorrow && transfer.return_flight.checkout_yesterday) {
+        checkin = transfer.date;
+        checkout = moment(transfer.return_flight.date).add(-1, 'days').format('YYYY-MM-DD');
+      } else {
+        checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
+        checkout = moment(transfer.return_flight.date).add(-1, 'days').format('YYYY-MM-DD');
+      }
     }
     return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }

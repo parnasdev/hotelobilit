@@ -160,12 +160,18 @@ export class ListComponent {
           this.airports = res.airports;
           this.airlines = res.airlines
           this.airplanes = res.airplanes
-          this.paginate = res.meta;
-          this.paginateConfig = {
-            itemsPerPage: this.paginate.per_page,
-            totalItems: this.paginate.total,
-            currentPage: this.paginate.current_page
+          if (res.meta) {
+            this.paginate = res.meta;
+            if (this.paginate) {
+              this.paginateConfig = {
+                itemsPerPage: this.paginate.per_page,
+                totalItems: this.paginate.total,
+                currentPage: this.paginate.current_page
+              }
+            }
           }
+
+
           this.setFilterFromRoute()
         } else {
           this.message.custom(res.message)

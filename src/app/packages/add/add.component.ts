@@ -18,9 +18,6 @@ import * as moment from 'moment';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
 import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
 import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing-popup.component';
-import { SetPricePopupComponent } from 'src/app/room/set-price-popup/set-price-popup.component';
-import { RoomTypeSetDTO } from 'src/app/Core/Models/roomTypeDTO';
-import {months} from "moment";
 import {Title} from "@angular/platform-browser";
 
 
@@ -37,8 +34,8 @@ export class AddComponent implements OnInit {
   transferRates: TransferRateListDTO[] = [];
   packages: PackageTourDTO[] = [];
   hotels: any[] = [];
-origin_city:any;
-destination_city:any;
+  origin_city:any;
+  destination_city:any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
   req: TourSetDTO = {
@@ -230,7 +227,6 @@ destination_city:any;
       this.day_numFC.setValue(dates.length.toString())
     }
     this.onTitleGenerator()
-
     this.getTransferRates();
     this.getHotels()
   }
@@ -269,23 +265,16 @@ destination_city:any;
   }
 
 
-
-
-
   getStCity(cityItemSelected: any): void {
     this.origin_idFC.setValue(cityItemSelected.id);
-
     this.origin_city = cityItemSelected
     this.onTitleGenerator()
- 
   }
 
   getEndCity(cityItemSelected: any): void {
     this.destination_idFC.setValue(cityItemSelected.id);
-
     this.destination_city = cityItemSelected
     this.onTitleGenerator()
-
     this.getTransferRates();
     this.getHotels()
 
@@ -295,7 +284,7 @@ destination_city:any;
     const hotelFiltered = this.hotels.filter(x => x.id === +hotelId);
     const hotel = hotelFiltered.length > 0 ? hotelFiltered[0] : null
     if (hotelId === 0 || !hotelId) {
-      this.message.custom('لطفا هتل خود را انتخاب کنید')
+      this.message.custom('لطفا هتل خود را انتخاب کنید');
     } else {
       const dialog = this.dialog.open(PricingPopupComponent, {
         width: '100%',
@@ -306,7 +295,6 @@ destination_city:any;
         }
       });
       dialog.afterClosed().subscribe((result) => {
-
         // this.setService.getHotelRates(hotelId, index);
       })
     }

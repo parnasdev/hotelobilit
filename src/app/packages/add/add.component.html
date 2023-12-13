@@ -11,8 +11,8 @@
           <div class="selectdiv">
             <label>
               <select [formControl]="status_idFC">
-                <option *ngFor="let status of this.statuses; let i = index"
-                        [value]="status.id">{{ status.name }}</option>
+                <option *ngFor="let status of this.statuses; let i = index" [value]="status.id">{{ status.name }}
+                </option>
                 <!-- <option value="Draft" selected>پیش نویس</option>
                 <option value="Accepted">تایید شده</option>
                 <option value="NotAccepted">عدم تایید</option>
@@ -42,7 +42,7 @@
         <!-- title field -->
         <div style="margin-top: 0 !important;position: relative;top: -13px;width: 32% !important;" class="item-info">
           <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
-          <input [formControl]="titleFC"  type="text">
+          <input [formControl]="titleFC" type="text">
           <div *ngIf="errorService.hasError('title')">
             <span class="text-danger">{{errorService.getError('title')}}</span>
           </div>
@@ -56,7 +56,8 @@
           <div class="select-info mt-3">
 
             <label for="">شهر مبدا</label>
-            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" (citySelected)="getStCity($event)"></prs-select-city>
+            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities"
+              (citySelected)="getStCity($event)"></prs-select-city>
             <div *ngIf="errorService.hasError('origin_id')">
               <span class="text-danger">{{errorService.getError('origin_id')}}</span>
             </div>
@@ -66,7 +67,8 @@
         <div class="item-info item-info-material mt-3">
           <div class="select-info">
             <label for="">شهر مقصد</label>
-            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" (citySelected)="getEndCity($event)"></prs-select-city>
+            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities"
+              (citySelected)="getEndCity($event)"></prs-select-city>
 
             <div *ngIf="errorService.hasError('destination_id')">
               <span class="text-danger">{{errorService.getError('destination_id')}}</span>
@@ -78,7 +80,7 @@
           <label for="">تاریخ ورود به هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
-                   [min]="minDate" (click)="picker1.open()">
+              [min]="minDate" (click)="picker1.open()">
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkin')">
@@ -90,7 +92,7 @@
           <label for="">تاریخ خروج از هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
-                   [min]="minDate" (click)="picker2.open()">
+              [min]="minDate" (click)="picker2.open()">
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkout')">
@@ -101,7 +103,7 @@
           <label for="">تاریخ انقضا پکیج</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
-                   (click)="picker3.open()">
+              (click)="picker3.open()">
             <mat-datepicker #picker3></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('expired_at')">
@@ -109,12 +111,13 @@
           </div>
         </div>
         <div class="item-info w-22">
-          <label style="margin-bottom: 14px;position: relative;top: -27px"  for="">تعداد شب و روز</label>
-                 <span style="border-bottom: 1px dashed #ededed;position: relative;top: -8px"  class="bold-600 w-100 text-center h-30  d-flex justify-content-center font-size-14" for="">
-           {{night_numFC.value}}شب
-          و
-                   {{day_numFC.value}} روز
-        </span>
+          <label style="margin-bottom: 14px;position: relative;top: -27px" for="">تعداد شب و روز</label>
+          <span style="border-bottom: 1px dashed #ededed;position: relative;top: -8px"
+            class="bold-600 w-100 text-center h-30  d-flex justify-content-center font-size-14" for="">
+            {{night_numFC.value}}شب
+            و
+            {{day_numFC.value}} روز
+          </span>
         </div>
 
 
@@ -138,7 +141,7 @@
         <span>قیمت بزرگسال</span>
         <span>قیمت کودک</span>
         <span>قیمت نوزاد</span>
-        
+
         <span>ظرفیت</span>
       </div>
       <div class="info-tour-body-2">
@@ -154,7 +157,7 @@
 
             <span>{{ calenderService.convertDate(item.date, 'fa') }}</span>
             <span>{{ calenderService.convertDate(item.return_flight.date, 'fa') }}</span>
-            <span>{{ (item.adl_price + item.return_flight.adl_price)  | sperator }}</span>
+            <span>{{ (item.adl_price + item.return_flight.adl_price) | sperator }}</span>
             <span>{{ (item.chd_price + item.return_flight.chd_price) | sperator }}</span>
             <span>{{ (item.inf_price + item.return_flight.inf_price) | sperator }}</span>
             <span>{{ item.capacity }}</span>
@@ -178,11 +181,12 @@
         <div class="d-flex middle-item">
           <h5>انتخاب هتل</h5>
 
-<!--            <select class="w-100" [(ngModel)]="item.hotel_id">-->
-<!--              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>-->
-<!--            </select>-->
+          <!--            <select class="w-100" [(ngModel)]="item.hotel_id">-->
+          <!--              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>-->
+          <!--            </select>-->
           <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>
-          <prs-custom-select-hotel class="hotel-input"  [hotels]="hotels" (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
+          <prs-custom-select-hotel class="hotel-input" [hotels]="hotels"
+            (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
 
           <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت
             گذاری
@@ -194,18 +198,15 @@
               <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
             </div>
           </div>
-
         </div>
         <i class="icon-cancel" (click)="removePackage(i)"></i>
       </div>
     </div>
-    <div class="w-100 d-flex justify-content-end">
+    <!-- <div class="w-100 d-flex justify-content-end">
       <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
-    </div>
+    </div> -->
   </div>
-
   <!-- <prs-detail-package class="w-100"></prs-detail-package> -->
-
   <button class="btn-base w-100-mobi m-top-12" style="width: 15%;" (click)="submit()">ثبت تور</button>
 
 </div>

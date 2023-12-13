@@ -337,12 +337,10 @@ export class ChooseRoomAndFlightComponent implements OnInit {
       case 'adl':
         roomPrice = room.rate.price
         flightPrice = flight.departure.adl_price + flight.return.adl_price
-        servicePrice = servicePrice * room.Adl_capacity
         break
       case 'chd':
         roomPrice = room.rate.chd_price;
         flightPrice = flight.departure.chd_price + flight.return.chd_price
-
         break
       case 'extra':
         roomPrice = room.rate.extra_price
