@@ -18,7 +18,7 @@ import * as moment from 'moment';
 import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.service';
 import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
 import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing-popup.component';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -34,8 +34,8 @@ export class AddComponent implements OnInit {
   transferRates: TransferRateListDTO[] = [];
   packages: PackageTourDTO[] = [];
   hotels: any[] = [];
-  origin_city:any;
-  destination_city:any;
+  origin_city: any;
+  destination_city: any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
   req: TourSetDTO = {
@@ -44,6 +44,7 @@ export class AddComponent implements OnInit {
     destination_id: 0,
     night_num: 0,
     day_num: 0,
+    partnerIds: [],
     tour_type: 0,
     checkin: '',
     checkout: '',
@@ -52,6 +53,7 @@ export class AddComponent implements OnInit {
     flights: [],
     packages: []
   }
+  partnerNames: any
   titleFC = new FormControl('', [Validators.required])
   origin_idFC = new FormControl('', [Validators.required])
   destination_idFC = new FormControl('', [Validators.required])
@@ -62,8 +64,9 @@ export class AddComponent implements OnInit {
   checkoutFC = new FormControl('', [Validators.required])
   expired_atFC = new FormControl('', [Validators.required])
   status_idFC = new FormControl(0, [Validators.required])
+  partners: any[] = []
   constructor(
-    public  title: Title,
+    public title: Title,
     public cityApi: CityApiService,
     public commonApi: CommonApiService,
     public session: SessionService,
@@ -78,7 +81,7 @@ export class AddComponent implements OnInit {
     public dialog: MatDialog,
     public fb: FormBuilder,
     public tourApi: TourApiService) {
-      errorService.clear()
+    errorService.clear()
   }
 
   ngOnInit() {
@@ -93,6 +96,7 @@ export class AddComponent implements OnInit {
     this.tourApi.createPageTour().subscribe((res: any) => {
       if (res.isDone) {
         this.statuses = res.data.statuses;
+        this.partners = res.data.partners;
       } else {
         this.message.custom(res.message);
       }
@@ -134,8 +138,20 @@ export class AddComponent implements OnInit {
       expired_at: this.expired_atFC.value ? moment(this.expired_atFC.value).format('YYYY-MM-DD') : '',
       status_id: +(this.status_idFC.value ?? ''),
       flights: this.flights,
+      partnerIds: this.getPartners(),
       packages: this.packages
     }
+  }
+
+  getPartners() {
+    let result: number[] = [];
+    this.partnerNames.forEach((x: any) => {
+      let itemFiltered:any = this.partners.filter((item: any) => item.name === x)
+      if(itemFiltered.length > 0) {
+        result.push(itemFiltered[0].id);
+      }
+    })
+    return result
   }
 
 
@@ -232,7 +248,7 @@ export class AddComponent implements OnInit {
   }
 
 
-  getHotelSelected(hotel:any,index: number) {
+  getHotelSelected(hotel: any, index: number) {
     this.packages[index].hotel_id = hotel.id
   }
 
@@ -246,22 +262,22 @@ export class AddComponent implements OnInit {
     })
   }
 
-  onTitleGenerator(origin:string | null = null, destination: string | null = null) {
+  onTitleGenerator(origin: string | null = null, destination: string | null = null) {
     let month = ''
-    let monthSplits =[]
+    let monthSplits = []
     let monthNum = '0'
-    let monthDay  = '0'
-    if(this.checkinFC.value) {
-       month = this.calenderService.convertDate(this.checkinFC.value,'fa')
-       monthSplits = month.split('/')
-       monthNum = monthSplits.length > 0 ? monthSplits[1] : '0'
-       monthDay  = monthSplits.length > 2 ? monthSplits[2] : '0'
+    let monthDay = '0'
+    if (this.checkinFC.value) {
+      month = this.calenderService.convertDate(this.checkinFC.value, 'fa')
+      monthSplits = month.split('/')
+      monthNum = monthSplits.length > 0 ? monthSplits[1] : '0'
+      monthDay = monthSplits.length > 2 ? monthSplits[2] : '0'
     }
 
-    this.titleFC.setValue( 'تور' +  ' ' + (destination ? destination : this.destination_city?.name ?? '') + ' ' +
-      monthDay + ' '+
+    this.titleFC.setValue('تور' + ' ' + (destination ? destination : this.destination_city?.name ?? '') + ' ' +
+      monthDay + ' ' +
       (this.calenderService.getMonthFa(+monthNum) ?? '') + ' ' +
-      this.night_numFC.value + ' شب ' + 'از ' +  (origin ? origin :this.origin_city?.name ??''))
+      this.night_numFC.value + ' شب ' + 'از ' + (origin ? origin : this.origin_city?.name ?? ''))
   }
 
 

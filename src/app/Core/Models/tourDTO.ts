@@ -395,6 +395,7 @@ export interface TourSetDTO {
   origin_id: number
   destination_id: number
   night_num: number
+  partnerIds: any[]
   day_num: number
   tour_type: number
   checkin: string

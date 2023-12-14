@@ -3,8 +3,7 @@ import { AddComponent } from '../add/add.component';
 import { CityListReq } from 'src/app/Core/Models/newCityDTO';
 import * as moment from 'moment';
 import { PackageTourDTO } from 'src/app/Core/Models/tourDTO';
-import { Observable, map, startWith } from 'rxjs';
-import { FormControl } from '@angular/forms';
+
 
 declare var $: any;
 
@@ -29,8 +28,13 @@ export class EditComponent extends AddComponent implements OnInit {
     this.tourApi.getTourInfo(+this.id).subscribe((res: any) => {
       if (res.isDone) {
 
+
+
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
+        this.partners = res.data.partners
+        this.partnerNames = this.getPartnersNames(res.data.selected_partners)
+
         this.setInfo();
       } else {
         this.message.custom(res.message);
@@ -43,6 +47,19 @@ export class EditComponent extends AddComponent implements OnInit {
 
     })
   }
+
+
+  getPartnersNames(ids: number[]) {
+    let result: number[] = [];
+    ids.forEach((x: any) => {
+      let itemFiltered: any = this.partners.filter((item: any) => item.id === x)
+      if (itemFiltered.length > 0) {
+        result.push(itemFiltered[0].name);
+      }
+    })
+    return result
+  }
+
 
 
   override getHotels(): void {
@@ -169,14 +186,14 @@ export class EditComponent extends AddComponent implements OnInit {
     this.checkoutFC.setValue(this.tourData.checkout);
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
-    this.onTitleGenerator(this.tourData.origin_name ??'' , this.tourData.destination_name);
+    this.onTitleGenerator(this.tourData.origin_name ?? '', this.tourData.destination_name);
     this.flights = this.tourData.flightIs;
     // this.packages = this.tourData.packages
     this.getTransferRates();
     this.getHotels();
   }
 
-  checkStatus(name: string){
+  checkStatus(name: string) {
     return this.statuses.find(x => x.name === name)?.id ?? 0
   }
 

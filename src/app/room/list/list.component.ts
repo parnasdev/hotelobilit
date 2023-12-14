@@ -18,7 +18,7 @@ export class ListComponent {
   p = 1
   paginate: any;
   paginateConfig: any;
-
+isLoading = false;
   constructor(public api: CategoryApiService,
     public checkError: CheckErrorService,
     public session: SessionService,
@@ -32,10 +32,12 @@ export class ListComponent {
 
   getTransfers(): void {
     this.setReq();
+    this.isLoading = true
     this.api.getCategoryList('RoomType', 'hotel', this.p).subscribe((res: any) => {
       if (res.isDone) {
         this.rooms = res.data;
         this.paginate = res.meta;
+
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
           totalItems: this.paginate.total,
@@ -44,8 +46,12 @@ export class ListComponent {
       } else {
         this.message.custom(res.message);
       }
+      this.isLoading = false;
+
     }, (error: any) => {
       this.checkError.check(error)
+      this.isLoading = false;
+
       this.message.error()
     })
   }

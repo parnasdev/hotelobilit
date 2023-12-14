@@ -70,7 +70,8 @@ export class ListComponent implements OnInit {
   }
 
   getNights(item: any) {
-    let checkin = '';
+    if(item.flights.departure && item.flights.return) {
+      let checkin = '';
     let checkout = ''
     let transfer = item.flights;
     if (!transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
@@ -87,6 +88,9 @@ export class ListComponent implements OnInit {
       checkout = moment(transfer.return.date).add(-1, 'days').format('YYYY-MM-DD');
     }
     return this.calService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
+    }else {
+      return '---'
+    }
   }
 
   getPassengersCount(item: any) {

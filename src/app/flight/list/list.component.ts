@@ -149,9 +149,6 @@ export class ListComponent {
     this.isLoading = true;
     this.data = [];
     let qparams = this.publicService.getFiltersString(this.getFilterList())
-
-
-
     this.api.list(qparams).subscribe({
       next: (res: any) => {
         this.isLoading = false;

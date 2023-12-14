@@ -43,6 +43,7 @@ import { GroupChangesComponent } from './group-changes/group-changes.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { IconsComponent } from './icons/icons.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
 
 
 
@@ -80,10 +81,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     GroupChangesComponent,
     CheckboxComponent,
     IconsComponent,
+    PanelLoadingComponent,
   ],
     exports: [
         UploadFileComponent,
         GetLocationComponent,
+        PanelLoadingComponent,
         TimePickerComponent,
         SelectCityTwoComponent,
         UploadSingleComponent,

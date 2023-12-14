@@ -21,6 +21,14 @@
           </div>
 
         </div>
+        <div class="selectdiv  me-2">
+          <mat-form-field class="w-100">
+            <mat-select [(ngModel)]="partnerNames" placeholder="انتشار در ..." [ngModelOptions]="{standalone: true}" multiple>
+              <mat-select-trigger>{{partnerNames}}</mat-select-trigger>
+              <mat-option *ngFor="let cat of partners" [value]="cat.name">{{cat.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <div class="selectdiv me-2">
           <label>
             <select [formControl]="tour_typeFC">

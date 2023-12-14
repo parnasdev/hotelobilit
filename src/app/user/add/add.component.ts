@@ -46,9 +46,9 @@ export class AddComponent implements OnInit {
     hotels: []
   }
   selectedhotels: any[] = []
-
   hotelItem: any
   setPermissions: string[] = [];
+  submitLoading = false;
   constructor(public fb: FormBuilder,
     public api: UserApiService,
     public route: ActivatedRoute,
@@ -82,7 +82,6 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.parent = this.route.snapshot.paramMap.get('parent');
-
     this.getData();
   }
 
@@ -203,7 +202,10 @@ export class AddComponent implements OnInit {
   }
   submit() {
     this.setReq();
-    this.api.createUser(this.userReq).subscribe((res: any) => {
+    this.submitLoading = true
+    this.api.createUser(this.userReq).subscribe((res: any) => {  
+        this.submitLoading = false
+
       if (res.isDone) {
         this.message.custom(res.message);
         this.userForm.reset();
@@ -212,6 +214,7 @@ export class AddComponent implements OnInit {
         this.message.custom(res.message);
       }
     }, (error: any) => {
+      this.submitLoading = false
       if (error.status == 422) {
         this.errorService.recordError(error.error.data);
         this.errors = Object.values(error.error.errors)

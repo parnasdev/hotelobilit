@@ -1,3 +1,5 @@
+<prs-panel-loading *ngIf="isLoading"></prs-panel-loading>
+
 <div class="list-tour">
   <div class="title">
     <h2>رزرو ها</h2>
@@ -40,7 +42,7 @@
 
       <div class="d-flex flex-column">
         <span class="title-tour">رفرنس</span>
-      <span class="title-tour">مرجع</span>
+        <span class="title-tour">مرجع</span>
       </div>
 
       <span class="title-tour">قیمت</span>
@@ -60,32 +62,32 @@
       <div class="item bg-white" *ngFor="let item of list| paginate: paginateConfig ; let i = index">
         <span class="id">{{ item.id }}</span>
         <div class="d-flex flex-column">
-        <span class="username">{{ item.information.reserver.phone }}</span>
-          <span class="username">{{ item.information.partner_name ?item.information.partner_name  : 'ثبت نشده'}}</span>
+          <span class="username">{{ item.information.reserver.phone }}</span>
+          <span class="username">{{ item.information.partner_name ?item.information.partner_name : 'ثبت نشده'}}</span>
         </div>
         <div class="d-flex flex-column">
           <span class="username font-size-11">{{item.hotel.title}}</span>
-        <span class="username font-size-11">{{item.hotel.titleEn}}</span>
+          <span class="username font-size-11">{{item.hotel.titleEn}}</span>
         </div>
         <div class="d-flex flex-column">
           <span class="username">{{item.hotel.checkin | convertDate}}</span>
           <span class="username">{{ item.hotel.checkout | convertDate }}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{item.flights.departure.date | convertDate}}</span>
-          <span class="username">{{item.flights.return.date | convertDate}}</span>
+          <span class="username">{{(item.flights.departure ? item.flights.departure.date : '') | convertDate}}</span>
+          <span class="username">{{(item.flights?.return ? item.flights?.return.date : '') | convertDate}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.flights.departure.origin_name }}</span>
-          <span class="username">{{ item.flights.departure.destination_name }}</span>
+          <span class="username">{{ item.flights.departure ? item.flights.departure.origin_name : '---' }}</span>
+          <span class="username">{{ item.flights.departure ? item.flights.departure.destination_name : '---' }}</span>
         </div>
         <div class="d-flex flex-column">
           <span class="username">{{getNights(item) + ' ' + 'شب'}}</span>
           <span class="username">{{getPassengersCount(item) + ' نفر'}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.flights.departure.airline_name }}</span>
-          <span class="username">{{ item.flights.return?.airline_name}}</span>
+          <span class="username">{{ item.flights?.departure ?item.flights?.departure.airline_name : '---' }}</span>
+          <span class="username">{{ item.flights?.departure ?item.flights?.return?.airline_name : '---'}}</span>
 
         </div>
 
@@ -95,25 +97,24 @@
 
         </div>
         <div class="d-flex flex-column">
-        <span class="username">{{ item.information.ref_code }}</span>
-          <span class="username">{{ item.information.ref_code_reserver ?item.ref_code_reserver: '---'  }}</span>
+          <span class="username">{{ item.information.ref_code }}</span>
+          <span class="username">{{ item.information.ref_code_reserver ?item.ref_code_reserver: '---' }}</span>
 
         </div>
-<div class="d-flex flex-column">
-  <!-- <span class="view">{{ item.prices.departure_total_price | sperator }}</span>
+        <div class="d-flex flex-column">
+          <!-- <span class="view">{{ item.prices.departure_total_price | sperator }}</span>
   <span class="view">{{ item.prices.return_total_price | sperator }}</span>
   <span class="view">{{ item.prices.single_1_total_price | sperator }}</span> -->
-  <span class="view">{{ item.prices.total_price | sperator }}</span>
+          <span class="view">{{ item.prices.total_price | sperator }}</span>
 
-</div>
+        </div>
         <div class="button-setting">
           <a class="edit-btn" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
         </div>
       </div>
       <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
-                           (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
-                           screenReaderPaginationLabel="صفحه بندی"
-                           screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+        (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
+        screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
       </pagination-controls>
     </div>
   </div>

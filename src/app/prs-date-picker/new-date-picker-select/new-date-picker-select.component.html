@@ -2,7 +2,6 @@
   <div class="item-inp-special-date">
     <label>{{ title }}</label>
     <div class="date">
-
       <mat-select class="select-birthday"
        #select1 [placeholder]=" lang === 'fa' ? 'روز' : 'Day'"
         (closed)="setPlaceHolder(select1 , lang === 'fa' ? 'روز' : 'Day')" 
@@ -15,7 +14,7 @@
         <mat-option *ngFor="let day of days" [value]="day.title" [disabled]="day.isDisabled">
           {{day.title}}</mat-option>
       </mat-select>
-
+      
       <div class="border-date d-flex"></div>
       <mat-select class="select-birthday" #select2 [placeholder]="lang === 'fa' ? 'ماه' : 'Month'"
         (closed)="setPlaceHolder(select2 , lang === 'fa' ? 'ماه' : 'month')" floatPlaceholder="true"
