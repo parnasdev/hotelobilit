@@ -1,12 +1,12 @@
 
 
-<div class="add-tour" *ngIf="show">
+<div class="add-tour">
   <form class="w-100">
     <div class="box-info-tour">
       <div class="info-tour-header">
         <div class="right">
-          <label for="">ویرایش فرودگاه</label>
-          <h2>اطلاعات فرودگاه</h2>
+          <label for=""> ویرایش هواپیما </label>
+          <h2 class="text-gray">اطلاعات هواپیما</h2>
         </div>
         <!-- <div class="left">
           <div class="selectdiv">
@@ -22,33 +22,19 @@
       <div class="info-tour-body">
         <div class="top">
 
-          <div style="padding-right: 2rem" class="item-info w-48">
-            <div class="select-info">
-              <label for="">شهر </label>
-              <prs-select-city [hasHotel]="true" [cities]="info.cities" [inCommingCity]="info.airport.parent_id"
-                               (citySelected)="getEndCity($event)"></prs-select-city>
-              <div *ngIf="errorService.hasError('destination_id')">
-                <span class="text-danger">{{errorService.getError('destination_id')}}</span>
-              </div>
-            </div>
-          </div>
 
           <div class="item-info">
-            <label for="">عنوان فرودگاه</label>
+            <label for="">عنوان هواپیما</label>
             <input [formControl]="nameFC" type="text">
           </div>
 
-          <div class="item-info">
-            <label for="">کد فرودگاه</label>
-            <input [formControl]="codeFC" type="text">
-          </div>
         </div>
       </div>
     </div>
 
     <div class="btn-parent-submit">
 
-      <button class="submit-tour" (click)="submit()">ویرایش فرودگاه</button>
+      <button class="submit-tour" (click)="submit()">ثبت هواپیما</button>
     </div>
   </form>
 

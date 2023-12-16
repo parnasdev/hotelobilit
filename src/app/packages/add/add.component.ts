@@ -53,7 +53,7 @@ export class AddComponent implements OnInit {
     flights: [],
     packages: []
   }
-  partnerNames: any
+  partnerNames: any = []
   titleFC = new FormControl('', [Validators.required])
   origin_idFC = new FormControl('', [Validators.required])
   destination_idFC = new FormControl('', [Validators.required])
@@ -145,12 +145,14 @@ export class AddComponent implements OnInit {
 
   getPartners() {
     let result: number[] = [];
+  if(this.partnerNames.length > 0) {
     this.partnerNames.forEach((x: any) => {
       let itemFiltered:any = this.partners.filter((item: any) => item.name === x)
       if(itemFiltered.length > 0) {
         result.push(itemFiltered[0].id);
       }
     })
+  }
     return result
   }
 

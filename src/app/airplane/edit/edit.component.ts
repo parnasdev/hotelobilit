@@ -68,6 +68,7 @@ export class EditComponent {
     this.api.editCategoryPage(this.transfer_id, 'airplane', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
+        debugger
         this.setValue()
         this.show = true;
       } else {
@@ -84,9 +85,9 @@ export class EditComponent {
 
   setValue(): void {
     // this.logo = this.info.files.length > 0 ? this.info.files[0] : 0;
-    this.nameFC.setValue(this.info.airport.name)
-    this.codeFC.setValue(this.info.airport.code)
-    this.destCityFC.setValue(this.info.airport.parent_id)
+    this.nameFC.setValue(this.info.airplane.name)
+    // this.codeFC.setValue(this.info.airport.code)
+    // this.destCityFC.setValue(this.info.airport.parent_id)
   }
 
 
