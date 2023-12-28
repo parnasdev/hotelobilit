@@ -95,6 +95,21 @@
             <span class="text-danger">{{errorService.getError('checkin')}}</span>
           </div>
         </div>
+
+        <div class="item-info w-25" *ngIf="is_bundle">
+          <label for="">ارز</label>
+<!--          <mat-form-field class="example-full-width" appearance="fill">-->
+<!--            <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"-->
+<!--              [min]="minDate" (click)="picker1.open()">-->
+<!--            <mat-datepicker #picker1></mat-datepicker>-->
+<!--          </mat-form-field>-->
+          <select [(ngModel)]="selectedCurrency">
+            <option *ngFor="let item of currencies" [value]="item">{{item}}</option>
+          </select>
+          <div *ngIf="errorService.hasError('checkin')">
+            <span class="text-danger">{{errorService.getError('checkin')}}</span>
+          </div>
+        </div>
         <!-- enDate field -->
         <div class="item-info w-25">
           <label for="">تاریخ خروج از هتل</label>
@@ -103,6 +118,19 @@
               [min]="minDate" (click)="picker2.open()">
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
+          <div *ngIf="errorService.hasError('checkout')">
+            <span class="text-danger">{{errorService.getError('checkout')}}</span>
+          </div>
+        </div>
+        <div class="item-info w-25">
+          <label for="">تور یکجا ؟</label>
+<!--          <mat-form-field class="example-full-width" appearance="fill">-->
+<!--            <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"-->
+<!--              [min]="minDate" (click)="picker2.open()">-->
+<!--            <mat-datepicker #picker2></mat-datepicker>-->
+<!--          </mat-form-field>-->
+
+          <mat-checkbox [(ngModel)]="is_bundle" (ngModelChange)="change()"></mat-checkbox>
           <div *ngIf="errorService.hasError('checkout')">
             <span class="text-danger">{{errorService.getError('checkout')}}</span>
           </div>
@@ -199,6 +227,14 @@
           <button style="width: 150px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت
             گذاری
           </button>
+
+          <div *ngIf="is_bundle" style="display: flex;justify-content: space-between">
+
+          <input type="text" [(ngModel)]="item.cwb" placeholder="کودک با تخت">
+            <input type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">
+            <button class="btn-base" (click)="openRooms(item.id,item.rooms)">اتاق ها</button>
+
+          </div>
           <div class="d-flex checkbox-bottun-parent">
 
             <div class="d-flex p-checkbox align-items-center justify-content-end">

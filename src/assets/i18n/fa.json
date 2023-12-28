@@ -4,6 +4,7 @@
     "packages": "پکیج ها",
     "flights": "پرواز ها",
     "new flights": "پرواز",
+  "tours": "تورها",
 
     "reports": "گزارشات",
     "financial": "مالی",
@@ -19,6 +20,7 @@
     "airplanes": "هواپیما ها",
 
     "hotelList": "لیست هتل ها",
+  "toursList": "لیست تورها",
     "search": "جستجو",
     "add": "اضافه",
     "hotelNameFa": "نام فارسی هتل",

@@ -143,7 +143,7 @@ const routes: Routes = [
         // data: {permitions: ['User','User.list']},
         // canActivate: [PanelItemGuardService],
         loadChildren: () => import('../user/user.module').then(m => m.UserModule)
-      }, 
+      },
       // {
       //   path: 'redirector',
       //   loadChildren: () => import('../redirector/redirector.module').then(m => m.RedirectorModule)

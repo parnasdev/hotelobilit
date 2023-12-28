@@ -22,6 +22,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { RoomsComponent } from './rooms/rooms.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
      CopyComponent,
       EditComponent,
        ListComponent,
+       RoomsComponent,
 
       ],
   imports: [

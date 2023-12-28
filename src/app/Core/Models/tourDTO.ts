@@ -44,6 +44,7 @@ export interface TourListResDTO {
   origin_name: string
   status: any
   title: string
+  is_bundle:boolean
   tour_type: boolean
   user: {
     agency_name: string
@@ -393,6 +394,8 @@ export interface RoomDTO {
 export interface TourSetDTO {
   title: string;
   origin_id: number
+  is_bundle?:boolean
+  currencies?:string
   destination_id: number
   night_num: number
   partnerIds: any[]
@@ -410,7 +413,10 @@ export interface PackageTourDTO {
   hotel_id: number;
   order_item: number;
   id?: number;
-  offered: boolean
+  offered: boolean,
+  "cwb"?: string,
+  "child_age"?:string,
+  rooms?:any[]
 }
 
 export interface newTourDTO {

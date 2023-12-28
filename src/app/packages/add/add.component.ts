@@ -19,6 +19,7 @@ import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.ser
 import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
 import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing-popup.component';
 import { Title } from "@angular/platform-browser";
+import {RoomsComponent} from "../rooms/rooms.component";
 
 
 @Component({
@@ -38,6 +39,7 @@ export class AddComponent implements OnInit {
   destination_city: any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
+  currencies:any
   req: TourSetDTO = {
     title: '',
     origin_id: 0,
@@ -64,7 +66,10 @@ export class AddComponent implements OnInit {
   checkoutFC = new FormControl('', [Validators.required])
   expired_atFC = new FormControl('', [Validators.required])
   status_idFC = new FormControl(0, [Validators.required])
+  is_bundle:boolean=false
   partners: any[] = []
+  selectedCurrency:string=''
+  rooms:any[]=[]
   constructor(
     public title: Title,
     public cityApi: CityApiService,
@@ -91,12 +96,18 @@ export class AddComponent implements OnInit {
     this.getPageData();
   }
 
+  change(){
+    console.log(this.is_bundle)
+  }
+
   getPageData(): void {
     this.isLoading = true;
     this.tourApi.createPageTour().subscribe((res: any) => {
       if (res.isDone) {
         this.statuses = res.data.statuses;
         this.partners = res.data.partners;
+        this.currencies=res.data.currencies
+        this.rooms=res.data.roomTypes
       } else {
         this.message.custom(res.message);
       }
@@ -128,6 +139,8 @@ export class AddComponent implements OnInit {
   setReq() {
     this.req = {
       title: this.titleFC.value ?? '',
+      is_bundle:this.is_bundle,
+      currencies:this.selectedCurrency,
       origin_id: +(this.origin_idFC.value ?? ''),
       destination_id: +(this.destination_idFC.value ?? ''),
       night_num: +(this.night_numFC.value ?? ''),
@@ -159,18 +172,35 @@ export class AddComponent implements OnInit {
 
   addHotel() {
     let item: PackageTourDTO = {
+      id:Math.random()*1000,
       hotel_id: 0,
       order_item: 0,
-      offered: false
+      offered: false,
+      cwb: '0',
+      child_age: '',
+      rooms:[]
     };
     this.packages.push(item);
+
+    console.log(this.packages)
   }
 
   removePackage(index: number) {
     this.packages.splice(index, 1);
   }
 
+openRooms(hotelid:any,rooms:any){
 
+  console.log(rooms)
+    this.dialog.open(RoomsComponent,{width:'80%' ,height:"auto",data:{
+      roomTypes:this.rooms,hotelID:hotelid,selectedRooms:rooms
+      }}).afterClosed().subscribe((result:any)=>{
+      let index = this.packages.findIndex((item:any) => item.id === result.hotelID);
+      this.packages[index].rooms=result.rooms
+      // console.log(this.packages)
+
+    })
+}
 
 
   getHotels(): void {
@@ -253,6 +283,8 @@ export class AddComponent implements OnInit {
   getHotelSelected(hotel: any, index: number) {
     this.packages[index].hotel_id = hotel.id
   }
+
+
 
 
   changeTransferRates() {
