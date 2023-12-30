@@ -27,14 +27,12 @@ export class EditComponent extends AddComponent implements OnInit {
     this.isLoading = true;
     this.tourApi.getTourInfo(+this.id).subscribe((res: any) => {
       if (res.isDone) {
-
-
-
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
-        this.partners = res.data.partners
         this.partnerNames = this.getPartnersNames(res.data.selected_partners)
-
+        this.partners = res.data.partners;
+        this.currencies = res.data.currencies
+        this.rooms = res.data.roomTypes
         this.setInfo();
       } else {
         this.message.custom(res.message);
@@ -94,6 +92,9 @@ export class EditComponent extends AddComponent implements OnInit {
         order_item: x.order_item,
         id: x.id,
         offered: x.offered,
+        cwb: x.cwb ?? 0,
+        child_age: x.child_age ?? '',
+        rooms: x.rooms ?? []
       }
       this.packages.push(item)
     })
@@ -188,6 +189,8 @@ export class EditComponent extends AddComponent implements OnInit {
     this.expired_atFC.setValue(this.tourData.expired_at);
     this.onTitleGenerator(this.tourData.origin_name ?? '', this.tourData.destination_name);
     this.flights = this.tourData.flightIs;
+    this.selectedCurrency = this.tourData.currencies
+    this.is_bundle = this.tourData.is_bundle
     // this.packages = this.tourData.packages
     this.getTransferRates();
     this.getHotels();

@@ -19,7 +19,7 @@ import { TransferRateAPIService } from 'src/app/Core/Https/transfer-rate-api.ser
 import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
 import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing-popup.component';
 import { Title } from "@angular/platform-browser";
-import {RoomsComponent} from "../rooms/rooms.component";
+import { RoomsComponent } from "../rooms/rooms.component";
 
 
 @Component({
@@ -39,7 +39,7 @@ export class AddComponent implements OnInit {
   destination_city: any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
-  currencies:any
+  currencies: any
   req: TourSetDTO = {
     title: '',
     origin_id: 0,
@@ -66,10 +66,10 @@ export class AddComponent implements OnInit {
   checkoutFC = new FormControl('', [Validators.required])
   expired_atFC = new FormControl('', [Validators.required])
   status_idFC = new FormControl(0, [Validators.required])
-  is_bundle:boolean=false
+  is_bundle: boolean = false
   partners: any[] = []
-  selectedCurrency:string=''
-  rooms:any[]=[]
+  selectedCurrency: string = ''
+  rooms: any[] = []
   constructor(
     public title: Title,
     public cityApi: CityApiService,
@@ -96,7 +96,7 @@ export class AddComponent implements OnInit {
     this.getPageData();
   }
 
-  change(){
+  change() {
     console.log(this.is_bundle)
   }
 
@@ -106,8 +106,9 @@ export class AddComponent implements OnInit {
       if (res.isDone) {
         this.statuses = res.data.statuses;
         this.partners = res.data.partners;
-        this.currencies=res.data.currencies
-        this.rooms=res.data.roomTypes
+        this.currencies = res.data.currencies
+        this.rooms = res.data.roomTypes
+        debugger
       } else {
         this.message.custom(res.message);
       }
@@ -139,8 +140,8 @@ export class AddComponent implements OnInit {
   setReq() {
     this.req = {
       title: this.titleFC.value ?? '',
-      is_bundle:this.is_bundle,
-      currencies:this.selectedCurrency,
+      is_bundle: this.is_bundle,
+      currencies: this.selectedCurrency,
       origin_id: +(this.origin_idFC.value ?? ''),
       destination_id: +(this.destination_idFC.value ?? ''),
       night_num: +(this.night_numFC.value ?? ''),
@@ -158,27 +159,27 @@ export class AddComponent implements OnInit {
 
   getPartners() {
     let result: number[] = [];
-  if(this.partnerNames.length > 0) {
-    this.partnerNames.forEach((x: any) => {
-      let itemFiltered:any = this.partners.filter((item: any) => item.name === x)
-      if(itemFiltered.length > 0) {
-        result.push(itemFiltered[0].id);
-      }
-    })
-  }
+    if (this.partnerNames.length > 0) {
+      this.partnerNames.forEach((x: any) => {
+        let itemFiltered: any = this.partners.filter((item: any) => item.name === x)
+        if (itemFiltered.length > 0) {
+          result.push(itemFiltered[0].id);
+        }
+      })
+    }
     return result
   }
 
 
   addHotel() {
     let item: PackageTourDTO = {
-      id:Math.random()*1000,
+      id: Math.random() * 1000,
       hotel_id: 0,
       order_item: 0,
       offered: false,
       cwb: '0',
       child_age: '',
-      rooms:[]
+      rooms: []
     };
     this.packages.push(item);
 
@@ -189,18 +190,26 @@ export class AddComponent implements OnInit {
     this.packages.splice(index, 1);
   }
 
-openRooms(hotelid:any,rooms:any){
+  openRooms(hotelid: any, rooms: any) {
 
-  console.log(rooms)
-    this.dialog.open(RoomsComponent,{width:'80%' ,height:"auto",data:{
-      roomTypes:this.rooms,hotelID:hotelid,selectedRooms:rooms
-      }}).afterClosed().subscribe((result:any)=>{
-      let index = this.packages.findIndex((item:any) => item.id === result.hotelID);
-      this.packages[index].rooms=result.rooms
-      // console.log(this.packages)
+  debugger
+    this.dialog.open(RoomsComponent, {
+      width: '80%',
+      height: "auto",
+      data: {
+        roomTypes: this.rooms,
+         hotelID: hotelid,
+          selectedRooms: rooms
+      }
+    }
+    ).afterClosed().subscribe((result: any) => {
+      if (result) {
+        let index = this.packages.findIndex((item: any) => item.id === result.hotelID);
+        this.packages[index].rooms = result.rooms
 
+      }
     })
-}
+  }
 
 
   getHotels(): void {

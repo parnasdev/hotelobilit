@@ -23,6 +23,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RoomsComponent } from './rooms/rooms.component';
+import { IConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+};
 
 
 @NgModule({
@@ -48,12 +54,15 @@ import { RoomsComponent } from './rooms/rooms.component';
     MatInputModule,
     MaterialModule,
     MatCheckboxModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     CommonProjectModule,
     PipesModule,
     NgxPaginationModule,
     MatAutocompleteModule,
     MatDialogModule,
     MatSelectModule,
-  ]
+   ], providers: [provideEnvironmentNgxMask(maskConfigFunction)],
+
 })
 export class PackagesModule { }

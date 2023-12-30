@@ -230,7 +230,7 @@
 
           <div *ngIf="is_bundle" style="display: flex;justify-content: space-between">
 
-          <input type="text" [(ngModel)]="item.cwb" placeholder="کودک با تخت">
+          <input type="text"  mask="separator" thousandSeparator=","  [(ngModel)]="item.cwb" placeholder="کودک با تخت">
             <input type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">
             <button class="btn-base" (click)="openRooms(item.id,item.rooms)">اتاق ها</button>
 
