@@ -153,9 +153,9 @@
                         <span>{{ item.airline_name }} - {{ item.return_flight.airline_name }}</span>
                         <span>{{ calenderService.convertDate(item.date, 'fa') }}</span>
                         <span>{{ calenderService.convertDate(item.return_flight.date, 'fa') }}</span>
-                        <span>{{ item.adl_price | sperator }}</span>
-                        <span>{{ item.chd_price | sperator }}</span>
-                        <span>{{ item.inf_price | sperator }}</span>
+                        <span>{{ (item.adl_price + item.return_flight.adl_price) | sperator }}</span>
+                        <span>{{ (item.chd_price + item.return_flight.chd_price) | sperator }}</span>
+                        <span>{{ (item.inf_price + item.return_flight.inf_price) | sperator }}</span>
                         <span>{{ item.capacity }}</span>
                     </div>
                 </div>

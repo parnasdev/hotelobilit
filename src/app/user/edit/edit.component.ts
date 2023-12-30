@@ -160,6 +160,10 @@ export class EditComponent implements OnInit {
     this.hotelItem = hotel
   }
 
+  setToUserName(){ 
+    this.userForm.controls.username.setValue(this.userForm.controls.phone.value);
+  }
+
 
   addHotel() {
     let isExist = false;

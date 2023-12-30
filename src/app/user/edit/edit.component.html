@@ -54,7 +54,7 @@
           </div>
           <div class="item-info">
             <label for="">شماره همراه</label>
-            <input formControlName="phone" type="text">
+            <input formControlName="phone" (change)="setToUserName()" type="text">
             <div *ngIf="errorService.hasError('phone')">
               <span class="text-danger">{{errorService.getError('phone')}}</span>
             </div>

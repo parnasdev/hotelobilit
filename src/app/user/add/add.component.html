@@ -36,7 +36,7 @@
           </div>
           <div class="item-info">
             <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'شماره همراه مدیر' : 'شماره همراه' }}</label>
-            <input formControlName="phone" type="text">
+            <input formControlName="phone" type="text" (change)="setToUserName()">
             <div *ngIf="errorService.hasError('phone')">
               <span class="text-danger">{{errorService.getError('phone')}}</span>
             </div>

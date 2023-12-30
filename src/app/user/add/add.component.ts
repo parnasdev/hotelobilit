@@ -232,6 +232,10 @@ export class AddComponent implements OnInit {
     return this.filteredHotel.find((y: any) => y.id === id)?.title
   }
 
+  setToUserName(){ 
+    this.userForm.controls.username.setValue(this.userForm.controls.phone.value);
+  }
+
   getCityName(id: number) {
     return this.cities.find((y: any) => y.id === id)?.name
   }
