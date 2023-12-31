@@ -1,37 +1,37 @@
-<div>
-  <button class="btn-base" (click)="addroom()" >افزودن</button>
-</div>
-<form [formGroup]="inputForm">
+<div class="p-room">
+  <div>
+  </div>
+  <form class="form" [formGroup]="inputForm">
 
-  <div formArrayName="rooms">
-    <div *ngFor="let item of sectionControls; let i= index " [formGroupName]="i">
-
-      <div class="d-flex justify-content-between w-100" style="padding: 0 20px">
-        <div>
-          <p>اتاق</p>
+    <div formArrayName="rooms">
+      <div class="item-rooms" *ngFor="let item of sectionControls; let i= index " [formGroupName]="i">
+        <div class="item-inp">
+          <label>اتاق</label>
           <select formControlName="id">
             <option *ngFor="let item of data.roomTypes" [value]="item.id">{{item.name}}</option>
           </select>
         </div>
-        <div>
-          <p>قیمت</p>
-
-          <input type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>
+        <div class="item-inp">
+          <label>قیمت</label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>
         </div>
-        <div>
-          <p for="">pin</p>
+        <div class="item-inp">
+          <label for="">pin</label>
           <input type="checkbox"  formControlName="pin"/>
         </div>
       </div>
 
     </div>
 
+
+  </form>
+  <div class="w-100 d-flex buttons justify-content-center align-items-center">
+    <button class="btn-base" (click)="addroom()" >افزودن</button>
+    <button (click)="sendData()" class="btn-base-purple">ثبت</button>
   </div>
 
 
-</form>
-
-<button (click)="sendData()" class="btn-base">ثبت</button>
 
 
 
+</div>

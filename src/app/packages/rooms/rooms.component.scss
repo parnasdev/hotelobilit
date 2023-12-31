@@ -1,0 +1,51 @@
+.p-room {
+  padding: 2rem;
+  direction: rtl;
+}
+
+.buttons {
+  gap: 12px;
+
+  button {
+    width: 120px !important;
+    height: 45px !important;
+  }
+}
+
+.item-rooms {
+  width: 100%;
+  border-bottom: 2px dashed #E0E0E0;
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr;
+  place-items: center;
+  gap: 20px;
+
+  .item-inp {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+      margin-bottom: 7px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .input, select {
+      width: 100%;
+      height: 45px;
+      border-radius: 10px;
+      border: 1px solid #E0E0E0;
+      padding: 0 12px;
+    }
+  }
+}
+
+.form {
+  height: 450px;
+  padding: 1rem;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+}

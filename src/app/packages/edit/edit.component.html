@@ -87,6 +87,9 @@
             </div>
           </div>
         </div>
+        <div class="item-info">
+
+        </div>
         <!-- stDate field -->
         <div class="item-info w-25">
           <label for="">تاریخ ورود به هتل</label>
@@ -99,22 +102,11 @@
             <span class="text-danger">{{errorService.getError('checkin')}}</span>
           </div>
         </div>
-
-        <div class="item-info w-25" *ngIf="is_bundle">
-          <label for="">ارز</label>
-          <select [(ngModel)]="selectedCurrency">
-            <option *ngFor="let item of currencies" [value]="item">{{item}}</option>
-          </select>
-          <div *ngIf="errorService.hasError('checkin')">
-            <span class="text-danger">{{errorService.getError('checkin')}}</span>
-          </div>
-        </div>
-        <!-- enDate field -->
         <div class="item-info w-25">
           <label for="">تاریخ خروج از هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
-              [min]="minDate" (click)="picker2.open()">
+                   [min]="minDate" (click)="picker2.open()">
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkout')">
@@ -122,6 +114,19 @@
           </div>
         </div>
         <div class="item-info w-25">
+          <label for="">تاریخ انقضا پکیج</label>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
+                   (click)="picker3.open()">
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="errorService.hasError('expired_at')">
+            <span class="text-danger">{{errorService.getError('expired_at')}}</span>
+          </div>
+        </div>
+
+        <!-- enDate field -->
+        <div class="item-info-3 w-32">
           <label for="">تور یکجا ؟</label>
           <!--          <mat-form-field class="example-full-width" appearance="fill">-->
           <!--            <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"-->
@@ -134,24 +139,20 @@
             <span class="text-danger">{{errorService.getError('checkout')}}</span>
           </div>
         </div>
-        <div class="item-info w-25">
-          <label for="">تاریخ انقضا پکیج</label>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
-              (click)="picker3.open()">
-            <mat-datepicker #picker3></mat-datepicker>
-          </mat-form-field>
-          <div *ngIf="errorService.hasError('expired_at')">
-            <span class="text-danger">{{errorService.getError('expired_at')}}</span>
+        <div class="item-info w-25" *ngIf="is_bundle">
+          <label for="">ارز</label>
+          <select [(ngModel)]="selectedCurrency">
+            <option *ngFor="let item of currencies" [value]="item">{{item}}</option>
+          </select>
+          <div *ngIf="errorService.hasError('checkin')">
+            <span class="text-danger">{{errorService.getError('checkin')}}</span>
           </div>
         </div>
-        <div class="item-info w-22">
-          <label style="margin-bottom: 14px;position: relative;top: -27px" for="">تعداد شب و روز</label>
-          <span style="border-bottom: 1px dashed #ededed;position: relative;top: -8px"
-            class="bold-600 w-100 text-center h-30  d-flex justify-content-center font-size-14" for="">
+        <div class="item-info d-flex justify-content-center">
+                  <span class="label-days">
             {{night_numFC.value}}شب
             و
-            {{day_numFC.value}} روز
+                    {{day_numFC.value}} روز
           </span>
         </div>
 
@@ -227,10 +228,10 @@
             گذاری
           </button>
 
-          <div *ngIf="is_bundle" style="display: flex;justify-content: space-between">
-            <input type="text"  mask="separator" thousandSeparator=","  [(ngModel)]="item.cwb" placeholder="کودک با تخت">
-            <input type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">
-            <button class="btn-base" (click)="openRooms(item.id,item.rooms)">اتاق ها</button>
+          <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between">
+            <input class="input-custom" type="text"  mask="separator" thousandSeparator=","  [(ngModel)]="item.cwb" placeholder="کودک با تخت">
+            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">
+            <button class="btn-base" style="width: 100px !important;" (click)="openRooms(item.id,item.rooms)">اتاق ها</button>
 
           </div>
           <div class="d-flex checkbox-bottun-parent">
