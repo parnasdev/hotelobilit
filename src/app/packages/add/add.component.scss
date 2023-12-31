@@ -469,11 +469,11 @@ mat-form-field {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 15% !important;
+  width: 32% !important;
 }
 
 .item-info {
-  width: 15% !important;
+  width: 32% !important;
 
 }
 
@@ -1067,13 +1067,21 @@ prs-select-hotel {
   }
 
   .middle-item {
-    width: 65%;
+    width: 88%;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 12px;
+    .input-custom{
+      border-radius: 8px;
+      border: 1px solid $border-color;
+      outline: none;
+      font-size: 13px;
+      padding: 0 10px;
+    }
 
     h5 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: #151515;
       margin: 0 0 0 12px;
@@ -1087,8 +1095,7 @@ prs-select-hotel {
     .btn-base {
       width: auto;
       padding: 0 9px;
-      font-size: 13px !important;
-      margin-right: 12px;
+      font-size: 12px !important;
     }
   }
 }
