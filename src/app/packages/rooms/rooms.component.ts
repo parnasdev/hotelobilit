@@ -55,5 +55,13 @@ export class RoomsComponent implements OnInit{
 
 
   }
+  deleteItem(index:any){
+
+    (<FormArray>this.inputForm.get('rooms')).removeAt(index)
+
+
+
+
+  }
 
 }
