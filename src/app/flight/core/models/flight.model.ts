@@ -79,6 +79,7 @@ export interface IFlightStoreReq {
     departure_flight_number: number
     return_flight_number: number
     airplane_id: number
+    one_way: boolean
     departure_time: string
     return_time: string
     dates: string[],

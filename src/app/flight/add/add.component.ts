@@ -33,6 +33,7 @@ export class AddComponent {
     departure_flight_number: 0,
     return_flight_number: 0,
     airplane_id: 0,
+    one_way: false,
     departure_time: '',
     return_time: '',
     departure_baggage: 0,
