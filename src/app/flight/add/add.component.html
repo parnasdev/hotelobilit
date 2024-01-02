@@ -81,7 +81,7 @@
         <span class="text-danger">{{error.getError('departure_flight_number')}}</span>
       </div>
     </div>
-    <div class="item" *ngIf="req.one_way">
+    <div class="item" *ngIf="!req.one_way">
       <span>شماره پرواز برگشت</span>
       <input type="text" [(ngModel)]="req.return_flight_number">
       <div *ngIf="error.hasError('return_flight_number')">
@@ -95,7 +95,7 @@
         <span class="text-danger">{{error.getError('departure_time')}}</span>
       </div>
     </div>
-    <div class="item-two" *ngIf="req.one_way">
+    <div class="item-two" *ngIf="!req.one_way">
       <span>ساعت پرواز برگشت</span>
       <prs-time-picker (result)="getReturnTime($event)"></prs-time-picker>
       <div *ngIf="error.hasError('return_time')">
@@ -119,7 +119,7 @@
           <span class="text-danger">{{error.getError('departure_duration')}}</span>
         </div>
       </div>
-      <div class="item" *ngIf="req.one_way">
+      <div class="item" *ngIf="!req.one_way">
         <span>مدت زمان پرواز برگشت(ساعت)</span>
         <input type="text" [(ngModel)]="req.return_duration">
         <div *ngIf="error.hasError('return_duration')">
@@ -133,7 +133,7 @@
           <span class="text-danger">{{error.getError('departure_baggage')}}</span>
         </div>
       </div>
-      <div class="item" *ngIf="req.one_way">
+      <div class="item" *ngIf="!req.one_way">
         <span>بار مجاز برگشت</span>
         <input [(ngModel)]="req.return_baggage" type="text">
         <div *ngIf="error.hasError('return_baggage')">
