@@ -68,20 +68,20 @@
           <span class="username">{{item.details.checkout | convertDate}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{item.reserves[0].flight?.date | convertDate}}</span>
-          <span class="username">{{item.reserves[0].flight?.flight?.date | convertDate}}</span>
+          <span class="username">{{item.reserves[0].flight.date | convertDate}}</span>
+          <span class="username">{{item.reserves[0].flight.flight.date | convertDate}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.reserves[0].flight?.origin_name }}</span>
-          <span class="username">{{ item.reserves[0].flight?.destination_name }}</span>
+          <span class="username">{{ item.reserves[0].flight.origin_name }}</span>
+          <span class="username">{{ item.reserves[0].flight.destination_name }}</span>
         </div>
         <div class="d-flex flex-column">
           <span class="username">{{getNights(item.details.checkin, item.details.checkout) + ' ' + 'شب'}}</span>
           <span class="username">{{item.reserves[0].details.length + ' نفر'}}</span>
         </div>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.reserves[0].flight?.airline_name }}</span>
-          <span class="username">{{ item.reserves[0].flight?.flight?.airline_name}}</span>
+          <span class="username">{{ item.reserves[0].flight.airline_name }}</span>
+          <span class="username">{{ item.reserves[0].flight.flight.airline_name}}</span>
 
         </div>
         <span class="username">{{item.status.label}}</span>

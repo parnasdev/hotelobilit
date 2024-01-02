@@ -155,7 +155,7 @@
   width: 100%;
   background: $white-color;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 2fr 1fr 1fr 0.5fr 1fr 1fr 1fr;
 }
 .spinner-loading {
   width: 50px;
@@ -188,7 +188,7 @@ prs-custom-select{
   width: 100%;
   background: $white-color;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr 1fr 2fr 1fr 2fr 1fr 1fr 0.5fr 1fr 1fr 1fr;
   padding: 0 14px;
   place-items: center;
   margin-top: 12px;

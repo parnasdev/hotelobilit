@@ -163,13 +163,13 @@
 </div>
 <div class="d-flex" *ngIf="compositionData && compositionData.length > 0">
   <span>انتخاب همه</span>
-  <mat-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></mat-checkbox>
+  <prs-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></prs-checkbox>
 </div>
 <div style="padding: 1rem" class="body-list-tour">
   <div class="item-two" *ngFor="let transfer of compositionData ;let i = index">
     <span>{{ i + 1 }}</span>
     <span>
-      <mat-checkbox *ngIf="!transfer.is_mix" [(ngModel)]="transfer.isChecked"></mat-checkbox>
+      <prs-checkbox *ngIf="!transfer.is_mix" [(ngModel)]="transfer.isChecked"></prs-checkbox>
       <span *ngIf="transfer.is_mix" class="text-green">ترکیب موجود</span>
     </span>
     <div class="d-flex flex-column ">
@@ -220,9 +220,16 @@
       <!-- <span class="title-tour">{{ transfer.flight.capacity }}</span> -->
     </div>
 
+
+    <div class="d-flex flex-column " *ngIf="transfer.isChecked">
+      <label class="font-size-11 bold-600" for="">نادیده گرفتن بات</label>
+      <prs-checkbox [(ngModel)]="transfer.ignore"></prs-checkbox>
+    </div>
+
   </div>
   <div class="d-flex justify-content-center align-items-center" *ngIf="compositionData && compositionData.length > 0">
-    <span class="spinner-border spinner-border-sm" *ngIf="mixedLoading"></span>
-    <button class="btn-base-purple w-25 mt-3" [disabled]="mixedLoading" (click)="compositionSubmit()">ذخیره ترکیب ها</button>
+    <button class="btn-base-purple w-25 mt-3" [disabled]="mixedLoading" (click)="compositionSubmit()">
+      <span class="spinner-border spinner-border-sm" *ngIf="mixedLoading"></span>
+      ذخیره ترکیب ها</button>
   </div>
 </div>

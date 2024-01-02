@@ -220,7 +220,6 @@ export class CompositionComponent {
   }
 
   composition() {
-
     if (this.returnList.length > 0 && this.departureList.length > 0) {
       this.setCompositionReq()
       this.compositionLoading = true
@@ -240,8 +239,6 @@ export class CompositionComponent {
     } else {
       this.message.custom('امکان ترکیب وجود ندارد')
     }
-
-
   }
 
   calculateStayCount(transfer: any) {
@@ -273,7 +270,8 @@ export class CompositionComponent {
           checkin_tomorrow: this.departureObj.checkin_tomorrow ?? false,
           checkout_yesterday: this.ReturnObj.checkout_yesterday ?? false,
           departure_id: element.departure.id,
-          return_id: element.return.id
+          return_id: element.return.id,
+          ignore: element.ignore ?? false
         }
         result.push(obj);
       }
@@ -301,6 +299,7 @@ export class CompositionComponent {
     let req: IMixedReq = {
       ids: this.getCompositionIds()
     }
+    
     this.api.mixed(req).subscribe({
       next: (res: any) => {
         this.message.custom(res.message);

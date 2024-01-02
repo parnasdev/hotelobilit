@@ -155,5 +155,6 @@ export interface IMixId {
     departure_id: number
     return_id: number
     checkin_tomorrow: boolean
-    checkout_yesterday: boolean
+    checkout_yesterday: boolean;
+    ignore: boolean;
 }
