@@ -80,7 +80,7 @@ export class AddComponent {
           this.showForm = true
           this.data = res.data
           this.airports = this.data.airports;
-          this.changeCityType()
+          // this.changeCityType()
           this.data.dayOfWeeks.forEach(x => {
             this.weekDays.push({ isChecked: false, name: x })
           })
@@ -94,11 +94,12 @@ export class AddComponent {
     })
   }
 
-  changeCityType() {
-    this.airports = []
-    this.airports = this.data.airports.filter((x: any) => x.is_domestic === this.isDomestic)
+  // changeCityType() {
+  //   this.airports = []
+  //   debugger
+  //   this.airports = this.data.airports.filter((x: any) => x.is_domestic === this.isDomestic)
 
-  }
+  // }
 
   getWeek() {
     let list: any[] = [];
@@ -113,6 +114,18 @@ export class AddComponent {
   setReq() {
     this.req.prices = this.PriceForm.value;
     this.req.dayOfWeeks = this.getWeek()
+    if (this.req.one_way) {
+      this.req.return_baggage = null;
+    }
+  }
+
+  wayChanges() {
+    if (this.req.one_way) {
+      this.req.return_baggage = null;
+    } else {
+      this.req.return_baggage = 0;
+
+    }
   }
 
   submit() {
@@ -207,7 +220,7 @@ export class AddComponent {
   checkError(field: string, index: number) {
     let x = 'prices.' + index + '.' + field
     if (this.error.hasError(x)) {
-     return this.error.getError(x);
+      return this.error.getError(x);
     }
   }
 

@@ -89,7 +89,7 @@ export interface IFlightStoreReq {
     description: string
     open_until: any
     departure_baggage: number
-    return_baggage: number
+    return_baggage: number | null
     prices: IFlightStore[]
 }
 export interface IFlightStore {

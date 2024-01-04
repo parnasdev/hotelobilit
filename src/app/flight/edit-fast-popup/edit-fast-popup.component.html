@@ -151,7 +151,7 @@
                                 <div class="item-row">
                                     <label for="">قیمت بزرگسال (تومان)</label>
                                     <div class="inp-base d-flex flex-column">
-                                        <textarea type="text" mask="separator" thousandSeparator=","
+                                        <textarea type="text" mask="separator" (keyup)="setChildPrice()" thousandSeparator=","
                                             [(ngModel)]="req.adl_price" [ngModelOptions]="{standalone: true}"
                                             placeholder="قیمت بزرگسال"></textarea>
                                         <div class="mt-2"

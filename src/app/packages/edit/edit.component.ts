@@ -20,7 +20,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.title.setTitle('ویرایش تور | هتل و بلیط')
 
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
-    this.getCities();
+this.getInfo()
   }
 
   getInfo(): void {
@@ -29,8 +29,10 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
-        this.partnerNames = this.getPartnersNames(res.data.selected_partners)
         this.partners = res.data.partners;
+
+        this.partnerNames = this.getPartnersNames(res.data.selected_partners)
+        this.cities = res.data.cities
         this.currencies = res.data.currencies
         this.rooms = res.data.roomTypes
         this.setInfo();
@@ -133,26 +135,26 @@ export class EditComponent extends AddComponent implements OnInit {
     }
   }
 
-  override getCities(): void {
-    this.isLoading = true;
-    const req: CityListReq = {
-      hasHotel: 0,
-      hasFlight: 0,
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.cities = res.data;
-        this.getInfo()
+  // override getCities(): void {
+  //   this.isLoading = true;
+  //   const req: CityListReq = {
+  //     hasHotel: 0,
+  //     hasFlight: 0,
+  //   }
+  //   this.cityApi.getCities(req).subscribe((res: any) => {
+  //     if (res.isDone) {
+  //       this.cities = res.data;
+  //       this.getInfo()
 
-      }
-      this.isLoading = false;
+  //     }
+  //     this.isLoading = false;
 
-    }, (error: any) => {
-      this.message.error()
-      this.isLoading = false;
+  //   }, (error: any) => {
+  //     this.message.error()
+  //     this.isLoading = false;
 
-    })
-  }
+  //   })
+  // }
 
 
 

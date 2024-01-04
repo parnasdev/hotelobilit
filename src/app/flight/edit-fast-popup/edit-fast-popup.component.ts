@@ -144,6 +144,12 @@ export class EditFastPopupComponent {
 
   }
 
+  setChildPrice() {
+
+    // @ts-ignore
+    this.req.chd_price = this.req.adl_price
+
+  }
   submit(){ 
     this.submitLoading = true
     this.api.update(this.req,+this.id).subscribe({

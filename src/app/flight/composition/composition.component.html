@@ -2,24 +2,24 @@
   <div class="start w-100">
     <div class="item-inp w-48">
       <label for="">مبدا</label>
-      <prs-custom-select (itemResult)="getDepartureOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
-        [list]="data.airports"></prs-custom-select>
+      <prs-custom-select [name]="'origin'" (itemResult)="getDepartureOriginCity($event)"
+        *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
       <div *ngIf="error.hasError('origin')">
         <span class="text-danger">{{error.getError('origin')}}</span>
       </div>
     </div>
     <div class="item-inp w-48">
       <label for="">مقصد</label>
-      <prs-custom-select (itemResult)="getDepartureDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
-        [list]="data.airports"></prs-custom-select>
+      <prs-custom-select [name]="'destination'" (itemResult)="getDepartureDestCity($event)"
+        *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
       <div *ngIf="error.hasError('destination')">
         <span class="text-danger">{{error.getError('destination')}}</span>
       </div>
     </div>
     <div class="item-inp m-top-16 w-48">
       <label for="">ایرلاین</label>
-      <prs-custom-select (itemResult)="getDepartureAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
-        [list]="data.airlines"></prs-custom-select>
+      <prs-custom-select [name]="'airline'" (itemResult)="getDepartureAirline($event)"
+        *ngIf="(data.airlines ?? []).length > 0" [list]="data.airlines"></prs-custom-select>
       <div *ngIf="error.hasError('airline')">
         <span class="text-danger">{{error.getError('airline')}}</span>
       </div>
@@ -34,7 +34,7 @@
 
     <div class="item-inp m-top-16 w-48">
       <label for="">تعداد شب</label>
-      <prs-custom-select (itemResult)="getStayCount($event)" *ngIf="(stayCountList ?? []).length > 0"
+      <prs-custom-select [name]="'night'" (itemResult)="getStayCount($event)" *ngIf="(stayCountList ?? []).length > 0"
         [list]="stayCountList"></prs-custom-select>
       <div *ngIf="error.hasError('stay_count')">
         <span class="text-danger">{{error.getError('stay_count')}}</span>
@@ -57,24 +57,24 @@
   <div class="end">
     <div class="item-inp w-48">
       <label for="">مبدا</label>
-      <prs-custom-select (itemResult)="getReturnOriginCity($event)" *ngIf="(data.airports ?? []).length > 0"
-        [list]="data.airports"></prs-custom-select>
+      <prs-custom-select [name]="'d-origin'" (itemResult)="getReturnOriginCity($event)"
+        *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
       <div *ngIf="error.hasError('origin')">
         <span class="text-danger">{{error.getError('origin')}}</span>
       </div>
     </div>
     <div class="item-inp w-48">
       <label for="">مقصد</label>
-      <prs-custom-select (itemResult)="getReturnDestCity($event)" *ngIf="(data.airports ?? []).length > 0"
-        [list]="data.airports"></prs-custom-select>
+      <prs-custom-select [name]="'d-destination'" (itemResult)="getReturnDestCity($event)"
+        *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
       <div *ngIf="error.hasError('destination')">
         <span class="text-danger">{{error.getError('destination')}}</span>
       </div>
     </div>
     <div class="item-inp m-top-16 w-48">
       <label for="">ایرلاین</label>
-      <prs-custom-select (itemResult)="getReturnAirline($event)" *ngIf="(data.airlines ?? []).length > 0"
-        [list]="data.airlines"></prs-custom-select>
+      <prs-custom-select [name]="'d-airline'" (itemResult)="getReturnAirline($event)"
+        *ngIf="(data.airlines ?? []).length > 0" [list]="data.airlines"></prs-custom-select>
       <div *ngIf="error.hasError('airline')">
         <span class="text-danger">{{error.getError('airline')}}</span>
       </div>
@@ -116,7 +116,6 @@
       <span>موردی یافت نشد</span>
     </div>
     <span class="spinner-border spinner-border-sm spinner-loading mt-3" *ngIf="departureLoading"></span>
-
     <div class="item-body" *ngFor="let item of departureList">
       <div class="d-flex flex-column align-items-center">
         <span>{{item.origin_name}}-{{item.destination_name}}</span>
@@ -124,7 +123,6 @@
       </div>
       <span>{{item.airline_name}}</span>
       <span>{{ item.cabin_type }}</span>
-
       <span>{{item.date | convertDate}}</span>
       <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>

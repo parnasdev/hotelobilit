@@ -7,6 +7,8 @@ import { MessageService } from 'src/app/Core/Services/message.service';
 import { FlightApiService } from '../core/https/flight-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import { FilterDTO } from 'src/app/transfer-rate/filter-popup/filter-popup.component';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'prs-edit',
@@ -37,14 +39,58 @@ export class EditComponent {
     time: ''
   }
 
+  filterObj: FilterDTO = {
+    destination: null,
+    origin: null,
+    q: null,
+    airline: null,
+    status: 0,
+    fromDate: null,
+    toDate: null
+  };
+
   constructor(public api: FlightApiService,
     public dialog: MatDialog,
     public fb: FormBuilder,
+    private _location: Location,
     public router:Router,
     public route: ActivatedRoute,
     public message: MessageService,
-    public error: ErrorsService) { }
+    public error: ErrorsService) { 
+    this.setFilterFromRoute()
 
+  }
+
+  isEmpty(obj: any) {
+    for (const prop in obj) {
+      if (Object.hasOwn(obj, prop)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  setFilterFromRoute() {
+    this.route.queryParams.subscribe((params: any) => {
+      if (!this.isEmpty(params)) {
+        this.filterObj.destination = params['destination'] ? +params['destination'] : null
+        this.filterObj.origin = params['origin'] ? +params['origin'] : null
+        this.filterObj.q = params['q'] ? params['q'] : null
+        this.filterObj.fromDate = params['fromDate']
+        this.filterObj.toDate = params['toDate']
+        this.filterObj.airline = +params['airline']
+      } else {
+        this.filterObj = {
+          destination: null,
+          origin: null,
+          q: null,
+          airline: null,
+          status: 0,
+          toDate: null,
+          fromDate: null
+        }
+      }
+    })
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') ?? '0'
@@ -144,11 +190,22 @@ export class EditComponent {
   submit(){ 
     this.api.update(this.req,+this.id).subscribe({
       next: (res: any) => {
-        this.message.custom(res.message);
-        this.router.navigateByUrl('/panel/flight')
+        if(res.isDone) {
+          this.message.custom(res.message);
+          // this.router.navigate(['/panel/flight'] ,{queryParams: this.filterObj})
+          this._location.back()
+        }
       }, error: (error: any) => {
         this.error.check(error);
       }
     })
   }
+
+  setChildPrice() {
+
+    // @ts-ignore
+    this.req.chd_price = this.req.adl_price
+
+  }
+
 }

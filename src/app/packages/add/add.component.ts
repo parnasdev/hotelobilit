@@ -92,12 +92,10 @@ export class AddComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('افزودن تور | هتل و بلیط')
 
-    this.getCities();
     this.getPageData();
   }
 
   change() {
-    console.log(this.is_bundle)
   }
 
   getPageData(): void {
@@ -106,9 +104,9 @@ export class AddComponent implements OnInit {
       if (res.isDone) {
         this.statuses = res.data.statuses;
         this.partners = res.data.partners;
+        this.cities = res.data.cities
         this.currencies = res.data.currencies
         this.rooms = res.data.roomTypes
-        debugger
       } else {
         this.message.custom(res.message);
       }
@@ -121,21 +119,7 @@ export class AddComponent implements OnInit {
     })
   }
 
-  getCities(): void {
-    const req: CityListReq = {
-      hasHotel: 0,
-      hasFlight: 0,
-    }
-    this.cityApi.getCities(req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.cities = res.data;
 
-      }
-    }, (error: any) => {
-      this.message.error()
-
-    })
-  }
 
   setReq() {
     this.req = {

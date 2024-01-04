@@ -9,7 +9,7 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
 })
 export class DynamicFilterHorizontalComponent {
   @Input() data:any
-  @Output() result = new EventEmitter()
+  @Output() result = new EventEmitter();
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {

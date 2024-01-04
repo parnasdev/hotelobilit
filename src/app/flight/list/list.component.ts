@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IListButtons, IListFilters, IListModel } from 'src/app/Core/Models/dynamicList.model';
+import { IListButtons, IListFilters } from 'src/app/Core/Models/dynamicList.model';
 import { FlightApiService } from '../core/https/flight-api.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IFlightListReq } from '../core/models/flight.model';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
-import * as moment from 'moment';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { FilterDTO } from 'src/app/transfer-rate/filter-popup/filter-popup.component';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
@@ -31,7 +30,6 @@ export class ListComponent {
     toDate: ''
   }
   show = true;
-
   filterObj: FilterDTO = {
     destination: null,
     origin: null,

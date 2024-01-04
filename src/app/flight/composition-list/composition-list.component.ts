@@ -2,12 +2,24 @@ import { Component } from '@angular/core';
 import { FlightApiService } from '../core/https/flight-api.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
-import { IListFilters, IListModel } from 'src/app/Core/Models/dynamicList.model';
+import { IListFilters } from 'src/app/Core/Models/dynamicList.model';
 import { PublicService } from 'src/app/Core/Services/public.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CalenderServices } from "../../Core/Services/calender-service";
 import * as moment from "moment/moment";
-
+import { CityListRes } from 'src/app/Core/Models/newCityDTO';
+import { MatDialog } from '@angular/material/dialog';
+import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+export interface FilterCompositionDTO {
+  origin: number | null;
+  destination: number | null;
+  status: number | null;
+  stay_count: any;
+  mixed: boolean
+  fromDate: string | null;
+  toDate: string | null;
+  q: string | null
+}
 @Component({
   selector: 'prs-composition-list',
   templateUrl: './composition-list.component.html',
@@ -22,87 +34,119 @@ export class CompositionListComponent {
     totalItems: 20,
     currentPage: 1
   };
+  nights: any[] = []
   p = 1
-
-  data: IListModel = {
-    pagination: {
-      confiq: {
-        itemsPerPage: 10,
-        totalItems: 0,
-        currentPage: 1
-      },
-      meta: '',
-      pageNumber: 1
-    },
-    props: [
-      { name: 'checkbox', type: 'checkbox', col: '0.3fr', label: '---' },
-      { name: 'origin_name', type: 'text', col: '1.5fr', label: 'مبدا' },
-      { name: 'destination_name', type: 'text', col: '2fr', label: 'مقصد' },
-      { name: 'airline_name', type: 'text', col: '1fr', label: 'ایرلاین' },
-      { name: 'airplane', type: 'text', col: '1fr', label: 'هواپیما' },
-      { name: 'date', type: 'date', col: '1fr', label: 'تاریخ' },
-      { name: 'time', type: 'text', col: '1.5fr', label: 'ساعت' },
-      { name: 'is_close', type: 'boolean', col: '0.2fr', label: 'وضعیت' },
-      { name: 'flight_number', type: 'text', col: '1.5fr', label: 'شماره پرواز' },
-      { name: 'setting', type: 'buttons', col: '2fr', label: 'تنظیمات' },
-    ],
-    data: '',
-    isTrash: false,
-    filterMode: 'horizontal',
-    showTrash: true,
-    buttons: [
-      { name: 'add', label: 'افزودن', permission: '', link: '/panel/flight/add', icon: 'assets/img/panel/edit.png', children: [], isLink: true, style: 'btn-base w-100 fs-13 cursor-pointer', show: true },
-      { name: 'mix', label: 'ترکیب', permission: '', link: '/panel/flight/composition', icon: 'assets/img/panel/add.png', children: [], isLink: true, style: 'btn-base w-100 fs-13 cursor-pointer', show: true },
-      { name: 'mix', label: 'پرواز های ترکیب شده', permission: '', link: '/panel/flight/composition-list', icon: 'assets/img/panel/add.png', children: [], isLink: true, style: 'btn-base w-100 fs-13 cursor-pointer', show: true }
-    ],
-    filters: [
-      { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'origin', label: 'شهر مبدا' },
-      { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'destination', label: 'شهر مقصد' },
-      { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'status', label: 'وضعیت' },
-      { value: '', type: 'date', keyOption: '', data: [], reqKey: 'fromDate', label: 'تاریخ شروع' },
-      { value: '', type: 'date', keyOption: '', data: [], reqKey: 'toDate', label: 'تاریخ پایان' },
-      { value: 1, type: '', key: 'page', data: [], reqKey: 'page', label: '' },
-      { value: true, type: '', key: 'name', data: [], reqKey: 'mixed', label: '' },
-      { value: '', type: 'select', keyValue: 'id', keyOption: 'name', data: [], reqKey: 'stay_count', label: 'تعداد شب' },
-
-
-    ],
-    rowButtons: [
-      { name: 'حذف', label: '', permission: '', link: '', children: [], icon: 'assets/img/panel/delete.png', isLink: false, style: 'btn-red flex-x-center btn-delete fs-13 h-40 wpx-40', show: true },
-      { name: 'ویرایش', label: '', permission: '', link: '/panel/flight/edit', children: [], icon: 'assets/img/panel/edit.png', isLink: false, style: 'btn-base flex-x-center btn-edit fs-13 h-40 wpx-40', show: true }
-    ],
-    label: 'لیست پرواز ها',
-    emptyBox: {
-      text: 'موردی یافت نشد',
-      icon: ''
-    }
-  }
+  show = true;
+  airports: any[] = []
+  airplanes: any[] = []
+  statuses: any[] = []
+  filterObj: FilterCompositionDTO = {
+    destination: null,
+    origin: null,
+    mixed: true,
+    q: null,
+    stay_count: null,
+    status: 0,
+    fromDate: null,
+    toDate: null
+  };
+  data: any[] = []
   constructor(public api: FlightApiService,
     public error: ErrorsService,
     public router: Router,
+    public dialog: MatDialog,
+    public route: ActivatedRoute,
     public calendarService: CalenderServices,
     public publicService: PublicService,
-    public message: MessageService) { }
+    public message: MessageService) {
+    this.setFilterFromRoute()
+  }
+
+  isEmpty(obj: any) {
+    for (const prop in obj) {
+      if (Object.hasOwn(obj, prop)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  setFilterFromRoute() {
+    this.route.queryParams.subscribe((params: any) => {
+      if (!this.isEmpty(params)) {
+        this.filterObj.destination = params['destination'] ? +params['destination'] : null
+        this.filterObj.origin = params['origin'] ? +params['origin'] : null
+        this.filterObj.q = params['q'] ? params['q'] : null
+        this.filterObj.fromDate = params['fromDate']
+        this.filterObj.toDate = params['toDate']
+        this.filterObj.stay_count = +params['stay_count']
+      } else {
+        this.filterObj = {
+          destination: null,
+          origin: null,
+          q: null,
+          stay_count: null,
+          mixed: true,
+          status: 0,
+          toDate: null,
+          fromDate: null
+        }
+      }
+    })
+  }
 
 
   ngOnInit() {
     this.getData()
   }
 
+  originSelected(city: CityListRes): void {
+    this.filterObj.origin = city.id
+  }
 
+  destSelected(city: CityListRes): void {
+    this.filterObj.destination = city.id
+  }
+  getFilterList() {
+    let result: any[] = []
+    var obj: any = this.filterObj
+    Object.keys(this.filterObj).forEach(function (key) {
+      let filter: IListFilters = {
+        data: '',
+        label: '',
+        type: '',
+        value: obj[key] ? obj[key] : '',
+        key: key,
+        reqKey: key,
+        keyValue: '',
+        keyOption: '',
+      }
+      result.push(filter)
+    });
+    let pageItem: IListFilters = {
+      data: '',
+      label: '',
+      type: '',
+      value: this.p,
+      key: 'page',
+      reqKey: 'page',
+      keyValue: '',
+      keyOption: '',
+    }
+    result.push(pageItem)
+    return result
+  }
   getData() {
     this.isLoading = true;
-    this.data.data = []
-    let qparams = this.publicService.getFiltersString(this.data.filters)
-    // qparams = qparams + `&page=${parent}`
+    this.data = []
+    let qparams = this.publicService.getFiltersString(this.getFilterList())
     this.api.list(qparams).subscribe({
       next: (res: any) => {
         if (res.isDone) {
-          this.data.data = res.data
-          this.data.filters[0].data = res.airports;
-          this.data.filters[1].data = res.airports;
-          this.data.filters[2].data = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
-          this.data.filters[7].data = [
+          this.data = res.data;
+          this.airports = res.airports;
+          
+          this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
+          this.nights = [
             { id: 1, name: '۱ شب' },
             { id: 2, name: '۲ شب' },
             { id: 3, name: '۳ شب' },
@@ -124,14 +168,61 @@ export class CompositionListComponent {
         this.isLoading = false;
       },
       error: (error: any) => {
-        // console.log('error');
         this.isLoading = false;
         this.error.check(error);
       },
       complete: () => {
-        // console.log('complete');
       }
     })
+  }
+
+  reload() {
+    this.show = false;
+    setTimeout(() => this.show = true);
+  }
+
+  removeFilter() {
+    this.filterObj = {
+      destination: null,
+      fromDate: null,
+      toDate: null,
+      stay_count: null,
+      mixed: true,
+      status: 0,
+      q: null,
+      origin: null
+    }
+    this.router.navigate([`/panel/flight/composition-list`], {
+      queryParams: this.filterObj
+    })
+    this.reload();
+    this.getData()
+  }
+
+  openPicker() {
+    const dialog = this.dialog.open(PrsDatePickerComponent, {
+      width: '80%',
+      data: {
+        dateList: [],
+        type: 'multiple',
+        selectCount: 60,
+        todayMin: false
+      }
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this.filterObj.fromDate = res.fromDate.dateEn
+        this.filterObj.toDate = res.toDate.dateEn;
+      }
+    })
+  }
+
+  submit() {
+    this.p = 1
+    this.router.navigate([`/panel/flight/composition-list/`], {
+      queryParams: this.filterObj
+    })
+    this.getData()
   }
 
 
@@ -157,27 +248,31 @@ export class CompositionListComponent {
     return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
   setPagination(meta: any) {
-    this.data.pagination = {
-      pageNumber: this.data.filters.find(x => x.key === 'page')?.value ?? 1,
-      meta: meta,
-      confiq: {
-        itemsPerPage: meta?.per_page ?? 10,
-        totalItems: meta?.total ?? 0,
-        currentPage: meta?.current_page ?? 1
-      }
-    }
+    // this.data.pagination = {
+    //   pageNumber: this.data.filters.find(x => x.key === 'page')?.value ?? 1,
+    //   meta: meta,
+    //   confiq: {
+    //     itemsPerPage: meta?.per_page ?? 10,
+    //     totalItems: meta?.total ?? 0,
+    //     currentPage: meta?.current_page ?? 1
+    //   }
+    // }
   }
   onPageChanged(event: any) {
-    this.data.pagination.pageNumber = event
-    this.data.filters.filter(x => x.key === 'page')[0].value = event
     this.p = event;
     this.getData();
   }
 
   getFilterResult(data: any) {
-    this.data = data
+    this.p = 1
+    this.router.navigate([`/panel/flight/composition-list`], {
+      queryParams: this.filterObj
+    })
     this.getData()
   }
+
+
+
   edit(id: number) {
     this.router.navigateByUrl(`/panel/flight/edit/${id}`)
 

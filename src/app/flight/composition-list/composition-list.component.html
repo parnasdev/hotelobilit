@@ -6,25 +6,22 @@
     </div>
 
     <div class="flex-x-between m-y-20 w-100 gap-12">
-      <a class="btn-base-custom2"
-      routerLink="/panel/flight/composition">ترکیب</a>
-      <a class="btn-base-custom"
-      routerLink="/panel/flight">لیست پرواز ها</a>
-      <a class="btn-base-custom2"
-      routerLink="/panel/flight/add">اضافه کردن پرواز</a>
+      <a class="btn-base-custom2" routerLink="/panel/flight/composition">ترکیب</a>
+      <a class="btn-base-custom" routerLink="/panel/flight">لیست پرواز ها</a>
+      <a class="btn-base-custom2" routerLink="/panel/flight/add">اضافه کردن پرواز</a>
       <div class="flex-x-start gap-16">
         <ng-template>
           <a class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer">
             <prs-icons class="icon-delete cursor-pointer" [width]="'25px'" [height]="'25px'" [name]="'delete'"
-                       [color]="'#fff'"></prs-icons>
+              [color]="'#fff'"></prs-icons>
             زباله دان
           </a>
           <a class="btn-base wpx-140 fs-13 cursor-pointer">
             بازگشت
             <svg class="m-right-12" id="Layer_1" height="22" viewBox="0 0 24 24" width="22"
-                 xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+              xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
               <path fill="#fff"
-                    d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z"/>
+                d="m15 24-6-4.5v-5.12l-8-9v-2.38a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v2.38l-8 9zm-4-5.5 2 1.5v-6.38l8-9v-1.62a1 1 0 0 0 -1-1h-16a1 1 0 0 0 -1 1v1.62l8 9z" />
             </svg>
           </a>
         </ng-template>
@@ -39,8 +36,53 @@
     </div>
 
     <div class="filter-horizontal flex-x-center w-100">
-      <prs-dynamic-filter-horizontal class="w-100" [data]="data"
-                                     (result)="getFilterResult($event)"></prs-dynamic-filter-horizontal>
+      <div class="d-flex search-box-hotel mb-3">
+        <div class="border-box d-flex flex-column p-2">
+          <div class="w-100">
+            <h4>فیلترها</h4>
+          </div>
+          <div class="d-flex w-100">
+            <div class="inp-form w-15 m-1">
+              <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="false"
+                [title]="'فرودگاه مبدا'" [inCommingCity]="filterObj.origin"
+                (citySelected)="originSelected($event)"></prs-select-city>
+            </div>
+            <div class="inp-form w-15 m-1">
+              <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="true" [title]="'فرودگاه مقصد'"
+                [inCommingCity]="filterObj.destination" (citySelected)="destSelected($event)"></prs-select-city>
+            </div>
+
+            <div style="background: white;" class="d-flex m-1 w-100">
+              <div class="inp-form w-100">
+                <input class="w-50" type="text"
+                  value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}" placeholder="انتخاب  تاریخ"
+                  (click)="openPicker()">
+
+                <input class="w-50" type="text" value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
+                  (click)="openPicker()">
+              </div>
+            </div>
+            <div class="inp-form w-50 m-1">
+              <select name="" id="" [(ngModel)]="filterObj.status">
+                <option value="2">همه</option>
+                <option value="0">فعال</option>
+                <option value="1">غیرفعال</option>
+              </select>
+            </div>
+            <div class="inp-form w-70 m-1">
+              <select name="" id="" [(ngModel)]="filterObj.stay_count">
+                <option [value]="null">تعداد شب</option>
+                <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>
+              </select>
+            </div>
+
+            <div class="d-flex w-100 align-items-center justify-content-end">
+              <button class="btn-base w-75" (click)="submit()">فیلتر</button>
+              <i class="icon-cancel text-danger" style="font-size: 25px; cursor: pointer;" (click)="removeFilter()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -91,7 +133,7 @@
         <div class="item-shimmer"></div>
       </div>
     </div>
-    <div *ngFor="let item of data.data| paginate: data.pagination.confiq">
+    <div *ngFor="let item of data| paginate: paginateConfig">
       <div class="body-list-panel">
         <div class="list-item-panel grid-dynamic gap-10">
           <prs-checkbox></prs-checkbox>
@@ -112,31 +154,32 @@
           </div>
           <div class="d-flex flex-column">
             <div class="d-flex gap-20">
-              <span  style="color: #0a53be">{{ item.all_capacity}}</span>
+              <span style="color: #0a53be">{{ item.all_capacity}}</span>
               <span style="color: green;cursor: pointer" routerLink="/panel/flight/reserves"
-              [queryParams]="{flight: item.id,status: 501}">{{ item.reserved_capacity }}</span>
+                [queryParams]="{flight: item.id,status: 501}">{{ item.reserved_capacity }}</span>
             </div>
             <div class="d-flex gap-20">
               <span style="color: red" routerLink="/panel/flight/reserves"
-              [queryParams]="{flight: item.id,status: 472}">{{ item.booked_capacity}}</span>
+                [queryParams]="{flight: item.id,status: 472}">{{ item.booked_capacity}}</span>
               <span style="color: purple;cursor: pointer">{{ item.capacity }}</span>
             </div>
           </div>
           <div class="d-flex flex-column">
             <span>{{ item.is_close ? 'close' : 'open' }}</span>
             <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
-                 [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
+              [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
           </div>
           <div class="d-flex">
             <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-               matTooltip="{{ 'قیمت کودک' + (item.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.inf_price | sperator)}}"
-               aria-label=""></i>
+              matTooltip="{{ 'قیمت کودک' + (item.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.inf_price | sperator)}}"
+              aria-label=""></i>
             <span>{{ item.adl_price | sperator }} (تومان)</span>
           </div>
           <div class="d-flex flex-column">
             <button class="btn-base-custom2" (click)="edit(item.id)">ویرایش</button>
             <span>{{calculateStayCount(item) + ' شب '}}</span>
-            <span class="mt-4">{{((item.return_flight ? item.return_flight.adl_price : 0) + item.adl_price)| sperator }} (تومان)</span>
+            <span class="mt-4">{{((item.return_flight ? item.return_flight.adl_price : 0) + item.adl_price)| sperator }}
+              (تومان)</span>
           </div>
         </div>
         <div class="list-item-panel grid-dynamic gap-10" *ngIf="item.return_flight">
@@ -170,29 +213,28 @@
           <div class="d-flex flex-column">
             <span>{{ item.is_close ? 'close' : 'open' }}</span>
             <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
-                 [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
+              [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
           </div>
           <div class="d-flex">
             <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-               matTooltip="{{ 'قیمت کودک' + (item.return_flight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.return_flight.inf_price | sperator)}}"
-               aria-label=""></i>
+              matTooltip="{{ 'قیمت کودک' + (item.return_flight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.return_flight.inf_price | sperator)}}"
+              aria-label=""></i>
             <span>{{ item.return_flight.adl_price | sperator }} (تومان)</span>
           </div>
           <div class="d-flex flex-column">
-            <button class="btn-base-custom2" (click)="edit(item.id)">ویرایش</button>
+            <button class="btn-base-custom2" (click)="edit(item.return_flight.id)">ویرایش</button>
           </div>
         </div>
       </div>
     </div>
-    <pagination-controls *ngIf="data.pagination && data.pagination.meta.last_page > 1" class="pagination-control"
-                         (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
-                         screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
-                         screenReaderCurrentLabel="شما در صفحه ی">
+    <pagination-controls *ngIf="paginate?.last_page > 1" class="pagination-control" (pageChange)="onPageChanged($event)"
+      previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+      screenReaderCurrentLabel="شما در صفحه ی">
     </pagination-controls>
   </div>
-  <div class="box-empty" *ngIf="data.data.length === 0 && !isLoading">
+  <div class="box-empty" *ngIf="data.length === 0 && !isLoading">
     <span>موردی یافت نشد
-      
+
     </span>
   </div>
   <div>

@@ -3,14 +3,14 @@
   <div class="d-flex flex-column">
 
     <div class="d-flex justify-content-end top-select w-100">
-      <select [(ngModel)]="isDomestic" (ngModelChange)="changeCityType()">
+      <select [(ngModel)]="isDomestic">
         <option [ngValue]="true">داخلی</option>
         <option [ngValue]="false">خارجی</option>
       </select>
     </div>
     <div class="d-flex justify-content-end top-select w-100 m-top-10">
       <span>یک طرفه</span>
-      <prs-checkbox [(ngModel)]="req.one_way"></prs-checkbox>
+      <prs-checkbox [(ngModel)]="req.one_way" (ngModelChange)="wayChanges()"></prs-checkbox>
     </div>
     <div class="items-row">
       <div class="item">
