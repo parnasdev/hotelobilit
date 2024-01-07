@@ -171,6 +171,7 @@
         <span>مسیر رفت-برگشت</span>
         <span>ایرلاین رفت-برگشت</span>
         <span>کلاس</span>
+        <span>آژانس</span>
         <span>تاریخ رفت</span>
         <span>تاریخ برگشت</span>
         <span>قیمت بزرگسال</span>
@@ -189,6 +190,7 @@
             <span>{{item.origin_name }} - {{ item.destination_name }}</span>
             <span>{{ item.airline_name }} - {{ item.return_flight.airline_name }}</span>
             <span>{{ item.cabin_type }} - {{ item.return_flight.cabin_type }}</span>
+            <span>{{ item.user.agency_name }}</span>
 
             <span>{{ calenderService.convertDate(item.date, 'fa') }}</span>
             <span>{{ calenderService.convertDate(item.return_flight.date, 'fa') }}</span>

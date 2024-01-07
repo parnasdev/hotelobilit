@@ -78,7 +78,7 @@
               <span class="text-danger">{{errorService.getError('parent_id')}}</span>
             </div>
           </div>
-          <div class="item-info" *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1' || session.getRole() === 'programmer') && !parent">
+          <div class="item-info" *ngIf="(session.getRole() === 'admin'||session.getRole() === 'hamnavazAdmin' ||session.getRole() === 'admin1' || session.getRole() === 'programmer') && !parent">
             <label for="">نقش</label>
 
             <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
@@ -101,7 +101,7 @@
           </div>
         </div>
 
-        <div class="selection-box" *ngIf="role === 'programmer' || role ===  'admin'|| role ===  'admin1'">
+        <div class="selection-box" *ngIf="role === 'programmer'||session.getRole() === 'hamnavazAdmin' || role ===  'admin'|| role ===  'admin1'">
           <div class="select-city">
             <label>شهر های موردنظر را انتخاب کنید</label>
             <mat-form-field class="select-mat" appearance="fill">

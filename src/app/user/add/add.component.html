@@ -9,7 +9,8 @@
 
 
       <div class="info-tour-body align-items-center">
-        <div class="item-info mb-5" *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1' || session.getRole() === 'programmer') && !parent">
+        <div class="item-info mb-5"
+          *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
           <label for="">نقش</label>
 
           <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
@@ -28,14 +29,16 @@
             </div>
           </div>
           <div class="item-info">
-            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'نام خانوادگی مدیر' : 'نام خانوادگی' }}</label>
+            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'نام خانوادگی مدیر' : 'نام خانوادگی'
+              }}</label>
             <input formControlName="family" type="text">
             <div *ngIf="errorService.hasError('family')">
               <span class="text-danger">{{errorService.getError('family')}}</span>
             </div>
           </div>
           <div class="item-info">
-            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'شماره همراه مدیر' : 'شماره همراه' }}</label>
+            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'شماره همراه مدیر' : 'شماره همراه'
+              }}</label>
             <input formControlName="phone" type="text" (change)="setToUserName()">
             <div *ngIf="errorService.hasError('phone')">
               <span class="text-danger">{{errorService.getError('phone')}}</span>
@@ -61,90 +64,95 @@
             </div>
           </div>
         </div>
-    <ng-template [ngIf]="+(userForm.get('role_id')?.value ?? '0') !== 6 && +(userForm.get('role_id')?.value ?? '0') !== 7 && +(userForm.get('role_id')?.value ?? '0') !== 3 && +(userForm.get('role_id')?.value ?? '0') !== 10">
-   
-      <div class="info-tour-body" *ngIf="+(userForm.get('role_id')?.value ?? '0') === 5">
-        <div class="top flex-wrap">
-          <div class="item-info">
-            <label for="">نام آژانس</label>
-            <input formControlName="agency_name" type="text">
-            <div *ngIf="errorService.hasError('agency_name')">
-              <span class="text-danger">{{errorService.getError('agency_name')}}</span>
-            </div>
-          </div>
-          <div class="item-info">
-            <label for="">آدرس آژانس</label>
-            <input formControlName="agency_address" type="text">
-            <div *ngIf="errorService.hasError('agency_address')">
-              <span class="text-danger">{{errorService.getError('agency_address')}}</span>
-            </div>
-          </div>
-          <div class="item-info">
-            <label for="">تلفن آژانس</label>
-            <input formControlName="agency_tell" type="text">
-            <div *ngIf="errorService.hasError('agency_tell')">
-              <span class="text-danger">{{errorService.getError('agency_tell')}}</span>
-            </div>
-          </div>
-          <div class="item-info">
-            <label for="">تلفن ضروری آژانس</label>
-            <input formControlName="agency_necessary_phone" type="text">
-            <div *ngIf="errorService.hasError('agency_necessary_phone')">
-              <span class="text-danger">{{errorService.getError('agency_necessary_phone')}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="info-tour-body">
-        <div class="permition-grid">
-          <div class="d-flex" *ngFor="let p of permissions">
+        <ng-template
+          [ngIf]="+(userForm.get('role_id')?.value ?? '0') !== 6 && +(userForm.get('role_id')?.value ?? '0') !== 7 && +(userForm.get('role_id')?.value ?? '0') !== 3 && +(userForm.get('role_id')?.value ?? '0') !== 10">
 
-            <mat-checkbox [(ngModel)]="p.isChecked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
-            <label>{{ p.label }}</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="w-100" >
-        <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
-          <div class="select-city w-40">
-            <label>شهر های موردنظر را انتخاب کنید</label>
-            <mat-form-field class="select-mat mt-3 w-100" appearance="fill">
-              <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()" multiple>
-                <mat-select-trigger>
-                  <span>شهر های انتخاب شده</span>
-
-                </mat-select-trigger>
-                <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <div class="show-box">
-              <span class="city-box" *ngFor="let city of selectedCity.value; let i = index">
-                <i (click)="deleteCityItem(i)" class="text-danger">X</i>
-                {{ getCityName(+city) }}
-              </span>
+          <div class="info-tour-body" *ngIf="+(userForm.get('role_id')?.value ?? '0') === 5">
+            <div class="top flex-wrap">
+              <div class="item-info">
+                <label for="">نام آژانس</label>
+                <input formControlName="agency_name" type="text">
+                <div *ngIf="errorService.hasError('agency_name')">
+                  <span class="text-danger">{{errorService.getError('agency_name')}}</span>
+                </div>
+              </div>
+              <div class="item-info">
+                <label for="">آدرس آژانس</label>
+                <input formControlName="agency_address" type="text">
+                <div *ngIf="errorService.hasError('agency_address')">
+                  <span class="text-danger">{{errorService.getError('agency_address')}}</span>
+                </div>
+              </div>
+              <div class="item-info">
+                <label for="">تلفن آژانس</label>
+                <input formControlName="agency_tell" type="text">
+                <div *ngIf="errorService.hasError('agency_tell')">
+                  <span class="text-danger">{{errorService.getError('agency_tell')}}</span>
+                </div>
+              </div>
+              <div class="item-info">
+                <label for="">تلفن ضروری آژانس</label>
+                <input formControlName="agency_necessary_phone" type="text">
+                <div *ngIf="errorService.hasError('agency_necessary_phone')">
+                  <span class="text-danger">{{errorService.getError('agency_necessary_phone')}}</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="select-hotel w-60">
-            <label>هتل های موردنظر را انتخاب کنید</label>
-            <div class="d-flex justify-content-center align-items-center my-4 gap-12">
-              <button class="btn-base-red" *ngIf="selectedhotels.length > 0" (click)="selectedhotels = []">حذف هتل ها</button>
-              <img src="/assets/img/panel/icons/select-all.png" width="25" height="25" [matTooltip]="'انتخاب همه'" (click)="selectAll()">
-              <prs-custom-select-hotel style="width: 70%" [hotels]="filteredHotel" *ngIf="hotels.length > 0" (hotelSelected)="getHotel($event)"></prs-custom-select-hotel>
-              <button class="btn-base px-4" (click)="addHotel()">افزودن</button>
-            </div>
-            <div class="show-box flex-wrap my-3 d-flex align-items-center justify-content-between">
-              <span style="font-size: 13px !important;font-weight: 500" class="city-box" *ngFor="let hotel of selectedhotels; let i = index">
-                <i (click)="deleteItem(i)" class="icon-cancel text-danger"></i>
-                {{ hotel.title }}
-              </span>
+          <div class="info-tour-body">
+            <div class="permition-grid">
+              <div class="d-flex" *ngFor="let p of permissions">
+
+                <mat-checkbox [(ngModel)]="p.isChecked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                <label>{{ p.label }}</label>
+              </div>
             </div>
           </div>
 
-        </div>
-      </div>
-    </ng-template>
+          <div class="w-100">
+            <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
+              <div class="select-city w-40">
+                <label>شهر های موردنظر را انتخاب کنید</label>
+                <mat-form-field class="select-mat mt-3 w-100" appearance="fill">
+                  <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()" multiple>
+                    <mat-select-trigger>
+                      <span>شهر های انتخاب شده</span>
+
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <div class="show-box">
+                  <span class="city-box" *ngFor="let city of selectedCity.value; let i = index">
+                    <i (click)="deleteCityItem(i)" class="text-danger">X</i>
+                    {{ getCityName(+city) }}
+                  </span>
+                </div>
+              </div>
+              <div class="select-hotel w-60">
+                <label>هتل های موردنظر را انتخاب کنید</label>
+                <div class="d-flex justify-content-center align-items-center my-4 gap-12">
+                  <button class="btn-base-red" *ngIf="selectedhotels.length > 0" (click)="selectedhotels = []">حذف هتل
+                    ها</button>
+                  <img src="/assets/img/panel/icons/select-all.png" width="25" height="25" [matTooltip]="'انتخاب همه'"
+                    (click)="selectAll()">
+                  <prs-custom-select-hotel style="width: 70%" [hotels]="filteredHotel" *ngIf="hotels.length > 0"
+                    (hotelSelected)="getHotel($event)"></prs-custom-select-hotel>
+                  <button class="btn-base px-4" (click)="addHotel()">افزودن</button>
+                </div>
+                <div class="show-box flex-wrap my-3 d-flex align-items-center justify-content-between">
+                  <span style="font-size: 13px !important;font-weight: 500" class="city-box"
+                    *ngFor="let hotel of selectedhotels; let i = index">
+                    <i (click)="deleteItem(i)" class="icon-cancel text-danger"></i>
+                    {{ hotel.title }}
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </ng-template>
 
         <div class="p-error">
           <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
@@ -152,7 +160,7 @@
 
         <button style="width: 15%" class="btn-base mt-3" [disabled]="submitLoading" (click)="submit()">
           <span class="spinner-border spinner-border-sm" *ngIf="submitLoading"></span>
-        ایجاد کاربر</button>
+          ایجاد کاربر</button>
 
       </div>
 

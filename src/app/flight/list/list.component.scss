@@ -55,7 +55,7 @@
   height: 50px;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.1fr 0.2fr 1fr 0.3fr 0.5fr 0.4fr 0.7fr 0.3fr 0.3fr 0.2fr 0.2fr 0.2fr 0.2fr 0.3fr;
+  grid-template-columns: 0.1fr 0.2fr 0.8fr 0.3fr 0.5fr 0.7fr 0.5fr 0.3fr 0.3fr 0.2fr 0.2fr 0.2fr 0.2fr 0.3fr;
   ;
   background-color: #d5d5d5;
   border-bottom: 1px solid var(--light-color-two);
@@ -78,7 +78,7 @@
   width: 100%;
   background: $white-color;
   display: grid;
-  grid-template-columns: 0.1fr 0.2fr 1fr 0.3fr 0.5fr 0.4fr 0.7fr 0.3fr 0.3fr 0.2fr 0.2fr 0.2fr 0.2fr 0.3fr;
+  grid-template-columns: 0.1fr 0.2fr 0.8fr 0.3fr 0.5fr 0.7fr 0.5fr 0.3fr 0.3fr 0.2fr 0.2fr 0.2fr 0.2fr 0.3fr;
   ;
 }
 

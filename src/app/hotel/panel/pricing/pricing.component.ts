@@ -7,7 +7,7 @@ import { RatingResDTO, RoomDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Mo
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -19,9 +19,11 @@ export class PricingComponent implements OnInit {
   key = ''
   isLoading = false;
   standardTwinId = 148;
+  agency_selected = 33;
   standardTwinCoefficient = 0;
   showCalendar = true;
   slug = '';
+  agencies: any[] = []
   id = '';
   isCoefficient = '0';
   req!: ratigListReqDTO;
@@ -39,8 +41,8 @@ export class PricingComponent implements OnInit {
     public route: ActivatedRoute,
     public api: PostApiService,
     public message: MessageService,) {
-     this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
-     }
+    this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
+  }
 
   ngOnInit(): void {
     this.title.setTitle('قیمت گذاری هتل | هتل و بلیط')
@@ -52,18 +54,26 @@ export class PricingComponent implements OnInit {
     this.getInfo()
   }
 
+  getAgencyName() {
+    let itemFiltered = this.agencies.filter(x => x.id === +this.agency_selected);
+    return itemFiltered.length > 0 ? itemFiltered[0].agency_name : '---'
+  }
+
   getInfo(): void {
+    debugger
     this.isLoading = true;
     this.req = {
       fromDate: '',
       toDate: '',
       hotelId: +this.id,
+      agency_id: +this.agency_selected,
       roomId: 0
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
         this.ratingData = res.data;
+        this.agencies = res.data.agencies
         this.rooms = this.ratingData.hotel.rooms ?? [];
 
         let obj: roomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
@@ -93,6 +103,10 @@ export class PricingComponent implements OnInit {
       }
     })
     return result
+  }
+
+  agencyChanged() {
+    this.getInfo()
   }
 
 

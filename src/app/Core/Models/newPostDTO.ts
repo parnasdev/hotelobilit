@@ -193,6 +193,7 @@ export interface ratigListReqDTO {
     fromDate: string;
     toDate: string;
     roomId: number;
+    agency_id?: number;
     hotelId: number;
 }
 

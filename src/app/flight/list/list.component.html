@@ -47,7 +47,7 @@
                 </div>
                 <div class="inp-form w-70 m-1">
                     <select name="" id="" [(ngModel)]="filterObj.airline">
-                        <option  [value]="null">ایرلاین رفت</option>
+                        <option [value]="null">ایرلاین رفت</option>
                         <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
                     </select>
                 </div>
@@ -71,17 +71,21 @@
             </div>
             <span class="title-tour">مبدا - مقصد</span>
 
-            <div class="d-flex flex-column ">
+            <div class="d-flex flex-column">
                 <span class="title-tour">ایرلاین</span>
                 <span class="from-to">شماره پرواز</span>
             </div>
-
+            <div class="d-flex flex-column ">
+                <span class="title-tour">نام آژانس</span>
+                <span class="from-to">کاربر</span>
+            </div>
             <div class="d-flex flex-column">
                 <span class="from-to"> تاریخ</span>
-            </div>
+         
             <div class="d-flex flex-column">
                 <span class="from-to"> روز-ساعت</span>
             </div>
+        </div>
             <span class="from-to">بزرگسال (تومان)</span>
             <span class="from-to">کلاس</span>
 
@@ -126,11 +130,15 @@
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.airline_name }}</span>
                     <span class="title-tour">{{ transfer.flight_number }}</span>
-
                 </div>
                 <div class="d-flex flex-column ">
-                    <span class="title-tour">{{ transfer.date | convertDate }}</span>
+                    <span class="title-tour">{{ transfer.user.agency_name }}</span>
+                    <span class="title-tour">{{ transfer.user.full_name }}</span>
                 </div>
+
+                <div class="d-flex flex-column ">
+                    <span class="title-tour">{{ transfer.date | convertDate }}</span>
+              
 
                 <div class="d-flex justify-content-center align-items-center">
                     <span class="title-tour" style="color: #0a53be">{{
@@ -138,7 +146,7 @@
 
                     <span class="title-tour">{{transfer.time | timeFixer}}</span>
                 </div>
-
+            </div>
 
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.adl_price | sperator }}
@@ -182,8 +190,9 @@
 
                 <div style="width: 100% !important;" class="button-setting d-flex flex-column align-items-center">
                     <div class="d-flex flex-wrap justify-content-between w-100">
-                        <a style="width: 100% !important;" routerLink="/panel/flight/edit/{{ transfer.id }}" [queryParams]="filterObj"
-                            class="edit-btn" *ngIf="permition.check('flights.edit')">ویرایش</a>
+                        <a style="width: 100% !important;" routerLink="/panel/flight/edit/{{ transfer.id }}"
+                            [queryParams]="filterObj" class="edit-btn"
+                            *ngIf="permition.check('flights.edit')">ویرایش</a>
 
                     </div>
 

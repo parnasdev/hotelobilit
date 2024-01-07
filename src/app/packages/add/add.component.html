@@ -30,7 +30,7 @@
         <div class="selectdiv  me-2">
           <mat-form-field class="w-100">
             <mat-select [(ngModel)]="partnerNames" placeholder="انتشار در ..." [ngModelOptions]="{standalone: true}"
-                        multiple>
+              multiple>
               <mat-select-trigger>{{partnerNames}}</mat-select-trigger>
               <mat-option *ngFor="let cat of partners" [value]="cat.name">{{cat.name}}</mat-option>
             </mat-select>
@@ -66,7 +66,7 @@
 
             <label for="">شهر مبدا</label>
             <prs-select-city [title]="'انتخاب کنید'" [cities]="cities"
-                             (citySelected)="getStCity($event)"></prs-select-city>
+              (citySelected)="getStCity($event)"></prs-select-city>
             <div *ngIf="errorService.hasError('origin_id')">
               <span class="text-danger">{{errorService.getError('origin_id')}}</span>
             </div>
@@ -77,7 +77,7 @@
           <div class="select-info">
             <label for="">شهر مقصد</label>
             <prs-select-city [title]="'انتخاب کنید'" [cities]="cities"
-                             (citySelected)="getEndCity($event)"></prs-select-city>
+              (citySelected)="getEndCity($event)"></prs-select-city>
 
             <div *ngIf="errorService.hasError('destination_id')">
               <span class="text-danger">{{errorService.getError('destination_id')}}</span>
@@ -90,7 +90,7 @@
           <label for="">تاریخ ورود به هتل</label>
           <mat-form-field class="example-full-width mt-0" appearance="fill">
             <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
-                   [min]="minDate" (click)="picker1.open()">
+              [min]="minDate" (click)="picker1.open()">
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkin')">
@@ -103,7 +103,7 @@
           <label for="">تاریخ خروج از هتل</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
-                   [min]="minDate" (click)="picker2.open()">
+              [min]="minDate" (click)="picker2.open()">
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('checkout')">
@@ -114,7 +114,7 @@
           <label for="">تاریخ انقضا پکیج</label>
           <mat-form-field class="example-full-width" appearance="fill">
             <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
-                   (click)="picker3.open()">
+              (click)="picker3.open()">
             <mat-datepicker #picker3></mat-datepicker>
           </mat-form-field>
           <div *ngIf="errorService.hasError('expired_at')">
@@ -143,10 +143,10 @@
           </div>
         </div>
         <div class="item-info d-flex justify-content-center">
-                  <span class="label-days">
+          <span class="label-days">
             {{night_numFC.value}}شب
             و
-                    {{day_numFC.value}} روز
+            {{day_numFC.value}} روز
           </span>
         </div>
       </div>
@@ -164,6 +164,7 @@
         <span>مسیر رفت-برگشت</span>
         <span>ایرلاین رفت-برگشت</span>
         <span>کلاس</span>
+        <span>آژانس</span>
         <span>تاریخ رفت</span>
         <span>تاریخ برگشت</span>
         <span>قیمت بزرگسال</span>
@@ -182,6 +183,7 @@
             <span>{{item.origin_name }} - {{ item.destination_name }}</span>
             <span>{{ item.airline_name }} - {{ item.return_flight.airline_name }}</span>
             <span>{{ item.cabin_type }} - {{ item.return_flight.cabin_type }}</span>
+            <span>{{ item.user.agency_name }}</span>
 
             <span>{{ calenderService.convertDate(item.date, 'fa') }}</span>
             <span>{{ calenderService.convertDate(item.return_flight.date, 'fa') }}</span>
@@ -214,7 +216,7 @@
           <!--            </select>-->
           <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>
           <prs-custom-select-hotel class="hotel-input" [hotels]="hotels"
-                                   (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
+            (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
 
           <button style="width: 120px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت
             گذاری
@@ -223,7 +225,7 @@
           <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between">
 
             <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"
-                   placeholder="کودک با تخت">
+              placeholder="کودک با تخت">
             <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">
             <button class="btn-base" style="width: 100px !important;" (click)="openRooms(item.id,item.rooms)">اتاق ها
             </button>
