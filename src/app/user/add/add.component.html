@@ -7,17 +7,29 @@
         </div>
       </div>
 
-
       <div class="info-tour-body align-items-center">
-        <div class="item-info mb-5"
-          *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
-          <label for="">نقش</label>
+        <div class="d-flex flex-between w-100">
+          <div class="item-info mb-5"
+            *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
+            <label for="">نقش</label>
 
-          <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
-            <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
-          </select>
-          <div *ngIf="errorService.hasError('role_id')">
-            <span class="text-danger">{{errorService.getError('role_id')}}</span>
+            <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
+              <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
+            </select>
+            <div *ngIf="errorService.hasError('role_id')">
+              <span class="text-danger">{{errorService.getError('role_id')}}</span>
+            </div>
+          </div>
+          <div class="item-info mb-5"
+            *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
+            <label for="">آژانس</label>
+
+            <select formControlName="agency_id" name="" id="">
+              <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name }}</option>
+            </select>
+            <div *ngIf="errorService.hasError('agency_id')">
+              <span class="text-danger">{{errorService.getError('agency_id')}}</span>
+            </div>
           </div>
         </div>
         <div class="top">

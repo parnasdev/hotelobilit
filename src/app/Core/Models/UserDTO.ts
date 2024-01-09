@@ -28,6 +28,7 @@ export interface UserCreateReq {
   agency_necessary_phone:string 
   name: string;
   parent_id: number;
+  agency_id: string;
   family: string;
   permissions: number[]
   phone?: string;

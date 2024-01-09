@@ -20,7 +20,7 @@ export class AuthGuardService {
       return true;
     } else {
       this.message.custom('شما ورود کرده اید')
-      if (this.session.getRole() === 'Admin' || this.session.getRole() === 'Agency' || this.session.getRole() === 'Staff') {
+      if (this.session.getRole() === 'admin' || this.session.getRole() === 'Agency' || this.session.getRole() === 'Staff') {
         this.router.navigateByUrl('/panel');
       } else {
         this.router.navigateByUrl('/');

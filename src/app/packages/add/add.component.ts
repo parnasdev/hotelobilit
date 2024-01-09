@@ -176,7 +176,6 @@ export class AddComponent implements OnInit {
 
   openRooms(hotelid: any, rooms: any) {
 
-  debugger
     this.dialog.open(RoomsComponent, {
       width: '80%',
       height: "auto",

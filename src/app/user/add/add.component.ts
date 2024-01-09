@@ -37,6 +37,7 @@ export class AddComponent implements OnInit {
     agency_necessary_phone: '',
     parent_id: 0,
     name: '',
+    agency_id: '0',
     permissions: [],
     family: '',
     username: '',
@@ -48,6 +49,7 @@ export class AddComponent implements OnInit {
   selectedhotels: any[] = []
   hotelItem: any
   setPermissions: string[] = [];
+  agencies: any[] = []
   submitLoading = false;
   constructor(public fb: FormBuilder,
     public api: UserApiService,
@@ -75,9 +77,10 @@ export class AddComponent implements OnInit {
     name: new FormControl(''),
     family: new FormControl(''),
     username: new FormControl(''),
+    agency_id: new FormControl(''),
     phone: new FormControl(''),
     password: new FormControl(''),
-    role_id: new FormControl(2)
+    role_id: new FormControl(2),
   });
 
   ngOnInit(): void {
@@ -89,12 +92,15 @@ export class AddComponent implements OnInit {
     this.api.getCreateData().subscribe((res: any) => {
       if (res.isDone) {
         this.roles = res.data.roles;
+        this.agencies = res.data.agencies
         if (!this.parent) {
           this.roles = this.roles.filter(x => x.label !== 'کارمند')
         }
         this.permissions = res.data.permissions;
+        this.agencies = res.data.users
         this.hotels = res.data.hotels;
-        this.getCities()
+        this.getCities();
+
       } else {
         this.message.custom(res.message);
       }
@@ -124,11 +130,10 @@ export class AddComponent implements OnInit {
   }
 
   checkPermissions() {
-
     this.permissions.forEach(y => y.isChecked = false)
     let role_id = this.userForm.controls['role_id'].value;
-    let roleFiltered:any = this.roles.filter(role => role.id === +(role_id ?? '0'));
-    if(roleFiltered.length > 0) {
+    let roleFiltered: any = this.roles.filter(role => role.id === +(role_id ?? '0'));
+    if (roleFiltered.length > 0) {
       this.permissions.forEach((item: any) => {
         let result = roleFiltered[0].permissions.filter((x: number) => item.id === x);
         if (result.length > 0) {
@@ -136,7 +141,6 @@ export class AddComponent implements OnInit {
         }
       })
     }
-
   }
 
   selectAll() {
@@ -174,6 +178,7 @@ export class AddComponent implements OnInit {
       family: this.userForm.value.family ?? '',
       parent_id: this.parent ? +this.parent : 0,
       phone: this.userForm.value.phone ?? '',
+      agency_id: this.userForm.value.agency_id ?? '0',
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       permissions: this.getPermissionsIDs(),
@@ -203,9 +208,8 @@ export class AddComponent implements OnInit {
   submit() {
     this.setReq();
     this.submitLoading = true
-    this.api.createUser(this.userReq).subscribe((res: any) => {  
-        this.submitLoading = false
-
+    this.api.createUser(this.userReq).subscribe((res: any) => {
+      this.submitLoading = false
       if (res.isDone) {
         this.message.custom(res.message);
         this.userForm.reset();
@@ -232,7 +236,7 @@ export class AddComponent implements OnInit {
     return this.filteredHotel.find((y: any) => y.id === id)?.title
   }
 
-  setToUserName(){ 
+  setToUserName() {
     this.userForm.controls.username.setValue(this.userForm.controls.phone.value);
   }
 

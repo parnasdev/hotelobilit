@@ -35,7 +35,7 @@ export class CurrencyRatesComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('نرخ گذاری ارز | هتل و بلیط')
-    if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer') {
+    if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin') {
       this.getAdminCurrencies()
     } else {
       this.getCurrencies();
@@ -127,7 +127,7 @@ export class CurrencyRatesComponent implements OnInit {
   }
 
   submit() {
-    if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer') {
+    if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer'|| this.session.getRole() === 'hamnavazAdmin') {
       this.updateAdminSetting()
     } else {
       this.updateSetting()

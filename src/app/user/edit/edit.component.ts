@@ -34,6 +34,7 @@ export class EditComponent implements OnInit {
     parent_id: 0,
     agency_necessary_phone: '',
     name: '',
+    agency_id: '0',
     family: '',
     username: '',
     phone: '',
@@ -58,6 +59,7 @@ export class EditComponent implements OnInit {
     parent_id: new FormControl(''),
     name: new FormControl(''),
     family: new FormControl(''),
+    agency_id: new FormControl(''),
     username: new FormControl(''),
     phone: new FormControl(''),
     password: new FormControl(''),
@@ -86,37 +88,35 @@ export class EditComponent implements OnInit {
     public publicServices: PublicService) {
     this.route.queryParams.subscribe(params => {
       this.agency = params['agency'];
-    })
+    });
   }
   ngOnInit(): void {
     // @ts-ignore
     this.userId = this.route.snapshot.paramMap.get('userId');
     this.parent = this.route.snapshot.paramMap.get('parent');
-
     this.getUser();
     this.role = this.session.getRole()
   }
 
-  getAgencies(): void {
-    this.isLoading = true;
-    this.api.getUser(5).subscribe((res: any) => {
-      if (res.isDone) {
-        this.agencies = res.data
-
-        if (this.agencies.length > 0) {
-          this.showAgencies = true
-        }
-        this.fillForm();
-      } else {
-        this.message.custom(res.message);
-      }
-      this.isLoading = false;
-    }, (error: any) => {
-      this.isLoading = false;
-      this.message.error();
-      this.checkErrorService.check(error);
-    });
-  }
+  // getAgencies(): void {
+  //   this.isLoading = true;
+  //   this.api.getUser(5).subscribe((res: any) => {
+  //     if (res.isDone) {
+  //       this.agencies = res.data
+  //       if (this.agencies.length > 0) {
+  //         this.showAgencies = true
+  //       }
+  //       this.fillForm();
+  //     } else {
+  //       this.message.custom(res.message);
+  //     }
+  //     this.isLoading = false;
+  //   }, (error: any) => {
+  //     this.isLoading = false;
+  //     this.message.error();
+  //     this.checkErrorService.check(error);
+  //   });
+  // }
 
   getUser(): void {
     this.isLoading = true
@@ -125,13 +125,11 @@ export class EditComponent implements OnInit {
         this.userInfo = res.data;
         this.roles = res.data.roles;
         this.hotels = res.data.hotels;
-        this.agencies = res.data.agencies
-        this.getAgencies();
-
+        this.agencies = res.data.users
+        // this.getAgencies();
         this.getCities()
         this.permissions = res.data.permissions;
-
-
+        this.fillForm();
       } else {
         this.message.custom(res.message);
       }
@@ -160,7 +158,7 @@ export class EditComponent implements OnInit {
     this.hotelItem = hotel
   }
 
-  setToUserName(){ 
+  setToUserName() {
     this.userForm.controls.username.setValue(this.userForm.controls.phone.value);
   }
 
@@ -203,12 +201,8 @@ export class EditComponent implements OnInit {
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
     this.userForm.controls.parent_id.setValue(this.userInfo.user.parent_id);
-
-    // let agencyFiltered = this.agencies.filter(a => a.agency_name === this.agency);
-    // if (agencyFiltered.length > 0) {
-    //   this.userForm.controls.parent_id.setValue(agencyFiltered[0].id);
-
-    // }
+    debugger
+    this.userForm.controls.agency_id.setValue(this.userInfo.user.parent_id);
 
 
     this.permissions.forEach((item: any) => {
@@ -232,6 +226,7 @@ export class EditComponent implements OnInit {
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
+      agency_id: this.userForm.value.agency_id ?? '0',
       edit_mode: mode,
       permissions: this.getPermissionsIDs(),
       parent_id: +(this.userForm.value.parent_id ?? '0'),

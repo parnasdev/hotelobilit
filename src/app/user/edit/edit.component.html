@@ -69,6 +69,7 @@
               <span class="text-danger">{{errorService.getError('username')}}</span>
             </div>
           </div>
+          
           <div class="item-info" *ngIf="showAgencies && userInfo?.user?.role_id === 8">
             <label for="">نام آژانس</label>
             <select formControlName="parent_id">
@@ -89,6 +90,17 @@
               <span class="text-danger">{{errorService.getError('role_id')}}</span>
             </div>
           </div>
+          <div class="item-info mb-5"
+          *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
+          <label for="">آژانس</label>
+
+          <select formControlName="agency_id" name="" id="">
+            <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name }}</option>
+          </select>
+          <div *ngIf="errorService.hasError('agency_id')">
+            <span class="text-danger">{{errorService.getError('agency_id')}}</span>
+          </div>
+        </div>
         </div>
         <div class="info-tour-body">
           <div class="permition-grid">
