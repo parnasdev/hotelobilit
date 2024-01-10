@@ -40,7 +40,7 @@
   height: 70px;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr 1fr 0.5fr 1fr  0.5fr 0.5fr 1.2fr;
+  grid-template-columns: 0.5fr 1fr 1.5fr  0.5fr 1fr  0.5fr 0.5fr 1.2fr;
   background-color: var(--white);
   border-bottom: 1px solid var(--light-color-two);
 }
@@ -58,11 +58,15 @@
 }
 
 .body-list-tour .item {
-  height: 60px;
+  height: auto;
+  padding: 12px 0;
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr 1fr 0.5fr 1fr  0.5fr 0.5fr 1.2fr;
+  grid-template-columns: 0.5fr 1fr 1.5fr  0.5fr 1fr  0.5fr 0.5fr 1.2fr;
   background: #fff;
+  &:hover{
+    background: #F2F2F2;
+  }
 }
 
 .body-list-tour .item:not(:last-child) {
