@@ -86,7 +86,7 @@ export class CustomSelectComponent implements OnChanges {
     if(filterValue !== '') {
       filterValue  = value;
     }
-    return this.list.filter(item => item?.name?.includes(filterValue) || item.title?.includes(filterValue)|| item.full_name?.includes(filterValue));
+    return this.list.filter(item =>item?.id?.includes(filterValue) ||  item?.name?.includes(filterValue) || item.title?.includes(filterValue)|| item.full_name?.includes(filterValue));
   }
 
 

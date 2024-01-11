@@ -181,8 +181,8 @@ export class AddComponent implements OnInit {
       height: "auto",
       data: {
         roomTypes: this.rooms,
-         hotelID: hotelid,
-          selectedRooms: rooms
+        hotelID: hotelid,
+        selectedRooms: rooms
       }
     }
     ).afterClosed().subscribe((result: any) => {

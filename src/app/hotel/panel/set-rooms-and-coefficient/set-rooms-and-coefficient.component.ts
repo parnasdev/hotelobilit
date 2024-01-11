@@ -15,7 +15,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PublicService } from 'src/app/Core/Services/public.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-set-rooms-and-coefficient',
@@ -28,7 +28,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
   rooms: roomDTO[] = []
   isLoading = false;
   removedRoomsIDs: number[] = []
-  errors:any = []
+  errors: any = []
   selectedRooms: roomDTO[] = [];
 
   req: any = {
@@ -43,7 +43,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     post: {
       id: 0,
       user_id: 0,
-      location:'',
+      location: '',
       address: '',
       titleEn: '',
       title: '',
@@ -86,7 +86,7 @@ export class SetRoomsAndCoefficientComponent implements OnInit {
     public publicServices: PublicService,
     public mapApi: MapApiService,
     public fb: FormBuilder) {
-      this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
+    this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
 
   }
   ngOnInit(): void {

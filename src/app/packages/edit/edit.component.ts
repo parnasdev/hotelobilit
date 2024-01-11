@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddComponent } from '../add/add.component';
-import { CityListReq } from 'src/app/Core/Models/newCityDTO';
 import * as moment from 'moment';
 import { PackageTourDTO } from 'src/app/Core/Models/tourDTO';
-
-
 declare var $: any;
 
 @Component({
