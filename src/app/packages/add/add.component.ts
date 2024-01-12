@@ -282,8 +282,8 @@ export class AddComponent implements OnInit {
   changeTransferRates() {
     this.flights = [];
     this.transferRates.forEach(x => {
-      if (x.isChecked) {
-        this.flights.push(x.id);
+      if (x.flight.isChecked) {
+        this.flights.push(x.flight.id);
       }
     })
   }
