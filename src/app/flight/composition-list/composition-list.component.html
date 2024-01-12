@@ -171,14 +171,14 @@
           </div>
           <div class="d-flex">
             <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-              matTooltip="{{ 'قیمت کودک' + (item.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.inf_price | sperator)}}"
+              matTooltip="{{ 'قیمت کودک' + (item.flight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.flight.inf_price | sperator)}}"
               aria-label=""></i>
             <span>{{ item.flight.adl_price | sperator }} (تومان)</span>
           </div>
           <div class="d-flex flex-column">
-            <button class="btn-base-custom2" (click)="edit(item.id)">ویرایش</button>
+            <button class="btn-base-custom2" (click)="edit(item.flight.id)">ویرایش</button>
             <span>{{calculateStayCount(item) + ' شب '}}</span>
-            <span class="mt-4">{{((item.returnFlight ? item.returnFlight.adl_price : 0) + item.adl_price)| sperator }}
+            <span class="mt-4">{{((item.returnFlight ? item.returnFlight.adl_price : 0) + item.flight.adl_price)| sperator }}
               (تومان)</span>
           </div>
         </div>
