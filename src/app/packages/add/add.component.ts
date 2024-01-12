@@ -32,7 +32,7 @@ export class AddComponent implements OnInit {
   isLoading = false;
   hotelLoading = false;
   cities: categoriesDTO[] | CityListRes[] = []
-  transferRates: TransferRateListDTO[] = [];
+  transferRates: any[] = [];
   packages: PackageTourDTO[] = [];
   hotels: any[] = [];
   origin_city: any;
@@ -283,7 +283,7 @@ export class AddComponent implements OnInit {
     this.flights = [];
     this.transferRates.forEach(x => {
       if (x.flight.isChecked) {
-        this.flights.push(x.flight.id);
+        this.flights.push(x.mixed_id);
       }
     })
   }

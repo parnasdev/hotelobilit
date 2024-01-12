@@ -114,7 +114,7 @@ this.getInfo()
           this.transferRates = res.data;
           this.transferRates.forEach(x => {
             this.tourData.flightIs.forEach((y: any) => {
-              if (x.id == y) {
+              if (x.mixed_id == y) {
                 x.isChecked = true
               }
             })
