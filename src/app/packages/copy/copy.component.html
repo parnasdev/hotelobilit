@@ -188,15 +188,14 @@
           <div class="item" *ngFor="let item of transferRates">
             <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
             <span>{{item.flight.origin_name }} - {{ item.flight.destination_name }}</span>
-            <span>{{ item.flight.airline_name }} - {{ item.return_flight.airline_name }}</span>
-            <span>{{ item.flight.cabin_type }} - {{ item.return_flight.cabin_type }}</span>
+            <span>{{ item.flight.airline_name }} - {{ item.returnFlight.airline_name }}</span>
+            <span>{{ item.flight.cabin_type }} - {{ item.returnFlight.cabin_type }}</span>
             <span>{{ item.flight.user.agency_name }}</span>
-
             <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
-            <span>{{ calenderService.convertDate(item.return_flight.date, 'fa') }}</span>
-            <span>{{ (item.flight.adl_price + item.return_flight.adl_price) | sperator }}</span>
-            <span>{{ (item.flight.chd_price + item.return_flight.chd_price) | sperator }}</span>
-            <span>{{ (item.flight.inf_price + item.return_flight.inf_price) | sperator }}</span>
+            <span>{{ calenderService.convertDate(item.returnFlight.date, 'fa') }}</span>
+            <span>{{ (item.flight.adl_price + item.returnFlight.adl_price) | sperator }}</span>
+            <span>{{ (item.flight.chd_price + item.returnFlight.chd_price) | sperator }}</span>
+            <span>{{ (item.flight.inf_price + item.returnFlight.inf_price) | sperator }}</span>
             <span>{{ item.flight.capacity }}</span>
           </div>
         </div>
