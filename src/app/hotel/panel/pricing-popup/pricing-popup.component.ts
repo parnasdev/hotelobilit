@@ -19,6 +19,8 @@ export class PricingPopupComponent implements OnInit {
   standardTwinId = 148;
   standardTwinCoefficient = 0;
   showCalendar = true;
+  agencies: any[] = []
+  agency_selected = 33;
 
   isCoefficient = '0';
   req!: ratigListReqDTO;
@@ -47,6 +49,7 @@ export class PricingPopupComponent implements OnInit {
     this.req = {
       fromDate: '',
       toDate: '',
+      agency_id: +this.agency_selected,
       hotelId: +this.data.hotelId,
       roomId: 0
     }
@@ -54,6 +57,8 @@ export class PricingPopupComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.ratingData = res.data;
+        this.agencies = res.data.agencies
+
         this.rooms = this.ratingData.hotel.rooms ?? [];
 
         let obj: roomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
@@ -74,7 +79,10 @@ export class PricingPopupComponent implements OnInit {
       this.message.error()
     })
   }
-
+  getAgencyName() {
+    let itemFiltered = this.agencies.filter(x => x.id === +this.agency_selected);
+    return itemFiltered.length > 0 ? itemFiltered[0].agency_name : '---'
+  }
   getTwinCoefficient() {
     let result = 0
     this.ratingData.hotel.rooms?.forEach(item => {
@@ -83,6 +91,9 @@ export class PricingPopupComponent implements OnInit {
       }
     })
     return result
+  }
+  agencyChanged() {
+    this.getInfo()
   }
 
 

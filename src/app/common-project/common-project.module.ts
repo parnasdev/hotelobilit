@@ -94,6 +94,7 @@ import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
         EditorComponent,
         SelectHotelComponent,
         SelectCityComponent,
+        GetLatLongComponent,
         ChipsComponent,
         ShowLocationComponent,
         FaqComponent,

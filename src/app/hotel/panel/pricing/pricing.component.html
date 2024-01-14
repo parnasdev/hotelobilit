@@ -3,7 +3,7 @@
     <h2 class="title">{{ 'hotelPricing' | translate }}</h2>
     <select [(ngModel)]="agency_selected" (ngModelChange)="agencyChanged()">
       <option [value]="0">انتخاب کنید</option>
-      <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name }}</option>
+      <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name ? item.agency_name: item.full_name }}</option>
     </select>
     <ul style="border: 1px solid #E0E0E0" class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
       <li *ngFor="let room of rooms" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"  (click)="changeTab(room.id,room.room_type_id)" class="nav-item d-flex flex-column align-items-center">

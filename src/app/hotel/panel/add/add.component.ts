@@ -17,7 +17,7 @@ import { categoriesDTO, citiesDTO, hotelPageDTO, roomDTO, storeHotelSetReqDTO } 
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'prs-add',
@@ -28,8 +28,9 @@ export class AddComponent implements OnInit {
   aparatFC = new FormControl('');
   youtubeFC = new FormControl('');
   currentStar = 0;
-  lat = 0;
-  lng = 0;
+  lat = 35.715731;
+  lng = 51.384159;
+
   reverseAddressData!: MapReverseDTO;
   cities: CityDTO[] = [];
   citiesResponse: citiesDTO[] = []
@@ -48,6 +49,7 @@ export class AddComponent implements OnInit {
     status_id: 1,
     description: '',
     location: '',
+    coordinates: [0, 0],
     currency_code: '',
     services: [],
     body: '',
@@ -128,23 +130,22 @@ export class AddComponent implements OnInit {
   getLatLng(latLng: any): void {
     this.lat = latLng.lat;
     this.lng = latLng.lng;
-    this.reverseAddress(latLng.token)
   }
 
-  reverseAddress(token: string): void {
-    this.mapApi.reverse(this.lat, this.lng, token).subscribe((res: any) => {
-      if (res) {
-        this.reverseAddressData = res
-        // this.hotelForm?.value?.address?.setValue(res.address_compact)
-      } else {
-        // this.hotelForm.value.address.setValue('')
-        this.lat = this.cities[0].coordinates[1];
-        this.lng = this.cities[0].coordinates[0];
-        this.message.showMessageBig('این استان پشتیبانی نمیشود')
-        this.reload()
-      }
-    })
-  }
+  // reverseAddress(token: string): void {
+  //   this.mapApi.reverse(this.lat, this.lng, token).subscribe((res: any) => {
+  //     if (res) {
+  //       this.reverseAddressData = res
+  //       // this.hotelForm?.value?.address?.setValue(res.address_compact)
+  //     } else {
+  //       // this.hotelForm.value.address.setValue('')
+  //       this.lat = this.cities[0].coordinates[1];
+  //       this.lng = this.cities[0].coordinates[0];
+  //       this.message.showMessageBig('این استان پشتیبانی نمیشود')
+  //       this.reload()
+  //     }
+  //   })
+  // }
 
 
 
@@ -228,6 +229,7 @@ export class AddComponent implements OnInit {
       categories: [],
       comment: 0,
       del_files: [],
+      coordinates: [this.lat, this.lng],
       files: this.images,
       options: [],
       pin: 0,

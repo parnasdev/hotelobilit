@@ -87,6 +87,7 @@ export interface storeHotelSetReqDTO {
     del_rooms?: number[]
     address: string | null;
     location: string | null
+    coordinates:number[]
     stars: number
     currency_code: string;
     services: number[]

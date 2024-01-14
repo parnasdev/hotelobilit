@@ -99,8 +99,23 @@
         </div>
 
       </div>
-    </div>
 
+
+    </div>
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">انتخاب موقعیت هتل</label>
+          <h2 class="text-dark">منطقه هتل</h2>
+        </div>
+      </div>
+      <div class="info-tour-body">
+        <div class="item-info w-100">
+          <app-get-lat-long [inCommingLatLng]="[lat,lng]" class="w-95 m-top-16 mx-auto" [textMarker]="'هتل'"
+          (latlng)="getLatLng($event)"></app-get-lat-long>
+          </div>
+      </div>
+    </div>
     <div class="box-info-fly">
       <div class="info--19pxtour-header">
         <div class="right">
