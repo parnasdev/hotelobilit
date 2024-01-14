@@ -19,28 +19,28 @@ export class CustomSelectComponent implements OnChanges {
   disabled = false;
   public dd = false;
   isMobile = false;
-  isTablet=false;
-  isDesktop=false;
+  isTablet = false;
+  isDesktop = false;
 
   inpFC = new FormControl();
 
   @Output() itemResult = new EventEmitter()
   @Input() list: any[] = []
   @Input() inCommingItem: any;
-  @Input() name= 'custom'
+  @Input() name = 'custom'
   @Input() baseType: boolean = false;
   @Input() title = 'انتخاب کنید';
-  selectedItem:any
+  selectedItem: any
 
   filteredOptions!: Observable<any[]>;
 
   constructor(
     public mobileService: ResponsiveService,
     public dialog: MatDialog,
-    ){
-      this.isMobile = mobileService.isMobile();
-      this.isDesktop = mobileService.isDesktop();
-      this.isTablet = mobileService.isTablet();
+  ) {
+    this.isMobile = mobileService.isMobile();
+    this.isDesktop = mobileService.isDesktop();
+    this.isTablet = mobileService.isTablet();
   }
 
   ngOnInit() {
@@ -50,10 +50,10 @@ export class CustomSelectComponent implements OnChanges {
     );
   }
   openDropdown() {
-      this.dd = true;
+    this.dd = true;
   }
   ngOnChanges() {
-    
+
     if (this.inCommingItem && this.inCommingItem !== '') {
       if (this.list.filter(c => (c.id === +this.inCommingItem) ||
         (c.id === this.inCommingItem) ||
@@ -62,16 +62,16 @@ export class CustomSelectComponent implements OnChanges {
         (c.full_name === this.inCommingItem) ||
         (c.slug === this.inCommingItem)).length > 0) {
 
-          let item = this.list.filter(c =>
-            (c.id === +this.inCommingItem) ||
-            (c.title === this.inCommingItem) ||
-            (c.name === this.inCommingItem) ||
-            (c.full_name === this.inCommingItem) ||
-            (c.slug === this.inCommingItem))[0]
-            
+        let item = this.list.filter(c =>
+          (c.id === +this.inCommingItem) ||
+          (c.title === this.inCommingItem) ||
+          (c.name === this.inCommingItem) ||
+          (c.full_name === this.inCommingItem) ||
+          (c.slug === this.inCommingItem))[0]
+
         this.inpFC.setValue(item.name ? item.name : (item.title ? item.full_name : item.title));
         this.selectedItem = item
-          // this.title = item.name
+        // this.title = item.name
         // this.itemResult.emit(this.list.filter(c => c.slugEn === this.inCommingItem)[0])
       }
     }
@@ -82,22 +82,23 @@ export class CustomSelectComponent implements OnChanges {
   }
 
   private _filter(value: any): categoriesDTO[] {
-    let filterValue = value
-    if(filterValue !== '') {
-      filterValue  = value;
+    let filterValue = value;
+    if (filterValue !== '') {
+      filterValue = value;
     }
-    return this.list.filter(item =>item?.id?.includes(filterValue) ||  item?.name?.includes(filterValue) || item.title?.includes(filterValue)|| item.full_name?.includes(filterValue));
+    console.log(filterValue);
+    return this.list
   }
 
 
 
-  onClickedOutside(jmgg:any){
+  onClickedOutside(jmgg: any) {
     this.dd = false
   }
 
   changed(item: any): void {
     this.itemResult.emit(item)
-    this.selectedItem=item
+    this.selectedItem = item
     this.dd = false
 
   }
