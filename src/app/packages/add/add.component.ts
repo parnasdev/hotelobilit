@@ -175,7 +175,6 @@ export class AddComponent implements OnInit {
   }
 
   openRooms(hotelid: any, rooms: any) {
-
     this.dialog.open(RoomsComponent, {
       width: '80%',
       height: "auto",
@@ -189,7 +188,6 @@ export class AddComponent implements OnInit {
       if (result) {
         let index = this.packages.findIndex((item: any) => item.id === result.hotelID);
         this.packages[index].rooms = result.rooms
-
       }
     })
   }

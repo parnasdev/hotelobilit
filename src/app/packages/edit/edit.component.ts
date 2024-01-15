@@ -187,7 +187,7 @@ this.getInfo()
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
     this.onTitleGenerator(this.tourData.origin_name ?? '', this.tourData.destination_name);
-    this.flights = this.tourData.flightIs;
+    this.flights = this.tourData.flightIds;
     this.selectedCurrency = this.tourData.currencies
     this.is_bundle = this.tourData.is_bundle
     // this.packages = this.tourData.packages
