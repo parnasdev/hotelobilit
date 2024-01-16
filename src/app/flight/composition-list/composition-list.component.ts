@@ -28,15 +28,11 @@ export interface FilterCompositionDTO {
 export class CompositionListComponent {
   isLoading = false;
   list: any[] = []
-  paginate: any;
-  paginateConfig = {
-    itemsPerPage: 20,
-    totalItems: 20,
-    currentPage: 1
-  };
+
   nights: any[] = []
-  p = 1
-  show = true;
+  paginateConfig: any;
+  paginate: any;
+  p = 1;  show = true;
   airports: any[] = []
   airplanes: any[] = []
   statuses: any[] = []
@@ -135,6 +131,11 @@ export class CompositionListComponent {
     result.push(pageItem)
     return result
   }
+
+  onPageChanged(event: any) {
+    this.p = event;
+    this.getData();
+  }
   getData() {
     this.isLoading = true;
     this.data = []
@@ -157,8 +158,11 @@ export class CompositionListComponent {
             { id: 8, name: '۸ شب' },
             { id: 9, name: '۹ شب' },
           ];
-          if (res.data.length > 0) {
-            this.setPagination(res.meta);
+          this.paginate = res.meta;
+          this.paginateConfig = {
+            itemsPerPage: this.paginate.per_page,
+            totalItems: this.paginate.total,
+            currentPage: this.paginate.current_page
           }
 
 
@@ -248,19 +252,15 @@ export class CompositionListComponent {
     return this.calendarService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
   }
   setPagination(meta: any) {
-    // this.data.pagination = {
-    //   pageNumber: this.data.filters.find(x => x.key === 'page')?.value ?? 1,
-    //   meta: meta,
-    //   confiq: {
-    //     itemsPerPage: meta?.per_page ?? 10,
-    //     totalItems: meta?.total ?? 0,
-    //     currentPage: meta?.current_page ?? 1
-    //   }
-    // }
-  }
-  onPageChanged(event: any) {
-    this.p = event;
-    this.getData();
+    this.paginate = {
+      pageNumber: this.p,
+      meta: meta,
+      confiq: {
+        itemsPerPage: meta?.per_page ?? 10,
+        totalItems: meta?.total ?? 0,
+        currentPage: meta?.current_page ?? 1
+      }
+    }
   }
 
   getFilterResult(data: any) {
