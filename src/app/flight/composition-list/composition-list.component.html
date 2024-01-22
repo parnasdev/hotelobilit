@@ -227,16 +227,17 @@
         </div>
       </div>
     </div>
-    <pagination-controls class="pagination-control" (pageChange)="onPageChanged($event)"
+    <div class="box-empty" *ngIf="data.length === 0 && !isLoading">
+      <span>موردی یافت نشد
+  
+      </span>
+    </div>
+    <pagination-controls *ngIf="data.length > 0" class="pagination-control" (pageChange)="onPageChanged($event)"
       previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
       screenReaderCurrentLabel="شما در صفحه ی">
     </pagination-controls>
   </div>
-  <div class="box-empty" *ngIf="data.length === 0 && !isLoading">
-    <span>موردی یافت نشد
 
-    </span>
-  </div>
   <div>
   </div>
 </div>

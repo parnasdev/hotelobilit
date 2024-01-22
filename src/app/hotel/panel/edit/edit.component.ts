@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddComponent } from "../add/add.component";
 import { UploadResDTO } from 'src/app/Core/Models/commonDTO';
-import { InfoHotelDTO, categoriesDTO, roomDTO, roomObjDTO } from 'src/app/Core/Models/newPostDTO';
+import { InfoHotelDTO, roomDTO, roomObjDTO } from 'src/app/Core/Models/newPostDTO';
 
 @Component({
   selector: 'prs-edit',
@@ -119,14 +119,14 @@ export class EditComponent extends AddComponent implements OnInit {
     this.hotelForm.controls.body.setValue(this.hotelInfo.post.body);
     this.hotelForm.controls.currency.setValue(this.hotelInfo.post.options?.currency_code);
     this.hotelForm.controls.location.setValue(this.hotelInfo.post.options?.location);
-    if(this.hotelInfo.post.options.coordinates && this.hotelInfo.post.options.coordinates.length > 1) {
+    if (this.hotelInfo.post.options.coordinates && this.hotelInfo.post.options.coordinates.length > 1) {
       this.lat = this.hotelInfo.post.options.coordinates[0];
       this.lng = this.hotelInfo.post.options.coordinates[1];
     }
 
-    this.hotelForm.controls.description.setValue(this.hotelInfo.post.description ??'');
-    this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address ??'');
-    if(this.hotelInfo.post.options.stars) {
+    this.hotelForm.controls.description.setValue(this.hotelInfo.post.description ?? '');
+    this.hotelForm.controls.address.setValue(this.hotelInfo.post.options.address ?? '');
+    if (this.hotelInfo.post.options.stars) {
       this.currentStar = this.hotelInfo.post.options.stars;
     }
     this.getImagesFromData();

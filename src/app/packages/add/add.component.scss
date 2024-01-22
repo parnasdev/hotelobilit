@@ -587,8 +587,8 @@ mat-form-field {
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -933,8 +933,8 @@ prs-select-hotel {
   .item {
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    height: 50px;
+    grid-template-columns: 0.5fr 2fr 1fr 0.3fr 2fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 70px;
     place-items: center;
     gap: 8px;
     border-top: 1px solid #ebebeb;
@@ -955,7 +955,7 @@ prs-select-hotel {
 .item-header {
   width: 99%;
   display: grid;
-  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr 0.3fr 2fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 50px;
   place-items: center;
   gap: 8px;
@@ -1161,8 +1161,7 @@ prs-select-hotel {
   justify-content: center;
   margin-top: 1.8rem;
 }
-
-.item-info-3 {
+.item-info-3{
   width: 100%;
   border: 1px solid $border-color;
   border-radius: 8px;

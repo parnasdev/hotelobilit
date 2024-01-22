@@ -45,7 +45,11 @@ export class ListComponent {
   checkAll = false
   data: any[] = [];
   paginate: any;
-  paginateConfig: any;
+  paginateConfig= {
+    itemsPerPage: 0,
+    totalItems: 0,
+    currentPage: 0
+  };
   airports: any[] = []
   airlines: any[] = []
   airplanes: any[] = []

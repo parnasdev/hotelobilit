@@ -168,16 +168,22 @@
     <div class="w-100 p-transfer">
       <div class="item-header">
         <span>#</span>
-        <span>مسیر رفت-برگشت</span>
-        <span>ایرلاین رفت-برگشت</span>
+        <div class="d-flex flex-column">
+          <span>مبدا</span>
+          <span>مقصد</span>
+        </div>
+        <span>ایرلاین</span>
         <span>کلاس</span>
         <span>آژانس</span>
-        <span>تاریخ رفت</span>
-        <span>تاریخ برگشت</span>
-        <span>قیمت بزرگسال</span>
-        <span>قیمت کودک</span>
-        <span>قیمت نوزاد</span>
-
+        <div class="d-flex flex-column">
+          <span>تاریخ رفت</span>
+          <span>تاریخ برگشت</span>
+        </div>
+        <span>بزرگسال</span>
+        <span>کودک</span>
+        <span>نوزاد</span>
+        <span>زمان</span>
+        <span>ش پرواز</span>
         <span>ظرفیت</span>
       </div>
       <div class="info-tour-body-2">
@@ -187,16 +193,39 @@
         <div *ngIf="transferRates.length > 0">
           <div class="item" *ngFor="let item of transferRates">
             <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
-            <span>{{item.flight.origin_name }} - {{ item.flight.destination_name }}</span>
-            <span>{{ item.flight.airline_name }} - {{ item.returnFlight.airline_name }}</span>
-            <span>{{ item.flight.cabin_type }} - {{ item.returnFlight.cabin_type }}</span>
+            <div class="d-flex flex-column">
+              <span>{{item.flight.origin_name }}</span>
+              <span>{{ item.flight.destination_name }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.airline_name}}</span>
+              <span>{{item.returnFlight.airline_name }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.cabin_type }}</span>
+              <span>{{item.returnFlight.cabin_type }}</span>
+            </div>
             <span>{{ item.flight.user.agency_name }}</span>
-            <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
-            <span>{{ calenderService.convertDate(item.returnFlight.date, 'fa') }}</span>
+            <div class="d-flex flex-column">
+              <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
+              <span>{{ calenderService.convertDate(item.returnFlight.date, 'fa') }}</span>
+            </div>
             <span>{{ (item.flight.adl_price + item.returnFlight.adl_price) | sperator }}</span>
             <span>{{ (item.flight.chd_price + item.returnFlight.chd_price) | sperator }}</span>
             <span>{{ (item.flight.inf_price + item.returnFlight.inf_price) | sperator }}</span>
-            <span>{{ item.flight.capacity }}</span>
+
+            <div class="d-flex flex-column">
+              <span>{{ (item.flight.time | timeFixer)}}</span>
+              <span>{{ (item.returnFlight.time | timeFixer)}}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.flight_number }}</span>
+              <span>{{ item.returnFlight.flight_number }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.capacity }}</span>
+              <span>{{ item.returnFlight.capacity }}</span>
+            </div>
           </div>
         </div>
         <div *ngIf="errorService.hasError('flights')">

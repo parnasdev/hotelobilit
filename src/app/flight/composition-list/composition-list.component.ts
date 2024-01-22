@@ -30,7 +30,11 @@ export class CompositionListComponent {
   list: any[] = []
 
   nights: any[] = []
-  paginateConfig: any;
+  paginateConfig= {
+    itemsPerPage: 0,
+    totalItems: 0,
+    currentPage: 0
+  };
   paginate: any;
   p = 1;  show = true;
   airports: any[] = []
@@ -144,6 +148,7 @@ export class CompositionListComponent {
       next: (res: any) => {
         if (res.isDone) {
           this.data = res.data;
+          
           this.airports = res.airports;
           
           this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
@@ -158,12 +163,14 @@ export class CompositionListComponent {
             { id: 8, name: '۸ شب' },
             { id: 9, name: '۹ شب' },
           ];
+        if(res.meta) {
           this.paginate = res.meta;
           this.paginateConfig = {
             itemsPerPage: this.paginate.per_page,
             totalItems: this.paginate.total,
             currentPage: this.paginate.current_page
           }
+        }
 
 
         } else {
