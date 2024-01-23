@@ -8,6 +8,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { Title } from "@angular/platform-browser";
+import { SessionService } from 'src/app/Core/Services/session.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class PricingComponent implements OnInit {
     public checkError: CheckErrorService,
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
+    public session:SessionService,
     public route: ActivatedRoute,
     public api: PostApiService,
     public message: MessageService,) {
@@ -66,7 +68,7 @@ export class PricingComponent implements OnInit {
       fromDate: '',
       toDate: '',
       hotelId: +this.id,
-      agency_id: +this.agency_selected,
+      agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_selected : null,
       roomId: 0
     }
     this.api.ratingList(this.req).subscribe((res: any) => {

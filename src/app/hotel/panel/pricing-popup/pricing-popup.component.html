@@ -1,7 +1,7 @@
 <div class="bottom p-3" style="direction: rtl;">
   <div class="w-100 d-flex align-items-center justify-content-between">
     <h2 class="title">قیمت گذاری هتل</h2>
-    <select [(ngModel)]="agency_selected" (ngModelChange)="agencyChanged()">
+    <select *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'" [(ngModel)]="agency_selected" (ngModelChange)="agencyChanged()">
       <option [value]="0">انتخاب کنید</option>
       <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name ? item.agency_name: item.full_name }}</option>
     </select>

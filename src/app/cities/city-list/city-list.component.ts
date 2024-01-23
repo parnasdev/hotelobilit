@@ -36,7 +36,7 @@ export class CityListComponent implements OnInit {
 
   getCities(): void {
     this.setReq();
-    this.isLoading = true
+    this.isLoading = true;
     this.api.getCategoryList('city', 'hotel', this.p, this.parent).subscribe((res: any) => {
       this.isLoading = false
       if (res.isDone) {

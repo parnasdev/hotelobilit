@@ -7,6 +7,7 @@ import { RatingResDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Models/newP
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import { SessionService } from 'src/app/Core/Services/session.service';
 
 @Component({
   selector: 'prs-pricing-popup',
@@ -36,6 +37,7 @@ export class PricingPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { hotelId: string, slug: string },
     public dialog: MatDialog,
     public cityApiService: CityApiService,
+    public session: SessionService,
     public route: ActivatedRoute,
     public api: PostApiService,
     public message: MessageService,) { }

@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import * as jmoment from 'jalali-moment';
-
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { SearchObjectDTO } from 'src/app/Core/Models/newCityDTO';
 import { IDatesRes, ISearchDataRes } from '../core/models/tour.model';
