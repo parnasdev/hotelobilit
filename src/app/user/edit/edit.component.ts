@@ -201,7 +201,6 @@ export class EditComponent implements OnInit {
     this.userForm.controls.username.setValue(this.userInfo.user.username);
     this.userForm.controls.role_id.setValue(this.userInfo.user.role_id);
     this.userForm.controls.parent_id.setValue(this.userInfo.user.parent_id);
-    debugger
     this.userForm.controls.agency_id.setValue(this.userInfo.user.parent_id);
 
 

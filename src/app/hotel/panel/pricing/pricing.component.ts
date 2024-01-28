@@ -75,7 +75,6 @@ export class PricingComponent implements OnInit {
       this.isLoading = false;
       if (res.isDone) {
         this.ratingData = res.data;
-        debugger
         this.agencies = res.data.agencies
         this.rooms = this.ratingData.hotel.rooms ?? [];
 

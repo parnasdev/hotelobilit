@@ -68,7 +68,6 @@ export class EditComponent {
     this.api.editCategoryPage(this.transfer_id, 'airplane', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
-        debugger
         this.setValue()
         this.show = true;
       } else {
