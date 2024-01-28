@@ -139,6 +139,8 @@ export class AddComponent implements OnInit {
       partnerIds: this.getPartners(),
       packages: this.packages
     }
+
+
   }
 
   getPartners() {

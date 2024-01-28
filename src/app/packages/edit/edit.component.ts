@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddComponent } from '../add/add.component';
 import * as moment from 'moment';
 import { PackageTourDTO } from 'src/app/Core/Models/tourDTO';
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 declare var $: any;
 
 @Component({
@@ -156,7 +157,9 @@ this.getInfo()
 
 
   override submit(): void {
+    debugger
     this.setReq()
+
     this.tourApi.update(+this.id, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);
@@ -200,4 +203,9 @@ this.getInfo()
   }
 
 
+  drop(event: CdkDragDrop<PackageTourDTO[]>) {
+    moveItemInArray(this.packages, event.previousIndex, event.currentIndex);
+
+    console.log(this.packages)
+  }
 }

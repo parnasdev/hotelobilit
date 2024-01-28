@@ -1,13 +1,27 @@
 <div [id]="name" [ngClass]="{'input-custom input-customize  w-100 date-to' : hotelItemSelected?.is_rate ,'input-custom-error input-customize  w-100 date-to' : !hotelItemSelected?.is_rate}" clickOutside
      (clickOutside)="onClickedOutside($event)">
 
+  <div class="w-100" style="display: flex; justify-content: space-between;align-items: center">
+
+
+<div class="w-70" >
+
   <input (click)="openDropdown()" type="text" [name]="name" class="question" [id]="name" [formControl]="hotelFC" required
          autocomplete="off"/>
 
+
+
+
   <label [for]="name">
     <span>{{title}}</span>
+
   </label>
 
+</div>
+  <div class="star w-20" *ngIf="stars!==0">
+    <i class="icon-star"  *ngFor="let item of getStars(stars)"></i>
+  </div>
+  </div>
   <!-- class = animated zoomIn -->
   <div *ngIf="dd && hotels.length > 0" class="dropDown-show">
     <div *ngFor="let item of filteredOptions | async" class="item" (click)="changed(item)">

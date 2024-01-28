@@ -241,8 +241,8 @@
 
   <div style="position: relative" class="w-100">
     <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
-    <div class="w-100">
-      <div class="item-package" *ngFor="let item of packages;let i=index">
+    <div class="w-100" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div class="item-package" cdkDrag *ngFor="let item of packages;let i=index">
         <span class="number">{{ i + 1 }}</span>
         <div class="d-flex middle-item">
           <h5>انتخاب هتل</h5>

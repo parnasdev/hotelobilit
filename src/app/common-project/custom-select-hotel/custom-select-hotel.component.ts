@@ -19,6 +19,7 @@ export class CustomSelectHotelComponent {
   isMobile = false;
   isTablet = false;
   isDesktop = false;
+  stars:any=0
 
   hotelFC = new FormControl();
   @Output() hotelSelected = new EventEmitter()
@@ -58,6 +59,7 @@ export class CustomSelectHotelComponent {
           (c.id === this.inCommingHotel))[0]
           this.hotelItemSelected = hotel
         this.hotelFC.setValue(hotel.title);
+        this.stars=hotel.stars
       }
     }
     this.filteredOptions = this.hotelFC.valueChanges.pipe(
@@ -104,6 +106,7 @@ export class CustomSelectHotelComponent {
     this.hotelFC.setValue(item.title);
     this.hotelSelected.emit(item)
     this.dd = false
+    this.stars=item.stars
   }
 
   // openSelectCity() {
