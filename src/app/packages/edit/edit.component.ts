@@ -98,6 +98,8 @@ this.getInfo()
       }
       this.packages.push(item)
     })
+    debugger
+    this.packages.sort((a:any,b:any)=>a.order_item-b.order_item)
   }
 
   override getTransferRates(): void {
@@ -157,9 +159,7 @@ this.getInfo()
 
 
   override submit(): void {
-    debugger
     this.setReq()
-
     this.tourApi.update(+this.id, this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);
@@ -205,7 +205,5 @@ this.getInfo()
 
   drop(event: CdkDragDrop<PackageTourDTO[]>) {
     moveItemInArray(this.packages, event.previousIndex, event.currentIndex);
-
-    console.log(this.packages)
   }
 }

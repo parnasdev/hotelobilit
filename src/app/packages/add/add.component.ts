@@ -140,7 +140,14 @@ export class AddComponent implements OnInit {
       packages: this.packages
     }
 
+    let newPackage=this.req.packages.map((p:any,index:number)=>{
+      return{
+        ...p,
+        order_item:index
+      }
+    })
 
+    this.req.packages=newPackage
   }
 
   getPartners() {
