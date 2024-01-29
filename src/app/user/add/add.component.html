@@ -21,9 +21,8 @@
             </div>
           </div>
           <div class="item-info mb-5"
-            *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
+            *ngIf="(+(userForm.get('role_id')?.value ?? '0') !== 5) && (session.getRole() === 'admin' || session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
             <label for="">آژانس</label>
-
             <select formControlName="agency_id" name="" id="">
               <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name }}</option>
             </select>
