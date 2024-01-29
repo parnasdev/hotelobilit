@@ -221,6 +221,8 @@ export interface RateDTO {
     room_id: number
     updated_at: string
     user_id: number
+  booked_room_count:number
+  reserving_room_count:number
 }
 export interface TourSearchDTO {
 

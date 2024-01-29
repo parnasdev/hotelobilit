@@ -307,14 +307,20 @@ export class MainPickerComponent implements OnInit {
 
 
 
-
+returnString(str1:any,str2:any){
+    let booked=` رزروشده:${str1}`
+    let reserving=` درحال رزرو:${str2}`
+    return booked + '  |  ' + reserving
+}
 
 
   isExistOnPriceList(item: any): any {
     if (item && item !== '') {
       const y: any = moment(item).format('YYYY/MM/DD')
+
       if (this.daysOfMonth.length > 0) {
         let result = this.pricesData.rates.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
+        console.log(result)
         return result.length > 0 ? {
           available_room_count: result[0].available_room_count,
           created_at: result[0].created_at,
@@ -329,6 +335,8 @@ export class MainPickerComponent implements OnInit {
           offer_price: result[0].offer_price,
           price: result[0].price,
           room_id: result[0].room_id,
+          reserving_room_count:result[0].reserving_room_count,
+          booked_room_count:result[0].booked_room_count,
 
           updated_at: result[0].updated_at,
           user_id: result[0].user_id

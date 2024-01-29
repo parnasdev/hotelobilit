@@ -1,3 +1,4 @@
+
 <div class="p-calender">
     <div class="d-flex p-loading align-items-center justify-content-center" *ngIf="isLoading">
         <div class="spinner-border" style="width: 100px; height: 100px;" role="status"></div>
@@ -24,7 +25,8 @@
             <span>ج</span>
         </div>
         <div class="body-calender">
-            <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index">
+
+            <ng-template ngFor let-item [ngForOf]="daysOfMonth" let-i="index" >
                 <div *ngIf="i < 42" (click)="item.isValid && !item.isDisabled ? onDateClicked(item) : null"
                     [class]="(item.isDisabled || !item.isValid) ? 'item opacity3' : 'item opacity2'" [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
                     'background': getColorItem(item)}" id="dateInfo">
@@ -32,6 +34,11 @@
                     <label class="label-capacity" [matTooltip]="'تعداداتاق'"
                         *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
+
+                  <div class="label-capacity" style="top: 1px; right: 1px;" [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
+                  <label
+                      >!</label>
+                  </div>
 
 
                     <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : قیمت تخت اضافه' "
