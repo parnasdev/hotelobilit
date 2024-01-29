@@ -101,6 +101,10 @@
             <span class="text" style="direction: ltr!important">{{info?.hotel?.checkin |
               convertDate}}</span>
           </div>
+          <div class="item">
+            <span class="title">ش.پ رفت :</span>
+            <span class="text" style="direction: ltr!important">{{info.flights.departure.flight_number}}</span>
+          </div>
         </div>
         <div class="info-time">
           <span class="title">مدت اقامت:</span>
@@ -127,6 +131,10 @@
             <span class="text" style="direction: ltr!important">{{info.hotel.checkout |
               convertDate}}</span>
           </div>
+          <div class="item">
+            <span class="title">ش.پ برگشت :</span>
+            <span class="text" style="direction: ltr!important">{{info.flights.return.flight_number }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -137,68 +145,68 @@
           <h3 class=" bold-600">اتاق {{item.info_room?.room_type}} </h3>
         </div>
         <div class="empty-box" *ngIf="item.passengers.length == 0">مسافری ثبت نشده است</div>
-       <div class="d-flex flex-column mt-4" *ngFor="let p of item.passengers" >
-        <div class="item-information-room">
-          <label for="" class="label-role">{{p.type}}</label>
-          <div class="item">
-            <span class="text-gray">نام :</span>
-            <span class="mr-2">{{p.name}}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray">خانوادگی :</span>
-            <span class="mr-2">{{p.family}}</span>
-          </div>
-          <div class="item" *ngIf="p.id_code">
-            <span class="text-gray">کد ملی :</span>
-            <span class="mr-2">{{ p.id_code ?? '---' }}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray">ملیت :</span>
-            <span class="mr-2">{{ p.nationality == 0 ? 'ایرانی' : 'غیرایرانی' }}</span>
-          </div>
-          <div class="item" *ngIf="p.passport">
-            <span class="text-gray">پاسپورت :</span>
-            <span class="mr-2">{{ p.passport }}</span>
-          </div>
-          <div class="item" *ngIf="p.expired_passport">
-            <span class="text-gray">انقضا پاسپورت :</span>
-            <span class="mr-2">{{p.expired_passport }}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray"> تولد :</span>
-            <span class="mr-2">{{p.birth_day}}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray"> جنسیت :</span>
-            <span class="mr-2">{{p.gender == 0 ? 'خانم' : 'آقا'}}</span>
-          </div>
+        <div class="d-flex flex-column mt-4" *ngFor="let p of item.passengers">
+          <div class="item-information-room">
+            <label for="" class="label-role">{{p.type}}</label>
+            <div class="item">
+              <span class="text-gray">نام :</span>
+              <span class="mr-2">{{p.name}}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray">خانوادگی :</span>
+              <span class="mr-2">{{p.family}}</span>
+            </div>
+            <div class="item" *ngIf="p.id_code">
+              <span class="text-gray">کد ملی :</span>
+              <span class="mr-2">{{ p.id_code ?? '---' }}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray">ملیت :</span>
+              <span class="mr-2">{{ p.nationality == 0 ? 'ایرانی' : 'غیرایرانی' }}</span>
+            </div>
+            <div class="item" *ngIf="p.passport">
+              <span class="text-gray">پاسپورت :</span>
+              <span class="mr-2">{{ p.passport }}</span>
+            </div>
+            <div class="item" *ngIf="p.expired_passport">
+              <span class="text-gray">انقضا پاسپورت :</span>
+              <span class="mr-2">{{p.expired_passport }}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray"> تولد :</span>
+              <span class="mr-2">{{p.birth_day}}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray"> جنسیت :</span>
+              <span class="mr-2">{{p.gender == 0 ? 'خانم' : 'آقا'}}</span>
+            </div>
 
 
+          </div>
+          <div class="item-information-room">
+            <div class="item">
+              <span class="text-gray">قیمت پرواز رفت :</span>
+              <span class="mr-2">{{p.departure_flight_rate | sperator}}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray">قیمت پرواز برگشت :</span>
+              <span class="mr-2">{{p.return_flight_rate | sperator}}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray">قیمت اتاق :</span>
+              <span class="mr-2">{{ p.room_price |sperator}}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray">قیمت سرویس :</span>
+              <span class="mr-2">{{ getServicePrices(item.info_room) | sperator }}</span>
+            </div>
+            <div class="item">
+              <span class="text-gray">مجموع قیمت :</span>
+              <span class="mr-2">{{ p.total_room_price | sperator}}</span>
+            </div>
+
+          </div>
         </div>
-        <div  class="item-information-room">
-          <div class="item">
-            <span class="text-gray">قیمت پرواز رفت :</span>
-            <span class="mr-2">{{p.departure_flight_rate | sperator}}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray">قیمت پرواز برگشت :</span>
-            <span class="mr-2">{{p.return_flight_rate | sperator}}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray">قیمت اتاق :</span>
-            <span class="mr-2">{{ p.room_price |sperator}}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray">قیمت سرویس :</span>
-            <span class="mr-2">{{ getServicePrices(item.info_room) | sperator }}</span>
-          </div>
-          <div class="item">
-            <span class="text-gray">مجموع قیمت :</span>
-            <span class="mr-2">{{ p.total_room_price | sperator}}</span>
-          </div>
-
-        </div>
-       </div>
         <div class="  w-100 grid-10">
           <div class="d-flex item-bimeh" *ngFor="let s of item.info_room?.services">
             <span>{{ s.category + ' : ' }}</span>
