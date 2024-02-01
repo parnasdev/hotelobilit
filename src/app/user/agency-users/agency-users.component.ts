@@ -29,7 +29,7 @@ export class AgencyUsersComponent implements OnInit {
   users: UserResDTO[] = [];
   isLoading = false;
   city = '';
-
+keyword = ''
   constructor(public userApi: UserApiService,
               public route: ActivatedRoute,
               public checkErrorService: CheckErrorService,
@@ -51,7 +51,7 @@ export class AgencyUsersComponent implements OnInit {
 
   getUsers(): void {
     this.isLoading = true;
-    this.userApi.getUser(null,(this.userId ? +this.userId : 0)).subscribe((res: any) => {
+    this.userApi.getUser(null,(this.userId ? +this.userId : 0),1,this.keyword).subscribe((res: any) => {
       if (res.isDone) {
         this.users = res.data
         this.paginate = res.meta;

@@ -26,6 +26,7 @@ export class ListComponent implements OnInit {
     paginate: true,
     perPage: 20,
   };
+  keyword = '';
   users: UserResDTO[] = [];
   roles: any[] = []
   isLoading = false;
@@ -60,7 +61,7 @@ export class ListComponent implements OnInit {
 
   getUsers(): void {
     this.isLoading = true;
-    this.userApi.getUser(this.roleSelected, null, this.p).subscribe((res: any) => {
+    this.userApi.getUser(this.roleSelected, null, this.p,this.keyword).subscribe((res: any) => {
       if (res.isDone) {
         this.users = res.data
         if (this.roleSelected === 5) {

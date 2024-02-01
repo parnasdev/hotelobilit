@@ -23,14 +23,14 @@ export class UserApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  getUser(role: number | null = null,parent: number| null = null,page: number | null = null): any {
+  getUser(role: number | null = null, parent: number | null = null, page: number | null = null, keyword: string): any {
     const strUrl = role ? this.serverControllerName +
-     (parent ? `?role=${role}&page=${page}&parent=${parent}` : `?role=${role}`) :
-     (parent ? this.serverControllerName +
-      `?parent=${parent}` : this.serverControllerName);
+      (parent ? `?role=${role}&q=${keyword}&page=${page}&parent=${parent}` : `?role=${role}`) :
+      (parent ? this.serverControllerName +
+        `?parent=${parent}` : this.serverControllerName);
 
-      let finalStr = page ? (parent ? strUrl + `&page=${page}` : strUrl + `&page=${page}`) : strUrl;
-      return this.http.get<Result<any>>(finalStr, this.publicService.getDefaultHeaders());
+    let finalStr = page ? (parent ? strUrl + `&page=${page}` : strUrl + `&page=${page}&q=${keyword}`) : strUrl;
+    return this.http.get<Result<any>>(finalStr, this.publicService.getDefaultHeaders());
 
   }
 

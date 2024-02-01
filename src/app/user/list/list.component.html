@@ -1,6 +1,7 @@
 <prs-panel-loading *ngIf="isLoading"></prs-panel-loading>
 
 <div class="list-tour">
+
   <div class="title">
     <h2>کاربران</h2>
     <mat-button-toggle-group 
@@ -14,6 +15,11 @@
     <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
     <a *ngIf="permition.check('roles.read')" class="btn-add-tour bg-info text-white" routerLink="/panel/roles">لیست مقام ها</a>
   </div>
+  <div class="item-info">
+    <label for="">جستجو براساس نام</label>
+    <input [(ngModel)]="keyword" type="text">
+  </div>
+  <button class="btn-base w-25" (click)="getUsers()">جست و جو</button>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
