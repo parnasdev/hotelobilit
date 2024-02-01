@@ -4,10 +4,10 @@
 
   <div class="title">
     <h2>کاربران</h2>
-    <mat-button-toggle-group 
+    <mat-button-toggle-group
      name="fontStyle"
-     aria-label="Font Style" 
-     [(ngModel)]="roleSelected" 
+     aria-label="Font Style"
+     [(ngModel)]="roleSelected"
      (ngModelChange)="roleChanged()">
       <mat-button-toggle *ngFor="let item of roles" [value]="item.id">
         {{ item.label }}</mat-button-toggle>
@@ -15,11 +15,14 @@
     <a class="btn-add-tour" routerLink="/panel/user/add">اضافه</a>
     <a *ngIf="permition.check('roles.read')" class="btn-add-tour bg-info text-white" routerLink="/panel/roles">لیست مقام ها</a>
   </div>
-  <div class="item-info">
-    <label for="">جستجو براساس نام</label>
-    <input [(ngModel)]="keyword" type="text">
+  <div class="row-filter">
+    <div class="inp-filter">
+      <label for="">جستجو براساس نام</label>
+      <input [(ngModel)]="keyword" type="text">
+    </div>
+    <button class="btn-base" (click)="getUsers()">جست و جو</button>
+
   </div>
-  <button class="btn-base w-25" (click)="getUsers()">جست و جو</button>
   <div class="table-list-tour">
     <div class="header-list-tour">
       <span class="id">#</span>
