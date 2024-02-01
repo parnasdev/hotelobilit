@@ -25,11 +25,11 @@ export class UserApiService {
 
   getUser(role: number | null = null,parent: number| null = null,page: number | null = null): any {
     const strUrl = role ? this.serverControllerName +
-     (parent ? `?role=${role}&parent=${parent}` : `?role=${role}`) :
+     (parent ? `?role=${role}&page=${page}&parent=${parent}` : `?role=${role}`) :
      (parent ? this.serverControllerName +
       `?parent=${parent}` : this.serverControllerName);
 
-      let finalStr = page ? parent ? strUrl + `&page=${page}` : strUrl + `?page=${page}` : strUrl;
+      let finalStr = page ? (parent ? strUrl + `&page=${page}` : strUrl + `&page=${page}`) : strUrl;
       return this.http.get<Result<any>>(finalStr, this.publicService.getDefaultHeaders());
 
   }

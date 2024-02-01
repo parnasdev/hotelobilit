@@ -56,9 +56,9 @@
           <button (click)="deleteClicked(user.id)" class="delete-btn" *ngIf="permition.check('users.delete')">حذف</button>
         </div>
       </div>
-      <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
-        (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"
-        screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه" screenReaderCurrentLabel="شما در صفحه ی">
+      <pagination-controls *ngIf="paginate && paginate.last_page > 1" class="pagination-control" (pageChange)="onPageChanged($event)"
+        previousLabel="قبلی" nextLabel="بعدی" screenReaderPaginationLabel="صفحه بندی" screenReaderPageLabel="صفحه"
+        screenReaderCurrentLabel="شما در صفحه ی">
       </pagination-controls>
     </div>
   </div>
