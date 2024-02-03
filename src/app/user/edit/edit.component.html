@@ -110,15 +110,7 @@
               </div>
             </div>
           </div>
-          <div class="info-tour-body">
-            <div class="permition-grid">
-              <div class="d-flex" *ngFor="let p of permissions">
-
-                <mat-checkbox [(ngModel)]="p.isChecked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
-                <label>{{ p.label }}</label>
-              </div>
-            </div>
-          </div>
+    
 
           <div class="w-100" *ngIf="userForm.controls.role_id.value == 5 || userForm.controls.role_id.value == 4">
             <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
@@ -163,7 +155,15 @@
             </div>
           </div>
         </ng-template>
+        <div class="info-tour-body">
+          <div class="permition-grid">
+            <div class="d-flex" *ngFor="let p of permissions">
 
+              <mat-checkbox [(ngModel)]="p.isChecked" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+              <label>{{ p.label }}</label>
+            </div>
+          </div>
+        </div>
         <div class="p-error">
           <span class="text-danger" *ngFor="let err of errors">{{ err[0] }}</span>
         </div>
