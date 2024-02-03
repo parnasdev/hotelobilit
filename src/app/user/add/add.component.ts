@@ -110,6 +110,14 @@ export class AddComponent implements OnInit {
     });
   }
 
+  isAccessRole(num: number) {
+    return +(this.userForm.controls.role_id) === num;
+  }
+
+  getIsAgency() {
+    return +(this.userForm.get('role_id')?.value ?? '0') === 5 || +(this.userForm.get('role_id')?.value ?? '0') === 4 || +(this.userForm.get('role_id')?.value ?? '0') === 3
+  }
+
   getCities() {
     this.hotels.forEach(hotel => {
       let cityFiltered = this.cities.filter(c => c.id === hotel.city.id);

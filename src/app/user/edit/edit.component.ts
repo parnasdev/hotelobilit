@@ -211,10 +211,14 @@ export class EditComponent implements OnInit {
       }
     })
 
+  
     // if (this.userInfo.user.role_id === 8 && (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer')) {
     //   this.permissions = this.permissions.filter(x => x.isChecked);
     // }
 
+  }
+  getIsAgency() {
+    return +(this.userForm.get('role_id')?.value ?? '0') === 5 || +(this.userForm.get('role_id')?.value ?? '0') === 4 || +(this.userForm.get('role_id')?.value ?? '0') === 3
   }
   setReq(mode: string) {
     this.userReq = {

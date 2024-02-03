@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="item-info mb-5"
-            *ngIf="(+(userForm.get('role_id')?.value ?? '0') !== 5) && (session.getRole() === 'admin' || session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
+            *ngIf="((+(userForm.get('role_id')?.value ?? '0') !== 5) && (+(userForm.get('role_id')?.value ?? '0') !== 3) && (+(userForm.get('role_id')?.value ?? '0') !== 4)) && (session.getRole() === 'admin' || session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
             <label for="">آژانس</label>
             <select formControlName="agency_id" name="" id="">
               <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name }}</option>
@@ -33,14 +33,14 @@
         </div>
         <div class="top">
           <div class="item-info">
-            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'نام مدیر' : 'نام' }}</label>
+            <label for="">{{ getIsAgency() ? 'نام مدیر' : 'نام' }}</label>
             <input formControlName="name" type="text">
             <div *ngIf="errorService.hasError('name')">
               <span class="text-danger">{{errorService.getError('name')}}</span>
             </div>
           </div>
           <div class="item-info">
-            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'نام خانوادگی مدیر' : 'نام خانوادگی'
+            <label for="">{{ getIsAgency() ? 'نام خانوادگی مدیر' : 'نام خانوادگی'
               }}</label>
             <input formControlName="family" type="text">
             <div *ngIf="errorService.hasError('family')">
@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="item-info">
-            <label for="">{{ +(userForm.get('role_id')?.value ?? '0') === 5 ? 'شماره همراه مدیر' : 'شماره همراه'
+            <label for="">{{ getIsAgency() ? 'شماره همراه مدیر' : 'شماره همراه'
               }}</label>
             <input formControlName="phone" type="text" (change)="setToUserName()">
             <div *ngIf="errorService.hasError('phone')">
@@ -76,9 +76,9 @@
           </div>
         </div>
         <ng-template
-          [ngIf]="+(userForm.get('role_id')?.value ?? '0') !== 6 && +(userForm.get('role_id')?.value ?? '0') !== 7 && +(userForm.get('role_id')?.value ?? '0') !== 3 && +(userForm.get('role_id')?.value ?? '0') !== 10">
+          [ngIf]="getIsAgency()">
 
-          <div class="info-tour-body" *ngIf="+(userForm.get('role_id')?.value ?? '0') === 5">
+          <div class="info-tour-body">
             <div class="top flex-wrap">
               <div class="item-info">
                 <label for="">نام آژانس</label>
@@ -120,7 +120,7 @@
             </div>
           </div>
 
-          <div class="w-100">
+          <div class="w-100" *ngIf="userForm.controls.role_id.value == 5 || userForm.controls.role_id.value == 4">
             <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
               <div class="select-city w-40">
                 <label>شهر های موردنظر را انتخاب کنید</label>
