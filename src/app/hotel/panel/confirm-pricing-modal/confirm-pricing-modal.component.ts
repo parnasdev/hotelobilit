@@ -18,7 +18,7 @@ export interface ConfirmPriceReqDTO {
   bedCount: number;
   chd_price: number;
   currency_code: string;
-  isJustRoomCount:boolean
+  isJustRoomCount: boolean
 
 }
 @Component({
@@ -47,7 +47,7 @@ export class ConfirmPricingModalComponent implements OnInit {
     public message: MessageService,
     public errorService: ErrorsService,
     public dialog: MatDialog) {
-      this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
+    this.currentLang = localStorage.getItem('hotelobilit-lang') ?? 'fa'
 
   }
 
@@ -56,9 +56,9 @@ export class ConfirmPricingModalComponent implements OnInit {
   }
 
   submit() {
-    if (this.data.currency_code && this.data.currency_code !== ''){
+    if (this.data.currency_code && this.data.currency_code !== '') {
       this.addHotelRates()
-    }else {
+    } else {
       this.message.custom(this.currentLang === 'fa' ? 'نرخ ارز وارد نشده است' : 'The exchange rate has not been entered')
     }
   }
@@ -69,7 +69,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       date_to: moment(this.data.checkout.dateEn).format('YYYY-MM-DD'),
       type: this.data.type,
       checkin_base: this.not_checkin_base ? false : this.offerPriceFC.value ? true : null,
-      available_room_count: this.capacityFC.value ? this.publicService.fixNumbers(+this.capacityFC.value) : null,
+      available_room_count: (this.capacityFC.value || this.capacityFC.value === 0) ? this.publicService.fixNumbers(+this.capacityFC.value) : null,
       extra_bed_count: this.publicService.fixNumbers(this.bedCountFC.value) ? +this.bedCountFC.value : null,
       price: this.priceFC.value !== null ? +this.priceFC.value : null,
       chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : null,
@@ -84,7 +84,7 @@ export class ConfirmPricingModalComponent implements OnInit {
         )
       )
     }
-this.submitLoading = true;
+    this.submitLoading = true;
     this.api.rating(+this.data.roomID, this.req).subscribe((res: any) => {
       this.submitLoading = false;
 
