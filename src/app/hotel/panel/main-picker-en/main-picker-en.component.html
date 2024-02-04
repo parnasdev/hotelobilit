@@ -33,6 +33,11 @@
                     <label class=" label-capacity english-font" *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
 
+                  <div class="label-capacity2"  [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
+                    <label
+                    >!</label>
+                  </div>
+
 
                     <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : extra bed price : ' "
                         *ngIf="item.data && item.data?.extra_price">
@@ -83,6 +88,11 @@
                         *ngIf="item.data && item.data?.extra_price">
                         <i class="icon-circle icon-circle-extra font-size-8"></i>
                     </div>
+
+                  <div class="label-capacity2"  [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
+                    <label
+                    >!</label>
+                  </div>
 
 
                     <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator"

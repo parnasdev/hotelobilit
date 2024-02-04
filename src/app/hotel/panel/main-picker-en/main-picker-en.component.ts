@@ -149,7 +149,11 @@ export class MainPickerEnComponent implements OnInit {
   }
 
 
-
+  returnString(str1:any,str2:any){
+    let booked=` booked:${str1}`
+    let reserving=` reserving:${str2}`
+    return booked + '  |  ' + reserving
+  }
 
   fillObject(dates: any = []) {
     let result: any[] = [];

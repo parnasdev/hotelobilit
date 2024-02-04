@@ -141,6 +141,21 @@ $gray-color: #646464;
                 top: -5px;
             }
 
+          .label-capacity2 {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #ab8b53;
+            padding: 1px;
+            color: var(--white);
+            font-size: 13px;
+            position: absolute;
+            right:-5px;
+            top: -5px;
+          }
+
             .item {
                 width: 50px;
                 height: 50px;
@@ -171,15 +186,15 @@ $gray-color: #646464;
                     left: 2px;
                     bottom: 2px;
                   }
-          
+
                   .icon-circle-extra {
                     color: #259548!important;
                   }
-          
+
                   .icon-circle {
                     color: #ff0000
                   }
-          
+
                 .price-day {
                     position: absolute;
                     transform: translateY(29px);
