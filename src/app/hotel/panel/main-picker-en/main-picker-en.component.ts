@@ -332,7 +332,8 @@ export class MainPickerEnComponent implements OnInit {
           offer_price: result[0].offer_price,
           price: result[0].price,
           room_id: result[0].room_id,
-
+          reserving_room_count:result[0].reserving_room_count,
+          booked_room_count:result[0].booked_room_count,
           updated_at: result[0].updated_at,
           user_id: result[0].user_id
         } : null;
