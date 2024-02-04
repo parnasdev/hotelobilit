@@ -1,25 +1,25 @@
 <div class="p-4 d-flex w-100 flex-wrap justify-content-between" style="direction: ltr;">
     <div class="w-100">
       <strong>Pricing</strong>
-  
+
     </div>
-  
-  
+
+
     <div class="w-48 mt-4 d-flex flex-column align-items-start">
       <label for="">Number of rooms available</label>
       <div class="inp-form mt-2  w-100">
         <input class="input" type="text" placeholder="Enter ..." [formControl]="capacityFC">
       </div>
     </div>
-  
-    <div class="w-48 mt-4 d-flex flex-column align-items-start">
-      <label for="">Price per person in the room{{ data.room.room_type }} ({{ data.currency_code }})</label>
+
+    <div *ngIf="!data.isJustRoomCount"  class="w-48 mt-4 d-flex flex-column align-items-start">
+      <label for="">Price per person in the room{{ data.room.room_type_en  }} ({{ data.currency_code }})</label>
       <div class="inp-form mt-2 mt-2 w-100">
         <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="Enter ..."
           [formControl]="priceFC">
       </div>
     </div>
-    
+
     <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
       <label for="">قیمت تخفیف خورده</label>
       <div class="inp-form mt-2 w-100">
@@ -27,34 +27,39 @@
           [formControl]="offerPriceFC">
       </div>
     </div> -->
-  
+
     <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
       <label for="">تعداد تخت اضافه</label>
       <div class="inp-form mt-2 w-100">
         <input class="input" type="text" readonly placeholder="تعداد تخت اضافه" [formControl]="bedCountFC">
       </div>
     </div> -->
-  
-    <div class="w-48 mt-4 d-flex flex-column align-items-start">
-      <label for="">child with bed price</label>
-      <div class="inp-form mt-2 w-100">
-        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="child with bed price"
-          [formControl]="chd_priceFC">
-      </div>
-    </div>
-  
-    <div class="w-48 mt-4 d-flex flex-column align-items-start">
+
+<!--    <div class="w-48 mt-4 d-flex flex-column align-items-start" >-->
+<!--      <label for="">child with bed price</label>-->
+<!--      <div class="inp-form mt-2 w-100">-->
+<!--        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="child with bed price"-->
+<!--          [formControl]="chd_priceFC">-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
       <label for="">Extra bed price</label>
       <div class="inp-form mt-2 w-100">
         <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="Extra bed price"
           [formControl]="bedPriceFC">
       </div>
     </div>
-    <div class="w-48 mt-4 d-flex flex-column align-items-start">
+    <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
       <label for="">checkin Base ?</label>
       <mat-checkbox [(ngModel)]="checkin_base"></mat-checkbox>
       </div>
-    <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="checkin_base">
+
+  <div class="d-flex flex-column" *ngIf="!data.isJustRoomCount" >
+    <label for="">{{ 'notCheckinBase' }}</label>
+    <mat-checkbox [(ngModel)]="not_checkin_base"></mat-checkbox>
+  </div>
+    <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="checkin_base && !data.isJustRoomCount">
       <label for="">checkin base price</label>
       <div class="inp-form mt-2 w-100">
         <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="checkin base price"
@@ -68,8 +73,8 @@
           [formControl]="offerBedPriceFC">
       </div>
     </div> -->
-  
-  
+
+
     <!-- <div class="d-flex mt-3 w-75 mx-auto align-items-center justify-content-evenly">
       <span>نرخ ارز</span>
       <div class="inp-form w-25">
@@ -82,11 +87,13 @@
         </select>
       </div>
     </div> -->
-  
+
     <div class="d-flex justify-content-between mx-auto align-items-center w-50 mt-5">
-      <button class="btn-base btn w-48 h-45" (click)="submit()">Save</button>
+      <button class="btn-base btn w-48 h-45" (click)="submit()">
+        <span class="spinner-border spinner-border-sm" *ngIf="submitLoading"></span>
+
+        Save</button>
       <button class="btn bg-danger text-white w-48 h-45" (click)="dialogRef.close(false)">Cancel</button>
     </div>
-  
+
   </div>
-  

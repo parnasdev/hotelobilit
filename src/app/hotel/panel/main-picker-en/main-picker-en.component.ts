@@ -56,7 +56,7 @@ export class MainPickerEnComponent implements OnInit {
     public route: ActivatedRoute,
     public checkError: ErrorsService,
     public api: PostApiService,
-    public message: MessageService,) { 
+    public message: MessageService,) {
 
     }
 
@@ -284,7 +284,7 @@ export class MainPickerEnComponent implements OnInit {
   }
 
   confirmPricing(isJustRoomCount:boolean): void {
-    const dialog = this.dialog.open(ConfirmPricingModalComponent, {
+    const dialog = this.dialog.open(ConfirmPricingModalEnComponent, {
       width: '60%',
       data: {
         checkin: this.stDate,
