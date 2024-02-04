@@ -24,7 +24,7 @@ export class UserApiService {
   }
 
   getUser(role: number | null = null, parent: number | null = null, page: number | null = null, keyword: string): any {
-    const strUrl = this.serverControllerName + `?role=${role === 0 ? '' : role }&q=${keyword}&page=${page}&parent=${parent ? parent : '' }`;
+    const strUrl = this.serverControllerName + `?role=${role === 0 || role === null ? '' : role }&q=${keyword}&page=${page}&parent=${parent ? parent : '' }`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
 
   }
