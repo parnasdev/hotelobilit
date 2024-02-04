@@ -9,7 +9,7 @@
             </select>
 
         </div>
- 
+
         <div class="items-row">
             <div class="item">
                 <span>مبدا</span>
@@ -67,6 +67,23 @@
             <prs-time-picker (result)="getTime($event)" [inCommingTime]="req.time"></prs-time-picker>
         </div>
 
+<!--           *ngIf="!req.one_way"-->
+      <div class="item"
+      >
+        <span>مدت زمان پرواز (ساعت)</span>
+        <input type="text" [(ngModel)]="req.duration">
+        <div *ngIf="error.hasError('duration')">
+          <span class="text-danger">{{error.getError('duration')}}</span>
+        </div>
+      </div>
+<!--      *ngIf="!req.one_way"-->
+      <div class="item" >
+        <span>بار مجاز </span>
+        <input [(ngModel)]="req.baggage" type="text">
+        <div *ngIf="error.hasError('baggage')">
+          <span class="text-danger">{{error.getError('return_baggage')}}</span>
+        </div>
+      </div>
 
         <div class="list-inp">
             <div class="item-full">

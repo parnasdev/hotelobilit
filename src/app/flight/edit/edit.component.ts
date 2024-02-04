@@ -36,7 +36,8 @@ export class EditComponent {
     flight_number: '',
     inf_price: 0,
     is_close: 0,
-    time: ''
+    time: '',
+    baggage:'',duration:''
   }
 
   filterObj: FilterDTO = {
@@ -56,7 +57,7 @@ export class EditComponent {
     public router:Router,
     public route: ActivatedRoute,
     public message: MessageService,
-    public error: ErrorsService) { 
+    public error: ErrorsService) {
     this.setFilterFromRoute()
 
   }
@@ -136,7 +137,9 @@ export class EditComponent {
       flight_number: this.data.flight.flight_number,
       inf_price: this.data.flight.inf_price,
       is_close: this.data.flight.is_close,
-      time: this.data.flight.time
+      time: this.data.flight.time,
+      baggage:this.data.flight.baggage,
+      duration: this.data.flight.duration,
     }
     let itemFiltered= this.data.airports.filter((x:any) => x.id === this.data.flight.destination_id)
     if(itemFiltered.length > 0) {
@@ -187,7 +190,7 @@ export class EditComponent {
 
   }
 
-  submit(){ 
+  submit(){
     this.api.update(this.req,+this.id).subscribe({
       next: (res: any) => {
         if(res.isDone) {

@@ -70,6 +70,8 @@ export interface IFlightEditReq {
     description: string | null
     airplane_id: number
     cabin_type: string
+  baggage:string
+  duration:string
 }
 
 export interface IFlightStoreReq {
@@ -116,7 +118,7 @@ export interface IUpdateBulk {
     description?: string
     airplane_id?: number
     cabin_type?: string
-    
+
 }
 
 export interface IMixStepOneReq {

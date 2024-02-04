@@ -52,7 +52,7 @@
                         <select [(ngModel)]="req.is_close">
                             <option [ngValue]="false">open</option>
                             <option [ngValue]="true">close</option>
-    
+
                         </select>
                     </div>
                 </div>
@@ -61,6 +61,23 @@
                         }}</span>
                 </div>
             </div>
+
+          <div class="item"
+          >
+            <p>مدت زمان پرواز (ساعت)</p>
+            <input type="text" [(ngModel)]="req.duration">
+            <div *ngIf="error.hasError('duration')">
+              <span class="text-danger">{{error.getError('duration')}}</span>
+            </div>
+          </div>
+          <!--      *ngIf="!req.one_way"-->
+          <div class="item" >
+            <p>بار مجاز </p>
+            <input [(ngModel)]="req.baggage" type="text">
+            <div *ngIf="error.hasError('baggage')">
+              <span class="text-danger">{{error.getError('return_baggage')}}</span>
+            </div>
+          </div>
         </div>
 
         <!-- <div class="d-flex mt-5"> -->
