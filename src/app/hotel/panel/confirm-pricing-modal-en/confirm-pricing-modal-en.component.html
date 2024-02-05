@@ -1,21 +1,21 @@
 <div class="p-4 d-flex w-100 flex-wrap justify-content-between" style="direction: ltr;">
     <div class="w-100">
-      <strong>Pricing</strong>
+      <strong>{{ 'pricing' | translate }}</strong>
 
     </div>
 
 
     <div class="w-48 mt-4 d-flex flex-column align-items-start">
-      <label for="">Number of rooms available</label>
+      <label for="">{{ 'NumberOfRoomsAvailable' | translate }}</label>
       <div class="inp-form mt-2  w-100">
-        <input class="input" type="text" placeholder="Enter ..." [formControl]="capacityFC">
+        <input class="input" type="text" placeholder="{{ 'NumberOfRoomsAvailable' | translate }}" [formControl]="capacityFC">
       </div>
     </div>
 
     <div *ngIf="!data.isJustRoomCount"  class="w-48 mt-4 d-flex flex-column align-items-start">
-      <label for="">Price per person in the room{{ data.room.room_type_en  }} ({{ data.currency_code }})</label>
+      <label for="">{{ 'PricePerPersonInTheRoom'|translate }}{{ data.room.room_type_en  }} ({{ data.currency_code }})</label>
       <div class="inp-form mt-2 mt-2 w-100">
-        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="Enter ..."
+        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'EnterPrice' |translate }}"
           [formControl]="priceFC">
       </div>
     </div>
@@ -44,25 +44,25 @@
 <!--    </div>-->
 
     <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
-      <label for="">Extra bed price</label>
+      <label for="">{{'extraBedPrice'|translate}}</label>
       <div class="inp-form mt-2 w-100">
-        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="Extra bed price"
+        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'extraBedPrice' | translate }}"
           [formControl]="bedPriceFC">
       </div>
     </div>
     <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="!data.isJustRoomCount" >
-      <label for="">checkin Base ?</label>
+      <label for="">{{'checkinBase'|translate}} ?</label>
       <mat-checkbox [(ngModel)]="checkin_base"></mat-checkbox>
       </div>
 
   <div class="d-flex flex-column" *ngIf="!data.isJustRoomCount" >
-    <label for="">{{ 'notCheckinBase' }}</label>
+    <label for="">{{ 'notCheckinBase'|translate }}</label>
     <mat-checkbox [(ngModel)]="not_checkin_base"></mat-checkbox>
   </div>
     <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="checkin_base && !data.isJustRoomCount">
-      <label for="">checkin base price</label>
+      <label for="">c{{'checkinBasePrice'|translate}}</label>
       <div class="inp-form mt-2 w-100">
-        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="checkin base price"
+        <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'checkinBasePrice' |translate }}"
           [formControl]="offerPriceFC">
       </div>
     </div>
@@ -92,7 +92,7 @@
       <button class="btn-base btn w-48 h-45" (click)="submit()">
         <span class="spinner-border spinner-border-sm" *ngIf="submitLoading"></span>
 
-        Save</button>
+        {{ 'ثبت' | translate }}</button>
       <button class="btn bg-danger text-white w-48 h-45" (click)="dialogRef.close(false)">Cancel</button>
     </div>
 
