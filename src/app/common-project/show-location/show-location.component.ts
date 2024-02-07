@@ -72,10 +72,8 @@ export class ShowLocationComponent implements OnInit {
       history: false,
       on: {
         click: function () {
-          console.log('Click callback');
         },
         contextmenu: function () {
-          console.log('Contextmenu callback');
         },
       },
     });

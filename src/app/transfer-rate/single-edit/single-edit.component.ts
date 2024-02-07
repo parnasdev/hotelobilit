@@ -69,7 +69,6 @@ export class SingleEditComponent extends AddComponent implements OnInit {
 
     this.infoData.cities.forEach((item: number) => {
       let cityItem = this.cities.filter(x => x.id === item)[0]
-      console.log(cityItem);
       cityItem.isChecked = true;
       this.selectedCities.push(cityItem)
     })

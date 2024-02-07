@@ -127,7 +127,6 @@ export class IndexComponent implements OnInit {
 
 getNight(originDate:string,destinationDate:string) {
 let list = this.calendarService.enumerateDaysBetweenDates(originDate,destinationDate);
-console.log(list.length) 
 return list.length -1
 }
 

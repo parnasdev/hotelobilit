@@ -23,7 +23,6 @@ export class RoomsComponent implements OnInit{
   }
 
   ngOnInit() {
-    // console.log(this.data.rooms)
     this.data.selectedRooms.forEach((item:any)=>{
       this.addroom(item)
     })

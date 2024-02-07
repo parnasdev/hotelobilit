@@ -111,7 +111,6 @@ export class TimePickerComponent implements OnInit,OnChanges {
   }
 
   minutesChanged(event: any): void {
-    console.log(this.pattern.test(event.target.value))
 
     if (!this.pattern.test(event.target.value)) {
       event.target.value = '00';

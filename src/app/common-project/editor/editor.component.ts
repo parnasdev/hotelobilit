@@ -62,7 +62,6 @@ export class EditorComponent implements OnInit, OnChanges {
 
     });
     tinymce.activeEditor.on('change', (e: any) => {
-      console.log((document.getElementById('context') as HTMLInputElement).value)
       this.body.emit((document.getElementById('context') as HTMLInputElement).value)
     });
   }

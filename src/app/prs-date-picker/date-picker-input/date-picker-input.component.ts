@@ -90,8 +90,7 @@ export class DatePickerInputComponent implements OnInit, OnChanges {
   }
 
   openDialog(step: number): void {
-    console.log(this.minDate)
-    console.log(this.maxDate)
+
 
     this.dialog.open(NewDatePickerPopupComponent,
       {

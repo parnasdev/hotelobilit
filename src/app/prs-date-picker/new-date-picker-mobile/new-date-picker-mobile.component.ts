@@ -43,7 +43,6 @@ export class NewDatePickerMobileComponent implements OnInit {
     let min = +this.data.minDate.split('-')[0]
     let max = +this.data.maxDate.split('-')[0]
   
-    console.log(min,max);
     
     
     for (let i = min; i < max + 1; i++) {

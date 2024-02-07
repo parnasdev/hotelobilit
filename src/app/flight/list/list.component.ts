@@ -177,13 +177,11 @@ export class ListComponent {
         }
       },
       error: (error: any) => {
-        // console.log('error');
 
         this.isLoading = false;
         this.error.check(error);
       },
       complete: () => {
-        // console.log('complete');
       }
     })
   }

@@ -235,7 +235,6 @@ export class DynamicListComponent implements OnInit {
       })
       this.selectedItems = []
     }
-    console.log(this.selectedItems)
   }
 
   clearSelectedItems() {
@@ -249,7 +248,6 @@ export class DynamicListComponent implements OnInit {
   handleSelected() {
     this.selectedItems = []
     this.data.data.forEach((item:any) => item.isChecked ? this.selectedItems.push(item): null)
-    console.log(this.selectedItems)
     // if (this.selectedItems.find((x: number) => x === itemData.id)) {
     //   let item_index = this.selectedItems.findIndex((x: number) => x === itemData.id)
     //   this.selectedItems.splice(item_index, 1)

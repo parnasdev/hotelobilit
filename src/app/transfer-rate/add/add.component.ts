@@ -180,7 +180,6 @@ export class AddComponent implements OnInit {
         this.cities.forEach(item => {
           item.isChecked = false;
         })
-        console.log(this.cities)
         this.show = true;
       }
     }, (error: any) => {

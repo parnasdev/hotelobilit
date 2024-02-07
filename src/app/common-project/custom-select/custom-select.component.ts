@@ -86,7 +86,6 @@ export class CustomSelectComponent implements OnChanges {
     if (filterValue !== '') {
       filterValue = value;
     }
-    console.log(filterValue);
     return this.list
   }
 

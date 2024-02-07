@@ -72,7 +72,6 @@ export class ReserveInfoComponent {
     let list:any[] =[]
     for (var key in item.prices) {
       if (item.prices.hasOwnProperty(key)) {
-          console.log(key + " -> " + item.prices[key]);
           list.push({name: key,value:item.prices[key]})
       }
   }

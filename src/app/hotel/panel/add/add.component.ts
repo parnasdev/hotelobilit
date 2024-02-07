@@ -181,7 +181,6 @@ export class AddComponent implements OnInit {
       }
       this.rooms.push(obj)
     })
-    console.log(this.rooms);
 
   }
 

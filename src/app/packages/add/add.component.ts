@@ -176,7 +176,6 @@ export class AddComponent implements OnInit {
     };
     this.packages.push(item);
 
-    console.log(this.packages)
   }
 
   removePackage(index: number) {

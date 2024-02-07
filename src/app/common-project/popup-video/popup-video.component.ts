@@ -16,7 +16,6 @@ export class PopupVideoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   goToYoutube(): void {

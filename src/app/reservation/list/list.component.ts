@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
   p = 1;
   paginateConfig: any;
   list: any[] = [];
-
+  keyword = '';
   constructor(
     public title: Title,
     public api: ReserveApiService,
@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
   getList(): void {
     this.isLoading = true;
     this.list = [];
-    this.api.list(this.p).subscribe((res: any) => {
+    this.api.list(this.p,this.keyword).subscribe((res: any) => {
       if (res.isDone) {
         this.list = res.data
         this.paginate = res.meta;

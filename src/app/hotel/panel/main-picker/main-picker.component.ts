@@ -99,7 +99,6 @@ export class MainPickerComponent implements OnInit {
     let start2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'jYYYY/jMM/jDD').startOf('jmonth')
     let end2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'jYYYY/jMM/jDD').endOf('jmonth')
 
-    // console.log(this.fixDates(start2, end2))
     const dates = [...this.fixDates(start1, end1), ...this.fixDates(start2, end2)]
     this.daysOfMonth = this.fillObject(dates)
     this.getHotelRates()
@@ -320,7 +319,6 @@ returnString(str1:any,str2:any){
 
       if (this.daysOfMonth.length > 0) {
         let result = this.pricesData.rates.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
-        console.log(result)
         return result.length > 0 ? {
           available_room_count: result[0].available_room_count,
           created_at: result[0].created_at,

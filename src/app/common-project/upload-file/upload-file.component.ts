@@ -22,7 +22,6 @@ export class UploadFileComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     document.getElementById('gallery').onchange(event => {
-      console.log('gggggggggggggggggggggggg')
     })
   }
   onSubmit(form: NgForm){
@@ -32,7 +31,6 @@ export class UploadFileComponent implements OnInit {
     return this.http.post('http://tour-api.parnasweb.com/api/galleries', JSON.stringify(form.value), {headers: this.headers})
       .toPromise()
       .then(function (res) {
-        console.log(res)
         self.router.navigate(['/galleries']);
       })
       .catch(this.handleError);

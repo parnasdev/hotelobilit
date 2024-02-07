@@ -36,7 +36,6 @@ export class GroupChangePopupComponent {
     public message: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog) {
-    console.log(data);
 
   }
 

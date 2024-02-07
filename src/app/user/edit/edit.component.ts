@@ -291,7 +291,6 @@ export class EditComponent implements OnInit {
 
 
   modeChanged(event: any) {
-    console.log(this.modeNM)
 
   }
 
