@@ -52,6 +52,8 @@ export class AddComponent implements OnInit {
     coordinates: [0, 0],
     currency_code: '',
     services: [],
+    with_bed_child_ages:[],
+    no_bed_child_ages: [],
     body: '',
     address: '',
     stars: 0,
@@ -75,6 +77,11 @@ export class AddComponent implements OnInit {
   }
   serviceIDs: string[] = [];
   isLoading = false;
+
+  noBedMin = 0;
+  noBedMax = 0;
+  withBedMin = 0;
+  withBedMax = 0;
 
   showServices = false;
 
@@ -227,6 +234,8 @@ export class AddComponent implements OnInit {
       services: this.getSelectedServices(),
       categories: [],
       comment: 0,
+      no_bed_child_ages: [this.noBedMin, this.noBedMax],
+      with_bed_child_ages: [this.withBedMin, this.withBedMax],
       del_files: [],
       coordinates: [this.lat, this.lng],
       files: this.images,

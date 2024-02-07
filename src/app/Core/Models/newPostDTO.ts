@@ -86,7 +86,9 @@ export interface storeHotelSetReqDTO {
     status_id: number | null;
     del_rooms?: number[]
     address: string | null;
-    location: string | null
+    location: string | null;
+    no_bed_child_ages:number[];
+    with_bed_child_ages: number[];
     coordinates:number[]
     stars: number
     currency_code: string;
@@ -216,6 +218,7 @@ export interface RateDTO {
     id: number
     checkin_base: boolean
     offer_extra_price: number
+    chd_w_price: number;
     offer_price: number
     price: number
     room_id: number

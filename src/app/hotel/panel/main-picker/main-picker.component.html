@@ -34,7 +34,7 @@
                         *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
 
-                  <div class="label-capacity" style="top: 1px; right: 1px; background-color: #ab8b53" [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
+                  <div class="label-capacity" style="top: 1px; right: 1px; background-color: #ab8b53" [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count,item?.data?.chd_w_price ?? 0)">
                   <label
                       >!</label>
                   </div>
@@ -85,7 +85,7 @@
                     <label class="label-capacity" *ngIf="item.data && item.data.available_room_count"> {{
                         item.data?.available_room_count }}</label>
 
-                  <div class="label-capacity" style="top: 1px; right: 1px;background-color: #ab8b53" [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
+                  <div class="label-capacity" style="top: 1px; right: 1px;background-color: #ab8b53" [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count,item?.data?.chd_w_price ?? 0)">
                     <label
                     >!</label>
                   </div>

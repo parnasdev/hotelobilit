@@ -14,6 +14,8 @@ export class EditComponent extends AddComponent implements OnInit {
   hotelId = 1;
   roomTypes: roomObjDTO[] = []
 
+
+
   removedRoomsIDs: number[] = []
   hotelInfo: InfoHotelDTO = {
     statuses: [],
@@ -111,6 +113,13 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   setData(): void {
+    if (this.hotelInfo.post.options.no_bed_child_ages && this.hotelInfo.post.options.with_bed_child_ages) {
+      this.noBedMax = this.hotelInfo.post.options.no_bed_child_ages.length > 1 ? this.hotelInfo.post.options.no_bed_child_ages[1] : 0;
+      this.noBedMin = this.hotelInfo.post.options.no_bed_child_ages.length > 0 ? this.hotelInfo.post.options.no_bed_child_ages[0] : 0;
+      this.withBedMin = this.hotelInfo.post.options.with_bed_child_ages.length > 0 ? this.hotelInfo.post.options.with_bed_child_ages[0] : 0;
+      this.withBedMax = this.hotelInfo.post.options.with_bed_child_ages.length > 1 ? this.hotelInfo.post.options.with_bed_child_ages[1] : 0;
+
+    }
     this.hotelForm.controls.title.setValue(this.hotelInfo.post.title);
     this.hotelForm.controls.titleEn.setValue(this.hotelInfo.post.options?.titleEn);
     this.hotelForm.controls.slug.setValue(this.hotelInfo.post.slug);
@@ -279,6 +288,8 @@ export class EditComponent extends AddComponent implements OnInit {
       files: this.hotelImages,
       options: [],
       pin: 0,
+      no_bed_child_ages: [this.noBedMin, this.noBedMax],
+      with_bed_child_ages: [this.withBedMin, this.withBedMax],
       use_api: 0,
       city_id: this.hotelForm.controls.city_id.value,
       // @ts-ignore

@@ -306,10 +306,11 @@ export class MainPickerComponent implements OnInit {
 
 
 
-returnString(str1:any,str2:any){
+returnString(str1:any,str2:any,chd_price_w:any){
+  let chd_price = 'قیمت کودک با تخت :' + chd_price_w + this.pricesData.hotel.currency_code
     let booked=` رزروشده:${str1}`
     let reserving=` درحال رزرو:${str2}`
-    return booked + '  |  ' + reserving
+    return booked + '  |  ' + reserving + ' | ' + chd_price
 }
 
 
@@ -334,6 +335,7 @@ returnString(str1:any,str2:any){
           price: result[0].price,
           room_id: result[0].room_id,
           reserving_room_count:result[0].reserving_room_count,
+          chd_w_price:result[0].chd_w_price,
           booked_room_count:result[0].booked_room_count,
 
           updated_at: result[0].updated_at,

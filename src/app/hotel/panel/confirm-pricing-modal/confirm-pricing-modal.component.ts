@@ -32,7 +32,7 @@ export class ConfirmPricingModalComponent implements OnInit {
   rateFC = new FormControl('all')
   capacityFC = new FormControl()
   bedCountFC = new FormControl();
-  chd_priceFC = new FormControl();
+  chd_w_priceFC = new FormControl()
   bedPriceFC = new FormControl();
   offerBedPriceFC = new FormControl();
   checkin_base = false
@@ -72,7 +72,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       available_room_count: (this.capacityFC.value || this.capacityFC.value === 0) ? this.publicService.fixNumbers(+this.capacityFC.value) : null,
       extra_bed_count: this.publicService.fixNumbers(this.bedCountFC.value) ? +this.bedCountFC.value : null,
       price: this.priceFC.value !== null ? +this.priceFC.value : null,
-      chd_price: this.chd_priceFC.value ? +this.chd_priceFC.value : null,
+      chd_w_price: this.chd_w_priceFC.value ? +this.chd_w_priceFC.value : null,
       extra_price: this.bedPriceFC.value !== null ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
       offer_price: this.checkin_base ? this.offerPriceFC.value : null,

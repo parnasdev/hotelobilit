@@ -71,6 +71,8 @@
   "PricePerPersonInTheRoom" : "Price Per Person In The Room",
   "EnterPrice" : "Enter Price",
   "extraBedPrice" : "extra Bed Price",
+  "childWithBed" : "Child with bed Price",
+
   "checkinBase" : "checkin Base ?",
   "notCheckinBase" : "not checkin base",
   "checkinBasePrice" : "checkin Base Price",

@@ -98,7 +98,6 @@ this.getInfo()
       }
       this.packages.push(item)
     })
-    debugger
     this.packages.sort((a:any,b:any)=>a.order_item-b.order_item)
   }
 

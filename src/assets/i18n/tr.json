@@ -72,6 +72,8 @@
   "PricePerPersonInTheRoom" : "Odada kişi başı fiyat ",
   "EnterPrice" : "Fiyatınızı girin",
   "extraBedPrice" : "İlave yatak fiyatı",
+  "childWithBed" : "Ödeme Yöntemi",
+
   "checkinBase" : "checkin Base ?",
   "notCheckinBase" : "not checkin base",
   "checkinBasePrice" : "İlave yatak fiyatı",

@@ -102,6 +102,43 @@
         </div>
       </div>
     </div>
+    <div class="box-info-tour">
+      <div class="info-tour-header">
+        <div class="right">
+          <label for="">سن کودک</label>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="w-100 grid-2 py-4">
+          <div class="w-100 d-flex flex-column align-items-center">
+            <label class="bold-600" for="">سن کودک بدون تخت </label>
+            <div style="gap: 10px;" class="d-flex row-age-nobed align-items-center">
+              <span class="bold-600" >از</span>
+              <div class="item-info d-flex">
+                <input [(ngModel)]="noBedMin" type="number" [ngModelOptions]="{standalone: true}">
+              </div>
+              <span class="bold-600" >تا</span>
+              <div class="item-info d-flex">
+                <input [(ngModel)]="noBedMax" type="number" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="w-100 d-flex flex-column align-items-center">
+            <label class="bold-600"  for="">سن کودک با تخت </label>
+            <div style="gap: 10px;" class="d-flex row-age-nobed align-items-center">
+              <span class="bold-600" >از</span>
+              <div class="item-info d-flex">
+                <input [(ngModel)]="withBedMin" type="number" [ngModelOptions]="{standalone: true}">
+              </div>
+              <span class="bold-600" >تا</span>
+              <div class="item-info d-flex">
+                <input [(ngModel)]="withBedMax" type="number" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
 
     <div class="box-info-tour">
       <div class="info-tour-header">
@@ -113,8 +150,8 @@
       <div class="info-tour-body">
         <div class="item-info w-100">
           <app-get-lat-long [inCommingLatLng]="[lat,lng]" class="w-95 m-top-16 mx-auto" [textMarker]="'هتل'"
-          (latlng)="getLatLng($event)"></app-get-lat-long>
-          </div>
+            (latlng)="getLatLng($event)"></app-get-lat-long>
+        </div>
       </div>
     </div>
 

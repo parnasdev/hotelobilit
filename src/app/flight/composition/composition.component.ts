@@ -150,8 +150,7 @@ export class CompositionComponent {
     })
     dialog.afterClosed().subscribe((result: any) => {
       if (result) {
-        // debugger
-        // (result.fromDate.dateEn)
+
         if (type === 'departure') {
           this.departureObj.start_date = result.fromDate.dateEn
           this.departureObj.end_date = result.toDate.dateEn

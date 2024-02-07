@@ -96,7 +96,6 @@ export class AddComponent {
 
   // changeCityType() {
   //   this.airports = []
-  //   debugger
   //   this.airports = this.data.airports.filter((x: any) => x.is_domestic === this.isDomestic)
 
   // }
