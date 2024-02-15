@@ -5,16 +5,15 @@
     <div class="box-info-tour">
       <div class="info-tour-header">
         <div class="right">
-          <label for="">اضافه کردن فرودگاه جدید</label>
-          <h2 class="text-gray">اطلاعات فرودگاه</h2>
+          <label for="">افزودن فرودگاه</label>
+          <h2>اطلاعات فرودگاه</h2>
         </div>
 
       </div>
       <div class="info-tour-body">
-        <div class="top">
-
-          <div style="padding-right: 2rem" class="item-info w-48">
-            <div class="select-info">
+        <div style="display: grid;grid-template-columns: 1fr 1fr 1fr 1fr !important;gap: 12px">
+          <div class="item-info w-100">
+            <div class="select-info w-100">
               <label for="">شهر </label>
               <prs-select-city [hasHotel]="true" [cities]="data.cities"
                                (citySelected)="getEndCity($event)"></prs-select-city>
@@ -23,8 +22,9 @@
               </div>
             </div>
           </div>
-          <div style="padding-right: 2rem" class="item-info w-100">
-            <div class="select-info">
+
+          <div class="item-info w-100">
+            <div class="select-info w-100">
               <label for="">انتخاب شهرها </label>
               <prs-multiple-select [showKey]="'name'" [valueKey]="'id'" class="w-100" (result)="getCities($event)"
                 [data]="data?.cities">
@@ -34,12 +34,13 @@
               </div>
             </div>
           </div>
-          <div class="item-info">
+
+          <div class="item-info w-100">
             <label for="">عنوان فرودگاه</label>
             <input [formControl]="nameFC" type="text">
           </div>
 
-          <div class="item-info">
+          <div class="item-info w-100">
             <label for="">کد فرودگاه</label>
             <input [formControl]="codeFC" type="text">
           </div>
@@ -49,7 +50,7 @@
 
     <div class="btn-parent-submit">
 
-      <button class="submit-tour" (click)="submit()">ثبت فرودگاه</button>
+      <button class="submit-tour" (click)="submit()">افزودن فرودگاه</button>
     </div>
   </form>
 
