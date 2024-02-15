@@ -1,0 +1,75 @@
+@import "src/assets/css/varible";
+
+.value-container {
+  font-size: 15px;
+  display: block;
+  width: 100% !important;
+  height: 70px !important;
+  padding: 0 20px;
+  background: #fff;
+  color: #323840;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px !important;
+  box-sizing: border-box;
+  position: relative !important;
+}
+
+.dropdown-container{
+  position: absolute;
+  right: 0;
+  width: 100% !important;
+  top: 300;
+  z-index: 50;
+  padding: 10px !important;
+  .input-container {
+    width: 100% !important;
+    padding: 4px;
+  }
+}
+.item-select-row {
+  border-bottom: 1px solid #c6c6c6;
+}
+.value-container {
+    @extend .input-container;
+    align-items: center;
+    padding:1px 4px;
+    label{
+      font-size: 14px;
+    }
+  }
+  .input-container {
+    width: 200px!important;
+    height: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    color: #323840;
+    background-color: white;
+    display: flex;
+  }
+
+  button{
+    white-space: nowrap;
+    color: red;
+
+    border: none;
+    outline: none;
+  }
+
+  .dropdown-container{
+    margin-top: 2px;
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+    //border: 1px solid black;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+
+  }
+
+  .item{
+    padding: 10px;
+    transition:background-color .2s ease-out;
+    &:hover{
+      background-color: rgba(191, 192, 192, 0.29);
+    }
+  }

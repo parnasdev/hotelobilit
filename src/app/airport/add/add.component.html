@@ -8,16 +8,7 @@
           <label for="">اضافه کردن فرودگاه جدید</label>
           <h2 class="text-gray">اطلاعات فرودگاه</h2>
         </div>
-        <!-- <div class="left">
-          <div class="selectdiv">
-            <label>
-              <select [formControl]="statusFC">
-                <option value="hide" selected> منتشر نشود</option>
-                <option value="show">انتشار</option>
-              </select>
-            </label>
-          </div>
-        </div> -->
+
       </div>
       <div class="info-tour-body">
         <div class="top">
@@ -29,6 +20,17 @@
                                (citySelected)="getEndCity($event)"></prs-select-city>
               <div *ngIf="errorService.hasError('destination_id')">
                 <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding-right: 2rem" class="item-info w-100">
+            <div class="select-info">
+              <label for="">انتخاب شهرها </label>
+              <prs-multiple-select [showKey]="'name'" [valueKey]="'id'" class="w-100" (result)="getCities($event)"
+                [data]="data?.cities">
+              </prs-multiple-select>
+              <div *ngIf="errorService.hasError('cities')">
+                <span class="text-danger">{{errorService.getError('cities')}}</span>
               </div>
             </div>
           </div>

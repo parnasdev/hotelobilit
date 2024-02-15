@@ -44,6 +44,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { IconsComponent } from './icons/icons.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
+import { MultipleSelectComponent } from './multiple-select/multiple-select.component';
 
 
 
@@ -82,6 +83,7 @@ import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
     CheckboxComponent,
     IconsComponent,
     PanelLoadingComponent,
+    MultipleSelectComponent
   ],
     exports: [
         UploadFileComponent,
@@ -102,6 +104,7 @@ import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
         SelectCityLimitedComponent,
         SelectSearchComponent,
         LoadingComponent,
+        MultipleSelectComponent,
         CustomSelectHotelComponent,
         CustomSelectComponent,
         DynamicListComponent,

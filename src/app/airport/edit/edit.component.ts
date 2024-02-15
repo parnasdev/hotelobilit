@@ -19,14 +19,14 @@ export class EditComponent {
   codeFC = new FormControl();
   statusFC = new FormControl();
   destCityFC = new FormControl();
-
   req: AirportReqDTO = {
     name: '',
     code: '',
     parent_id: 0,
+    cities: []
   }
   info: any
-
+citySelected: number[] = []
   show = false;
 
   constructor(public message: MessageService,
@@ -60,10 +60,12 @@ export class EditComponent {
     })
   }
 
+  getCities(cityItemsSelected: any): void {
+    this.citySelected = cityItemsSelected
+  }
   getEndCity(cityItemSelected: any): void {
     this.destCityFC.setValue(cityItemSelected.id);
   }
-
   getInfo(): void {
     this.api.editCategoryPage(this.transfer_id, 'airport', 'hotel').subscribe((res: any) => {
       if (res.isDone) {
@@ -87,6 +89,7 @@ export class EditComponent {
     this.nameFC.setValue(this.info.airport.name)
     this.codeFC.setValue(this.info.airport.code)
     this.destCityFC.setValue(this.info.airport.parent_id)
+    this.citySelected = this.info.selected_cities
   }
 
 
@@ -94,6 +97,7 @@ export class EditComponent {
     this.req = {
       parent_id: this.destCityFC.value,
       code: this.codeFC.value,
+      cities: this.citySelected,
       name: this.nameFC.value,
     }
   }

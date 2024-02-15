@@ -1,0 +1,29 @@
+<div class="p-relative" (clickOutside)="isShow=false">
+  <div class="value-container" (click)="isShow=!isShow">
+    <div *ngIf="selectedItems.length>0">
+      <div for="">
+        <label>
+          {{showItem}}
+        </label>
+        <label for="" *ngIf="selectedItems.length > 1">و {{selectedItems.length - 1}} آیتم دیگر...</label>
+      </div>
+    </div>
+  </div>
+
+  <ng-template [ngIf]="isShow">
+    <div class="dropdown-container">
+      <div class="input-container">
+        <input type="text" style="border: none;width: 100%;height: 100%" [(ngModel)]="text" (keyup)="search()">
+        <button (click)="changeSelectionItems()"> {{isSelectAll ? 'حذف همه' : 'انتخاب همه'}}</button>
+      </div>
+
+      <div *ngFor="let item of filteredList;let i = index" class="item item-select-row">
+        <div style="display: flex;justify-content: space-between">
+          <label style="font-size: 13px !important;"  class=" bold-600">{{item.showKey}}</label>
+          <mat-checkbox [(ngModel)]="item.isChecked" (ngModelChange)="passToParent()"></mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

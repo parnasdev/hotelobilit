@@ -24,6 +24,7 @@ export class AddComponent {
     name: '',
     code: '',
   }
+  citySelected: number[] = []
 
   data: any;
   show = false;
@@ -44,6 +45,9 @@ export class AddComponent {
     this.getData();
   }
 
+  getCities(cityItemsSelected: any): void {
+    this.citySelected = cityItemsSelected
+  }
   getEndCity(cityItemSelected: any): void {
     this.destCityFC.setValue(cityItemSelected.id);
   }
@@ -91,6 +95,8 @@ export class AddComponent {
       parent_id: this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
+      cities: this.citySelected,
+
     }
   }
 }

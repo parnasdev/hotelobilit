@@ -17,5 +17,6 @@ export interface AirportReqDTO {
     parent_id: number;
     name: string;
     code: string;
+    cities?:number[]
     airports?: number[]
 }
