@@ -20,9 +20,9 @@
         </div> -->
       </div>
       <div class="info-tour-body">
-        <div class="top">
-          <div style="padding-right: 2rem" class="item-info w-48">
-            <div class="select-info">
+        <div style="display: grid;grid-template-columns: 1fr 1fr 1fr 1fr !important;gap: 12px">
+          <div class="item-info w-100">
+            <div class="select-info w-100">
               <label for="">شهر </label>
               <prs-select-city [hasHotel]="true" [cities]="info.cities" [inCommingCity]="info.airport.parent_id"
                                (citySelected)="getEndCity($event)"></prs-select-city>
@@ -32,8 +32,8 @@
             </div>
           </div>
 
-          <div style="padding-right: 2rem" class="item-info w-100">
-            <div class="select-info">
+          <div class="item-info w-100">
+            <div class="select-info w-100">
               <label for="">انتخاب شهرها </label>
               <prs-multiple-select [showKey]="'name'" [valueKey]="'id'" class="w-100" (result)="getCities($event)"
                 [data]="info?.cities" [incommingData]="info.selected_cities">
@@ -44,12 +44,12 @@
             </div>
           </div>
 
-          <div class="item-info">
+          <div class="item-info w-100">
             <label for="">عنوان فرودگاه</label>
             <input [formControl]="nameFC" type="text">
           </div>
 
-          <div class="item-info">
+          <div class="item-info w-100">
             <label for="">کد فرودگاه</label>
             <input [formControl]="codeFC" type="text">
           </div>
