@@ -117,7 +117,7 @@
 
         </div>
         <div class="button-setting">
-          <a class="edit-btn" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
+          <a class="edit-btn" target="_blank" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
         </div>
       </div>
       <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
