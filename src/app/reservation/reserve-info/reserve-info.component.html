@@ -10,13 +10,12 @@
       <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
     </div>
 
-    <div class="d-flex w-100 p-search-agency"
-      *ngIf="info.information.status.name === 'PendingForAccept' && session.getRole() === 'agency'">
+    <div class="d-flex w-100 p-search-agency" *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
       <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
       <button class="btn-base-red px-4 staus-button" (click)="statusNM =473;changeStatus()">عدم تایید</button>
     </div>
   </div>
-  <div class="w-100  bg-info-trip">
+  <div class="w-100 bg-info-trip">
     <div class="title-profile w-100">
       <i class="icon-circle"></i>
       <h2 class="dana-bold">اطلاعات رزرو</h2>
