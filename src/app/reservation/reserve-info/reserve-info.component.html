@@ -1,3 +1,4 @@
+<prs-loading *ngIf="isLoading"></prs-loading>
 <div class="p-info-trip">
   <div class="w-100 flex-x-between">
     <div class="d-flex w-100 p-search-agency" *ngIf="session.getRole() === 'admin' ||
@@ -31,6 +32,12 @@
           <span class="text-dark bold-600">تاریخ درخواست :</span>
           <span class="text-gray mr-2">{{ calendarService.convertDateAndTime(info?.information.created_at, 'fa')
             }}</span>
+        </div>
+      </div>
+      <div class="p-date my-3 e-100 d-flex align-items-center justify-content-between">
+        <div class="date">
+          <span class="text-dark bold-600">کدرفرنس :</span>
+          <span class="text-gray mr-2">{{ info.information.ref_code}}</span>
         </div>
       </div>
       <div class="d-flex align-items-center item-title justify-content-between w-100">
