@@ -10,6 +10,7 @@ import * as moment from "moment/moment";
 import { CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { MatDialog } from '@angular/material/dialog';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import { CompositionUpdatePricePopupComponent } from '../composition-update-price-popup/composition-update-price-popup.component';
 export interface FilterCompositionDTO {
   origin: number | null;
   destination: number | null;
@@ -30,13 +31,13 @@ export class CompositionListComponent {
   list: any[] = []
 
   nights: any[] = []
-  paginateConfig= {
+  paginateConfig = {
     itemsPerPage: 0,
     totalItems: 0,
     currentPage: 0
   };
   paginate: any;
-  p = 1;  show = true;
+  p = 1; show = true;
   airports: any[] = []
   airplanes: any[] = []
   statuses: any[] = []
@@ -148,9 +149,9 @@ export class CompositionListComponent {
       next: (res: any) => {
         if (res.isDone) {
           this.data = res.data;
-          
+
           this.airports = res.airports;
-          
+
           this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
           this.nights = [
             { id: 1, name: '۱ شب' },
@@ -163,14 +164,14 @@ export class CompositionListComponent {
             { id: 8, name: '۸ شب' },
             { id: 9, name: '۹ شب' },
           ];
-        if(res.meta) {
-          this.paginate = res.meta;
-          this.paginateConfig = {
-            itemsPerPage: this.paginate.per_page,
-            totalItems: this.paginate.total,
-            currentPage: this.paginate.current_page
+          if (res.meta) {
+            this.paginate = res.meta;
+            this.paginateConfig = {
+              itemsPerPage: this.paginate.per_page,
+              totalItems: this.paginate.total,
+              currentPage: this.paginate.current_page
+            }
           }
-        }
 
 
         } else {
@@ -224,6 +225,24 @@ export class CompositionListComponent {
       if (res) {
         this.filterObj.fromDate = res.fromDate.dateEn
         this.filterObj.toDate = res.toDate.dateEn;
+      }
+    })
+  }
+
+  updatePricing(item: any) {
+    const dialog = this.dialog.open(CompositionUpdatePricePopupComponent, {
+      width: '50%',
+      data: {
+        id: item.mixed_id,
+        checkin_tomorrow: item.checkin_tomorrow,
+        checkout_yesterday: item.checkout_yesterday,
+        total_adl_price: item.total_adl_price,
+        total_chd_price: item.total_chd_price
+      }
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      if (res) {
+this.getData()
       }
     })
   }

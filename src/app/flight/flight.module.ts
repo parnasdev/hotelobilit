@@ -18,6 +18,7 @@ import { CompositionListComponent } from './composition-list/composition-list.co
 import { GroupChangePopupComponent } from './group-change-popup/group-change-popup.component';
 import { EditFastPopupComponent } from './edit-fast-popup/edit-fast-popup.component';
 import { ReserveFlightListComponent } from './reserve-flight-list/reserve-flight-list.component';
+import { CompositionUpdatePricePopupComponent } from './composition-update-price-popup/composition-update-price-popup.component';
 const maskConfigFunction: () => Partial<IConfig> = () => {
     return {
       validation: false,
@@ -34,7 +35,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
         CompositionListComponent,
         GroupChangePopupComponent,
         EditFastPopupComponent,
-        ReserveFlightListComponent
+        ReserveFlightListComponent,
+        CompositionUpdatePricePopupComponent
     ],
     imports: [
         CommonModule,

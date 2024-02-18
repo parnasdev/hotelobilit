@@ -281,3 +281,23 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
 }
+
+.tooltip-parent {
+  border: 2px solid $dark-color;
+  direction: rtl;
+  span {
+    font-size: 13px!important;
+    font-weight: 600;
+    color: #646464;
+  }
+  p {
+    font-size: 13px!important;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+.line-between {
+  border-bottom: 2px solid #646464;
+  margin: 12px 0;
+  width: 100%!important;
+}

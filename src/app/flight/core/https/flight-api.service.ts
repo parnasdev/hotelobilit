@@ -60,4 +60,9 @@ export class FlightApiService {
     let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/mix/create`);
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
+
+  updateMix(id:number,req:any) {
+    let strUrl = this.publicService.getApiUrlV2(true, 'flights', `/update-mix/${id}`);
+    return this.http.patch<Result<any>>(strUrl,req, this.publicService.getDefaultHeaders());
+  }
 }

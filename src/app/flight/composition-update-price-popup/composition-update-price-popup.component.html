@@ -1,0 +1,48 @@
+<div class="d-flex w-100 flex-column align-items-center direction-rtl">
+    <form class="w-100 d-flex align-items-center flex-wrap justify-content-center">
+        <div class="example-list w-100">
+            <div>
+                <div class="item-room-form">
+
+                    <div class="form-end form-top d-flex p-2 h-100">
+                        <div class="item-row">
+                            <label for="">قیمت بزرگسال (تومان)</label>
+                            <div class="inp-base d-flex flex-column">
+                                <textarea type="text" mask="separator" thousandSeparator=","
+                                    [(ngModel)]="req.total_adl_price" [ngModelOptions]="{standalone: true}"
+                                    placeholder="قیمت بزرگسال"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="item-row">
+                            <label for="">قیمت کودک (تومان)</label>
+                            <div class="inp-base d-flex flex-column">
+                                <textarea type="text" mask="separator" thousandSeparator=","
+                                    [(ngModel)]="req.total_chd_price" [ngModelOptions]="{standalone: true}"
+                                    placeholder="قیمت کودک"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="item-row">
+                            <label for="">Checkin Tomorrow</label>
+                            <div class="inp-base d-flex flex-column">
+                                <mat-checkbox [(ngModel)]="req.checkin_tommorow" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="item-row">
+                            <label for="">Checkout Yesterday</label>
+                            <div class="inp-base d-flex flex-column">
+                                <mat-checkbox [(ngModel)]="req.checkout_yesterday" [ngModelOptions]="{standalone: true}"></mat-checkbox>
+
+                            </div>
+                        </div>
+                        <button class="btn-base w-25" (click)="submit()">ثبت</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

@@ -45,6 +45,7 @@ import { IconsComponent } from './icons/icons.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
 import { MultipleSelectComponent } from './multiple-select/multiple-select.component';
+import { CustomTooltipDirective } from './custom-tooltip.directive';
 
 
 
@@ -83,7 +84,8 @@ import { MultipleSelectComponent } from './multiple-select/multiple-select.compo
     CheckboxComponent,
     IconsComponent,
     PanelLoadingComponent,
-    MultipleSelectComponent
+    MultipleSelectComponent,
+    CustomTooltipDirective
   ],
     exports: [
         UploadFileComponent,
@@ -113,6 +115,7 @@ import { MultipleSelectComponent } from './multiple-select/multiple-select.compo
         CheckboxComponent,
         IconsComponent,
         DynamicFilterHorizontalComponent,
+        CustomTooltipDirective
     ],
   imports: [
     CommonModule,
