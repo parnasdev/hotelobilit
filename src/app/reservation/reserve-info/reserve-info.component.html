@@ -1,11 +1,20 @@
-<div class="p-info-trip" *ngIf="info">
-  <div class="d-flex w-100 p-search-agency justify-content-end" *ngIf="permition.check('reserves.edit')">
-    <div class="inp-form w-25">
-      <select [formControl]="statusFC" name="" id="">
-        <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
-      </select>
+<div class="p-info-trip">
+  <div class="w-100 flex-x-between">
+    <div class="d-flex w-100 p-search-agency" *ngIf="session.getRole() === 'admin' ||
+  session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin' ">
+      <div class="inp-form w-25">
+        <select [(ngModel)]="statusNM" name="" id="">
+          <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
+        </select>
+      </div>
+      <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
     </div>
-    <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
+
+    <div class="d-flex w-100 p-search-agency"
+      *ngIf="info.information.status.name === 'PendingForAccept' && session.getRole() === 'agency'">
+      <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
+      <button class="btn-base-red px-4 staus-button" (click)="statusNM =473;changeStatus()">عدم تایید</button>
+    </div>
   </div>
   <div class="w-100  bg-info-trip">
     <div class="title-profile w-100">

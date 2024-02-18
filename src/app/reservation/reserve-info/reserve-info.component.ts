@@ -9,7 +9,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 import * as moment from 'moment';
 
 @Component({
@@ -19,7 +19,7 @@ import * as moment from 'moment';
 })
 export class ReserveInfoComponent {
   info: any;
-  statusFC = new FormControl()
+  statusNM = 0
   statuses: any[] = []
   isLoading = false
   reserve: string = ""
@@ -40,22 +40,19 @@ export class ReserveInfoComponent {
     this.reserve = this.route.snapshot.paramMap.get('reserve') ?? '';
     this.title.setTitle('جزییات رزرو | هتل و بلیط')
 
-    this.getReserve()
+    this.getReserve(true)
   }
 
 
-  getReserve(): void {
+  getReserve(state: boolean): void {
     this.isLoading = true;
     this.api.getReserve(+this.reserve).subscribe((res: any) => {
       if (res.isDone) {
         this.info = res.data
-        this.statuses = res.statuses;
-
-        let statusFiltered = this.statuses.filter(x => x.name === this.info.information.status.label)
-        if(statusFiltered.length > 0) {
-          this.statusFC.setValue(statusFiltered[0].id)
-
+        if(state){
+          this.statuses = res.statuses;
         }
+        this.statusNM = this.info.information.status.id
       } else {
         this.message.custom(res.message);
       }
@@ -68,21 +65,22 @@ export class ReserveInfoComponent {
   }
 
 
-  getPrices(item:any) {
-    let list:any[] =[]
+  getPrices(item: any) {
+    let list: any[] = []
     for (var key in item.prices) {
       if (item.prices.hasOwnProperty(key)) {
-          list.push({name: key,value:item.prices[key]})
+        list.push({ name: key, value: item.prices[key] })
       }
-  }
-  return list
+    }
+    return list
   }
 
-  changeStatus() {
+  changeStatus(status: number = 0) {
     this.isLoading = true;
-    this.api.editReserve(+this.reserve, this.statusFC.value).subscribe((res: any) => {
+    this.api.editReserve(+this.reserve, this.statusNM).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message);
+        this.getReserve(false)
       } else {
         this.message.custom(res.message);
       }
@@ -116,17 +114,17 @@ export class ReserveInfoComponent {
   }
 
   getPassengerCount() {
-    let count:number = 0
-   this.info.selected_rooms.forEach((x:any) => {
-    count += x.passengers.length
-   })
-   return count
+    let count: number = 0
+    this.info.selected_rooms.forEach((x: any) => {
+      count += x.passengers.length
+    })
+    return count
   }
 
 
-  getServicePrices(room:any) {
+  getServicePrices(room: any) {
     let servicePrice: number = 0;
-    room.services.forEach((x:any) => {
+    room.services.forEach((x: any) => {
       servicePrice += x.rate
     })
     return servicePrice
