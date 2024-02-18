@@ -7,7 +7,6 @@
                 <option [ngValue]="true">داخلی</option>
                 <option [ngValue]="false">خارجی</option>
             </select>
-
         </div>
 
         <div class="items-row">
@@ -19,7 +18,7 @@
             <div class="item">
                 <span>مقصد</span>
                 <prs-custom-select (itemResult)="getDestCity($event)" [inCommingItem]="req.destination_id"
-                    *ngIf="(airports ?? []).length > 0" [list]="airports"></prs-custom-select>
+                    *ngIf="(airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
             </div>
             <div class="item">
                 <span>ایرلاین</span>

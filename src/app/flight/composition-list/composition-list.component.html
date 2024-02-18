@@ -214,7 +214,7 @@
             </div>
           </div>
           <div class="d-flex flex-column">
-            <span>{{ item.is_close ? 'close' : 'open' }}</span>
+            <span>{{ item.returnFlight.is_close ? 'close' : 'open' }}</span>
             <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
               [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
           </div>
