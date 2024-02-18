@@ -36,9 +36,9 @@ export class ReserveApiService {
     const strUrl = 'https://hotelobilit-api.iran.liara.run/api/v2/' + 'reserves' + '/checking'
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
-  list(page: number,keyword:string): any {
+  list(params:string): any {
     const strUrl = environment.BACK_END_IP + 'panel/reserves'
-    let publicURL = page ? strUrl + `?page=${page}&q=${keyword}` : strUrl
+    let publicURL = strUrl + params
     return this.http.get<Result<any>>(publicURL, this.publicService.getDefaultHeaders());
   }
 
