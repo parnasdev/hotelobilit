@@ -30,14 +30,10 @@
                     [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
                     'background': getColorItem(item)}" id="dateInfo">
                     {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
-                    <label class=" label-capacity english-font" *ngIf="item.data && item.data.available_room_count"> {{
+                    <label class=" label-capacity english-font" *ngIf="item.data && item.data.available_room_count" [customTooltip]="tooltipTemplate1"> {{
                         item.data?.available_room_count }}</label>
 
-                  <div class="label-capacity2"  [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
-                    <label
-                    >!</label>
-                  </div>
-
+        
 
                     <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : extra bed price : ' "
                         *ngIf="item.data && item.data?.extra_price">
@@ -52,6 +48,68 @@
                         {{getPriceLabel(item.data) }}
                     </small>
                 </div>
+
+                <ng-template #tooltipTemplate1>
+                    <div class="bg-white p-x-10 wpx-300 p-y-10 tooltip-parent">
+                        <div class="flex-x-center w-100">
+                            <h3 class="m-y-0 fs-17 bold-600 m-bottom-12">{{ item.data.date }}</h3>
+                        </div>
+                        <div class="grid-2 gap-12 w-100">
+                            <div class="flex-x-start gap-6 w-100">
+                                <span class="title">
+                                    Room Price  :</span>
+                                <p>
+                                    {{ item.data.price | sperator }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>Currency :</span>
+                                <p>
+                                    {{ item.data.currency_code }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span> Extra Bed Price :</span>
+                                <p>
+                                    {{ item.data.extra_price | sperator }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>Extra Bed Count</span>
+                                <p>
+                                    {{ item.data.extra_bed_count }}
+                                </p>
+                            </div>
+                            <div class="line-between"></div>
+                            <div class="line-between"></div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span> all :</span>
+                                <p>
+                                    {{ item.data.total_room_count }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>‌Booking :</span>
+                                <p>
+                                    {{ item.data.reserving_room_count }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>reserved :</span>
+                                <p>
+                                    {{ item.data.booked_room_count }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>remaining :</span>
+                                <p>
+                                    {{ item.data.available_room_count }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-template>
 
             </ng-template>
 
@@ -81,18 +139,13 @@
                     [ngStyle]="{'color': item.isHoliday ? '#b51d20' : '',
                     'background': getColorItem(item)}" id="dateInfo">
                     {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
-                    <label class="english-font label-capacity" *ngIf="item.data && item.data.available_room_count"> {{
+                    <label class="english-font label-capacity" *ngIf="item.data && item.data.available_room_count" [customTooltip]="tooltipTemplate"> {{
                         item.data?.available_room_count }}</label>
 
                         <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : extra bed price : ' "
                         *ngIf="item.data && item.data?.extra_price">
                         <i class="icon-circle icon-circle-extra font-size-8"></i>
                     </div>
-
-                  <div class="label-capacity2"  [matTooltip]="returnString(item?.data?.booked_room_count,item?.data?.reserving_room_count)">
-                    <label
-                    >!</label>
-                  </div>
 
 
                     <div class="p-icon-circle" [matTooltip]="item.data.offer_price | sperator"
@@ -104,7 +157,67 @@
                     </small>
                 </div>
 
+                <ng-template #tooltipTemplate>
+                    <div class="bg-white p-x-10 wpx-300 p-y-10 tooltip-parent">
+                        <div class="flex-x-center w-100">
+                            <h3 class="m-y-0 fs-17 bold-600 m-bottom-12">{{ item.data.date }}</h3>
+                        </div>
+                        <div class="grid-2 gap-12 w-100">
+                            <div class="flex-x-start gap-6 w-100">
+                                <span class="title">
+                                    Room Price  :</span>
+                                <p>
+                                    {{ item.data.price | sperator }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>Currency :</span>
+                                <p>
+                                    {{ item.data.currency_code }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span> Extra Bed Price :</span>
+                                <p>
+                                    {{ item.data.extra_price | sperator }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>Extra Bed Count</span>
+                                <p>
+                                    {{ item.data.extra_bed_count }}
+                                </p>
+                            </div>
+                            <div class="line-between"></div>
+                            <div class="line-between"></div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span> all :</span>
+                                <p>
+                                    {{ item.data.total_room_count }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>‌Booking :</span>
+                                <p>
+                                    {{ item.data.reserving_room_count }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>reserved :</span>
+                                <p>
+                                    {{ item.data.booked_room_count }}
+                                </p>
+                            </div>
+                            <div class="flex-x-start gap-6 w-100">
+                                <span>remaining :</span>
+                                <p>
+                                    {{ item.data.available_room_count }}
+                                </p>
+                            </div>
 
+                        </div>
+                    </div>
+                </ng-template>
 
             </ng-template>
         </div>
