@@ -332,6 +332,7 @@ returnString(str1:any,str2:any,chd_price_w:any){
           id: result[0].id,
           offer_extra_price: result[0].offer_extra_price,
           offer_price: result[0].offer_price,
+          total_room_count: result[0].total_room_count,
           price: result[0].price,
           room_id: result[0].room_id,
           reserving_room_count:result[0].reserving_room_count,

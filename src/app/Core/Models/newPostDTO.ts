@@ -215,6 +215,7 @@ export interface RateDTO {
     deleted_at: string
     extra_bed_count: number
     extra_price: number
+    total_room_count: number
     id: number
     checkin_base: boolean
     offer_extra_price: number
