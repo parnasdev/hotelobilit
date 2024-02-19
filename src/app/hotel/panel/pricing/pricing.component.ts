@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { PostApiService } from 'src/app/Core/Https/post-api.service';
@@ -9,7 +8,6 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { Title } from "@angular/platform-browser";
 import { SessionService } from 'src/app/Core/Services/session.service';
-
 
 @Component({
   selector: 'prs-pricing',
@@ -24,7 +22,7 @@ export class PricingComponent implements OnInit {
   standardTwinCoefficient = 0;
   showCalendar = true;
   slug = '';
-  agencies: any[] = []
+  agencies: any[] = [];
   id = '';
   isCoefficient = '0';
   req!: ratigListReqDTO;

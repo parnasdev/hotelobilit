@@ -73,7 +73,7 @@ export class ConfirmPricingModalEnComponent implements OnInit {
       chd_w_price: this.chd_w_priceFC.value ? +this.chd_w_priceFC.value : null,
       extra_price: this.bedPriceFC.value !== null ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
-      checkin_base: this.not_checkin_base ? false : this.offerPriceFC.value ? true : null,
+      checkin_base: this.not_checkin_base ? false : this.checkin_base ? true : null,
       offer_price: this.checkin_base ? this.offerPriceFC.value : null,
 
       // offer_extra_price: this.offerBedPriceFC.value,

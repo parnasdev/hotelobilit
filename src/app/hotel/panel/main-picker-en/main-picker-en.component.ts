@@ -315,6 +315,7 @@ export class MainPickerEnComponent implements OnInit {
   isExistOnPriceList(item: any): any {
     if (item && item !== '') {
       const y: any = moment(item).format('YYYY/MM/DD')
+
       if (this.daysOfMonth.length > 0) {
         let result = this.pricesData.rates.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
         return result.length > 0 ? {
@@ -322,16 +323,18 @@ export class MainPickerEnComponent implements OnInit {
           created_at: result[0].created_at,
           currency_code: result[0].currency_code,
           date: result[0].date,
-          deleted_at: result[0].deleted_at,
           checkin_base: result[0].checkin_base,
+          deleted_at: result[0].deleted_at,
           extra_bed_count: result[0].extra_bed_count,
           extra_price: result[0].extra_price,
           id: result[0].id,
           offer_extra_price: result[0].offer_extra_price,
           offer_price: result[0].offer_price,
+          total_room_count: result[0].total_room_count,
           price: result[0].price,
           room_id: result[0].room_id,
           reserving_room_count:result[0].reserving_room_count,
+          chd_w_price:result[0].chd_w_price,
           booked_room_count:result[0].booked_room_count,
           updated_at: result[0].updated_at,
           user_id: result[0].user_id
