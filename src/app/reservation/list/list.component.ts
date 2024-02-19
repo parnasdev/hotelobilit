@@ -167,4 +167,7 @@ export class ListComponent implements OnInit {
       this.filterObj.fromDateEn &&
       this.filterObj.toDateEn
   }
+
+
+  
 }

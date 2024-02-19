@@ -43,7 +43,10 @@ export class CalenderServices {
             return (moment(date).locale('en').format('YYYY/MM/DD')).split('/').join('-');
         }
     }
-
+    getDiff(start_time: string, type: any = 'minutes') {
+        let duration = moment.duration(moment(start_time).diff(moment.now()));
+        return { minute: duration.get(type), milliseconds: duration.asMilliseconds() };
+      }
     enumerateDaysBetweenDates(startDate: string, endDate: string, format: string = 'jYYYY/jMM/jDD') {
         if (startDate && endDate) {
             var dates = [];

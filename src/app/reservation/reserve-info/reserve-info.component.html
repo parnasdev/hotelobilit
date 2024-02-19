@@ -11,7 +11,8 @@
       <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
     </div>
 
-    <div class="d-flex w-100 p-search-agency" *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
+    <div class="d-flex w-100 p-search-agency"
+      *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
       <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
       <button class="btn-base-red px-4 staus-button" (click)="statusNM =473;changeStatus()">عدم تایید</button>
     </div>
@@ -34,6 +35,7 @@
             }}</span>
         </div>
       </div>
+
       <div class="p-date my-3 e-100 d-flex align-items-center justify-content-between">
         <div class="date">
           <span class="text-dark bold-600">کدرفرنس :</span>
@@ -42,9 +44,18 @@
       </div>
       <div class="d-flex align-items-center item-title justify-content-between w-100">
         <h3 class=" bold-600"> وضعیت : {{ info?.information.status.label }}</h3>
-
-
       </div>
+      <div class="d-flex align-items-center item-title justify-content-between w-100"
+        *ngIf="info.information.status.id === 501">
+        <div class="flex-x-center">
+          <h3 class=" bold-600 m-left-10"> زمان باقیمانده :</h3>
+          <prs-reserve-timer [width]="'40px'" [height]="'40px'"
+            [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
+
+        </div>
+      </div>
+
+
       <div class="d-flex align-items-center item-title border-dashed-top justify-content-between w-100">
         <h3 class=" bold-600">اطلاعات رزرو گیرنده </h3>
       </div>
@@ -55,7 +66,7 @@
           <span class="mr-2 text-gray">{{info?.information.reserver.full_name}}</span>
         </div>
         <div class="item">
-          <span>شماره همراه :</span>
+          <span style="color: #ff0000; font-size: 20px;">شماره همراه :</span>
           <span class="mr-2 text-gray">{{info?.information.reserver.phone}}</span>
         </div>
         <div class="item">
@@ -63,6 +74,7 @@
           <span class="mr-2 text-gray">{{ info?.information.reserver.id_code }}</span>
         </div>
       </div>
+
       <div class="p-price d-flex align-items-center justify-content-between">
         <div class="item d-flex align-items-center justify-content-between w-100 px-2">
           <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
