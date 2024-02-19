@@ -16,6 +16,7 @@ export interface FilterCompositionDTO {
   destination: number | null;
   status: number | null;
   stay_count: any;
+  airline: number | null
   mixed: boolean
   fromDate: string | null;
   toDate: string | null;
@@ -40,10 +41,12 @@ export class CompositionListComponent {
   p = 1; show = true;
   airports: any[] = []
   airplanes: any[] = []
+  airlines: any[] = []
   statuses: any[] = []
   filterObj: FilterCompositionDTO = {
     destination: null,
     origin: null,
+    airline: null,
     mixed: true,
     q: null,
     stay_count: null,
@@ -78,6 +81,7 @@ export class CompositionListComponent {
         this.filterObj.origin = params['origin'] ? +params['origin'] : null
         this.filterObj.q = params['q'] ? params['q'] : null
         this.filterObj.fromDate = params['fromDate']
+        this.filterObj.fromDate = params['airline']
         this.filterObj.toDate = params['toDate']
         this.filterObj.stay_count = +params['stay_count']
       } else {
@@ -85,6 +89,7 @@ export class CompositionListComponent {
           destination: null,
           origin: null,
           q: null,
+          airline: null,
           stay_count: null,
           mixed: true,
           status: 0,
@@ -149,9 +154,8 @@ export class CompositionListComponent {
       next: (res: any) => {
         if (res.isDone) {
           this.data = res.data;
-
+          this.airlines = res.airlines;
           this.airports = res.airports;
-
           this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
           this.nights = [
             { id: 1, name: '۱ شب' },
@@ -172,8 +176,6 @@ export class CompositionListComponent {
               currentPage: this.paginate.current_page
             }
           }
-
-
         } else {
           this.message.custom(res.message)
         }
@@ -198,6 +200,7 @@ export class CompositionListComponent {
       destination: null,
       fromDate: null,
       toDate: null,
+      airline: null,
       stay_count: null,
       mixed: true,
       status: 0,
@@ -242,7 +245,7 @@ export class CompositionListComponent {
     })
     dialog.afterClosed().subscribe((res: any) => {
       if (res) {
-this.getData()
+        this.getData()
       }
     })
   }

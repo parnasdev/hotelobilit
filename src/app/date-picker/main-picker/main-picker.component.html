@@ -27,9 +27,7 @@
                     'background': getColorItem(item)}" id="dateInfo">
                         {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
                     </div>
-
                 </ng-template>
-
             </div>
         </div>
         <div class="box-calender">
@@ -52,16 +50,8 @@
                     'background': getColorItem(item)}" id="dateInfo">
                         {{moment(item.dateFa).isValid() ? (item.dateFa.split('/')[2]) : ''}}
                     </div>
-
-
-
                 </ng-template>
             </div>
-
-
-
-
-
 
         </div>
         <button class="next-month" (click)="changeMonth(1)">

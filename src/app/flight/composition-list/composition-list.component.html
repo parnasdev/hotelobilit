@@ -70,6 +70,12 @@
               </select>
             </div>
             <div class="inp-form w-70 m-1">
+              <select name="" id="" [(ngModel)]="filterObj.airline">
+                <option [value]="null">ایرلاین</option>
+                <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
+              </select>
+            </div>
+            <div class="inp-form w-70 m-1">
               <select name="" id="" [(ngModel)]="filterObj.stay_count">
                 <option [value]="null">تعداد شب</option>
                 <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>

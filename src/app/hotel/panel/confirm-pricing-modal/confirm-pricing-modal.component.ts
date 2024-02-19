@@ -68,7 +68,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       date_from: moment(this.data.checkin.dateEn).format('YYYY-MM-DD'),
       date_to: moment(this.data.checkout.dateEn).format('YYYY-MM-DD'),
       type: this.data.type,
-      checkin_base: this.not_checkin_base ? false : this.offerPriceFC.value ? true : null,
+      checkin_base: this.not_checkin_base ? false : this.checkin_base ? true : false,
       available_room_count: (this.capacityFC.value || this.capacityFC.value === 0) ? this.publicService.fixNumbers(+this.capacityFC.value) : null,
       extra_bed_count: this.publicService.fixNumbers(this.bedCountFC.value) ? +this.bedCountFC.value : null,
       price: this.priceFC.value !== null ? +this.priceFC.value : null,
