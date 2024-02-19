@@ -1,3 +1,4 @@
+<prs-loading *ngIf="isLoading"></prs-loading>
 <div class="add-tour">
   <form class="w-100" [formGroup]="userForm">
     <div class="box-info-tour">
@@ -111,7 +112,7 @@
           </div>
 
 
-          <div class="w-100" *ngIf="userForm.controls.role_id.value == 5 || userForm.controls.role_id.value == 4">
+          <div class="w-100" *ngIf="userForm.controls.role_id.value == 5 ||userForm.controls.role_id.value == 12 || userForm.controls.role_id.value == 4">
             <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
               <div class="select-city w-40">
                 <label>شهر های موردنظر را انتخاب کنید</label>
@@ -119,12 +120,10 @@
                   <mat-select [formControl]="selectedCity" (selectionChange)="selectionChange()" multiple>
                     <mat-select-trigger>
                       <span>شهر های انتخاب شده</span>
-
                     </mat-select-trigger>
                     <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
-
                 <div class="show-box">
                   <span class="city-box" *ngFor="let city of selectedCity.value; let i = index">
                     <i (click)="deleteCityItem(i)" class="text-danger">X</i>

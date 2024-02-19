@@ -63,7 +63,7 @@ export class ListComponent implements OnInit {
     this.isLoading = true;
     this.userApi.getUser(this.roleSelected, null, this.p,this.keyword).subscribe((res: any) => {
       if (res.isDone) {
-        this.users = res.data
+        this.users = res.data;
         if (this.roleSelected === 5) {
           this.roles = res.roles
         }
