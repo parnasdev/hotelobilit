@@ -11,7 +11,8 @@
       حذف فیلتر
     </a>
     <select class="w-100" name="" id="" [(ngModel)]="filterObj.status">
-      <option value="" *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
+      <option value="all">همه</option>
+      <option  *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
     </select>
     <input type="text" placeholder="رفرنس" [(ngModel)]="filterObj.ref_code">
     <input type="text" placeholder="کدملی" [(ngModel)]="filterObj.id_code">

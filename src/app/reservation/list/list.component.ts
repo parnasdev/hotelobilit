@@ -31,7 +31,7 @@ export class ListComponent implements OnInit {
     id_code: '',
     ref_code: '',
     dateFa: '',
-    status: '',
+    status: 'all',
     fromDateEn: '',
     toDateEn: ''
   }
@@ -56,14 +56,14 @@ export class ListComponent implements OnInit {
   getList(): void {
     this.isLoading = true;
     this.list = [];
-    let params = `?status=${this.filterObj.status}&fromDate=${this.filterObj.fromDateEn}&toDate=${this.filterObj.toDateEn}&ref_code=${this.filterObj.ref_code}&phone=${this.filterObj.phone}&id_code=${this.filterObj.id_code}&page=${this.p}`
+    let params = `?status=${this.filterObj.status === 'all' ? '' : this.filterObj.status}&fromDate=${this.filterObj.fromDateEn}&toDate=${this.filterObj.toDateEn}&ref_code=${this.filterObj.ref_code}&phone=${this.filterObj.phone}&id_code=${this.filterObj.id_code}&page=${this.p}`
     this.api.list(params).subscribe((res: any) => {
       if (res.isDone) {
         this.list = res.data
-        this.statuses = res.statuses
-        if(this.statuses.length > 0) { 
-          this.filterObj.status = this.statuses[0].id
-        }
+        this.statuses = res.statuses;
+        // if(this.statuses.length > 0) { 
+        //   this.filterObj.status = this.statuses[0].id
+        // }
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
@@ -151,7 +151,7 @@ export class ListComponent implements OnInit {
       id_code: '',
       ref_code: '',
       dateFa: '',
-      status: '',
+      status: 'all',
       fromDateEn: '',
       toDateEn: ''
     }
@@ -169,5 +169,5 @@ export class ListComponent implements OnInit {
   }
 
 
-  
+
 }

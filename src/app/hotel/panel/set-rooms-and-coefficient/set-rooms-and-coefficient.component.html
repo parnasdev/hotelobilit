@@ -56,19 +56,19 @@
             [(ngModel)]="item.coefficient">
         </div>
       </div>
-      <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+      <div class="d-flex  w-100 justify-content-between align-items-center">
         <label for="">{{ 'onlineReservation' | translate }}</label>
         <div class="d-flex align-items-center justify-content-end">
           <mat-checkbox color="primary" [(ngModel)]="item.online_reservation"></mat-checkbox>
         </div>
       </div>
-      <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+      <div class="d-flex  w-100 justify-content-between align-items-center">
         <label for="">{{ 'inventoryOfTwinRoom' |translate }}</label>
         <div class="d-flex align-items-center justify-content-end">
           <mat-checkbox color="primary" [(ngModel)]="item.is_twin_count"></mat-checkbox>
         </div>
       </div>
-      <div class="d-flex  w-100 justify-content-between align-items-center" *ngIf="isCoefficient === '1'">
+      <div class="d-flex  w-100 justify-content-between align-items-center">
         <label for="">{{ 'closeCell' |translate }}</label>
         <div class="d-flex align-items-center justify-content-end">
           <mat-checkbox color="primary" [(ngModel)]="item.isDisable"></mat-checkbox>
