@@ -396,6 +396,7 @@ export interface TourSetDTO {
   origin_id: number
   is_bundle?:boolean
   currencies?:string
+  del_packages?:number[]
   destination_id: number
   night_num: number
   partnerIds: any[]

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddComponent } from '../add/add.component';
 import * as moment from 'moment';
 import { PackageTourDTO } from 'src/app/Core/Models/tourDTO';
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 declare var $: any;
 
 @Component({
@@ -13,12 +13,13 @@ declare var $: any;
 export class EditComponent extends AddComponent implements OnInit {
   tourData: any;
   id = ''
+  del_packages: number[] = []
 
   override ngOnInit() {
     this.title.setTitle('ویرایش تور | هتل و بلیط')
 
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
-this.getInfo()
+    this.getInfo()
   }
 
   getInfo(): void {
@@ -98,7 +99,7 @@ this.getInfo()
       }
       this.packages.push(item)
     })
-    this.packages.sort((a:any,b:any)=>a.order_item-b.order_item)
+    this.packages.sort((a: any, b: any) => a.order_item - b.order_item)
   }
 
   override getTransferRates(): void {
@@ -156,6 +157,40 @@ this.getInfo()
   // }
 
 
+
+   removeEditPackage(index: number, id: number) {
+    this.del_packages.push(id);
+    this.packages.splice(index, 1);
+  }
+  override setReq() {
+    this.req = {
+      title: this.titleFC.value ?? '',
+      is_bundle: this.is_bundle,
+      currencies: this.selectedCurrency,
+      origin_id: +(this.origin_idFC.value ?? ''),
+      destination_id: +(this.destination_idFC.value ?? ''),
+      night_num: +(this.night_numFC.value ?? ''),
+      del_packages: this.del_packages,
+      day_num: +(this.day_numFC.value ?? ''),
+      tour_type: +(this.tour_typeFC.value ?? ''),
+      checkin: this.checkinFC.value ? moment(this.checkinFC.value).format('YYYY-MM-DD') : '',
+      checkout: this.checkoutFC.value ? moment(this.checkoutFC.value).format('YYYY-MM-DD') : '',
+      expired_at: this.expired_atFC.value ? moment(this.expired_atFC.value).format('YYYY-MM-DD') : '',
+      status_id: +(this.status_idFC.value ?? ''),
+      flights: this.flights,
+      partnerIds: this.getPartners(),
+      packages: this.packages
+    }
+
+    let newPackage = this.req.packages.map((p: any, index: number) => {
+      return {
+        ...p,
+        order_item: index
+      }
+    })
+
+    this.req.packages = newPackage
+  }
 
   override submit(): void {
     this.setReq()

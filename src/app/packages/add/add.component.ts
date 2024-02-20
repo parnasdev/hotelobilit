@@ -39,13 +39,14 @@ export class AddComponent implements OnInit {
   destination_city: any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
-  currencies: any
+  currencies: any;
   req: TourSetDTO = {
     title: '',
     origin_id: 0,
     destination_id: 0,
     night_num: 0,
     day_num: 0,
+    del_packages:[],
     partnerIds: [],
     tour_type: 0,
     checkin: '',
