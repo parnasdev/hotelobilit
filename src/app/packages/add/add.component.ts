@@ -140,14 +140,12 @@ export class AddComponent implements OnInit {
       partnerIds: this.getPartners(),
       packages: this.packages
     }
-
     let newPackage=this.req.packages.map((p:any,index:number)=>{
       return{
         ...p,
         order_item:index
       }
     })
-
     this.req.packages=newPackage
   }
 
@@ -248,22 +246,26 @@ export class AddComponent implements OnInit {
   }
 
   submit(): void {
-    this.setReq()
-    this.tourApi.createTour(this.req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.showMessageBig(res.message);
-        this.errorService.clear();
-        this.router.navigateByUrl('/panel/packages');
-      }
-    }, (error: any) => {
-      if (error.status == 422) {
-        this.errorService.recordError(error.error.errors);
-        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
-      } else {
-        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-      }
-      this.checkError.check(error);
-    })
+if(this.flights.length > 0) {
+  this.setReq()
+  this.tourApi.createTour(this.req).subscribe((res: any) => {
+    if (res.isDone) {
+      this.message.showMessageBig(res.message);
+      this.errorService.clear();
+      this.router.navigateByUrl('/panel/packages');
+    }
+  }, (error: any) => {
+    if (error.status == 422) {
+      this.errorService.recordError(error.error.errors);
+      this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+    } else {
+      this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+    }
+    this.checkError.check(error);
+  })
+}else{
+  this.message.custom('پروازی انتخاب نکرده اید')
+}
   }
 
 

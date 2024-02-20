@@ -193,6 +193,8 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   override submit(): void {
+    if(this.flights.length > 0) {
+
     this.setReq()
     this.tourApi.update(+this.id, this.req).subscribe((res: any) => {
       if (res.isDone) {
@@ -209,6 +211,9 @@ export class EditComponent extends AddComponent implements OnInit {
       }
       this.checkError.check(error);
     })
+  }else {
+    this.message.custom('پروازی انتخاب نکرده اید')
+  }
   }
 
 
