@@ -2,12 +2,12 @@
     <div class="row-time m-top-12 flex-x-center gap-8"
         *ngIf="formatter(seconds) !== '00' && formatter(minutes) !== '00'">
         <div class="time flex-y-center">
-            <div class="number-time" [style]="'width:' + width+';' + 'height:' + height+';'">{{ formatter(seconds) }}
+            <div class="number-time p-x-4 fs-12 bold-600" [style]="'width:' + width+';' + 'height:' + height+';'">{{ formatter(seconds) }}
             </div>
         </div>
         :
         <div class="time flex-y-center">
-            <div class="number-time" [style]="'width:' + width+';' + 'height:' + height+';'">{{ formatter(minutes) }}
+            <div class="number-time p-x-4 fs-12 bold-600" [style]="'width:' + width+';' + 'height:' + height+';'">{{ formatter(minutes) }}
             </div>
         </div>
 
