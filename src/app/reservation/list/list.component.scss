@@ -162,17 +162,25 @@
     border: 2px solid #f30611;
     outline: none;
     margin: 1rem 0;
-  
+
     svg {
       top: 12px !important;
     }
-  
+
     &:hover {
       background: #fff;
       color: #f30611;
-  
+
       img {
         filter: unset !important;
       }
     }
+  }
+
+  .input-filter{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 52px;
+    padding: 0 8px;
+    font-size: 13px;
   }

@@ -5,19 +5,19 @@
     <h2>رزرو ها</h2>
   </div>
   <div class="grid-7 gap-10">
-    <a *ngIf="!getIsFilter()" class="btn-red w-50 h-45 flex-x-center fs-13 cursor-pointer" (click)="removeFilter()">
+    <a *ngIf="!getIsFilter()" class="btn-red w-100 h-45 flex-x-center fs-13 cursor-pointer" (click)="removeFilter()">
       <prs-icons class="icon-delete cursor-pointer" [width]="'25px'" [height]="'25px'" [name]="'delete'"
         [color]="'#fff'"></prs-icons>
       حذف فیلتر
     </a>
-    <select class="w-100" name="" id="" [(ngModel)]="filterObj.status">
+    <select class="w-100 input-filter" name="" id="" [(ngModel)]="filterObj.status">
       <option value="all">همه</option>
       <option  *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
     </select>
-    <input type="text" placeholder="رفرنس" [(ngModel)]="filterObj.ref_code">
-    <input type="text" placeholder="کدملی" [(ngModel)]="filterObj.id_code">
-    <input type="text" placeholder="تاریخ" [(ngModel)]="filterObj.dateFa" (click)="openPicker()">
-    <input type="text" placeholder="شماره همراه" [(ngModel)]="filterObj.phone">
+    <input class="w-100 input-filter" type="text" placeholder="رفرنس" [(ngModel)]="filterObj.ref_code">
+    <input class="w-100 input-filter" type="text" placeholder="کدملی" [(ngModel)]="filterObj.id_code">
+    <input class="w-100 input-filter" type="text" placeholder="تاریخ" [(ngModel)]="filterObj.dateFa" (click)="openPicker()">
+    <input class="w-100 input-filter" type="text" placeholder="شماره همراه" [(ngModel)]="filterObj.phone">
     <button class="btn-base w-100" (click)="getList()">فیلتر</button>
   </div>
   <div class="table-list-tour">

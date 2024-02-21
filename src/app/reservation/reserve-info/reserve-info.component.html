@@ -11,7 +11,7 @@
       <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
     </div>
     <div class="d-flex w-100 p-search-agency"
-      *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
+         *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
       <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
       <button class="btn-base-red px-4 staus-button" (click)="statusNM =473;changeStatus()">عدم تایید</button>
     </div>
@@ -22,34 +22,37 @@
       <h2 class="dana-bold">اطلاعات رزرو</h2>
     </div>
     <div class="box-top-agency-reserve mb-3">
-      <div class="d-flex align-items-center item-title justify-content-between w-100">
+      <div class="w-100 grid-2 gap-12 m-bottom-12 grid-1-mobi">
+        <div class="d-flex align-items-center item-title justify-content-between w-100">
         <span class="status">
-          مرجع:{{info?.information.partner_name}}
+          مرجع:{{ info?.information.partner_name }}
         </span>
-      </div>
-      <div class="p-date my-3 e-100 d-flex align-items-center justify-content-between">
-        <div class="date">
-          <span class="text-dark bold-600">تاریخ درخواست :</span>
-          <span class="text-gray mr-2">{{ calendarService.convertDateAndTime(info?.information.created_at, 'fa')
-            }}</span>
+        </div>
+        <div class="p-date  w-100 d-flex align-items-center justify-content-between">
+          <div class="date">
+            <span class="text-dark bold-600">تاریخ درخواست :</span>
+            <span class="text-gray mr-2">{{
+                calendarService.convertDateAndTime(info?.information.created_at, 'fa')
+              }}</span>
+          </div>
+        </div>
+        <div class="p-date  w-100 d-flex align-items-center justify-content-between">
+          <div class="date">
+            <span class="text-dark bold-600">کدرفرنس :</span>
+            <span class="text-gray mr-2">{{ info.information.ref_code }}</span>
+          </div>
+        </div>
+        <div class="d-flex align-items-center item-title justify-content-between w-100">
+          <h3 class=" bold-600 fs-14"> وضعیت : {{ info?.information.status.label }}</h3>
         </div>
       </div>
 
-      <div class="p-date my-3 e-100 d-flex align-items-center justify-content-between">
-        <div class="date">
-          <span class="text-dark bold-600">کدرفرنس :</span>
-          <span class="text-gray mr-2">{{ info.information.ref_code}}</span>
-        </div>
-      </div>
-      <div class="d-flex align-items-center item-title justify-content-between w-100">
-        <h3 class=" bold-600"> وضعیت : {{ info?.information.status.label }}</h3>
-      </div>
       <div class="d-flex align-items-center item-title justify-content-between w-100"
-        *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
+           *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
         <div class="flex-x-center">
           <h3 class=" bold-600 m-left-10"> زمان باقیمانده :</h3>
           <prs-reserve-timer [width]="'40px'" [height]="'40px'"
-            [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
+                             [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
 
         </div>
       </div>
@@ -61,11 +64,11 @@
       <div class="p-items">
         <div class="item">
           <span>نام و نام خانوادگی :</span>
-          <span class="mr-2 text-gray">{{info?.information.reserver.full_name}}</span>
+          <span class="mr-2 text-gray">{{ info?.information.reserver.full_name }}</span>
         </div>
         <div class="item">
           <span style="color: #ff0000; font-size: 20px;">شماره همراه :</span>
-          <span class="mr-2 text-gray">{{info?.information.reserver.phone}}</span>
+          <span class="mr-2 text-gray">{{ info?.information.reserver.phone }}</span>
         </div>
         <div class="item">
           <span>کد ملی :</span>
@@ -77,7 +80,7 @@
         <div class="item d-flex align-items-center justify-content-between w-100 px-2">
           <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
           <div class="d-flex">
-            <span class="text mr-2 font-size-20 bold-600">{{info?.prices.total_price | sperator}}</span>
+            <span class="text mr-2 font-size-20 bold-600">{{ info?.prices.total_price | sperator }}</span>
             <span class="mr-1 m-right-8">تومان</span>
           </div>
         </div>
@@ -85,24 +88,24 @@
       <div class="p-items">
         <div class="item">
           <span>مجموع قیمت پروازهای رفت :</span>
-          <span class="mr-2 text-gray">{{info?.prices.departure_total_price | sperator}}</span>
+          <span class="mr-2 text-gray">{{ info?.prices.departure_total_price | sperator }}</span>
         </div>
         <div class="item">
           <span>مجموع قیمت پرواز های برگشت</span>
-          <span class="mr-2 text-gray">{{info?.prices.return_total_price| sperator}}</span>
+          <span class="mr-2 text-gray">{{ info?.prices.return_total_price| sperator }}</span>
         </div>
         <ng-template ngFor let-x [ngForOf]="getPrices(info)" let-index="index">
           <div class="item" *ngIf="index > 2">
             <span>{{ x.name }}:</span>
-            <span class="mr-2 text-gray">{{ x.value| sperator}}</span>
+            <span class="mr-2 text-gray">{{ x.value| sperator }}</span>
           </div>
         </ng-template>
       </div>
     </div>
     <div class="box-top-box-reserve">
       <div class="d-flex align-items-center title-top justify-content-between">
-        <h2 class="title-tour">{{info?.hotel?.titleEn}}</h2>
-        <h2 class="title-tour">هتل انتخابی : {{info?.hotel?.title}}</h2>
+        <h2 class="title-tour fs-16 bold-600">{{ info?.hotel?.titleEn }}</h2>
+        <h2 class="title-tour fs-16 bold-600">هتل انتخابی : {{ info?.hotel?.title }}</h2>
       </div>
 
       <div class="set-request-tour">
@@ -113,52 +116,62 @@
               <span style="margin-right: 4px" class="city-name">{{ info?.flights.departure.origin_name }}
                 به {{ info?.flights?.departure.destination_name }}</span>
             </div>
-            <span>{{info.flights.departure.airline_name}}</span>
+            <span>{{ info.flights.departure.airline_name }}</span>
             <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">{{ info.flights.departure.date |
-              convertDate }} {{ info.flights.departure.time | timeFixer }}</span>
+            <span class="text" style="direction: ltr!important">{{
+                info.flights.departure.date |
+                  convertDate
+              }} {{ info.flights.departure.time | timeFixer }}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ ورود به هتل :</span>
-            <span class="text" style="direction: ltr!important">{{info?.hotel?.checkin |
-              convertDate}}</span>
+            <span class="text" style="direction: ltr!important">{{
+                info?.hotel?.checkin |
+                  convertDate
+              }}</span>
           </div>
           <div class="item">
             <span class="title">ش.پ رفت :</span>
-            <span class="text" style="direction: ltr!important">{{info.flights.departure.flight_number}}</span>
+            <span class="text" style="direction: ltr!important">{{ info.flights.departure.flight_number }}</span>
           </div>
         </div>
         <div class="info-time">
           <span class="title">مدت اقامت:</span>
-          <span class="text">{{getNight(info)}} شب و {{getNight(info) + 1}} روز</span>
+          <span class="text">{{ getNight(info) }} شب و {{ getNight(info) + 1 }} روز</span>
         </div>
         <div class="info-to">
           <div class="d-flex align-items-center justify-content-between">
             <div>
               <span>پرواز برگشت:</span>
               <span style="margin-right: 4px" class="city-name">{{
-                info.flights.return.origin_name }} به {{
-                info.flights.return.destination_name }}</span>
+                  info.flights.return.origin_name
+                }} به {{
+                  info.flights.return.destination_name
+                }}</span>
             </div>
-            <span>{{info.flights.return.airline_name}}</span>
+            <span>{{ info.flights.return.airline_name }}</span>
             <img width="25" height="25" [src]="info.flights.return.airline_logo.url" alt="">
           </div>
           <div class="item">
             <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{ info.flights.return.date |
-              convertDate }} {{ info.flights.return.time| timeFixer}}</span>
+            <span class="text" style="direction: ltr!important">{{
+                info.flights.return.date |
+                  convertDate
+              }} {{ info.flights.return.time| timeFixer }}</span>
           </div>
           <div class="item">
             <span class="title">تاریخ خروج از هتل :</span>
-            <span class="text" style="direction: ltr!important">{{info.hotel.checkout |
-              convertDate}}</span>
+            <span class="text" style="direction: ltr!important">{{
+                info.hotel.checkout |
+                  convertDate
+              }}</span>
           </div>
           <div class="item">
             <span class="title">ش.پ برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{info.flights.return.flight_number }}</span>
+            <span class="text" style="direction: ltr!important">{{ info.flights.return.flight_number }}</span>
           </div>
         </div>
       </div>
@@ -167,19 +180,19 @@
     <ng-template ngFor let-item [ngForOf]="info.selected_rooms" let-index="index">
       <div class="box-rooms">
         <div class="d-flex align-items-center item-title  justify-content-between w-100">
-          <h3 class=" bold-600">اتاق {{item.info_room?.room_type}} </h3>
+          <h3 class=" bold-600">اتاق {{ item.info_room?.room_type }} </h3>
         </div>
         <div class="empty-box" *ngIf="item.passengers.length == 0">مسافری ثبت نشده است</div>
         <div class="d-flex flex-column mt-4" *ngFor="let p of item.passengers">
           <div class="item-information-room">
-            <label for="" class="label-role">{{p.type}}</label>
+            <label for="" class="label-role">{{ p.type }}</label>
             <div class="item">
               <span class="text-gray">نام :</span>
-              <span class="mr-2">{{p.name}}</span>
+              <span class="mr-2">{{ p.name }}</span>
             </div>
             <div class="item">
               <span class="text-gray">خانوادگی :</span>
-              <span class="mr-2">{{p.family}}</span>
+              <span class="mr-2">{{ p.family }}</span>
             </div>
             <div class="item" *ngIf="p.id_code">
               <span class="text-gray">کد ملی :</span>
@@ -195,15 +208,15 @@
             </div>
             <div class="item" *ngIf="p.expired_passport">
               <span class="text-gray">انقضا پاسپورت :</span>
-              <span class="mr-2">{{p.expired_passport }}</span>
+              <span class="mr-2">{{ p.expired_passport }}</span>
             </div>
             <div class="item">
               <span class="text-gray"> تولد :</span>
-              <span class="mr-2">{{p.birth_day}}</span>
+              <span class="mr-2">{{ p.birth_day }}</span>
             </div>
             <div class="item">
               <span class="text-gray"> جنسیت :</span>
-              <span class="mr-2">{{p.gender == 0 ? 'خانم' : 'آقا'}}</span>
+              <span class="mr-2">{{ p.gender == 0 ? 'خانم' : 'آقا' }}</span>
             </div>
 
 
@@ -211,15 +224,15 @@
           <div class="item-information-room">
             <div class="item">
               <span class="text-gray">قیمت پرواز رفت :</span>
-              <span class="mr-2">{{p.departure_flight_rate | sperator}}</span>
+              <span class="mr-2">{{ p.departure_flight_rate | sperator }}</span>
             </div>
             <div class="item">
               <span class="text-gray">قیمت پرواز برگشت :</span>
-              <span class="mr-2">{{p.return_flight_rate | sperator}}</span>
+              <span class="mr-2">{{ p.return_flight_rate | sperator }}</span>
             </div>
             <div class="item">
               <span class="text-gray">قیمت اتاق :</span>
-              <span class="mr-2">{{ p.room_price |sperator}}</span>
+              <span class="mr-2">{{ p.room_price |sperator }}</span>
             </div>
             <div class="item">
               <span class="text-gray">قیمت سرویس :</span>
@@ -227,7 +240,7 @@
             </div>
             <div class="item">
               <span class="text-gray">مجموع قیمت :</span>
-              <span class="mr-2">{{ p.total_room_price | sperator}}</span>
+              <span class="mr-2">{{ p.total_room_price | sperator }}</span>
             </div>
 
           </div>
