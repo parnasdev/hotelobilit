@@ -6,13 +6,16 @@
 
     .row-time {
       .number-time {
-        border-radius: 8px;
+        border-radius: 4px;
         background: $dark-color;
         color: $white-color;
         display: flex;
         justify-content: center;
         align-items: center;
         font-weight: 600;
+        font-size: 12px !important;
+        position: relative;
+        bottom: 6px;
       }
     }
   }

@@ -129,7 +129,7 @@
             [expired_date]="item.information.expired_in_minutes"></prs-reserve-timer>
         </div>
         <div class="button-setting">
-          <a class="edit-btn" target="_blank" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
+          <a class="edit-btn fs-12" target="_blank" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
         </div>
       </div>
       <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
