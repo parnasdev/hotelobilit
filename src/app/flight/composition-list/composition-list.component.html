@@ -39,20 +39,20 @@
       <div class="d-flex search-box-hotel mb-3">
         <div class="border-box d-flex flex-column p-2">
           <div class="w-100">
-            <h4>فیلترها</h4>
+            <h4 class="bold-600">فیلترها</h4>
           </div>
-          <div class="d-flex w-100">
-            <div class="inp-form w-15 m-1">
+          <div class="grid-7 grid-1-mobi grid-2-tablet gap-8 w-100 w-100">
+            <div class="inp-form w-100">
               <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="false"
                 [title]="'فرودگاه مبدا'" [inCommingCity]="filterObj.origin"
                 (citySelected)="originSelected($event)"></prs-select-city>
             </div>
-            <div class="inp-form w-15 m-1">
+            <div class="inp-form w-100">
               <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="true" [title]="'فرودگاه مقصد'"
                 [inCommingCity]="filterObj.destination" (citySelected)="destSelected($event)"></prs-select-city>
             </div>
 
-            <div style="background: white;" class="d-flex m-1 w-100">
+            <div style="background: white;" class="d-flex  w-100">
               <div class="inp-form w-100">
                 <input class="w-50" type="text"
                   value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}" placeholder="انتخاب  تاریخ"
@@ -62,20 +62,20 @@
                   (click)="openPicker()">
               </div>
             </div>
-            <div class="inp-form w-50 m-1">
+            <div class="inp-form w-100">
               <select name="" id="" [(ngModel)]="filterObj.status">
                 <option value="2">همه</option>
                 <option value="0">فعال</option>
                 <option value="1">غیرفعال</option>
               </select>
             </div>
-            <div class="inp-form w-70 m-1">
+            <div class="inp-form w-100">
               <select name="" id="" [(ngModel)]="filterObj.airline">
                 <option [value]="null">ایرلاین</option>
                 <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
               </select>
             </div>
-            <div class="inp-form w-70 m-1">
+            <div class="inp-form w-100">
               <select name="" id="" [(ngModel)]="filterObj.stay_count">
                 <option [value]="null">تعداد شب</option>
                 <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>
@@ -230,7 +230,7 @@
               aria-label=""></i>
             <span>{{ item.returnFlight.adl_price | sperator }} (تومان)</span>
           </div>
-       
+
           <div class="d-flex flex-column">
             <button class="btn-base-custom2" (click)="edit(item.returnFlight.id)">ویرایش</button>
           </div>
@@ -239,7 +239,7 @@
     </div>
     <div class="box-empty" *ngIf="data.length === 0 && !isLoading">
       <span>موردی یافت نشد
-  
+
       </span>
     </div>
     <pagination-controls *ngIf="data.length > 0" class="pagination-control" (pageChange)="onPageChanged($event)"

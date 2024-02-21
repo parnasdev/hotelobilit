@@ -10,24 +10,24 @@
             routerLink="/panel/flight/composition">ترکیب</a>
 
     </div>
-    <div class="d-flex search-box-hotel mb-3">
+    <div class="d-flex w-100 search-box-hotel mb-3">
         <div class="border-box d-flex flex-column p-2">
             <div class="w-100">
-                <h4>فیلترها</h4>
+                <h4 class="bold-600 fs-16">فیلترها</h4>
             </div>
-            <div class="d-flex w-100">
-                <div class="inp-form w-15 m-1">
+            <div class="grid-6 grid-1-mobi grid-2-tablet gap-8 w-100">
+                <div class="inp-form w-100">
                     <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="false"
                         [title]="'فرودگاه مبدا'" [inCommingCity]="filterObj.origin"
                         (citySelected)="originSelected($event)"></prs-select-city>
                 </div>
-                <div class="inp-form w-15 m-1">
+                <div class="inp-form w-100">
                     <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="true"
                         [title]="'فرودگاه مقصد'" [inCommingCity]="filterObj.destination"
                         (citySelected)="destSelected($event)"></prs-select-city>
                 </div>
 
-                <div style="background: white;" class="d-flex m-1 w-100">
+                <div style="background: white;" class="d-flex w-100">
                     <div class="inp-form w-100">
                         <input class="w-50" type="text"
                             value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
@@ -38,14 +38,14 @@
                             (click)="openPicker()">
                     </div>
                 </div>
-                <div class="inp-form w-50 m-1">
+                <div class="inp-form w-100">
                     <select name="" id="" [(ngModel)]="filterObj.status">
                         <option value="2">همه</option>
                         <option value="0">فعال</option>
                         <option value="1">غیرفعال</option>
                     </select>
                 </div>
-                <div class="inp-form w-70 m-1">
+                <div class="inp-form w-100">
                     <select name="" id="" [(ngModel)]="filterObj.airline">
                         <option [value]="null">ایرلاین رفت</option>
                         <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
@@ -81,7 +81,7 @@
             </div>
             <div class="d-flex flex-column">
                 <span class="from-to"> تاریخ</span>
-         
+
             <div class="d-flex flex-column">
                 <span class="from-to"> روز-ساعت</span>
             </div>
@@ -138,7 +138,7 @@
 
                 <div class="d-flex flex-column ">
                     <span class="title-tour">{{ transfer.date | convertDate }}</span>
-              
+
 
                 <div class="d-flex justify-content-center align-items-center">
                     <span class="title-tour" style="color: #0a53be">{{
