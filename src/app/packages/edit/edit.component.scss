@@ -1168,3 +1168,8 @@ prs-select-hotel {
   padding: 0 12px;
   margin-top: 2.6rem !important;
 }
+:host::ng-deep mat-select{
+  font-size: 12px !important;
+  font-weight: 600;
+  padding: 0 !important;
+}

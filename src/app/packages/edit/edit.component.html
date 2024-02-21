@@ -32,7 +32,7 @@
         </div>
         <div class="selectdiv  me-2">
           <mat-form-field class="w-100">
-            <mat-select [(ngModel)]="partnerNames" placeholder="انتشار در ..." [ngModelOptions]="{standalone: true}"
+            <mat-select style="position: relative;top: 10px !important;" [(ngModel)]="partnerNames" placeholder="انتشار در ..." [ngModelOptions]="{standalone: true}"
               multiple>
               <mat-select-trigger>{{partnerNames}}</mat-select-trigger>
               <mat-option *ngFor="let cat of partners" [value]="cat.name">{{cat.name}}</mat-option>

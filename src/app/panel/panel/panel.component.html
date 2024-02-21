@@ -31,7 +31,7 @@
           </div>
 
           <div class="item-info">
-            <select #langSelect (change)="langChanged(langSelect.value)">
+            <select class="h-40" #langSelect (change)="langChanged(langSelect.value)">
               <option *ngFor="let lang of translate.getLangs()" [value]="lang"
                 [selected]="lang === translate.currentLang">{{ lang }}</option>
             </select>
