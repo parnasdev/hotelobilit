@@ -30,7 +30,6 @@ export interface FilterCompositionDTO {
 export class CompositionListComponent {
   isLoading = false;
   list: any[] = []
-
   nights: any[] = []
   paginateConfig = {
     itemsPerPage: 0,
@@ -81,7 +80,7 @@ export class CompositionListComponent {
         this.filterObj.origin = params['origin'] ? +params['origin'] : null
         this.filterObj.q = params['q'] ? params['q'] : null
         this.filterObj.fromDate = params['fromDate']
-        this.filterObj.fromDate = params['airline']
+        this.filterObj.airline = params['airline']
         this.filterObj.toDate = params['toDate']
         this.filterObj.stay_count = +params['stay_count']
       } else {
@@ -252,6 +251,7 @@ export class CompositionListComponent {
 
   submit() {
     this.p = 1
+    debugger
     this.router.navigate([`/panel/flight/composition-list/`], {
       queryParams: this.filterObj
     })

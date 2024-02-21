@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ReserveApiService } from 'src/app/Core/Https/reserve-api.service';
-import { UserApiService } from 'src/app/Core/Https/user-api.service';
-import { ReserveListResponseDTO } from 'src/app/Core/Models/reserveDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
@@ -12,7 +10,6 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { Title } from "@angular/platform-browser";
 import * as moment from 'moment';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'prs-list',
@@ -61,9 +58,6 @@ export class ListComponent implements OnInit {
       if (res.isDone) {
         this.list = res.data
         this.statuses = res.statuses;
-        // if(this.statuses.length > 0) { 
-        //   this.filterObj.status = this.statuses[0].id
-        // }
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,
