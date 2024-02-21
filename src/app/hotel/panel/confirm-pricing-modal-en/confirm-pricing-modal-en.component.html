@@ -59,13 +59,13 @@
     <label for="">{{ 'notCheckinBase'|translate }}</label>
     <mat-checkbox [(ngModel)]="not_checkin_base"></mat-checkbox>
   </div>
-    <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="checkin_base && !data.isJustRoomCount">
+    <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start" *ngIf="checkin_base && !data.isJustRoomCount">
       <label for="">c{{'checkinBasePrice'|translate}}</label>
       <div class="inp-form mt-2 w-100">
         <input class="input" type="text" mask="separator" thousandSeparator="," placeholder="{{ 'checkinBasePrice' |translate }}"
           [formControl]="offerPriceFC">
       </div>
-    </div>
+    </div> -->
     <!-- <div class="w-48 mt-4 d-flex flex-column align-items-start">
       <label for="">قیمت تخفیف خورده تخت اضافه</label>
       <div class="inp-form mt-2 w-100">
