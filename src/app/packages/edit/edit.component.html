@@ -211,8 +211,8 @@
               <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
               <span>{{ calenderService.convertDate(item.returnFlight.date, 'fa') }}</span>
             </div>
-            <span>{{ (item.flight.adl_price + item.returnFlight.adl_price) | sperator }}</span>
-            <span>{{ (item.flight.chd_price + item.returnFlight.chd_price) | sperator }}</span>
+            <span>{{ item.total_adl_price | sperator }}</span>
+            <span>{{ item.total_chd_price | sperator | sperator }}</span>
             <span>{{ (item.flight.inf_price + item.returnFlight.inf_price) | sperator }}</span>
 
             <div class="d-flex flex-column">
