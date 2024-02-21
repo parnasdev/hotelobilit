@@ -2,7 +2,7 @@
 <div class="p-info-trip">
   <div class="w-100 flex-x-between">
     <div class="d-flex w-100 p-search-agency" *ngIf="session.getRole() === 'admin' ||
-  session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin' ">
+          session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin' ">
       <div class="inp-form w-25">
         <select [(ngModel)]="statusNM" name="" id="">
           <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
@@ -45,7 +45,7 @@
         <h3 class=" bold-600"> وضعیت : {{ info?.information.status.label }}</h3>
       </div>
       <div class="d-flex align-items-center item-title justify-content-between w-100"
-        *ngIf="info.information.status.id === 501">
+        *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
         <div class="flex-x-center">
           <h3 class=" bold-600 m-left-10"> زمان باقیمانده :</h3>
           <prs-reserve-timer [width]="'40px'" [height]="'40px'"
@@ -53,7 +53,6 @@
 
         </div>
       </div>
-
 
       <div class="d-flex align-items-center item-title border-dashed-top justify-content-between w-100">
         <h3 class=" bold-600">اطلاعات رزرو گیرنده </h3>

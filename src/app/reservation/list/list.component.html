@@ -125,7 +125,7 @@
         </div>
         <div class="d-flex flex-column">
           <span class="view">{{ item.prices.total_price | sperator }}</span>
-          <prs-reserve-timer *ngIf="item.information.status.id === 501"
+          <prs-reserve-timer *ngIf="item.information.status.id !== 472 && item.information.status.id !== 473"
             [expired_date]="item.information.expired_in_minutes"></prs-reserve-timer>
         </div>
         <div class="button-setting">
