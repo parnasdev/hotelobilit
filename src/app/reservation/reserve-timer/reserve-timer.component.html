@@ -1,5 +1,6 @@
 <div class="end wm-100 flex-y-center">
-    <div class="row-time m-top-12 flex-x-center gap-8">
+    <div class="row-time m-top-12 flex-x-center gap-8"
+        *ngIf="formatter(seconds) !== '00' && formatter(minutes) !== '00'">
         <div class="time flex-y-center">
             <div class="number-time" [style]="'width:' + width+';' + 'height:' + height+';'">{{ formatter(seconds) }}
             </div>
@@ -9,6 +10,15 @@
             <div class="number-time" [style]="'width:' + width+';' + 'height:' + height+';'">{{ formatter(minutes) }}
             </div>
         </div>
+
+    </div>
+    <div class="row-time m-top-12 flex-x-center gap-8"
+        *ngIf="formatter(seconds) === '00' && formatter(minutes) === '00'">
+        <div class="time flex-y-center">
+            <div class="number-time" [style]="'width:' + '70px'+';' + 'height:' + '30px'+';'">اتمام زمان
+            </div>
+        </div>
+
 
     </div>
 </div>

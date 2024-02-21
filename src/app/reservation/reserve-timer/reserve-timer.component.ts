@@ -48,6 +48,12 @@ export class ReserveTimerComponent {
   }
 
   formatter(n: number): string {
-    return n > 9 ? ('' + n) : ('0' + n);
+    if(n > 0) {
+      return n > 9 ? ('' + n) : ('0' + n);
+    }else {
+      return '00'
+
+    }
+    
   }
 }

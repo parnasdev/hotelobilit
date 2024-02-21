@@ -1,8 +1,8 @@
 <prs-loading *ngIf="isLoading"></prs-loading>
 <div class="p-info-trip">
   <div class="w-100 flex-x-between">
-    <div class="d-flex w-100 p-search-agency" *ngIf="session.getRole() === 'admin' ||
-          session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin' ">
+    <div class="d-flex w-100 p-search-agency" *ngIf="(session.getRole() === 'admin' ||
+          session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin') && statusNM !== 473">
       <div class="inp-form w-25">
         <select [(ngModel)]="statusNM" name="" id="">
           <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
