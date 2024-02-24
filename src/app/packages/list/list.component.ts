@@ -255,19 +255,24 @@ this.tours = []
   print() {
     let popupWin:any;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    popupWin.location.href = this.printContent;
+    if(popupWin.location) {
+      popupWin.location.href = this.printContent;
+    }else {
+      this.publicService.message.custom('امکان مشاهده وجود ندارد')
+    }
   }
 
   exportTour(id: number) {
     this.isLoading = true;
     this.tourApiService.exportTour(id).subscribe((res: any) => {
+      this.isLoading = false;
       if (res.isDone) {
         this.printContent = res.data.url
         this.print();
       } else {
         this.message.custom(res.message);
       }
-      this.isLoading = false;
+    
     }, (error: any) => {
       this.isLoading = false;
       this.message.error();
