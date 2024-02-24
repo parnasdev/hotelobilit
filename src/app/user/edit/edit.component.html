@@ -12,7 +12,6 @@
           <div class="item-info mb-5"
             *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
             <label for="">نقش</label>
-
             <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
               <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
             </select>

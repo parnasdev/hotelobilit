@@ -241,6 +241,7 @@ this.tours = []
   // }
 
 
+
   getTagsHtml(tagName: keyof HTMLElementTagNameMap): string {
     const htmlStr: string[] = [];
     const elements = document.getElementsByTagName(tagName);
@@ -252,26 +253,16 @@ this.tours = []
   }
 
   print() {
-    let popupWin;
-    // @ts-ignore
-    // contents = document.getElementById('output').innerHTML;
-    // const stylesHtml = this.getTagsHtml('style');
-    // const linksHtml = this.getTagsHtml('link');
-    // const scriptsHtml = this.getTagsHtml('script');
+    let popupWin:any;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    // @ts-ignore
-    popupWin.document.open();
-    // @ts-ignore
-    popupWin.document.write(this.printContent);
-    // @ts-ignore
-    popupWin.document.close();
+    popupWin.location.href = this.printContent;
   }
 
   exportTour(id: number) {
     this.isLoading = true;
     this.tourApiService.exportTour(id).subscribe((res: any) => {
       if (res.isDone) {
-        this.printContent = res.data
+        this.printContent = res.data.url
         this.print();
       } else {
         this.message.custom(res.message);

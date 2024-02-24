@@ -53,7 +53,7 @@ export class TourApiService {
   }
 
   exportTour(id: number): any {
-    const strUrl = this.serverControllerName + `export/${id}`;
+    const strUrl = this.publicService.getApiUrlV2(false,'tours',`/pdf/${id}`)
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
