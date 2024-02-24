@@ -34,7 +34,6 @@ export class EditComponent implements OnInit {
     parent_id: 0,
     agency_necessary_phone: '',
     name: '',
-    agency_id: '0',
     family: '',
     username: '',
     phone: '',
@@ -218,7 +217,7 @@ export class EditComponent implements OnInit {
 
   }
   getIsAgency() {
-    return +(this.userForm.get('role_id')?.value ?? '0') === 5 || +(this.userForm.get('role_id')?.value ?? '0') === 4 || +(this.userForm.get('role_id')?.value ?? '0') === 3
+    return +(this.userForm.get('role_id')?.value ?? '0') === 12 ||  +(this.userForm.get('role_id')?.value ?? '0') === 5  || +(this.userForm.get('role_id')?.value ?? '0') === 4 || +(this.userForm.get('role_id')?.value ?? '0') === 3
   }
   setReq(mode: string) {
     this.userReq = {
@@ -229,10 +228,9 @@ export class EditComponent implements OnInit {
       name: this.userForm.value.name ?? '',
       family: this.userForm.value.family ?? '',
       phone: this.userForm.value.phone ?? '',
-      agency_id: this.userForm.value.agency_id ?? '0',
       edit_mode: mode,
       permissions: this.getPermissionsIDs(),
-      parent_id: +(this.userForm.value.parent_id ?? '0'),
+      parent_id: +(this.userForm.value.agency_id ?? '0'),
       password: this.userForm.value.password ?? '',
       username: this.userForm.value.username ?? '',
       role_id: !this.parent ? this.userForm.value.role_id ?? 0 : 8,
