@@ -162,7 +162,7 @@
             <div class="d-flex gap-20">
               <span style="color: #0a53be">{{ item.flight.all_capacity}}</span>
               <span style="color: green;cursor: pointer" routerLink="/panel/flight/reserves"
-                [queryParams]="{flight: item.flight.id,status: 501}">{{ item.flight.reserved_capacity }}</span>
+                [queryParams]="{flight: item.flight.id,status: '501|502|471|470'}">{{ item.flight.reserved_capacity }}</span>
             </div>
             <div class="d-flex gap-20">
               <span style="color: red" routerLink="/panel/flight/reserves"
