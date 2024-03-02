@@ -110,7 +110,7 @@
       <span class="date-create">{{ tour.is_bundle }}</span>
       <div class="grid-1 w-100 gap-6">
         <div class="button-setting gap-4">
-          <a routerLink="/panel/packages/edit/{{tour.id}}" class="edit-btn">
+          <a (click)="edit(tour)" class="edit-btn">
             <svg class="feather feather-edit" fill="none" height="18" stroke="currentColor" stroke-linecap="round"
               stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"
               xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +120,7 @@
           </a>
           <!-- <a (click)="publicService.openPage('tours/' + tour.endCity.idEn + '/' + tour.id )"
               class="view-btn">نمایش</a> -->
-          <a routerLink="/panel/packages/copy/{{ tour.id }}"
+          <a (click)="copy(tour)"
             class="copy-btn d-flex align-items-center justify-content-center">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -223,10 +223,10 @@
         </div>
       </div>
       <div class="operation">
-        <a routerLink="/panel/packages/edit/{{tour.slug}}" target="_blank" class="edit-btn">ویرایش</a>
+        <a (click)="edit(tour)"  class="edit-btn">ویرایش</a>
         <!-- <a (click)="publicService.openPage('tours/' + tour.endCity.slugEn + '/' + tour.slug )"
             class="view-btn">نمایش</a> -->
-        <a routerLink="/panel/packages/copy/{{ tour.slug }}" class="copy-btn">کپی</a>
+        <a (click)="copy(tour)"  class="copy-btn">کپی</a>
         <!-- <button (click)="openLogs(tour.id)" class="log-btn">لاگ ها</button> -->
         <button (click)="deleteClicked(tour.slug)" class="delete-btn">حذف</button>
       </div>

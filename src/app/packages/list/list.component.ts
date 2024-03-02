@@ -163,6 +163,13 @@ export class ListComponent implements OnInit {
 
   }
 
+
+  edit(tour:any) {
+    window.open(`/panel/packages/edit/${tour.id}`)
+  }
+  copy(tour:any) {
+    window.open(`/panel/packages/copy/${tour.id}`)
+  }
  removeFilter() {
     this.filterObj = {
       destination: null,
