@@ -25,7 +25,7 @@ declare let $: any;
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  status = 'All'
+  status = 'All';
   show = true
   tourReq: TourListRequestDTO = {
     origin: null,
@@ -49,7 +49,6 @@ export class ListComponent implements OnInit {
   };
   cities: any[] = []
   isLoading = false
-  stDateFC = new FormControl(null);
   minDate = new Date()
   keyword: string | null = null
   tours: TourListResDTO[] = [];
@@ -61,8 +60,7 @@ export class ListComponent implements OnInit {
   p = 1;
   sortByDate = false
   printContent = '';
-  originFC = new FormControl(null);
-  destFC = new FormControl(null);
+
   statuses: any[] = []
   constructor(
     public title: Title,
@@ -154,26 +152,14 @@ export class ListComponent implements OnInit {
   }
 
 
-  originSelected(city: any): void {
-    this.originFC.setValue(city.slugEn)
-    this.getTours('second')
-  }
-  destSelected(city: any): void {
-    this.destFC.setValue(city.slugEn)
-    this.getTours('second')
 
-  }
-
-
-  removeFilter(type: string) {
-    if (type === 'origin') {
-      this.originFC.setValue(null)
-    } else if (type === 'dest') {
-      this.destFC.setValue(null)
-    } else if (type === 'stDate') {
-      this.stDateFC.setValue(null)
-    } else {
-      this.keyword = null
+  removeFilter() {
+    this.filterObj = {
+      destination: null,
+      origin: null,
+      status: 0,
+      fromDate: null,
+      toDate: null
     }
     this.reload()
     this.getTours('second')
