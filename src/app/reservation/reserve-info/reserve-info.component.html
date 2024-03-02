@@ -17,10 +17,20 @@
     </div>
   </div>
   <div class="w-100 bg-info-trip">
-    <div class="title-profile w-100">
-      <i class="icon-circle"></i>
-      <h2 class="dana-bold">اطلاعات رزرو</h2>
+    <div class="w-100 flex-x-between">
+      <div class="title-profile ">
+        <i class="icon-circle"></i>
+        <h2 class="dana-bold fs-16 bold-600">اطلاعات رزرو</h2>
+      </div>
+      <div class="flex-x-center">
+        <div class="label-hotel flex-x-center">
+          2 شب و 4 روز
+        </div>
+
+      </div>
     </div>
+
+
     <div class="box-top-agency-reserve mb-3">
       <div class="w-100 grid-2 gap-12 m-bottom-12 grid-1-mobi">
         <div class="d-flex align-items-center item-title justify-content-between w-100">
@@ -46,7 +56,6 @@
           <h3 class=" bold-600 fs-14"> وضعیت : {{ info?.information.status.label }}</h3>
         </div>
       </div>
-
       <div class="d-flex align-items-center item-title justify-content-between w-100"
            *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
         <div class="flex-x-center">
@@ -76,15 +85,12 @@
         </div>
       </div>
 
-      <div class="p-price d-flex align-items-center justify-content-between">
-        <div class="item d-flex align-items-center justify-content-between w-100 px-2">
-          <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
-          <div class="d-flex">
-            <span class="text mr-2 font-size-20 bold-600">{{ info?.prices.total_price | sperator }}</span>
-            <span class="mr-1 m-right-8">تومان</span>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="title-profile w-100">
+      <i class="icon-circle"></i>
+      <h2 class="dana-bold fs-16 bold-600">اطلاعات قیمت</h2>
+    </div>
+    <div class="box-top-agency-reserve my-1">
       <div class="p-items">
         <div class="item">
           <span>مجموع قیمت پروازهای رفت :</span>
@@ -101,6 +107,19 @@
           </div>
         </ng-template>
       </div>
+      <div class="p-price d-flex align-items-center justify-content-between">
+        <div class="item d-flex align-items-center justify-content-between w-100 px-2">
+          <span style="font-weight: 600 !important;" class="title">مبلغ کل:</span>
+          <div class="d-flex">
+            <span class="text mr-2 font-size-20 bold-600">{{ info?.prices.total_price | sperator }}</span>
+            <span class="mr-1 m-right-8">تومان</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem !important;" class="title-profile  w-100">
+      <i class="icon-circle"></i>
+      <h2 class="dana-bold fs-16 bold-600">اطلاعات هتل</h2>
     </div>
     <div class="box-top-box-reserve">
       <div class="d-flex align-items-center title-top justify-content-between">
@@ -108,72 +127,133 @@
         <h2 class="title-tour fs-16 bold-600">هتل انتخابی : {{ info?.hotel?.title }}</h2>
       </div>
 
-      <div class="set-request-tour">
-        <div class="info-from">
-          <div class="d-flex align-items-center justify-content-between">
-            <div>
-              <span>پرواز رفت:</span>
-              <span style="margin-right: 4px" class="city-name">{{ info?.flights.departure.origin_name }}
-                به {{ info?.flights?.departure.destination_name }}</span>
+      <div class="list-hotel">
+        <div class="item">
+          <span class="title">ستاره :</span>
+          <span class="text" style="direction: ltr!important">3</span>
+        </div>
+        <div class="item flex-x-end">
+          <span class="title">موقعیت :</span>
+          <span class="text" style="direction: ltr!important">-----</span>
+        </div>
+        <div class="item">
+          <span class="title">تاریخ ورود به هتل :</span>
+          <span class="text" style="direction: ltr!important">{{
+              info?.hotel?.checkin |
+                convertDate
+            }}</span>
+        </div>
+        <div class="item flex-x-end">
+          <span class="title">تاریخ خروج از هتل :</span>
+          <span class="text" style="direction: ltr!important">{{
+              info.hotel.checkout |
+                convertDate
+            }}</span>
+        </div>
+      </div>
+      <div style="margin-top: 2rem" class="w-100 gap-6 flex-x-center">
+        <span class="fs-13 bold-600">تامیین کننده :</span>
+        <span class="fs-13 bold-600">----</span>
+      </div>
+    </div>
+    <div style="margin-top: 1rem !important;" class="title-profile  w-100">
+      <i class="icon-circle"></i>
+      <h2 class="dana-bold fs-16 bold-600">اطلاعات پرواز</h2>
+    </div>
+    <div class="box-top-box-reserve">
+      <div class="set-request-tour p-information">
+        <div *ngIf="false" class="false">
+          <div class="info-from">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <span>پرواز رفت:</span>
+                <span style="margin-right: 4px" class="city-name">{{ info?.flights.departure.origin_name }}
+                  به {{ info?.flights?.departure.destination_name }}</span>
+              </div>
+              <span>{{ info.flights.departure.airline_name }}</span>
+              <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
             </div>
-            <span>{{ info.flights.departure.airline_name }}</span>
-            <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
-          </div>
-          <div class="item">
-            <span class="title">تاریخ و ساعت پرواز رفت :</span>
-            <span class="text" style="direction: ltr!important">{{
-                info.flights.departure.date |
-                  convertDate
-              }} {{ info.flights.departure.time | timeFixer }}</span>
-          </div>
-          <div class="item">
-            <span class="title">تاریخ ورود به هتل :</span>
-            <span class="text" style="direction: ltr!important">{{
-                info?.hotel?.checkin |
-                  convertDate
-              }}</span>
-          </div>
-          <div class="item">
-            <span class="title">ش.پ رفت :</span>
-            <span class="text" style="direction: ltr!important">{{ info.flights.departure.flight_number }}</span>
-          </div>
-        </div>
-        <div class="info-time">
-          <span class="title">مدت اقامت:</span>
-          <span class="text">{{ getNight(info) }} شب و {{ getNight(info) + 1 }} روز</span>
-        </div>
-        <div class="info-to">
-          <div class="d-flex align-items-center justify-content-between">
-            <div>
-              <span>پرواز برگشت:</span>
-              <span style="margin-right: 4px" class="city-name">{{
-                  info.flights.return.origin_name
-                }} به {{
-                  info.flights.return.destination_name
+            <div class="item">
+              <span class="title">تاریخ و ساعت پرواز رفت :</span>
+              <span class="text" style="direction: ltr!important">{{
+                  info.flights.departure.date |
+                    convertDate
+                }} {{ info.flights.departure.time | timeFixer }}</span>
+            </div>
+            <div class="item">
+              <span class="title">تاریخ ورود به هتل :</span>
+              <span class="text" style="direction: ltr!important">{{
+                  info?.hotel?.checkin |
+                    convertDate
                 }}</span>
             </div>
-            <span>{{ info.flights.return.airline_name }}</span>
-            <img width="25" height="25" [src]="info.flights.return.airline_logo.url" alt="">
+            <div class="item">
+              <span class="title">ش.پ رفت :</span>
+              <span class="text" style="direction: ltr!important">{{ info.flights.departure.flight_number }}</span>
+            </div>
           </div>
-          <div class="item">
-            <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{
-                info.flights.return.date |
-                  convertDate
-              }} {{ info.flights.return.time| timeFixer }}</span>
-          </div>
-          <div class="item">
-            <span class="title">تاریخ خروج از هتل :</span>
-            <span class="text" style="direction: ltr!important">{{
-                info.hotel.checkout |
-                  convertDate
-              }}</span>
-          </div>
-          <div class="item">
-            <span class="title">ش.پ برگشت :</span>
-            <span class="text" style="direction: ltr!important">{{ info.flights.return.flight_number }}</span>
+          <div class="info-to">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <span>پرواز برگشت:</span>
+                <span style="margin-right: 4px" class="city-name">{{
+                    info.flights.return.origin_name
+                  }} به {{
+                    info.flights.return.destination_name
+                  }}</span>
+              </div>
+              <span>{{ info.flights.return.airline_name }}</span>
+              <img width="25" height="25" [src]="info.flights.return.airline_logo.url" alt="">
+            </div>
+            <div class="item">
+              <span class="title">تاریخ و ساعت پرواز برگشت :</span>
+              <span class="text" style="direction: ltr!important">{{
+                  info.flights.return.date |
+                    convertDate
+                }} {{ info.flights.return.time| timeFixer }}</span>
+            </div>
+            <div class="item">
+              <span class="title">تاریخ خروج از هتل :</span>
+              <span class="text" style="direction: ltr!important">{{
+                  info.hotel.checkout |
+                    convertDate
+                }}</span>
+            </div>
+            <div class="item">
+              <span class="title">ش.پ برگشت :</span>
+              <span class="text" style="direction: ltr!important">{{ info.flights.return.flight_number }}</span>
+            </div>
           </div>
         </div>
+        <div class="w-100 flex-x-between">
+          <div class="from flex-y-start">
+            <h3 class="fs-14 bold-600 text-dark">اهران به استانبول</h3>
+            <div class="flex-x-start m-top-12 gap-5">
+              <span class="fs-13">ایرلاین:</span>
+              <span class="fs-13">تالان</span>
+              <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
+            </div>
+            <span class="fs-14 m-top-12">شماره پرواز:2222</span>
+            <span class="fs-14 m-top-12">تاریخ و ساعت : ------</span>
+          </div>
+          <div class="to flex-y-start">
+            <h3 class="fs-14 bold-600 text-dark">اهران به استانبول</h3>
+            <div class="flex-x-start m-top-12 gap-5">
+              <span class="fs-13">ایرلاین:</span>
+              <span class="fs-13">تالان</span>
+              <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
+            </div>
+            <span class="fs-14 m-top-12">شماره پرواز:2222</span>
+            <span class="fs-14 m-top-12">تاریخ و ساعت : ------</span>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div style="margin-top: 2rem" class="w-100 gap-6 flex-x-center">
+        <span class="fs-13 bold-600">تامیین کننده :</span>
+        <span class="fs-13 bold-600">----</span>
       </div>
     </div>
 
