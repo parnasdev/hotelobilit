@@ -79,7 +79,7 @@
           </div>
           <div class="d-flex flex-column">
             <span class="username">{{getNights(item.hotel.checkin, item.hotel.checkout) + ' ' + 'شب'}}</span>
-            <span class="username">{{0 + ' نفر'}}</span>
+            <span class="username">{{getPassengerCount(item.selected_rooms) + ' نفر'}}</span>
           </div>
           <div class="d-flex flex-column">
             <span class="username">{{ item.flights.departure.airline_name }}</span>
