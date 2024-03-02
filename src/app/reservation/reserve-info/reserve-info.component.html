@@ -11,7 +11,7 @@
       <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
     </div>
     <div class="d-flex w-100 p-search-agency"
-         *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
+      *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
       <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
       <button class="btn-base-red px-4 staus-button" (click)="statusNM =473;changeStatus()">عدم تایید</button>
     </div>
@@ -24,7 +24,7 @@
       </div>
       <div class="flex-x-center">
         <div class="label-hotel flex-x-center">
-          2 شب و 4 روز
+          {{ getNight(info) }} شب و {{ getNight(info) + 1 }} روز
         </div>
 
       </div>
@@ -34,15 +34,15 @@
     <div class="box-top-agency-reserve mb-3">
       <div class="w-100 grid-2 gap-12 m-bottom-12 grid-1-mobi">
         <div class="d-flex align-items-center item-title justify-content-between w-100">
-        <span class="status">
-          مرجع:{{ info?.information.partner_name }}
-        </span>
+          <span class="status">
+            مرجع:{{ info?.information.partner_name }}
+          </span>
         </div>
         <div class="p-date  w-100 d-flex align-items-center justify-content-between">
           <div class="date">
             <span class="text-dark bold-600">تاریخ درخواست :</span>
             <span class="text-gray mr-2">{{
-                calendarService.convertDateAndTime(info?.information.created_at, 'fa')
+              calendarService.convertDateAndTime(info?.information.created_at, 'fa')
               }}</span>
           </div>
         </div>
@@ -57,11 +57,11 @@
         </div>
       </div>
       <div class="d-flex align-items-center item-title justify-content-between w-100"
-           *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
+        *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
         <div class="flex-x-center">
           <h3 class=" bold-600 m-left-10"> زمان باقیمانده :</h3>
           <prs-reserve-timer [width]="'40px'" [height]="'40px'"
-                             [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
+            [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
 
         </div>
       </div>
@@ -130,30 +130,30 @@
       <div class="list-hotel">
         <div class="item">
           <span class="title">ستاره :</span>
-          <span class="text" style="direction: ltr!important">3</span>
+          <span class="text" style="direction: ltr!important">{{ info.hotel.stars }}</span>
         </div>
         <div class="item flex-x-end">
           <span class="title">موقعیت :</span>
-          <span class="text" style="direction: ltr!important">-----</span>
+          <span class="text" style="direction: ltr!important">{{info.hotel.location}}</span>
         </div>
         <div class="item">
           <span class="title">تاریخ ورود به هتل :</span>
           <span class="text" style="direction: ltr!important">{{
-              info?.hotel?.checkin |
-                convertDate
+            info?.hotel?.checkin |
+            convertDate
             }}</span>
         </div>
         <div class="item flex-x-end">
           <span class="title">تاریخ خروج از هتل :</span>
           <span class="text" style="direction: ltr!important">{{
-              info.hotel.checkout |
-                convertDate
+            info.hotel.checkout |
+            convertDate
             }}</span>
         </div>
       </div>
       <div style="margin-top: 2rem" class="w-100 gap-6 flex-x-center">
-        <span class="fs-13 bold-600">تامیین کننده :</span>
-        <span class="fs-13 bold-600">----</span>
+        <span class="fs-13 bold-600">تامین کننده :</span>
+        <span class="fs-13 bold-600">{{info.selected_rooms[0].info_room?.user.agency_name ?? ''}}</span>
       </div>
     </div>
     <div style="margin-top: 1rem !important;" class="title-profile  w-100">
@@ -162,98 +162,50 @@
     </div>
     <div class="box-top-box-reserve">
       <div class="set-request-tour p-information">
-        <div *ngIf="false" class="false">
-          <div class="info-from">
-            <div class="d-flex align-items-center justify-content-between">
-              <div>
-                <span>پرواز رفت:</span>
-                <span style="margin-right: 4px" class="city-name">{{ info?.flights.departure.origin_name }}
-                  به {{ info?.flights?.departure.destination_name }}</span>
-              </div>
-              <span>{{ info.flights.departure.airline_name }}</span>
-              <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
-            </div>
-            <div class="item">
-              <span class="title">تاریخ و ساعت پرواز رفت :</span>
-              <span class="text" style="direction: ltr!important">{{
-                  info.flights.departure.date |
-                    convertDate
-                }} {{ info.flights.departure.time | timeFixer }}</span>
-            </div>
-            <div class="item">
-              <span class="title">تاریخ ورود به هتل :</span>
-              <span class="text" style="direction: ltr!important">{{
-                  info?.hotel?.checkin |
-                    convertDate
-                }}</span>
-            </div>
-            <div class="item">
-              <span class="title">ش.پ رفت :</span>
-              <span class="text" style="direction: ltr!important">{{ info.flights.departure.flight_number }}</span>
-            </div>
-          </div>
-          <div class="info-to">
-            <div class="d-flex align-items-center justify-content-between">
-              <div>
-                <span>پرواز برگشت:</span>
-                <span style="margin-right: 4px" class="city-name">{{
-                    info.flights.return.origin_name
-                  }} به {{
-                    info.flights.return.destination_name
-                  }}</span>
-              </div>
-              <span>{{ info.flights.return.airline_name }}</span>
-              <img width="25" height="25" [src]="info.flights.return.airline_logo.url" alt="">
-            </div>
-            <div class="item">
-              <span class="title">تاریخ و ساعت پرواز برگشت :</span>
-              <span class="text" style="direction: ltr!important">{{
-                  info.flights.return.date |
-                    convertDate
-                }} {{ info.flights.return.time| timeFixer }}</span>
-            </div>
-            <div class="item">
-              <span class="title">تاریخ خروج از هتل :</span>
-              <span class="text" style="direction: ltr!important">{{
-                  info.hotel.checkout |
-                    convertDate
-                }}</span>
-            </div>
-            <div class="item">
-              <span class="title">ش.پ برگشت :</span>
-              <span class="text" style="direction: ltr!important">{{ info.flights.return.flight_number }}</span>
-            </div>
-          </div>
-        </div>
+
         <div class="w-100 flex-x-between">
           <div class="from flex-y-start">
-            <h3 class="fs-14 bold-600 text-dark">اهران به استانبول</h3>
+            <h3 class="fs-14 bold-600 text-dark">{{ info?.flights.departure.origin_name }} به {{
+              info?.flights.departure.destination_name }}</h3>
             <div class="flex-x-start m-top-12 gap-5">
               <span class="fs-13">ایرلاین:</span>
-              <span class="fs-13">تالان</span>
+              <span class="fs-13">{{ info.flights.departure.airline_name }}</span>
               <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
             </div>
-            <span class="fs-14 m-top-12">شماره پرواز:2222</span>
-            <span class="fs-14 m-top-12">تاریخ و ساعت : ------</span>
+            <span class="fs-14 m-top-12">شماره پرواز:{{ info.flights.departure.flight_number }}</span>
+            <span class="fs-14 m-top-12">تاریخ و ساعت : {{
+              info.flights.departure.date |
+              convertDate
+              }} {{ info.flights.departure.time| timeFixer }}</span>
           </div>
           <div class="to flex-y-start">
-            <h3 class="fs-14 bold-600 text-dark">اهران به استانبول</h3>
+            <h3 class="fs-14 bold-600 text-dark">{{ info?.flights.return.origin_name }} به {{
+              info?.flights.return.destination_name }}</h3>
             <div class="flex-x-start m-top-12 gap-5">
               <span class="fs-13">ایرلاین:</span>
-              <span class="fs-13">تالان</span>
+              <span class="fs-13">{{ info.flights.return.airline_name }}</span>
               <img width="25" height="25" [src]="info.flights.departure.airline_logo.url" alt="">
             </div>
-            <span class="fs-14 m-top-12">شماره پرواز:2222</span>
-            <span class="fs-14 m-top-12">تاریخ و ساعت : ------</span>
+            <span class="fs-14 m-top-12">شماره پرواز:{{ info.flights.return.flight_number }}</span>
+            <span class="fs-14 m-top-12">تاریخ و ساعت : {{
+              info.flights.return.date |
+              convertDate
+              }} {{ info.flights.return.time| timeFixer }}</span>
 
           </div>
 
         </div>
 
       </div>
-      <div style="margin-top: 2rem" class="w-100 gap-6 flex-x-center">
-        <span class="fs-13 bold-600">تامیین کننده :</span>
-        <span class="fs-13 bold-600">----</span>
+      <div style="margin-top: 2rem" class="w-100 gap-6 flex-x-between">
+        <div class="flex-x-center">
+          <span class="fs-13 bold-600">تامین کننده :</span>
+          <span class="fs-13 bold-600">{{info.flights.departure.agency}}</span>
+        </div>
+        <div class="flex-x-center">
+          <span class="fs-13 bold-600">تامین کننده :</span>
+          <span class="fs-13 bold-600">{{info.flights.return.agency}}</span>
+        </div>
       </div>
     </div>
 
