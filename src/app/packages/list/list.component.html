@@ -2,17 +2,33 @@
 <prs-panel-loading *ngIf="isLoading"></prs-panel-loading>
 
 <div class="list-tour">
+  <h2>تورها</h2>
   <div class="title">
-    <h2>تورها</h2>
+    <a class="btn-add-tour" routerLink="/panel/packages/add">اضافه</a>
+  </div>
 
+  <div class="title m-top-10">
     <div class="inp-form w-25">
+      <select name="" id="" [(ngModel)]="originNM">
+        <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+      </select>
+    </div>
+    <div class="inp-form w-25">
+      <select name="" id="" [(ngModel)]="destinationNM">
+        <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+      </select>
+    </div>
+    <!-- <div class="inp-form w-25">
       <select name="" id="" [(ngModel)]="statusNM" (ngModelChange)="getTours('second')">
-        <!-- <option value="''">همه</option> -->
+        <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
+      </select>
+    </div> -->
+    <div class="inp-form w-25">
+      <select name="" id="" [(ngModel)]="statusNM">
         <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
       </select>
     </div>
-
-    <a class="btn-add-tour" routerLink="/panel/packages/add">اضافه</a>
+    <a class="btn-base w-25" (click)="getTours('second')">فیلتر</a>
     <!--    <a class="btn-add-tour" routerLink="/panel/tours/">تور یکجا</a>-->
   </div>
 

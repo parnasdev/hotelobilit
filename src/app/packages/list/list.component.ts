@@ -40,6 +40,9 @@ export class ListComponent implements OnInit {
     type: null
   };
   statusNM = '1'
+  originNM = '';
+  destinationNM = ''
+  cities:any[] = []
   isLoading = false
   stDateFC = new FormControl(null);
   minDate = new Date()
@@ -85,12 +88,13 @@ statuses:any[] = []
   getTours(time: string): void {
     this.isLoading = true;
 this.tours = []
-    this.tourApiService.getTours( this.p,this.statusNM).subscribe((res: any) => {
+    this.tourApiService.getTours( this.p,this.statusNM,this.originNM,this.destinationNM).subscribe((res: any) => {
       if (res.isDone) {
         this.tours = res.data;
 
         if(time === 'first'){ 
           this.statuses = res.statuses
+          this.cities = res.cities
         }
         this.paginate = res.meta;
         this.paginateConfig = {
