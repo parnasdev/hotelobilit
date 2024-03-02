@@ -7,13 +7,11 @@
           <h2>ویرایش {{ getIsAgency() ? 'آژانس' : 'کاربر' }} </h2>
         </div>
       </div>
-
       <div class="info-tour-body align-items-center">
         <div class="d-flex flex-between w-100">
           <div class="item-info mb-5"
             *ngIf="(session.getRole() === 'admin' ||session.getRole() === 'admin1'||session.getRole() === 'hamnavazAdmin' || session.getRole() === 'programmer') && !parent">
             <label for="">نقش</label>
-
             <select formControlName="role_id" name="" id="" (change)="checkPermissions()">
               <option *ngFor="let item of roles" [value]="item.id">{{ item.label }}</option>
             </select>
@@ -111,8 +109,7 @@
             </div>
           </div>
 
-
-          <div class="w-100" *ngIf="userForm.controls.role_id.value == 5 ||userForm.controls.role_id.value == 12 || userForm.controls.role_id.value == 4">
+          <div class="w-100" *ngIf="agency !== '' || ((+(userForm.get('role_id')?.value ?? '0') == 5) || (+(userForm.get('role_id')?.value ?? '0') == 12)  || (+(userForm.get('role_id')?.value ?? '0') == 4)) ">
             <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
               <div class="select-city w-40">
                 <label>شهر های موردنظر را انتخاب کنید</label>

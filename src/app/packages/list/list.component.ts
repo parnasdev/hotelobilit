@@ -4,7 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
-import { CityListRequestDTO, CityResponseDTO } from 'src/app/Core/Models/cityDTO';
+import {  CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { TourListRequestDTO, TourListResDTO } from 'src/app/Core/Models/tourDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
@@ -14,7 +14,8 @@ import { PublicService } from 'src/app/Core/Services/public.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { SettingService } from 'src/app/Core/Services/setting.service';
 import { AlertDialogComponent, AlertDialogDTO } from 'src/app/common-project/alert-dialog/alert-dialog.component';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
+import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
 declare let $: any;
 
@@ -24,8 +25,19 @@ declare let $: any;
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  status = 'All'
+  status = 'All';
   show = true
+  nights = [
+    { id: 1, name: '۱ شب' },
+    { id: 2, name: '۲ شب' },
+    { id: 3, name: '۳ شب' },
+    { id: 4, name: '۴ شب' },
+    { id: 5, name: '۵ شب' },
+    { id: 6, name: '۶ شب' },
+    { id: 7, name: '۷ شب' },
+    { id: 8, name: '۸ شب' },
+    { id: 9, name: '۹ شب' },
+  ];
   tourReq: TourListRequestDTO = {
     origin: null,
     dest: null,
@@ -39,9 +51,16 @@ export class ListComponent implements OnInit {
     perPage: 15,
     type: null
   };
-  statusNM = '1'
+  filterObj: any = {
+    destination: null,
+    origin: null,
+    stay_count:'',
+    status: 0,
+    fromDate: null,
+    toDate: null
+  };
+  cities: any[] = []
   isLoading = false
-  stDateFC = new FormControl(null);
   minDate = new Date()
   keyword: string | null = null
   tours: TourListResDTO[] = [];
@@ -53,9 +72,8 @@ export class ListComponent implements OnInit {
   p = 1;
   sortByDate = false
   printContent = '';
-  originFC = new FormControl(null);
-  destFC = new FormControl(null);
-statuses:any[] = []
+
+  statuses: any[] = []
   constructor(
     public title: Title,
     public tourApiService: TourApiService,
@@ -84,13 +102,16 @@ statuses:any[] = []
 
   getTours(time: string): void {
     this.isLoading = true;
-this.tours = []
-    this.tourApiService.getTours( this.p,this.statusNM).subscribe((res: any) => {
+    this.tours = []
+    let qparams = this.publicService.getFiltersObjectString(this.filterObj)
+
+    this.tourApiService.getTours(this.p, qparams).subscribe((res: any) => {
       if (res.isDone) {
         this.tours = res.data;
 
-        if(time === 'first'){ 
+        if (time === 'first') {
           this.statuses = res.statuses
+          this.cities = res.cities
         }
         this.paginate = res.meta;
         this.paginateConfig = {
@@ -143,26 +164,20 @@ this.tours = []
   }
 
 
-  originSelected(city: any): void {
-    this.originFC.setValue(city.slugEn)
-    this.getTours('second')
+  edit(tour:any) {
+    window.open(`/panel/packages/edit/${tour.id}`)
   }
-  destSelected(city: any): void {
-    this.destFC.setValue(city.slugEn)
-    this.getTours('second')
-
+  copy(tour:any) {
+    window.open(`/panel/packages/copy/${tour.id}`)
   }
-
-
-  removeFilter(type: string) {
-    if (type === 'origin') {
-      this.originFC.setValue(null)
-    } else if (type === 'dest') {
-      this.destFC.setValue(null)
-    } else if (type === 'stDate') {
-      this.stDateFC.setValue(null)
-    } else {
-      this.keyword = null
+ removeFilter() {
+    this.filterObj = {
+      destination: null,
+      origin: null,
+      status: 0,
+      stay_count: '',
+      fromDate: null,
+      toDate: null
     }
     this.reload()
     this.getTours('second')
@@ -214,7 +229,7 @@ this.tours = []
     this.getTours('second');
   }
 
-  deleteClicked(id:number) {
+  deleteClicked(id: number) {
     const obj: AlertDialogDTO = {
       description: 'حذف شود؟',
       icon: 'null',
@@ -230,7 +245,24 @@ this.tours = []
       }
     });
   }
+  openPicker() {
+    const dialog = this.dialog.open(PrsDatePickerComponent, {
+      width: '80%',
+      data: {
+        dateList: [],
+        type: 'multiple',
+        selectCount: 60,
+        todayMin: false
+      }
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this.filterObj.fromDate = res.fromDate.dateEn
+        this.filterObj.toDate = res.toDate.dateEn;
+      }
 
+    })
+  }
   // openLogs(id: any): void {
   //   const dialog = this.dialog.open(LogsComponent, {
   //     width: '30%',
@@ -239,6 +271,7 @@ this.tours = []
   //   dialog.afterClosed().subscribe(result => {
   //   });
   // }
+
 
 
   getTagsHtml(tagName: keyof HTMLElementTagNameMap): string {
@@ -252,31 +285,26 @@ this.tours = []
   }
 
   print() {
-    let popupWin;
-    // @ts-ignore
-    // contents = document.getElementById('output').innerHTML;
-    // const stylesHtml = this.getTagsHtml('style');
-    // const linksHtml = this.getTagsHtml('link');
-    // const scriptsHtml = this.getTagsHtml('script');
+    let popupWin: any;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    // @ts-ignore
-    popupWin.document.open();
-    // @ts-ignore
-    popupWin.document.write(this.printContent);
-    // @ts-ignore
-    popupWin.document.close();
+    if (popupWin.location) {
+      popupWin.location.href = this.printContent;
+    } else {
+      this.publicService.message.custom('امکان مشاهده وجود ندارد')
+    }
   }
 
   exportTour(id: number) {
     this.isLoading = true;
     this.tourApiService.exportTour(id).subscribe((res: any) => {
+      this.isLoading = false;
       if (res.isDone) {
-        this.printContent = res.data
+        this.printContent = res.data.url
         this.print();
       } else {
         this.message.custom(res.message);
       }
-      this.isLoading = false;
+
     }, (error: any) => {
       this.isLoading = false;
       this.message.error();

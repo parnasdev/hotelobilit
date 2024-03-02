@@ -18,7 +18,7 @@ export class TourApiService {
       environment.BACK_END_IP + this.serverControllerName;
   }
 
-  search(type: string, req: TourSearchReqDTO,page: number = 1): any {
+  search(type: string, req: TourSearchReqDTO, page: number = 1): any {
     const strUrl = environment.BACK_END_IP + type + `/search?page=${page}`;
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
@@ -53,7 +53,7 @@ export class TourApiService {
   }
 
   exportTour(id: number): any {
-    const strUrl = this.serverControllerName + `export/${id}`;
+    const strUrl = this.publicService.getApiUrlV2(false, 'tours', `/pdf/${id}`)
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
@@ -62,8 +62,8 @@ export class TourApiService {
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
-  getTours(pageNum?: number,status_id: string=''): any {
-    const address = pageNum ? `panel/tours?page=${pageNum}&status=${status_id}` : `panel/tours?status=${status_id}`;
+  getTours(pageNum?: number, params:string = ''): any {
+    const address = `panel/tours` + params + `&page=${pageNum}`;
     const strUrl = environment.BACK_END_IP + address;
 
     return this.http.get<Result<TourListResDTO>>(strUrl, this.publicService.getDefaultHeaders());
@@ -105,8 +105,8 @@ export class TourApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  update(id: number,req: any) {
+  update(id: number, req: any) {
     const strUrl = environment.BACK_END_IP + `panel/tours/${id}`;
-    return this.http.patch<Result<any>>(strUrl,req, this.publicService.getDefaultHeaders());
+    return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 }

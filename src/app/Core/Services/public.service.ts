@@ -60,6 +60,25 @@ export class PublicService {
     str='?'+str
     return str;
   }
+  getFiltersObjectString(filters: any) {
+    let str = ''
+
+    Object.keys(filters).forEach(function(key,index) {
+
+      if (filters.hasOwnProperty(key)) {
+          // console.log(key + " -> " + filters[key]);
+          if (filters[key] && filters[key] !== '') {
+            if (index !== (filters.length - 1)) {
+              str += key + '=' + filters[key] + '&'
+            } else {
+              str += key + '=' + filters[key]
+            }
+          }
+      }
+    })
+    str = '?' + str
+    return str;
+  }
 
   substringText(count: number, str: string): string {
     if (str) {

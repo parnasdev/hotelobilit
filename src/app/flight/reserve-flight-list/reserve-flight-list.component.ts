@@ -81,4 +81,13 @@ flight: any
     return nights.length -1
 
   }
+
+  getPassengerCount(rooms:any) {
+    let count = 0;
+
+    rooms.forEach((room :any)=> {
+      count += room.passengers.length 
+    });
+return count
+  }
 }

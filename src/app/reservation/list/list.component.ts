@@ -81,27 +81,11 @@ export class ListComponent implements OnInit {
   }
 
   getNights(item: any) {
-    if (item.flights.departure && item.flights.return) {
-      let checkin = '';
-      let checkout = ''
-      let transfer = item.flights;
-      if (!transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
-        checkin = transfer.departure.date;
-        checkout = transfer.return.date;
-      } else if (transfer.departure.checkin_tomorrow && !transfer.return.checkout_yesterday) {
-        checkin = moment(transfer.date).add(1, 'days').format('YYYY-MM-DD');
-        checkout = transfer.flight.date;
-      } else if (!transfer.departure.checkin_tomorrow && transfer.return.checkout_yesterday) {
-        checkin = transfer.date;
-        checkout = moment(transfer.departure.date).add(-1, 'days').format('YYYY-MM-DD');
-      } else {
-        checkin = moment(transfer.departure.date).add(1, 'days').format('YYYY-MM-DD');
-        checkout = moment(transfer.return.date).add(-1, 'days').format('YYYY-MM-DD');
-      }
-      return this.calService.enumerateDaysBetweenDates(checkin, checkout, 'YYYY-MM-DD').length - 1
-    } else {
-      return '---'
-    }
+
+    let nights = this.calService.enumerateDaysBetweenDates(item.hotel.checkin, item.hotel.checkout)
+
+    return nights.length >0 ? nights.length -1 : 0
+
   }
 
   openPicker(type = 'departure') {

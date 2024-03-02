@@ -105,7 +105,7 @@ export class TransferServiceComponent implements OnInit {
 
   submit() {
     let obj: serviceSetReq = {
-      airport_id: this.catType === 'hotel' ? this.airportId : null,
+      airport_id: this.catType === 'hotel' ? this.airportId : 0,
       hotel_id: this.catType === 'hotel' ? this.hotelId : null,
       flight_id: this.catType === 'flight' ? this.flightId : null,
       category_id: this.categoryId,
