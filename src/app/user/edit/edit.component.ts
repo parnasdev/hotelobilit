@@ -217,7 +217,7 @@ export class EditComponent implements OnInit {
 
   }
   getIsAgency() {
-    return +(this.userForm.get('role_id')?.value ?? '0') === 12 ||  +(this.userForm.get('role_id')?.value ?? '0') === 5  || +(this.userForm.get('role_id')?.value ?? '0') === 4 || +(this.userForm.get('role_id')?.value ?? '0') === 3
+    return this.agency !== '' ||  (+(this.userForm.get('role_id')?.value ?? '0') === 12 ||  +(this.userForm.get('role_id')?.value ?? '0') === 5  || +(this.userForm.get('role_id')?.value ?? '0') === 4 || +(this.userForm.get('role_id')?.value ?? '0') === 3)
   }
   setReq(mode: string) {
     this.userReq = {

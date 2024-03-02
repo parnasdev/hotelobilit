@@ -4,7 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from '@angular/router';
 import { CityApiService } from 'src/app/Core/Https/city-api.service';
 import { TourApiService } from 'src/app/Core/Https/tour-api.service';
-import { CityListRequestDTO, CityResponseDTO } from 'src/app/Core/Models/cityDTO';
+import {  CityResponseDTO } from 'src/app/Core/Models/cityDTO';
 import { TourListRequestDTO, TourListResDTO } from 'src/app/Core/Models/tourDTO';
 import { CalenderServices } from 'src/app/Core/Services/calender-service';
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
@@ -27,6 +27,17 @@ declare let $: any;
 export class ListComponent implements OnInit {
   status = 'All';
   show = true
+  nights = [
+    { id: 1, name: '۱ شب' },
+    { id: 2, name: '۲ شب' },
+    { id: 3, name: '۳ شب' },
+    { id: 4, name: '۴ شب' },
+    { id: 5, name: '۵ شب' },
+    { id: 6, name: '۶ شب' },
+    { id: 7, name: '۷ شب' },
+    { id: 8, name: '۸ شب' },
+    { id: 9, name: '۹ شب' },
+  ];
   tourReq: TourListRequestDTO = {
     origin: null,
     dest: null,
@@ -43,6 +54,7 @@ export class ListComponent implements OnInit {
   filterObj: any = {
     destination: null,
     origin: null,
+    stay_count:'',
     status: 0,
     fromDate: null,
     toDate: null
@@ -151,13 +163,12 @@ export class ListComponent implements OnInit {
 
   }
 
-
-
-  removeFilter() {
+ removeFilter() {
     this.filterObj = {
       destination: null,
       origin: null,
       status: 0,
+      stay_count: '',
       fromDate: null,
       toDate: null
     }

@@ -109,7 +109,7 @@
             </div>
           </div>
 
-          <div class="w-100" *ngIf="(+(userForm.get('role_id')?.value ?? '0') == 5) || (+(userForm.get('role_id')?.value ?? '0') == 12)  || (+(userForm.get('role_id')?.value ?? '0') == 4) ">
+          <div class="w-100" *ngIf="agency !== '' || ((+(userForm.get('role_id')?.value ?? '0') == 5) || (+(userForm.get('role_id')?.value ?? '0') == 12)  || (+(userForm.get('role_id')?.value ?? '0') == 4)) ">
             <div style="gap:15px" class="selection-box d-flex flex-row justify-content-between align-items-start mt-4">
               <div class="select-city w-40">
                 <label>شهر های موردنظر را انتخاب کنید</label>

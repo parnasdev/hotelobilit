@@ -21,16 +21,22 @@
         <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
       </select>
     </div>
-    <div style="background: white;" class="d-flex w-50">
+    <div style="background: white;" class="d-flex w-25">
       <div class="inp-form w-100">
-          <input class="w-50" type="text"
-              value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
-              placeholder="انتخاب  تاریخ" (click)="openPicker()">
-          <input class="w-50" type="text"
-              value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
-              (click)="openPicker()">
+        <input class="w-50" type="text" value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
+          placeholder="انتخاب  تاریخ" (click)="openPicker()">
+        <input class="w-50" type="text" value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
+          (click)="openPicker()">
       </div>
-  </div>
+    </div>
+    <div class="inp-form w-25">
+      <span>شب</span>
+      <select [(ngModel)]="filterObj.stay_count">
+        <option [value]="null">تعداد شب</option>
+        <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>
+      </select>
+    </div>
+
     <div class="inp-form w-25">
       <span>وضعیت</span>
 
@@ -43,7 +49,7 @@
       <a class="btn-base-red cursor-pointer  w-25" (click)="removeFilter()">حذف </a>
 
     </div>
-    
+
     <!--    <a class="btn-add-tour" routerLink="/panel/tours/">تور یکجا</a>-->
   </div>
 
