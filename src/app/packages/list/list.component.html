@@ -9,11 +9,14 @@
 
   <div class="title m-top-10">
     <div class="inp-form w-25">
+      <span>مبدا</span>
       <select name="" id="" placeholder="مبدا" [(ngModel)]="filterObj.origin">
         <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
       </select>
     </div>
     <div class="inp-form w-25">
+      <span>مقصد</span>
+
       <select name="" id="" [(ngModel)]="filterObj.destination">
         <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
       </select>
@@ -30,6 +33,8 @@
       </div>
   </div>
     <div class="inp-form w-25">
+      <span>وضعیت</span>
+
       <select name="" id="" [(ngModel)]="filterObj.status">
         <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
       </select>
