@@ -62,8 +62,8 @@ export class TourApiService {
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
-  getTours(pageNum?: number, status_id: string = '',origin:string = '',destination:string = ''): any {
-    const address = `panel/tours?page=${pageNum}&status=${status_id}&origin=${origin}&destination=${destination}`;
+  getTours(pageNum?: number, params:string = ''): any {
+    const address = `panel/tours` + params + `&page=${pageNum}`;
     const strUrl = environment.BACK_END_IP + address;
 
     return this.http.get<Result<TourListResDTO>>(strUrl, this.publicService.getDefaultHeaders());

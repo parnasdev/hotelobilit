@@ -14,7 +14,8 @@ import { PublicService } from 'src/app/Core/Services/public.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { SettingService } from 'src/app/Core/Services/setting.service';
 import { AlertDialogComponent, AlertDialogDTO } from 'src/app/common-project/alert-dialog/alert-dialog.component';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
+import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 
 declare let $: any;
 
@@ -39,10 +40,14 @@ export class ListComponent implements OnInit {
     perPage: 15,
     type: null
   };
-  statusNM = '1'
-  originNM = '';
-  destinationNM = ''
-  cities:any[] = []
+  filterObj: any = {
+    destination: null,
+    origin: null,
+    status: 0,
+    from: null,
+    to: null
+  };
+  cities: any[] = []
   isLoading = false
   stDateFC = new FormControl(null);
   minDate = new Date()
@@ -58,7 +63,7 @@ export class ListComponent implements OnInit {
   printContent = '';
   originFC = new FormControl(null);
   destFC = new FormControl(null);
-statuses:any[] = []
+  statuses: any[] = []
   constructor(
     public title: Title,
     public tourApiService: TourApiService,
@@ -87,12 +92,14 @@ statuses:any[] = []
 
   getTours(time: string): void {
     this.isLoading = true;
-this.tours = []
-    this.tourApiService.getTours( this.p,this.statusNM,this.originNM,this.destinationNM).subscribe((res: any) => {
+    this.tours = []
+    let qparams = this.publicService.getFiltersObjectString(this.filterObj)
+
+    this.tourApiService.getTours(this.p, qparams).subscribe((res: any) => {
       if (res.isDone) {
         this.tours = res.data;
 
-        if(time === 'first'){ 
+        if (time === 'first') {
           this.statuses = res.statuses
           this.cities = res.cities
         }
@@ -218,7 +225,7 @@ this.tours = []
     this.getTours('second');
   }
 
-  deleteClicked(id:number) {
+  deleteClicked(id: number) {
     const obj: AlertDialogDTO = {
       description: 'حذف شود؟',
       icon: 'null',
@@ -234,7 +241,24 @@ this.tours = []
       }
     });
   }
+  openPicker() {
+    const dialog = this.dialog.open(PrsDatePickerComponent, {
+      width: '80%',
+      data: {
+        dateList: [],
+        type: 'multiple',
+        selectCount: 60,
+        todayMin: false
+      }
+    })
+    dialog.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this.filterObj.from = res.fromDate.dateEn
+        this.filterObj.to = res.toDate.dateEn;
+      }
 
+    })
+  }
   // openLogs(id: any): void {
   //   const dialog = this.dialog.open(LogsComponent, {
   //     width: '30%',
@@ -257,11 +281,11 @@ this.tours = []
   }
 
   print() {
-    let popupWin:any;
+    let popupWin: any;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    if(popupWin.location) {
+    if (popupWin.location) {
       popupWin.location.href = this.printContent;
-    }else {
+    } else {
       this.publicService.message.custom('امکان مشاهده وجود ندارد')
     }
   }
@@ -276,7 +300,7 @@ this.tours = []
       } else {
         this.message.custom(res.message);
       }
-    
+
     }, (error: any) => {
       this.isLoading = false;
       this.message.error();

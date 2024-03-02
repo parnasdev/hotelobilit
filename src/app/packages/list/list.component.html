@@ -9,22 +9,28 @@
 
   <div class="title m-top-10">
     <div class="inp-form w-25">
-      <select name="" id="" [(ngModel)]="originNM">
+      <select name="" id="" placeholder="مبدا" [(ngModel)]="filterObj.origin">
         <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
       </select>
     </div>
     <div class="inp-form w-25">
-      <select name="" id="" [(ngModel)]="destinationNM">
+      <select name="" id="" [(ngModel)]="filterObj.destination">
         <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
       </select>
     </div>
-    <!-- <div class="inp-form w-25">
-      <select name="" id="" [(ngModel)]="statusNM" (ngModelChange)="getTours('second')">
-        <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
-      </select>
-    </div> -->
+    <div style="background: white;" class="d-flex w-50">
+      <div class="inp-form w-100">
+          <input class="w-50" type="text"
+              value="{{ filterObj.from ? (filterObj.from | convertDate) : '' }}"
+              placeholder="انتخاب  تاریخ" (click)="openPicker()">
+
+          <input class="w-50" type="text"
+              value="{{ filterObj.to ? (filterObj.to | convertDate) : '' }}"
+              (click)="openPicker()">
+      </div>
+  </div>
     <div class="inp-form w-25">
-      <select name="" id="" [(ngModel)]="statusNM">
+      <select name="" id="" [(ngModel)]="filterObj.status">
         <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
       </select>
     </div>
