@@ -21,11 +21,11 @@
     <div style="background: white;" class="d-flex w-50">
       <div class="inp-form w-100">
           <input class="w-50" type="text"
-              value="{{ filterObj.from ? (filterObj.from | convertDate) : '' }}"
+              value="{{ filterObj.fromDate ? (filterObj.fromDate | convertDate) : '' }}"
               placeholder="انتخاب  تاریخ" (click)="openPicker()">
 
           <input class="w-50" type="text"
-              value="{{ filterObj.to ? (filterObj.to | convertDate) : '' }}"
+              value="{{ filterObj.toDate ? (filterObj.toDate | convertDate) : '' }}"
               (click)="openPicker()">
       </div>
   </div>

@@ -44,8 +44,8 @@ export class ListComponent implements OnInit {
     destination: null,
     origin: null,
     status: 0,
-    from: null,
-    to: null
+    fromDate: null,
+    toDate: null
   };
   cities: any[] = []
   isLoading = false
@@ -253,8 +253,8 @@ export class ListComponent implements OnInit {
     })
     dialog.afterClosed().subscribe((res: any) => {
       if (res) {
-        this.filterObj.from = res.fromDate.dateEn
-        this.filterObj.to = res.toDate.dateEn;
+        this.filterObj.fromDate = res.fromDate.dateEn
+        this.filterObj.toDate = res.toDate.dateEn;
       }
 
     })
