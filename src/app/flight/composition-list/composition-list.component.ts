@@ -238,6 +238,7 @@ export class CompositionListComponent {
         id: item.mixed_id,
         checkin_tomorrow: item.checkin_tomorrow,
         checkout_yesterday: item.checkout_yesterday,
+        ignore: item.ignore === 1 ? true : false, 
         total_adl_price: item.total_adl_price,
         total_chd_price: item.total_chd_price
       }

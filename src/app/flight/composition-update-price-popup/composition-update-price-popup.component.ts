@@ -15,6 +15,7 @@ export class CompositionUpdatePricePopupComponent {
   req: any = {
     total_adl_price: 0,
     total_chd_price: 0,
+    ignore: false,
     checkin_tomorrow: false,
     checkout_yesterday: false
   }
@@ -26,6 +27,7 @@ export class CompositionUpdatePricePopupComponent {
       this.req = {
         total_adl_price: data.total_adl_price,
         total_chd_price: data.total_chd_price,
+        ignore: data.ignore ?? false,
         checkin_tomorrow: data.checkin_tomorrow,
         checkout_yesterday: data.checkout_yesterday
       }
@@ -34,6 +36,7 @@ export class CompositionUpdatePricePopupComponent {
 
 
   submit() {
+    debugger
     this.api.updateMix(this.data.id, this.req).subscribe({
       next: (res: any) => {
         if (res.isDone) {
