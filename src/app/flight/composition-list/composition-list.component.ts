@@ -252,7 +252,6 @@ export class CompositionListComponent {
 
   submit() {
     this.p = 1
-    debugger
     this.router.navigate([`/panel/flight/composition-list/`], {
       queryParams: this.filterObj
     })
