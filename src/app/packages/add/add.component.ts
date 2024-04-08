@@ -54,10 +54,16 @@ export class AddComponent implements OnInit {
     expired_at: '',
     status_id: 0,
     flights: [],
-    packages: []
+    packages: [],
+    description:'',
+    service:'',
+    documents:'',
   }
   partnerNames: any = []
   titleFC = new FormControl('', [Validators.required])
+  descriptionFC = new FormControl('', [Validators.required])
+  documentFC = new FormControl('', [Validators.required])
+  serviceFC = new FormControl('', [Validators.required])
   origin_idFC = new FormControl('', [Validators.required])
   destination_idFC = new FormControl('', [Validators.required])
   night_numFC = new FormControl('', [Validators.required])
@@ -138,7 +144,10 @@ export class AddComponent implements OnInit {
       status_id: +(this.status_idFC.value ?? ''),
       flights: this.flights,
       partnerIds: this.getPartners(),
-      packages: this.packages
+      packages: this.packages,
+      description:this.descriptionFC.value  ?? '',
+      service:this.serviceFC.value  ?? '',
+      documents:this.documentFC.value  ?? '',
     }
     let newPackage=this.req.packages.map((p:any,index:number)=>{
       return{

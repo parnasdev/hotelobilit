@@ -408,6 +408,9 @@ export interface TourSetDTO {
   status_id: number
   flights: number[]
   packages: PackageTourDTO[]
+  description:string
+  service:string
+  documents:string
 }
 
 export interface PackageTourDTO {

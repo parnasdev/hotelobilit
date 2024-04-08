@@ -179,7 +179,10 @@ export class EditComponent extends AddComponent implements OnInit {
       status_id: +(this.status_idFC.value ?? ''),
       flights: this.flights,
       partnerIds: this.getPartners(),
-      packages: this.packages
+      packages: this.packages,
+      description:this.descriptionFC.value  ?? '',
+      service:this.serviceFC.value  ?? '',
+      documents:this.documentFC.value  ?? '',
     }
 
     let newPackage = this.req.packages.map((p: any, index: number) => {
@@ -218,6 +221,10 @@ export class EditComponent extends AddComponent implements OnInit {
 
 
   setInfo() {
+
+    this.documentFC.setValue(this.tourData.documents)
+    this.serviceFC.setValue(this.tourData.service)
+    this.descriptionFC.setValue(this.tourData.description)
     this.titleFC.setValue(this.tourData.title);
     this.origin_idFC.setValue(this.tourData.origin_id);
     this.destination_idFC.setValue(this.tourData.destination_id);

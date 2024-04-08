@@ -1173,3 +1173,21 @@ prs-select-hotel {
   font-weight: 600;
   padding: 0 !important;
 }
+
+.detailscon{
+  background-color: white;
+  margin-top: 30px;
+  width: 100%;
+  .moredetails{
+    margin-top: 20px;
+    padding: 1rem;
+    textarea{
+      border: 1px solid #cecece;
+      padding: 5px;
+      border-radius: 10px;
+    }
+
+
+  }
+}
+

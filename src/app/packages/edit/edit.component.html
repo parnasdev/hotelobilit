@@ -157,6 +157,8 @@
         </div>
 
 
+
+
       </div>
     </div>
   </div>
@@ -282,6 +284,39 @@
       <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     </div> -->
   </div>
+
+  <div class="detailscon">
+    <div class="info-tour-header" style="width: 100%">
+      <div class="right">
+        <h2 class="text-dark">اطلاعات دیگر</h2>
+      </div>
+    </div>
+    <div class="moredetails flex-x-center">
+      <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
+        <label for="">مدارک لازم</label>
+
+        <textarea [formControl]="documentFC" type="text" cols="45" rows="10" ></textarea>
+        <div *ngIf="errorService.hasError('title')">
+          <span class="text-danger">{{errorService.getError('title')}}</span>
+        </div>
+      </div> <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
+      <label for="">توضیحات تکمیلی</label>
+
+      <textarea [formControl]="descriptionFC" type="text" cols="45" rows="10"></textarea>
+      <div *ngIf="errorService.hasError('title')">
+        <span class="text-danger">{{errorService.getError('title')}}</span>
+      </div>
+    </div> <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
+      <label for="">خدمات</label>
+
+      <textarea [formControl]="serviceFC" type="text" cols="45" rows="10"></textarea>
+      <div *ngIf="errorService.hasError('title')">
+        <span class="text-danger">{{errorService.getError('title')}}</span>
+      </div>
+    </div>
+    </div>
+  </div>
+
   <!-- <prs-detail-package class="w-100"></prs-detail-package> -->
   <button class="btn-base w-100-mobi m-top-12" style="width: 15%;" (click)="submit()">ثبت تور</button>
 
