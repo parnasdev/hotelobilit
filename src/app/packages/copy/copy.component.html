@@ -134,6 +134,14 @@
             <span class="text-danger">{{errorService.getError('checkout')}}</span>
           </div>
         </div>
+
+        <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
+          <label class="bold-600 fs-13" for="">تور ویژه</label>
+          <mat-checkbox [(ngModel)]="offered" (ngModelChange)="change()"></mat-checkbox>
+          <div *ngIf="errorService.hasError('checkout')">
+            <span class="text-danger">{{errorService.getError('checkout')}}</span>
+          </div>
+        </div>
         <div class="item-info w-25">
           <label for="">تاریخ انقضا پکیج</label>
           <mat-form-field class="example-full-width" appearance="fill">

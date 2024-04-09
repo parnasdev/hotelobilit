@@ -29,6 +29,7 @@ export class EditComponent extends AddComponent implements OnInit {
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
         this.partners = res.data.partners;
+        this.offered=res.data.tour.offered
 
         this.partnerNames = this.getPartnersNames(res.data.selected_partners)
         this.cities = res.data.cities
@@ -164,6 +165,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
   override setReq() {
     this.req = {
+      offered:this.offered,
       title: this.titleFC.value ?? '',
       is_bundle: this.is_bundle,
       currencies: this.selectedCurrency,

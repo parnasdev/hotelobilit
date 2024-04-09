@@ -411,6 +411,7 @@ export interface TourSetDTO {
   description:string
   service:string
   documents:string
+  offered:boolean
 }
 
 export interface PackageTourDTO {

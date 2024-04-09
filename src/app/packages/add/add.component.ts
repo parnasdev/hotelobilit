@@ -41,6 +41,7 @@ export class AddComponent implements OnInit {
   statuses: statusesDTO[] = [];
   currencies: any;
   req: TourSetDTO = {
+    offered:false,
     title: '',
     origin_id: 0,
     destination_id: 0,
@@ -74,6 +75,8 @@ export class AddComponent implements OnInit {
   expired_atFC = new FormControl('', [Validators.required])
   status_idFC = new FormControl(0, [Validators.required])
   is_bundle: boolean = false
+ offered: boolean = false
+
   partners: any[] = []
   selectedCurrency: string = ''
   rooms: any[] = []
@@ -130,6 +133,7 @@ export class AddComponent implements OnInit {
 
   setReq() {
     this.req = {
+      offered:this.offered,
       title: this.titleFC.value ?? '',
       is_bundle: this.is_bundle,
       currencies: this.selectedCurrency,
