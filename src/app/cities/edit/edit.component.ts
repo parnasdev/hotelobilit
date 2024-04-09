@@ -21,11 +21,13 @@ export class EditComponent {
   destCityFC = new FormControl();
   selectedAirportFC = new FormControl([]);
 galleries:any[]=[]
+  deletedFiles:any=[]
   req: AirportReqDTO = {
     name: '',
     code: '',
     parent_id: 0,
-    files:[]
+    files:[],
+    del_files:[],
   }
   info: any
 
@@ -49,6 +51,7 @@ type = '';
 
   submit(): void {
     this.setReq()
+    console.log(this.req)
     this.api.updateCategory(this.transfer_id, 'city', 'hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.custom(res.message)
@@ -73,7 +76,7 @@ type = '';
         this.info = res.data
         this.setValue()
         this.show = true;
-        console.log(this.info)
+
       } else {
         this.show = true;
         this.message.custom(res.message);
@@ -96,17 +99,27 @@ type = '';
   }
 
   getFiles(e:any){
-this.galleries=e
+
+    this.galleries=e
+    // console.log(this.galleries)
+  }
+
+  getdeletedImages(e:any){
+    // this.galleries=e
+    this.deletedFiles=e
+
 
   }
 
   setReq(): void {
+
     this.req = {
       parent_id: this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
       airports: this.selectedAirportFC.value ?? [],
-      files:this.galleries
+      files:this.galleries,
+      del_files:this.deletedFiles
     }
   }
 }

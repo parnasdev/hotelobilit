@@ -20,4 +20,5 @@ export interface AirportReqDTO {
     cities?:number[]
     airports?: number[]
   files?:any[]
+  del_files?:any[]
 }
