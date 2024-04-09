@@ -23,9 +23,10 @@ export class AddComponent {
     parent_id: 0,
     name: '',
     code: '',
-    airports: []
+    airports: [],
+    files:[]
   }
-
+galleries:any[]=[]
   data: any;
   show = false;
 
@@ -92,5 +93,10 @@ export class AddComponent {
       name: this.nameFC.value,
       airports: this.selectedAirportFC.value ?? []
     }
+  }
+  getFiles(e:any){
+    this.galleries=e
+    console.log('salam',this.galleries)
+
   }
 }

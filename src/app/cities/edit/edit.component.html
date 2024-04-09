@@ -51,13 +51,15 @@
               <mat-select [formControl]="selectedAirportFC" multiple>
                 <mat-select-trigger>
                   <span>فرودگاه های انتخاب شده</span>
-  
+
                 </mat-select-trigger>
                 <mat-option *ngFor="let x of info.airports" [value]="x.id">{{x.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
+        <prs-multiple-upload [incommingFiles]="galleries" (result)="getFiles($event)" (deletedImages)="getFiles($event)"></prs-multiple-upload>
       </div>
 
     </div>

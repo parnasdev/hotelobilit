@@ -20,11 +20,12 @@ export class EditComponent {
   statusFC = new FormControl();
   destCityFC = new FormControl();
   selectedAirportFC = new FormControl([]);
-
+galleries:any[]=[]
   req: AirportReqDTO = {
     name: '',
     code: '',
     parent_id: 0,
+    files:[]
   }
   info: any
 
@@ -72,6 +73,7 @@ type = '';
         this.info = res.data
         this.setValue()
         this.show = true;
+        console.log(this.info)
       } else {
         this.show = true;
         this.message.custom(res.message);
@@ -90,16 +92,21 @@ type = '';
     this.codeFC.setValue(this.info.city.code)
     this.destCityFC.setValue(this.info.city.parent_id)
     this.selectedAirportFC.setValue(this.info.city.airports)
-
+    this.galleries=this.info.files
   }
 
+  getFiles(e:any){
+this.galleries=e
+
+  }
 
   setReq(): void {
     this.req = {
       parent_id: this.destCityFC.value,
       code: this.codeFC.value,
       name: this.nameFC.value,
-      airports: this.selectedAirportFC.value ?? []
+      airports: this.selectedAirportFC.value ?? [],
+      files:this.galleries
     }
   }
 }
