@@ -35,7 +35,13 @@ export class EditFastPopupComponent {
     inf_price: 0,
     is_close: 0,
     time: '',baggage:'',
-    duration:''
+    duration:'',
+    sync_price:false
+
+  }
+
+  change(){
+
   }
 
   constructor(public api: FlightApiService,
@@ -97,6 +103,7 @@ export class EditFastPopupComponent {
       time: this.data.flight.time,
       baggage: this.data.flight.baggage,
 duration: this.data.flight.duration,
+      sync_price: this.data.flight.sync_price,
     }
     let itemFiltered= this.data.airports.filter((x:any) => x.id === this.data.flight.destination_id)
     if(itemFiltered.length > 0) {
