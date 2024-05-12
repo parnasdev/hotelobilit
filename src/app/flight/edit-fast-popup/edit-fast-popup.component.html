@@ -52,7 +52,6 @@
                         <select [(ngModel)]="req.is_close">
                             <option [ngValue]="false">open</option>
                             <option [ngValue]="true">close</option>
-
                         </select>
                     </div>
                 </div>
@@ -70,12 +69,10 @@
               <span class="text-danger">{{error.getError('duration')}}</span>
             </div>
           </div>
-          <div class="item-calender m-right-10">
+          <div class="item">
             <span>اعمال روی ترکیب ؟</span>
             <div style="background: white;" class="row-calender">
               <mat-checkbox [(ngModel)]="req.sync_price" (ngModelChange)="change()" ></mat-checkbox>
-
-
             </div>
           </div>
           <!--      *ngIf="!req.one_way"-->
