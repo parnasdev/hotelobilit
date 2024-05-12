@@ -52,7 +52,7 @@ export class MultipleUploadComponent implements OnInit {
         if(this.selectedFiles.length > 0) {
           this.selectedFiles[0].type = 1;
         }
- 
+
       }
       // this.reload()
     }

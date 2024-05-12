@@ -20,7 +20,9 @@ export class GetLatLongComponent implements OnInit {
   constructor() {
   }
 
+
   ngOnInit() {
+
     this.icon = L.icon({
       iconUrl: 'assets/img/location.png',
       iconSize: [35, 45], // size of the icon
@@ -28,9 +30,11 @@ export class GetLatLongComponent implements OnInit {
     });
     this.map = L.map('map').setView([this.inCommingLatLng[0], this.inCommingLatLng[1]], 30);
 
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
+
     this.marker = new L.marker([this.inCommingLatLng[0], this.inCommingLatLng[1]], {icon: this.icon}, {draggable: true}).addTo(this.map)
       .bindPopup(this.textMarker)
 
