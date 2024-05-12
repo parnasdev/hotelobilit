@@ -104,6 +104,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   override getTransferRates(): void {
+    debugger
     if (this.origin_idFC.valid && this.destination_idFC.valid && this.checkinFC.valid && this.checkoutFC.valid) {
       const req = {
         origin_id: this.origin_idFC.value,
@@ -116,7 +117,7 @@ export class EditComponent extends AddComponent implements OnInit {
       this.tourApi.getFlights(req).subscribe((res: any) => {
         if (res.isDone) {
           this.transferRates = res.data;
-          this.transferRates.forEach(x => {
+          this.transferRates?.forEach(x => {
             this.tourData.flightIds.forEach((y: any) => {
               if (x.mixed_id == y) {
                 x.flight.isChecked = true

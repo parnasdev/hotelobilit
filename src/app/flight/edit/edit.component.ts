@@ -37,7 +37,9 @@ export class EditComponent {
     inf_price: 0,
     is_close: 0,
     time: '',
-    baggage:'',duration:''
+    baggage:'',
+    duration:'',
+    sync_price:false
   }
 
   filterObj: FilterDTO = {
@@ -140,6 +142,7 @@ export class EditComponent {
       time: this.data.flight.time,
       baggage:this.data.flight.baggage,
       duration: this.data.flight.duration,
+      sync_price:this.data.flight.sync_price
     }
     let itemFiltered= this.data.airports.filter((x:any) => x.id === this.data.flight.destination_id)
     if(itemFiltered.length > 0) {
@@ -167,6 +170,10 @@ export class EditComponent {
     this.req.time = time.hour + ':' + time.minute
   }
 
+  change(){
+    // console.log('sync',this.req.sync_price)
+  }
+
   openPicker() {
     const dialog = this.dialog.open(PrsDatePickerComponent, {
       width: '80%',
@@ -191,6 +198,7 @@ export class EditComponent {
   }
 
   submit(){
+    debugger
     this.api.update(this.req,+this.id).subscribe({
       next: (res: any) => {
         if(res.isDone) {

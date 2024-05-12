@@ -67,6 +67,7 @@ export interface IFlightEditReq {
     inf_price: number
     capacity: number
     is_close: number
+sync_price?:boolean
     description: string | null
     airplane_id: number
     cabin_type: string
@@ -118,6 +119,7 @@ export interface IUpdateBulk {
     description?: string
     airplane_id?: number
     cabin_type?: string
+  sync_price?:boolean
 
 }
 

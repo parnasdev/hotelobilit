@@ -28,7 +28,9 @@ export class GroupChangePopupComponent {
     is_close: 0,
     description: '',
     airplane_id: 0,
-    cabin_type: ""
+    cabin_type: "",
+    sync_price:false
+
   }
   constructor(public dialogRef: MatDialogRef<GroupChangePopupComponent>,
     public api: FlightApiService,
@@ -64,7 +66,7 @@ export class GroupChangePopupComponent {
       }
     })
   }
-
+ change(){}
 
   getAirlines(item: IFlightCategory) {
     this.req.airline_id = item.id;
