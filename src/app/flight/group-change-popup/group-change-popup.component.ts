@@ -64,6 +64,7 @@ export class GroupChangePopupComponent {
       }, error: (error: any) => {
         this.error.check(error)
       }
+
     })
   }
  change(){}
