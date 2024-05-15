@@ -238,7 +238,7 @@ export class CompositionListComponent {
         id: item.mixed_id,
         checkin_tomorrow: item.checkin_tomorrow,
         checkout_yesterday: item.checkout_yesterday,
-        ignore: item.ignore === 1 ? true : false, 
+        ignore: item.ignore === 1 ? true : false,
         total_adl_price: item.total_adl_price,
         total_chd_price: item.total_chd_price
       }
@@ -261,16 +261,17 @@ export class CompositionListComponent {
 
 
   calculateStayCount(transfer: any) {
+    debugger
     let checkin = '';
     let checkout = '';
     if (transfer.returnFlight) {
-      if (!transfer.flight.checkin_tomorrow && !transfer.returnFlight.checkout_yesterday) {
+      if (!transfer.checkin_tomorrow && !transfer.checkout_yesterday) {
         checkin = transfer.flight.date;
         checkout = transfer.returnFlight.date;
-      } else if (transfer.flight.checkin_tomorrow && !transfer.returnFlight.checkout_yesterday) {
+      } else if (transfer.checkin_tomorrow && !transfer.checkout_yesterday) {
         checkin = moment(transfer.flight.date).add(1, 'days').format('YYYY-MM-DD');
         checkout = transfer.returnFlight.date;
-      } else if (!transfer.flight.checkin_tomorrow && transfer.returnFlight.checkout_yesterday) {
+      } else if (!transfer.checkin_tomorrow && transfer.checkout_yesterday) {
         checkin = transfer.flight.date;
         checkout = moment(transfer.returnFlight.date).add(-1, 'days').format('YYYY-MM-DD');
       } else {
