@@ -55,7 +55,7 @@ export class ListComponent implements OnInit {
     destination: null,
     origin: null,
     stay_count:'',
-    status: 0,
+    status: 1,
     fromDate: null,
     toDate: null
   };
