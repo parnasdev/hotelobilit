@@ -40,6 +40,7 @@ export class ListComponent implements OnInit {
   ];
 
 
+
   tourReq: TourListRequestDTO = {
     origin: null,
     dest: null,
