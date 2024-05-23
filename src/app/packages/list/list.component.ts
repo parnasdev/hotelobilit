@@ -38,6 +38,7 @@ export class ListComponent implements OnInit {
     { id: 8, name: '۸ شب' },
     { id: 9, name: '۹ شب' },
   ];
+
   tourReq: TourListRequestDTO = {
     origin: null,
     dest: null,
