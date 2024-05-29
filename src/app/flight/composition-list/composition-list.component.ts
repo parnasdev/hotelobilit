@@ -16,7 +16,7 @@ export interface FilterCompositionDTO {
   destination: number | null;
   status: number | null;
   stay_count: any;
-  airline: number | null
+  airline: number | null;
   mixed: boolean
   fromDate: string | null;
   toDate: string | null;
@@ -82,6 +82,7 @@ export class CompositionListComponent {
         this.filterObj.fromDate = params['fromDate']
         this.filterObj.airline = params['airline']
         this.filterObj.toDate = params['toDate']
+
         this.filterObj.stay_count = +params['stay_count']
       } else {
         this.filterObj = {
@@ -112,6 +113,7 @@ export class CompositionListComponent {
     this.filterObj.destination = city.id
   }
   getFilterList() {
+
     let result: any[] = []
     var obj: any = this.filterObj
     Object.keys(this.filterObj).forEach(function (key) {
@@ -148,14 +150,20 @@ export class CompositionListComponent {
   getData() {
     this.isLoading = true;
     this.data = []
+    // debugger
     let qparams = this.publicService.getFiltersString(this.getFilterList())
     this.api.list(qparams).subscribe({
       next: (res: any) => {
         if (res.isDone) {
           this.data = res.data;
-          this.airlines = res.airlines;
+          debugger
+          if(this.airlines.length===0 || res.airlines.length !== this.airlines.length ){
+            this.airlines = res.airlines;
+          }
           this.airports = res.airports;
           this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
+
+
           this.nights = [
             { id: 1, name: '۱ شب' },
             { id: 2, name: '۲ شب' },
@@ -256,12 +264,13 @@ export class CompositionListComponent {
       queryParams: this.filterObj
     })
     this.getData()
+
   }
 
 
 
   calculateStayCount(transfer: any) {
-    debugger
+
     let checkin = '';
     let checkout = '';
     if (transfer.returnFlight) {
