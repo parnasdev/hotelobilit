@@ -36,7 +36,7 @@ export class EditFastPopupComponent {
     is_close: 0,
     time: '',baggage:'',
     duration:'',
-    sync_price:false
+    sync_price:true
 
   }
 
