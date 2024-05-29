@@ -39,7 +39,7 @@ export class EditComponent {
     time: '',
     baggage:'',
     duration:'',
-    sync_price:false
+    sync_price:true
   }
 
   filterObj: FilterDTO = {
