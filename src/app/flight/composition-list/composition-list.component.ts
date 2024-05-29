@@ -30,7 +30,17 @@ export interface FilterCompositionDTO {
 export class CompositionListComponent {
   isLoading = false;
   list: any[] = []
-  nights: any[] = []
+  nights: any[] = [
+    { id: 1, name: '۱ شب' },
+    { id: 2, name: '۲ شب' },
+    { id: 3, name: '۳ شب' },
+    { id: 4, name: '۴ شب' },
+    { id: 5, name: '۵ شب' },
+    { id: 6, name: '۶ شب' },
+    { id: 7, name: '۷ شب' },
+    { id: 8, name: '۸ شب' },
+    { id: 9, name: '۹ شب' },
+  ];
   paginateConfig = {
     itemsPerPage: 0,
     totalItems: 0,
@@ -164,17 +174,6 @@ export class CompositionListComponent {
           this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
 
 
-          this.nights = [
-            { id: 1, name: '۱ شب' },
-            { id: 2, name: '۲ شب' },
-            { id: 3, name: '۳ شب' },
-            { id: 4, name: '۴ شب' },
-            { id: 5, name: '۵ شب' },
-            { id: 6, name: '۶ شب' },
-            { id: 7, name: '۷ شب' },
-            { id: 8, name: '۸ شب' },
-            { id: 9, name: '۹ شب' },
-          ];
           if (res.meta) {
             this.paginate = res.meta;
             this.paginateConfig = {
