@@ -41,6 +41,10 @@ export class ReserveApiService {
     let publicURL = strUrl + params
     return this.http.get<Result<any>>(publicURL, this.publicService.getDefaultHeaders());
   }
+  delete(id:any): any {
+    const strUrl = environment.BACK_END_IP + `panel/reserves/${id}`
+    return this.http.delete<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
 
   flightReserveList(page: number, flight: any, status: any): any {
     const strUrl = environment.BACK_END_IP + `panel/reserves?flight=${flight}&status=${status}&page=${page}`

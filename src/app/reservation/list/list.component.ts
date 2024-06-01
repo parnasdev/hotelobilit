@@ -50,6 +50,22 @@ export class ListComponent implements OnInit {
 
     this.getList()
   }
+
+  deleteReservation(id:any){
+    this.api.delete(id).subscribe((res: any) => {
+      if (res.isDone) {
+
+
+        this.message.custom(res.message);
+        this.getList()
+      }
+      this.isLoading = false;
+    }, (error: any) => {
+      this.isLoading = false;
+      this.message.error();
+      this.checkErrorService.check(error);
+    });
+  }
   getList(): void {
     this.isLoading = true;
     this.list = [];

@@ -16,6 +16,14 @@
     color: var(--base-color);
     margin-right: 4px;
   }
+
+  .reservedelete{
+    background-color: var(--base-color);
+    color: white;
+    outline: none;
+border: none;
+    margin-bottom: 10px;
+  }
   .title button {
     width: 100px;
     background-color: var(--base-color-three);
