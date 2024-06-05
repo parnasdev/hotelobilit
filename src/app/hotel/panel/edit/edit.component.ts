@@ -113,6 +113,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   setData(): void {
+    debugger
     if (this.hotelInfo.post.options.no_bed_child_ages && this.hotelInfo.post.options.with_bed_child_ages) {
       this.noBedMax = this.hotelInfo.post.options.no_bed_child_ages.length > 1 ? this.hotelInfo.post.options.no_bed_child_ages[1] : 0;
       this.noBedMin = this.hotelInfo.post.options.no_bed_child_ages.length > 0 ? this.hotelInfo.post.options.no_bed_child_ages[0] : 0;
@@ -131,6 +132,7 @@ export class EditComponent extends AddComponent implements OnInit {
     if (this.hotelInfo.post.options.coordinates && this.hotelInfo.post.options.coordinates.length > 1) {
       this.lat = this.hotelInfo.post.options.coordinates[0];
       this.lng = this.hotelInfo.post.options.coordinates[1];
+this.coordinates=[this.hotelInfo.post.options.coordinates[0],this.hotelInfo.post.options.coordinates[1]]
     }
 
     this.hotelForm.controls.description.setValue(this.hotelInfo.post.description ?? '');
@@ -265,6 +267,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   setEditReq(): void {
+    debugger
     this.getSelectedRoomList()
     this.getRemovedRooms()
     this.setHasCoefficients()
@@ -282,7 +285,7 @@ export class EditComponent extends AddComponent implements OnInit {
       categories: [],
       services: this.getCheckedServices(),
       comment: 0,
-      coordinates: [this.lat, this.lng],
+      coordinates: this.coordinates,
       del_files: this.removedImages,
       del_rooms: this.removedRoomsIDs,
       files: this.hotelImages,

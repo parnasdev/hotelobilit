@@ -149,8 +149,9 @@
       </div>
       <div class="info-tour-body">
         <div class="item-info w-100">
-          <app-get-lat-long [inCommingLatLng]="[lat,lng]" class="w-95 m-top-16 mx-auto" [textMarker]="'هتل'"
-            (latlng)="getLatLng($event)"></app-get-lat-long>
+          <input  type="text" [(ngModel)]="coordinates"  (keyup)="getCoordinates()" [ngModelOptions]="{standalone: true}">
+<!--          <app-get-lat-long [inCommingLatLng]="coordinates" class="w-95 m-top-16 mx-auto" [textMarker]="'هتل'"-->
+<!--            (latlng)="getLatLng($event)"></app-get-lat-long>-->
         </div>
       </div>
     </div>

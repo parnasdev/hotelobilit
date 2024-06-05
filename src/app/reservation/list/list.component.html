@@ -118,7 +118,7 @@
         <div class="d-flex flex-column flex-y-center">
           <span class="username">{{item.information.created_at| convertDateTime}}</span>
           <span class="username">{{item.information.status.label}}</span>
-          <button class="w-30 reservedelete" *ngIf="item.information.status.id===473"  (click)="deleteReservation(item.information.id)">حذف</button>
+<!--          <button class="w-30 reservedelete" *ngIf="item.information.status.id===473"  (click)="deleteReservation(item.information.id)">حذف</button>-->
         </div>
         <div class="d-flex flex-column">
           <span class="username">{{ item.information.ref_code }}</span>

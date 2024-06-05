@@ -30,6 +30,15 @@ export class AddComponent implements OnInit {
   currentStar = 0;
   lat = 35.715731;
   lng = 51.384159;
+  coordinates:any=[0,0]
+
+  getCoordinates(){
+    // debugger
+    this.coordinates = this.coordinates.split(',');
+    // this.lat = +newCoordinates[0];
+    // this.lng = +newCoordinates[1];
+    // console.log(newCoordinates)
+  }
 
   reverseAddressData!: MapReverseDTO;
   cities: CityDTO[] = [];
