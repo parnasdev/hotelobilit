@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
     id_code: '',
     ref_code: '',
     dateFa: '',
-    status: 'all',
+    status: '501',
     fromDateEn: '',
     toDateEn: ''
   }
@@ -47,8 +47,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('رزرو ها | هتل و بلیط')
-
-    this.getList()
+this.getstats()
+    // this.getList()
   }
 
   deleteReservation(id:any){
@@ -66,6 +66,24 @@ export class ListComponent implements OnInit {
       this.checkErrorService.check(error);
     });
   }
+  getstats(): void {
+    this.isLoading = true;
+    this.list = [];
+    let params = `?status=${this.filterObj.status === 'all' ? '' : this.filterObj.status}&fromDate=${this.filterObj.fromDateEn}&toDate=${this.filterObj.toDateEn}&ref_code=${this.filterObj.ref_code}&phone=${this.filterObj.phone}&id_code=${this.filterObj.id_code}&page=${this.p}`
+    this.api.list(params).subscribe((res: any) => {
+      if (res.isDone) {
+        this.statuses = res.statuses;
+
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+    }, (error: any) => {
+      this.isLoading = false;
+      this.message.error();
+      this.checkErrorService.check(error);
+    });
+  }
   getList(): void {
     this.isLoading = true;
     this.list = [];
@@ -73,7 +91,7 @@ export class ListComponent implements OnInit {
     this.api.list(params).subscribe((res: any) => {
       if (res.isDone) {
         this.list = res.data
-        this.statuses = res.statuses;
+        // this.statuses = res.statuses;
         this.paginate = res.meta;
         this.paginateConfig = {
           itemsPerPage: this.paginate.per_page,

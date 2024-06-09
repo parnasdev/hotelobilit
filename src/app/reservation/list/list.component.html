@@ -20,7 +20,7 @@
     <input class="w-100 input-filter" type="text" placeholder="شماره همراه" [(ngModel)]="filterObj.phone">
     <button class="btn-base w-100" (click)="getList()">فیلتر</button>
   </div>
-  <div class="table-list-tour">
+  <div class="table-list-tour" *ngIf="list.length > 0">
     <div class="header-list-tour">
       <span class="id">#</span>
       <div class="d-flex flex-column">
