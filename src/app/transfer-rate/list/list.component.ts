@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
   filterObj: FilterDTO = {
     destination: null,
     origin: null,
+    agency:null,
     q: null,
     airline: null,
     status: 0,
@@ -74,7 +75,7 @@ export class ListComponent implements OnInit {
           origin: null,
           q: null,
           airline: null,
-          
+          agency:null,
           status: 0,
           toDate: null,
           fromDate: null
@@ -105,6 +106,7 @@ export class ListComponent implements OnInit {
       destination: this.filterObj ? this.filterObj.destination : null,
       status: this.filterObj ? this.filterObj.status : 2,
       airline: this.filterObj ? this.filterObj.airline : null,
+      agency: this.filterObj ? this.filterObj.agency : null,
       toDate: this.filterObj ? this.filterObj.toDate ? moment(this.filterObj.toDate).format('YYYY-MM-DD') : null : null,
       fromDate: this.filterObj ? this.filterObj.fromDate ? moment(this.filterObj.fromDate).format('YYYY-MM-DD') : null : null,
       q: this.filterObj ? this.filterObj.q : null
@@ -188,6 +190,7 @@ export class ListComponent implements OnInit {
       destination: null,
       fromDate: null,
       toDate: null,
+      agency: null,
       airline: null,
       status: 0,
       q: null,
@@ -264,7 +267,7 @@ export class ListComponent implements OnInit {
     })
   }
   statusChanged(transfer: transferRateListDTO) {
-    
+
     const alertObj: AlertDialogDTO = {
       description: '',
       icon: 'آیا وضعیت پرواز تغییر کند‌؟',
@@ -277,7 +280,7 @@ export class ListComponent implements OnInit {
       if (result) {
         this.editStatus(transfer);
       }else {
-        
+
         transfer.is_close =( transfer.is_close === 1 || transfer.is_close === '1') ? 0 : 1
       }
     })

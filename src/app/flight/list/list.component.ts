@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { GroupChangePopupComponent } from '../group-change-popup/group-change-popup.component';
 import { EditFastPopupComponent } from '../edit-fast-popup/edit-fast-popup.component';
+import {AlertDialogDTO} from "../../common-project/alert-dialog/alert-dialog.component";
+import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.component";
 
 @Component({
   selector: 'prs-list',
@@ -37,7 +39,9 @@ export class ListComponent {
     airline: null,
     status: 0,
     fromDate: null,
-    toDate: null
+    toDate: null,
+    agency: null,
+
   };
   p = 1;
 
@@ -53,6 +57,7 @@ export class ListComponent {
   airports: any[] = []
   airlines: any[] = []
   airplanes: any[] = []
+  agencies: any[] = []
 
   constructor(public api: FlightApiService,
     public error: ErrorsService,
@@ -66,6 +71,9 @@ export class ListComponent {
 
     this.setFilterFromRoute()
 
+    console.log('role', )
+
+
   }
 
   setFilterFromRoute() {
@@ -77,6 +85,7 @@ export class ListComponent {
         this.filterObj.fromDate = params['fromDate']
         this.filterObj.toDate = params['toDate']
         this.filterObj.airline = +params['airline']
+        this.filterObj.agency = +params['agency']
       } else {
         this.filterObj = {
           destination: null,
@@ -85,7 +94,8 @@ export class ListComponent {
           airline: null,
           status: 0,
           toDate: null,
-          fromDate: null
+          fromDate: null,
+          agency: null,
         }
       }
     })
@@ -159,6 +169,7 @@ export class ListComponent {
           this.airports = res.airports;
           this.airlines = res.airlines
           this.airplanes = res.airplanes
+          this.agencies = res.agencies
           if (res.meta) {
             this.paginate = res.meta;
             if (this.paginate) {
@@ -185,6 +196,54 @@ export class ListComponent {
       }
     })
   }
+  getItemsChecked() {
+    let list: any[] = []
+    this.itemsChecked.forEach((element: any) => {
+      list.push(element.id)
+    });
+    return list
+  }
+
+  delete(){
+    console.log(this.getItemsChecked())
+let ids:any[] = this.getItemsChecked()
+    let req={
+      ids:ids
+    }
+
+
+    this.api.bulkDestroy(req).subscribe({
+      next: (res: any) => {
+        if (res.isDone) {
+          this.message.custom(res.message);
+          this.getData()
+          // this.dialogRef.close(true);
+        }
+      }, error: (error: any) => {
+        this.error.check(error)
+      }
+
+    })
+  }
+
+
+  deleteClicked() {
+    const alertDialogObj: AlertDialogDTO = {
+      description: 'حذف شود ؟',
+      icon: '',
+      title: 'ایا اطمینان دارید ؟'
+    }
+    this.dialog.open(AlertDialogComponent, {
+      data: alertDialogObj
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        // this.delete(id);
+        this.delete()
+      }
+    })
+
+  }
+
   submit() {
     this.p = 1
     this.router.navigate([`/panel/flight/`], {
@@ -272,6 +331,7 @@ export class ListComponent {
       airline: null,
       status: 0,
       q: null,
+      agency:null,
       origin: null
     }
     this.router.navigate([`/panel/flight/`], {

@@ -14,6 +14,7 @@ export interface FilterDTO {
   destination: number | null;
   status: number | null;
   airline: any
+  agency:number|null;
 
   fromDate: string | null;
   toDate: string | null;
@@ -32,6 +33,8 @@ export class FilterPopupComponent implements OnInit {
     airline: null,
     status: null,
     toDate: null,
+    agency:null,
+
     q: null,
     origin: null
   }
@@ -52,6 +55,7 @@ export class FilterPopupComponent implements OnInit {
         fromDate: data.fromDate ? data.fromDate : null,
         toDate: data.toDate ? data.toDate : null,
         airline: data.airline ? data.airline : null,
+        agency: data.agency ? data.agency : null,
 
         status: data.status ? data.status : null,
         origin: data.origin ? data.origin : null,
@@ -94,7 +98,8 @@ export class FilterPopupComponent implements OnInit {
       airline:null,
       status: null,
       q: null,
-      origin: null
+      origin: null,
+      agency: null
     }
     this.dialogRef.close(this.obj)
   }

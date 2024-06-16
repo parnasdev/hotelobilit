@@ -49,6 +49,7 @@ export class EditComponent {
     airline: null,
     status: 0,
     fromDate: null,
+    agency: null,
     toDate: null
   };
 
@@ -86,6 +87,7 @@ export class EditComponent {
           destination: null,
           origin: null,
           q: null,
+          agency:null,
           airline: null,
           status: 0,
           toDate: null,
