@@ -228,6 +228,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.documentFC.setValue(this.tourData.documents)
     this.serviceFC.setValue(this.tourData.service)
     this.descriptionFC.setValue(this.tourData.description)
+
     this.titleFC.setValue(this.tourData.title);
     this.origin_idFC.setValue(this.tourData.origin_id);
     this.destination_idFC.setValue(this.tourData.destination_id);
@@ -238,7 +239,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.checkoutFC.setValue(this.tourData.checkout);
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
-    this.onTitleGenerator(this.tourData.origin_name ?? '', this.tourData.destination_name);
+    // this.onTitleGenerator(this.tourData.origin_name ?? '', this.tourData.destination_name);
     this.flights = this.tourData.flightIds;
     this.selectedCurrency = this.tourData.currencies
     this.is_bundle = this.tourData.is_bundle
