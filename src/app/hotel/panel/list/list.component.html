@@ -50,7 +50,7 @@
           <a style="background: #0f6b54 !important;" *ngIf="permition.check('rates.read')" routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
              class="edit-btn">{{ 'pricing'  | translate}}</a>
           <!-- <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a> -->
-          <button *ngIf="permition.check('hotels.delete')" (click)="deleteClicked(hotel.slug)"
+          <button *ngIf="permition.check('hotels.delete')" (click)="deleteClicked(hotel.id)"
                   class="delete-btn">{{ 'delete'  | translate}}
           </button>
         </div>

@@ -54,6 +54,10 @@ export class PostApiService {
     const strUrl = this.serverControllerName + `posts/${postId}?post_type=${postType}`;
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
+  deletePosts(postType: string,  postId: number): any {
+    const strUrl = this.serverControllerName + `posts/${postId}?post_type=${postType}`;
+    return this.http.delete<Result<any>>(strUrl,  this.publicService.getDefaultHeaders());
+  }
 
   ratingList(req: ratigListReqDTO): any {
     const strUrl = this.serverControllerName + `rates/${req.hotelId}/${req.roomId}?fromDate=${req.fromDate}&toDate=${req.toDate}&agency_id=${req.agency_id}`;

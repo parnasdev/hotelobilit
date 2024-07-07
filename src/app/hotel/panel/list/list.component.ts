@@ -95,17 +95,17 @@ export class ListComponent implements OnInit {
   }
 
 
-  deleteHotel(slug: string) {
-    // this.hotelApi.(slug).subscribe((res: any) => {
-    //   if (res.isDone) {
-    //     this.message.custom(res.message);
-    //     this.getList();
-    //   } else {
-    //     this.message.custom(res.message)
-    //   }
-    // }, (error: any) => {
-    //   this.message.error()
-    // })
+  deleteHotel(id: any) {
+    this.hotelApi.deletePosts('hotel',id).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.custom(res.message);
+        this.getList();
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.message.error()
+    })
   }
 
   getCitySelected(item: any): void {
@@ -117,7 +117,7 @@ export class ListComponent implements OnInit {
     // this.getList()
   }
 
-  deleteClicked(slug: string) {
+  deleteClicked(id: any) {
     const obj: AlertDialogDTO = {
       description: 'حذف شود؟',
       icon: 'null',
@@ -128,8 +128,9 @@ export class ListComponent implements OnInit {
       data: obj
     });
     dialog.afterClosed().subscribe(result => {
+      debugger
       if (result) {
-        this.deleteHotel(slug)
+        this.deleteHotel(id)
       }
     });
   }
