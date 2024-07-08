@@ -132,7 +132,10 @@
         </div>
         <div class="button-setting">
           <a class="edit-btn fs-12" target="_blank" routerLink="/panel/reserves/{{ item.information.id }}">نمایش</a>
+          <a class="edit-btn fs-12" target="_blank" (click)="openReportLogModal(item.information.id )">نمایش لاگ</a>
+
         </div>
+
       </div>
       <pagination-controls *ngIf="!isLoading && paginate.last_page > 1" class="pagination-control"
         (pageChange)="onPageChanged($event)" previousLabel="قبلی" nextLabel="بعدی"

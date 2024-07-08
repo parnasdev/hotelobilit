@@ -67,4 +67,10 @@ export class ReserveApiService {
     return this.http.post<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
 
   }
+
+  getLogs(id:any) {
+    const strUrl = environment.BACK_END_IP + `panel/reserves/logs/${id}`
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+
+  }
 }

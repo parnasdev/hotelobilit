@@ -1,0 +1,80 @@
+<div class="log-container">
+  <div class="log-title">
+    <div>
+
+      <p>ایجاد کننده</p>
+    </div>
+    <div>
+
+      <p>تاریخ ایجاد</p>
+    </div>
+    <div>
+
+      <p>وضعیت</p>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="item-container">
+
+    <div  *ngFor="let item of list let i = index ">
+        <div class="item">
+          <div>
+
+            <span>{{item.causer?item.causer.full_name:'---'}}</span>
+          </div>
+          <div>
+
+            <span>{{ item.created_at |convertDateTime}}</span>
+          </div>
+          <div>
+
+            <span>{{item.description}}</span>
+          </div>
+          <div>
+
+            <button class="more-det" [style.background-color]="(activateDet=== i) ? '#f30611' : '#053742'" (click)="moredetails(item.properties,i)">مشاهده بیشتر</button>
+          </div>
+        </div>
+
+
+
+      <div class="log-det-container" *ngIf="activateDet===i">
+
+        <div class="log-det-title">
+          <div>عنوان</div>
+          <div>
+
+            <p>جدید</p>
+          </div>
+          <div>
+            <p>قدیم</p>
+          </div>
+
+        </div>
+
+<div *ngIf="propertyList.length>0">
+  <div class="log-det-item" *ngFor="let item of propertyList let i = index">
+    <div>
+
+      <span>{{item.title}}</span>
+    </div>
+    <div>
+
+      <span>{{ item.attribute}}</span>
+    </div>
+    <div>
+
+      <span>{{item.old}}</span>
+    </div>
+
+  </div>
+
+</div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

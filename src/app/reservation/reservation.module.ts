@@ -18,12 +18,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatSelectModule } from '@angular/material/select';
 import { PipesModule } from "../common-project/pipes/pipes.module";
 import { ReserveTimerComponent } from './reserve-timer/reserve-timer.component';
+import { ReportlogModalComponent } from './reportlog-modal/reportlog-modal.component';
 
 @NgModule({
     declarations: [
         ListComponent,
         ReserveInfoComponent,
         ReserveTimerComponent,
+        ReportlogModalComponent,
     ],
     imports: [
         CommonModule,

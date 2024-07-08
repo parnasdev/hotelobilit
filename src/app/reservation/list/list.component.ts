@@ -10,6 +10,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { Title } from "@angular/platform-browser";
 import * as moment from 'moment';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
+import {ReportlogModalComponent} from "../reportlog-modal/reportlog-modal.component";
 
 @Component({
   selector: 'prs-list',
@@ -141,6 +142,18 @@ this.getstats()
         this.filterObj.toDateEn = result.toDate.dateEn
 
       }
+    })
+  }
+  openReportLogModal(reportId:any) {
+    const dialog = this.dialog.open(ReportlogModalComponent, {
+      width: '80%',
+      height:'80%',
+      data: {
+        reportId
+      }
+    })
+    dialog.afterClosed().subscribe((result: any) => {
+
     })
   }
 
