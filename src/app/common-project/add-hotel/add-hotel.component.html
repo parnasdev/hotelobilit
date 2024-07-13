@@ -1,0 +1,60 @@
+
+  <div class="flex-x-center w-100 middle-item">
+
+    <div class="w-40">
+      <h5>انتخاب هتل</h5>
+
+      <!--            <select class="w-100" [(ngModel)]="item.hotel_id">-->
+      <!--              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>-->
+      <!--            </select>-->
+      <!--    <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>-->
+      <prs-custom-select-hotel [inCommingHotel]="package.hotel_id" class="hotel-input" [hotels]="hotels"
+                               (hotelSelected)="getHotelSelected($event)"></prs-custom-select-hotel>
+    </div>
+
+
+    <button *ngIf="!is_bundle" style="width: 120px !important;" class="btn-base" (click)="openPricingCalendar(index,package.hotel_id)">قیمت
+      گذاری
+    </button>
+
+    <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between;column-gap: 80px;align-items: center">
+
+      <!--            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"-->
+      <!--              placeholder="کودک با تخت">-->
+      <!--            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">-->
+      <div>
+        <label>اژانس</label>
+
+        <div class="agencies">
+          <select [(ngModel)]="package.provider_id" (change)="getAgency($event)" >
+            <option [selected]="true" >آژانس</option>
+            <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label>نوع سرویس</label>
+
+        <div class="agencies">
+          <select [(ngModel)]="package.board_type" (change)="getBoardType($event)">
+            <option [selected]="true">نوع سرویس</option>
+            <option   *ngFor="let item of boardtype |keyvalue"  [value]="item.value">{{item.value}}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <button class="btn-base" style="width: 100px !important;" (click)="openRooms(package.id,package.hotel_id,package.rooms,package.provider_id)">اتاق ها
+      </button>
+
+    </div>
+    <div class="d-flex checkbox-bottun-parent">
+
+      <div class="d-flex p-checkbox align-items-center justify-content-end">
+        <label>ویژه</label>
+        <mat-checkbox [(ngModel)]="package.offered"></mat-checkbox>
+      </div>
+    </div>
+  </div>
+

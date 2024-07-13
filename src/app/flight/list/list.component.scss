@@ -1,5 +1,93 @@
 @import "src/assets/css/varible";
 
+
+.box-weekly-Schedule {
+  border-radius: 10px;
+  margin-top: 1rem;
+  background: $white-color;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+;
+  padding: 0 12px;
+
+  .title {
+    padding: 1.2rem 0;
+    border-bottom: 2px dashed #80828590;
+    width: 100%;
+  }
+
+  .header-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 1.2rem 0;
+    border-bottom: 2px dashed #80828590;
+
+    .item-header {
+      border-radius: 10px;
+      height: 65px;
+      background: $light-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .active-item-header {
+      border-radius: 10px;
+      height: 65px;
+      background: $base-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .body-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 1.2rem 0;
+    position: relative;
+    right: 6px;
+
+    .col-week:last-child {
+      &:after {
+        display: none !important;
+      }
+    }
+
+    .col-week {
+      height: 675px;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 12px;
+
+      &:after {
+        content: '';
+        position: absolute;
+        height: 102.5%;
+        left: 2px;
+        border-left: 1px solid #D4D4D4;
+      }
+
+      .active-item {
+        border: 2px solid $base-color;
+      }
+
+      .item-body {
+        border-radius: 15px;
+        background: #F6F9FB;
+        padding: 12px;
+        width: 90%;
+        cursor: pointer;
+
+      }
+    }
+  }
+
+}
+
 .title h2 {
   font-size: 20px;
   font-weight: 500;

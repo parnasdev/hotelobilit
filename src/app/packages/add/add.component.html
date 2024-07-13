@@ -127,7 +127,17 @@
           <div *ngIf="errorService.hasError('checkout')">
             <span class="text-danger">{{errorService.getError('checkout')}}</span>
           </div>
-        </div> <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
+        </div>
+
+        <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
+          <label class="bold-600 fs-13" for="">تور آنلاین ؟</label>
+          <mat-checkbox [(ngModel)]="is_online" (ngModelChange)="change()"></mat-checkbox>
+          <div *ngIf="errorService.hasError('checkout')">
+            <span class="text-danger">{{errorService.getError('checkout')}}</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
           <label class="bold-600 fs-13" for="">تور ویژه</label>
           <mat-checkbox [(ngModel)]="offered" (ngModelChange)="change()"></mat-checkbox>
           <div *ngIf="errorService.hasError('checkout')">
@@ -247,40 +257,64 @@
   <div style="position: relative" class="w-100">
     <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     <div class="w-100">
-      <div class="item-package" *ngFor="let item of packages;let i=index">
-        <span class="number">{{ i + 1 }}</span>
-        <div class="d-flex middle-item">
-          <h5>انتخاب هتل</h5>
+      <div class="item-package w-100" *ngFor="let item of packages;let i=index">
+        <span style="place-self: center" class="number">{{ i + 1 }}</span>
+        <prs-add-hotel (result)="getResult($event,i)" [is_bundle]="is_bundle" [package]="item" [index]="i" [hotels]="hotels" [selectedFlights]="flights"></prs-add-hotel>
+<!--        <div class="d-flex middle-item">-->
+<!--          <h5>انتخاب هتل</h5>-->
 
-          <!--            <select class="w-100" [(ngModel)]="item.hotel_id">-->
-          <!--              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>-->
-          <!--            </select>-->
-          <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>
-          <prs-custom-select-hotel class="hotel-input" [hotels]="hotels"
-            (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>
+<!--          &lt;!&ndash;            <select class="w-100" [(ngModel)]="item.hotel_id">&ndash;&gt;-->
+<!--          &lt;!&ndash;              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>&ndash;&gt;-->
+<!--          &lt;!&ndash;            </select>&ndash;&gt;-->
+<!--          <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>-->
+<!--          <prs-custom-select-hotel class="hotel-input" [hotels]="hotels"-->
+<!--            (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>-->
 
-          <button style="width: 120px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت
-            گذاری
-          </button>
+<!--          <button style="width: 120px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت-->
+<!--            گذاری-->
+<!--          </button>-->
 
-          <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between">
+<!--          <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between">-->
 
-            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"
-              placeholder="کودک با تخت">
-            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">
-            <button class="btn-base" style="width: 100px !important;" (click)="openRooms(item.id,item.rooms)">اتاق ها
-            </button>
+<!--&lt;!&ndash;            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"&ndash;&gt;-->
+<!--&lt;!&ndash;              placeholder="کودک با تخت">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">&ndash;&gt;-->
+<!--            <div>-->
+<!--            <label>اژانس</label>-->
 
-          </div>
-          <div class="d-flex checkbox-bottun-parent">
+<!--              <div class="agencies">-->
+<!--                <select [(ngModel)]="packages[i].provider_id" (change)="getAgency($event,i)" >-->
+<!--                  <option [selected]="true" >آژانس</option>-->
+<!--                  <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>-->
+<!--                </select>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <div class="d-flex p-checkbox align-items-center justify-content-end">
-              <label>ویژه</label>
-              <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>
-            </div>
-          </div>
-        </div>
-        <i class="icon-cancel" (click)="removePackage(i)"></i>
+<!--            <div>-->
+<!--            <label>نوع سرویس</label>-->
+
+<!--              <div class="agencies">-->
+<!--                <select [(ngModel)]="packages[i].board_type" (change)="getBoardType($event,i)">-->
+<!--                  <option [selected]="true">نوع سرویس</option>-->
+<!--                  <option   *ngFor="let item of boardtype |keyvalue"  [value]="item.value">{{item.value}}</option>-->
+<!--                </select>-->
+<!--              </div>-->
+<!--            </div>-->
+
+
+<!--            <button class="btn-base" style="width: 100px !important;" (click)="openRooms(item.id,item.rooms,item.provider_id)">اتاق ها-->
+<!--            </button>-->
+
+<!--          </div>-->
+<!--          <div class="d-flex checkbox-bottun-parent">-->
+
+<!--            <div class="d-flex p-checkbox align-items-center justify-content-end">-->
+<!--              <label>ویژه</label>-->
+<!--              <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <i style="place-self: center" class="icon-cancel" (click)="removePackage(i)"></i>
       </div>
     </div>
     <!-- <div class="w-100 d-flex justify-content-end">

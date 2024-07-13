@@ -11,7 +11,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HotelApiService } from 'src/app/Core/Https/hotel-api.service';
-import { PackageTourDTO, TourSetDTO } from 'src/app/Core/Models/tourDTO';
+import {BoardType, PackageTourDTO, TourSetDTO} from 'src/app/Core/Models/tourDTO';
 import { CityListReq, CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { categoriesDTO, statusesDTO } from 'src/app/Core/Models/newPostDTO';
 import * as moment from 'moment';
@@ -28,6 +28,8 @@ import { RoomsComponent } from "../rooms/rooms.component";
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
+  public boardtype=BoardType
+
   minDate = new Date()
   isLoading = false;
   hotelLoading = false;
@@ -36,10 +38,13 @@ export class AddComponent implements OnInit {
   packages: PackageTourDTO[] = [];
   hotels: any[] = [];
   origin_city: any;
+  is_online = false;
+
   destination_city: any;
   flights: number[] = []
   statuses: statusesDTO[] = [];
   currencies: any;
+  agencies:any[]=[]
   req: TourSetDTO = {
     offered:false,
     title: '',
@@ -49,6 +54,7 @@ export class AddComponent implements OnInit {
     day_num: 0,
     del_packages:[],
     partnerIds: [],
+    is_online: false,
     tour_type: 0,
     checkin: '',
     checkout: '',
@@ -77,6 +83,8 @@ export class AddComponent implements OnInit {
   is_bundle: boolean = false
  offered: boolean = false
 
+
+
   partners: any[] = []
   selectedCurrency: string = ''
   rooms: any[] = []
@@ -97,6 +105,7 @@ export class AddComponent implements OnInit {
     public fb: FormBuilder,
     public tourApi: TourApiService) {
     errorService.clear()
+
   }
 
   ngOnInit() {
@@ -128,6 +137,26 @@ export class AddComponent implements OnInit {
 
     })
   }
+  getAgenciesBasedOnHotelId(hotelId:any): void {
+    let req ={
+      hotel_id:hotelId
+    }
+    // this.isLoading = true;
+    this.tourApi.getAgencies(req).subscribe((res: any) => {
+      if (res.isDone) {
+        console.log(res.data)
+        this.agencies=res.data
+      } else {
+        this.message.custom(res.message);
+      }
+      this.isLoading = false;
+
+    }, (error: any) => {
+      // this.message.error()
+      this.isLoading = false;
+
+    })
+  }
 
 
 
@@ -136,6 +165,7 @@ export class AddComponent implements OnInit {
       offered:this.offered,
       title: this.titleFC.value ?? '',
       is_bundle: this.is_bundle,
+      is_online:this.is_online,
       currencies: this.selectedCurrency,
       origin_id: +(this.origin_idFC.value ?? ''),
       destination_id: +(this.destination_idFC.value ?? ''),
@@ -176,31 +206,60 @@ export class AddComponent implements OnInit {
   }
 
 
+  getResult(event:any,index:any){
+    this.packages[index]=event
+
+    console.log(this.packages)
+  }
+
   addHotel() {
     let item: PackageTourDTO = {
       id: Math.random() * 1000,
       hotel_id: 0,
       order_item: 0,
       offered: false,
-      cwb: '0',
-      child_age: '',
+      provider_id:0,
+      board_type:'',
+
+      // cwb: '0',
+      // child_age: '',
+
       rooms: []
     };
     this.packages.push(item);
 
+    // console.log(this.packages)
+
   }
+
+  // getAgency(e:any,index:any){
+  //   debugger
+  //   // console.log(e.target.value)
+  //   this.packages[index].provider_id= e.target.value;
+  //   console.log(this.packages)
+  //
+  // }
+  //
+  // getBoardType(e:any,index:any){
+  //   debugger
+  //   // console.log(e.target.value)
+  //   this.packages[index].board_type= e.target.value;
+  //   console.log(this.packages)
+  //
+  // }
 
   removePackage(index: number) {
     this.packages.splice(index, 1);
   }
 
-  openRooms(hotelid: any, rooms: any) {
+  openRooms(hotelid: any, rooms: any,providerId:any) {
     this.dialog.open(RoomsComponent, {
       width: '80%',
       height: "auto",
       data: {
         roomTypes: this.rooms,
         hotelID: hotelid,
+        providerId:providerId,
         selectedRooms: rooms
       }
     }
@@ -220,8 +279,10 @@ export class AddComponent implements OnInit {
         "destination_id": this.destination_idFC.value,
         "checkin": this.checkinFC.value ? moment(this.checkinFC.value).format('YYYY-MM-DD') : null,
         "checkout": this.checkoutFC.value ? moment(this.checkoutFC.value).format('YYYY-MM-DD') : null,
+        "night_num": this.night_numFC.value ? this.night_numFC.value : null,
+
       }
-      this.tourApi.gethotels(req).subscribe((res: any) => {
+      this.tourApi.gethotels1(req).subscribe((res: any) => {
         if (res.isDone) {
           this.hotels = res.data;
           // this.addHotel();
@@ -295,7 +356,10 @@ if(this.flights.length > 0) {
 
 
   getHotelSelected(hotel: any, index: number) {
+
     this.packages[index].hotel_id = hotel.id
+
+    this.getAgenciesBasedOnHotelId(hotel.id)
   }
 
 

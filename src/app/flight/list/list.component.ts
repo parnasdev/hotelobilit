@@ -16,7 +16,7 @@ import { GroupChangePopupComponent } from '../group-change-popup/group-change-po
 import { EditFastPopupComponent } from '../edit-fast-popup/edit-fast-popup.component';
 import {AlertDialogDTO} from "../../common-project/alert-dialog/alert-dialog.component";
 import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.component";
-
+import * as moment from "jalali-moment";
 @Component({
   selector: 'prs-list',
   templateUrl: './list.component.html',
@@ -24,6 +24,7 @@ import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.compo
 })
 export class ListComponent {
   isLoading = false;
+  weekDays:any[]=[]
   req: IFlightListReq = {
     destination: 0,
     fromDate: '',
@@ -112,6 +113,7 @@ export class ListComponent {
 
   ngOnInit() {
     this.getData()
+    this.getWeekDays()
   }
 
   getFilterClicked(event: any) {
@@ -354,6 +356,17 @@ let ids:any[] = this.getItemsChecked()
     })
   }
 
+  getWeekDays() {
+    this.weekDays = [];
+    moment.locale('fa');
+    let startOfWeek = moment().startOf('week'); // This gives the start of the week (Sunday)
+    for (let i = 0; i < 7; i++) {
+      const date = startOfWeek.clone().add(i, 'days');
+      const formattedDate = date.format('jYYYY-jMM-jDD');
+      const weekDayName = date.format('dddd');
+      this.weekDays.push({ index: i, title: weekDayName, date: formattedDate, plans: [] });
+    }
+  }
   reload() {
     this.show = false;
     setTimeout(() => this.show = true);

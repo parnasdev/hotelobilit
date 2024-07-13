@@ -69,6 +69,7 @@ export class EditComponent extends AddComponent implements OnInit {
         "destination_id": this.destination_idFC.value,
         "checkin": this.checkinFC.value ? moment(this.checkinFC.value).format('YYYY-MM-DD') : null,
         "checkout": this.checkoutFC.value ? moment(this.checkoutFC.value).format('YYYY-MM-DD') : null,
+        "night_num": this.night_numFC.value ? this.night_numFC.value : null,
       }
       this.tourApi.gethotels(req).subscribe((res: any) => {
         if (res.isDone) {
@@ -90,8 +91,10 @@ export class EditComponent extends AddComponent implements OnInit {
     this.packages = [];
     this.tourData.packages.forEach((x: any) => {
       let item: PackageTourDTO = {
+        board_type:x.board_type,
         hotel_id: x.hotel.id,
         order_item: x.order_item,
+        provider_id:x.provider_id,
         id: x.id,
         offered: x.offered,
         cwb: x.cwb ?? 0,
@@ -101,10 +104,13 @@ export class EditComponent extends AddComponent implements OnInit {
       this.packages.push(item)
     })
     this.packages.sort((a: any, b: any) => a.order_item - b.order_item)
+
+
+    console.log(this.packages)
   }
 
   override getTransferRates(): void {
-    debugger
+    // debugger
     if (this.origin_idFC.valid && this.destination_idFC.valid && this.checkinFC.valid && this.checkoutFC.valid) {
       const req = {
         origin_id: this.origin_idFC.value,
@@ -169,6 +175,7 @@ export class EditComponent extends AddComponent implements OnInit {
       offered:this.offered,
       title: this.titleFC.value ?? '',
       is_bundle: this.is_bundle,
+      is_online: this.is_online,
       currencies: this.selectedCurrency,
       origin_id: +(this.origin_idFC.value ?? ''),
       destination_id: +(this.destination_idFC.value ?? ''),
@@ -243,6 +250,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.flights = this.tourData.flightIds;
     this.selectedCurrency = this.tourData.currencies
     this.is_bundle = this.tourData.is_bundle
+    this.is_online = this.tourData.is_online
     // this.packages = this.tourData.packages
     this.getTransferRates();
     this.getHotels();

@@ -15,7 +15,21 @@ mat-form-field {
   align-items: center;
   margin: 1rem 0;
 }
+.agencies{
+  border:1px solid #cecece;
+  border-radius: 10px;
+  height: 40px;
+  width: 150px;
+  overflow: hidden;
 
+  select{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+
+  }
+}
 .btn-submit-tour {
   margin-top: 1rem;
 }
@@ -1029,9 +1043,12 @@ prs-select-hotel {
   margin-top: 8px;
   border-radius: 12px;
   padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: .1fr 1.5fr .1fr;
+  //place-items: center;
+
+  //align-items: center;
+  //justify-content: space-between;
 
   .icon-cancel {
     width: 35px;

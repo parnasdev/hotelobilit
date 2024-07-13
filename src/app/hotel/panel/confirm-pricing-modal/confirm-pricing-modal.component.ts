@@ -19,6 +19,7 @@ export interface ConfirmPriceReqDTO {
   chd_price: number;
   currency_code: string;
   isJustRoomCount: boolean
+  board_type: string;
 
 }
 @Component({
@@ -76,6 +77,7 @@ export class ConfirmPricingModalComponent implements OnInit {
       extra_price: this.bedPriceFC.value !== null ? +this.bedPriceFC.value : null,
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
       offer_price: this.checkin_base ? this.offerPriceFC.value : null,
+      board_type:this.data.board_type
     }
     this.req = {
       ...Object.fromEntries(
