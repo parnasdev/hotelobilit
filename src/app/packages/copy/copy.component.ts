@@ -15,6 +15,8 @@ export class CopyComponent extends EditComponent implements OnInit {
     this.getInfo()
   }
 
+
+
   override submit(): void {
     this.setReq()
     this.tourApi.createTour(this.req).subscribe((res: any) => {

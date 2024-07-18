@@ -129,6 +129,10 @@ export class EditComponent extends AddComponent implements OnInit {
         }
         this.isLoading = false;
 
+        if(this.tourData.flightIds.length===this.transferRates.length){
+          this.checkAll=true
+        }
+
       }, (error: any) => {
         // this.message.error()
         this.isLoading = false;

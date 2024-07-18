@@ -173,6 +173,9 @@
     </div>
     <div class="w-100 p-transfer">
       <div class="item-header">
+        <div class="d-flex flex-column ">
+          <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+        </div>
         <span>#</span>
         <div class="d-flex flex-column">
           <span>مبدا</span>

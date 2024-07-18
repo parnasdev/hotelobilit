@@ -30,6 +30,7 @@ import { RoomsComponent } from "../rooms/rooms.component";
 export class AddComponent implements OnInit {
   minDate = new Date()
   isLoading = false;
+  checkAll=false;
   hotelLoading = false;
   cities: categoriesDTO[] | CityListRes[] = []
   transferRates: any[] = [];
@@ -107,6 +108,7 @@ export class AddComponent implements OnInit {
 
   change() {
   }
+
 
   getPageData(): void {
     this.isLoading = true;
@@ -308,6 +310,22 @@ if(this.flights.length > 0) {
         this.flights.push(x.mixed_id);
       }
     })
+  }
+
+  setCheckAll() {
+    this.flights = []
+
+    if (this.checkAll) {
+      this.transferRates.forEach(x => {
+        x.flight.isChecked = this.checkAll
+        this.flights.push(x.mixed_id)
+      })
+    } else {
+      this.transferRates.forEach(x => {
+        x.flight.isChecked = this.checkAll
+      })
+    }
+
   }
 
   onTitleGenerator(origin: string | null = null, destination: string | null = null) {

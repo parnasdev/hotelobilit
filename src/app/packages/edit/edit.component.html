@@ -174,6 +174,9 @@
   </div>
   <div class="p-list-fly">
     <div class="info-tour-header">
+      <div class="d-flex flex-column ">
+        <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+      </div>
       <div class="right">
         <h2 class="text-dark">اطلاعات پرواز</h2>
       </div>
