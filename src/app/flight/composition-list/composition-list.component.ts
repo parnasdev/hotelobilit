@@ -11,6 +11,8 @@ import { CityListRes } from 'src/app/Core/Models/newCityDTO';
 import { MatDialog } from '@angular/material/dialog';
 import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-date-picker.component';
 import { CompositionUpdatePricePopupComponent } from '../composition-update-price-popup/composition-update-price-popup.component';
+import {AlertDialogDTO} from "../../common-project/alert-dialog/alert-dialog.component";
+import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.component";
 export interface FilterCompositionDTO {
   origin: number | null;
   destination: number | null;
@@ -46,6 +48,8 @@ export class CompositionListComponent {
     totalItems: 0,
     currentPage: 0
   };
+  itemsChecked: any[] = []
+  checkAll = false
   paginate: any;
   p = 1; show = true;
   airports: any[] = []
@@ -122,6 +126,35 @@ export class CompositionListComponent {
   destSelected(city: CityListRes): void {
     this.filterObj.destination = city.id
   }
+
+
+  checkItemChanged() {
+    this.itemsChecked = []
+    this.data.forEach(x => {
+      if (x.isChecked) {
+        this.itemsChecked.push(x.mixed_id);
+      }
+    })
+    console.log(this.data,this.itemsChecked)
+  }
+  setCheckAll() {
+    this.itemsChecked = []
+
+
+    if (this.checkAll) {
+      this.data.forEach(x => {
+        x.isChecked = this.checkAll
+        this.itemsChecked.push(x.mixed_id)
+      })
+    } else {
+      this.data.forEach(x => {
+        x.isChecked = this.checkAll
+      })
+    }
+    console.log(this.data,this.itemsChecked)
+
+
+  }
   getFilterList() {
 
     let result: any[] = []
@@ -153,6 +186,45 @@ export class CompositionListComponent {
     return result
   }
 
+
+  deleteClicked() {
+    const alertDialogObj: AlertDialogDTO = {
+      description: 'حذف شود ؟',
+      icon: '',
+      title: 'ایا اطمینان دارید ؟'
+    }
+    this.dialog.open(AlertDialogComponent, {
+      data: alertDialogObj
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        // this.delete(id);
+        this.delete()
+      }
+    })
+
+  }
+
+  delete(){
+
+    let ids:any[] = this.itemsChecked
+    let req={
+      ids:ids
+    }
+
+
+    this.api.bulkMixedFlightDestroy(req).subscribe({
+      next: (res: any) => {
+        if (res.isDone) {
+          this.message.custom(res.message);
+          this.getData()
+          // this.dialogRef.close(true);
+        }
+      }, error: (error: any) => {
+        this.error.check(error)
+      }
+
+    })
+  }
   onPageChanged(event: any) {
     this.p = event;
     this.getData();
@@ -166,7 +238,7 @@ export class CompositionListComponent {
       next: (res: any) => {
         if (res.isDone) {
           this.data = res.data;
-          debugger
+
           if(this.airlines.length===0 || res.airlines.length !== this.airlines.length ){
             this.airlines = res.airlines;
           }

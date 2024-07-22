@@ -205,7 +205,6 @@ export class ListComponent {
   }
 
   delete(){
-    console.log(this.getItemsChecked())
 let ids:any[] = this.getItemsChecked()
     let req={
       ids:ids
@@ -254,6 +253,7 @@ let ids:any[] = this.getItemsChecked()
 
   setCheckAll() {
     this.itemsChecked = []
+
 
     if (this.checkAll) {
       this.data.forEach(x => {

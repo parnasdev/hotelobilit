@@ -87,7 +87,11 @@
               <i class="icon-cancel text-danger" style="font-size: 25px; cursor: pointer;" (click)="removeFilter()"></i>
             </div>
           </div>
-        </div>
+          <div class="flex-x-start" style="gap: 10px;margin-top: 20px">
+            <button class="btn-base-red w-15"  (click)="deleteClicked()" *ngIf="itemsChecked.length > 0 && publicService.session.getRole()==='programmer'">حذف</button>
+
+          </div>
+          </div>
       </div>
     </div>
 
@@ -96,7 +100,7 @@
 
   <div class="table-list-tour">
     <div class="header-list-panel  gap-10">
-      <prs-checkbox></prs-checkbox>
+      <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
       <div class="d-flex flex-column">
         <span>رفت - برگشت</span>
       </div>
@@ -140,101 +144,106 @@
       </div>
     </div>
     <div *ngFor="let item of data| paginate: paginateConfig">
-      <div class="body-list-panel">
-        <div class="list-item-panel grid-dynamic gap-10">
-          <prs-checkbox></prs-checkbox>
-          <div class="d-flex flex-column">
-            <span>{{ item.flight.origin_name }} - {{ item.flight.destination_name }}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.flight.airline_name }}</span>
-            <span>{{ item.flight.flight_number }}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.flight.date | convertDate }} - {{ item.flight.time | timeFixer }}</span>
-            <span>{{calendarService.getWeekDay((item.date))}}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.flight.airplane }}</span>
-            <span>{{ item.flight.cabin_type }}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="d-flex gap-20">
-              <span style="color: #0a53be">{{ item.flight.all_capacity}}</span>
-              <span style="color: green;cursor: pointer" routerLink="/panel/flight/reserves"
-                [queryParams]="{flight: item.flight.id,status: '501|502|471|470'}">{{ item.flight.reserved_capacity }}</span>
+      <div style="display: flex;align-items: center;
+">
+        <mat-checkbox [(ngModel)]="item.isChecked" (ngModelChange)="checkItemChanged()"></mat-checkbox>
+        <div class="body-list-panel">
+          <div class="w-100 list-item-panel grid-dynamic gap-10">
+
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.origin_name }} - {{ item.flight.destination_name }}</span>
             </div>
-            <div class="d-flex gap-20">
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.airline_name }}</span>
+              <span>{{ item.flight.flight_number }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.date | convertDate }} - {{ item.flight.time | timeFixer }}</span>
+              <span>{{calendarService.getWeekDay((item.date))}}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.airplane }}</span>
+              <span>{{ item.flight.cabin_type }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <div class="d-flex gap-20">
+                <span style="color: #0a53be">{{ item.flight.all_capacity}}</span>
+                <span style="color: green;cursor: pointer" routerLink="/panel/flight/reserves"
+                      [queryParams]="{flight: item.flight.id,status: '501|502|471|470'}">{{ item.flight.reserved_capacity }}</span>
+              </div>
+              <div class="d-flex gap-20">
               <span style="color: red" routerLink="/panel/flight/reserves"
-                [queryParams]="{flight: item.flight.id,status: 472}">{{ item.flight.booked_capacity}}</span>
-              <span style="color: purple;cursor: pointer">{{ item.flight.capacity }}</span>
+                    [queryParams]="{flight: item.flight.id,status: 472}">{{ item.flight.booked_capacity}}</span>
+                <span style="color: purple;cursor: pointer">{{ item.flight.capacity }}</span>
+              </div>
             </div>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.flight.is_close ? 'close' : 'open' }}</span>
-            <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
-              [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
-          </div>
-          <div class="d-flex">
-            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-              matTooltip="{{ 'قیمت کودک' + (item.flight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.flight.inf_price | sperator)}}"
-              aria-label=""></i>
-            <span>{{ item.flight.adl_price | sperator }} (تومان)</span>
-          </div>
-          <div class="d-flex flex-column">
-            <button class="btn-base-custom2" (click)="edit(item.flight.id)">ویرایش</button>
-            <span>{{calculateStayCount(item) + ' شب '}}</span>
-           <div class="d-flex justify-content-center align-items-center mt-4" style="cursor: pointer;" (click)="updatePricing(item)">
+            <div class="d-flex flex-column">
+              <span>{{ item.flight.is_close ? 'close' : 'open' }}</span>
+              <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
+                   [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
+            </div>
+            <div class="d-flex">
+              <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+                 matTooltip="{{ 'قیمت کودک' + (item.flight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.flight.inf_price | sperator)}}"
+                 aria-label=""></i>
+              <span>{{ item.flight.adl_price | sperator }} (تومان)</span>
+            </div>
+            <div class="d-flex flex-column">
+              <button class="btn-base-custom2" (click)="edit(item.flight.id)">ویرایش</button>
+              <span>{{calculateStayCount(item) + ' شب '}}</span>
+              <div class="d-flex justify-content-center align-items-center mt-4" style="cursor: pointer;" (click)="updatePricing(item)">
             <span>{{ item.total_adl_price | sperator}}
               (تومان)</span>
-              <i  class="icon-pencil text-primary"  style="font-size: 25px;"></i>
-           </div>
-          </div>
-        </div>
-        <div class="list-item-panel grid-dynamic gap-10" *ngIf="item.returnFlight">
-          <prs-checkbox></prs-checkbox>
-          <div class="d-flex flex-column">
-            <span>{{ item.returnFlight.origin_name }} - {{ item.returnFlight.destination_name }}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.returnFlight.airline_name }}</span>
-            <span>{{ item.returnFlight.flight_number }}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.returnFlight.date | convertDate }} - {{ item.returnFlight.time | timeFixer }}</span>
-            <span>{{calendarService.getWeekDay((item.returnFlight.date))}}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.returnFlight.airplane }}</span>
-            <span>{{ item.returnFlight.cabin_type }}</span>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="d-flex gap-20">
-              <!-- <span class="title-tour" style="color: #0a53be">{{ item.returnFlight.all_capacity}}</span>
-              <span class="title-tour" style="color: green;cursor: pointer">{{ item.returnFlight.reserved_capacity }}</span> -->
-            </div>
-            <div class="d-flex gap-20">
-              <!-- <span class="title-tour" style="color: red">{{ item.returnFlight.booked_capacity}}</span>
-              <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
-                    [queryParams]="{flight: item.returnFlight.id,status: 472}">{{ item.returnFlight.capacity }}</span> -->
+                <i  class="icon-pencil text-primary"  style="font-size: 25px;"></i>
+              </div>
             </div>
           </div>
-          <div class="d-flex flex-column">
-            <span>{{ item.returnFlight.is_close ? 'close' : 'open' }}</span>
-            <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
-              [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
-          </div>
-          <div class="d-flex">
-            <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
-              matTooltip="{{ 'قیمت کودک' + (item.returnFlight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.returnFlight.inf_price | sperator)}}"
-              aria-label=""></i>
-            <span>{{ item.returnFlight.adl_price | sperator }} (تومان)</span>
-          </div>
+          <div class="list-item-panel grid-dynamic gap-10" *ngIf="item.returnFlight">
+            <!--          <prs-checkbox></prs-checkbox>-->
+            <div class="d-flex flex-column">
+              <span>{{ item.returnFlight.origin_name }} - {{ item.returnFlight.destination_name }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.returnFlight.airline_name }}</span>
+              <span>{{ item.returnFlight.flight_number }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.returnFlight.date | convertDate }} - {{ item.returnFlight.time | timeFixer }}</span>
+              <span>{{calendarService.getWeekDay((item.returnFlight.date))}}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.returnFlight.airplane }}</span>
+              <span>{{ item.returnFlight.cabin_type }}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <div class="d-flex gap-20">
+                <!-- <span class="title-tour" style="color: #0a53be">{{ item.returnFlight.all_capacity}}</span>
+                <span class="title-tour" style="color: green;cursor: pointer">{{ item.returnFlight.reserved_capacity }}</span> -->
+              </div>
+              <div class="d-flex gap-20">
+                <!-- <span class="title-tour" style="color: red">{{ item.returnFlight.booked_capacity}}</span>
+                <span class="title-tour" style="color: purple;cursor: pointer" routerLink="/panel/transferRate/reserves"
+                      [queryParams]="{flight: item.returnFlight.id,status: 472}">{{ item.returnFlight.capacity }}</span> -->
+              </div>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ item.returnFlight.is_close ? 'close' : 'open' }}</span>
+              <img width="25" height="25" mat-raised-button #tooltip="matTooltip"
+                   [matTooltip]="item.user?.full_name ?? '' " src="/assets/img/panel/icons/users.png">
+            </div>
+            <div class="d-flex">
+              <i style="font-size: 20px !important;" class="icon-info" mat-raised-button position="above"
+                 matTooltip="{{ 'قیمت کودک' + (item.returnFlight.chd_price | sperator) + ' ' + 'قیمت نوزاد' + (item.returnFlight.inf_price | sperator)}}"
+                 aria-label=""></i>
+              <span>{{ item.returnFlight.adl_price | sperator }} (تومان)</span>
+            </div>
 
-          <div class="d-flex flex-column">
-            <button class="btn-base-custom2" (click)="edit(item.returnFlight.id)">ویرایش</button>
+            <div class="d-flex flex-column">
+              <button class="btn-base-custom2" (click)="edit(item.returnFlight.id)">ویرایش</button>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
     <div class="box-empty" *ngIf="data.length === 0 && !isLoading">
