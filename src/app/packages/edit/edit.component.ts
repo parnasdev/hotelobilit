@@ -193,6 +193,7 @@ export class EditComponent extends AddComponent implements OnInit {
       description:this.descriptionFC.value  ?? '',
       service:this.serviceFC.value  ?? '',
       documents:this.documentFC.value  ?? '',
+      del_rooms:this.del_rooms ?? []
     }
 
     let newPackage = this.req.packages.map((p: any, index: number) => {

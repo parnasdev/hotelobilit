@@ -29,6 +29,7 @@ import { RoomsComponent } from "../rooms/rooms.component";
 })
 export class AddComponent implements OnInit {
   public boardtype=BoardType
+  del_rooms:any[]=[]
 
   minDate = new Date()
   isLoading = false;
@@ -207,7 +208,9 @@ export class AddComponent implements OnInit {
 
 
   getResult(event:any,index:any){
-    this.packages[index]=event
+
+    this.packages[index]=event.package
+    this.del_rooms=event.del_rooms
 
     console.log(this.packages)
   }

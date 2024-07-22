@@ -20,6 +20,7 @@ export class RoomsComponent implements OnInit{
   }
 roomTypes:any[]=[]
   inputForm!:FormGroup
+  del_room:any=[]
 
   get sectionControls (){
     return (<FormArray>this.inputForm.get('rooms')).controls
@@ -32,14 +33,13 @@ roomTypes:any[]=[]
 
     this.getExistedRoomsBasedOnProvideridAndHotelId(this.data.hotelID,this.data.providerId)
 
-    console.log(this.data)
   }
 
   addroom(obj:any=null){
 
-    debugger
+
     const rooms= new FormGroup({
-      "id":new FormControl( 0),
+      "id":new FormControl( obj?obj.id:0),
       "room_id":new FormControl( obj?obj.room_id:null),
       "flight_id":new FormControl( obj?obj.flight_id:null),
       "price":new FormControl( obj?obj.price:null),
@@ -64,7 +64,7 @@ roomTypes:any[]=[]
   }
 
   getExistedRoomsBasedOnProvideridAndHotelId(hotelId:any,providerId:any): void {
-    debugger
+
     let req ={
       hotel_id:hotelId,
       agency_id:providerId
@@ -87,15 +87,19 @@ roomTypes:any[]=[]
 
   sendData(){
 
-    this.dialogRef.close({rooms:this.inputForm.get('rooms')?.value,hotelID:this.data.hotelID})
+    this.dialogRef.close({rooms:this.inputForm.get('rooms')?.value,hotelID:this.data.hotelID,del_rooms:this.del_room})
 
 
   }
-  deleteItem(index:any){
+  deleteItem(index:any,item:any){
+
 
     (<FormArray>this.inputForm.get('rooms')).removeAt(index)
 
+this.del_room.push(item.value.id)
 
+
+    console.log(this.del_room)
 
 
   }

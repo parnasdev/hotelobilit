@@ -23,14 +23,19 @@ export class AddHotelComponent implements OnChanges{
   @Input() index=0;
     @Input() hotels:any[]=[];
     @Input() selectedFlights:any[]=[];
+
+
     @Input() package:PackageTourDTO={hotel_id : 0,
       offered:false,
       order_item:0,
       board_type: "",
       provider_id: 0,
       rooms: [
-      ]};
+      ],
+    };
   agencies:any[]=[]
+
+  del_rooms:any[]=[]
 constructor(public tourApi:TourApiService,
             public dialog: MatDialog,
      public message: MessageService,
@@ -69,7 +74,7 @@ this.package=this.incommingData
   }
 
   sendToParent(){
-    this.result.emit(this.package)
+    this.result.emit({package:this.package,del_rooms:this.del_rooms})
   }
 
   getAgenciesBasedOnHotelId(hotelId:any): void {
@@ -109,6 +114,7 @@ this.package=this.incommingData
       if (result) {
         // let index = this.packages.findIndex((item: any) => item.id === result.hotelID);
         this.package.rooms = result.rooms
+        this.del_rooms=result.del_rooms
         this.sendToParent()
       }
     })

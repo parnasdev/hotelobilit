@@ -404,6 +404,7 @@ export interface TourSetDTO {
   currencies?:string
   is_online?:boolean
   del_packages?:number[]
+  del_rooms?:any[]
   destination_id: number
   night_num: number
   partnerIds: any[]
@@ -431,6 +432,7 @@ export interface PackageTourDTO {
   "cwb"?: string;
   "child_age"?:string;
   rooms?:any[]
+  del_rooms?:number[];
 }
 
 export interface newTourDTO {
