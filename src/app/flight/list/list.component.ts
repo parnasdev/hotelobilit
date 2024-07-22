@@ -16,7 +16,7 @@ import { GroupChangePopupComponent } from '../group-change-popup/group-change-po
 import { EditFastPopupComponent } from '../edit-fast-popup/edit-fast-popup.component';
 import {AlertDialogDTO} from "../../common-project/alert-dialog/alert-dialog.component";
 import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.component";
-
+import * as moment from "moment";
 @Component({
   selector: 'prs-list',
   templateUrl: './list.component.html',
@@ -24,6 +24,7 @@ import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.compo
 })
 export class ListComponent {
   isLoading = false;
+  weekDays:any[]=[]
   req: IFlightListReq = {
     destination: 0,
     fromDate: '',
@@ -31,6 +32,7 @@ export class ListComponent {
     status: 0,
     toDate: ''
   }
+  showType:string='caList'
   show = true;
   filterObj: FilterDTO = {
     destination: null,
@@ -41,7 +43,6 @@ export class ListComponent {
     fromDate: null,
     toDate: null,
     agency: null,
-
   };
   p = 1;
 
@@ -111,7 +112,14 @@ export class ListComponent {
   }
 
   ngOnInit() {
-    this.getData()
+    if(this.showType==='caList'){
+      this.getdate()
+    }else{
+
+      this.getData()
+    }
+
+
   }
 
   getFilterClicked(event: any) {
@@ -126,9 +134,12 @@ export class ListComponent {
     this.filterObj.destination = city.id
   }
 
-
+showTypeChange(){
+  console.log(this.showType)
+}
 
   getFilterList() {
+    debugger
     let result: any[] = []
     var obj: any = this.filterObj
     Object.keys(this.filterObj).forEach(function (key) {
@@ -158,6 +169,7 @@ export class ListComponent {
     return result
   }
   getData() {
+
     this.isLoading = true;
     this.data = [];
     let qparams = this.publicService.getFiltersString(this.getFilterList())
@@ -173,6 +185,7 @@ export class ListComponent {
           if (res.meta) {
             this.paginate = res.meta;
             if (this.paginate) {
+              debugger
               this.paginateConfig = {
                 itemsPerPage: this.paginate.per_page,
                 totalItems: this.paginate.total,
@@ -181,6 +194,7 @@ export class ListComponent {
             }
           }
 
+          this.getWeekDays()
 
           this.setFilterFromRoute()
         } else {
@@ -341,6 +355,25 @@ let ids:any[] = this.getItemsChecked()
     this.getData()
   }
 
+  getdate(){
+
+    moment.locale('fa');
+    var a = moment();
+    var firstweek = a.add(0, 'week');
+
+    var firstDateOfFirstWeek = firstweek.format('YYYY-MM-DD');
+    var secondWeek = a.add(1, 'week');
+    var lastDateOfSecondWeek=secondWeek.add(6,'day').format('YYYY-MM-DD');
+    this.filterObj.fromDate=firstDateOfFirstWeek;
+    this.filterObj.toDate=lastDateOfSecondWeek;
+    this.p = 1
+    this.router.navigate([`/panel/flight/`], {
+      queryParams: this.filterObj
+    })
+this.getData()
+
+  }
+
   fastEdit(id: number) {
     const dialog = this.dialog.open(EditFastPopupComponent, {
       data: id,
@@ -354,6 +387,22 @@ let ids:any[] = this.getItemsChecked()
     })
   }
 
+  getWeekDays(weeknumber:number=0) {
+    this.weekDays = [];
+    moment.locale('fa');
+    var a = moment();
+    var b = a.add(weeknumber, 'week');
+
+    let startOfWeek = b.startOf('week'); // This gives the start of the week (Sunday)
+    for (let i = 0; i < 7; i++) {
+      const date = startOfWeek.clone().add(i, 'days');
+      const formattedDate = date.format('YYYY-MM-DD');
+      const weekDayName = date.format('dddd');
+      this.weekDays.push({ index: i, title: weekDayName, date: formattedDate, plans: this.data.filter((p: any) => moment(p.date).isSame(formattedDate) ) });
+    }
+
+    console.log(this.weekDays)
+  }
   reload() {
     this.show = false;
     setTimeout(() => this.show = true);
@@ -369,6 +418,7 @@ let ids:any[] = this.getItemsChecked()
       }
     })
     dialog.afterClosed().subscribe((res: any) => {
+      debugger
       if (res) {
         this.filterObj.fromDate = res.fromDate.dateEn
         this.filterObj.toDate = res.toDate.dateEn;

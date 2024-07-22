@@ -53,7 +53,8 @@ export class PricingPopupComponent implements OnInit {
       toDate: '',
       agency_id: +this.agency_selected,
       hotelId: +this.data.hotelId,
-      roomId: 0
+      roomId: 0,
+
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
@@ -122,5 +123,5 @@ export class PricingPopupComponent implements OnInit {
     setTimeout(() => this.showCalendar = true);
   }
 
-  
+
 }

@@ -46,6 +46,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
 import { MultipleSelectComponent } from './multiple-select/multiple-select.component';
 import { CustomTooltipDirective } from './custom-tooltip.directive';
+import { AddHotelComponent } from './add-hotel/add-hotel.component';
 
 
 
@@ -85,38 +86,40 @@ import { CustomTooltipDirective } from './custom-tooltip.directive';
     IconsComponent,
     PanelLoadingComponent,
     MultipleSelectComponent,
-    CustomTooltipDirective
+    CustomTooltipDirective,
+    AddHotelComponent
   ],
-    exports: [
-        UploadFileComponent,
-        GetLocationComponent,
-        PanelLoadingComponent,
-        TimePickerComponent,
-        SelectCityTwoComponent,
-        UploadSingleComponent,
-        MultipleUploadComponent,
-        EditorComponent,
-        SelectHotelComponent,
-        SelectCityComponent,
-        GetLatLongComponent,
-        ChipsComponent,
-        ShowLocationComponent,
-        FaqComponent,
-        FooterLinksComponent,
-        SelectCityLimitedComponent,
-        SelectSearchComponent,
-        LoadingComponent,
-        MultipleSelectComponent,
-        CustomSelectHotelComponent,
-        CustomSelectComponent,
-        DynamicListComponent,
-        DynamicFilterPopupComponent,
-        GroupChangesComponent,
-        CheckboxComponent,
-        IconsComponent,
-        DynamicFilterHorizontalComponent,
-        CustomTooltipDirective
-    ],
+  exports: [
+    UploadFileComponent,
+    GetLocationComponent,
+    PanelLoadingComponent,
+    TimePickerComponent,
+    SelectCityTwoComponent,
+    UploadSingleComponent,
+    MultipleUploadComponent,
+    EditorComponent,
+    SelectHotelComponent,
+    SelectCityComponent,
+    GetLatLongComponent,
+    ChipsComponent,
+    ShowLocationComponent,
+    FaqComponent,
+    FooterLinksComponent,
+    SelectCityLimitedComponent,
+    SelectSearchComponent,
+    LoadingComponent,
+    MultipleSelectComponent,
+    CustomSelectHotelComponent,
+    CustomSelectComponent,
+    DynamicListComponent,
+    DynamicFilterPopupComponent,
+    GroupChangesComponent,
+    CheckboxComponent,
+    IconsComponent,
+    DynamicFilterHorizontalComponent,
+    CustomTooltipDirective,
+    AddHotelComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

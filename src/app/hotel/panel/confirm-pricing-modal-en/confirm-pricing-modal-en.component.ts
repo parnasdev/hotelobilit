@@ -18,7 +18,8 @@ export interface ConfirmPriceReqDTO {
   type: number;
   bedCount: number;
   currency_code: string;
-  isJustRoomCount: boolean
+  isJustRoomCount: boolean;
+  board_type:string
 }
 @Component({
   selector: 'prs-confirm-pricing-modal-en',
@@ -75,6 +76,9 @@ export class ConfirmPricingModalEnComponent implements OnInit {
       currency_code: this.rateFC.value !== 'all' ? this.rateFC.value : null,
       checkin_base: this.not_checkin_base ? false : this.checkin_base ? true : null,
       offer_price: this.checkin_base ? this.offerPriceFC.value : null,
+      board_type:this.data.board_type
+
+
 
       // offer_extra_price: this.offerBedPriceFC.value,
       // offer_price: this.offerPriceFC.value,

@@ -66,12 +66,70 @@
             </div>
         </div>
     </div>
+  <select [(ngModel)]="showType" (ngModelChange)="showTypeChange()">
+    <option value="caList">calendarList</option>
+    <option value="simpList">simpleList</option>
+  </select>
   <div class="flex-x-start" style="gap: 10px">
 
     <button class="btn-base w-25" (click)="openGroupChange()" *ngIf="itemsChecked.length > 0">اعمال تغییر</button>
     <button class="btn-base-red w-15"  (click)="deleteClicked()" *ngIf="itemsChecked.length > 0 && publicService.session.getRole()==='programmer'">حذف</button>
   </div>
-    <div class="table-list-tour">
+
+
+  <div *ngIf="showType==='caList'" class="w-100 isDesktop">
+    <div class="box-weekly-Schedule w-95 mx-auto">
+      <div class="title flex-x-center p-relative">
+<!--        <h3 class="m-y-0 text-base rokh-bold fs-18">برنامه هفتگی آلفا</h3>-->
+<!--        <div class="my-class flex-x-end gap-11 p-absolute left-0">-->
+<!--          <prs-checkbox [(ngModel)]="MyClasses" (ngModelChange)="changeWeekdays()"></prs-checkbox>-->
+<!--          <span style="color: #272E37" class="fs-14 bold-500">کلاس های من</span>-->
+<!--        </div>-->
+        <button (click)="getWeekDays(1)">next</button>
+        <button (click)="getWeekDays(0)">prev</button>
+      </div>
+      <div class="header-week w-100">
+        <div class="w-100 item-header flex-y-center" *ngFor="let item of weekDays">
+          <span class="text-gray bold-600 fs-14">{{ item.title }}</span>
+          <span class="fs-13 text-gray-s bold-600 m-top-4">{{ item.date | convertDate }}</span>
+        </div>
+
+      </div>
+      <div class="body-week w-100">
+        <div *ngFor="let item of weekDays">
+
+          <div [ngClass]="item.plans.length>=8?'scroll-y':''" class="col-week">
+            <div  *ngFor="let plan of item.plans"
+                 class="item-body flex-y-center">
+              <div>
+                <p class="text-center">{{plan.origin_name}}-{{ plan.destination_name }}</p>
+                <p class="text-center">{{ plan.time }}</p>
+                <p class="text-center">{{ plan.airline_name }}</p>
+
+              </div>
+<!--              <a  class="m-y-0 text-center h-30 text-base bold-500 fs-13" style="white-space: nowrap">-->
+<!--                {{ plan.agency }}-->
+<!--              </a>-->
+<!--              <p class="m-y-0 text-center text-body-week h-30 text-gray bold-500 fs-12">-->
+<!--                {{ plan.episode_title }}-->
+<!--              </p>-->
+              <!-- <span class="fs-13 bold-500 text-base">جلسه ۲۳</span> -->
+<!--              <span class="fs-13 bold-600 text-dark">{{ plan.presentation_at.split(' ')[1] | timefixer }}</span>-->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+      <div *ngIf="showType==='simpList'" class="table-list-tour">
         <div class="header-list-tour">
             <div class="d-flex flex-column ">
                 <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>

@@ -38,12 +38,16 @@ export class TourApiService {
 
 
   getFlights(req: any): any {
-    const strUrl = environment.BACK_END_IP + 'panel/tours/getflights'
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours/getflights'
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
   gethotels(req: any): any {
-    const strUrl = environment.BACK_END_IP + 'panel/tours/gethotels'
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours/gethotels'
+    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  }
+  gethotels1(req: any): any {
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours/gethotels'
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
@@ -86,27 +90,37 @@ export class TourApiService {
   }
 
   createPageTour(): any {
-    const strUrl = environment.BACK_END_IP + 'panel/tours/create';
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours/create';
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
+  getAgencies(req:any): any {
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours/getagencies';
+    return this.http.post<Result<any>>(strUrl, req ,this.publicService.getDefaultHeaders());
+  }
+
+  getRooms(req:any): any {
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours/getrooms';
+    return this.http.post<Result<any>>(strUrl, req ,this.publicService.getDefaultHeaders());
+  }
+
   createTour(req: any): any {
-    const strUrl = environment.BACK_END_IP + 'panel/tours';
+    const strUrl = environment.BACK_END_IP_V3 + 'panel/tours';
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 
   deleteTour(id: number): any {
-    const strUrl = environment.BACK_END_IP + `panel/tours/${id}`;
+    const strUrl = environment.BACK_END_IP_V3 + `panel/tours/${id}`;
     return this.http.delete<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
   getTourInfo(id: number): any {
-    const strUrl = environment.BACK_END_IP + `panel/tours/${id}/edit`;
+    const strUrl = environment.BACK_END_IP_V3 + `panel/tours/${id}/edit`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
   update(id: number, req: any) {
-    const strUrl = environment.BACK_END_IP + `panel/tours/${id}`;
+    const strUrl = environment.BACK_END_IP_V3 + `panel/tours/${id}`;
     return this.http.patch<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 }

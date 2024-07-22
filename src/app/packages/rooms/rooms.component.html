@@ -5,35 +5,46 @@
 
     <div formArrayName="rooms">
       <div class="item-rooms" *ngFor="let item of sectionControls; let i= index " [formGroupName]="i">
+
         <div class="item-inp">
-          <label>اتاق</label>
-          <select formControlName="id">
-            <option *ngFor="let item of data.roomTypes" [value]="item.id">{{item.name}}</option>
+          <label>پرواز</label>
+          <select formControlName="flight_id">
+            <option *ngFor="let item of data.selectedFlights" [value]="item">{{item }}</option>
           </select>
         </div>
         <div class="item-inp">
-          <label>قیمت</label>
+          <label>اتاق</label>
+          <select formControlName="room_id">
+            <option *ngFor="let item of roomTypes" [value]="item.id">{{item.room_type}}</option>
+          </select>
+        </div>
+        <div class="item-inp">
+          <label>قیمت (هرنفر)</label>
           <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>
         </div>
-<!--        <div class="item-inp">-->
-<!--          <label>قیمت کودک بدون تخت</label>-->
-<!--          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>-->
-<!--        </div>-->
-<!--        <div class="item-inp">-->
-<!--          <label> قیمت  کودک با تخت</label>-->
-<!--          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>-->
-<!--        </div>-->
-<!--        <div class="item-inp">-->
-<!--          <label>قیمت تخت اضافه</label>-->
-<!--          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>-->
-<!--        </div>-->
-<!--        <div class="item-inp">-->
-<!--          <label>plus price</label>-->
-<!--          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>-->
-<!--        </div>   <div class="item-inp">-->
-<!--          <label>موجودی اتاق </label>-->
-<!--          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>-->
-<!--        </div>-->
+        <div class="item-inp">
+          <label>قیمت کودک بدون تخت (هرنفر)</label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="chd_n_price" placeholder="قیمت کودک بدون تخت"/>
+        </div>
+        <div class="item-inp">
+          <label>  قیمت  کودک با تخت (هرنفر)</label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="chd_w_price" placeholder="قیمت  کودک با تخت"/>
+        </div>
+        <div class="item-inp">
+          <label> قیمت  نوزاد (هرنفر)</label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="inf_price" placeholder="قیمت  کودک با تخت"/>
+        </div>
+        <div class="item-inp">
+          <label>قیمت تخت اضافه (هرنفر)</label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="extra_bed_price" placeholder="قیمت تخت اضافه"/>
+        </div>
+        <div class="item-inp">
+          <label>قیمت اضافه</label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="plus_price" placeholder="قیمت اضافه"/>
+        </div>   <div class="item-inp">
+          <label>موجودی اتاق </label>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="capacity" placeholder="موجودی اتاق "/>
+        </div>
 <!--        <div class="item-inp">-->
 <!--          <label>قیمت</label>-->
 <!--          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>-->

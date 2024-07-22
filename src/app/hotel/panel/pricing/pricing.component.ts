@@ -8,6 +8,7 @@ import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { Title } from "@angular/platform-browser";
 import { SessionService } from 'src/app/Core/Services/session.service';
+import {BoardType} from "../../../Core/Models/tourDTO";
 
 @Component({
   selector: 'prs-pricing',
@@ -15,10 +16,13 @@ import { SessionService } from 'src/app/Core/Services/session.service';
   styleUrls: ['./pricing.component.scss']
 })
 export class PricingComponent implements OnInit {
+  public boardtype=BoardType
+
   key = ''
   isLoading = false;
   standardTwinId = 148;
   agency_selected = 33;
+  boardtype_selected = 'B.B';
   standardTwinCoefficient = 0;
   showCalendar = true;
   slug = '';
@@ -60,14 +64,15 @@ export class PricingComponent implements OnInit {
   }
 
   getInfo(): void {
-    
+
     this.isLoading = true;
     this.req = {
       fromDate: '',
       toDate: '',
       hotelId: +this.id,
       agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_selected : null,
-      roomId: 0
+      roomId: 0,
+      board_type: this.boardtype_selected,
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;

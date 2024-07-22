@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class MainPickerComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() pricingType = '0';
+  @Input() selected_boardtype = 'B.B';
   @Input() room: roomDTO | null = {
     Adl_capacity: 0,
     age_child: 0,
@@ -291,7 +292,8 @@ export class MainPickerComponent implements OnInit {
         type: +this.pricingType,
         bedCount: this.room?.extra_bed_count,
         currency_code: this.pricesData.hotel.currency_code,
-        isJustRoomCount : isJustRoomCount
+        isJustRoomCount : isJustRoomCount,
+        board_type:this.selected_boardtype
       }
     })
     dialog.afterClosed().subscribe(result => {

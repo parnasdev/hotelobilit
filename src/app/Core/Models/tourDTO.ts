@@ -390,12 +390,19 @@ export interface RoomDTO {
   supply: number
 }
 
+export enum BoardType {
+  BB='B.B',
+  FB='F.B',
+  ALL='ALL',
+  UALL='UALL'
+}
 
 export interface TourSetDTO {
   title: string;
   origin_id: number
   is_bundle?:boolean
   currencies?:string
+  is_online?:boolean
   del_packages?:number[]
   destination_id: number
   night_num: number
@@ -417,10 +424,12 @@ export interface TourSetDTO {
 export interface PackageTourDTO {
   hotel_id: number;
   order_item: number;
+  provider_id?: number;
+  board_type?: string;
   id?: number;
-  offered: boolean,
-  "cwb"?: string,
-  "child_age"?:string,
+  offered: boolean;
+  "cwb"?: string;
+  "child_age"?:string;
   rooms?:any[]
 }
 
