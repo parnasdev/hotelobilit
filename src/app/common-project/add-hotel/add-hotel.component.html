@@ -17,7 +17,7 @@
       گذاری
     </button>
 
-    <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between;column-gap: 80px;align-items: center">
+    <div class="gap-8"  style="display: flex;justify-content: space-between;column-gap: 80px;align-items: center">
 
       <!--            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"-->
       <!--              placeholder="کودک با تخت">-->
@@ -45,7 +45,7 @@
       </div>
 
 
-      <button class="btn-base" style="width: 100px !important;" (click)="openRooms(package.id,package.hotel_id,package.rooms,package.provider_id)">اتاق ها
+      <button  *ngIf="is_bundle" class="btn-base" style="width: 100px !important;" (click)="openRooms(package.id,package.hotel_id,package.rooms,package.provider_id)">اتاق ها
       </button>
 
     </div>

@@ -19,7 +19,7 @@
           </select>
         </div>
         <div class="item-inp">
-          <label>قیمت (هرنفر)</label>
+          <label>قیمت (هرنفر)(تومان)</label>
           <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="price" placeholder="قیمت"/>
         </div>
         <div class="item-inp">
@@ -32,7 +32,7 @@
         </div>
         <div class="item-inp">
           <label> قیمت  نوزاد (هرنفر)</label>
-          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="inf_price" placeholder="قیمت  کودک با تخت"/>
+          <input class="input" type="text" mask="separator" thousandSeparator=","  formControlName="inf_price" placeholder="قیمت نوزاد"/>
         </div>
         <div class="item-inp">
           <label>قیمت تخت اضافه (هرنفر)</label>
@@ -54,7 +54,7 @@
           <input type="checkbox"  formControlName="pin"/>
         </div>
 
-          <button class="btn-base-red w-28" (click)="deleteItem(i)" for="">حذف</button>
+          <button class="btn-base-red w-28" (click)="deleteItem(i,item)" for="">حذف</button>
 
       </div>
 

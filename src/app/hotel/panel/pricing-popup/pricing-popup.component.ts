@@ -8,6 +8,7 @@ import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
+import {BoardType} from "../../../Core/Models/tourDTO";
 
 @Component({
   selector: 'prs-pricing-popup',
@@ -15,6 +16,7 @@ import { SessionService } from 'src/app/Core/Services/session.service';
   styleUrls: ['./pricing-popup.component.scss']
 })
 export class PricingPopupComponent implements OnInit {
+
   key = ''
   isLoading = false;
   standardTwinId = 148;
@@ -30,6 +32,8 @@ export class PricingPopupComponent implements OnInit {
   calendarLang = 'shamsi'
   ratingData!: RatingResDTO;
   rooms: roomDTO[] = [];
+  public boardtype=BoardType
+  boardtype_selected = 'B.B';
 
   constructor(public checkError: CheckErrorService,
     public errorService: ErrorsService,
@@ -54,6 +58,8 @@ export class PricingPopupComponent implements OnInit {
       agency_id: +this.agency_selected,
       hotelId: +this.data.hotelId,
       roomId: 0,
+      board_type: this.boardtype_selected,
+
 
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
@@ -124,4 +130,5 @@ export class PricingPopupComponent implements OnInit {
   }
 
 
+  // protected readonly boardtype = BoardType;
 }
