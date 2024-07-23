@@ -60,7 +60,9 @@ export class ListComponent implements OnInit {
     stay_count:'',
     status: 1,
     fromDate: null,
-    toDate: null
+    toDate: null,
+    tourId:'',
+    isBundle:''
   };
   cities: any[] = []
   isLoading = false
@@ -180,7 +182,10 @@ export class ListComponent implements OnInit {
       status: 0,
       stay_count: '',
       fromDate: null,
-      toDate: null
+      toDate: null,
+      isBundle:'',
+      tourId:'',
+
     }
     this.reload()
     this.getTours('second')

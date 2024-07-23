@@ -29,9 +29,9 @@
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
     <div class="w-100" *ngIf="rooms.length > 0">
-      <prs-main-picker [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'shamsi'" [room]="getRoom()" [hotelID]="+id"
+      <prs-main-picker [agency_id]="agency_selected" [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'shamsi'" [room]="getRoom()" [hotelID]="+id"
         [pricingType]="isCoefficient"></prs-main-picker>
-        <prs-main-picker-en [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'miladi'" [room]="getRoom()" [hotelID]="+id"
+        <prs-main-picker-en [agency_id]="agency_selected" [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'miladi'" [room]="getRoom()" [hotelID]="+id"
         [pricingType]="isCoefficient"></prs-main-picker-en>
     </div>
     <div class="d-flex justify-content-center align-items-center" *ngIf="rooms.length == 0">

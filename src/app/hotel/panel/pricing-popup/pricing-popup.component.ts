@@ -44,7 +44,7 @@ export class PricingPopupComponent implements OnInit {
     public session: SessionService,
     public route: ActivatedRoute,
     public api: PostApiService,
-    public message: MessageService,) { }
+    public message: MessageService) { }
 
   ngOnInit(): void {
     this.getInfo()
@@ -58,7 +58,7 @@ export class PricingPopupComponent implements OnInit {
       agency_id: +this.agency_selected,
       hotelId: +this.data.hotelId,
       roomId: 0,
-      board_type: this.boardtype_selected,
+      boardType: this.boardtype_selected,
 
 
     }
@@ -103,6 +103,7 @@ export class PricingPopupComponent implements OnInit {
   }
   agencyChanged() {
     this.getInfo()
+    this.reload()
   }
 
 

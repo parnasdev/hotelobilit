@@ -11,6 +11,7 @@ import { ConfirmPricingModalComponent } from '../confirm-pricing-modal/confirm-p
 import { environment } from 'src/environments/environment';
 import { RatingResDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Models/newPostDTO';
 import { ConfirmPricingModalEnComponent } from '../confirm-pricing-modal-en/confirm-pricing-modal-en.component';
+import {SessionService} from "../../../Core/Services/session.service";
 
 @Component({
   selector: 'prs-main-picker-en',
@@ -21,6 +22,8 @@ export class MainPickerEnComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() pricingType = '0';
   @Input() selected_boardtype = 'B.B';
+  @Input() agency_id =  33;
+
 
   @Input() room: roomDTO | null = {
     Adl_capacity: 0,
@@ -58,7 +61,9 @@ export class MainPickerEnComponent implements OnInit {
     public route: ActivatedRoute,
     public checkError: ErrorsService,
     public api: PostApiService,
-    public message: MessageService,) {
+              public session:SessionService,
+
+              public message: MessageService,) {
 
     }
 
@@ -118,6 +123,9 @@ export class MainPickerEnComponent implements OnInit {
       toDate: moment(this.getFirstAndLastDates()[1]).format('YYYY-MM-DD'),
       hotelId: +this.hotelID,
       roomId: this.room ? +this.room.id : 0,
+      boardType: this.selected_boardtype,
+      agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_id : null,
+
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;

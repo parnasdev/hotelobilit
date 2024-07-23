@@ -198,7 +198,7 @@ export interface ratigListReqDTO {
     roomId: number;
     agency_id?: number | null;
     hotelId: number;
-    board_type?:string
+    boardType?:string
 }
 
 export interface RatingResDTO {

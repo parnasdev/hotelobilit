@@ -64,15 +64,17 @@ export class PricingComponent implements OnInit {
   }
 
   getInfo(): void {
+    // this.ratingData.rates=[]
 
     this.isLoading = true;
+
     this.req = {
       fromDate: '',
       toDate: '',
       hotelId: +this.id,
       agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_selected : null,
       roomId: 0,
-      board_type: this.boardtype_selected,
+      boardType: this.boardtype_selected,
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
@@ -112,6 +114,7 @@ export class PricingComponent implements OnInit {
 
   agencyChanged() {
     this.getInfo()
+    this.reload()
   }
 
 
@@ -128,6 +131,7 @@ export class PricingComponent implements OnInit {
   }
 
   getRoom(): roomDTO | null {
+
     let room = this.rooms.filter(x => x.room_type_id === this.roomTypeId)
     return room.length > 0 ? room[0] : null
   }

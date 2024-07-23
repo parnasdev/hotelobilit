@@ -38,10 +38,23 @@
     </div>
 
     <div class="inp-form w-25">
+<!--      <span style="white-space: nowrap">شماره تور</span>-->
+      <input type="text" [(ngModel)]="filterObj.tourId" placeholder="شماره تور">
+    </div>
+
+    <div class="inp-form w-25">
       <span>وضعیت</span>
 
       <select name="" id="" [(ngModel)]="filterObj.status">
-        <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
+        <option *ngFor="let status of statuses" [value]="status.id">{{ status.label }}</option>
+      </select>
+    </div>
+    <div class="inp-form w-25">
+      <span>نوع</span>
+
+      <select name="" id="" [(ngModel)]="filterObj.isBundle">
+        <option value="0">باجزییات</option>
+        <option value="1">یکجا</option>
       </select>
     </div>
     <div class="w-25 d-flex">

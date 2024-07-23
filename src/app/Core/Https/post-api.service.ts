@@ -60,7 +60,7 @@ export class PostApiService {
   }
 
   ratingList(req: ratigListReqDTO): any {
-    const strUrl = this.serverControllerName + `rates/${req.hotelId}/${req.roomId}?fromDate=${req.fromDate}&toDate=${req.toDate}&agency_id=${req.agency_id}&board_type=${req.board_type}`;
+    const strUrl = this.serverControllerName + `rates/${req.hotelId}/${req.roomId}?fromDate=${req.fromDate}&toDate=${req.toDate}&agency_id=${req.agency_id}&boardType=${req.boardType}`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
