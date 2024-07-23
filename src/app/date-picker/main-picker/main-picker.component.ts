@@ -93,6 +93,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
     let end2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'jYYYY/jMM/jDD').endOf('jmonth')
 
     const dates = [...this.fixDates(start1, end1), ...this.fixDates(start2, end2)]
+    debugger
     this.daysOfMonth = this.fillObject(dates)
   }
 
