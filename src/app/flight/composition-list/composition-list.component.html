@@ -101,6 +101,7 @@
   <div class="table-list-tour">
     <div class="header-list-panel  gap-10">
       <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+
       <div class="d-flex flex-column">
         <span>رفت - برگشت</span>
       </div>
@@ -146,7 +147,10 @@
     <div *ngFor="let item of data| paginate: paginateConfig">
       <div style="display: flex;align-items: center;
 ">
+        <div style="display: flex; align-items: center;flex-direction: column">
         <mat-checkbox [(ngModel)]="item.isChecked" (ngModelChange)="checkItemChanged()"></mat-checkbox>
+          <span>({{item.mixed_id}})</span>
+        </div>
         <div class="body-list-panel">
           <div class="w-100 list-item-panel grid-dynamic gap-10">
 
