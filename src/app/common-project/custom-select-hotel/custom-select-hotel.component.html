@@ -1,4 +1,6 @@
-<div [id]="name" [ngClass]="{'input-custom input-customize  w-100 date-to' : hotelItemSelected?.is_rate ,'input-custom-error input-customize  w-100 date-to' : !hotelItemSelected?.is_rate}" clickOutside
+<!--[ngClass]="{'input-custom input-customize  w-100 date-to' : hotelItemSelected?.is_rate ,'input-custom-error input-customize  w-100 date-to' : !hotelItemSelected?.is_rate}"-->
+
+<div [id]="name"  class="input-custom input-customize  w-100 date-to" clickOutside
      (clickOutside)="onClickedOutside($event)">
 
   <div class="w-100" style="display: flex; justify-content: space-between;align-items: center">

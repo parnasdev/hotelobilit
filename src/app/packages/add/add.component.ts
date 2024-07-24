@@ -125,6 +125,7 @@ export class AddComponent implements OnInit {
     this.tourApi.createPageTour().subscribe((res: any) => {
       if (res.isDone) {
         this.statuses = res.data.statuses;
+
         this.partners = res.data.partners;
         this.cities = res.data.cities
         this.currencies = res.data.currencies

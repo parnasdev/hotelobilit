@@ -160,6 +160,7 @@ export interface statusObjDTO {
 export interface statusesDTO {
     id: number;
     name: string;
+    label:string
 }
 
 export interface userDTO {

@@ -30,12 +30,12 @@ export class EditComponent extends AddComponent implements OnInit {
         this.statuses = res.data.statuses;
         this.partners = res.data.partners;
         this.offered=res.data.tour.offered
-
         this.partnerNames = this.getPartnersNames(res.data.selected_partners)
         this.cities = res.data.cities
         this.currencies = res.data.currencies
         this.rooms = res.data.roomTypes
         this.setInfo();
+
       } else {
         this.message.custom(res.message);
       }
@@ -190,6 +190,7 @@ export class EditComponent extends AddComponent implements OnInit {
       checkin: this.checkinFC.value ? moment(this.checkinFC.value).format('YYYY-MM-DD') : '',
       checkout: this.checkoutFC.value ? moment(this.checkoutFC.value).format('YYYY-MM-DD') : '',
       expired_at: this.expired_atFC.value ? moment(this.expired_atFC.value).format('YYYY-MM-DD') : '',
+
       status_id: +(this.status_idFC.value ?? ''),
       flights: this.flights,
       partnerIds: this.getPartners(),
@@ -199,7 +200,7 @@ export class EditComponent extends AddComponent implements OnInit {
       documents:this.documentFC.value  ?? '',
       del_rooms:this.del_rooms ?? []
     }
-
+    debugger
     let newPackage = this.req.packages.map((p: any, index: number) => {
       return {
         ...p,
@@ -248,6 +249,9 @@ export class EditComponent extends AddComponent implements OnInit {
     this.day_numFC.setValue(this.tourData.day_num);
     this.tour_typeFC.setValue(this.tourData.tour_type);
     this.checkinFC.setValue(this.tourData.checkin);
+
+    this.status_idFC.setValue(this.tourData.status.id)
+
     this.checkoutFC.setValue(this.tourData.checkout);
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
