@@ -220,7 +220,7 @@ export class AddComponent implements OnInit {
 
   addHotel() {
     let item: PackageTourDTO = {
-      id: Math.random() * 1000,
+      id: 0,
       hotel_id: 0,
       order_item: 0,
       offered: false,
