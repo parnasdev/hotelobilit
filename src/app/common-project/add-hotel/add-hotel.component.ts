@@ -29,6 +29,7 @@ export class AddHotelComponent implements OnChanges{
       offered:false,
       order_item:0,
       board_type: "",
+      old_hotel_id:0,
       provider_id: 0,
       rooms: [
       ],
@@ -66,11 +67,14 @@ this.package=this.incommingData
   }
 
   getHotelSelected(hotel: any) {
+    if(this.package.old_hotel_id!==0){
+      this.package.old_hotel_id=hotel.oldHotel.id
+    }
 
-    this.package.hotel_id = hotel.id
+    this.package.hotel_id = hotel.newhotel.id
     this.sendToParent()
 
-    this.getAgenciesBasedOnHotelId(hotel.id)
+    this.getAgenciesBasedOnHotelId(hotel.newhotel.id)
   }
 
   sendToParent(){

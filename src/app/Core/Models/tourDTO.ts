@@ -430,6 +430,7 @@ export interface PackageTourDTO {
   id?: number;
   offered: boolean;
   "cwb"?: string;
+  old_hotel_id?: number;
   "child_age"?:string;
   rooms?:any[]
   del_rooms?:number[];

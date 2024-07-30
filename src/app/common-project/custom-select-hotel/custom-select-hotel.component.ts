@@ -102,9 +102,11 @@ export class CustomSelectHotelComponent {
   }
 
   changed(item: any): void {
+    debugger
+    let oldHotel=this.hotelItemSelected
     this.hotelItemSelected = item;
     this.hotelFC.setValue(item.title);
-    this.hotelSelected.emit(item)
+    this.hotelSelected.emit({newhotel:item,oldHotel:oldHotel});
     this.dd = false
     this.stars=item.stars
   }
