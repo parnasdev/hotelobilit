@@ -24,7 +24,7 @@ export class AdminAuthComponent implements OnInit {
     password: '',
     temp: 0,
   };
-  
+
   passwordFC = new FormControl('', Validators.required);
   phoneNumber: string | null = '';
 
@@ -56,7 +56,7 @@ export class AdminAuthComponent implements OnInit {
       this.api.me().subscribe((res: any) => {
         if (res.isDone) {
           this.session.setUserToSession(res.data);
-          this.router.navigateByUrl('/panel');
+          this.router.navigateByUrl('/panel/packages');
           this.pemitionService.permissions = res.data.permissions;
 
           // this.session.getUserPermission();

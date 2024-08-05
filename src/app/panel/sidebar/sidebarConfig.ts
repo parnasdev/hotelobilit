@@ -12,7 +12,7 @@ export interface SidebarDTO {
     }[]
 }
 export const Sidebar: SidebarDTO[] = [
-    { name: 'dashboard', icon: '../../../assets/img/panel/icons/dashboard.png', link: '/panel', show: true, permition: '', children: [] },
+    // { name: 'dashboard', icon: '../../../assets/img/panel/icons/dashboard.png', link: '/panel', show: true, permition: '', children: [] },
     { name: 'hotels', icon: '../../../assets/img/panel/icons/hotel.png', link: '/panel/hotel', permition: 'hotels.read', show: true, children: []},
     { name: 'packages', icon: '../../../assets/img/panel/icons/pages.png', link: '/panel/packages', permition: 'tours.read', show: true, children: []},
     // { name: 'tours', icon: '../../../assets/img/panel/icons/pages.png', link: '/panel/tours', permition: 'tours.read', show: true, children: []},
