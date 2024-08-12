@@ -358,6 +358,7 @@ if(this.flights.length > 0) {
     this.onTitleGenerator()
     this.getTransferRates();
     this.getHotels()
+    this.flights=[]
   }
 
 

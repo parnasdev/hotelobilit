@@ -212,6 +212,7 @@ export class EditComponent extends AddComponent implements OnInit {
   }
 
   override submit(): void {
+
     if(this.flights.length > 0) {
 
     this.setReq()
