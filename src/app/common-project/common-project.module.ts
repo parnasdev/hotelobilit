@@ -47,6 +47,7 @@ import { PanelLoadingComponent } from './panel-loading/panel-loading.component';
 import { MultipleSelectComponent } from './multiple-select/multiple-select.component';
 import { CustomTooltipDirective } from './custom-tooltip.directive';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
+import { AgencyDropDownComponent } from './agency-drop-down/agency-drop-down.component';
 
 
 
@@ -87,7 +88,8 @@ import { AddHotelComponent } from './add-hotel/add-hotel.component';
     PanelLoadingComponent,
     MultipleSelectComponent,
     CustomTooltipDirective,
-    AddHotelComponent
+    AddHotelComponent,
+    AgencyDropDownComponent
   ],
   exports: [
     UploadFileComponent,

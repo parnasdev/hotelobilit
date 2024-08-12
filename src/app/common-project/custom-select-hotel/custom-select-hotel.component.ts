@@ -102,7 +102,7 @@ export class CustomSelectHotelComponent {
   }
 
   changed(item: any): void {
-    debugger
+
     let oldHotel=this.hotelItemSelected
     this.hotelItemSelected = item;
     this.hotelFC.setValue(item.title);

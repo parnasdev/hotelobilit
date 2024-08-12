@@ -20,6 +20,7 @@ import { TransferRateListDTO } from 'src/app/Core/Models/transferRateDTO';
 import { PricingPopupComponent } from 'src/app/hotel/panel/pricing-popup/pricing-popup.component';
 import { Title } from "@angular/platform-browser";
 import { RoomsComponent } from "../rooms/rooms.component";
+import {PublicService} from "../../Core/Services/public.service";
 
 
 @Component({
@@ -103,6 +104,7 @@ export class AddComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public errorService: ErrorsService,
+    public publicServices: PublicService,
     public dialog: MatDialog,
     public fb: FormBuilder,
     public tourApi: TourApiService) {
@@ -224,17 +226,15 @@ export class AddComponent implements OnInit {
       hotel_id: 0,
       order_item: 0,
       offered: false,
-      provider_id:0,
+      provider_id:this.publicServices.session.getAgency_id(),
       board_type:'',
-
       // cwb: '0',
       // child_age: '',
-
       rooms: []
     };
     this.packages.push(item);
 
-    // console.log(this.packages)
+    console.log(this.packages)
 
   }
 

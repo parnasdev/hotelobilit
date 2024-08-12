@@ -1,0 +1,6 @@
+<div class="agencies" >
+  <select [(ngModel)]="+selected_agency_id" (change)="changeAgency($event)" >
+    <option [selected]="true" >آژانس</option>
+    <option  [value]="+item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>
+  </select>
+</div>

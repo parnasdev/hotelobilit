@@ -6,6 +6,7 @@ import {RoomsComponent} from "../../packages/rooms/rooms.component";
 import {MatDialog} from "@angular/material/dialog";
 import {PricingPopupComponent} from "../../hotel/panel/pricing-popup/pricing-popup.component";
 import {map, startWith} from "rxjs/operators";
+import {PublicService} from "../../Core/Services/public.service";
 
 @Component({
   selector: 'prs-add-hotel',
@@ -18,6 +19,7 @@ export class AddHotelComponent implements OnChanges{
 
 
     @Input() is_bundle=false;
+    @Input() isEdit=false;
     @Input() incommingData:any='';
     @Output() result = new EventEmitter();
   @Input() index=0;
@@ -25,38 +27,53 @@ export class AddHotelComponent implements OnChanges{
     @Input() selectedFlights:any[]=[];
 
 
-    @Input() package:PackageTourDTO={hotel_id : 0,
+    @Input() package:PackageTourDTO={
+      hotel_id : 0,
       offered:false,
       order_item:0,
       board_type: "",
       old_hotel_id:0,
-      provider_id: 0,
+      provider_id: this.publicservice.session.getAgency_id(),
       rooms: [
       ],
     };
   agencies:any[]=[]
+  isAgency:any=+this.publicservice.session.getAgency_id();
 
   del_rooms:any[]=[]
 constructor(public tourApi:TourApiService,
             public dialog: MatDialog,
      public message: MessageService,
+            public publicservice:PublicService
 ) {
-  console.log(this.package)
+
+  console.log(this.package,publicservice.session.getRole())
 }
-  getAgency(e:any){
+  getAgency(event:any){
+    this.package.provider_id= event;
 
-    this.package.provider_id= e.target.value;
+    console.log(this.package)
+  }
 
+  changeIsAgency(){
+    debugger
+    if(+this.isAgency===+this.publicservice.session.getAgency_id()){
+      this.isAgency=0
+      this.package.provider_id= 0
+    }else if (this.isAgency===0){
+      this.isAgency = +this.publicservice.session.getAgency_id()
+      this.package.provider_id= +this.publicservice.session.getAgency_id()
+
+
+    }
   }
 
   ngOnChanges() {
     if (this.incommingData && this.incommingData !== '') {
-
-this.package=this.incommingData
-
-      console.log(this.incommingData)
-      this.getAgenciesBasedOnHotelId(this.incommingData.hotel_id)
-
+      this.package=this.incommingData
+debugger
+      this.isAgency= +this.package.provider_id ===+this.publicservice.session.getAgency_id()?+this.package.provider_id:0
+      // this.getAgenciesBasedOnHotelId(this.incommingData.hotel_id)
     }
 
   }
@@ -67,39 +84,41 @@ this.package=this.incommingData
   }
 
   getHotelSelected(hotel: any) {
-    if(this.package.old_hotel_id!==0){
-      this.package.old_hotel_id=hotel.oldHotel.id
+    if(this.package.old_hotel_id &&this.package.old_hotel_id!==0  ){
+      this.package.old_hotel_id=hotel?.oldHotel?.id
     }
 
     this.package.hotel_id = hotel.newhotel.id
     this.sendToParent()
 
-    this.getAgenciesBasedOnHotelId(hotel.newhotel.id)
+    // this.getAgenciesBasedOnHotelId(hotel.newhotel.id)
   }
+
+
 
   sendToParent(){
     this.result.emit({package:this.package,del_rooms:this.del_rooms})
   }
 
-  getAgenciesBasedOnHotelId(hotelId:any): void {
-    let req ={
-      hotel_id:hotelId
-    }
-    // this.isLoading = true;
-    this.tourApi.getAgencies(req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.agencies=res.data
-      } else {
-        this.message.custom(res.message);
-      }
-      // this.isLoading = false;
-
-    }, (error: any) => {
-      this.message.error()
-      // this.isLoading = false;
-
-    })
-  }
+  // getAgenciesBasedOnHotelId(hotelId:any): void {
+  //   let req ={
+  //     hotel_id:hotelId
+  //   }
+  //   // this.isLoading = true;
+  //   this.tourApi.getAgencies(req).subscribe((res: any) => {
+  //     if (res.isDone) {
+  //       this.agencies=res.data
+  //     } else {
+  //       this.message.custom(res.message);
+  //     }
+  //     // this.isLoading = false;
+  //
+  //   }, (error: any) => {
+  //     this.message.error()
+  //     // this.isLoading = false;
+  //
+  //   })
+  // }
 
   openRooms(id:any,hotelid: any, rooms: any,providerId:any) {
 

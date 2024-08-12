@@ -71,6 +71,14 @@ export class SessionService {
     const user = localStorage.getItem('hotelobilit-user');
     return user ? JSON.parse(user).user.role : '';
   }
+  getAgency_name(): any {
+    const user = localStorage.getItem('hotelobilit-user');
+    return user ? JSON.parse(user).user.agency_name : '';
+  }
+  getAgency_id(): any {
+    const user = localStorage.getItem('hotelobilit-user');
+    return user ? JSON.parse(user).user.agency_id : '';
+  }
   getIsManager(): any {
     const user = localStorage.getItem('hotelobilit-user');
     return user ? JSON.parse(user).user.isManager : false;
@@ -167,7 +175,7 @@ export class SessionService {
     return user ? JSON.parse(user).user.birthDay : '';
   }
 
-  
+
 
   isLoggedIn(): any {
     const user = localStorage.getItem('hotelobilit-user');

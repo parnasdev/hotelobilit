@@ -425,7 +425,7 @@ export interface TourSetDTO {
 export interface PackageTourDTO {
   hotel_id: number;
   order_item: number;
-  provider_id?: number;
+  provider_id?: any;
   board_type?: string;
   id?: number;
   offered: boolean;

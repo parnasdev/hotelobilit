@@ -22,15 +22,31 @@
       <!--            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"-->
       <!--              placeholder="کودک با تخت">-->
       <!--            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">-->
-      <div>
-        <label>اژانس</label>
+      <div >
+        <div class="flex-x-between">
+        <label >اژانس</label>
+          <i  *ngIf="publicservice.session.getRole()==='hamnavazAdmin'" class="icon-pencil text-primary" style="font-size: 20px" (click)="changeIsAgency()"></i>
 
-        <div class="agencies">
-          <select [(ngModel)]="package.provider_id" (change)="getAgency($event)" >
-            <option [selected]="true" >آژانس</option>
-            <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>
-          </select>
+
         </div>
+
+        <div *ngIf="publicservice.session.getRole()==='hamnavazAdmin'">
+
+          <div  *ngIf="+isAgency===+this.publicservice.session.getAgency_id()">{{publicservice.session.getAgency_name()}}</div>
+                  <div  *ngIf="isAgency===0">
+<!--                    <select [(ngModel)]="package.provider_id" (change)="getAgency($event)" >-->
+<!--                      <option [selected]="true" >آژانس</option>-->
+<!--                      <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>-->
+<!--                    </select>-->
+                    <prs-agency-drop-down [agency_id]="+package.provider_id" [hotel_id]='this.package?.hotel_id' (result)="getAgency($event)"></prs-agency-drop-down>
+                  </div>
+        </div>
+
+        <div *ngIf="publicservice.session.getRole()!=='hamnavazAdmin'">
+          {{publicservice.session.getAgency_name()}}
+        </div>
+
+
       </div>
 
       <div>
