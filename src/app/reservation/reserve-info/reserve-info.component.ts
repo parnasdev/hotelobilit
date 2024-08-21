@@ -130,4 +130,9 @@ export class ReserveInfoComponent {
     return servicePrice
   }
 
+  getServices(services:any){
+    let foundServices=services.filter((service: any) => service.airport_id===0 || service.airport_id===this.info.flights.departure.destination_id)
+    return foundServices
+  }
+
 }

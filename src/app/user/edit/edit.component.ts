@@ -163,17 +163,19 @@ export class EditComponent implements OnInit {
 
 
   addHotel() {
+    debugger
     let isExist = false;
     this.selectedhotels.forEach(hotel => {
-      if (hotel.title === this.hotelItem.title) {
+      if (hotel.title === this.hotelItem.newhotel.title) {
         isExist = true
       }
     })
     if (!isExist) {
-      this.selectedhotels.push(this.hotelItem)
+      this.selectedhotels.push(this.hotelItem.newhotel)
     } else {
       this.message.custom('هتل تکراری است')
     }
+    // console.log(this.selectedhotels)
   }
   getLastSelectedCities(): number[] {
     let result: number[] = []
@@ -210,7 +212,7 @@ export class EditComponent implements OnInit {
       }
     })
 
-  
+
     // if (this.userInfo.user.role_id === 8 && (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer')) {
     //   this.permissions = this.permissions.filter(x => x.isChecked);
     // }

@@ -278,7 +278,7 @@
           </div>
         </div>
         <div class="  w-100 grid-10">
-          <div class="d-flex item-bimeh" *ngFor="let s of item.info_room?.services">
+          <div class="d-flex item-bimeh" *ngFor="let s of getServices(item.info_room?.services)">
             <span>{{ s.category + ' : ' }}</span>
             <span>{{ s.rate | sperator }}</span>
           </div>

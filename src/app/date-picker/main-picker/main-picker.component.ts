@@ -74,7 +74,8 @@ export class MainPickerComponent implements OnInit, OnChanges {
 
 
   fixDates(startof: any, endOf: any) {
-    const days = this.enumerateDaysBetweenDates(startof, endOf)
+    debugger
+    const days = this.enumerateDaysBetweenDates(startof, endOf);
     let weekOfFirstDay = moment(startof).weekday() + 1;
     for (let i = 0; i < weekOfFirstDay; i++) {
       days.unshift('')
@@ -91,9 +92,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
     let end1 = moment(this.currentYears[0] + '/' + this.currentMonths[0] + '/1', 'jYYYY/jMM/jDD').endOf('jmonth');
     let start2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'jYYYY/jMM/jDD').startOf('jmonth')
     let end2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'jYYYY/jMM/jDD').endOf('jmonth')
-
     const dates = [...this.fixDates(start1, end1), ...this.fixDates(start2, end2)]
-    debugger
     this.daysOfMonth = this.fillObject(dates)
   }
 
