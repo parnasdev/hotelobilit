@@ -35,6 +35,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
     public route: ActivatedRoute,
     public api: PostApiService,
     public message: MessageService,) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['incommingDates']) {
       if (this.type === 'multiple') {
@@ -72,12 +73,21 @@ export class MainPickerComponent implements OnInit, OnChanges {
     }
   };
 
-
+   jalaliToMiladiConvertor (jalaliDate:string)  {
+    const jalali = moment(jalaliDate, "jYYYY/jMM/jDD");
+    const miladiToJalali = jalali.format("YYYY/MM/DD");
+    const reformattedMiladiDate = miladiToJalali?.replace(/\//g, "-");
+    return reformattedMiladiDate;
+  };
   fixDates(startof: any, endOf: any) {
     debugger
     const days = this.enumerateDaysBetweenDates(startof, endOf);
-    let weekOfFirstDay = moment(startof).weekday() + 1;
-    for (let i = 0; i < weekOfFirstDay; i++) {
+    let miladiFormated=moment(startof).format('YYYY/MM/DD')
+    const date = new Date(miladiFormated);
+    const dayOfWeek = date.getDay() +1;
+    // console.log('pouya',dayOfWeek)
+    let weekOfFirstDay = moment(startof).weekday()+1 ;
+    for (let i = 0; i < dayOfWeek; i++) {
       days.unshift('')
     }
     let indexOfLatestDay = days.length;
