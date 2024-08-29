@@ -26,7 +26,7 @@
         <label>اژانس</label>
 
         <div class="agencies">
-          <select [(ngModel)]="package.provider_id" (change)="getAgency($event)" >
+          <select [(ngModel)]="package.provider_id" (change)="getAgency($event)">
             <option [selected]="true" >آژانس</option>
             <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>
           </select>

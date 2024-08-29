@@ -51,11 +51,10 @@ constructor(public tourApi:TourApiService,
 
   ngOnChanges() {
     if (this.incommingData && this.incommingData !== '') {
-
-this.package=this.incommingData
-
-      console.log(this.incommingData)
-      this.getAgenciesBasedOnHotelId(this.incommingData.hotel_id)
+      this.package=this.incommingData
+      if(this.agencies.length === 0){
+        this.getAgenciesBasedOnHotelId(this.incommingData.hotel_id);
+      }
 
     }
 
@@ -82,6 +81,7 @@ this.package=this.incommingData
   }
 
   getAgenciesBasedOnHotelId(hotelId:any): void {
+
     let req ={
       hotel_id:hotelId
     }

@@ -83,7 +83,7 @@
       <div class="item bg-white" *ngFor="let item of list| paginate: paginateConfig ; let i = index">
         <span class="id">{{ item.id }}</span>
         <div class="d-flex flex-column">
-          <span class="username">{{ item.information.reserver.phone }}</span>
+          <span *ngIf="session.getRole()!=='تامین کننده هتل'" class="username">{{ item.information.reserver.phone }}</span>
           <span class="username">{{ item.information.partner_name ?item.information.partner_name : 'ثبت نشده'}}</span>
         </div>
         <div class="d-flex flex-column">
