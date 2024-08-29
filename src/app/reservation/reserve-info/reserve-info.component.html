@@ -75,7 +75,7 @@
           <span>نام و نام خانوادگی :</span>
           <span class="mr-2 text-gray">{{ info?.information.reserver.full_name }}</span>
         </div>
-        <div class="item">
+        <div class="item" *ngIf="session.getRole()!=='تامین کننده هتل'">
           <span style="color: #ff0000; font-size: 20px;">شماره همراه :</span>
           <span class="mr-2 text-gray">{{ info?.information.reserver.phone }}</span>
         </div>
