@@ -68,6 +68,7 @@
     "NumberOfRoomsAvailable": "تعداد اتاق موجود",
     "PricePerPersonInTheRoom": "قیمت هر نفر در اتاق ",
     "EnterPrice": "قیمت خود را وارد کنید",
+    "EnterNumberOfRoom": "تعداد اتاق را وارد کنید",
     "extraBedPrice": "قیمت تخت اضافه",
     "checkinBase": "چکین بیس شود",
     "notCheckinBase": "چکین بیس نشود",
