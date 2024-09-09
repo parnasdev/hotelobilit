@@ -10,7 +10,7 @@ export class MultipleSelectComponent {
   @Input() data: any = []
   @Input() showKey: string = ''
   @Input() incommingData: any[] = []
-  @Input() valueKey: string | null = ''
+  @Input() valueKey: string | null = '';
   @Output() result: EventEmitter<any> = new EventEmitter();
 
   filteredList: any[] = []

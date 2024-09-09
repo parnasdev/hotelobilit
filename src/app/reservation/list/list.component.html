@@ -10,10 +10,19 @@
         [color]="'#fff'"></prs-icons>
       حذف فیلتر
     </a>
-    <select class="w-100 input-filter" name="" id="" [(ngModel)]="filterObj.status">
-      <option value="all">همه</option>
-      <option  *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
-    </select>
+<!--    <prs-multiple-select class="w-100 input-filter" name="" id="" [data]="statuses" [(ngModel)]="filterObj.status">-->
+<!--&lt;!&ndash;      <option value="all">همه</option>&ndash;&gt;-->
+<!--&lt;!&ndash;      <option  *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>&ndash;&gt;-->
+<!--    </prs-multiple-select>-->
+<div  class="w-100 input-filter1">
+  <mat-form-field style="height: 100px ;width: 99%; position: absolute; top: 0px ; padding: 0 3px;" >
+    <mat-label>وضعیت</mat-label>
+    <mat-select [(ngModel)]="selectedStatuses" [multiple]="true"  (selectionChange)="onStatusChange($event)">
+      <mat-option  *ngFor="let s of statuses"  [value]="s.id" >{{s.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
     <input class="w-100 input-filter" type="text" placeholder="رفرنس" [(ngModel)]="filterObj.ref_code">
     <input class="w-100 input-filter" type="text" placeholder="کدملی" [(ngModel)]="filterObj.id_code">
     <input class="w-100 input-filter" type="text" placeholder="تاریخ" [(ngModel)]="filterObj.dateFa" (click)="openPicker()">

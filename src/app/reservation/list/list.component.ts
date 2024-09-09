@@ -24,12 +24,14 @@ export class ListComponent implements OnInit {
   statuses: any[] = []
   paginateConfig: any;
   list: any[] = [];
+  selectedStatuses: number[] = [470,471,501];
+
   filterObj: any = {
     phone: '',
     id_code: '',
     ref_code: '',
     dateFa: '',
-    status: '501',
+    status: '470|471|501',
     fromDateEn: '',
     toDateEn: ''
   }
@@ -48,8 +50,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('رزرو ها | هتل و بلیط')
+
 this.getstats()
-    // this.getList()
+    this.getList()
   }
 
   deleteReservation(id:any){
@@ -91,6 +94,7 @@ this.getstats()
     let params = `?status=${this.filterObj.status === 'all' ? '' : this.filterObj.status}&fromDate=${this.filterObj.fromDateEn}&toDate=${this.filterObj.toDateEn}&ref_code=${this.filterObj.ref_code}&phone=${this.filterObj.phone}&id_code=${this.filterObj.id_code}&page=${this.p}`
     this.api.list(params).subscribe((res: any) => {
       if (res.isDone) {
+
         this.list = res.data
         // this.statuses = res.statuses;
         this.paginate = res.meta;
@@ -183,7 +187,22 @@ this.getstats()
     this.list = []
     this.getList()
   }
+// getstatus(e:any){
+//     debugger
+//     let statusId=[]
+//   statusId.push(e.id)
+//   console.log(statusId)
+// }
+  onStatusChange(event: any) {
+    debugger
+    this.selectedStatuses = event.value;
+    this.getstatus(this.selectedStatuses);
+  }
 
+  getstatus(selectedIds: number[]) {
+   let final= selectedIds.join('|')
+    this.filterObj.status=final
+  }
   getIsFilter() {
     return this.filterObj.status &&
       this.filterObj.phone &&
