@@ -16,9 +16,9 @@
 <!--    </prs-multiple-select>-->
 <div  class="w-100 input-filter1">
   <mat-form-field style="height: 100px ;width: 99%; position: absolute; top: 0px ; padding: 0 3px;" >
-    <mat-label>وضعیت</mat-label>
+    <mat-label style="font-size: 14px">وضعیت</mat-label>
     <mat-select [(ngModel)]="selectedStatuses" [multiple]="true"  (selectionChange)="onStatusChange($event)">
-      <mat-option  *ngFor="let s of statuses"  [value]="s.id" >{{s.name}}</mat-option>
+      <mat-option  *ngFor="let s of statuses"  [value]="s.id" style="font-size: 14px; white-space: nowrap" >{{s.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

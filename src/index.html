@@ -15,8 +15,8 @@
 <!--  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />-->
 <!--  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/moon-icon/icomoon.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -27,11 +27,11 @@
 <!--  <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/fa/style.css">-->
 <!--  <link href="assets/plugins/bootstrap-fileinput-master/css/fileinput.css" rel="stylesheet" />-->
 <!--  <link href="assets/plugins/bootstrap-fileinput-master/themes/explorer-fas/theme.css" rel="stylesheet" />-->
-  <link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox.min.css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="assets/plugins/dropzone/dropzone.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox.min.css" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="assets/plugins/dropzone/dropzone.css" media="screen"/>
   <meta name="fragment" content="!">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.6/animate.min.css"/> -->
 <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />-->
@@ -45,6 +45,26 @@
           })(window,document,'script','dataLayer','GTM-PVB2Z5W');
   </script> -->
 
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+
+  <script type="text/javascript">
+    (function(){
+      var now = new Date();
+      var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate() +
+        "0" + now.getHours();
+      var head = document.getElementsByTagName("head")[0];
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://van.najva.com/static/cdn/css/local-messaging.css" + "?v=" + version;
+      head.appendChild(link);
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = "https://van.najva.com/static/js/scripts/new-website693451-website-58913-e21898ca-831c-42b7-907c-0fc79aa6046a.js" + "?v=" + version;
+      head.appendChild(script);
+    })()
+  </script>
 </head>
 
 
@@ -59,9 +79,7 @@
 <!--    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"-->
 <!--    crossorigin="anonymous"></script>-->
   <script src="assets/js/theme.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <!--  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>-->
   <script src="https://static.neshan.org/sdk/leaflet/v1.9.4/neshan-sdk/v1.0.8/index.js"></script>
 
@@ -90,6 +108,7 @@
     })
 
   </script>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 
 </html>
