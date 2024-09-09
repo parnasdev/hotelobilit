@@ -30,12 +30,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest",
-              "src/app/custome-service-worker.js",
-              {
-                "glob": "custome-service-worker.js",
-                "input": "src/app",
-                "output": "/"
-              }
+              "src/najva-messaging-sw.js"
+
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
