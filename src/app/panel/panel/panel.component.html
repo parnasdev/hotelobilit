@@ -18,16 +18,23 @@
       </div>
       <main class="main">
         <header class="header-panel">
-          <div class="search">
-            <svg id="Search..." xmlns="http://www.w3.org/2000/svg" width="24.371" height="24.371"
-              viewBox="0 0 24.371 24.371">
-              <path id="Path_1136" data-name="Path 1136"
-                d="M1,11.478c0,4.37.783,6.88,2.3,8.345s4.047,2.133,8.175,2.133,6.647-.659,8.175-2.133,2.3-3.975,2.3-8.345-.783-6.88-2.3-8.345S15.606,1,11.478,1,4.831,1.659,3.3,3.133,1,7.108,1,11.478Z"
-                fill="none" stroke="#646464" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-              <path id="Path_1137" data-name="Path 1137" d="M22.956,22.956l-2.609-2.609" fill="none" stroke="#646464"
-                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-            </svg>
-            <input type="text" placeholder="جستجو کنید....">
+          <div class="search flex-x-start w-100 gap-20" *ngIf="currencies.dollar || currencies.euro || currencies.derham">
+            <div class="flex-x-center gap-1" style="width: auto;height: 20px; background-color: #6f42c1; padding: 20px; border-radius: 10px">
+              <p class="m-0 p-0" style="color: white">دلار:</p>
+              <p class="m-0 p-0" style="color: white">{{currencies?.dollar | separator}} تومان </p>
+            </div>
+
+            <div class="flex-x-center gap-1" style="width: auto;height: 20px; background-color: #6f42c1; padding: 20px; border-radius: 10px">
+              <p class="m-0 p-0" style="color: white">یورو:</p>
+              <p class="m-0 p-0" style="color: white">{{currencies?.euro |separator}} تومان </p>
+            </div>
+
+            <div class="flex-x-center gap-1" style="width: auto;height: 20px; background-color: #6f42c1; padding: 20px; border-radius: 10px">
+              <p class="m-0 p-0" style="color: white">درهم:</p>
+              <p class="m-0 p-0" style="color: white">{{currencies?.derham |separator}} تومان </p>
+            </div>
+
+
           </div>
 
           <div class="item-info">

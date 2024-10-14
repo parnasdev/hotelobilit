@@ -17,17 +17,17 @@ import { ConvertDateTimePipe } from './convert-date-time.pipe';
 
 @NgModule({
   declarations: [SperatorPipe,SafeHtmlPipe,SeparatorPipe, TourStatusFilterPipe, RoundPipe, OrderingPipe, CityKeywordPipe, OriginCityPipe, ConvertDatePipe, HotelListKeywordPipe, TimeFixerPipe, ConvertDateTimePipe],
-  exports: [
-    SperatorPipe,
-    SafeHtmlPipe,
-    TourStatusFilterPipe,
-    RoundPipe,
-    OrderingPipe,
-    CityKeywordPipe,
-    ConvertDateTimePipe,
-    TimeFixerPipe,
-    OriginCityPipe,ConvertDatePipe
-  ],
+    exports: [
+        SperatorPipe,
+        SafeHtmlPipe,
+        TourStatusFilterPipe,
+        RoundPipe,
+        OrderingPipe,
+        CityKeywordPipe,
+        ConvertDateTimePipe,
+        TimeFixerPipe,
+        OriginCityPipe, ConvertDatePipe, SeparatorPipe
+    ],
   imports: [
     CommonModule
   ]

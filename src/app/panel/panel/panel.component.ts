@@ -4,6 +4,8 @@ import {SettingService} from "../../Core/Services/setting.service";
 import {SessionService} from 'src/app/Core/Services/session.service';
 import {ResponsiveService} from "../../Core/Services/responsive.service";
 import { TranslateService } from '@ngx-translate/core';
+import {SettingApiService} from "../../Core/Https/setting-api.service";
+import {MessageService} from "../../Core/Services/message.service";
 
 declare let $: any;
 
@@ -19,8 +21,13 @@ export class PanelComponent implements OnInit {
   isDesktop = false;
   isSidebarMobi = false;
 
+  currencies:any={}
+
   constructor(public title: Title,
               public session: SessionService,
+              public settingApi: SettingApiService,
+              public message: MessageService,
+
               public translate: TranslateService,
               public responsiveService: ResponsiveService,
               public setting: SettingService) {
@@ -29,6 +36,7 @@ export class PanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAdminCurrencies()
     $('.toggle-sidebar').click(() => {
       $('.p-sidebar').animate({
         width: ['toggle', 'swing'],
@@ -62,7 +70,22 @@ export class PanelComponent implements OnInit {
     this.isSidebarMobi = !this.isSidebarMobi
   }
 
-
+  getAdminCurrencies() {
+    let req = {
+      "names": ["currencies"]
+    }
+    this.settingApi.getSetting(req).subscribe((res: any) => {
+      if (res.isDone) {
+        this.currencies = res.data.currencies;
+        // this.setAdminData();
+        console.log(this.currencies)
+      } else {
+        this.message.custom(res.message);
+      }
+    }, (error: any) => {
+      this.message.error()
+    })
+  }
   langChanged(value: any) {
     localStorage.setItem('hotelobilit-lang',value)
     this.translate.use(value)
