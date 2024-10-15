@@ -157,6 +157,7 @@ export class MainPickerComponent implements OnInit {
   fillObject(dates: any = []) {
     let result: any[] = [];
     dates.forEach((date: any) => {
+
       const object = {
         dateFa: moment(date).isValid() ? date : '',
         dateEn: moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY/MM/DD') : '',
@@ -205,7 +206,9 @@ export class MainPickerComponent implements OnInit {
         //   price = item.price
         // }
       }
-      if (item.currency_code === 'toman') {
+// debugger
+      let currency_code=item.user_currency_code ==='NOTSET'? item.currency_code :  item.user_currency_code;
+      if (currency_code === 'toman') {
         if (price.toString().length > 6) {
           return Intl.NumberFormat('en').format(price / 1000000) + ' ' + 'م ت'
         } else if (price.toString().length > 3) {
@@ -213,9 +216,9 @@ export class MainPickerComponent implements OnInit {
         } else {
           return Intl.NumberFormat('en').format(price) + 'ت'
         }
-      } else if (item.currency_code === 'dollar') {
+      } else if (currency_code === 'dollar') {
         return Intl.NumberFormat('en').format(price) + 'دلار'
-      } else if (item.currency_code === 'euro') {
+      } else if (currency_code === 'euro') {
         return Intl.NumberFormat('en').format(price) + 'یورو'
       } else {
         return Intl.NumberFormat('en').format(price) + 'درهم'
@@ -282,6 +285,7 @@ export class MainPickerComponent implements OnInit {
 
 
   isExistSelectedDates(item: any): any {
+
     if (this.selectedDates.length > 0) {
       return this.selectedDates.some((x) => item.dateFa === x);
     }
@@ -299,7 +303,7 @@ export class MainPickerComponent implements OnInit {
         hotelID: this.hotelID,
         type: +this.pricingType,
         bedCount: this.room?.extra_bed_count,
-        currency_code: this.pricesData.hotel.currency_code,
+        currency_code: this.pricesData.hotel.user_currency_code === 'NOTSET' ? this.pricesData.hotel.currency_code:this.pricesData.hotel.user_currency_code,
         isJustRoomCount : isJustRoomCount,
         board_type:this.selected_boardtype
       }
@@ -329,11 +333,13 @@ returnString(str1:any,str2:any,chd_price_w:any){
       const y: any = moment(item).format('YYYY/MM/DD')
 
       if (this.daysOfMonth.length > 0) {
+
         let result = this.pricesData.rates.filter((x: any) => y === moment(x.date).format('YYYY/MM/DD'))
         return result.length > 0 ? {
           available_room_count: result[0].available_room_count,
           created_at: result[0].created_at,
           currency_code: result[0].currency_code,
+          user_currency_code: this.pricesData?.hotel?.user_currency_code,
           date: result[0].date,
           checkin_base: result[0].checkin_base,
           deleted_at: result[0].deleted_at,

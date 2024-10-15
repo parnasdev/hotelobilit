@@ -64,8 +64,17 @@ export class PostApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
+  getAgencyCurrencies(hotelId: any): any {
+    const strUrl = this.serverControllerName + `currencies/${hotelId}`;
+    return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
+  }
+
   rating(roomId: number, req: HotelRatesSetReqDTO): any {
     const strUrl = this.serverControllerName + `rates/${roomId}`;
+    return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
+  }
+  changeCurrency( req: any): any {
+    const strUrl = this.serverControllerName + `currencies`;
     return this.http.post<Result<any>>(strUrl, req, this.publicService.getDefaultHeaders());
   }
 

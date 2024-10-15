@@ -31,7 +31,8 @@ export interface storeHotelReqDTO {
     currency_code: string;
     user: userDTO
     status: statusObjDTO
-    rooms?: roomDTO[]
+    rooms?: roomDTO[];
+    user_currency_code?:string
 }
 
 export interface RoomDTO {

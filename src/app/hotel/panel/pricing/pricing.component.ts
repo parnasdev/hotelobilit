@@ -34,6 +34,7 @@ export class PricingComponent implements OnInit {
   roomTypeId = 0;
   calendarLang = 'shamsi'
   currentLang = ''
+  selectedCurrency:any=0
   ratingData!: RatingResDTO;
   rooms: roomDTO[] = [];
   constructor(
@@ -56,6 +57,7 @@ export class PricingComponent implements OnInit {
     // @ts-ignore
     this.id = this.route.snapshot.paramMap.get('id');
     this.getInfo()
+    this.getAgencyCurrencies()
   }
 
   getAgencyName() {
@@ -63,6 +65,23 @@ export class PricingComponent implements OnInit {
     return itemFiltered.length > 0 ? itemFiltered[0].agency_name : '---'
   }
 
+
+  getAgencyCurrencies(){
+
+    this.api.getAgencyCurrencies(this.id).subscribe((res: any) => {
+      this.isLoading = false;
+      if (res.isDone) {
+
+this.selectedCurrency=res.data.currency
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      // this.isLoading = false
+      this.checkError.check(error)
+      this.message.error()
+    })
+  }
   getInfo(): void {
     // this.ratingData.rates=[]
 
@@ -115,6 +134,28 @@ export class PricingComponent implements OnInit {
   agencyChanged() {
     this.getInfo()
     this.reload()
+  }
+
+  changeCurrency(){
+    let req={
+      hotel_id:this.id,
+      currency:this.selectedCurrency
+    }
+    this.api.changeCurrency(req).subscribe((res: any) => {
+      this.isLoading = false;
+
+      if (res.isDone) {
+
+        this.getInfo()
+        this.reload()
+      } else {
+        this.message.custom(res.message)
+      }
+    }, (error: any) => {
+      this.isLoading = false
+      this.checkError.check(error)
+      this.message.error()
+    })
   }
 
 

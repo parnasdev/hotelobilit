@@ -215,7 +215,9 @@ export class MainPickerEnComponent implements OnInit {
         //   price = item.price
         // }
       }
-      if (item.currency_code === 'toman') {
+      let currency_code=item.user_currency_code ==='NOTSET'? item.currency_code :  item.user_currency_code;
+
+      if (currency_code === 'toman') {
         if (price.toString().length > 6) {
           return Intl.NumberFormat('en').format(price / 1000000) + ' ' + 'm t'
         } else if (price.toString().length > 3) {
@@ -223,9 +225,9 @@ export class MainPickerEnComponent implements OnInit {
         } else {
           return Intl.NumberFormat('en').format(price) + 't'
         }
-      } else if (item.currency_code === 'dollar') {
+      } else if (currency_code === 'dollar') {
         return Intl.NumberFormat('en').format(price) + 'dollar'
-      } else if (item.currency_code === 'euro') {
+      } else if (currency_code === 'euro') {
         return Intl.NumberFormat('en').format(price) + 'euro'
       } else {
         return Intl.NumberFormat('en').format(price) + 'derham'
@@ -307,7 +309,7 @@ export class MainPickerEnComponent implements OnInit {
         hotelID: this.hotelID,
         type: +this.pricingType,
         bedCount: this.room?.extra_bed_count,
-        currency_code: this.pricesData.hotel.currency_code,
+        currency_code: this.pricesData.hotel.user_currency_code === 'NOTSET' ? this.pricesData.hotel.currency_code:this.pricesData.hotel.user_currency_code,
         isJustRoomCount : isJustRoomCount,
         board_type:this.selected_boardtype
 
@@ -348,6 +350,8 @@ export class MainPickerEnComponent implements OnInit {
           reserving_room_count:result[0].reserving_room_count,
           chd_w_price:result[0].chd_w_price,
           booked_room_count:result[0].booked_room_count,
+          user_currency_code: this.pricesData?.hotel?.user_currency_code,
+
           updated_at: result[0].updated_at,
           user_id: result[0].user_id
         } : null;
