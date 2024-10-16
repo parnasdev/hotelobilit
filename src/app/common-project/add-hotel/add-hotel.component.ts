@@ -66,7 +66,11 @@ constructor(public tourApi:TourApiService,
   }
 
   getHotelSelected(hotel: any) {
-    if(this.package.old_hotel_id!==0){
+
+    // if(this.package.old_hotel_id!==0 || this.package.old_hotel_id!==undefined){
+    //   this.package.old_hotel_id=hotel.oldHotel.id
+    // }
+    if(this.package.old_hotel_id){
       this.package.old_hotel_id=hotel.oldHotel.id
     }
 
@@ -125,6 +129,7 @@ constructor(public tourApi:TourApiService,
   }
 
   openPricingCalendar(index: number, hotelId: number) {
+    debugger
     const hotelFiltered = this.hotels.filter(x => x.id === +hotelId);
     const hotel = hotelFiltered.length > 0 ? hotelFiltered[0] : null
     if (hotelId === 0 || !hotelId) {
