@@ -74,9 +74,9 @@ export class PanelComponent implements OnInit {
     let req = {
       "names": ["currencies"]
     }
-    this.settingApi.getSetting(req).subscribe((res: any) => {
+    this.settingApi.getCurrencies().subscribe((res: any) => {
       if (res.isDone) {
-        this.currencies = res.data.currencies;
+        this.currencies = res.data.value;
         // this.setAdminData();
         console.log(this.currencies)
       } else {
