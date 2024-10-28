@@ -300,7 +300,7 @@ this.getAirlines(res.data)
 
             this.compositionList = res.data
 
-            // this.filterPos=true
+            this.filterPos=true
 
             console.log(this.compositionList)
           }
