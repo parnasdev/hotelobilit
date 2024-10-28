@@ -158,7 +158,7 @@
   <prs-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></prs-checkbox>
 </div>
 <div style="padding: 1rem" class="body-list-tour">
-  <div *ngIf="filterPos">
+  <div >
 
     <div class="gap-2" style="display: flex; justify-content: space-between;align-items: center">
       <div class="w-15">
@@ -185,6 +185,14 @@
         <select class="inp-form" name="" id="" [(ngModel)]="compositionListObj.return_airline">
           <option value="" disabled> برگشت ایرلاین</option>
           <option *ngFor="let item of airlines.return" [value]="item">{{ item }}</option>
+        </select>
+      </div>
+      <div class="w-15">
+        <p>  روز</p>
+
+        <select class="inp-form" name="" id="" [(ngModel)]="compositionListObj.day">
+          <option value="" disabled> روز</option>
+          <option *ngFor="let item of weekDays" [value]="item">{{ item }}</option>
         </select>
       </div>
 
