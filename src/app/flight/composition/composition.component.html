@@ -148,7 +148,7 @@
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-center align-items-center">
+<div class="d-flex justify-content-center align-items-center mb-2">
   <button class="btn-base-purple w-25 mt-3 cursor-pointer" (click)="composition()">نمایش ترکیب ها
     <span class="spinner-border spinner-border-sm" *ngIf="compositionLoading"></span>
   </button>
@@ -158,7 +158,7 @@
   <prs-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></prs-checkbox>
 </div>
 <div style="padding: 1rem" class="body-list-tour">
-  <div >
+  <div *ngIf="filterPos" >
 
     <div class="gap-2" style="display: flex; justify-content: space-between;align-items: center">
       <div class="w-15">
