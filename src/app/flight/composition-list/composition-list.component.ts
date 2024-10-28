@@ -23,6 +23,8 @@ export interface FilterCompositionDTO {
   fromDate: string | null;
   toDate: string | null;
   q: string | null
+  departure_flight_number:string | null;
+  return_flight_number:string | null;
 }
 @Component({
   selector: 'prs-composition-list',
@@ -65,7 +67,9 @@ export class CompositionListComponent {
     stay_count: null,
     status: 0,
     fromDate: null,
-    toDate: null
+    toDate: null,
+    departure_flight_number:null,
+    return_flight_number:null
   };
   data: any[] = []
   constructor(public api: FlightApiService,
@@ -96,6 +100,8 @@ export class CompositionListComponent {
         this.filterObj.fromDate = params['fromDate']
         this.filterObj.airline = params['airline']
         this.filterObj.toDate = params['toDate']
+        this.filterObj.departure_flight_number = params['departure_flight_number']
+        this.filterObj.return_flight_number = params['return_flight_number']
 
         this.filterObj.stay_count = +params['stay_count']
       } else {
@@ -108,7 +114,9 @@ export class CompositionListComponent {
           mixed: true,
           status: 0,
           toDate: null,
-          fromDate: null
+          fromDate: null,
+          departure_flight_number:null,
+          return_flight_number:null
         }
       }
     })
@@ -283,7 +291,9 @@ export class CompositionListComponent {
       mixed: true,
       status: 0,
       q: null,
-      origin: null
+      origin: null,
+      departure_flight_number:null,
+      return_flight_number:null
     }
     this.router.navigate([`/panel/flight/composition-list`], {
       queryParams: this.filterObj

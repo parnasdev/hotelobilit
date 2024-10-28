@@ -158,6 +158,58 @@
   <prs-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></prs-checkbox>
 </div>
 <div style="padding: 1rem" class="body-list-tour">
+  <div *ngIf="filterPos">
+
+    <div class="gap-2" style="display: flex; justify-content: space-between;align-items: center">
+      <div class="w-15">
+        <p>نمایض براساس</p>
+
+        <select class="inp-form" name="" id="" [(ngModel)]="compositionListObj.is_mixed">
+          <option value="" disabled>نمایش براساس</option>
+          <option value="true">موجود</option>
+          <option value="false">نا موجود</option>
+        </select>
+      </div>
+
+      <div class="w-15">
+        <p>ایرلاین رفت</p>
+
+        <select class="inp-form" name="" id="" [(ngModel)]="compositionListObj.departure_airline">
+          <option *ngFor="let item of airlines.departure" [value]="item">{{ item }}</option>
+        </select>
+      </div>
+
+      <div class="w-15">
+        <p>  ایرلاین برگشت</p>
+
+        <select class="inp-form" name="" id="" [(ngModel)]="compositionListObj.return_airline">
+          <option value="" disabled> برگشت ایرلاین</option>
+          <option *ngFor="let item of airlines.return" [value]="item">{{ item }}</option>
+        </select>
+      </div>
+
+<div class="w-15">
+  <p>شماره پرواز</p>
+  <input class="inp-form" type="text" [(ngModel)]="compositionListObj.flight_number">
+
+</div>
+
+
+        <button class="btn-base h-60 w-10 mt-4 cursor-pointer" (click)="compositionFilter()">فیلتر</button>
+
+        <button class="btn-base h-60 w-10 mt-4 cursor-pointer " (click)="deleteFilter()">پاک کردن فیلتر</button>
+<!--      <div class="w-100 m-top-16 d-flex justify-content-end">-->
+<!--      </div>-->
+
+<!--      <div class="w-100 m-top-16 d-flex justify-content-end">-->
+
+
+<!--      </div>-->
+    </div>
+
+
+
+  </div>
   <div class="item-two" *ngFor="let transfer of compositionData ;let i = index">
     <span>{{ i + 1 }}</span>
     <span>

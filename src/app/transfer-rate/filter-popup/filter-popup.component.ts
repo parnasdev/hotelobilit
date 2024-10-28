@@ -15,6 +15,7 @@ export interface FilterDTO {
   status: number | null;
   airline: any
   agency:number|null;
+  flight_number?: number | null;
 
   fromDate: string | null;
   toDate: string | null;
@@ -32,6 +33,7 @@ export class FilterPopupComponent implements OnInit {
     fromDate: null,
     airline: null,
     status: null,
+
     toDate: null,
     agency:null,
 

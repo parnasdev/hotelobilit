@@ -25,6 +25,7 @@ import * as moment from "moment";
 export class ListComponent {
   isLoading = false;
   weekDays:any[]=[]
+  filterPos=true
   req: IFlightListReq = {
     destination: 0,
     fromDate: '',
@@ -41,6 +42,7 @@ export class ListComponent {
     airline: null,
     status: 0,
     fromDate: null,
+    flight_number:null,
     toDate: null,
     agency: null,
   };
@@ -87,6 +89,7 @@ export class ListComponent {
         this.filterObj.toDate = params['toDate']
         this.filterObj.airline = +params['airline']
         this.filterObj.agency = +params['agency']
+        this.filterObj.flight_number = params['flight_number'] ? +params['flight_number'] : null
       } else {
         this.filterObj = {
           destination: null,
@@ -96,6 +99,7 @@ export class ListComponent {
           status: 0,
           toDate: null,
           fromDate: null,
+          flight_number: null,
           agency: null,
         }
       }

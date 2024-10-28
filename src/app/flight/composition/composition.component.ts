@@ -20,9 +20,11 @@ export class CompositionComponent {
     airlines: [],
     airports: []
   }
-  selectAll = false
+  selectAll = false;
+  filterPos=false
   mixedLoading = false;
   compositionLoading = false
+  airlines: any = {departure:[],return:[]}
 
   departureLoading = false;
   returnLoading = false;
@@ -41,6 +43,44 @@ export class CompositionComponent {
     { id: 8, name: ' ۸ شب' },
     { id: 9, name: ' ۹ شب' },
   ]
+
+  compositionListObj:any={
+    is_mixed:null,
+    departure_airline:null,
+    return_airline:null,
+    flight_number:null,
+  }
+
+  compositionFilter(){
+    let finalData=[]
+    let filterByAirlineName=this.compositionList.filter((data:any)=>(!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
+          (!this.compositionListObj.return_airline || data.return.airline_name  === this.compositionListObj.return_airline) )
+    finalData.push(...filterByAirlineName)
+    let filterByFlightNumber=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.flight_number && (data.departure.flight_number===this.compositionListObj.flight_number || data.return.flight_number===this.compositionListObj.flight_number) )):this.compositionList.filter((data:any)=>(this.compositionListObj.flight_number && (data.departure.flight_number===this.compositionListObj.flight_number || data.return.flight_number===this.compositionListObj.flight_number) ))
+    filterByAirlineName.length>0? (this.compositionListObj.flight_number?finalData=filterByFlightNumber:null): finalData.push(...filterByAirlineName)
+
+    debugger
+let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true'))):this.compositionList.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true')))
+    filterByAirlineName.length>0? (this.compositionListObj.is_mixed?finalData=filterByIsMixed:null): finalData.push(...filterByIsMixed)
+
+
+
+    this.compositionData=finalData
+
+
+
+
+  }
+
+  deleteFilter(){
+    this.compositionListObj={
+      is_mixed:null,
+      departure_airline:null,
+      return_airline:null,
+      flight_number:null,
+    }
+    this.compositionData=this.compositionList
+  }
 
   departureObj: IMixStepOneReq = {
     request_type: '',
@@ -81,6 +121,8 @@ export class CompositionComponent {
       checkout_yesterday: false,
     }
   }
+
+  compositionList:any
   compositionData: any;
   constructor(public api: FlightApiService,
     public message: MessageService,
@@ -164,6 +206,8 @@ export class CompositionComponent {
     })
   }
 
+
+
   getFlights(type = 'departure') {
     let objReq: any;
     if (type === 'departure') {
@@ -198,6 +242,7 @@ export class CompositionComponent {
     })
   }
 
+
   setCompositionReq() {
     this.compositionReq = {
       departure: {
@@ -218,6 +263,19 @@ export class CompositionComponent {
     }
   }
 
+  getAirlines(data:any){
+
+    data.map((d:any)=>{
+      this.airlines.departure.push(d.departure.airline_name)
+      this.airlines.return.push(d.return.airline_name)
+    })
+
+    this.airlines.departure= [...new Set(this.airlines.departure)];
+    this.airlines.return= [...new Set(this.airlines.return)];
+
+
+  }
+
   composition() {
     if (this.returnList.length > 0 && this.departureList.length > 0) {
       this.setCompositionReq()
@@ -226,6 +284,13 @@ export class CompositionComponent {
         next: (res: any) => {
           if (res.isDone) {
             this.compositionData = res.data
+this.getAirlines(res.data)
+
+            this.compositionList = res.data
+
+            this.filterPos=true
+
+            console.log(this.compositionList)
           }
           this.compositionLoading = false
 
@@ -298,7 +363,7 @@ export class CompositionComponent {
     let req: IMixedReq = {
       ids: this.getCompositionIds()
     }
-    
+
     this.api.mixed(req).subscribe({
       next: (res: any) => {
         this.message.custom(res.message);

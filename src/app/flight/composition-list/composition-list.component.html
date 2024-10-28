@@ -41,7 +41,7 @@
           <div class="w-100">
             <h4 class="bold-600">فیلترها</h4>
           </div>
-          <div class="grid-7 grid-1-mobi grid-2-tablet gap-8 w-100 w-100">
+          <div class="grid-9 grid-1-mobi grid-2-tablet gap-8 w-100 w-100">
             <div class="inp-form w-100">
               <prs-select-city class="w-100" *ngIf="show" [cities]="airports" [baseType]="false"
                 [title]="'فرودگاه مبدا'" [inCommingCity]="filterObj.origin"
@@ -80,6 +80,12 @@
                 <option [value]="null">تعداد شب</option>
                 <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>
               </select>
+            </div>
+            <div class="inp-form w-100">
+              <input type="text" placeholder="شماره پرواز رفت" [(ngModel)]="filterObj.departure_flight_number">
+            </div>
+            <div class="inp-form w-100">
+              <input type="text" placeholder="شماره پرواز برگشت" [(ngModel)]="filterObj.return_flight_number">
             </div>
 
             <div class="d-flex w-100 align-items-center justify-content-end">
