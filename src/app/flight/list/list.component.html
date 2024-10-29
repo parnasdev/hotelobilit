@@ -259,7 +259,7 @@
 
       <div style="width: 100% !important;" class="button-setting d-flex flex-column align-items-center">
         <div class="d-flex flex-wrap justify-content-between w-100">
-          <a style="width: 100% !important;" routerLink="/panel/flight/edit/{{ transfer.id }}"
+          <a style="width: 100% !important;" target="_blank" routerLink="/panel/flight/edit/{{ transfer.id }}"
              [queryParams]="filterObj" class="edit-btn"
              *ngIf="permition.check('flights.edit')">ویرایش</a>
 

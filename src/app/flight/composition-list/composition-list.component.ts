@@ -394,7 +394,9 @@ export class CompositionListComponent {
 
 
   edit(id: number) {
-    this.router.navigateByUrl(`/panel/flight/edit/${id}`)
+    this.router.navigateByUrl(`/panel/flight/edit/${id}`).then(result => {
+      window.open(`/panel/flight/edit/${id}`, '_blank');
+    });
 
   }
 }
