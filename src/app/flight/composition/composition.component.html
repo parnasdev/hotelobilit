@@ -9,6 +9,7 @@
       </div>
     </div>
     <div class="item-inp w-48">
+
       <label for="">مقصد</label>
       <prs-custom-select [name]="'destination'" (itemResult)="getDepartureDestCity($event)"
         *ngIf="(data.airports ?? []).length > 0" [list]="data.airports"></prs-custom-select>
