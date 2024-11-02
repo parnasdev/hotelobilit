@@ -143,7 +143,7 @@ showTypeChange(){
 }
 
   getFilterList() {
-    debugger
+
     let result: any[] = []
     var obj: any = this.filterObj
     Object.keys(this.filterObj).forEach(function (key) {

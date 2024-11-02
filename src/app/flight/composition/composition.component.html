@@ -194,6 +194,16 @@
           <option value="" disabled> روز</option>
           <option *ngFor="let item of weekDays" [value]="item">{{ item }}</option>
         </select>
+
+      </div>
+      <div class="w-15">
+        <p>  آژانس</p>
+
+        <select class="inp-form" name="" id="" [(ngModel)]="compositionListObj.agency">
+          <option value="" disabled> آژانس</option>
+          <option *ngFor="let item of agencies" [value]="item.id">{{ item.name }}</option>
+        </select>
+
       </div>
 
 <div class="w-15">
@@ -203,9 +213,9 @@
 </div>
 
 
-        <button class="btn-base h-50 w-10 mt-5 cursor-pointer" (click)="compositionFilter()">فیلتر</button>
+        <button class="btn-base h-50 w-10 mt-2 cursor-pointer" (click)="compositionFilter()">فیلتر</button>
 
-        <button class="btn-base-red h-50 w-10 mt-5 cursor-pointer " (click)="deleteFilter()">پاک کردن فیلتر</button>
+        <button class="btn-base-red h-50 w-10 mt-2 cursor-pointer " (click)="deleteFilter()">پاک کردن فیلتر</button>
 <!--      <div class="w-100 m-top-16 d-flex justify-content-end">-->
 <!--      </div>-->
 
@@ -258,6 +268,10 @@
     <div class="d-flex flex-column">
       <span class="title-tour">{{ transfer.departure.flight_number }}</span>
       <span style="margin-top: 6px" class="title-tour">{{ transfer.return.flight_number }}</span>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="title-tour" style="font-size: 10px">{{ transfer.departure.agency }}</span>
+      <span style="font-size: 10px;margin-top: 6px" class="title-tour">{{ transfer.return.agency }}</span>
     </div>
 
     <div class="d-flex flex-column ">

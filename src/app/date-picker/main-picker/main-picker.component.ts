@@ -80,7 +80,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
     return reformattedMiladiDate;
   };
   fixDates(startof: any, endOf: any) {
-    debugger
+    // debugger
     const days = this.enumerateDaysBetweenDates(startof, endOf);
     let miladiFormated=moment(startof).format('YYYY/MM/DD')
     const date = new Date(miladiFormated);

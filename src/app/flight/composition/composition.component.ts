@@ -25,7 +25,7 @@ export class CompositionComponent {
   mixedLoading = false;
   compositionLoading = false
   airlines: any = {departure:[],return:[]}
-
+agencies:any=[]
   weekDays:any[]=[]
 
   departureLoading = false;
@@ -51,7 +51,8 @@ export class CompositionComponent {
     departure_airline:null,
     return_airline:null,
     flight_number:null,
-    day:null
+    day:null,
+    agency:null,
   }
 
   compositionFilter(){
@@ -59,6 +60,8 @@ export class CompositionComponent {
     let filterByAirlineName=this.compositionList.filter((data:any)=>(!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
           (!this.compositionListObj.return_airline || data.return.airline_name  === this.compositionListObj.return_airline) )
     finalData.push(...filterByAirlineName)
+
+
     let filterByFlightNumber=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.flight_number && (data.departure.flight_number===this.compositionListObj.flight_number || data.return.flight_number===this.compositionListObj.flight_number) )):this.compositionList.filter((data:any)=>(this.compositionListObj.flight_number && (data.departure.flight_number===this.compositionListObj.flight_number || data.return.flight_number===this.compositionListObj.flight_number) ))
     filterByAirlineName.length>0? (this.compositionListObj.flight_number?finalData=filterByFlightNumber:null): finalData.push(...filterByAirlineName)
 
@@ -67,6 +70,10 @@ export class CompositionComponent {
 
 let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true'))):this.compositionList.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true')))
     filterByAirlineName.length>0? (this.compositionListObj.is_mixed?finalData=filterByIsMixed:null): finalData.push(...filterByIsMixed)
+
+
+    let filterByAgency=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.agency && (+data.departure.agency_id=== +this.compositionListObj.agency || +data.return.agency_id===+this.compositionListObj.agency) )):this.compositionList.filter((data:any)=>(+this.compositionListObj.agency && (+data.departure.agency_id===+this.compositionListObj.agency || +data.return.agency_id===+this.compositionListObj.agency) ))
+    filterByAirlineName.length>0? (this.compositionListObj.agency?finalData=filterByAgency:null): finalData.push(...filterByAgency)
 
 
 
@@ -268,11 +275,25 @@ let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((dat
     }
   }
 
+
+   uniqueList(data:any) {
+     let finaldata=Object.values(
+       data.reduce((acc:any, item:any) => {
+         acc[item.id] = item;
+         return acc;
+       }, {})
+     );
+     return finaldata
+   }
   getAirlines(data:any){
 
     data.map((d:any)=>{
       this.airlines.departure.push(d.departure.airline_name)
       this.airlines.return.push(d.return.airline_name)
+      this.agencies.push({id:d.departure.agency_id,name:d.departure.agency})
+      this.agencies.push({id: d.return.agency_id,name:d.return.agency})
+
+
 
       this.weekDays.push(this.calendar.getWeekDay(d.departure.date))
       this.weekDays.push(this.calendar.getWeekDay(d.return.date))
@@ -282,6 +303,9 @@ let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((dat
     this.airlines.return= [...new Set(this.airlines.return)];
 
     this.weekDays=[...new Set(this.weekDays)];
+    this.agencies=this.uniqueList(this.agencies);
+
+    console.log('agency', this.agencies);
 
 
 
