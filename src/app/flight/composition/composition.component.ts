@@ -71,7 +71,7 @@ agencies:any=[]
 
     let filterByFlightNumber=filterByAirlineName.length>0 ?
       filterByAirlineName.filter((data:any)=>
-        ((departure_fn && !return_fn) && data.departure.flight_number===departure_fn) || ((return_fn && !departure_fn) && data.return.flight_number===return_fn) ||((departure_fn && return_fn)&& data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
+        ((departure_fn && !return_fn) && (data.departure.flight_number===departure_fn || data.return.flight_number===departure_fn)) || ((return_fn && !departure_fn) && data.return.flight_number===return_fn) ||((departure_fn && return_fn)&& data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
       )
       :this.compositionList.filter((data:any)=>
         (data.departure.flight_number===departure_fn) || (data.return.flight_number===return_fn) ||(data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
