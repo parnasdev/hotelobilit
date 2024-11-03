@@ -57,12 +57,28 @@ agencies:any=[]
 
   compositionFilter(){
     let finalData=[]
-    let filterByAirlineName=this.compositionList.filter((data:any)=>(!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
+    let filterByAirlineName=this.compositionList.filter((data:any)=>
+      (!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
           (!this.compositionListObj.return_airline || data.return.airline_name  === this.compositionListObj.return_airline) )
     finalData.push(...filterByAirlineName)
 
+    debugger
+    let departure_fn:any=null
+    let return_fn:any=null
 
-    let filterByFlightNumber=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.flight_number && (data.departure.flight_number===this.compositionListObj.flight_number || data.return.flight_number===this.compositionListObj.flight_number) )):this.compositionList.filter((data:any)=>(this.compositionListObj.flight_number && (data.departure.flight_number===this.compositionListObj.flight_number || data.return.flight_number===this.compositionListObj.flight_number) ))
+     departure_fn=this.compositionListObj.flight_number?this.compositionListObj.flight_number.split('-')[0]:null
+     return_fn=this.compositionListObj.flight_number.split('-')[1] ? this.compositionListObj.flight_number.split('-')[1]:null
+
+    let filterByFlightNumber=filterByAirlineName.length>0 ?
+      filterByAirlineName.filter((data:any)=>
+        ((departure_fn && !return_fn) && data.departure.flight_number===departure_fn) || ((return_fn && !departure_fn) && data.return.flight_number===return_fn) ||((departure_fn && return_fn)&& data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
+      )
+      :this.compositionList.filter((data:any)=>
+        (data.departure.flight_number===departure_fn) || (data.return.flight_number===return_fn) ||(data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
+      )
+
+
+
     filterByAirlineName.length>0? (this.compositionListObj.flight_number?finalData=filterByFlightNumber:null): finalData.push(...filterByAirlineName)
 
     let filterByWeekDay=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.day && (this.calendar.getWeekDay(data.departure.date) ===this.compositionListObj.day || this.calendar.getWeekDay(data.return.date)===this.compositionListObj.day) )):this.compositionList.filter((data:any)=>(this.compositionListObj.flight_number && (this.calendar.getWeekDay(data.departure.date)===this.compositionListObj.day ||this.calendar.getWeekDay(data.return.date) ===this.compositionListObj.day) ))

@@ -159,7 +159,8 @@
   <prs-checkbox [(ngModel)]="selectAll" (ngModelChange)="selectAllChanged()"></prs-checkbox>
 </div>
 <div style="padding: 1rem" class="body-list-tour">
-  <div *ngIf="filterPos" >
+<!--  *ngIf="filterPos"-->
+  <div  >
 
     <div class="gap-2" style="display: flex; justify-content: space-between;align-items: center">
       <div class="w-15">
@@ -208,10 +209,11 @@
       </div>
 
 <div class="w-15">
-  <p>شماره پرواز</p>
+  <p>شماره پرواز </p>
   <input class="inp-form" type="text" [(ngModel)]="compositionListObj.flight_number">
 
 </div>
+
 
 
         <button class="btn-base h-50 w-10 mt-2 cursor-pointer" (click)="compositionFilter()">فیلتر</button>
