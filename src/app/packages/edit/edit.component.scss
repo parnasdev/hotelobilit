@@ -1105,7 +1105,7 @@ prs-select-hotel {
   border: 1px solid #e0e0e0 !important;
   height: 40px !important;
   position: relative;
-  top: -15px !important;
+  //top: -15px !important;
 }
 
 :host::ng-deep .item-info-material img {
@@ -1191,3 +1191,16 @@ prs-select-hotel {
   }
 }
 
+.input-filter1{
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 8px;
+  height: 52px;
+  padding:  5px;
+  top: 3px;
+  font-size: 13px;
+}

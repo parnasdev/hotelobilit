@@ -14,6 +14,16 @@ export class EditComponent extends AddComponent implements OnInit {
   tourData: any;
   id = ''
   del_packages: number[] = []
+  rateChange:any=null;
+  rate_number:any=null;
+  rate_apply_to:any=[]
+
+  rate_arr=[{id:'chd_n_price',name:'کودک بدون تخت'},{id:'chd_w_price',name:'کودک با تخت'},{id:'extra_bed_price',name:'تخت اضافه'},
+    {id:'inf_price',name:'نوزاد'},
+    // {id:'plus_price',name:'فیمت اضافه'},
+    {id:'price',name:'فیمت اتاق (هرنفر)'}]
+
+  apply_rate_stats=false
 
   override ngOnInit() {
     this.title.setTitle('ویرایش تور | هتل و بلیط')
@@ -21,7 +31,11 @@ export class EditComponent extends AddComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id') ?? ''
     this.getInfo()
   }
+  onRateTypeChange(event: any) {
 
+    this.rate_apply_to = event.value;
+    console.log(this.rate_apply_to)
+  }
   getInfo(): void {
     this.isLoading = true;
     this.tourApi.getTourInfo(+this.id).subscribe((res: any) => {
@@ -48,6 +62,68 @@ export class EditComponent extends AddComponent implements OnInit {
     })
   }
 
+  applyRate(){
+    if(this.apply_rate_stats===false ){
+      if(this.rate_apply_to.length>0 && this.rate_number.length>0 && this.rateChange){
+
+
+        this.apply_rate_stats=true
+
+if(+this.rateChange===3){
+  this.packages= this.packages.map((pack:any)=>({
+    ...pack,
+    rooms:pack.rooms.map((room:any)=>({
+      ...room,
+      price:this.rate_apply_to.includes('price')? +this.rate_number:room.price,
+      chd_n_price:this.rate_apply_to.includes('chd_n_price')? +this.rate_number:room.chd_n_price,
+      chd_w_price:this.rate_apply_to.includes('chd_w_price')? +this.rate_number:room.chd_w_price,
+      extra_bed_price:this.rate_apply_to.includes('extra_bed_price')? +this.rate_number:room.extra_bed_price,
+      inf_price:this.rate_apply_to.includes('inf_price')?+this.rate_number:room.inf_price,
+
+
+    }))
+
+
+  }))
+}else{
+  this.packages= this.packages.map((pack:any)=>({
+    ...pack,
+    rooms:pack.rooms.map((room:any)=>({
+      ...room,
+      price:this.rate_apply_to.includes('price')? (+this.rateChange===1 ? +room.price + (+this.rate_number): +room.price - (+this.rate_number)):room.price,
+      chd_n_price:this.rate_apply_to.includes('chd_n_price')? (+this.rateChange===1 ? +room.chd_n_price + (+this.rate_number): +room.chd_n_price - (+this.rate_number)):room.chd_n_price,
+      chd_w_price:this.rate_apply_to.includes('chd_w_price')? (+this.rateChange===1 ? +room.chd_w_price + (+this.rate_number): +room.chd_w_price - (+this.rate_number)):room.chd_w_price,
+      extra_bed_price:this.rate_apply_to.includes('extra_bed_price')? (+this.rateChange===1 ? +room.extra_bed_price + (+this.rate_number): +room.extra_bed_price - (+this.rate_number)):room.extra_bed_price,
+      inf_price:this.rate_apply_to.includes('inf_price')? (+this.rateChange===1 ? +room.inf_price + (+this.rate_number): +room.inf_price - (+this.rate_number)):room.inf_price,
+
+
+    }))
+
+
+  }))
+}
+
+
+        this.rateChange=null;
+        this.rate_number=null;
+        this.rate_apply_to=[]
+        alert('تغییرات با موفقیت انجام شد')
+        this.apply_rate_stats=false
+
+
+
+      }else{
+        alert('لطفا فیلد های زیر را تکمیل کنید!')
+      }
+
+
+    }else{
+      return
+    }
+
+
+
+  }
 
   getPartnersNames(ids: number[]) {
     let result: number[] = [];
@@ -91,6 +167,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.packages = [];
     this.tourData.packages.forEach((x: any) => {
       let item: PackageTourDTO = {
+        checked:false,
         board_type:x.board_type,
         hotel_id: x.hotel.id,
         order_item: x.order_item,
@@ -106,7 +183,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.packages.sort((a: any, b: any) => a.order_item - b.order_item)
 
 
-    console.log(this.packages)
+    console.log('asd',this.packages)
   }
 
   override getTransferRates(): void {
@@ -216,21 +293,23 @@ export class EditComponent extends AddComponent implements OnInit {
     if(this.flights.length > 0) {
 
     this.setReq()
-    this.tourApi.update(+this.id, this.req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.showMessageBig(res.message);
-        this.errorService.clear();
-        this.router.navigateByUrl('/panel/packages');
-      }
-    }, (error: any) => {
-      if (error.status == 422) {
-        this.errorService.recordError(error.error.errors);
-        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
-      } else {
-        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-      }
-      this.checkError.check(error);
-    })
+
+      console.log('fpack',this.req)
+    // this.tourApi.update(+this.id, this.req).subscribe((res: any) => {
+    //   if (res.isDone) {
+    //     this.message.showMessageBig(res.message);
+    //     this.errorService.clear();
+    //     this.router.navigateByUrl('/panel/packages');
+    //   }
+    // }, (error: any) => {
+    //   if (error.status == 422) {
+    //     this.errorService.recordError(error.error.errors);
+    //     this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+    //   } else {
+    //     this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+    //   }
+    //   this.checkError.check(error);
+    // })
   }else {
     this.message.custom('پروازی انتخاب نکرده اید')
   }

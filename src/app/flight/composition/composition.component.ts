@@ -95,9 +95,6 @@ let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((dat
 
     this.compositionData=finalData
 
-
-
-
   }
 
   deleteFilter(){
