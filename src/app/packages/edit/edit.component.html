@@ -268,15 +268,21 @@
   </div>
 
 
-  <div style="position: relative" class="w-100">
+  <div style="position: relative" class="w-100 mt-3">
+
+    <div class="flex-x-start gap-3">
+
     <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
-    <div class="flex-x-start gap-2" style="align-items: center">
+    <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="hotel_setting=!hotel_setting">تتظیمات هتل ها</button>
+    </div>
+    <div *ngIf="hotel_setting" class="flex-x-start gap-2" style="align-items: center">
 
       <div *ngIf="is_bundle" class="item-info item-info-material ">
 
 
 
             <select name="" id=""  [(ngModel)]="rateChange">
+              <option disabled selected>نوع اعمال</option>
               <option value="1">افزایش</option>
               <option value="0">کاهش</option>
               <option value="3">ثابت</option>
@@ -309,11 +315,15 @@
         </div>
 
       </div>
-      <button *ngIf="is_bundle" class="btn-base w-30 h-40" (click)="applyRate()">{{apply_rate_stats?'صبر کنید' :'اعمال' }}</button>
+
+
+      <button *ngIf="is_bundle" class="btn-base w-30 mt-1 " (click)="applyRate()">{{apply_rate_stats?'صبر کنید' :'اعمال' }}</button>
+      <button *ngIf="is_bundle" [class]=" !select_all   ?'btn-base w-30  mt-1': 'btn-base-red w-30  mt-1'" (click)="select_all_hotel()">{{ !select_all?"انتخاب همه" :'حذف همه' }}</button>
+
     </div>
     <div class="w-100" cdkDropList (cdkDropListDropped)="drop($event)">
       <div class="item-package" cdkDrag *ngFor="let item of packages;let i=index">
-<!--        <mat-checkbox ></mat-checkbox>-->
+        <mat-checkbox *ngIf="is_bundle" [(ngModel)]="item.isChecked" (ngModelChange)="changeHotelPackage()" ></mat-checkbox>
 
         <span class="number">{{ i + 1 }}</span>
 

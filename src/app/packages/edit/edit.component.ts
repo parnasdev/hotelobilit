@@ -17,6 +17,8 @@ export class EditComponent extends AddComponent implements OnInit {
   rateChange:any=null;
   rate_number:any=null;
   rate_apply_to:any=[]
+  hotel_setting:boolean=false
+  select_all:boolean=false
 
   rate_arr=[{id:'chd_n_price',name:'کودک بدون تخت'},{id:'chd_w_price',name:'کودک با تخت'},{id:'extra_bed_price',name:'تخت اضافه'},
     {id:'inf_price',name:'نوزاد'},
@@ -61,65 +63,102 @@ export class EditComponent extends AddComponent implements OnInit {
 
     })
   }
+select_all_hotel(){
+  this.packages=this.packages.map((pack:any)=>(
+    {...pack,
+      isChecked:!this.select_all
+    }
+  ))
+  this.select_all=!this.select_all;
 
-  applyRate(){
-    if(this.apply_rate_stats===false ){
-      if(this.rate_apply_to.length>0 && this.rate_number.length>0 && this.rateChange){
-
-
-        this.apply_rate_stats=true
-
-if(+this.rateChange===3){
-  this.packages= this.packages.map((pack:any)=>({
-    ...pack,
-    rooms:pack.rooms.map((room:any)=>({
-      ...room,
-      price:this.rate_apply_to.includes('price')? +this.rate_number:room.price,
-      chd_n_price:this.rate_apply_to.includes('chd_n_price')? +this.rate_number:room.chd_n_price,
-      chd_w_price:this.rate_apply_to.includes('chd_w_price')? +this.rate_number:room.chd_w_price,
-      extra_bed_price:this.rate_apply_to.includes('extra_bed_price')? +this.rate_number:room.extra_bed_price,
-      inf_price:this.rate_apply_to.includes('inf_price')?+this.rate_number:room.inf_price,
-
-
-    }))
-
-
-  }))
-}else{
-  this.packages= this.packages.map((pack:any)=>({
-    ...pack,
-    rooms:pack.rooms.map((room:any)=>({
-      ...room,
-      price:this.rate_apply_to.includes('price')? (+this.rateChange===1 ? +room.price + (+this.rate_number): +room.price - (+this.rate_number)):room.price,
-      chd_n_price:this.rate_apply_to.includes('chd_n_price')? (+this.rateChange===1 ? +room.chd_n_price + (+this.rate_number): +room.chd_n_price - (+this.rate_number)):room.chd_n_price,
-      chd_w_price:this.rate_apply_to.includes('chd_w_price')? (+this.rateChange===1 ? +room.chd_w_price + (+this.rate_number): +room.chd_w_price - (+this.rate_number)):room.chd_w_price,
-      extra_bed_price:this.rate_apply_to.includes('extra_bed_price')? (+this.rateChange===1 ? +room.extra_bed_price + (+this.rate_number): +room.extra_bed_price - (+this.rate_number)):room.extra_bed_price,
-      inf_price:this.rate_apply_to.includes('inf_price')? (+this.rateChange===1 ? +room.inf_price + (+this.rate_number): +room.inf_price - (+this.rate_number)):room.inf_price,
-
-
-    }))
-
-
-  }))
 }
 
 
-        this.rateChange=null;
-        this.rate_number=null;
-        this.rate_apply_to=[]
-        alert('تغییرات با موفقیت انجام شد')
-        this.apply_rate_stats=false
+
+
+  applyRate(){
+
+   let check_isChecked_package=this.packages.filter((pack:any)=>pack.isChecked)
+    if(this.apply_rate_stats===false ){
+
+      if(this.rate_apply_to.length>0 && this.rate_number && this.rateChange){
+
+        if(check_isChecked_package.length>0){
+          this.apply_rate_stats=true
+          if(+this.rateChange===3){
+            this.packages= this.packages.map((pack:any)=> {
+              if(pack.isChecked){
+                return {
+                  ...pack,
+                  rooms: pack.rooms.map((room: any) => ({
+                    ...room,
+                    price: this.rate_apply_to.includes('price') ? +this.rate_number : room.price,
+                    chd_n_price: this.rate_apply_to.includes('chd_n_price') ? +this.rate_number : room.chd_n_price,
+                    chd_w_price: this.rate_apply_to.includes('chd_w_price') ? +this.rate_number : room.chd_w_price,
+                    extra_bed_price: this.rate_apply_to.includes('extra_bed_price') ? +this.rate_number : room.extra_bed_price,
+                    inf_price: this.rate_apply_to.includes('inf_price') ? +this.rate_number : room.inf_price,
+
+
+                  }))
+
+
+                }
+              }else{
+                return {
+                  ...pack
+                }
+              }
+
+
+
+            })
+          }else{
+
+
+            this.packages= this.packages.map((pack:any)=> {
+              if(pack.isChecked){
+                return {
+                  ...pack,
+                  rooms:
+                    pack.rooms.map((room: any) => ({
+                      ...room,
+                      price: this.rate_apply_to.includes('price') ? (+this.rateChange === 1 ? +room.price + (+this.rate_number) : +room.price - (+this.rate_number)) : room.price,
+                      chd_n_price: this.rate_apply_to.includes('chd_n_price') ? (+this.rateChange === 1 ? +room.chd_n_price + (+this.rate_number) : +room.chd_n_price - (+this.rate_number)) : room.chd_n_price,
+                      chd_w_price: this.rate_apply_to.includes('chd_w_price') ? (+this.rateChange === 1 ? +room.chd_w_price + (+this.rate_number) : +room.chd_w_price - (+this.rate_number)) : room.chd_w_price,
+                      extra_bed_price: this.rate_apply_to.includes('extra_bed_price') ? (+this.rateChange === 1 ? +room.extra_bed_price + (+this.rate_number) : +room.extra_bed_price - (+this.rate_number)) : room.extra_bed_price,
+                      inf_price: this.rate_apply_to.includes('inf_price') ? (+this.rateChange === 1 ? +room.inf_price + (+this.rate_number) : +room.inf_price - (+this.rate_number)) : room.inf_price,
+                    }))
+                }}else{
+                return {...pack}
+              }
+            })
+          }
+          this.rateChange=null;
+          this.rate_number=null;
+          this.rate_apply_to=[]
+          alert('تغییرات با موفقیت انجام شد')
+          this.apply_rate_stats=false
+          this.select_all_hotel()
+
+        }else{
+          alert('لطفا پکیج های خود را انتخاب کنید')
+
+        }
+
+
+
 
 
 
       }else{
         alert('لطفا فیلد های زیر را تکمیل کنید!')
       }
-
-
     }else{
       return
     }
+
+
+    console.log(this.packages)
 
 
 
@@ -162,12 +201,16 @@ if(+this.rateChange===3){
     }
   }
 
+  changeHotelPackage(){
+this.select_all=true;
+  }
+
 
   convertPackages() {
     this.packages = [];
     this.tourData.packages.forEach((x: any) => {
       let item: PackageTourDTO = {
-        checked:false,
+        isChecked:false,
         board_type:x.board_type,
         hotel_id: x.hotel.id,
         order_item: x.order_item,
@@ -183,7 +226,7 @@ if(+this.rateChange===3){
     this.packages.sort((a: any, b: any) => a.order_item - b.order_item)
 
 
-    console.log('asd',this.packages)
+    // console.log('asd',this.packages)
   }
 
   override getTransferRates(): void {
