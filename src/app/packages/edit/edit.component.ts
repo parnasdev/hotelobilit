@@ -364,7 +364,6 @@ this.select_all=true;
     this.documentFC.setValue(this.tourData.documents)
     this.serviceFC.setValue(this.tourData.service)
     this.descriptionFC.setValue(this.tourData.description)
-
     this.titleFC.setValue(this.tourData.title);
     this.origin_idFC.setValue(this.tourData.origin_id);
     this.destination_idFC.setValue(this.tourData.destination_id);
@@ -372,9 +371,7 @@ this.select_all=true;
     this.day_numFC.setValue(this.tourData.day_num);
     this.tour_typeFC.setValue(this.tourData.tour_type);
     this.checkinFC.setValue(this.tourData.checkin);
-
     this.status_idFC.setValue(this.tourData.status.id)
-
     this.checkoutFC.setValue(this.tourData.checkout);
     this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
