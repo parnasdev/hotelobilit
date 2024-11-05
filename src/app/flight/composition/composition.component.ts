@@ -54,48 +54,100 @@ agencies:any=[]
     day:null,
     agency:null,
   }
-
-  compositionFilter(){
-    let finalData=[]
-    let filterByAirlineName=this.compositionList.filter((data:any)=>
-      (!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
-          (!this.compositionListObj.return_airline || data.return.airline_name  === this.compositionListObj.return_airline) )
-    finalData.push(...filterByAirlineName)
-
-    debugger
-    let departure_fn:any=null
-    let return_fn:any=null
-
-     departure_fn=this.compositionListObj.flight_number?this.compositionListObj.flight_number.split('-')[0]:null
-     return_fn=this.compositionListObj.flight_number.split('-')[1] ? this.compositionListObj.flight_number.split('-')[1]:null
-
-    let filterByFlightNumber=filterByAirlineName.length>0 ?
-      filterByAirlineName.filter((data:any)=>
-        ((departure_fn && !return_fn) && (data.departure.flight_number===departure_fn || data.return.flight_number===departure_fn)) || ((return_fn && !departure_fn) && data.return.flight_number===return_fn) ||((departure_fn && return_fn)&& data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
-      )
-      :this.compositionList.filter((data:any)=>
-        (data.departure.flight_number===departure_fn) || (data.return.flight_number===return_fn) ||(data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
-      )
-
-
-
-    filterByAirlineName.length>0? (this.compositionListObj.flight_number?finalData=filterByFlightNumber:null): finalData.push(...filterByAirlineName)
-
-    let filterByWeekDay=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.day && (this.calendar.getWeekDay(data.departure.date) ===this.compositionListObj.day || this.calendar.getWeekDay(data.return.date)===this.compositionListObj.day) )):this.compositionList.filter((data:any)=>(this.compositionListObj.flight_number && (this.calendar.getWeekDay(data.departure.date)===this.compositionListObj.day ||this.calendar.getWeekDay(data.return.date) ===this.compositionListObj.day) ))
-    filterByAirlineName.length>0? (this.compositionListObj.day?finalData=filterByWeekDay:null): finalData.push(...filterByAirlineName)
-
-let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true'))):this.compositionList.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true')))
-    filterByAirlineName.length>0? (this.compositionListObj.is_mixed?finalData=filterByIsMixed:null): finalData.push(...filterByIsMixed)
-
-
-    let filterByAgency=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.agency && (+data.departure.agency_id=== +this.compositionListObj.agency || +data.return.agency_id===+this.compositionListObj.agency) )):this.compositionList.filter((data:any)=>(+this.compositionListObj.agency && (+data.departure.agency_id===+this.compositionListObj.agency || +data.return.agency_id===+this.compositionListObj.agency) ))
-    filterByAirlineName.length>0? (this.compositionListObj.agency?finalData=filterByAgency:null): finalData.push(...filterByAgency)
-
-
-
-    this.compositionData=finalData
-
+  compositionFilter() {
+    
+    let filteredData = [...this.compositionList];
+  
+    // Filter by airline names
+    if (this.compositionListObj.departure_airline || this.compositionListObj.return_airline) {
+      filteredData = filteredData.filter(data => 
+        (!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
+        (!this.compositionListObj.return_airline || data.return.airline_name === this.compositionListObj.return_airline)
+      );
+    }
+  
+    // Filter by flight numbers
+    if (this.compositionListObj.flight_number) {
+      const [departureFn, returnFn] = this.compositionListObj.flight_number.split('-');
+      
+      filteredData = filteredData.filter(data => {
+        if (departureFn && returnFn) {
+          return data.departure.flight_number === departureFn && data.return.flight_number === returnFn;
+        } else if (departureFn) {
+          return data.departure.flight_number === departureFn;
+        } else if (returnFn) {
+          return data.return.flight_number === returnFn;
+        }
+        return true;
+      });
+    }
+  
+    // Filter by week day
+    if (this.compositionListObj.day) {
+      filteredData = filteredData.filter(data =>
+        this.calendar.getWeekDay(data.departure.date) === this.compositionListObj.day ||
+        this.calendar.getWeekDay(data.return.date) === this.compositionListObj.day
+      );
+    }
+  
+    // Filter by mixed status
+    if (this.compositionListObj.is_mixed !== null) {
+      const isMixed = this.compositionListObj.is_mixed === 'true';
+      filteredData = filteredData.filter(data => data.is_mix === isMixed);
+    }
+  
+    // Filter by agency
+    if (this.compositionListObj.agency) {
+      const agencyId = +this.compositionListObj.agency;
+      filteredData = filteredData.filter(data =>
+        +data.departure.agency_id === agencyId || 
+        +data.return.agency_id === agencyId
+      );
+    }
+  
+    this.compositionData = filteredData;
   }
+//  compositionFilter(){
+//     let finalData=[]
+//     let filterByAirlineName=this.compositionList.filter((data:any)=>
+//       (!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
+//           (!this.compositionListObj.return_airline || data.return.airline_name  === this.compositionListObj.return_airline) )
+//     finalData.push(...filterByAirlineName)
+
+//     debugger
+//     let departure_fn:any=null
+//     let return_fn:any=null
+
+//      departure_fn=this.compositionListObj.flight_number?this.compositionListObj.flight_number.split('-')[0]:null
+//      return_fn=this.compositionListObj.flight_number.split('-')[1] ? this.compositionListObj.flight_number.split('-')[1]:null
+
+//     let filterByFlightNumber=filterByAirlineName.length>0 ?
+//       filterByAirlineName.filter((data:any)=>
+//         ((departure_fn && !return_fn) && (data.departure.flight_number===departure_fn || data.return.flight_number===departure_fn)) || ((return_fn && !departure_fn) && data.return.flight_number===return_fn) ||((departure_fn && return_fn)&& data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
+//       )
+//       :this.compositionList.filter((data:any)=>
+//         (data.departure.flight_number===departure_fn) || (data.return.flight_number===return_fn) ||(data.return.flight_number===return_fn && data.departure.flight_number===departure_fn)
+//       )
+
+
+
+//     filterByAirlineName.length>0? (this.compositionListObj.flight_number?finalData=filterByFlightNumber:null): finalData.push(...filterByAirlineName)
+
+//     let filterByWeekDay=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.day && (this.calendar.getWeekDay(data.departure.date) ===this.compositionListObj.day || this.calendar.getWeekDay(data.return.date)===this.compositionListObj.day) )):this.compositionList.filter((data:any)=>(this.compositionListObj.flight_number && (this.calendar.getWeekDay(data.departure.date)===this.compositionListObj.day ||this.calendar.getWeekDay(data.return.date) ===this.compositionListObj.day) ))
+//     filterByAirlineName.length>0? (this.compositionListObj.day?finalData=filterByWeekDay:null): finalData.push(...filterByAirlineName)
+
+// let filterByIsMixed=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true'))):this.compositionList.filter((data:any)=> (this.compositionListObj.is_mixed!==null && data.is_mix===(this.compositionListObj.is_mixed === 'true')))
+//     filterByAirlineName.length>0? (this.compositionListObj.is_mixed?finalData=filterByIsMixed:null): finalData.push(...filterByIsMixed)
+
+
+//     let filterByAgency=filterByAirlineName.length>0?filterByAirlineName.filter((data:any)=>(this.compositionListObj.agency && (+data.departure.agency_id=== +this.compositionListObj.agency || +data.return.agency_id===+this.compositionListObj.agency) )):this.compositionList.filter((data:any)=>(+this.compositionListObj.agency && (+data.departure.agency_id===+this.compositionListObj.agency || +data.return.agency_id===+this.compositionListObj.agency) ))
+//     filterByAirlineName.length>0? (this.compositionListObj.agency?finalData=filterByAgency:null): finalData.push(...filterByAgency)
+
+
+
+//     this.compositionData=finalData
+
+//   }
 
   deleteFilter(){
     this.compositionListObj={
