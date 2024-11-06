@@ -246,7 +246,6 @@ export class CompositionListComponent {
       next: (res: any) => {
         if (res.isDone) {
           this.data = res.data;
-
           if(this.airlines.length===0 || res.airlines.length !== this.airlines.length ){
             this.airlines = res.airlines;
           }

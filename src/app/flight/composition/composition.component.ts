@@ -55,21 +55,21 @@ agencies:any=[]
     agency:null,
   }
   compositionFilter() {
-    
+
     let filteredData = [...this.compositionList];
-  
+
     // Filter by airline names
     if (this.compositionListObj.departure_airline || this.compositionListObj.return_airline) {
-      filteredData = filteredData.filter(data => 
+      filteredData = filteredData.filter(data =>
         (!this.compositionListObj.departure_airline || data.departure.airline_name === this.compositionListObj.departure_airline) &&
         (!this.compositionListObj.return_airline || data.return.airline_name === this.compositionListObj.return_airline)
       );
     }
-  
+
     // Filter by flight numbers
     if (this.compositionListObj.flight_number) {
       const [departureFn, returnFn] = this.compositionListObj.flight_number.split('-');
-      
+
       filteredData = filteredData.filter(data => {
         if (departureFn && returnFn) {
           return data.departure.flight_number === departureFn && data.return.flight_number === returnFn;
@@ -81,7 +81,7 @@ agencies:any=[]
         return true;
       });
     }
-  
+
     // Filter by week day
     if (this.compositionListObj.day) {
       filteredData = filteredData.filter(data =>
@@ -89,22 +89,22 @@ agencies:any=[]
         this.calendar.getWeekDay(data.return.date) === this.compositionListObj.day
       );
     }
-  
+
     // Filter by mixed status
     if (this.compositionListObj.is_mixed !== null) {
       const isMixed = this.compositionListObj.is_mixed === 'true';
       filteredData = filteredData.filter(data => data.is_mix === isMixed);
     }
-  
+
     // Filter by agency
     if (this.compositionListObj.agency) {
       const agencyId = +this.compositionListObj.agency;
       filteredData = filteredData.filter(data =>
-        +data.departure.agency_id === agencyId || 
+        +data.departure.agency_id === agencyId &&
         +data.return.agency_id === agencyId
       );
     }
-  
+
     this.compositionData = filteredData;
   }
 //  compositionFilter(){

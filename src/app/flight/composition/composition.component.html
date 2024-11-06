@@ -106,6 +106,8 @@
       <span>تاریخ</span>
       <span>ساعت</span>
       <span>شماره پرواز</span>
+      <span>نام آژانس</span>
+
     </div>
     <div class="empty-box mt-3" *ngIf="departureList.length === 0 && !departureLoading">
       <span>موردی یافت نشد</span>
@@ -121,6 +123,7 @@
       <span>{{item.date | convertDate}}</span>
       <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>
+      <span>{{item.agency}}</span>
     </div>
   </div>
   <div class="end">
@@ -131,6 +134,7 @@
       <span>تاریخ</span>
       <span>ساعت</span>
       <span>شماره پرواز</span>
+      <span>نام آژانس</span>
     </div>
     <span class="spinner-border spinner-border-sm mt-5 spinner-loading " *ngIf="returnLoading"></span>
     <div class="empty-box mt-3" *ngIf="returnList.length === 0 && !returnLoading">
@@ -146,6 +150,7 @@
       <span>{{item.date | convertDate}}</span>
       <span>{{item.time | timeFixer}}</span>
       <span>{{item.flight_number}}</span>
+      <span>{{item.agency}}</span>
     </div>
   </div>
 </div>
