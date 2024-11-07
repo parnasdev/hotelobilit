@@ -17,6 +17,7 @@ import { EditFastPopupComponent } from '../edit-fast-popup/edit-fast-popup.compo
 import {AlertDialogDTO} from "../../common-project/alert-dialog/alert-dialog.component";
 import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.component";
 import * as moment from "moment";
+import {SessionService} from "../../Core/Services/session.service";
 @Component({
   selector: 'prs-list',
   templateUrl: './list.component.html',
@@ -70,7 +71,9 @@ export class ListComponent {
     public route: ActivatedRoute,
     public permition: PermitionsService,
     public publicService: PublicService,
-    public message: MessageService) {
+              public session:SessionService,
+
+              public message: MessageService) {
 
     this.setFilterFromRoute()
 

@@ -13,6 +13,7 @@ import { PrsDatePickerComponent } from 'src/app/date-picker/prs-date-picker/prs-
 import { CompositionUpdatePricePopupComponent } from '../composition-update-price-popup/composition-update-price-popup.component';
 import {AlertDialogDTO} from "../../common-project/alert-dialog/alert-dialog.component";
 import {AlertDialogComponent} from "../../shared/alert-dialog/alert-dialog.component";
+import {SessionService} from "../../Core/Services/session.service";
 export interface FilterCompositionDTO {
   origin: number | null;
   destination: number | null;
@@ -22,6 +23,7 @@ export interface FilterCompositionDTO {
   mixed: boolean
   fromDate: string | null;
   toDate: string | null;
+  agency: number | null;
   q: string | null
   departure_flight_number:string | null;
   return_flight_number:string | null;
@@ -58,6 +60,7 @@ export class CompositionListComponent {
   airplanes: any[] = []
   airlines: any[] = []
   statuses: any[] = []
+  agencies: any[] = []
   filterObj: FilterCompositionDTO = {
     destination: null,
     origin: null,
@@ -69,7 +72,8 @@ export class CompositionListComponent {
     fromDate: null,
     toDate: null,
     departure_flight_number:null,
-    return_flight_number:null
+    return_flight_number:null,
+    agency:null
   };
   data: any[] = []
   constructor(public api: FlightApiService,
@@ -79,7 +83,9 @@ export class CompositionListComponent {
     public route: ActivatedRoute,
     public calendarService: CalenderServices,
     public publicService: PublicService,
-    public message: MessageService) {
+              public session:SessionService,
+
+              public message: MessageService) {
     this.setFilterFromRoute()
   }
 
@@ -101,6 +107,7 @@ export class CompositionListComponent {
         this.filterObj.airline = params['airline']
         this.filterObj.toDate = params['toDate']
         this.filterObj.departure_flight_number = params['departure_flight_number']
+        this.filterObj.agency = params['agency']
         this.filterObj.return_flight_number = params['return_flight_number']
 
         this.filterObj.stay_count = +params['stay_count']
@@ -110,6 +117,7 @@ export class CompositionListComponent {
           origin: null,
           q: null,
           airline: null,
+          agency: null,
           stay_count: null,
           mixed: true,
           status: 0,
@@ -250,6 +258,7 @@ export class CompositionListComponent {
             this.airlines = res.airlines;
           }
           this.airports = res.airports;
+          this.agencies = res.agencies;
           this.statuses = [{ id: 0, name: 'باز' }, { id: 1, name: 'بسته' }];
 
 
@@ -290,6 +299,7 @@ export class CompositionListComponent {
       mixed: true,
       status: 0,
       q: null,
+      agency: null,
       origin: null,
       departure_flight_number:null,
       return_flight_number:null

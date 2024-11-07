@@ -37,7 +37,7 @@
 
     <div class="filter-horizontal flex-x-center w-100">
       <div class="d-flex search-box-hotel mb-3">
-        <div class="border-box d-flex flex-column p-2">
+        <div class="border-box d-flex flex-column p-2" style="flex-wrap: nowrap" >
           <div class="w-100">
             <h4 class="bold-600">فیلترها</h4>
           </div>
@@ -79,6 +79,12 @@
               <select name="" id="" [(ngModel)]="filterObj.stay_count">
                 <option [value]="null">تعداد شب</option>
                 <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>
+              </select>
+            </div>
+            <div class="inp-form w-100"  *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'">
+              <select name="" id="" [(ngModel)]="filterObj.airline">
+                <option [value]="null">آژانس</option>
+                <option *ngFor="let x of agencies" [value]="x.id">{{ x.agency_name ? x.agency_name:x.full_name }}</option>
               </select>
             </div>
             <div class="inp-form w-100">
