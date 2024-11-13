@@ -95,10 +95,12 @@ export class MultipleUploadComponent implements OnInit {
 
   }
   getFile(files: any): void {
+    debugger
     for (const event of files.target.files) {
       const size = event.size / 1000 / 1000;
 
       if (size < 2) {
+        debugger
         this.uploaderApi.upload(event, '/').pipe(
           map((event: any) => {
             if (event.type === HttpEventType.UploadProgress) {

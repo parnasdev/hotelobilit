@@ -326,7 +326,8 @@ export class AddComponent implements OnInit {
   }
 
   submit(): void {
-if(this.flights.length > 0) {
+    debugger
+if(this.flights.length > 0 && this.packages.length > 0) {
   this.setReq()
   this.tourApi.createTour(this.req).subscribe((res: any) => {
     if (res.isDone) {
@@ -344,7 +345,19 @@ if(this.flights.length > 0) {
     this.checkError.check(error);
   })
 }else{
+  if(this.flights.length===0){
+
   this.message.custom('پروازی انتخاب نکرده اید')
+  }
+  if(this.packages.length===0){
+    this.message.custom('هتلی انتخاب نکرده اید')
+
+
+  }
+  if(this.flights.length===0 && this.packages.length===0 ){
+    this.message.custom('هتل و پروازی انتخاب نکرده اید')
+
+  }
 }
   }
 
