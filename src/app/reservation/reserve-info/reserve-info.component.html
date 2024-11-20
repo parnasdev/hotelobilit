@@ -1,15 +1,7 @@
 <prs-loading *ngIf="isLoading"></prs-loading>
 <div class="p-info-trip">
   <div class="w-100 flex-x-between">
-    <div class="d-flex w-100 p-search-agency" *ngIf="(session.getRole() === 'admin' ||
-          session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin') && statusNM !== 473">
-      <div class="inp-form w-25">
-        <select [(ngModel)]="statusNM" name="" id="">
-          <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
-        </select>
-      </div>
-      <button class="btn-base px-4 staus-button" (click)="changeStatus()">اعمال وضعیت</button>
-    </div>
+
     <div class="d-flex w-100 p-search-agency"
       *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
       <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
@@ -66,11 +58,39 @@
               </div>
 
               <hr>
-              <div class="d-flex align-items-center item-title justify-content-between w-100">
-                <span class="text-dark bold-400">وضعیت :</span>
 
-                <h3 class=" bold-600 fs-14"> {{ info?.information.status.label }}</h3>
+              <div class="w-100">
+                <div class="d-flex align-items-center item-title justify-content-between w-100 mb-3">
+                  <span class="text-dark bold-400">وضعیت :</span>
+
+                  <h3 class=" bold-600 fs-14"> {{ info?.information.status.label }}</h3>
+                </div>
+
+                <div class="flex-x-between w-100 mb-3">
+                  <span>تغییر وضعیت:</span>
+                  <div class="d-flex justify-content-end align-items-center p-search-agency" *ngIf="(session.getRole() === 'admin' ||
+          session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin') && statusNM !== 473">
+                    <div class="inp-form w-60 h-40">
+                      <select [(ngModel)]="statusNM" name="" id="">
+                        <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
+                      </select>
+                    </div>
+                    <button class="btn-base staus-button w-30 h-35 " style="font-size: 12px; white-space: nowrap;text-align: center" (click)="changeStatus()">اعمال وضعیت</button>
+                  </div>
+
+                </div>
+
+                <div class="d-flex align-items-center item-title justify-content-between w-100"
+                     *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
+                  <div class="flex-x-between w-100">
+                    <p class="m-left-10" style="font-size: 12px"> زمان باقیمانده :</p>
+                    <prs-reserve-timer [width]="'35px'" [height]="'35px'"
+                                       [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
+
+                  </div>
+                </div>
               </div>
+
 
               <hr>
 
@@ -89,15 +109,7 @@
             </div>
 
 
-            <div class="d-flex align-items-center item-title justify-content-between w-100"
-                 *ngIf="info.information.status.id !== 472 && info.information.status.id !== 473">
-              <div class="flex-x-center">
-                <h3 class=" bold-600 m-left-10"> زمان باقیمانده :</h3>
-                <prs-reserve-timer [width]="'40px'" [height]="'40px'"
-                                   [expired_date]="info.information.expired_in_minutes"></prs-reserve-timer>
 
-              </div>
-            </div>
 
 
 
