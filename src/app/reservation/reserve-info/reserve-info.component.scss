@@ -5,9 +5,10 @@
 }
 
 .box-top-agency-reserve {
-  border: 1px solid #C6C6C6;
+  border: 1px solid rgba(232, 232, 232, 0.85);
   padding: 1rem;
   width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 8px;
   height: auto;
 
@@ -55,7 +56,8 @@
 
   .p-price {
     background: #f2f2f2;
-    border-radius: 5px;
+    border-radius: 15px;
+    //border-radius: 5px;
     padding: 0 1rem;
     height: 70px;
     width: 50%;
@@ -64,6 +66,7 @@
 }
 
 .box-top-box-reserve {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border: 1px solid #C6C6C6;
   padding: 1rem;
   width: 100%;
@@ -73,7 +76,7 @@
 .set-request-tour {
   background: var(--white);
   border-radius: 8px;
-  border: 1px solid #E0E0E0;
+  //border: 1px solid #E0E0E0;
   display: flex;
   margin: 12px 0;
 
@@ -141,8 +144,8 @@
   width: 100%;
   border-radius: 8px;
   height: auto;
-  margin-top: 1rem;
-
+  //margin-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   .item-information-room:first-child {
     margin-top: 1.3rem !important;
   }
@@ -301,10 +304,11 @@
 .p-items {
   .item {
     margin-top: 1rem;
-    background: #F2F2F2;
+    //background: #F2F2F2;
     border-radius: 10px;
     height: 50px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 0 8px;

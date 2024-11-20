@@ -1713,6 +1713,12 @@ prs-show-location {
         }
       }
 
+      .from{
+        border-left: 1px solid #cecece;
+      }
+
+
+
       .from,
       .to {
         display: flex;
@@ -1941,4 +1947,10 @@ prs-show-location {
   transform: scale(1.1);
   transition: 0.5s all;
   margin: 2.5rem 0 1rem 0;
+}
+.separator{
+  height: 100%;
+  border-left: 1px solid $border-color;
+  width: 1px;
+  background: $border-color;
 }

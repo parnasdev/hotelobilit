@@ -326,7 +326,7 @@ export class AddComponent implements OnInit {
   }
 
   submit(): void {
-    debugger
+
 if(this.flights.length > 0 && this.packages.length > 0) {
   this.setReq()
   this.tourApi.createTour(this.req).subscribe((res: any) => {
@@ -338,8 +338,11 @@ if(this.flights.length > 0 && this.packages.length > 0) {
   }, (error: any) => {
     if (error.status == 422) {
       this.errorService.recordError(error.error.errors);
-      this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+
+      this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید',)
+      this.message.showMessageBig(error.error.message)
     } else {
+
       this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
     }
     this.checkError.check(error);
