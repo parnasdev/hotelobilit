@@ -38,7 +38,16 @@ export class ListComponent implements OnInit {
     { id: 8, name: '۸ شب' },
     { id: 9, name: '۹ شب' },
   ];
-
+  playAudio(): void {
+    const audio = new Audio('/assets/audio/notif.mp3');
+    audio.play()
+      .then(() => {
+        console.log('Audio played successfully');
+      })
+      .catch((error) => {
+        console.error('Error playing audio:', error);
+      });
+  }
 
 
   tourReq: TourListRequestDTO = {
@@ -92,9 +101,11 @@ export class ListComponent implements OnInit {
     public errorService: ErrorsService,
     public publicService: PublicService,
     public message: MessageService) {
-  }
+ }
+
 
   ngOnInit(): void {
+    setTimeout(()=>{this.playAudio()},2000)
     this.title.setTitle('تورها | هتل و بلیط')
 
     $(document).ready(() => {
