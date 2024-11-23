@@ -71,7 +71,8 @@ export class ListComponent implements OnInit {
     fromDate: null,
     toDate: null,
     tourId:'',
-    isBundle:''
+    isBundle:'',
+    agency_id:''
   };
   cities: any[] = []
   isLoading = false
@@ -86,6 +87,7 @@ export class ListComponent implements OnInit {
   p = 1;
   sortByDate = false
   printContent = '';
+  agencies:any[]=[]
 
   statuses: any[] = []
   constructor(
@@ -124,7 +126,7 @@ export class ListComponent implements OnInit {
     this.tourApiService.getTours(this.p, qparams).subscribe((res: any) => {
       if (res.isDone) {
         this.tours = res.data;
-
+this.agencies = res.agencies;
         if (time === 'first') {
           this.statuses = res.statuses
           this.cities = res.cities
@@ -196,6 +198,7 @@ export class ListComponent implements OnInit {
       toDate: null,
       isBundle:'',
       tourId:'',
+      agency_id:'',
 
     }
     this.reload()

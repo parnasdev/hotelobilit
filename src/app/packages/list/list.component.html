@@ -52,6 +52,13 @@
       </select>
     </div>
     <div class="inp-form w-25">
+      <span>آژانس</span>
+
+      <select name="" id="" [(ngModel)]="filterObj.agency_id">
+        <option *ngFor="let agency of agencies" [value]="agency.id">{{ agency.agency_name }}</option>
+      </select>
+    </div>
+    <div class="inp-form w-25">
       <span>نوع</span>
 
       <select name="" id="" [(ngModel)]="filterObj.isBundle">
