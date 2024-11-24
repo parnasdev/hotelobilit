@@ -41,6 +41,7 @@ export class ReserveInfoComponent {
     this.title.setTitle('جزییات رزرو | هتل و بلیط')
 
     this.getReserve(true)
+    console.log(this.session.getRole())
   }
 
 

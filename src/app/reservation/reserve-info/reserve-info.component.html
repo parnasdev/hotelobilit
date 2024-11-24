@@ -30,13 +30,13 @@
           <div class=" mb-3">
 
 
-            <div class="w-100  gap-12 m-bottom-12 grid-1-mobi">
-              <div class="flex-x-between mb-4">
-                <div class="d-flex align-items-center item-title justify-content-center w-100">
+            <div class="w-100  gap-12 m-bottom-12 grid-1-mobi" >
+              <div class="flex-x-between mb-4" >
+                <div class="d-flex align-items-center item-title justify-content-center w-100" *ngIf="this.session.getRole()!=='provider_hotel'">
                   <span class="text-dark bold-400">مرجع:</span>
 
                   <span class="status bold-500">
-            {{ info?.information.partner_name }}
+                {{ info?.information.partner_name }}
           </span>
                 </div>
                 <div class="p-date  w-100 d-flex align-items-center justify-content-center">
@@ -144,11 +144,11 @@
 
 
 
-    <div class="title-profile w-100">
+    <div class="title-profile w-100" *ngIf="this.session.getRole()!=='provider_hotel'">
       <i class="icon-circle"></i>
       <h2 class="dana-bold fs-16 bold-600">اطلاعات قیمت</h2>
     </div>
-    <div class="box-top-agency-reserve my-1">
+    <div class="box-top-agency-reserve my-1" *ngIf="this.session.getRole()!=='provider_hotel'">
       <div class="p-price d-flex align-items-center justify-content-between">
         <div class="item d-flex align-items-center justify-content-between w-100 px-2">
           <span style="font-weight: 400 !important;" class="title">مبلغ کل:</span>
@@ -276,7 +276,7 @@
             </div>
 
           </div>
-          <div style="margin-top: .5rem" class="w-100 gap-6 flex-x-between">
+          <div style="margin-top: .5rem" class="w-100 gap-6 flex-x-between" *ngIf="this.session.getRole()!=='provider_hotel'">
             <div class="flex-x-center">
               <span class="fs-13 bold-600">تامین کننده :</span>
               <span class="fs-13 bold-600">{{info.flights.departure.agency}}</span>
@@ -340,11 +340,11 @@
 
         </div>
         <div class="item-information-room">
-          <div class="item">
-            <span class="text-gray">قیمت پرواز رفت :</span>
+          <div class="item" *ngIf="this.session.getRole()!=='provider_hotel'">
+            <span class="text-gray" >قیمت پرواز رفت :</span>
             <span class="mr-2">{{ p.departure_flight_rate | sperator }}</span>
           </div>
-          <div class="item">
+          <div class="item" *ngIf="this.session.getRole()!=='provider_hotel'">
             <span class="text-gray">قیمت پرواز برگشت :</span>
             <span class="mr-2">{{ p.return_flight_rate | sperator }}</span>
           </div>
@@ -352,18 +352,18 @@
             <span class="text-gray">قیمت اتاق :</span>
             <span class="mr-2">{{ p.room_price |sperator }}</span>
           </div>
-          <div class="item">
+          <div class="item" *ngIf="this.session.getRole()!=='provider_hotel'">
             <span class="text-gray">قیمت سرویس :</span>
             <span class="mr-2">{{ p.service_price | sperator }}</span>
           </div>
-          <div class="item">
+          <div class="item" *ngIf="this.session.getRole()!=='provider_hotel'">
             <span class="text-gray">مجموع قیمت :</span>
             <span class="mr-2">{{ p.total_room_price | sperator }}</span>
           </div>
 
         </div>
       </div>
-      <div class="  w-100 grid-10">
+      <div class="  w-100 grid-10 " *ngIf="this.session.getRole()!=='provider_hotel'">
         <div class="d-flex item-bimeh" *ngFor="let s of getServices(item.info_room?.services)">
           <span>{{ s.category + ' : ' }}</span>
           <span>{{ s.rate | sperator }}</span>
