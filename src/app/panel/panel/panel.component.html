@@ -18,7 +18,7 @@
       </div>
       <main class="main">
         <header class="header-panel">
-          <div class="search flex-x-start w-100 gap-20" *ngIf="currencies.dollar || currencies.euro || currencies.derham">
+          <div class="search flex-x-start w-100 gap-20" *ngIf="this.session.getRole()!=='provider_hotel'">
             <div class="flex-x-center gap-1" style="width: auto;height: 20px; background-color: #6f42c1; padding: 20px; border-radius: 10px">
               <p class="m-0 p-0" style="color: white">دلار:</p>
               <p class="m-0 p-0" style="color: white">{{currencies?.dollar | separator}} تومان </p>

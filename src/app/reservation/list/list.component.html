@@ -34,7 +34,7 @@
       <span class="id">#</span>
       <div class="d-flex flex-column">
         <span class="username">رزروگیرنده</span>
-        <span class="username">مرجع</span>
+        <span class="username"  *ngIf="this.session.getRole()!=='provider_hotel'">مرجع</span>
       </div>
       <span class="view">نام هتل</span>
       <div class="d-flex flex-column">
@@ -93,7 +93,7 @@
         <span class="id">{{ item.id }}</span>
         <div class="d-flex flex-column">
           <span *ngIf="session.getRole()!=='تامین کننده هتل'" class="username">{{ item.information.reserver.phone }}</span>
-          <span class="username">{{ item.information.partner_name ?item.information.partner_name : 'ثبت نشده'}}</span>
+          <span class="username" *ngIf="this.session.getRole()!=='provider_hotel'">{{ item.information.partner_name ?item.information.partner_name : 'ثبت نشده'}}</span>
         </div>
         <div class="d-flex flex-column">
           <span class="username font-size-11">{{item.hotel.title}}</span>
