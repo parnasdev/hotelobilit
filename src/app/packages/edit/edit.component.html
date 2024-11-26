@@ -208,6 +208,7 @@
         <span>کودک</span>
         <span>نوزاد</span>
         <span>زمان</span>
+        <span>وضعیت پرواز</span>
         <span>ش پرواز</span>
         <span>ظرفیت</span>
       </div>
@@ -216,7 +217,7 @@
           <span>پروازی یافت نشد</span>
         </div>
         <div *ngIf="transferRates.length > 0">
-          <div class="item" *ngFor="let item of transferRates">
+          <div class="item" *ngFor="let item of transferRates" [style.background-color]="(item.flight===true || item.returnFlight===true)? 'rgb(255 161 161)':'' " >
             <div>
               <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
               <span>({{ item.mixed_id }})</span>
@@ -247,6 +248,10 @@
             <div class="d-flex flex-column">
               <span>{{ (item.flight.time | timeFixer)}}</span>
               <span>{{ (item.returnFlight.time | timeFixer)}}</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{ (item.flight.is_closed ?  'بسته' : 'باز')}}</span>
+              <span>{{ (item.returnFlight.is_closed ?  'بسته' : 'باز')}}</span>
             </div>
             <div class="d-flex flex-column">
               <span>{{ item.flight.flight_number }}</span>
