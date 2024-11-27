@@ -136,6 +136,7 @@ select_all_hotel(){
           this.rateChange=null;
           this.rate_number=null;
           this.rate_apply_to=[]
+
           alert('تغییرات با موفقیت انجام شد')
           this.apply_rate_stats=false
           this.select_all_hotel()
