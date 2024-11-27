@@ -15,7 +15,7 @@
         <!-- <span>{{ ratingData?.hotel?. }}</span> -->
       </div>
     </div>
-    <a style="width: 100px !important;height: 40px !important;" routerLink="/panel/hotel/edit/{{id}}"  class="btn-base">{{ 'hotelEditLabel' | translate }}</a>
+    <a *ngIf="session.getRole()!=='provider_hotel'" style="width: 100px !important;height: 40px !important;" routerLink="/panel/hotel/edit/{{id}}"  class="btn-base">{{ 'hotelEditLabel' | translate }}</a>
   </div>
   <mat-tab-group>
     <mat-tab label="{{ 'hotelPricing' | translate }}">

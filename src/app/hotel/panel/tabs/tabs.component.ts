@@ -7,6 +7,7 @@ import { RatingResDTO, RoomDTO, ratigListReqDTO, roomDTO } from 'src/app/Core/Mo
 import { CheckErrorService } from 'src/app/Core/Services/check-error.service';
 import { ErrorsService } from 'src/app/Core/Services/errors.service';
 import { MessageService } from 'src/app/Core/Services/message.service';
+import {SessionService} from "../../../Core/Services/session.service";
 
 @Component({
   selector: 'prs-tabs',
@@ -34,10 +35,12 @@ export class TabsComponent {
     public errorService: ErrorsService,
     public cityApiService: CityApiService,
     public route: ActivatedRoute,
+    public session: SessionService,
     public api: PostApiService,
     public message: MessageService,) { }
 
   ngOnInit(): void {
+    console.log(this.session.getRole())
     // @ts-ignore
     this.slug = this.route.snapshot.paramMap.get('slug');
     // @ts-ignore
