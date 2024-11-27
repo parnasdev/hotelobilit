@@ -217,7 +217,7 @@
           <span>پروازی یافت نشد</span>
         </div>
         <div *ngIf="transferRates.length > 0">
-          <div class="item" *ngFor="let item of transferRates" [style.background-color]="(item.flight.is_close===true || item.returnFlight.is_close===true)&& 'rgb(255 161 161)'" >
+          <div class="item" *ngFor="let item of transferRates" [style.background-color]="(item.flight.is_close===true || item.returnFlight.is_close===true || +item.flight.capacity===0 || +item.returnFlight.capacity===0  )&& 'rgb(255 161 161)'" >
             <div>
               <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
               <span>({{ item.mixed_id }})</span>
