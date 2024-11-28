@@ -132,7 +132,6 @@ this.selectedCurrency=res.data.currency
   }
 
   agencyChanged() {
-    console.log(this.agency_selected)
 
     this.getInfo()
     this.getAgencyCurrencies()

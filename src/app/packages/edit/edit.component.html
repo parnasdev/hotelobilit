@@ -14,7 +14,7 @@
           <div class="selectdiv">
             <label>
               <select [formControl]="status_idFC">
-                <option *ngFor="let status of this.statuses; let i = index" [value]="status.id">{{ status.label }}
+                <option *ngFor="let status of this.statuses; let i = index" [value]="+status.id">{{ status.label }}
                 </option>
                 <!-- <option value="Draft" selected>پیش نویس</option>
                 <option value="Accepted">تایید شده</option>

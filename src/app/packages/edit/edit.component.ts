@@ -34,9 +34,7 @@ export class EditComponent extends AddComponent implements OnInit {
     this.getInfo()
   }
   onRateTypeChange(event: any) {
-
     this.rate_apply_to = event.value;
-    console.log(this.rate_apply_to)
   }
   getInfo(): void {
     this.isLoading = true;
@@ -79,7 +77,7 @@ select_all_hotel(){
   applyRate(){
 
    let check_isChecked_package=this.packages.filter((pack:any)=>pack.isChecked)
-    if(this.apply_rate_stats===false ){
+    if(!this.apply_rate_stats ){
 
       if(this.rate_apply_to.length>0 && this.rate_number && this.rateChange){
 
@@ -159,7 +157,6 @@ select_all_hotel(){
     }
 
 
-    console.log(this.packages)
 
 
 
@@ -296,6 +293,7 @@ this.select_all=true;
     this.packages.splice(index, 1);
   }
   override setReq() {
+    debugger
     this.req = {
       offered:this.offered,
       title: this.titleFC.value ?? '',
@@ -311,7 +309,6 @@ this.select_all=true;
       checkin: this.checkinFC.value ? moment(this.checkinFC.value).format('YYYY-MM-DD') : '',
       checkout: this.checkoutFC.value ? moment(this.checkoutFC.value).format('YYYY-MM-DD') : '',
       expired_at: this.expired_atFC.value ? moment(this.expired_atFC.value).format('YYYY-MM-DD') : '',
-
       status_id: +(this.status_idFC.value ?? ''),
       flights: this.flights,
       partnerIds: this.getPartners(),
@@ -321,7 +318,7 @@ this.select_all=true;
       documents:this.documentFC.value  ?? '',
       del_rooms:this.del_rooms ?? []
     }
-    debugger
+
     let newPackage = this.req.packages.map((p: any, index: number) => {
       return {
         ...p,
@@ -372,9 +369,10 @@ this.select_all=true;
     this.day_numFC.setValue(this.tourData.day_num);
     this.tour_typeFC.setValue(this.tourData.tour_type);
     this.checkinFC.setValue(this.tourData.checkin);
+
     this.status_idFC.setValue(this.tourData.status.id)
     this.checkoutFC.setValue(this.tourData.checkout);
-    this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
+    // this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
     this.expired_atFC.setValue(this.tourData.expired_at);
     // this.onTitleGenerator(this.tourData.origin_name ?? '', this.tourData.destination_name);
     this.flights = this.tourData.flightIds;
