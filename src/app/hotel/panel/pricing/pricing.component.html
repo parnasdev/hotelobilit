@@ -8,7 +8,7 @@
     </select>
     <select  [(ngModel)]="boardtype_selected" (ngModelChange)="agencyChanged()">
       <option [value]="0">انتخاب کنید</option>
-      <option *ngFor="let item of boardtype |keyvalue" [value]="item.value">{{ item.value }}</option>
+      <option *ngFor="let item of boardtype | keyvalue" [value]="item.value">{{ item.value }}</option>
     </select>
 
     <select  [(ngModel)]="selectedCurrency" (ngModelChange)="changeCurrency()">

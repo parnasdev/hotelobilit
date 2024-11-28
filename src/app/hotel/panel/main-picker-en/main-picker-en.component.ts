@@ -24,7 +24,7 @@ export class MainPickerEnComponent implements OnInit {
   @Input() selected_boardtype = 'B.B';
   @Input() currency=''
 
-  @Input() agency_id =  33;
+  @Input() agency_id =  this.session.getAgency();
 
 
   @Input() room: roomDTO | null = {

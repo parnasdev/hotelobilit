@@ -33,7 +33,7 @@
                     <label class=" label-capacity english-font" *ngIf="item.data && item.data.available_room_count" [customTooltip]="tooltipTemplate1"> {{
                         item.data?.available_room_count }}</label>
 
-        
+
 
                     <div class="p-icon-circle-extra" [matTooltip]="item.data?.extra_price+' : extra bed price : ' "
                         *ngIf="item.data && item.data?.extra_price">
@@ -65,7 +65,7 @@
                             <div class="flex-x-start gap-6 w-100">
                                 <span>Currency :</span>
                                 <p>
-                                    {{ item.data.currency_code }}
+                                    {{ currency }}
                                 </p>
                             </div>
                             <div class="flex-x-start gap-6 w-100">
@@ -178,7 +178,7 @@
                             <div class="flex-x-start gap-6 w-100">
                                 <span>Currency :</span>
                                 <p>
-                                    {{ item.data.currency_code }}
+                                    {{ currency }}
                                 </p>
                             </div>
                             <div class="flex-x-start gap-6 w-100">
