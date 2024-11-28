@@ -64,8 +64,8 @@ export class PostApiService {
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 
-  getAgencyCurrencies(hotelId: any): any {
-    const strUrl = this.serverControllerName + `currencies/${hotelId}`;
+  getAgencyCurrencies(hotelId: any,agency:any): any {
+    const strUrl = this.serverControllerName + `currencies/${hotelId}?agency_id=${agency}`;
     return this.http.get<Result<any>>(strUrl, this.publicService.getDefaultHeaders());
   }
 

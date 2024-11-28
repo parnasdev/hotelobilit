@@ -22,6 +22,8 @@ export class MainPickerEnComponent implements OnInit {
   @Input() hotelID = 0;
   @Input() pricingType = '0';
   @Input() selected_boardtype = 'B.B';
+  @Input() currency=''
+
   @Input() agency_id =  33;
 
 
@@ -215,7 +217,7 @@ export class MainPickerEnComponent implements OnInit {
         //   price = item.price
         // }
       }
-      let currency_code=item.user_currency_code ==='NOTSET'? item.currency_code :  item.user_currency_code;
+      let currency_code=this.currency? this.currency : item.currency_code;
 
       if (currency_code === 'toman') {
         if (price.toString().length > 6) {

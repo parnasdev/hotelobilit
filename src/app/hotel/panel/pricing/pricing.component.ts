@@ -68,7 +68,7 @@ export class PricingComponent implements OnInit {
 
   getAgencyCurrencies(){
 
-    this.api.getAgencyCurrencies(this.id).subscribe((res: any) => {
+    this.api.getAgencyCurrencies(this.id,this.agency_selected).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
 
@@ -133,13 +133,15 @@ this.selectedCurrency=res.data.currency
 
   agencyChanged() {
     this.getInfo()
+    this.getAgencyCurrencies()
     this.reload()
   }
 
   changeCurrency(){
     let req={
       hotel_id:this.id,
-      currency:this.selectedCurrency
+      currency:this.selectedCurrency,
+
     }
     this.api.changeCurrency(req).subscribe((res: any) => {
       this.isLoading = false;
