@@ -1,7 +1,8 @@
 <div class="bottom">
+  <p class="text-red mt-2">**بعد از انتخاب آژانس ، سرویس اتاق حتما برروی نوع اتاق کلیک کنید!</p>
   <div class="w-100 d-flex align-items-center justify-content-between">
     <h2 class="title">{{ 'hotelPricing' | translate }}</h2>
-    <select *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'" [(ngModel)]="agency_selected" (ngModelChange)="agencyChanged()">
+    <select *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'" [(ngModel)]="+agency_selected" (ngModelChange)="agencyChanged()">
       <option [value]="0">انتخاب کنید</option>
       <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name ? item.agency_name: item.full_name }}</option>
     </select>
@@ -36,7 +37,7 @@
     <!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
-    <div class="w-100" *ngIf="rooms.length > 0">
+    <div class="w-100" *ngIf="rooms.length > 0 && agency_selected">
       <prs-main-picker [currency]="selectedCurrency" [agency_id]="agency_selected"  [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'shamsi'" [room]="getRoom()" [hotelID]="+id"
         [pricingType]="isCoefficient"></prs-main-picker>
         <prs-main-picker-en [currency]="selectedCurrency" [agency_id]="agency_selected" [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'miladi'" [room]="getRoom()" [hotelID]="+id"

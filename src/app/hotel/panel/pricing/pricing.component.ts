@@ -21,7 +21,7 @@ export class PricingComponent implements OnInit {
   key = ''
   isLoading = false;
   standardTwinId = 148;
-  agency_selected = 33;
+  agency_selected = this.session.getAgency();
   boardtype_selected = 'B.B';
   standardTwinCoefficient = 0;
   showCalendar = true;
@@ -51,7 +51,6 @@ export class PricingComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('قیمت گذاری هتل | هتل و بلیط')
-
     // @ts-ignore
     this.slug = this.route.snapshot.paramMap.get('slug');
     // @ts-ignore
@@ -67,6 +66,7 @@ export class PricingComponent implements OnInit {
 
 
   getAgencyCurrencies(){
+
 
     this.api.getAgencyCurrencies(this.id,this.agency_selected).subscribe((res: any) => {
       this.isLoading = false;
@@ -132,6 +132,8 @@ this.selectedCurrency=res.data.currency
   }
 
   agencyChanged() {
+    console.log(this.agency_selected)
+
     this.getInfo()
     this.getAgencyCurrencies()
     this.reload()

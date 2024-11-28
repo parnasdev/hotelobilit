@@ -113,7 +113,7 @@ export class SessionService {
 
   getAgency(): any {
     const user = localStorage.getItem('hotelobilit-user');
-    return user ? JSON.parse(user).user.agency : '';
+    return user ? JSON.parse(user).user.agency_id : '';
   }
 
 
@@ -167,7 +167,7 @@ export class SessionService {
     return user ? JSON.parse(user).user.birthDay : '';
   }
 
-  
+
 
   isLoggedIn(): any {
     const user = localStorage.getItem('hotelobilit-user');
