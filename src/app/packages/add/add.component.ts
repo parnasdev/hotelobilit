@@ -84,7 +84,7 @@ export class AddComponent implements OnInit {
   status_idFC = new FormControl(0, [Validators.required])
   is_bundle: boolean = false
  offered: boolean = false
-
+packagesErr:any={}
 
 
   partners: any[] = []
@@ -120,6 +120,7 @@ export class AddComponent implements OnInit {
   }
 
 
+  
   getPageData(): void {
     this.isLoading = true;
     this.tourApi.createPageTour().subscribe((res: any) => {
@@ -162,7 +163,17 @@ export class AddComponent implements OnInit {
     })
   }
 
+  packageValidationErr(index:number){
 
+    
+    
+    if(this.packagesErr && Object.keys(this.packagesErr).length>0 && Object.keys(this.packagesErr).includes(`packages.${index}.rooms`)){
+      
+      return true
+    }else{
+      return false
+    }
+  }
 
   setReq() {
     this.req = {

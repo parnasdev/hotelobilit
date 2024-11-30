@@ -17,7 +17,7 @@ export class EditComponent extends AddComponent implements OnInit {
   rateChange:any=null;
   rate_number:any=null;
   rate_apply_to:any=[]
-  packagesErr:any={}
+  // packagesErr:any={}
   hotel_setting:boolean=false
   select_all:boolean=false
 
@@ -389,17 +389,7 @@ this.select_all=true;
   checkStatus(name: string) {
     return this.statuses.find(x => x.name === name)?.id ?? 0
   }
-  packageValidationErr(index:number){
 
-    
-    
-    if(this.packagesErr && Object.keys(this.packagesErr).length>0 && Object.keys(this.packagesErr).includes(`packages.${index}.rooms`)){
-      
-      return true
-    }else{
-      return false
-    }
-  }
 
 
   drop(event: CdkDragDrop<PackageTourDTO[]>) {

@@ -1,15 +1,15 @@
 <div class="add-tour">
-  <div class="box-info-tour">
-    <div class="info-tour-header">
-      <div class="right">
-        <label for="">{{'تور'}}</label>
-        <h2 class="text-dark">اطلاعات تور</h2>
-      </div>
+    <div class="box-info-tour">
+        <div class="info-tour-header">
+            <div class="right">
+                <label for="">{{'تور'}}</label>
+                <h2 class="text-dark">اطلاعات تور</h2>
+            </div>
 
-      <div class="left d-flex align-items-center">
-        <div *ngIf="session.checkItemPermission('tours.status')">
-          <div class="selectdiv">
-            <label>
+            <div class="left d-flex align-items-center">
+                <div *ngIf="session.checkItemPermission('tours.status')">
+                    <div class="selectdiv">
+                        <label>
               <select [formControl]="status_idFC">
                 <option *ngFor="let status of this.statuses; let i = index" [value]="status.id">{{ status.label }}
                 </option>
@@ -24,345 +24,344 @@
                 <span class="text-danger">{{errorService.getError('status_id')}}</span>
               </div>
             </label>
-          </div>
+                    </div>
 
-        </div>
-        <div class="selectdiv  me-2">
-          <mat-form-field class="w-100">
-            <mat-select [(ngModel)]="partnerNames" placeholder="انتشار در ..." [ngModelOptions]="{standalone: true}"
-              multiple>
-              <mat-select-trigger>{{partnerNames}}</mat-select-trigger>
-              <mat-option *ngFor="let cat of partners" [value]="cat.name">{{cat.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="selectdiv me-2">
-          <label>
+                </div>
+                <div class="selectdiv  me-2">
+                    <mat-form-field class="w-100">
+                        <mat-select [(ngModel)]="partnerNames" placeholder="انتشار در ..." [ngModelOptions]="{standalone: true}" multiple>
+                            <mat-select-trigger>{{partnerNames}}</mat-select-trigger>
+                            <mat-option *ngFor="let cat of partners" [value]="cat.name">{{cat.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="selectdiv me-2">
+                    <label>
             <select [formControl]="tour_typeFC">
               <option [ngValue]="true">داخلی</option>
               <option [ngValue]="false">خارجی</option>
             </select>
           </label>
-        </div>
-      </div>
-    </div>
-    <div style="background:#fff;border:1px solid #e0e0e0" class="info-tour-body">
-      <div class="top-title">
-        <!-- title field -->
-        <div style="margin-top: 0 !important;position: relative;top: -13px;width: 32% !important;" class="item-info">
-          <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
-          <input [formControl]="titleFC" type="text">
-          <div *ngIf="errorService.hasError('title')">
-            <span class="text-danger">{{errorService.getError('title')}}</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="align-items: flex-start !important;" class="top">
-
-        <!-- on field -->
-        <div class="item-info-2 item-info-material">
-          <div class="select-info">
-
-            <label for="">شهر مبدا</label>
-            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities"
-              (citySelected)="getStCity($event)"></prs-select-city>
-            <div *ngIf="errorService.hasError('origin_id')">
-              <span class="text-danger">{{errorService.getError('origin_id')}}</span>
+                </div>
             </div>
-          </div>
         </div>
-        <!-- destination field -->
-        <div class="item-info item-info-material mt-3">
-          <div class="select-info">
-            <label for="">شهر مقصد</label>
-            <prs-select-city [title]="'انتخاب کنید'" [cities]="cities"
-              (citySelected)="getEndCity($event)"></prs-select-city>
-
-            <div *ngIf="errorService.hasError('destination_id')">
-              <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+        <div style="background:#fff;border:1px solid #e0e0e0" class="info-tour-body">
+            <div class="top-title">
+                <!-- title field -->
+                <div style="margin-top: 0 !important;position: relative;top: -13px;width: 32% !important;" class="item-info">
+                    <label for="">عنوان تور (داینامیک ایجاد می شود)</label>
+                    <input [formControl]="titleFC" type="text">
+                    <div *ngIf="errorService.hasError('title')">
+                        <span class="text-danger">{{errorService.getError('title')}}</span>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
+
+            <div style="align-items: flex-start !important;" class="top">
+
+                <!-- on field -->
+                <div class="item-info-2 item-info-material">
+                    <div class="select-info">
+
+                        <label for="">شهر مبدا</label>
+                        <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" (citySelected)="getStCity($event)"></prs-select-city>
+                        <div *ngIf="errorService.hasError('origin_id')">
+                            <span class="text-danger">{{errorService.getError('origin_id')}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- destination field -->
+                <div class="item-info item-info-material mt-3">
+                    <div class="select-info">
+                        <label for="">شهر مقصد</label>
+                        <prs-select-city [title]="'انتخاب کنید'" [cities]="cities" (citySelected)="getEndCity($event)"></prs-select-city>
+
+                        <div *ngIf="errorService.hasError('destination_id')">
+                            <span class="text-danger">{{errorService.getError('destination_id')}}</span>
+                        </div>
+                    </div>
+                </div>
 
 
 
-        <div class="item-info"></div>
-        <!-- stDate field -->
-        <div class="item-info w-25">
-          <label for="">تاریخ ورود به هتل</label>
-          <mat-form-field class="example-full-width mt-0" appearance="fill">
-            <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"
-              [min]="minDate" (click)="picker1.open()">
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-          <div *ngIf="errorService.hasError('checkin')">
-            <span class="text-danger">{{errorService.getError('checkin')}}</span>
-          </div>
-        </div>
+                <div class="item-info"></div>
+                <!-- stDate field -->
+                <div class="item-info w-25">
+                    <label for="">تاریخ ورود به هتل</label>
+                    <mat-form-field class="example-full-width mt-0" appearance="fill">
+                        <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC" [min]="minDate" (click)="picker1.open()">
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="errorService.hasError('checkin')">
+                        <span class="text-danger">{{errorService.getError('checkin')}}</span>
+                    </div>
+                </div>
 
-        <!-- enDate field -->
-        <div class="item-info w-25">
-          <label for="">تاریخ خروج از هتل</label>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2"
-              [min]="minDate" (click)="picker2.open()">
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-          <div *ngIf="errorService.hasError('checkout')">
-            <span class="text-danger">{{errorService.getError('checkout')}}</span>
-          </div>
-        </div>
-        <div class="item-info w-25">
-          <label for="">تاریخ انقضا پکیج</label>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate"
-              (click)="picker3.open()">
-            <mat-datepicker #picker3></mat-datepicker>
-          </mat-form-field>
-          <div *ngIf="errorService.hasError('expired_at')">
-            <span class="text-danger">{{errorService.getError('expired_at')}}</span>
-          </div>
-        </div>
-        <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
-          <label class="bold-600 fs-13" for="">تور یکجا ؟</label>
-          <mat-checkbox [(ngModel)]="is_bundle" (ngModelChange)="change()"></mat-checkbox>
-          <div *ngIf="errorService.hasError('checkout')">
-            <span class="text-danger">{{errorService.getError('checkout')}}</span>
-          </div>
-        </div>
+                <!-- enDate field -->
+                <div class="item-info w-25">
+                    <label for="">تاریخ خروج از هتل</label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <input matInput [formControl]="checkoutFC" (dateChange)="dateChanged()" [matDatepicker]="picker2" [min]="minDate" (click)="picker2.open()">
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="errorService.hasError('checkout')">
+                        <span class="text-danger">{{errorService.getError('checkout')}}</span>
+                    </div>
+                </div>
+                <div class="item-info w-25">
+                    <label for="">تاریخ انقضا پکیج</label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <input matInput [formControl]="expired_atFC" [matDatepicker]="picker3" [min]="minDate" (click)="picker3.open()">
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                    <div *ngIf="errorService.hasError('expired_at')">
+                        <span class="text-danger">{{errorService.getError('expired_at')}}</span>
+                    </div>
+                </div>
+                <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
+                    <label class="bold-600 fs-13" for="">تور یکجا ؟</label>
+                    <mat-checkbox [(ngModel)]="is_bundle" (ngModelChange)="change()"></mat-checkbox>
+                    <div *ngIf="errorService.hasError('checkout')">
+                        <span class="text-danger">{{errorService.getError('checkout')}}</span>
+                    </div>
+                </div>
 
-        <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
-          <label class="bold-600 fs-13" for="">تور آنلاین ؟</label>
-          <mat-checkbox [(ngModel)]="is_online" (ngModelChange)="change()"></mat-checkbox>
-          <div *ngIf="errorService.hasError('checkout')">
-            <span class="text-danger">{{errorService.getError('checkout')}}</span>
-          </div>
-        </div>
+                <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
+                    <label class="bold-600 fs-13" for="">تور آنلاین ؟</label>
+                    <mat-checkbox [(ngModel)]="is_online" (ngModelChange)="change()"></mat-checkbox>
+                    <div *ngIf="errorService.hasError('checkout')">
+                        <span class="text-danger">{{errorService.getError('checkout')}}</span>
+                    </div>
+                </div>
 
-        <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
-          <label class="bold-600 fs-13" for="">تور ویژه</label>
-          <mat-checkbox [(ngModel)]="offered" (ngModelChange)="change()"></mat-checkbox>
-          <div *ngIf="errorService.hasError('checkout')">
-            <span class="text-danger">{{errorService.getError('checkout')}}</span>
-          </div>
-        </div>
-        <div class="item-info w-25" *ngIf="is_bundle">
-          <label for="">ارز</label>
-          <!--          <mat-form-field class="example-full-width" appearance="fill">-->
-          <!--            <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"-->
-          <!--              [min]="minDate" (click)="picker1.open()">-->
-          <!--            <mat-datepicker #picker1></mat-datepicker>-->
-          <!--          </mat-form-field>-->
-          <select class="m-top-20" [(ngModel)]="selectedCurrency">
+                <div style="margin-top: 2.5rem" class="item-info-3 d-flex align-items-center w-32">
+                    <label class="bold-600 fs-13" for="">تور ویژه</label>
+                    <mat-checkbox [(ngModel)]="offered" (ngModelChange)="change()"></mat-checkbox>
+                    <div *ngIf="errorService.hasError('checkout')">
+                        <span class="text-danger">{{errorService.getError('checkout')}}</span>
+                    </div>
+                </div>
+                <div class="item-info w-25" *ngIf="is_bundle">
+                    <label for="">ارز</label>
+                    <!--          <mat-form-field class="example-full-width" appearance="fill">-->
+                    <!--            <input matInput [matDatepicker]="picker1" (dateChange)="dateChanged()" [formControl]="checkinFC"-->
+                    <!--              [min]="minDate" (click)="picker1.open()">-->
+                    <!--            <mat-datepicker #picker1></mat-datepicker>-->
+                    <!--          </mat-form-field>-->
+                    <select class="m-top-20" [(ngModel)]="selectedCurrency">
             <option *ngFor="let item of currencies" [value]="item">{{item}}</option>
           </select>
-          <div *ngIf="errorService.hasError('checkin')">
-            <span class="text-danger">{{errorService.getError('checkin')}}</span>
-          </div>
-        </div>
-        <div class="item-info d-flex justify-content-center">
-          <span class="label-days">
+                    <div *ngIf="errorService.hasError('checkin')">
+                        <span class="text-danger">{{errorService.getError('checkin')}}</span>
+                    </div>
+                </div>
+                <div class="item-info d-flex justify-content-center">
+                    <span class="label-days">
             {{night_numFC.value}}شب
             و
             {{day_numFC.value}} روز
           </span>
+                </div>
+
+
+
+
+            </div>
+
+
+
         </div>
+    </div>
+    <div class="p-list-fly">
+        <div class="info-tour-header">
+            <div class="right">
+                <h2 class="text-dark">اطلاعات پرواز</h2>
+            </div>
+        </div>
+        <div class="w-100 p-transfer">
+            <div class="item-header">
+                <div class="d-flex flex-column ">
+                    <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+                </div>
+                <span>#</span>
+                <div class="d-flex flex-column">
+                    <span>مبدا</span>
+                    <span>مقصد</span>
+                </div>
+                <span>ایرلاین</span>
+                <span>کلاس</span>
+                <span>آژانس</span>
+                <div class="d-flex flex-column">
+                    <span>تاریخ رفت</span>
+                    <span>تاریخ برگشت</span>
+                </div>
+                <span>بزرگسال</span>
+                <span>کودک</span>
+                <span>نوزاد</span>
+                <span>زمان</span>
+                <span>ش پرواز</span>
+                <span>ظرفیت</span>
+            </div>
+            <div class="info-tour-body-2">
+                <div class="empty-transfer" *ngIf="transferRates.length === 0">
+                    <span>پروازی یافت نشد</span>
+                </div>
+                <div *ngIf="transferRates.length > 0">
+                    <div class="item" *ngFor="let item of transferRates">
+                        <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
+                        <span>({{ item.mixed_id }})</span>
 
+                        <div class="d-flex flex-column">
+                            <span>{{item.flight.origin_name }}</span>
+                            <span>{{ item.flight.destination_name }}</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>{{ item.flight.airline_name}}</span>
+                            <span>{{item.returnFlight.airline_name }}</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>{{ item.flight.cabin_type }}</span>
+                            <span>{{item.returnFlight.cabin_type }}</span>
+                        </div>
+                        <span>{{ item.flight.user.agency_name }}</span>
+                        <div class="d-flex flex-column">
+                            <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
+                            <span>{{ calenderService.convertDate(item.returnFlight.date, 'fa') }}</span>
+                        </div>
+                        <span>{{ item.total_adl_price | sperator }}</span>
+                        <span>{{ item.total_chd_price | sperator }}</span>
+                        <span>{{ (item.flight.inf_price + item.returnFlight.inf_price) | sperator }}</span>
 
+                        <div class="d-flex flex-column">
+                            <span>{{ (item.flight.time | timeFixer)}}</span>
+                            <span>{{ (item.returnFlight.time | timeFixer)}}</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>{{ item.flight.flight_number }}</span>
+                            <span>{{ item.returnFlight.flight_number }}</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>{{ item.flight.capacity }}</span>
+                            <span>{{ item.returnFlight.capacity }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="errorService.hasError('flights')">
+                    <span class="text-danger">لطفا پرواز خود را انتخاب کنید</span>
+                </div>
+            </div>
 
-
-      </div>
-
-
+        </div>
 
     </div>
-  </div>
-  <div class="p-list-fly">
-    <div class="info-tour-header">
-      <div class="right">
-        <h2 class="text-dark">اطلاعات پرواز</h2>
-      </div>
-    </div>
-    <div class="w-100 p-transfer">
-      <div class="item-header">
-        <div class="d-flex flex-column ">
-          <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
+
+
+    <div style="position: relative" class="w-100">
+        <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
+        <div class="w-100">
+            <div class="item-package w-100" *ngFor="let item of packages;let i=index">
+                <span style="place-self: center" class="number">{{ i + 1 }}</span>
+                <prs-add-hotel (result)="getResult($event,i)" [is_bundle]="is_bundle" [package]="item" [index]="i" [hotels]="hotels" [selectedFlights]="flights"></prs-add-hotel>
+                <div *ngIf="packageValidationErr(i)">
+                    <span class="text-danger">  لطفا مقادیر اتاق های هتل را بررسی کنید</span>
+                </div>
+                <!--        <div class="d-flex middle-item">-->
+                <!--          <h5>انتخاب هتل</h5>-->
+
+                <!--          &lt;!&ndash;            <select class="w-100" [(ngModel)]="item.hotel_id">&ndash;&gt;-->
+                <!--          &lt;!&ndash;              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>&ndash;&gt;-->
+                <!--          &lt;!&ndash;            </select>&ndash;&gt;-->
+                <!--          <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>-->
+                <!--          <prs-custom-select-hotel class="hotel-input" [hotels]="hotels"-->
+                <!--            (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>-->
+
+                <!--          <button style="width: 120px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت-->
+                <!--            گذاری-->
+                <!--          </button>-->
+
+                <!--          <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between">-->
+
+                <!--&lt;!&ndash;            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"&ndash;&gt;-->
+                <!--&lt;!&ndash;              placeholder="کودک با تخت">&ndash;&gt;-->
+                <!--&lt;!&ndash;            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">&ndash;&gt;-->
+                <!--            <div>-->
+                <!--            <label>اژانس</label>-->
+
+                <!--              <div class="agencies">-->
+                <!--                <select [(ngModel)]="packages[i].provider_id" (change)="getAgency($event,i)" >-->
+                <!--                  <option [selected]="true" >آژانس</option>-->
+                <!--                  <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>-->
+                <!--                </select>-->
+                <!--              </div>-->
+                <!--            </div>-->
+
+                <!--            <div>-->
+                <!--            <label>نوع سرویس</label>-->
+
+                <!--              <div class="agencies">-->
+                <!--                <select [(ngModel)]="packages[i].board_type" (change)="getBoardType($event,i)">-->
+                <!--                  <option [selected]="true">نوع سرویس</option>-->
+                <!--                  <option   *ngFor="let item of boardtype |keyvalue"  [value]="item.value">{{item.value}}</option>-->
+                <!--                </select>-->
+                <!--              </div>-->
+                <!--            </div>-->
+
+
+                <!--            <button class="btn-base" style="width: 100px !important;" (click)="openRooms(item.id,item.rooms,item.provider_id)">اتاق ها-->
+                <!--            </button>-->
+
+                <!--          </div>-->
+                <!--          <div class="d-flex checkbox-bottun-parent">-->
+
+                <!--            <div class="d-flex p-checkbox align-items-center justify-content-end">-->
+                <!--              <label>ویژه</label>-->
+                <!--              <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>-->
+                <!--            </div>-->
+                <!--          </div>-->
+                <!--        </div>-->
+                <i style="place-self: center" class="icon-cancel" (click)="removePackage(i)"></i>
+            </div>
         </div>
-        <span>#</span>
-        <div class="d-flex flex-column">
-          <span>مبدا</span>
-          <span>مقصد</span>
-        </div>
-        <span>ایرلاین</span>
-        <span>کلاس</span>
-        <span>آژانس</span>
-        <div class="d-flex flex-column">
-          <span>تاریخ رفت</span>
-          <span>تاریخ برگشت</span>
-        </div>
-        <span>بزرگسال</span>
-        <span>کودک</span>
-        <span>نوزاد</span>
-        <span>زمان</span>
-        <span>ش پرواز</span>
-        <span>ظرفیت</span>
-      </div>
-      <div class="info-tour-body-2">
-        <div class="empty-transfer" *ngIf="transferRates.length === 0">
-          <span>پروازی یافت نشد</span>
-        </div>
-        <div *ngIf="transferRates.length > 0">
-          <div class="item" *ngFor="let item of transferRates">
-            <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
-            <span>({{ item.mixed_id }})</span>
-
-            <div class="d-flex flex-column">
-              <span>{{item.flight.origin_name }}</span>
-              <span>{{ item.flight.destination_name }}</span>
-            </div>
-            <div class="d-flex flex-column">
-              <span>{{ item.flight.airline_name}}</span>
-              <span>{{item.returnFlight.airline_name }}</span>
-            </div>
-            <div class="d-flex flex-column">
-              <span>{{ item.flight.cabin_type }}</span>
-              <span>{{item.returnFlight.cabin_type }}</span>
-            </div>
-            <span>{{ item.flight.user.agency_name }}</span>
-            <div class="d-flex flex-column">
-              <span>{{ calenderService.convertDate(item.flight.date, 'fa') }}</span>
-              <span>{{ calenderService.convertDate(item.returnFlight.date, 'fa') }}</span>
-            </div>
-            <span>{{ item.total_adl_price | sperator }}</span>
-            <span>{{ item.total_chd_price | sperator }}</span>
-            <span>{{ (item.flight.inf_price + item.returnFlight.inf_price) | sperator }}</span>
-
-            <div class="d-flex flex-column">
-              <span>{{ (item.flight.time | timeFixer)}}</span>
-              <span>{{ (item.returnFlight.time | timeFixer)}}</span>
-            </div>
-            <div class="d-flex flex-column">
-              <span>{{ item.flight.flight_number }}</span>
-              <span>{{ item.returnFlight.flight_number }}</span>
-            </div>
-            <div class="d-flex flex-column">
-              <span>{{ item.flight.capacity }}</span>
-              <span>{{ item.returnFlight.capacity }}</span>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="errorService.hasError('flights')">
-          <span class="text-danger">لطفا پرواز خود را انتخاب کنید</span>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div style="position: relative" class="w-100">
-    <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
-    <div class="w-100">
-      <div class="item-package w-100" *ngFor="let item of packages;let i=index">
-        <span style="place-self: center" class="number">{{ i + 1 }}</span>
-        <prs-add-hotel (result)="getResult($event,i)" [is_bundle]="is_bundle" [package]="item" [index]="i" [hotels]="hotels" [selectedFlights]="flights"></prs-add-hotel>
-<!--        <div class="d-flex middle-item">-->
-<!--          <h5>انتخاب هتل</h5>-->
-
-<!--          &lt;!&ndash;            <select class="w-100" [(ngModel)]="item.hotel_id">&ndash;&gt;-->
-<!--          &lt;!&ndash;              <option *ngFor="let item of hotels" [value]="item.id">{{ item.title + ' ( ' + item.stars + ' ستاره' + ' )' }}</option>&ndash;&gt;-->
-<!--          &lt;!&ndash;            </select>&ndash;&gt;-->
-<!--          <div class="spinner-border" *ngIf="hotelLoading" role="status"></div>-->
-<!--          <prs-custom-select-hotel class="hotel-input" [hotels]="hotels"-->
-<!--            (hotelSelected)="getHotelSelected($event,i)"></prs-custom-select-hotel>-->
-
-<!--          <button style="width: 120px !important;" class="btn-base" (click)="openPricingCalendar(i,item.hotel_id)">قیمت-->
-<!--            گذاری-->
-<!--          </button>-->
-
-<!--          <div class="gap-8" *ngIf="is_bundle" style="display: flex;justify-content: space-between">-->
-
-<!--&lt;!&ndash;            <input class="input-custom" type="text" mask="separator" thousandSeparator="," [(ngModel)]="item.cwb"&ndash;&gt;-->
-<!--&lt;!&ndash;              placeholder="کودک با تخت">&ndash;&gt;-->
-<!--&lt;!&ndash;            <input class="input-custom" type="text" [(ngModel)]="item.child_age" placeholder="سن کودک">&ndash;&gt;-->
-<!--            <div>-->
-<!--            <label>اژانس</label>-->
-
-<!--              <div class="agencies">-->
-<!--                <select [(ngModel)]="packages[i].provider_id" (change)="getAgency($event,i)" >-->
-<!--                  <option [selected]="true" >آژانس</option>-->
-<!--                  <option  [value]="item.id" *ngFor="let item of agencies">{{item.agency_name}}</option>-->
-<!--                </select>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div>-->
-<!--            <label>نوع سرویس</label>-->
-
-<!--              <div class="agencies">-->
-<!--                <select [(ngModel)]="packages[i].board_type" (change)="getBoardType($event,i)">-->
-<!--                  <option [selected]="true">نوع سرویس</option>-->
-<!--                  <option   *ngFor="let item of boardtype |keyvalue"  [value]="item.value">{{item.value}}</option>-->
-<!--                </select>-->
-<!--              </div>-->
-<!--            </div>-->
-
-
-<!--            <button class="btn-base" style="width: 100px !important;" (click)="openRooms(item.id,item.rooms,item.provider_id)">اتاق ها-->
-<!--            </button>-->
-
-<!--          </div>-->
-<!--          <div class="d-flex checkbox-bottun-parent">-->
-
-<!--            <div class="d-flex p-checkbox align-items-center justify-content-end">-->
-<!--              <label>ویژه</label>-->
-<!--              <mat-checkbox [(ngModel)]="item.offered"></mat-checkbox>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-        <i style="place-self: center" class="icon-cancel" (click)="removePackage(i)"></i>
-      </div>
-    </div>
-    <!-- <div class="w-100 d-flex justify-content-end">
+        <!-- <div class="w-100 d-flex justify-content-end">
       <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
     </div> -->
-  </div>
-
-  <div class="detailscon">
-    <div class="info-tour-header" style="width: 100%">
-      <div class="right">
-        <h2 class="text-dark">اطلاعات دیگر</h2>
-      </div>
     </div>
-    <div class="moredetails flex-x-center">
-      <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
-        <label for="">مدارک لازم</label>
 
-        <textarea [formControl]="documentFC" type="text" cols="45" rows="10" ></textarea>
-        <div *ngIf="errorService.hasError('title')">
-          <span class="text-danger">{{errorService.getError('title')}}</span>
+    <div class="detailscon">
+        <div class="info-tour-header" style="width: 100%">
+            <div class="right">
+                <h2 class="text-dark">اطلاعات دیگر</h2>
+            </div>
         </div>
-      </div> <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
-      <label for="">توضیحات تکمیلی</label>
+        <div class="moredetails flex-x-center">
+            <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
+                <label for="">مدارک لازم</label>
 
-      <textarea [formControl]="descriptionFC" type="text" cols="45" rows="10"></textarea>
-      <div *ngIf="errorService.hasError('title')">
-        <span class="text-danger">{{errorService.getError('title')}}</span>
-      </div>
-    </div> <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
-      <label for="">خدمات</label>
+                <textarea [formControl]="documentFC" type="text" cols="45" rows="10"></textarea>
+                <div *ngIf="errorService.hasError('title')">
+                    <span class="text-danger">{{errorService.getError('title')}}</span>
+                </div>
+            </div>
+            <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
+                <label for="">توضیحات تکمیلی</label>
 
-      <textarea [formControl]="serviceFC" type="text" cols="45" rows="10"></textarea>
-      <div *ngIf="errorService.hasError('title')">
-        <span class="text-danger">{{errorService.getError('title')}}</span>
-      </div>
+                <textarea [formControl]="descriptionFC" type="text" cols="45" rows="10"></textarea>
+                <div *ngIf="errorService.hasError('title')">
+                    <span class="text-danger">{{errorService.getError('title')}}</span>
+                </div>
+            </div>
+            <div style="margin-top: 0 !important;position: relative;top: -13px;width: 50% !important;" class="item-info">
+                <label for="">خدمات</label>
+
+                <textarea [formControl]="serviceFC" type="text" cols="45" rows="10"></textarea>
+                <div *ngIf="errorService.hasError('title')">
+                    <span class="text-danger">{{errorService.getError('title')}}</span>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-  </div>
 
-  <!-- <prs-detail-package class="w-100"></prs-detail-package> -->
-  <button class="btn-base w-100-mobi m-top-12" style="width: 15%;" (click)="submit()">ثبت تور</button>
+    <!-- <prs-detail-package class="w-100"></prs-detail-package> -->
+    <button class="btn-base w-100-mobi m-top-12" style="width: 15%;" (click)="submit()">ثبت تور</button>
 
 </div>
