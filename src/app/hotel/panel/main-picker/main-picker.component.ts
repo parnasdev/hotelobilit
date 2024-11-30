@@ -110,7 +110,7 @@ export class MainPickerComponent implements OnInit {
     this.getHotelRates()
   }
 
-  getHotelRates() {
+   getHotelRates() {
     this.isLoading = true;
     this.req = {
       fromDate: moment(this.getFirstAndLastDates()[0]).format('YYYY-MM-DD'),
@@ -125,6 +125,7 @@ export class MainPickerComponent implements OnInit {
     this.api.ratingList(this.req).subscribe((res: any) => {
       this.isLoading = false;
       if (res.isDone) {
+        debugger
         this.pricesData = res.data;
         this.standardTwinCoefficient = this.getTwinCoefficient();
 

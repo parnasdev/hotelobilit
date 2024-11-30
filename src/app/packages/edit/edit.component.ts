@@ -17,6 +17,7 @@ export class EditComponent extends AddComponent implements OnInit {
   rateChange:any=null;
   rate_number:any=null;
   rate_apply_to:any=[]
+  packagesErr:any={}
   hotel_setting:boolean=false
   select_all:boolean=false
 
@@ -293,7 +294,7 @@ this.select_all=true;
     this.packages.splice(index, 1);
   }
   override setReq() {
-    debugger
+    
     this.req = {
       offered:this.offered,
       title: this.titleFC.value ?? '',
@@ -346,6 +347,8 @@ this.select_all=true;
       if (error.status == 422) {
         this.errorService.recordError(error.error.errors);
         this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید')
+        this.packagesErr=error.error.errors
+        console.log('error',error.error.errors)
       } else {
         this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
       }
@@ -369,7 +372,6 @@ this.select_all=true;
     this.day_numFC.setValue(this.tourData.day_num);
     this.tour_typeFC.setValue(this.tourData.tour_type);
     this.checkinFC.setValue(this.tourData.checkin);
-
     this.status_idFC.setValue(this.tourData.status.id)
     this.checkoutFC.setValue(this.tourData.checkout);
     // this.status_idFC.setValue(this.checkStatus(this.tourData.status.label));
@@ -386,6 +388,17 @@ this.select_all=true;
 
   checkStatus(name: string) {
     return this.statuses.find(x => x.name === name)?.id ?? 0
+  }
+  packageValidationErr(index:number){
+
+    
+    
+    if(this.packagesErr && Object.keys(this.packagesErr).length>0 && Object.keys(this.packagesErr).includes(`packages.${index}.rooms`)){
+      
+      return true
+    }else{
+      return false
+    }
   }
 
 

@@ -41,7 +41,7 @@ constructor(public tourApi:TourApiService,
             public dialog: MatDialog,
      public message: MessageService,
 ) {
-  console.log(this.package)
+  // console.log(this.package)
 }
   getAgency(e:any){
 

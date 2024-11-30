@@ -100,6 +100,7 @@ this.selectedCurrency=res.data.currency
       if (res.isDone) {
         this.ratingData = res.data;
         this.agencies = res.data.agencies
+
         this.rooms = this.ratingData.hotel.rooms ?? [];
 
         let obj: roomDTO | undefined = this.rooms.find(x => x.room_type === 'دوتخته' || x.room_type === 'دو تخته')
@@ -132,7 +133,7 @@ this.selectedCurrency=res.data.currency
   }
 
   agencyChanged() {
-
+    this.agency_selected = +this.agency_selected;
     this.getInfo()
     this.getAgencyCurrencies()
     this.reload()

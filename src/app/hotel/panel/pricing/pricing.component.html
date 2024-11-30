@@ -1,50 +1,47 @@
 <div class="bottom">
-  <p class="text-red mt-2">**بعد از انتخاب آژانس ، سرویس اتاق حتما برروی نوع اتاق کلیک کنید!</p>
-  <div class="w-100 d-flex align-items-center justify-content-between">
-    <h2 class="title">{{ 'hotelPricing' | translate }}</h2>
-    <select *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'" [(ngModel)]="+agency_selected" (ngModelChange)="agencyChanged()">
+    <p class="text-red mt-2">**بعد از انتخاب آژانس ، سرویس اتاق حتما برروی نوع اتاق کلیک کنید!</p>
+    <div class="w-100 d-flex align-items-center justify-content-between">
+        <h2 class="title">{{ 'hotelPricing' | translate }}</h2>
+        <select *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'" [(ngModel)]="agency_selected" (ngModelChange)="agencyChanged()">
       <option [value]="0">انتخاب کنید</option>
       <option *ngFor="let item of agencies" [value]="item.id">{{ item.agency_name ? item.agency_name: item.full_name }}</option>
     </select>
-    <select  [(ngModel)]="boardtype_selected" (ngModelChange)="agencyChanged()">
+        <select [(ngModel)]="boardtype_selected" (ngModelChange)="agencyChanged()">
       <option [value]="0">انتخاب کنید</option>
       <option *ngFor="let item of boardtype | keyvalue" [value]="item.value">{{ item.value }}</option>
     </select>
 
-    <select  [(ngModel)]="selectedCurrency" (ngModelChange)="changeCurrency()">
+        <select [(ngModel)]="selectedCurrency" (ngModelChange)="changeCurrency()">
       <option [value]="0">انتخاب کنید</option>
       <option  [value]="'toman'">تومان</option>
       <option  [value]="'dollar'">دلار</option>
       <option  [value]="'euro'">یورو</option>
       <option [value]="'derham'">درهم</option>
     </select>
-    <ul style="border: 1px solid #E0E0E0" class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
-      <li *ngFor="let room of rooms" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"  (click)="changeTab(room.id,room.room_type_id)" class="nav-item d-flex flex-column align-items-center">
-        <a style="padding: 0 16px !important;" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'"
-          >
+        <ul style="border: 1px solid #E0E0E0" class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+            <li *ngFor="let room of rooms" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'" (click)="changeTab(room.id,room.room_type_id)" class="nav-item d-flex flex-column align-items-center">
+                <a style="padding: 0 16px !important;" [class]="activedRoom === room.id ? 'nav-link active' : 'nav-link'">
           {{ currentLang == 'fa' ?  room.room_type : room.room_type_en}}</a>
-        <span *ngIf="isCoefficient === '1'">{{ 'coefficients' | translate }} :{{ room.coefficient }}</span>
-      </li>
-    </ul>
-  </div>
+                <span *ngIf="isCoefficient === '1'">{{ 'coefficients' | translate }} :{{ room.coefficient }}</span>
+            </li>
+        </ul>
+    </div>
 
-  <mat-button-toggle-group name="fontStyle" [(ngModel)]="calendarLang" aria-label="Font Style">
-    <mat-button-toggle value="miladi">{{ 'gregorian'| translate }}</mat-button-toggle>
-    <mat-button-toggle value="shamsi">{{ 'shamsi'  | translate }}</mat-button-toggle>
-  </mat-button-toggle-group>
-<!--  <h2 class="mt-2">قیمت گذاری آژانس {{ getAgencyName() }}</h2>-->
-  <div class="tab-content" id="pills-tabContent">
-    <!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
+    <mat-button-toggle-group name="fontStyle" [(ngModel)]="calendarLang" aria-label="Font Style">
+        <mat-button-toggle value="miladi">{{ 'gregorian'| translate }}</mat-button-toggle>
+        <mat-button-toggle value="shamsi">{{ 'shamsi' | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <!--  <h2 class="mt-2">قیمت گذاری آژانس {{ getAgencyName() }}</h2>-->
+    <div class="tab-content" id="pills-tabContent">
+        <!-- <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">3</div> -->
-    <div class="w-100" *ngIf="rooms.length > 0 && agency_selected">
-      <prs-main-picker [currency]="selectedCurrency" [agency_id]="agency_selected"  [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'shamsi'" [room]="getRoom()" [hotelID]="+id"
-        [pricingType]="isCoefficient"></prs-main-picker>
-        <prs-main-picker-en [currency]="selectedCurrency" [agency_id]="agency_selected" [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'miladi'" [room]="getRoom()" [hotelID]="+id"
-        [pricingType]="isCoefficient"></prs-main-picker-en>
+        <div class="w-100" *ngIf="rooms.length > 0 && agency_selected">
+            <prs-main-picker [currency]="selectedCurrency" [agency_id]="agency_selected" [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'shamsi'" [room]="getRoom()" [hotelID]="+id" [pricingType]="isCoefficient"></prs-main-picker>
+            <prs-main-picker-en [currency]="selectedCurrency" [agency_id]="agency_selected" [selected_boardtype]="boardtype_selected" *ngIf="showCalendar && calendarLang === 'miladi'" [room]="getRoom()" [hotelID]="+id" [pricingType]="isCoefficient"></prs-main-picker-en>
+        </div>
+        <div class="d-flex justify-content-center align-items-center" *ngIf="rooms.length == 0">
+            <p>{{ 'selectRoomHelp' | translate }}</p>
+        </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center" *ngIf="rooms.length == 0">
-      <p>{{ 'selectRoomHelp' | translate }}</p>
-    </div>
-  </div>
 </div>

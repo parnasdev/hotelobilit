@@ -82,7 +82,6 @@ export class MainPickerEnComponent implements OnInit {
     let end1 = moment(this.currentYears[0] + '/' + this.currentMonths[0] + '/1', 'YYYY/MM/DD').endOf('month');
     let start2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'YYYY/MM/DD').startOf('month')
     let end2 = moment(this.currentYears[1] + '/' + this.currentMonths[1] + '/1', 'YYYY/MM/DD').endOf('month')
-
     const dates = [...this.fixDates(start1, end1), ...this.fixDates(start2, end2)]
     this.daysOfMonth = this.fillObject(dates)
     this.getHotelRates()
