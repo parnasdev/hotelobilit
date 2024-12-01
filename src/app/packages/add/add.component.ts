@@ -164,11 +164,7 @@ packagesErr:any={}
   }
 
   packageValidationErr(index:number){
-
-    
-    
     if(this.packagesErr && Object.keys(this.packagesErr).length>0 && Object.keys(this.packagesErr).includes(`packages.${index}.rooms`)){
-      
       return true
     }else{
       return false
