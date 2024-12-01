@@ -222,7 +222,7 @@ packagesErr:any={}
     this.packages[index]=event.package
     this.del_rooms=event.del_rooms
 
-    console.log(this.packages)
+    // console.log(this.packages)
   }
 
   addHotel() {
@@ -241,8 +241,9 @@ packagesErr:any={}
     };
     this.packages.push(item);
     // @ts-ignore
-    // document.getElementById("end").scrollIntoView();
-
+    var objDiv = document.getElementById("end");
+    // @ts-ignore
+    objDiv.scrollTop = objDiv.scrollHeight;
 
     // console.log(this.packages)
 
