@@ -241,9 +241,8 @@ packagesErr:any={}
     };
     this.packages.push(item);
     // @ts-ignore
-    var objDiv = document.getElementById("end");
-    // @ts-ignore
-    objDiv.scrollTop = objDiv.scrollHeight;
+    document.getElementById("end").scrollIntoView();
+
 
     // console.log(this.packages)
 
