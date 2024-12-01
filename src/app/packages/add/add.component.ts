@@ -120,7 +120,7 @@ packagesErr:any={}
   }
 
 
-  
+
   getPageData(): void {
     this.isLoading = true;
     this.tourApi.createPageTour().subscribe((res: any) => {
@@ -240,9 +240,19 @@ packagesErr:any={}
       rooms: []
     };
     this.packages.push(item);
+    // @ts-ignore
+    // document.getElementById("end").scrollIntoView();
+
 
     // console.log(this.packages)
 
+  }
+  scrollToTop() {
+    // @ts-ignore
+    document.getElementById("scroll").scrollIntoView();
+
+    // var body =document.getElementsByTagName("body")
+    // body[0].scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }
 
   // getAgency(e:any,index:any){

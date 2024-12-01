@@ -269,7 +269,7 @@
 
     <div style="position: relative" class="w-100 mt-3">
 
-        <div class="flex-x-start gap-3">
+        <div class="flex-x-start gap-3" id="scroll">
 
             <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
             <button *ngIf="is_bundle" class="btn-base w-100-mobi  font-size-13 px-3" (click)="hotel_setting=!hotel_setting">تغییر قیمت گروهی</button>
@@ -319,7 +319,7 @@
             <button *ngIf="is_bundle" [class]=" !select_all   ?'btn-base w-30  mt-1': 'btn-base-red w-30  mt-1'" (click)="select_all_hotel()">{{ !select_all?"انتخاب همه" :'حذف همه' }}</button>
 
         </div>
-        <div class="w-100" cdkDropList (cdkDropListDropped)="drop($event)">
+        <div class="w-100" id="end"  cdkDropList (cdkDropListDropped)="drop($event)">
             <div class="item-package" cdkDrag *ngFor="let item of packages;let i=index">
                 <mat-checkbox *ngIf="is_bundle" [(ngModel)]="item.isChecked" (ngModelChange)="changeHotelPackage()"></mat-checkbox>
 
@@ -364,7 +364,11 @@
                 <i class="icon-cancel" (click)="removeEditPackage(i,item.id ?? 0)"></i>
             </div>
         </div>
-      <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="addHotel()" *ngIf="packages.length>8">اضافه کردن هتل</button>
+      <div class="flex-x-start gap-2" (click)="addHotel()" *ngIf="packages.length>8">
+        <button class="btn-base w-100-mobi  font-size-13 px-3" >اضافه کردن هتل</button>
+        <button class="btn-base w-100-mobi  font-size-13 px-3"  (click)="scrollToTop()">برو بالا</button>
+      </div>
+
 
       <!-- <div class="w-100 d-flex justify-content-end">
     <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>

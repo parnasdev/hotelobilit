@@ -294,7 +294,7 @@ this.select_all=true;
     this.packages.splice(index, 1);
   }
   override setReq() {
-    
+
     this.req = {
       offered:this.offered,
       title: this.titleFC.value ?? '',
