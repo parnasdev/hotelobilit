@@ -322,12 +322,15 @@
                 <i style="place-self: center" class="icon-cancel" (click)="removePackage(i)"></i>
             </div>
         </div>
-      <div class="flex-x-start gap-2" (click)="addHotel()" *ngIf="packages.length>8">
-        <button class="btn-base w-100-mobi  font-size-13 px-3" >اضافه کردن هتل</button>
-        <button class="btn-base w-100-mobi  font-size-13 px-3"  (click)="scrollToTop()">برو بالا</button>
-      </div>
 
-      <!-- <div class="w-100 d-flex justify-content-end">
+        <div id="end"></div>
+
+        <div class="flex-x-start gap-2" (click)="addHotel()" *ngIf="packages.length>8">
+            <button class="btn-base w-100-mobi  font-size-13 px-3">اضافه کردن هتل</button>
+            <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="scrollToTop()">برو بالا</button>
+        </div>
+
+        <!-- <div class="w-100 d-flex justify-content-end">
     <button class="btn-base w-100-mobi m-top-20 font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
   </div> -->
     </div>
