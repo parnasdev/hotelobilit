@@ -91,7 +91,8 @@ this.selectedCurrency=res.data.currency
       fromDate: '',
       toDate: '',
       hotelId: +this.id,
-      agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_selected : null,
+      agency_id: +this.agency_selected,
+      // agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_selected : +this.agency_selected,
       roomId: 0,
       boardType: this.boardtype_selected,
     }

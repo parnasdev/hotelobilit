@@ -125,7 +125,8 @@ export class MainPickerEnComponent implements OnInit {
       hotelId: +this.hotelID,
       roomId: this.room ? +this.room.id : 0,
       boardType: this.selected_boardtype,
-      agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_id : null,
+      // agency_id: this.session.getRole() === 'admin' || this.session.getRole() === 'programmer' || this.session.getRole() === 'hamnavazAdmin' ?  +this.agency_id : null,
+      agency_id:   +this.agency_id ,
 
     }
     this.api.ratingList(this.req).subscribe((res: any) => {
