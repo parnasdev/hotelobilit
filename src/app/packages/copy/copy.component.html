@@ -271,8 +271,8 @@
 
         <div id="end"></div>
 
-        <div class="flex-x-start gap-2" (click)="addHotel()" *ngIf="packages.length>8">
-            <button class="btn-base w-100-mobi  font-size-13 px-3">اضافه کردن هتل</button>
+        <div class="flex-x-start gap-2" *ngIf="packages.length>8">
+            <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="addHotel()">اضافه کردن هتل</button>
             <button class="btn-base w-100-mobi  font-size-13 px-3" (click)="scrollToTop()">برو بالا</button>
         </div>
 
