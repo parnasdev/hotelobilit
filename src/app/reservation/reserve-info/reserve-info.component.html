@@ -3,7 +3,7 @@
   <div class="w-100 flex-x-between">
 
     <div class="d-flex w-100 p-search-agency"
-      *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin')">
+      *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin' || session.getRole() === 'admin' )">
       <button class="btn-base-green px-4 staus-button" (click)="statusNM =471;changeStatus()">تایید</button>
       <button class="btn-base-red px-4 staus-button" (click)="statusNM =473;changeStatus()">عدم تایید</button>
     </div>
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="flex-x-between w-100 mb-3" *ngIf="(session.getRole() === 'admin' ||
-          session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin') && statusNM !== 473">
+          session.getRole() === 'programmer' ) && statusNM !== 473">
                   <span>تغییر وضعیت:</span>
                   <div class="d-flex justify-content-end align-items-center p-search-agency" >
                     <div class="inp-form w-60 h-40">
