@@ -60,10 +60,8 @@ list:any[]=[]
 
   }
   submit(){
-
-
 let req:any={
-  description:this.description,
+  description:this.description
 }
 this.api.addDescription(req,this.data.reportId).subscribe((res: any) => {
       if (res.isDone) {
@@ -79,7 +77,7 @@ this.api.addDescription(req,this.data.reportId).subscribe((res: any) => {
 
         // console.log(this.list)
       } else {
-        // this.message.custom(res.message);
+        this.message.custom(res.message);
       }
       // this.isLoading = false;
     }, (error: any) => {
