@@ -93,7 +93,7 @@
 
             <textarea [(ngModel)]="description" [cols]="80" [rows]="120"  class="inp-form" style="height: 300px"></textarea>
           </div>
-          <button class="btn-base align-self-end mt-3 " style="width: 100px; height: 50px " (click)="submit()">ثبت</button>
+          <button class="btn-base align-self-end mt-3 " style="width: 100px; height: 50px " (click)="submit()">{{isSubmiting?'منتظر بمانید':' ثبت '}}</button>
         </div>
       </div>
 
