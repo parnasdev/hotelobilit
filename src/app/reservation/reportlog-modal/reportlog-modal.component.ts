@@ -68,9 +68,15 @@ this.api.addDescription(req,this.data.reportId).subscribe((res: any) => {
       if (res.isDone) {
         // console.log(res.data);
         // this.list=res.data
+        this.getLogs()
         this.message.custom('یادداشت ثبت شد');
 
-        console.log(this.list)
+
+
+
+
+
+        // console.log(this.list)
       } else {
         // this.message.custom(res.message);
       }
