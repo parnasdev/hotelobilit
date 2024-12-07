@@ -97,6 +97,7 @@ export class CompositionListComponent {
     }
     return true;
   }
+
   setFilterFromRoute() {
     this.route.queryParams.subscribe((params: any) => {
       if (!this.isEmpty(params)) {

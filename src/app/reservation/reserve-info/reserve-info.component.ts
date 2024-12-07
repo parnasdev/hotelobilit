@@ -11,6 +11,8 @@ import { PermitionsService } from 'src/app/Core/Services/permitions.service';
 import { SessionService } from 'src/app/Core/Services/session.service';
 import { Title } from "@angular/platform-browser";
 import * as moment from 'moment';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 @Component({
   selector: 'prs-reserve-info',
@@ -75,7 +77,60 @@ export class ReserveInfoComponent {
     }
     return list
   }
+  export() {
+    const data = document.getElementById('pdf');
+    if (!data) {
+      this.message.custom('Element not found');
+      return;
+    }
 
+    const options = {
+      scale: 2, // Increase quality
+      useCORS: true,
+      logging: true,
+      scrollY: -window.scrollY,
+      scrollX: -window.scrollX
+    };
+
+    html2canvas(data, options).then(canvas => {
+      try {
+        // A4 size page of PDF  
+        const contentWidth = canvas.width;
+        const contentHeight = canvas.height;
+        
+        // A4 paper size [595.28, 841.89] in points
+        const pageHeight = contentWidth / 592.28 * 841.89;
+        let leftHeight = contentHeight;
+        let position = 0;
+        const imgWidth = 595.28;
+        const imgHeight = 592.28 / contentWidth * contentHeight;
+
+        const pdf = new jsPDF('p', 'pt', 'a4');
+        
+        // First page rendering
+        if (leftHeight < pageHeight) {
+          pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, imgWidth, imgHeight);
+        } else {
+          while (leftHeight > 0) {
+            pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, position, imgWidth, imgHeight);
+            leftHeight -= pageHeight;
+            position -= 841.89;
+            if (leftHeight > 0) {
+              pdf.addPage();
+            }
+          }
+        }
+
+        pdf.save(`reserve-${this.info?.information?.ref_code || 'export'}.pdf`);
+      } catch (err) {
+        console.error('PDF generation error:', err);
+        this.message.custom('خطا در ایجاد PDF');
+      }
+    }).catch(err => {
+      console.error('Canvas generation error:', err);
+      this.message.custom('خطا در ایجاد تصویر');
+    });
+  }
   changeStatus(status: number = 0) {
     this.isLoading = true;
     this.api.editReserve(+this.reserve, this.statusNM).subscribe((res: any) => {
