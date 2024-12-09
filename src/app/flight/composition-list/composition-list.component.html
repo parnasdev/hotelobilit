@@ -81,6 +81,7 @@
                 <option *ngFor="let x of nights" [value]="+x.id">{{ x.name }}</option>
               </select>
             </div>
+            
             <div class="inp-form w-100"  *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'">
               <select name="" id="" [(ngModel)]="filterObj.agency">
                 <option [value]="null">آژانس</option>
