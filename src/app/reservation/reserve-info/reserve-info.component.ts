@@ -77,6 +77,8 @@ export class ReserveInfoComponent {
     }
     return list
   }
+
+  
   export() {
     const data = document.getElementById('pdf');
     if (!data) {
@@ -106,6 +108,12 @@ export class ReserveInfoComponent {
         const imgHeight = 592.28 / contentWidth * contentHeight;
 
         const pdf = new jsPDF('p', 'pt', 'a4');
+        pdf.addFileToVFS('IRANSansWeb(FaNum).ttf', '../../../assets/fonts/ttf/IRANSansWeb(FaNum).ttf'); 
+        // You need to include the base64 font
+        pdf.addFont('../../../assets/fonts/ttf/IRANSansWeb(FaNum).ttf', 'IRANSansWeb', 'normal');
+        pdf.setFont('IRANSansWeb');
+        pdf.setLanguage("fa");
+
         
         // First page rendering
         if (leftHeight < pageHeight) {

@@ -105,13 +105,13 @@ export class CompositionListComponent {
         this.filterObj.origin = params['origin'] ? +params['origin'] : null
         this.filterObj.q = params['q'] ? params['q'] : null
         this.filterObj.fromDate = params['fromDate']
-        this.filterObj.airline = params['airline']
+        this.filterObj.airline = +params['airline']
         this.filterObj.toDate = params['toDate']
         this.filterObj.departure_flight_number = params['departure_flight_number']
-        this.filterObj.agency = params['agency']
+        this.filterObj.agency = +params['agency']
         this.filterObj.return_flight_number = params['return_flight_number']
 
-        this.filterObj.stay_count = +params['stay_count']
+        this.filterObj.stay_count = params['stay_count']
       } else {
         this.filterObj = {
           destination: null,
@@ -351,7 +351,9 @@ export class CompositionListComponent {
 
   submit() {
     this.p = 1
+    debugger
     this.router.navigate([`/panel/flight/composition-list/`], {
+
       queryParams: this.filterObj
     })
     this.getData()

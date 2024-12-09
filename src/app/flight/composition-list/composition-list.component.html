@@ -72,19 +72,19 @@
             <div class="inp-form w-100">
               <select name="" id="" [(ngModel)]="filterObj.airline">
                 <option [value]="null">ایرلاین</option>
-                <option *ngFor="let x of airlines" [value]="x.id">{{ x.name }}</option>
+                <option *ngFor="let x of airlines" [value]="+x.id">{{ x.name }}</option>
               </select>
             </div>
             <div class="inp-form w-100">
               <select name="" id="" [(ngModel)]="filterObj.stay_count">
                 <option [value]="null">تعداد شب</option>
-                <option *ngFor="let x of nights" [value]="x.id">{{ x.name }}</option>
+                <option *ngFor="let x of nights" [value]="+x.id">{{ x.name }}</option>
               </select>
             </div>
             <div class="inp-form w-100"  *ngIf="session.getRole() === 'admin' || session.getRole() === 'programmer' || session.getRole() === 'hamnavazAdmin'">
-              <select name="" id="" [(ngModel)]="filterObj.airline">
+              <select name="" id="" [(ngModel)]="filterObj.agency">
                 <option [value]="null">آژانس</option>
-                <option *ngFor="let x of agencies" [value]="x.id">{{ x.agency_name ? x.agency_name:x.full_name }}</option>
+                <option *ngFor="let x of agencies" [value]="+x.id">{{ x.agency_name ? x.agency_name:x.full_name }}</option>
               </select>
             </div>
             <div class="inp-form w-100">
