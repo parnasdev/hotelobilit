@@ -23,7 +23,13 @@ export class CopyComponent extends EditComponent implements OnInit {
         this.flights.push(x.mixed_id);
       }
     })
+
     this.req.packages.forEach((pack:any)=>{
+      pack.rooms.forEach((room:any)=>{
+        room.flight_id=this.flights[this.flights.length - 1];
+      })
+    })
+    this.packages.forEach((pack:any)=>{
       pack.rooms.forEach((room:any)=>{
         room.flight_id=this.flights[this.flights.length - 1];
       })
@@ -32,6 +38,7 @@ export class CopyComponent extends EditComponent implements OnInit {
   }
   override submit(): void {
     this.setReq()
+    // console.log(this.req,this.flights)
     this.tourApi.createTour(this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);
