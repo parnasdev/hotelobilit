@@ -16,7 +16,20 @@ export class CopyComponent extends EditComponent implements OnInit {
   }
 
 
+  override changeTransferRates() {
+    this.flights = [];
+    this.transferRates.forEach(x => {
+      if (x.flight.isChecked) {
+        this.flights.push(x.mixed_id);
+      }
+    })
+    this.req.packages.forEach((pack:any)=>{
+      pack.rooms.forEach((room:any)=>{
+        room.flight_id=this.flights[this.flights.length - 1];
+      })
+    })
 
+  }
   override submit(): void {
     this.setReq()
     this.tourApi.createTour(this.req).subscribe((res: any) => {

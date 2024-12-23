@@ -412,6 +412,7 @@ if(this.flights.length > 0 && this.packages.length > 0) {
         this.flights.push(x.mixed_id);
       }
     })
+
   }
 
   setCheckAll() {
@@ -441,7 +442,6 @@ if(this.flights.length > 0 && this.packages.length > 0) {
       monthNum = monthSplits.length > 0 ? monthSplits[1] : '0'
       monthDay = monthSplits.length > 2 ? monthSplits[2] : '0'
     }
-
     this.titleFC.setValue('تور' + ' ' + (destination ? destination : this.destination_city?.name ?? '') + ' ' +
       monthDay + ' ' +
       (this.calenderService.getMonthFa(+monthNum) ?? '') + ' ' +
