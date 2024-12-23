@@ -24,16 +24,14 @@ export class CopyComponent extends EditComponent implements OnInit {
       }
     })
 
-    this.req.packages.forEach((pack:any)=>{
-      pack.rooms.forEach((room:any)=>{
-        room.flight_id=this.flights[this.flights.length - 1];
-      })
-    })
+
     this.packages.forEach((pack:any)=>{
       pack.rooms.forEach((room:any)=>{
         room.flight_id=this.flights[this.flights.length - 1];
       })
     })
+    this.req.packages=this.packages
+
 
   }
   override submit(): void {
