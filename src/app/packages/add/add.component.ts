@@ -346,24 +346,30 @@ packagesErr:any={}
 
 if(this.flights.length > 0 && this.packages.length > 0) {
   this.setReq()
-  this.tourApi.createTour(this.req).subscribe((res: any) => {
-    if (res.isDone) {
-      this.message.showMessageBig(res.message);
-      this.errorService.clear();
-      this.router.navigateByUrl('/panel/packages');
-    }
-  }, (error: any) => {
-    if (error.status == 422) {
-      this.errorService.recordError(error.error.errors);
 
-      this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید',)
-      this.message.showMessageBig(error.error.message)
-    } else {
+  if(moment(this.req.expired_at).isSameOrAfter(this.req.checkin)&& moment(this.req.expired_at).isSameOrBefore(this.req.checkout) ) {
+    this.tourApi.createTour(this.req).subscribe((res: any) => {
+      if (res.isDone) {
+        this.message.showMessageBig(res.message);
+        this.errorService.clear();
+        this.router.navigateByUrl('/panel/packages');
+      }
+    }, (error: any) => {
+      if (error.status == 422) {
+        this.errorService.recordError(error.error.errors);
 
-      this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-    }
-    this.checkError.check(error);
-  })
+        this.message.showMessageBig('اطلاعات ارسال شده را مجددا بررسی کنید',)
+        this.message.showMessageBig(error.error.message)
+      } else {
+
+        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+      }
+      this.checkError.check(error);
+    })  }else{
+    this.message.showMessageBig('تاریخ انقضا باید بین تاریخ رفت و تاریخ برگشت باشد!')
+
+  }
+
 }else{
   if(this.flights.length===0){
 

@@ -321,6 +321,9 @@ export class AddComponent implements OnInit {
 
   add(): void {
     this.setReq()
+
+
+    // console.log(this.req)
     this.hotelApi.storePosts('hotel', this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);

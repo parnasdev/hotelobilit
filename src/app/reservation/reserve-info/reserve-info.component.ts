@@ -78,7 +78,67 @@ export class ReserveInfoComponent {
     return list
   }
 
-  
+
+  // export() {
+  //   const data = document.getElementById('pdf');
+  //   if (!data) {
+  //     this.message.custom('Element not found');
+  //     return;
+  //   }
+  //
+  //   const options = {
+  //     scale: 2, // Increase quality
+  //     useCORS: true,
+  //     logging: true,
+  //     scrollY: -window.scrollY,
+  //     scrollX: -window.scrollX
+  //   };
+  //
+  //   html2canvas(data, options).then(canvas => {
+  //     try {
+  //       // A4 size page of PDF
+  //       const contentWidth = canvas.width;
+  //       const contentHeight = canvas.height;
+  //
+  //       // A4 paper size [595.28, 841.89] in points
+  //       const pageHeight = contentWidth / 592.28 * 841.89;
+  //       let leftHeight = contentHeight;
+  //       let position = 0;
+  //       const imgWidth = 595.28;
+  //       const imgHeight = 592.28 / contentWidth * contentHeight;
+  //
+  //       const pdf = new jsPDF('p', 'pt', 'a4');
+  //       pdf.addFileToVFS('IRANSansWeb(FaNum).ttf', '../../../assets/fonts/ttf/IRANSansWeb(FaNum).ttf');
+  //       // You need to include the base64 font
+  //       pdf.addFont('../../../assets/fonts/ttf/IRANSansWeb(FaNum).ttf', 'IRANSansWeb', 'normal');
+  //       pdf.setFont('IRANSansWeb');
+  //       pdf.setLanguage("fa");
+  //
+  //
+  //       // First page rendering
+  //       if (leftHeight < pageHeight) {
+  //         pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, imgWidth, imgHeight);
+  //       } else {
+  //         while (leftHeight > 0) {
+  //           pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, position, imgWidth, imgHeight);
+  //           leftHeight -= pageHeight;
+  //           position -= 841.89;
+  //           if (leftHeight > 0) {
+  //             pdf.addPage();
+  //           }
+  //         }
+  //       }
+  //
+  //       pdf.save(`reserve-${this.info?.information?.ref_code || 'export'}.pdf`);
+  //     } catch (err) {
+  //       console.error('PDF generation error:', err);
+  //       this.message.custom('خطا در ایجاد PDF');
+  //     }
+  //   }).catch(err => {
+  //     console.error('Canvas generation error:', err);
+  //     this.message.custom('خطا در ایجاد تصویر');
+  //   });
+  // }
   export() {
     const data = document.getElementById('pdf');
     if (!data) {
@@ -87,20 +147,17 @@ export class ReserveInfoComponent {
     }
 
     const options = {
-      scale: 2, // Increase quality
+      scale: 2,
       useCORS: true,
       logging: true,
       scrollY: -window.scrollY,
-      scrollX: -window.scrollX
+      scrollX: -window.scrollX,
     };
 
     html2canvas(data, options).then(canvas => {
       try {
-        // A4 size page of PDF  
         const contentWidth = canvas.width;
         const contentHeight = canvas.height;
-        
-        // A4 paper size [595.28, 841.89] in points
         const pageHeight = contentWidth / 592.28 * 841.89;
         let leftHeight = contentHeight;
         let position = 0;
@@ -108,14 +165,11 @@ export class ReserveInfoComponent {
         const imgHeight = 592.28 / contentWidth * contentHeight;
 
         const pdf = new jsPDF('p', 'pt', 'a4');
-        pdf.addFileToVFS('IRANSansWeb(FaNum).ttf', '../../../assets/fonts/ttf/IRANSansWeb(FaNum).ttf'); 
-        // You need to include the base64 font
-        pdf.addFont('../../../assets/fonts/ttf/IRANSansWeb(FaNum).ttf', 'IRANSansWeb', 'normal');
-        pdf.setFont('IRANSansWeb');
+        pdf.addFileToVFS('IRANSansWeb(FaNum).ttf', '<base64-encoded-string>');
+        pdf.addFont('IRANSansWeb(FaNum).ttf', 'IRANSansWeb', 'normal');
+        pdf.setFont('IRANSansWeb', 'normal');
         pdf.setLanguage("fa");
 
-        
-        // First page rendering
         if (leftHeight < pageHeight) {
           pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, imgWidth, imgHeight);
         } else {

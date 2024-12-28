@@ -113,20 +113,27 @@ export class CurrencyRatesComponent implements OnInit {
 
   updateAdminSetting() {
     this.setAdminReq()
-    this.settingApi.changeSetting(this.req).subscribe((res: any) => {
-      if (res.isDone) {
-        this.message.showMessageBig(res.message);
-        // this.router.navigateByUrl('panel/hotel')
-      } else {
-        this.message.custom(res.message)
-      }
-    }, (error: any) => {
-      this.checkErrorService.check(error);
-      this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
-    })
+    if(+this.req.currencies.euro<50000 || +this.req.currencies.dollar<50000){
+      this.message.showMessageBig('نرخ ها نباید کمتر از  ۵۰,۰۰۰ باشد')
+    }else{
+      this.settingApi.changeSetting(this.req).subscribe((res: any) => {
+        if (res.isDone) {
+          this.message.showMessageBig(res.message);
+          // this.router.navigateByUrl('panel/hotel')
+        } else {
+          this.message.custom(res.message)
+        }
+      }, (error: any) => {
+        this.checkErrorService.check(error);
+        this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
+      })
+    }
+
   }
 
   submit() {
+
+
     if (this.session.getRole() === 'admin' || this.session.getRole() === 'programmer'|| this.session.getRole() === 'hamnavazAdmin') {
       this.updateAdminSetting()
     } else {
@@ -136,6 +143,10 @@ export class CurrencyRatesComponent implements OnInit {
 
   updateSetting() {
     this.setReq()
+
+    if(+this.req.currencies.euro<50000 || +this.req.currencies.dollar<50000){
+      this.message.showMessageBig('نرخ ها نباید کمتر از  ۵۰,۰۰۰ باشد')
+    }else{
     this.settingApi.changeSetting(this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);
@@ -148,6 +159,7 @@ export class CurrencyRatesComponent implements OnInit {
 
       this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
     })
+      }
   }
 
 }
