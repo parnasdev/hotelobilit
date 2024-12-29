@@ -347,7 +347,9 @@ packagesErr:any={}
 if(this.flights.length > 0 && this.packages.length > 0) {
   this.setReq()
 
-  if(moment(this.req.expired_at).isSameOrAfter(this.req.checkin)&& moment(this.req.expired_at).isSameOrBefore(this.req.checkout) ) {
+  const today = moment();
+
+  if(moment(this.req.expired_at).isSameOrAfter(today.format('YYYY-MM-DD'))&& moment(this.req.expired_at).isSameOrBefore(this.req.checkout) ) {
     this.tourApi.createTour(this.req).subscribe((res: any) => {
       if (res.isDone) {
         this.message.showMessageBig(res.message);
@@ -365,7 +367,9 @@ if(this.flights.length > 0 && this.packages.length > 0) {
         this.message.showMessageBig('مشکلی رخ داده است لطفا مجددا تلاش کنید')
       }
       this.checkError.check(error);
-    })  }else{
+    })
+
+  }else{
     this.message.showMessageBig('تاریخ انقضا باید بین تاریخ رفت و تاریخ برگشت باشد!')
 
   }

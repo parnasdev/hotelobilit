@@ -39,7 +39,9 @@ export class CopyComponent extends EditComponent implements OnInit {
   override submit(): void {
     this.setReq()
 
-    if(moment(this.req.expired_at).isSameOrAfter(this.req.checkin)&& moment(this.req.expired_at).isSameOrBefore(this.req.checkout) ) {
+    const today = moment();
+
+    if(moment(this.req.expired_at).isSameOrAfter(today.format('YYYY-MM-DD'))&& moment(this.req.expired_at).isSameOrBefore(this.req.checkout) ) {
       this.tourApi.createTour(this.req).subscribe((res: any) => {
         if (res.isDone) {
           this.message.showMessageBig(res.message);
