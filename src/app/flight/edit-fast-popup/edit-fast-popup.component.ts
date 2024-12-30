@@ -76,6 +76,9 @@ export class EditFastPopupComponent {
           this.showForm = true
 
         }
+
+        let is_domestic_flight=res.data.airports.filter((airport:any)=>airport?.id ===res.data?.flight?.origin_id)
+        this.isDomestic=is_domestic_flight[0]?.is_domestic
         this.isLoading = false
       }, error: (error: any) => {
         this.error.check(error);

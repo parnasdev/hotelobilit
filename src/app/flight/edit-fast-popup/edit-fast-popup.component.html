@@ -18,15 +18,15 @@
                     <span class="text-danger">{{error.getError('origin')}} {{error.getError('origin') }}</span>
                 </div>
             </div>
-            <div class="item">
-                <span>مقصد</span>
-                <prs-custom-select (itemResult)="getDestCity($event)" [inCommingItem]="req.destination_id"
-                    *ngIf="(airports ?? []).length > 0" [list]="airports"></prs-custom-select>
-                <div class="mt-2" *ngIf="error.hasError('destination_id') || error.hasError('destination_id') ">
-                    <span class="text-danger">{{error.getError('destination_id')}} {{error.getError('destination_id')
-                        }}</span>
-                </div>
-            </div>
+<!--            <div class="item">-->
+<!--                <span>مقصد</span>-->
+<!--                <prs-custom-select (itemResult)="getDestCity($event)" [inCommingItem]="req.destination_id"-->
+<!--                    *ngIf="(airports ?? []).length > 0" [list]="airports"></prs-custom-select>-->
+<!--                <div class="mt-2" *ngIf="error.hasError('destination_id') || error.hasError('destination_id') ">-->
+<!--                    <span class="text-danger">{{error.getError('destination_id')}} {{error.getError('destination_id')-->
+<!--                        }}</span>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="item">
                 <span>ایرلاین</span>
                 <prs-custom-select (itemResult)="getAirlines($event)" [inCommingItem]="req.airline_id"
