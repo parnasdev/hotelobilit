@@ -1,5 +1,5 @@
 <prs-loading *ngIf="isLoading"></prs-loading>
-<div class="p-info-trip" id="pdf">
+<div  class="p-info-trip" id="pdf">
     <div class="w-100 flex-x-between">
 
         <div class="d-flex w-100 p-search-agency" *ngIf="info.information.status.name === 'PendingForAccept' && (session.getRole() === 'agency'|| session.getRole() === 'hamnavazAdmin' || session.getRole() === 'admin' )">
