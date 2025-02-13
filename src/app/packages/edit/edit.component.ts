@@ -43,7 +43,19 @@ export class EditComponent extends AddComponent implements OnInit {
       if (res.isDone) {
         this.tourData = res.data.tour;
         this.statuses = res.data.statuses;
-        this.partners = res.data.partners;
+
+        if(this.session.getRole()==='hamnavazAdmin'){
+          this.partners = res.data.partners;
+
+
+        }else{
+          this.partners=[
+            {id: 7, name: 'بلیطجا'},
+            {id: 4, name: 'اسنپ تریپ'},
+            {id: 8, name: 'تور 90'}
+          ]
+        }
+        // this.partners = res.data.partners;
         this.offered=res.data.tour.offered
         this.partnerNames = this.getPartnersNames(res.data.selected_partners)
         this.cities = res.data.cities

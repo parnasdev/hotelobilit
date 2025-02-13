@@ -114,6 +114,7 @@ packagesErr:any={}
     this.title.setTitle('افزودن تور | هتل و بلیط')
 
     this.getPageData();
+
   }
 
   change() {
@@ -127,10 +128,28 @@ packagesErr:any={}
       if (res.isDone) {
         this.statuses = res.data.statuses;
 
-        this.partners = res.data.partners;
+        if(this.session.getRole()==='hamnavazAdmin'){
+          this.partners = res.data.partners;
+
+
+        }else{
+          this.partners=[
+            {id: 7, name: 'بلیطجا'},
+            {id: 4, name: 'اسنپ تریپ'},
+            {id: 8, name: 'تور 90'}
+          ]
+        }
+
+
+        console.log(res.data.partners)
+
+
         this.cities = res.data.cities
         this.currencies = res.data.currencies
         this.rooms = res.data.roomTypes
+
+        console.log(this.session.getRole(),'role',this.partners)
+
       } else {
         this.message.custom(res.message);
       }
