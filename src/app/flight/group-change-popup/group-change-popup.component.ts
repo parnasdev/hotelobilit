@@ -29,7 +29,7 @@ export class GroupChangePopupComponent {
     description: '',
     airplane_id: 0,
     cabin_type: "",
-    sync_price:false
+    sync_price:true
 
   }
   constructor(public dialogRef: MatDialogRef<GroupChangePopupComponent>,
