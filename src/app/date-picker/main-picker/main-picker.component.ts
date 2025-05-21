@@ -113,7 +113,7 @@ export class MainPickerComponent implements OnInit, OnChanges {
       const object = {
         dateFa: moment(date).isValid() ? date : '',
         dateEn: moment(date).isValid() ? moment(date, 'jYYYY/jMM/jDD').format('YYYY-MM-DD') : '',
-        isHoliday: moment(date, 'jYYYY/jMM/jDD').weekday() === 5,
+        isHoliday: moment(date, 'jYYYY/jMM/jDD').weekday() === 6,
         isDisabled: this.getIsDisabled(date),
         isValid: moment(date).isValid(),
       }
