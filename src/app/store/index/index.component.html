@@ -30,9 +30,15 @@
 
             <!--            </div>-->
             <div class="title-search">
-              <h2 class="w-100">رزرو آنلاین تور</h2>
+              <h2 class="w-100">چرا هتل و بیلیط ؟</h2>
             </div>
-            <prs-search (onSubmit)="search($event)"></prs-search>
+
+            <ul class="introduction">
+              <li>هدف از این سایت، ساده‌سازی روند همکاری آژانس‌ها با سامانه‌ی فروش است. به جای روش‌های سنتی و زمان‌بر، می‌توانید خدمات خود را مستقیماً وارد سامانه کرده و در اختیار کاربران نهایی قرار دهید.</li>
+              <li>	تورهای داخلی یا خارجی را به همراه جزئیات کامل ثبت کنید.</li>
+              <li>	هتل‌ها را با معرفی امکانات، تصاویر و شرایط رزرو اضافه کنید.</li>
+            </ul>
+<!--            <prs-search (onSubmit)="search($event)"></prs-search>-->
           </div>
         </div>
       </div>
@@ -140,90 +146,168 @@
 
 <!--baner-->
 <section class="baner">
-  <div style="height: 100% !important;" class="prs-responsive">
-    <div style="height: 100% !important;" class="container-fluid">
-      <div style="height: 100% !important;" class="row">
-        <div style="height: 100% !important;" class="col-md-11 m-auto baner-parent">
-          <a href="https://www.hotelobilit.com/landing/csr/index.html?sender=trip" target="_blank" class="baner-right">
-            <img src="../../../assets/img/banner1.JPG" alt="">
-          </a>
-          <a *ngIf="isDesktop" href="https://www.hotelobilit.com/" target="_blank" class="baner-left">
-            <img src="../../../assets/img/banner2.JPG" alt="">
-          </a>
-          <a *ngIf="isMobile" href="https://www.hotelobilit.com/" target="_blank" class="baner-left">
-            <img src="../../../assets/img/banner1.JPG" alt="">
-          </a>
-          <a *ngIf="isMobile" href="https://www.hotelobilit.com/" target="_blank" class="baner-left">
-            <img src="../../../assets/img/banner2.JPG" alt="">
-          </a>
-        </div>
+  <div class="content-container">
+    <div class="img-con">
+      <img src="./assets/img/round-trip.png">
+    </div>
+
+    <div class="desc" style="display: flex; flex-direction: column; gap: 45px">
+      <p >
+       شما می توانید پروازهای رفت‌وبرگشت را به‌صورت ترکیبی ثبت کنید؛
+        یعنی برای مسیر رفت و مسیر برگشت، دو پرواز متفاوت از ایرلاین‌ها یا تاریخ‌های مختلف انتخاب و به‌صورت یک پکیج به مشتریان پیشنهاد دهید.
+      </p>
+
+
+      <div>
+      <p>فواید این بخش:</p>
+      <ul>
+        <li>انعطاف‌پذیری بیشتری در ارائه پروازها داشته باشید.</li>
+        <li>	از قیمت‌های مناسب‌تر برای هر مسیر استفاده کنید.</li>
+        <li>	ترکیب‌های مختلفی از شرکت‌های هواپیمایی و ساعت پرواز ارائه دهید.</li>
+      </ul>
+
       </div>
+
     </div>
   </div>
+
+<!--  <div style="height: 100% !important;" class="prs-responsive">-->
+<!--    <div style="height: 100% !important;" class="container-fluid">-->
+<!--      <div style="height: 100% !important;" class="row">-->
+<!--        <div style="height: 100% !important;" class="col-md-11 m-auto baner-parent">-->
+<!--          <a href="https://www.hotelobilit.com/landing/csr/index.html?sender=trip" target="_blank" class="baner-right">-->
+<!--            <img src="../../../assets/img/banner1.JPG" alt="">-->
+<!--          </a>-->
+<!--          <a *ngIf="isDesktop" href="https://www.hotelobilit.com/" target="_blank" class="baner-left">-->
+<!--            <img src="../../../assets/img/banner2.JPG" alt="">-->
+<!--          </a>-->
+<!--          <a *ngIf="isMobile" href="https://www.hotelobilit.com/" target="_blank" class="baner-left">-->
+<!--            <img src="../../../assets/img/banner1.JPG" alt="">-->
+<!--          </a>-->
+<!--          <a *ngIf="isMobile" href="https://www.hotelobilit.com/" target="_blank" class="baner-left">-->
+<!--            <img src="../../../assets/img/banner2.JPG" alt="">-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+</section>
+
+
+<section class="partner">
+  <p>همکاران تجاری </p>
+
+  <div class="logo">
+    <div class="partner-logo" style="width: 180px; height: 120px"><img src="./assets/img/partnerlogo/hamnavaz.png" alt=""></div>
+    <div class="partner-logo"><img  src="./assets/img/partnerlogo/tour90.webp" alt=""></div>
+    <div class="partner-logo"><img src="./assets/img/partnerlogo/bilitja.webp" alt=""></div>
+    <div class="partner-logo"><img src="./assets/img/partnerlogo/snapptrip.jpeg" alt=""></div>
+    <div class="partner-logo"><img src="./assets/img/partnerlogo/images-1.jpg" alt=""></div>
+
+  </div>
+
+
+
+</section>
+
+<section class="baner">
+  <div class="content-container content-containerV2">
+
+
+    <div class="desc" style="display: flex; flex-direction: column; gap: 45px">
+      <p>
+        شما می توانید پروازهای رفت‌وبرگشت را به‌صورت ترکیبی ثبت کنید؛با استفاده از این بخش می‌توانید اطلاعات هتل‌ها را به‌صورت کامل و دقیق ثبت کنید تا در اختیار کاربران نهایی قرار گیرد. ثبت هتل به شما این امکان را می‌دهد که اقامتگاه‌های داخلی یا خارجی را به‌صورت مستقیم وارد سامانه کنید.
+      </p>
+
+      <div>
+
+      <p>مزایای افزودن هتل به پنل:</p>
+      <ul>
+        <li>معرفی هتل با تصاویر و امکانات واقعی</li>
+        <li> 	امکان تعیین قیمت برای هر شب یا هر اتاق</li>
+<li>مشخص‌کردن ظرفیت، نوع اتاق‌ها و شرایط رزرو</li>
+        <li>	ارائه گزینه‌های انعطاف‌پذیر برای کاربران</li>
+      </ul>
+      </div>
+
+    </div>
+
+
+    <div class="img-con">
+      <img src="./assets/img/hotelbanner.png">
+    </div>
+  </div>
+
+
+
+
 
 </section>
 <!--end-->
 
 <!--hotel-->
-<section class="hotel">
-  <div class="prs-responsive">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-11 m-auto hotel-parent">
-          <div class="title-hotel-swiper">
-            <div class="top">
-              <div class="new-tour">
-                <div class="text">
-                  <h3>هتل های برگزیده شهر</h3>
+<!--<section class="hotel">-->
+<!--  <div class="prs-responsive">-->
+<!--    <div class="container-fluid">-->
+<!--      <div class="row">-->
+<!--        <div class="col-md-11 m-auto hotel-parent">-->
+<!--          <div class="title-hotel-swiper">-->
+<!--            <div class="top">-->
+<!--              <div class="new-tour">-->
+<!--                <div class="text">-->
+<!--                  <h3>هتل های برگزیده شهر</h3>-->
 
-                </div>
-              </div>
-              <div class="parent-btn-slider">
-                <button class="btn-next-slider" (click)="slidePrev()">
-                  <i class="icon-right-open"></i>
-                </button>
-                <button class="btn-prev-slider" (click)="slideNext()">
-                  <i class="icon-left-open"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <swiper #swiper class="swiper-hotel"
-            [slidesPerView]=" this.isMobile? (hotels.length===1?1:1.3) :(isTablet ? 2:4.3)" [spaceBetween]="30">
-            <ng-template swiperSlide *ngFor="let hotel of hotels">
-              <div [style.background-image]="'url(' + (hotel?.thumbnail?.url?.replace('%20', ' ')) + ')'" routerLink="/hotels/{{hotel.slug}}"
-                class="box-hotel">
-                <div class="box-white-hover">
-                  <div class="p-dates w-100 d-flex justify-content-between align-items-center"
-                    *ngFor="let flight of hotel.flights">
-                    <div class="r d-flex flex-column align-items-start">
-                      <span>رفت : {{ flight.date | convertDate }}</span>
-                      <span class="mt-2">برگشت : {{ flight.flight?.date | convertDate }}</span>
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="parent-btn-slider">-->
+<!--                <button class="btn-next-slider" (click)="slidePrev()">-->
+<!--                  <i class="icon-right-open"></i>-->
+<!--                </button>-->
+<!--                <button class="btn-prev-slider" (click)="slideNext()">-->
+<!--                  <i class="icon-left-open"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <swiper #swiper class="swiper-hotel"-->
+<!--            [slidesPerView]=" this.isMobile? (hotels.length===1?1:1.3) :(isTablet ? 2:4.3)" [spaceBetween]="30">-->
+<!--            <ng-template swiperSlide *ngFor="let hotel of hotels">-->
+<!--              <div [style.background-image]="'url(' + (hotel?.thumbnail?.url?.replace('%20', ' ')) + ')'" routerLink="/hotels/{{hotel.slug}}"-->
+<!--                class="box-hotel">-->
+<!--                <div class="box-white-hover">-->
+<!--                  <div class="p-dates w-100 d-flex justify-content-between align-items-center"-->
+<!--                    *ngFor="let flight of hotel.flights">-->
+<!--                    <div class="r d-flex flex-column align-items-start">-->
+<!--                      <span>رفت : {{ flight.date | convertDate }}</span>-->
+<!--                      <span class="mt-2">برگشت : {{ flight.flight?.date | convertDate }}</span>-->
 
-                    </div>
-                    <a (click)="selectHotel(hotel.slug,flight)" class="btn-reserve btn-danger rounded-2 px-4 py-2">
-                      رزرو
-                    </a>
-                  </div>
-                </div>
-                <div class="opacity-bg-parent">
-                  <div class="info-img">
-                    <img src="assets/img/Information.svg" width="22" alt="">
-                  </div>
-                  <div class="info-hotel">
-                    <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.title}}</h1>
-                    <h5 routerLink="/hotels/{{hotel.slug}}"> {{hotel.titleEn}}</h5>
+<!--                    </div>-->
+<!--                    <a (click)="selectHotel(hotel.slug,flight)" class="btn-reserve btn-danger rounded-2 px-4 py-2">-->
+<!--                      رزرو-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="opacity-bg-parent">-->
+<!--                  <div class="info-img">-->
+<!--                    <img src="assets/img/Information.svg" width="22" alt="">-->
+<!--                  </div>-->
+<!--                  <div class="info-hotel">-->
+<!--                    <h1 routerLink="/hotels/{{hotel.slug}}"> {{hotel.title}}</h1>-->
+<!--                    <h5 routerLink="/hotels/{{hotel.slug}}"> {{hotel.titleEn}}</h5>-->
 
 
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </swiper>
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </ng-template>-->
+<!--          </swiper>-->
 
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
 <!--end-->

@@ -19,9 +19,22 @@
       width: 85%;
       height: 200px;
       margin: 0 auto;
-      background: #ffffff95;
-      border-radius: 15px;
+      /* From https://css.glass */
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5.9px);
+      -webkit-backdrop-filter: blur(5.9px);
+      border: 1px solid rgba(255, 255, 255, 0.3);      border-radius: 15px;
       padding: 0 2rem 1rem 2rem;
+      .introduction{
+        padding: 0rem 2rem;
+        li{
+          list-style-type: disc;
+          margin: 5px 0;
+        }
+      }
 
       .row-search {
         width: 100%;
@@ -288,12 +301,85 @@
 
 .baner {
   width: 100%;
-  margin: 2rem 0;
-  background-color: var(--light-color-two);
+  //margin: 2rem 0;
+  background-color: rgba(151, 163, 255, 0.75);
   height: auto;
-  padding: 2rem 0;
+  padding: 2rem 18rem;
+
+  .content-containerV2{
+    grid-template-columns: 2fr 1fr !important;
+  }
+  .content-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  .img-con{
+    border-radius: 10px;
+    border: 5px solid white;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+    .desc{
+      color: #fff;
+      p{
+        line-height: 30px;
+        text-align: justify;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+      ul{
+        padding: 0 2rem;
+        li{
+          margin: 4px 0;
+          list-style-color:red ;
+        }
+      }
+    }
+
+  }
 }
 
+.partner{
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  padding: 2rem 18rem;
+  //margin: 10px 0;
+
+  p{
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .logo{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 1rem; /* Optional spacing */
+
+    .partner-logo{
+      width: 150px;
+      height: 100px;
+      overflow: hidden;
+      img{
+        width: 95%;
+        height: 95%;
+        object-fit: contain; /* Use "cover" if you want them to fill and crop */
+        object-position: center;
+      }
+    }
+
+  }
+
+
+}
 .baner-parent {
   display: flex;
   justify-content: space-between;
@@ -460,7 +546,7 @@
       height: 100%;
     }
   }
-  .box-white-hover{ 
+  .box-white-hover{
     background: #ffffffa0;
     position: absolute;
     right: 0;
