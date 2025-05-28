@@ -404,6 +404,10 @@ this.select_all=true;
     this.selectedCurrency = this.tourData.currencies
     this.is_bundle = this.tourData.is_bundle
     this.is_online = this.tourData.is_online
+
+    this.origin_city={name:this.tourData.origin_name}
+    this.destination_city={name:this.tourData.destination_name}
+
     // this.packages = this.tourData.packages
     this.getTransferRates();
     this.getHotels();

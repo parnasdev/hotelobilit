@@ -141,7 +141,7 @@ packagesErr:any={}
         }
 
 
-        console.log(res.data.partners)
+        // console.log(res.data.partners)
 
 
         this.cities = res.data.cities
@@ -471,6 +471,7 @@ if(this.flights.length > 0 && this.packages.length > 0) {
       monthNum = monthSplits.length > 0 ? monthSplits[1] : '0'
       monthDay = monthSplits.length > 2 ? monthSplits[2] : '0'
     }
+    // debugger
     this.titleFC.setValue('تور' + ' ' + (destination ? destination : this.destination_city?.name ?? '') + ' ' +
       monthDay + ' ' +
       (this.calenderService.getMonthFa(+monthNum) ?? '') + ' ' +
