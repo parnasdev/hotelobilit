@@ -179,7 +179,7 @@
             </div>
         </div>
         <div class="w-100 p-transfer">
-            <div class="item-header">
+            <div class="item-header" >
                 <div class="d-flex flex-column ">
                     <mat-checkbox [(ngModel)]="checkAll" (ngModelChange)="setCheckAll()"></mat-checkbox>
                 </div>
@@ -198,8 +198,10 @@
                 <span>بزرگسال</span>
                 <span>کودک</span>
                 <span>نوزاد</span>
-                <span>زمان</span>
-                <span>ش پرواز</span>
+              <span>زمان</span>
+              <span>وضعیت</span>
+
+              <span>ش پرواز</span>
                 <span>ظرفیت</span>
             </div>
             <div class="info-tour-body-2">
@@ -207,7 +209,7 @@
                     <span>پروازی یافت نشد</span>
                 </div>
                 <div *ngIf="transferRates.length > 0">
-                    <div class="item" *ngFor="let item of transferRates">
+                    <div class="item" *ngFor="let item of transferRates" [ngClass]="{'is_close':(item.flight.is_close || item.flight.is_close || item.returnFlight.capacity===0 || item.returnFlight.capacity===0 ) }">
                         <mat-checkbox [(ngModel)]="item.flight.isChecked" (ngModelChange)="changeTransferRates()"></mat-checkbox>
                         <span>({{ item.mixed_id }})</span>
 
@@ -237,9 +239,13 @@
                             <span>{{ (item.returnFlight.time | timeFixer)}}</span>
                         </div>
                         <div class="d-flex flex-column">
-                            <span>{{ item.flight.flight_number }}</span>
-                            <span>{{ item.returnFlight.flight_number }}</span>
+                            <span>{{ item.flight.is_close ? 'بسته' :'باز'}}</span>
+                            <span>{{ item.returnFlight.is_close? 'بسته' : 'باز'}}</span>
                         </div>
+                      <div class="d-flex flex-column">
+                        <span>{{ item.flight.flight_number }}</span>
+                        <span>{{ item.returnFlight.flight_number }}</span>
+                      </div>
                         <div class="d-flex flex-column">
                             <span>{{ item.flight.capacity }}</span>
                             <span>{{ item.returnFlight.capacity }}</span>

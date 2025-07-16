@@ -23,9 +23,11 @@
       <span class="id">#</span>
       <span class="title-tour bold-600">{{ 'hotelNameFa'  | translate}}</span>
       <span class="title-tour bold-600">{{ 'hotelNameEn'  | translate}}</span>
+      <span class="title-tour bold-600">ستاره</span>
+
       <span class="from-to">{{ 'creator'  | translate}}</span>
       <span class="from-to">{{ 'visitCount'  | translate}}</span>
-      <span class="setting">{{ 'setting'  | translate}}</span>
+<!--      <span class="setting">{{ 'setting'  | translate}}</span>-->
     </div>
 
     <ng-template [ngIf]="isLoading">
@@ -39,21 +41,27 @@
       </div>
     </ng-template>
     <div class="body-list-tour" *ngIf="hotelList.length > 0">
-      <div class="item" *ngFor="let hotel of hotelList | paginate: paginateConfig;let i = index">
-        <span class="id">{{hotel.id }}</span>
-        <span class="title-tour">{{ hotel.title }}</span>
-        <span class="title-tour">{{ hotel.titleEn }}</span>
-        <span class="title-tour">{{ hotel.user.full_name }}</span>
-        <span class="title-tour">{{ hotel.visitCount }}</span>
-        <div class="button-setting">
-          <a routerLink="/panel/hotel/edit/{{ hotel.id }}" *ngIf="permition.check('hotels.edit')" class="edit-btn">{{ 'edit'  | translate}}</a>
-          <a style="background: #0f6b54 !important;" *ngIf="permition.check('rates.read')" routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"
-             class="edit-btn">{{ 'pricing'  | translate}}</a>
-          <!-- <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a> -->
-          <button *ngIf="permition.check('hotels.delete')" (click)="deleteClicked(hotel.id)"
-                  class="delete-btn">{{ 'delete'  | translate}}
-          </button>
+      <div  *ngFor="let hotel of hotelList | paginate: paginateConfig;let i = index" >
+
+        <div *ngIf="hotel.user.id===1" class="item">
+          <span class="id">{{hotel.id }}</span>
+          <span class="title-tour">{{ hotel.title }}</span>
+          <span class="title-tour">{{ hotel.titleEn }}</span>
+          <span class="title-tour">{{ hotel.stars }}</span>
+
+          <span class="title-tour">{{ hotel.user.full_name }}</span>
+          <span class="title-tour">{{ hotel.visitCount }}</span>
         </div>
+
+<!--        <div class="button-setting">-->
+<!--          <a routerLink="/panel/hotel/edit/{{ hotel.id }}" *ngIf="permition.check('hotels.edit')" class="edit-btn">{{ 'edit'  | translate}}</a>-->
+<!--          <a style="background: #0f6b54 !important;" *ngIf="permition.check('rates.read')" routerLink="/panel/hotel/pricing/{{ hotel.id }}/{{ hotel.slug }}"-->
+<!--             class="edit-btn">{{ 'pricing'  | translate}}</a>-->
+<!--          &lt;!&ndash; <a (click)="publicService.openPage('/panel/hotels/' + hotel.slug)" class="view-btn">نمایش</a> &ndash;&gt;-->
+<!--          <button *ngIf="permition.check('hotels.delete')" (click)="deleteClicked(hotel.id)"-->
+<!--                  class="delete-btn">{{ 'delete'  | translate}}-->
+<!--          </button>-->
+<!--        </div>-->
       </div>
       <div>
       </div>
