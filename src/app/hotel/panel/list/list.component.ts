@@ -83,6 +83,8 @@ export class ListComponent implements OnInit {
           totalItems: this.paginate.total,
           currentPage: this.paginate.current_page
         }
+
+        console.log(res.data)
       } else {
         this.message.custom(res.message)
       }
