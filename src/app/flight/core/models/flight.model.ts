@@ -115,7 +115,7 @@ export interface IUpdateBulk {
     chd_price?: number
     inf_price?: number
     capacity?: number
-    is_close?: number
+    is_close?: any
     description?: string
     airplane_id?: number
     cabin_type?: string

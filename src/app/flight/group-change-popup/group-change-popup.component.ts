@@ -25,7 +25,7 @@ export class GroupChangePopupComponent {
     chd_price: 0,
     inf_price: 0,
     capacity: 0,
-    is_close: 0,
+    is_close: '',
     description: '',
     airplane_id: 0,
     cabin_type: "",
@@ -55,6 +55,7 @@ export class GroupChangePopupComponent {
   submit() {
     this.req.ids = this.getItemsChecked()
     this.req = this.removeEmpty(this.req)
+    console.log(this.req)
     this.api.bulkUpdate(this.req).subscribe({
       next: (res: any) => {
         if (res.isDone) {
